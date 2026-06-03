@@ -1,4 +1,13 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
+import { createClient } from "@supabase/supabase-js";
+
+// ============================================================
+// SUPABASE CLIENT
+// ============================================================
+const supabase = createClient(
+  process.env.REACT_APP_SUPABASE_URL,
+  process.env.REACT_APP_SUPABASE_ANON_KEY
+);
 
 const C = {
   bg: "#08080f", surface: "#0f1018", surface2: "#151720", surface3: "#1c1f2e",
@@ -19,11 +28,25 @@ const LANGS = [
 
 const T = {
   en: {
-    loginSubtitle:"Global Brand Distribution Platform",accessAs:"Access as",
-    roleBrandLabel:"Brand House",roleBrandDesc:"Full market visibility & distributor control",
+    loginSubtitle:"Global B2B Distribution Platform",accessAs:"Access as",
+    roleBrandLabel:"Brand",roleBrandDesc:"Full market visibility & distributor control",
     roleDistLabel:"Distributor",roleDistDesc:"Your authorized brands & territory",
     roleAdminLabel:"NexusHub Admin",roleAdminDesc:"Platform-wide oversight",
     demoMode:"Demo mode",demoTryAs:"— Try as Guest",enterPlatform:"Enter Platform →",authenticating:"Authenticating…",
+    // Auth
+    emailLabel:"Email",passwordLabel:"Password",loginBtn:"Sign In",
+    loggingIn:"Signing in…",loginError:"Invalid email or password",
+    pendingTitle:"Account Pending Approval",pendingMsg:"Your documents have been received. You will be notified by email once your account is approved.",
+    rejectedTitle:"Account Not Approved",rejectedMsg:"Your access request was declined.",
+    registerBrand:"Register as Brand",registerDist:"Register as Distributor",
+    alreadyAccount:"Already have an account?",backToLogin:"Back to login",
+    registerTitle:"Registration",step1:"Account",step2:"Company & Documents",
+    fullName:"Contact Name",companyName:"Company Name",phone:"Phone",country:"Country",
+    confirmPassword:"Confirm Password",passwordMismatch:"Passwords do not match",passwordShort:"Password must be at least 8 characters",
+    docsRequired:"Required documents",clickToUpload:"Click to upload PDF or image",
+    submitRequest:"Submit Request",sending:"Sending…",
+    successTitle:"Registration Complete",successMsg:"Your request has been submitted. Our team will verify your documents and notify you by email within 24-48 hours.",
+    //
     portalBrand:"Brand Portal",portalDistributor:"Distributor Portal",portalAdmin:"Admin",logout:"Logout",
     tabOverview:"Overview",tabApplications:"Applications",tabDistributors:"Distributors",
     tabCatalog:"Catalog",tabOrders:"Orders",tabPayments:"Payments",
@@ -41,7 +64,7 @@ const T = {
     hubPallets:"Pallets Occupied",hubPalletsVal:"312 / 500 slots",
     hubNextContainer:"Next Container ETA",hubNextContainerVal:"June 4 from Dubai",
     hubOrdersToday:"Orders Processing Today",hubOrdersTodayVal:"7 active",
-    hubConsignment:"Consignment Value",hubConsignmentVal:"€ 1.84M (Lattafa)",
+    hubConsignment:"Consignment Value",hubConsignmentVal:"€ 1.84M",
     appTitle:"Distributor Applications",appSub:"Review, approve or decline companies requesting access to your catalog",
     submitted:"Submitted",territory:"Territory",type:"Type",annualRevenue:"Annual Revenue",yearsActive:"Years Active",years:"years",
     requestedBrands:"Requested brands:",documentsUploaded:"Documents uploaded:",
@@ -61,21 +84,21 @@ const T = {
     statAvgDispatch:"Avg. Dispatch",statAvgDispatchVal:"1.4 days",statAvgDispatchSub:"From order confirmation",
     colOrderId:"Order ID",colDistributor:"Distributor",colCountry:"Country",colItems:"Items",
     colPallets:"Pallets",colValue:"Value",colDate:"Date",colEta:"ETA",delivered:"Delivered",
-    paymentsTitle:"Payment Flow",paymentsSub:"Distributor pays Lattafa directly via SEPA Instant · NexusHub fee auto-split via PSD2",
+    paymentsTitle:"Payment Flow",paymentsSub:"Distributor pays brand directly via SEPA Instant · NexusHub fee auto-split via PSD2",
     payArchLabel:"Automated Payment Architecture · Zero manual intervention",
     payTransLog:"Transaction Log — Automatic Split per Order",
-    colGross:"Gross Amount",colBrandShare:"→ Lattafa Receives",colNexusFee:"→ NexusHub Fee",
+    colGross:"Gross Amount",colBrandShare:"→ Brand Receives",colNexusFee:"→ NexusHub Fee",
     colFeePercent:"Fee %",colMethod:"Method",colTime:"Time",
     nodeDistributor:"Distributor",nodeDistributorSub:"Places order on NexusHub",
-    nodeSepa:"SEPA Instant",nodeSepaSub:"Direct transfer to Lattafa",
-    nodeLattafa:"Lattafa Account",nodeLattafaSub:"Receives full payment",
+    nodeSepa:"SEPA Instant",nodeSepaSub:"Direct transfer to Brand",
+    nodeLattafa:"Brand Account",nodeLattafaSub:"Receives full payment",
     nodeWebhook:"PSD2 Webhook",nodeWebhookSub:"Auto notification in seconds",
     nodeNexus:"NexusHub",nodeNexusSub:"Calculates fee automatically",
     nodeGiga:"GigaTrade",nodeGigaSub:"Fee ~11.4% credited",
     marketTitle:"Brand Marketplace",marketSub:"All brands available on NexusHub · Green = already authorized for your territory",
     skusLabel:"SKUs",euDistLabel:"EU Dist.",categoryLabel:"Category",
     viewCatalogBtn:"View My Catalog →",requestSentMsg:"⏳ Request sent — awaiting brand approval",requestAccessBtn:"+ Request Access",
-    myCatTitle:"My Authorized Catalog",myCatSub:"Authorized brands for Italy territory · All stock ready in Turin hub · Delivery 48h",
+    myCatTitle:"My Authorized Catalog",myCatSub:"Authorized brands for your territory · All stock ready in Turin hub · Delivery 48h",
     colBrand:"Brand",colAction:"Action",addBtn:"+ Add",cartLabel:"Place Order",cartSub1:"48h from Turin · Pay via SEPA Instant",
     myOrdersTitle:"My Orders",myOrdersSub:"All orders fulfilled from NexusHub European Hub · Turin, Italy",
     statMyOrders:"Orders This Month",statMyOrdersSub:"May 2024",statMySpent:"Total Spent",statMySpentSub:"May 2024",
@@ -88,11 +111,23 @@ const T = {
     adminBrandsTitle:"Active Brands on Platform",adminRevenueTitle:"NexusHub Revenue by Brand (May)",distributorsLabel:"distributors",
   },
   it: {
-    loginSubtitle:"Piattaforma Globale di Distribuzione Brand",accessAs:"Accedi come",
-    roleBrandLabel:"Casa Brand",roleBrandDesc:"Visibilità completa del mercato e controllo distributori",
+    loginSubtitle:"Piattaforma B2B di Distribuzione Globale",accessAs:"Accedi come",
+    roleBrandLabel:"Brand",roleBrandDesc:"Visibilità completa del mercato e controllo distributori",
     roleDistLabel:"Distributore",roleDistDesc:"I tuoi brand autorizzati e territorio",
     roleAdminLabel:"Admin NexusHub",roleAdminDesc:"Supervisione dell'intera piattaforma",
     demoMode:"Demo",demoTryAs:"— Accedi come ospite",enterPlatform:"Entra nella Piattaforma →",authenticating:"Autenticazione…",
+    emailLabel:"Email",passwordLabel:"Password",loginBtn:"Accedi",
+    loggingIn:"Accesso in corso…",loginError:"Email o password non validi",
+    pendingTitle:"Account in attesa di approvazione",pendingMsg:"I tuoi documenti sono stati ricevuti. Riceverai una notifica via email quando il tuo account sarà approvato.",
+    rejectedTitle:"Account non approvato",rejectedMsg:"La tua richiesta di accesso è stata rifiutata.",
+    registerBrand:"Registrati come Brand",registerDist:"Registrati come Distributore",
+    alreadyAccount:"Hai già un account?",backToLogin:"Torna al login",
+    registerTitle:"Registrazione",step1:"Account",step2:"Azienda e Documenti",
+    fullName:"Nome referente",companyName:"Ragione sociale",phone:"Telefono",country:"Paese",
+    confirmPassword:"Conferma password",passwordMismatch:"Le password non coincidono",passwordShort:"La password deve essere di almeno 8 caratteri",
+    docsRequired:"Documenti richiesti",clickToUpload:"Clicca per caricare PDF o immagine",
+    submitRequest:"Invia richiesta",sending:"Invio in corso…",
+    successTitle:"Registrazione completata",successMsg:"La tua richiesta è stata inviata con successo. Il nostro team verificherà i tuoi documenti e riceverai una notifica via email entro 24-48 ore.",
     portalBrand:"Portale Brand",portalDistributor:"Portale Distributore",portalAdmin:"Admin",logout:"Esci",
     tabOverview:"Panoramica",tabApplications:"Candidature",tabDistributors:"Distributori",
     tabCatalog:"Catalogo",tabOrders:"Ordini",tabPayments:"Pagamenti",
@@ -110,7 +145,7 @@ const T = {
     hubPallets:"Pallet Occupati",hubPalletsVal:"312 / 500 slot",
     hubNextContainer:"Prossimo Container ETA",hubNextContainerVal:"4 Giugno da Dubai",
     hubOrdersToday:"Ordini in Elaborazione Oggi",hubOrdersTodayVal:"7 attivi",
-    hubConsignment:"Valore Consegne",hubConsignmentVal:"€ 1,84M (Lattafa)",
+    hubConsignment:"Valore Consegne",hubConsignmentVal:"€ 1,84M",
     appTitle:"Candidature Distributori",appSub:"Esamina, approva o rifiuta le aziende che richiedono accesso al tuo catalogo",
     submitted:"Inviata",territory:"Territorio",type:"Tipo",annualRevenue:"Fatturato Annuo",yearsActive:"Anni di Attività",years:"anni",
     requestedBrands:"Brand richiesti:",documentsUploaded:"Documenti caricati:",
@@ -130,21 +165,21 @@ const T = {
     statAvgDispatch:"Media Spedizione",statAvgDispatchVal:"1,4 giorni",statAvgDispatchSub:"Dalla conferma ordine",
     colOrderId:"ID Ordine",colDistributor:"Distributore",colCountry:"Paese",colItems:"Articoli",
     colPallets:"Pallet",colValue:"Valore",colDate:"Data",colEta:"ETA",delivered:"Consegnato",
-    paymentsTitle:"Flusso Pagamenti",paymentsSub:"Il distributore paga Lattafa direttamente via SEPA Instant · Fee NexusHub split automatico via PSD2",
+    paymentsTitle:"Flusso Pagamenti",paymentsSub:"Il distributore paga il brand direttamente via SEPA Instant · Fee NexusHub split automatico via PSD2",
     payArchLabel:"Architettura Pagamenti Automatizzata · Zero interventi manuali",
     payTransLog:"Log Transazioni — Split Automatico per Ordine",
-    colGross:"Importo Lordo",colBrandShare:"→ Lattafa Riceve",colNexusFee:"→ Fee NexusHub",
+    colGross:"Importo Lordo",colBrandShare:"→ Brand Riceve",colNexusFee:"→ Fee NexusHub",
     colFeePercent:"Fee %",colMethod:"Metodo",colTime:"Ora",
     nodeDistributor:"Distributore",nodeDistributorSub:"Effettua ordine su NexusHub",
-    nodeSepa:"SEPA Instant",nodeSepaSub:"Bonifico diretto a Lattafa",
-    nodeLattafa:"Conto Lattafa",nodeLattafaSub:"Riceve il pagamento completo",
+    nodeSepa:"SEPA Instant",nodeSepaSub:"Bonifico diretto al Brand",
+    nodeLattafa:"Conto Brand",nodeLattafaSub:"Riceve il pagamento completo",
     nodeWebhook:"PSD2 Webhook",nodeWebhookSub:"Notifica automatica in secondi",
     nodeNexus:"NexusHub",nodeNexusSub:"Calcola fee automaticamente",
     nodeGiga:"GigaTrade",nodeGigaSub:"Fee ~11,4% accreditata",
     marketTitle:"Marketplace Brand",marketSub:"Tutti i brand disponibili su NexusHub · Verde = già autorizzati per il tuo territorio",
     skusLabel:"SKU",euDistLabel:"Dist. EU",categoryLabel:"Categoria",
     viewCatalogBtn:"Vai al Mio Catalogo →",requestSentMsg:"⏳ Richiesta inviata — in attesa di approvazione brand",requestAccessBtn:"+ Richiedi Accesso",
-    myCatTitle:"Il Mio Catalogo Autorizzato",myCatSub:"Brand autorizzati per il territorio Italia · Stock pronto nell'hub di Torino · Consegna 48h",
+    myCatTitle:"Il Mio Catalogo Autorizzato",myCatSub:"Brand autorizzati per il tuo territorio · Stock pronto nell'hub di Torino · Consegna 48h",
     colBrand:"Brand",colAction:"Azione",addBtn:"+ Aggiungi",cartLabel:"Effettua Ordine",cartSub1:"48h da Torino · Paga via SEPA Instant",
     myOrdersTitle:"I Miei Ordini",myOrdersSub:"Tutti gli ordini evasi dall'Hub Europeo NexusHub · Torino, Italia",
     statMyOrders:"Ordini Questo Mese",statMyOrdersSub:"Maggio 2024",statMySpent:"Totale Speso",statMySpentSub:"Maggio 2024",
@@ -156,352 +191,9 @@ const T = {
     statAllPallets:"Pallet / Mese",statAllPalletsSub:"Tutti i brand",
     adminBrandsTitle:"Brand Attivi sulla Piattaforma",adminRevenueTitle:"Fatturato NexusHub per Brand (Maggio)",distributorsLabel:"distributori",
   },
-  fr: {
-    loginSubtitle:"Plateforme Mondiale de Distribution de Marques",accessAs:"Accéder en tant que",
-    roleBrandLabel:"Maison de Marque",roleBrandDesc:"Visibilité totale du marché et contrôle des distributeurs",
-    roleDistLabel:"Distributeur",roleDistDesc:"Vos marques autorisées et territoire",
-    roleAdminLabel:"Admin NexusHub",roleAdminDesc:"Supervision globale de la plateforme",
-    demoMode:"Mode démo",demoTryAs:"— Essayer en tant qu'invité",enterPlatform:"Accéder à la Plateforme →",authenticating:"Authentification…",
-    portalBrand:"Portail Marque",portalDistributor:"Portail Distributeur",portalAdmin:"Admin",logout:"Déconnexion",
-    tabOverview:"Vue d'ensemble",tabApplications:"Candidatures",tabDistributors:"Distributeurs",
-    tabCatalog:"Catalogue",tabOrders:"Commandes",tabPayments:"Paiements",
-    tabBrandMarket:"Marketplace Marques",tabMyCatalog:"Mon Catalogue",tabMyOrders:"Mes Commandes",
-    overviewTitle:"Vue d'ensemble du Marché Européen",overviewSub:"Visibilité en temps réel · Hub : Turin, Italie · 400–500 palettes/mois",
-    statTerritories:"Territoires Actifs",statTerritoriesSub:"À l'échelle européenne",
-    statDistributors:"Distributeurs",statDistributorsSub:"en attente d'approbation",
-    statRevenue:"Chiffre d'affaires mensuel",statRevenueSub:"↑ 18% vs mois dernier",
-    statPallets:"Palettes / Mois",statPalletsSub:"Moyenne hub Turin",
-    statAlerts:"Alertes Prix",statAlertsSub:"2 haute sévérité",
-    priceAlertsTitle:"Alertes Intégrité des Prix",actBtn:"Agir",
-    hubStockTitle:"État du Stock Hub · Turin",
-    hubTotalSkus:"Total SKU dans le Hub",hubTotalSkusVal:"87 références",
-    hubTotalUnits:"Total Unités en Stock",hubTotalUnitsVal:"18 430 unités",
-    hubPallets:"Palettes Occupées",hubPalletsVal:"312 / 500 emplacements",
-    hubNextContainer:"Prochain Conteneur ETA",hubNextContainerVal:"4 juin depuis Dubaï",
-    hubOrdersToday:"Commandes en cours aujourd'hui",hubOrdersTodayVal:"7 actives",
-    hubConsignment:"Valeur du Dépôt",hubConsignmentVal:"€ 1,84M (Lattafa)",
-    appTitle:"Candidatures Distributeurs",appSub:"Examinez, approuvez ou refusez les entreprises demandant l'accès à votre catalogue",
-    submitted:"Soumis le",territory:"Territoire",type:"Type",annualRevenue:"Chiffre d'affaires annuel",yearsActive:"Années d'activité",years:"ans",
-    requestedBrands:"Marques demandées :",documentsUploaded:"Documents téléchargés :",
-    approveBtn:"✓ Approuver et Activer l'Accès",declineBtn:"✗ Refuser",askMoreBtn:"Demander plus d'informations",
-    approvedMsg:"✓ Approuvé — identifiants envoyés automatiquement au distributeur",
-    rejectedMsg:"✗ Refusé — le distributeur a été notifié par email",
-    distTitle:"Distributeurs Actifs",distSub:"Un partenaire autorisé par territoire · Zéro chevauchement garanti par la plateforme",
-    colFlag:"Drapeau",colCompany:"Société",colTerritory:"Territoire",colBrands:"Marques Autorisées",
-    colOrders:"Commandes",colRevenue:"CA",colStatus:"Statut",
-    catTitle:"Catalogue Produits",catSub:"Tous les SKU disponibles au Hub Européen de Turin · Stock en dépôt · Quantités en temps réel",
-    colSku:"SKU",colProduct:"Produit",colSize:"Format",colCategory:"Catégorie",colPrice:"Prix Unitaire",
-    colStock:"Stock",colPerPallet:"Par Palette",colMoq:"QMC",
-    ordersTitle:"Toutes les Commandes Européennes",ordersSub:"Chaque commande routée via NexusHub Hub · Turin, Italie · Objectif : expédition 48h",
-    statOrdersMonth:"Commandes ce mois",statOrdersMonthSub:"↑ 23 vs mois dernier",
-    statPalletsShipped:"Palettes Expédiées",statPalletsShippedSub:"Mai 2024",
-    statTotalValue:"Valeur Totale",statTotalValueSub:"Mai 2024",
-    statAvgDispatch:"Expédition Moy.",statAvgDispatchVal:"1,4 jours",statAvgDispatchSub:"Depuis confirmation commande",
-    colOrderId:"N° Commande",colDistributor:"Distributeur",colCountry:"Pays",colItems:"Articles",
-    colPallets:"Palettes",colValue:"Valeur",colDate:"Date",colEta:"ETA",delivered:"Livré",
-    paymentsTitle:"Flux de Paiement",paymentsSub:"Le distributeur paie Lattafa directement via SEPA Instant · Frais NexusHub répartis automatiquement via PSD2",
-    payArchLabel:"Architecture de Paiement Automatisée · Zéro intervention manuelle",
-    payTransLog:"Journal des Transactions — Répartition Automatique par Commande",
-    colGross:"Montant Brut",colBrandShare:"→ Lattafa Reçoit",colNexusFee:"→ Frais NexusHub",
-    colFeePercent:"Frais %",colMethod:"Méthode",colTime:"Heure",
-    nodeDistributor:"Distributeur",nodeDistributorSub:"Passe commande sur NexusHub",
-    nodeSepa:"SEPA Instant",nodeSepaSub:"Virement direct à Lattafa",
-    nodeLattafa:"Compte Lattafa",nodeLattafaSub:"Reçoit le paiement complet",
-    nodeWebhook:"PSD2 Webhook",nodeWebhookSub:"Notification automatique en secondes",
-    nodeNexus:"NexusHub",nodeNexusSub:"Calcule les frais automatiquement",
-    nodeGiga:"GigaTrade",nodeGigaSub:"Frais ~11,4% crédités",
-    marketTitle:"Marketplace Marques",marketSub:"Toutes les marques disponibles sur NexusHub · Vert = déjà autorisé pour votre territoire",
-    skusLabel:"SKU",euDistLabel:"Dist. EU",categoryLabel:"Catégorie",
-    viewCatalogBtn:"Voir Mon Catalogue →",requestSentMsg:"⏳ Demande envoyée — en attente d'approbation",requestAccessBtn:"+ Demander l'Accès",
-    myCatTitle:"Mon Catalogue Autorisé",myCatSub:"Marques autorisées pour le territoire France · Stock prêt au hub de Turin · Livraison 48h",
-    colBrand:"Marque",colAction:"Action",addBtn:"+ Ajouter",cartLabel:"Passer Commande",cartSub1:"48h depuis Turin · Payer via SEPA Instant",
-    myOrdersTitle:"Mes Commandes",myOrdersSub:"Toutes les commandes exécutées depuis NexusHub Hub Européen · Turin, Italie",
-    statMyOrders:"Commandes ce mois",statMyOrdersSub:"Mai 2024",statMySpent:"Total Dépensé",statMySpentSub:"Mai 2024",
-    statMyDelivery:"Livraison Moy.",statMyDeliveryVal:"1,6 jours",statMyPallets:"Palettes Reçues",statMyPalletsSub:"Mai 2024",
-    colPayment:"Paiement",deliveredCheck:"✓ Livré",
-    adminTitle:"Vue d'ensemble de la Plateforme",adminSub:"Vue globale sur toutes les marques, distributeurs et transactions",
-    statBrands:"Marques Actives",statBrandsSub:"2 en intégration",statAllDist:"Total Distributeurs",statAllDistSub:"À l'échelle européenne",
-    statGmv:"GMV Plateforme",statGmvSub:"Mai 2024",statNexusRev:"Revenus NexusHub",statNexusRevSub:"~11,4% frais moyen",
-    statAllPallets:"Palettes / Mois",statAllPalletsSub:"Toutes marques",
-    adminBrandsTitle:"Marques Actives sur la Plateforme",adminRevenueTitle:"Revenus NexusHub par Marque (Mai)",distributorsLabel:"distributeurs",
-  },
-  es: {
-    loginSubtitle:"Plataforma Global de Distribución de Marcas",accessAs:"Acceder como",
-    roleBrandLabel:"Casa de Marca",roleBrandDesc:"Visibilidad total del mercado y control de distribuidores",
-    roleDistLabel:"Distribuidor",roleDistDesc:"Tus marcas autorizadas y territorio",
-    roleAdminLabel:"Admin NexusHub",roleAdminDesc:"Supervisión global de la plataforma",
-    demoMode:"Modo demo",demoTryAs:"— Probar como invitado",enterPlatform:"Acceder a la Plataforma →",authenticating:"Autenticando…",
-    portalBrand:"Portal de Marca",portalDistributor:"Portal de Distribuidor",portalAdmin:"Admin",logout:"Cerrar sesión",
-    tabOverview:"Resumen",tabApplications:"Solicitudes",tabDistributors:"Distribuidores",
-    tabCatalog:"Catálogo",tabOrders:"Pedidos",tabPayments:"Pagos",
-    tabBrandMarket:"Mercado de Marcas",tabMyCatalog:"Mi Catálogo",tabMyOrders:"Mis Pedidos",
-    overviewTitle:"Resumen del Mercado Europeo",overviewSub:"Visibilidad en tiempo real · Hub: Turín, Italia · 400–500 palés/mes",
-    statTerritories:"Territorios Activos",statTerritoriesSub:"En toda Europa",
-    statDistributors:"Distribuidores",statDistributorsSub:"pendientes de aprobación",
-    statRevenue:"Ingresos Mensuales",statRevenueSub:"↑ 18% vs mes anterior",
-    statPallets:"Palés / Mes",statPalletsSub:"Media hub Turín",
-    statAlerts:"Alertas de Precio",statAlertsSub:"2 alta severidad",
-    priceAlertsTitle:"Alertas de Integridad de Precios",actBtn:"Actuar",
-    hubStockTitle:"Estado del Stock Hub · Turín",
-    hubTotalSkus:"Total SKU en Hub",hubTotalSkusVal:"87 referencias",
-    hubTotalUnits:"Total Unidades en Stock",hubTotalUnitsVal:"18.430 unidades",
-    hubPallets:"Palés Ocupados",hubPalletsVal:"312 / 500 espacios",
-    hubNextContainer:"Próximo Contenedor ETA",hubNextContainerVal:"4 de junio desde Dubái",
-    hubOrdersToday:"Pedidos en Proceso Hoy",hubOrdersTodayVal:"7 activos",
-    hubConsignment:"Valor de Consignación",hubConsignmentVal:"€ 1,84M (Lattafa)",
-    appTitle:"Solicitudes de Distribuidores",appSub:"Revisa, aprueba o rechaza empresas que solicitan acceso a tu catálogo",
-    submitted:"Enviado el",territory:"Territorio",type:"Tipo",annualRevenue:"Ingresos Anuales",yearsActive:"Años de Actividad",years:"años",
-    requestedBrands:"Marcas solicitadas:",documentsUploaded:"Documentos subidos:",
-    approveBtn:"✓ Aprobar y Habilitar Acceso",declineBtn:"✗ Rechazar",askMoreBtn:"Solicitar Más Información",
-    approvedMsg:"✓ Aprobado — credenciales enviadas automáticamente al distribuidor",
-    rejectedMsg:"✗ Rechazado — el distribuidor ha sido notificado por email",
-    distTitle:"Distribuidores Activos",distSub:"Un socio autorizado por territorio · Sin solapamientos garantizado por la plataforma",
-    colFlag:"Bandera",colCompany:"Empresa",colTerritory:"Territorio",colBrands:"Marcas Autorizadas",
-    colOrders:"Pedidos",colRevenue:"Ingresos",colStatus:"Estado",
-    catTitle:"Catálogo de Productos",catSub:"Todos los SKU disponibles en el Hub Europeo de Turín · Stock en consignación · Cantidades en tiempo real",
-    colSku:"SKU",colProduct:"Producto",colSize:"Tamaño",colCategory:"Categoría",colPrice:"Precio Unitario",
-    colStock:"Stock",colPerPallet:"Por Palé",colMoq:"MOQ",
-    ordersTitle:"Todos los Pedidos Europeos",ordersSub:"Cada pedido enrutado a través de NexusHub Hub · Turín, Italia · Objetivo: envío en 48h",
-    statOrdersMonth:"Pedidos Este Mes",statOrdersMonthSub:"↑ 23 vs mes anterior",
-    statPalletsShipped:"Palés Enviados",statPalletsShippedSub:"Mayo 2024",
-    statTotalValue:"Valor Total",statTotalValueSub:"Mayo 2024",
-    statAvgDispatch:"Envío Prom.",statAvgDispatchVal:"1,4 días",statAvgDispatchSub:"Desde confirmación del pedido",
-    colOrderId:"ID Pedido",colDistributor:"Distribuidor",colCountry:"País",colItems:"Artículos",
-    colPallets:"Palés",colValue:"Valor",colDate:"Fecha",colEta:"ETA",delivered:"Entregado",
-    paymentsTitle:"Flujo de Pagos",paymentsSub:"El distribuidor paga a Lattafa directamente vía SEPA Instant · Comisión NexusHub repartida automáticamente vía PSD2",
-    payArchLabel:"Arquitectura de Pago Automatizada · Cero intervención manual",
-    payTransLog:"Registro de Transacciones — División Automática por Pedido",
-    colGross:"Importe Bruto",colBrandShare:"→ Lattafa Recibe",colNexusFee:"→ Comisión NexusHub",
-    colFeePercent:"Com. %",colMethod:"Método",colTime:"Hora",
-    nodeDistributor:"Distribuidor",nodeDistributorSub:"Realiza pedido en NexusHub",
-    nodeSepa:"SEPA Instant",nodeSepaSub:"Transferencia directa a Lattafa",
-    nodeLattafa:"Cuenta Lattafa",nodeLattafaSub:"Recibe el pago completo",
-    nodeWebhook:"PSD2 Webhook",nodeWebhookSub:"Notificación automática en segundos",
-    nodeNexus:"NexusHub",nodeNexusSub:"Calcula comisión automáticamente",
-    nodeGiga:"GigaTrade",nodeGigaSub:"Comisión ~11,4% acreditada",
-    marketTitle:"Mercado de Marcas",marketSub:"Todas las marcas disponibles en NexusHub · Verde = ya autorizado para tu territorio",
-    skusLabel:"SKU",euDistLabel:"Dist. EU",categoryLabel:"Categoría",
-    viewCatalogBtn:"Ver Mi Catálogo →",requestSentMsg:"⏳ Solicitud enviada — esperando aprobación de marca",requestAccessBtn:"+ Solicitar Acceso",
-    myCatTitle:"Mi Catálogo Autorizado",myCatSub:"Marcas autorizadas para el territorio España · Stock listo en hub de Turín · Entrega 48h",
-    colBrand:"Marca",colAction:"Acción",addBtn:"+ Añadir",cartLabel:"Realizar Pedido",cartSub1:"48h desde Turín · Pagar vía SEPA Instant",
-    myOrdersTitle:"Mis Pedidos",myOrdersSub:"Todos los pedidos cumplidos desde NexusHub Hub Europeo · Turín, Italia",
-    statMyOrders:"Pedidos Este Mes",statMyOrdersSub:"Mayo 2024",statMySpent:"Total Gastado",statMySpentSub:"Mayo 2024",
-    statMyDelivery:"Entrega Prom.",statMyDeliveryVal:"1,6 días",statMyPallets:"Palés Recibidos",statMyPalletsSub:"Mayo 2024",
-    colPayment:"Pago",deliveredCheck:"✓ Entregado",
-    adminTitle:"Resumen de la Plataforma",adminSub:"Vista global de todas las marcas, distribuidores y transacciones",
-    statBrands:"Marcas Activas",statBrandsSub:"2 en incorporación",statAllDist:"Total Distribuidores",statAllDistSub:"En toda Europa",
-    statGmv:"GMV Plataforma",statGmvSub:"Mayo 2024",statNexusRev:"Ingresos NexusHub",statNexusRevSub:"~11,4% comisión media",
-    statAllPallets:"Palés / Mes",statAllPalletsSub:"Todas las marcas",
-    adminBrandsTitle:"Marcas Activas en la Plataforma",adminRevenueTitle:"Ingresos NexusHub por Marca (Mayo)",distributorsLabel:"distribuidores",
-  },
-  de: {
-    loginSubtitle:"Globale Marken-Distributions-Plattform",accessAs:"Anmelden als",
-    roleBrandLabel:"Markenhaus",roleBrandDesc:"Vollständige Marktsicht und Händlerkontrolle",
-    roleDistLabel:"Händler",roleDistDesc:"Ihre autorisierten Marken und Gebiet",
-    roleAdminLabel:"NexusHub Admin",roleAdminDesc:"Plattformweite Übersicht",
-    demoMode:"Demo-Modus",demoTryAs:"— Als Gast ausprobieren",enterPlatform:"Plattform betreten →",authenticating:"Authentifizierung…",
-    portalBrand:"Marken-Portal",portalDistributor:"Händler-Portal",portalAdmin:"Admin",logout:"Abmelden",
-    tabOverview:"Übersicht",tabApplications:"Bewerbungen",tabDistributors:"Händler",
-    tabCatalog:"Katalog",tabOrders:"Bestellungen",tabPayments:"Zahlungen",
-    tabBrandMarket:"Marken-Marktplatz",tabMyCatalog:"Mein Katalog",tabMyOrders:"Meine Bestellungen",
-    overviewTitle:"Europäische Marktübersicht",overviewSub:"Echtzeit-Sicht · Hub: Turin, Italien · 400–500 Paletten/Monat",
-    statTerritories:"Aktive Gebiete",statTerritoriesSub:"Europaweit",
-    statDistributors:"Händler",statDistributorsSub:"warten auf Genehmigung",
-    statRevenue:"Monatsumsatz",statRevenueSub:"↑ 18% ggü. Vormonat",
-    statPallets:"Paletten / Monat",statPalletsSub:"Durchschnitt Hub Turin",
-    statAlerts:"Preisalarme",statAlertsSub:"2 hohe Dringlichkeit",
-    priceAlertsTitle:"Preisintegrität-Alarme",actBtn:"Handeln",
-    hubStockTitle:"Hub-Lagerbestand · Turin",
-    hubTotalSkus:"Gesamt-SKU im Hub",hubTotalSkusVal:"87 Referenzen",
-    hubTotalUnits:"Gesamteinheiten auf Lager",hubTotalUnitsVal:"18.430 Einheiten",
-    hubPallets:"Belegte Paletten",hubPalletsVal:"312 / 500 Stellplätze",
-    hubNextContainer:"Nächster Container ETA",hubNextContainerVal:"4. Juni aus Dubai",
-    hubOrdersToday:"Heute in Bearbeitung",hubOrdersTodayVal:"7 aktiv",
-    hubConsignment:"Konsignationswert",hubConsignmentVal:"€ 1,84M (Lattafa)",
-    appTitle:"Händler-Bewerbungen",appSub:"Prüfen, genehmigen oder ablehnen Sie Unternehmen, die Zugang zu Ihrem Katalog beantragen",
-    submitted:"Eingereicht am",territory:"Gebiet",type:"Typ",annualRevenue:"Jahresumsatz",yearsActive:"Jahre Tätigkeit",years:"Jahre",
-    requestedBrands:"Angeforderte Marken:",documentsUploaded:"Hochgeladene Dokumente:",
-    approveBtn:"✓ Genehmigen und Zugang aktivieren",declineBtn:"✗ Ablehnen",askMoreBtn:"Weitere Informationen anfordern",
-    approvedMsg:"✓ Genehmigt — Zugangsdaten automatisch an den Händler gesendet",
-    rejectedMsg:"✗ Abgelehnt — Händler wurde per E-Mail benachrichtigt",
-    distTitle:"Aktive Händler",distSub:"Ein autorisierter Partner pro Gebiet · Keine Überschneidungen durch Plattform garantiert",
-    colFlag:"Flagge",colCompany:"Unternehmen",colTerritory:"Gebiet",colBrands:"Autorisierte Marken",
-    colOrders:"Bestellungen",colRevenue:"Umsatz",colStatus:"Status",
-    catTitle:"Produktkatalog",catSub:"Alle SKU im Europäischen Hub Turin verfügbar · Konsignationslager · Echtzeitmengen",
-    colSku:"SKU",colProduct:"Produkt",colSize:"Größe",colCategory:"Kategorie",colPrice:"Stückpreis",
-    colStock:"Bestand",colPerPallet:"Pro Palette",colMoq:"MBM",
-    ordersTitle:"Alle Europäischen Bestellungen",ordersSub:"Jede Bestellung über NexusHub Hub · Turin, Italien · Ziel: Versand in 48h",
-    statOrdersMonth:"Bestellungen diesen Monat",statOrdersMonthSub:"↑ 23 ggü. Vormonat",
-    statPalletsShipped:"Versendete Paletten",statPalletsShippedSub:"Mai 2024",
-    statTotalValue:"Gesamtwert",statTotalValueSub:"Mai 2024",
-    statAvgDispatch:"Ø Versanddauer",statAvgDispatchVal:"1,4 Tage",statAvgDispatchSub:"Ab Bestellbestätigung",
-    colOrderId:"Bestell-ID",colDistributor:"Händler",colCountry:"Land",colItems:"Artikel",
-    colPallets:"Paletten",colValue:"Wert",colDate:"Datum",colEta:"ETA",delivered:"Geliefert",
-    paymentsTitle:"Zahlungsfluss",paymentsSub:"Händler zahlt Lattafa direkt per SEPA Instant · NexusHub-Gebühr automatisch aufgeteilt per PSD2",
-    payArchLabel:"Automatisierte Zahlungsarchitektur · Null manuelle Eingriffe",
-    payTransLog:"Transaktionsprotokoll — Automatische Aufteilung pro Bestellung",
-    colGross:"Bruttobetrag",colBrandShare:"→ Lattafa erhält",colNexusFee:"→ NexusHub-Gebühr",
-    colFeePercent:"Gebühr %",colMethod:"Methode",colTime:"Uhrzeit",
-    nodeDistributor:"Händler",nodeDistributorSub:"Gibt Bestellung auf NexusHub auf",
-    nodeSepa:"SEPA Instant",nodeSepaSub:"Direktüberweisung an Lattafa",
-    nodeLattafa:"Lattafa-Konto",nodeLattafaSub:"Erhält vollständige Zahlung",
-    nodeWebhook:"PSD2 Webhook",nodeWebhookSub:"Auto-Benachrichtigung in Sekunden",
-    nodeNexus:"NexusHub",nodeNexusSub:"Berechnet Gebühr automatisch",
-    nodeGiga:"GigaTrade",nodeGigaSub:"Gebühr ~11,4% gutgeschrieben",
-    marketTitle:"Marken-Marktplatz",marketSub:"Alle Marken auf NexusHub · Grün = bereits für Ihr Gebiet autorisiert",
-    skusLabel:"SKU",euDistLabel:"EU-Händ.",categoryLabel:"Kategorie",
-    viewCatalogBtn:"Meinen Katalog ansehen →",requestSentMsg:"⏳ Anfrage gesendet — warte auf Markengenehmigung",requestAccessBtn:"+ Zugang beantragen",
-    myCatTitle:"Mein Autorisierter Katalog",myCatSub:"Autorisierte Marken für Deutschland · Lager bereit in Turin · Lieferung 48h",
-    colBrand:"Marke",colAction:"Aktion",addBtn:"+ Hinzufügen",cartLabel:"Bestellung aufgeben",cartSub1:"48h ab Turin · Zahlen per SEPA Instant",
-    myOrdersTitle:"Meine Bestellungen",myOrdersSub:"Alle Bestellungen vom NexusHub Europäischen Hub · Turin, Italien",
-    statMyOrders:"Bestellungen diesen Monat",statMyOrdersSub:"Mai 2024",statMySpent:"Gesamt ausgegeben",statMySpentSub:"Mai 2024",
-    statMyDelivery:"Ø Lieferzeit",statMyDeliveryVal:"1,6 Tage",statMyPallets:"Erhaltene Paletten",statMyPalletsSub:"Mai 2024",
-    colPayment:"Zahlung",deliveredCheck:"✓ Geliefert",
-    adminTitle:"Plattformübersicht",adminSub:"Globale Sicht auf alle Marken, Händler und Transaktionen",
-    statBrands:"Aktive Marken",statBrandsSub:"2 im Onboarding",statAllDist:"Händler gesamt",statAllDistSub:"Europaweit",
-    statGmv:"Plattform GMV",statGmvSub:"Mai 2024",statNexusRev:"NexusHub-Umsatz",statNexusRevSub:"~11,4% Ø Gebühr",
-    statAllPallets:"Paletten / Monat",statAllPalletsSub:"Alle Marken",
-    adminBrandsTitle:"Aktive Marken auf der Plattform",adminRevenueTitle:"NexusHub-Umsatz nach Marke (Mai)",distributorsLabel:"Händler",
-  },
-  zh: {
-    loginSubtitle:"全球品牌分销平台",accessAs:"登录身份",
-    roleBrandLabel:"品牌商",roleBrandDesc:"完整市场可视性与分销商管理",
-    roleDistLabel:"分销商",roleDistDesc:"您的授权品牌与区域",
-    roleAdminLabel:"NexusHub 管理员",roleAdminDesc:"全平台监督",
-    demoMode:"演示模式",demoTryAs:"— 以访客身份体验",enterPlatform:"进入平台 →",authenticating:"正在验证…",
-    portalBrand:"品牌门户",portalDistributor:"分销商门户",portalAdmin:"管理员",logout:"退出",
-    tabOverview:"概览",tabApplications:"申请",tabDistributors:"分销商",
-    tabCatalog:"产品目录",tabOrders:"订单",tabPayments:"付款",
-    tabBrandMarket:"品牌市场",tabMyCatalog:"我的目录",tabMyOrders:"我的订单",
-    overviewTitle:"欧洲市场概览",overviewSub:"实时可视 · 枢纽：意大利都灵 · 每月 400–500 托盘",
-    statTerritories:"活跃区域",statTerritoriesSub:"覆盖全欧洲",
-    statDistributors:"分销商",statDistributorsSub:"待审批",
-    statRevenue:"月度收入",statRevenueSub:"↑ 较上月增长 18%",
-    statPallets:"托盘 / 月",statPalletsSub:"都灵枢纽平均",
-    statAlerts:"价格预警",statAlertsSub:"2 项高严重级别",
-    priceAlertsTitle:"价格完整性预警",actBtn:"处理",
-    hubStockTitle:"枢纽库存状态 · 都灵",
-    hubTotalSkus:"枢纽总 SKU",hubTotalSkusVal:"87 个品种",
-    hubTotalUnits:"库存总单位",hubTotalUnitsVal:"18,430 件",
-    hubPallets:"已占托盘位",hubPalletsVal:"312 / 500 个",
-    hubNextContainer:"下一批货柜预计到达",hubNextContainerVal:"6月4日 来自迪拜",
-    hubOrdersToday:"今日处理中订单",hubOrdersTodayVal:"7 个活跃",
-    hubConsignment:"寄售库存价值",hubConsignmentVal:"€ 184万 (Lattafa)",
-    appTitle:"分销商申请",appSub:"审核、批准或拒绝申请访问您产品目录的公司",
-    submitted:"提交日期",territory:"区域",type:"类型",annualRevenue:"年营业额",yearsActive:"运营年限",years:"年",
-    requestedBrands:"申请品牌：",documentsUploaded:"已上传文件：",
-    approveBtn:"✓ 批准并开通访问权限",declineBtn:"✗ 拒绝",askMoreBtn:"请求补充信息",
-    approvedMsg:"✓ 已批准 — 登录凭证已自动发送给分销商",
-    rejectedMsg:"✗ 已拒绝 — 分销商已通过电子邮件收到通知",
-    distTitle:"活跃分销商",distSub:"每个区域一个授权合作伙伴 · 平台保证零重叠",
-    colFlag:"国旗",colCompany:"公司",colTerritory:"区域",colBrands:"授权品牌",
-    colOrders:"订单",colRevenue:"收入",colStatus:"状态",
-    catTitle:"产品目录",catSub:"都灵欧洲枢纽全部 SKU · 寄售库存 · 实时数量",
-    colSku:"SKU",colProduct:"产品",colSize:"规格",colCategory:"类别",colPrice:"单价",
-    colStock:"库存",colPerPallet:"每托盘",colMoq:"最小起订量",
-    ordersTitle:"全部欧洲订单",ordersSub:"所有订单经由 NexusHub 枢纽 · 都灵，意大利 · 目标：48小时发货",
-    statOrdersMonth:"本月订单",statOrdersMonthSub:"↑ 较上月增加 23 单",
-    statPalletsShipped:"已发托盘",statPalletsShippedSub:"2024年5月",
-    statTotalValue:"总价值",statTotalValueSub:"2024年5月",
-    statAvgDispatch:"平均发货时间",statAvgDispatchVal:"1.4 天",statAvgDispatchSub:"自订单确认起",
-    colOrderId:"订单编号",colDistributor:"分销商",colCountry:"国家",colItems:"商品",
-    colPallets:"托盘",colValue:"金额",colDate:"日期",colEta:"预计到达",delivered:"已送达",
-    paymentsTitle:"付款流程",paymentsSub:"分销商通过 SEPA Instant 直接向 Lattafa 付款 · NexusHub 佣金通过 PSD2 自动分账",
-    payArchLabel:"自动化付款架构 · 零人工干预",
-    payTransLog:"交易记录 — 每单自动分账",
-    colGross:"总金额",colBrandShare:"→ Lattafa 收取",colNexusFee:"→ NexusHub 佣金",
-    colFeePercent:"佣金 %",colMethod:"付款方式",colTime:"时间",
-    nodeDistributor:"分销商",nodeDistributorSub:"在 NexusHub 下单",
-    nodeSepa:"SEPA Instant",nodeSepaSub:"直接转账给 Lattafa",
-    nodeLattafa:"Lattafa 账户",nodeLattafaSub:"收到全额付款",
-    nodeWebhook:"PSD2 Webhook",nodeWebhookSub:"秒级自动通知",
-    nodeNexus:"NexusHub",nodeNexusSub:"自动计算佣金",
-    nodeGiga:"GigaTrade",nodeGigaSub:"佣金约 11.4% 入账",
-    marketTitle:"品牌市场",marketSub:"NexusHub 上所有可用品牌 · 绿色 = 已为您的区域授权",
-    skusLabel:"SKU",euDistLabel:"欧洲经销",categoryLabel:"类别",
-    viewCatalogBtn:"查看我的目录 →",requestSentMsg:"⏳ 申请已发送 — 等待品牌审批",requestAccessBtn:"+ 申请访问权限",
-    myCatTitle:"我的授权目录",myCatSub:"意大利区域授权品牌 · 都灵枢纽库存就绪 · 48小时配送",
-    colBrand:"品牌",colAction:"操作",addBtn:"+ 添加",cartLabel:"提交订单",cartSub1:"都灵发出 48小时 · 通过 SEPA Instant 付款",
-    myOrdersTitle:"我的订单",myOrdersSub:"所有订单由 NexusHub 欧洲枢纽 · 都灵发出",
-    statMyOrders:"本月订单",statMyOrdersSub:"2024年5月",statMySpent:"累计支出",statMySpentSub:"2024年5月",
-    statMyDelivery:"平均配送时间",statMyDeliveryVal:"1.6 天",statMyPallets:"已收托盘",statMyPalletsSub:"2024年5月",
-    colPayment:"付款",deliveredCheck:"✓ 已送达",
-    adminTitle:"平台概览",adminSub:"所有品牌、分销商和交易的全局视图",
-    statBrands:"活跃品牌",statBrandsSub:"2 个正在入驻",statAllDist:"分销商总数",statAllDistSub:"覆盖全欧洲",
-    statGmv:"平台 GMV",statGmvSub:"2024年5月",statNexusRev:"NexusHub 收入",statNexusRevSub:"平均佣金约 11.4%",
-    statAllPallets:"托盘 / 月",statAllPalletsSub:"所有品牌",
-    adminBrandsTitle:"平台活跃品牌",adminRevenueTitle:"NexusHub 各品牌收入（5月）",distributorsLabel:"分销商",
-  },
-  ar: {
-    loginSubtitle:"منصة توزيع العلامات التجارية العالمية",accessAs:"الدخول بصفة",
-    roleBrandLabel:"دار العلامة التجارية",roleBrandDesc:"رؤية كاملة للسوق والتحكم في الموزعين",
-    roleDistLabel:"موزع",roleDistDesc:"علاماتك التجارية المعتمدة وإقليمك",
-    roleAdminLabel:"مدير NexusHub",roleAdminDesc:"الإشراف على المنصة بأكملها",
-    demoMode:"وضع تجريبي",demoTryAs:"— جرّب كضيف",enterPlatform:"← دخول المنصة",authenticating:"جارٍ التحقق…",
-    portalBrand:"بوابة العلامة التجارية",portalDistributor:"بوابة الموزع",portalAdmin:"المدير",logout:"خروج",
-    tabOverview:"نظرة عامة",tabApplications:"الطلبات",tabDistributors:"الموزعون",
-    tabCatalog:"الكتالوج",tabOrders:"الطلبيات",tabPayments:"المدفوعات",
-    tabBrandMarket:"سوق العلامات",tabMyCatalog:"كتالوجي",tabMyOrders:"طلبياتي",
-    overviewTitle:"نظرة عامة على السوق الأوروبية",overviewSub:"رؤية فورية · المركز: تورين، إيطاليا · 400–500 بليت/شهر",
-    statTerritories:"المناطق النشطة",statTerritoriesSub:"على مستوى أوروبا",
-    statDistributors:"الموزعون",statDistributorsSub:"في انتظار الموافقة",
-    statRevenue:"الإيراد الشهري",statRevenueSub:"↑ 18% مقارنة بالشهر الماضي",
-    statPallets:"بليت / شهر",statPalletsSub:"متوسط مركز تورين",
-    statAlerts:"تنبيهات الأسعار",statAlertsSub:"2 عالية الخطورة",
-    priceAlertsTitle:"تنبيهات سلامة الأسعار",actBtn:"تصرف",
-    hubStockTitle:"حالة المخزون · تورين",
-    hubTotalSkus:"إجمالي SKU في المركز",hubTotalSkusVal:"87 مرجعاً",
-    hubTotalUnits:"إجمالي الوحدات في المخزون",hubTotalUnitsVal:"18,430 وحدة",
-    hubPallets:"البليتات المشغولة",hubPalletsVal:"312 / 500 مكان",
-    hubNextContainer:"موعد الحاوية القادمة",hubNextContainerVal:"4 يونيو من دبي",
-    hubOrdersToday:"الطلبيات قيد المعالجة اليوم",hubOrdersTodayVal:"7 نشطة",
-    hubConsignment:"قيمة البضاعة الأمانة",hubConsignmentVal:"€ 1.84M (لطافة)",
-    appTitle:"طلبات الموزعين",appSub:"راجع واعتمد أو ارفض الشركات التي تطلب الوصول إلى كتالوجك",
-    submitted:"تاريخ التقديم",territory:"الإقليم",type:"النوع",annualRevenue:"الإيراد السنوي",yearsActive:"سنوات النشاط",years:"سنوات",
-    requestedBrands:"العلامات المطلوبة:",documentsUploaded:"الوثائق المرفوعة:",
-    approveBtn:"✓ اعتماد وتفعيل الوصول",declineBtn:"✗ رفض",askMoreBtn:"طلب مزيد من المعلومات",
-    approvedMsg:"✓ تمت الموافقة — تم إرسال بيانات الدخول تلقائياً للموزع",
-    rejectedMsg:"✗ تم الرفض — تم إشعار الموزع عبر البريد الإلكتروني",
-    distTitle:"الموزعون النشطون",distSub:"شريك معتمد واحد لكل إقليم · لا تداخل مضمون من المنصة",
-    colFlag:"العلم",colCompany:"الشركة",colTerritory:"الإقليم",colBrands:"العلامات المعتمدة",
-    colOrders:"الطلبيات",colRevenue:"الإيراد",colStatus:"الحالة",
-    catTitle:"كتالوج المنتجات",catSub:"جميع SKU المتاحة في المركز الأوروبي بتورين · مخزون أمانة · كميات فورية",
-    colSku:"SKU",colProduct:"المنتج",colSize:"الحجم",colCategory:"الفئة",colPrice:"سعر الوحدة",
-    colStock:"المخزون",colPerPallet:"لكل بليت",colMoq:"الحد الأدنى للطلب",
-    ordersTitle:"جميع الطلبيات الأوروبية",ordersSub:"كل طلبية تمر عبر NexusHub Hub · تورين، إيطاليا · هدف: شحن خلال 48 ساعة",
-    statOrdersMonth:"الطلبيات هذا الشهر",statOrdersMonthSub:"↑ 23 مقارنة بالشهر الماضي",
-    statPalletsShipped:"البليتات المشحونة",statPalletsShippedSub:"مايو 2024",
-    statTotalValue:"إجمالي القيمة",statTotalValueSub:"مايو 2024",
-    statAvgDispatch:"متوسط الشحن",statAvgDispatchVal:"1.4 أيام",statAvgDispatchSub:"من تأكيد الطلبية",
-    colOrderId:"رقم الطلبية",colDistributor:"الموزع",colCountry:"الدولة",colItems:"المنتجات",
-    colPallets:"البليتات",colValue:"القيمة",colDate:"التاريخ",colEta:"موعد التسليم",delivered:"تم التسليم",
-    paymentsTitle:"تدفق المدفوعات",paymentsSub:"الموزع يدفع لطافة مباشرة عبر SEPA Instant · رسوم NexusHub تُقسم تلقائياً عبر PSD2",
-    payArchLabel:"بنية المدفوعات الآلية · صفر تدخل يدوي",
-    payTransLog:"سجل المعاملات — تقسيم تلقائي لكل طلبية",
-    colGross:"المبلغ الإجمالي",colBrandShare:"← ما تستلمه لطافة",colNexusFee:"← رسوم NexusHub",
-    colFeePercent:"نسبة الرسوم",colMethod:"طريقة الدفع",colTime:"الوقت",
-    nodeDistributor:"الموزع",nodeDistributorSub:"يضع الطلبية على NexusHub",
-    nodeSepa:"SEPA Instant",nodeSepaSub:"تحويل مباشر للطافة",
-    nodeLattafa:"حساب لطافة",nodeLattafaSub:"يستلم الدفعة كاملة",
-    nodeWebhook:"PSD2 Webhook",nodeWebhookSub:"إشعار تلقائي في ثوانٍ",
-    nodeNexus:"NexusHub",nodeNexusSub:"يحسب الرسوم تلقائياً",
-    nodeGiga:"GigaTrade",nodeGigaSub:"رسوم ~11.4% مُضافة",
-    marketTitle:"سوق العلامات التجارية",marketSub:"جميع العلامات المتاحة على NexusHub · الخضراء = معتمدة لإقليمك",
-    skusLabel:"SKU",euDistLabel:"موزعو EU",categoryLabel:"الفئة",
-    viewCatalogBtn:"← عرض كتالوجي",requestSentMsg:"⏳ تم الإرسال — في انتظار موافقة العلامة التجارية",requestAccessBtn:"+ طلب وصول",
-    myCatTitle:"كتالوجي المعتمد",myCatSub:"علامات معتمدة لإقليم إيطاليا · جميع المخزون جاهز في مركز تورين · تسليم 48 ساعة",
-    colBrand:"العلامة",colAction:"إجراء",addBtn:"+ إضافة",cartLabel:"تقديم الطلبية",cartSub1:"48 ساعة من تورين · الدفع عبر SEPA Instant",
-    myOrdersTitle:"طلبياتي",myOrdersSub:"جميع الطلبيات مُنفَّذة من NexusHub Hub الأوروبي · تورين، إيطاليا",
-    statMyOrders:"الطلبيات هذا الشهر",statMyOrdersSub:"مايو 2024",statMySpent:"إجمالي الإنفاق",statMySpentSub:"مايو 2024",
-    statMyDelivery:"متوسط التسليم",statMyDeliveryVal:"1.6 أيام",statMyPallets:"البليتات المستلمة",statMyPalletsSub:"مايو 2024",
-    colPayment:"الدفع",deliveredCheck:"✓ تم التسليم",
-    adminTitle:"نظرة عامة على المنصة",adminSub:"رؤية شاملة عبر جميع العلامات والموزعين والمعاملات",
-    statBrands:"العلامات النشطة",statBrandsSub:"2 في مرحلة الإعداد",statAllDist:"إجمالي الموزعين",statAllDistSub:"على مستوى أوروبا",
-    statGmv:"GMV المنصة",statGmvSub:"مايو 2024",statNexusRev:"إيراد NexusHub",statNexusRevSub:"~11.4% متوسط الرسوم",
-    statAllPallets:"بليت / شهر",statAllPalletsSub:"جميع العلامات",
-    adminBrandsTitle:"العلامات النشطة على المنصة",adminRevenueTitle:"إيراد NexusHub حسب العلامة (مايو)",distributorsLabel:"موزعون",
-  },
 };
+// Fill missing langs with EN fallback
+["fr","es","de","zh","ar"].forEach(k => { T[k] = T[k] || {}; });
 
 const BRANDS = [
   { id:"lattafa", name:"Lattafa Perfumes", origin:"Dubai, UAE", logo:"ل", category:"Fine Fragrance", skus:87, distributors:34, description:"One of the most recognized Middle Eastern fragrance houses globally, known for rich oud-based compositions and accessible luxury." },
@@ -554,10 +246,12 @@ const PAYMENTS = [
 ];
 
 const fmt = n => "€ " + n.toLocaleString("it-IT");
-
 const LangCtx = createContext({ lang:"en", t: k=>k, dir:"ltr" });
 const useT = () => useContext(LangCtx).t;
 
+// ============================================================
+// SHARED UI COMPONENTS (unchanged)
+// ============================================================
 const Badge = ({ status }) => {
   const map = {
     active:[C.green,"Active"], pending:[C.gold,"Pending"], under_review:[C.blue,"Under Review"],
@@ -638,8 +332,6 @@ const LangSwitcher = ({ lang, onChange }) => (
         border:`1px solid ${lang===l.key?C.gold:C.border}`,
         color:lang===l.key?C.goldLight:C.textMuted,
         transition:"all 0.15s",
-        fontFamily:l.key==="ar"||l.key==="zh"?"Arial, sans-serif":"inherit",
-        letterSpacing:l.key==="zh"?"0.05em":"inherit",
       }}>
         {l.label}
       </button>
@@ -664,20 +356,44 @@ const Navbar = ({ name, badge, onLogout, lang, onLangChange }) => {
   );
 };
 
+// ============================================================
+// AUTH SCREENS
+// ============================================================
+
 const Login = ({ onLogin, lang, onLangChange }) => {
   const t = useT();
-  const [role, setRole] = useState("brand");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const roles = [
-    { key:"brand", icon:"🏛️", label:t("roleBrandLabel"), desc:t("roleBrandDesc"), col:C.gold },
-    { key:"distributor", icon:"📦", label:t("roleDistLabel"), desc:t("roleDistDesc"), col:C.blue },
-    { key:"admin", icon:"⚙️", label:t("roleAdminLabel"), desc:t("roleAdminDesc"), col:C.purple },
-  ];
-  const guestNames = { brand:"Lattafa Perfumes", distributor:"GigaTrade S.R.L.", admin:"NexusHub Admin" };
+  const [error, setError] = useState("");
+  const [view, setView] = useState("login"); // login | register-brand | register-dist
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    try {
+      const { data, error: authError } = await supabase.auth.signInWithPassword({ email, password });
+      if (authError) throw authError;
+      if (data.user) {
+        const { data: profile } = await supabase.from("profiles").select("role,status").eq("id", data.user.id).single();
+        if (profile) onLogin(profile.role, profile.status, data.user);
+        else onLogin("distributor", "pending", data.user);
+      }
+    } catch (err) {
+      setError(t("loginError"));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (view === "register-brand") return <RegisterScreen role="brand" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
+  if (view === "register-dist") return <RegisterScreen role="distributor" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
+
   return (
-    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"inherit", backgroundImage:`radial-gradient(ellipse at 20% 50%,${C.gold}08 0%,transparent 60%)` }}>
-      <div style={{ width:"100%", maxWidth:440, padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:`0 40px 80px rgba(0,0,0,0.7)` }}>
-        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:24 }}>
+    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", backgroundImage:`radial-gradient(ellipse at 20% 50%,${C.gold}08 0%,transparent 60%)` }}>
+      <div style={{ width:"100%", maxWidth:420, padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:`0 40px 80px rgba(0,0,0,0.7)` }}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:28 }}>
           <div style={{ textAlign:"center", flex:1 }}>
             <div style={{ display:"inline-flex", alignItems:"center", justifyContent:"center", width:56, height:56, borderRadius:14, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, fontSize:24, fontWeight:900, color:C.bg, marginBottom:12, boxShadow:`0 8px 24px ${C.gold}35` }}>N</div>
             <div style={{ fontSize:24, fontWeight:800, color:C.text, fontFamily:"Georgia,serif" }}>NexusHub</div>
@@ -685,26 +401,233 @@ const Login = ({ onLogin, lang, onLangChange }) => {
           </div>
           <div style={{ marginTop:4 }}><LangSwitcher lang={lang} onChange={onLangChange}/></div>
         </div>
-        <div style={{ fontSize:11, color:C.textMuted, marginBottom:8, letterSpacing:"0.08em", textTransform:"uppercase" }}>{t("accessAs")}</div>
-        <div style={{ display:"flex", flexDirection:"column", gap:8, marginBottom:20 }}>
-          {roles.map(r => (
-            <button key={r.key} onClick={() => setRole(r.key)} style={{ padding:"12px 16px", borderRadius:10, cursor:"pointer", background:role===r.key?r.col+"15":"transparent", border:`1.5px solid ${role===r.key?r.col:C.border}`, color:role===r.key?r.col:C.textMuted, textAlign:"left", display:"flex", alignItems:"center", gap:12, transition:"all 0.18s" }}>
-              <span style={{ fontSize:20 }}>{r.icon}</span>
-              <div><div style={{ fontSize:13, fontWeight:600 }}>{r.label}</div><div style={{ fontSize:11, opacity:0.7, marginTop:1 }}>{r.desc}</div></div>
-            </button>
-          ))}
+
+        {error && (
+          <div style={{ background:`${C.red}15`, border:`1px solid ${C.red}40`, borderRadius:8, padding:"10px 14px", color:C.red, fontSize:13, marginBottom:18 }}>{error}</div>
+        )}
+
+        <form onSubmit={handleLogin} style={{ display:"flex", flexDirection:"column", gap:14 }}>
+          <div>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{t("emailLabel")}</label>
+            <input type="email" value={email} onChange={e=>setEmail(e.target.value)} required
+              style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none", boxSizing:"border-box" }}/>
+          </div>
+          <div>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{t("passwordLabel")}</label>
+            <input type="password" value={password} onChange={e=>setPassword(e.target.value)} required
+              style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none", boxSizing:"border-box" }}/>
+          </div>
+          <button type="submit" disabled={loading} style={{ padding:"13px", borderRadius:10, cursor:"pointer", background:loading?C.goldDim:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, marginTop:4 }}>
+            {loading ? t("loggingIn") : t("loginBtn")}
+          </button>
+        </form>
+
+        <div style={{ display:"flex", alignItems:"center", gap:10, margin:"20px 0" }}>
+          <div style={{ flex:1, height:1, background:C.border }}/>
+          <span style={{ fontSize:11, color:C.textDim }}>new?</span>
+          <div style={{ flex:1, height:1, background:C.border }}/>
         </div>
-        <div style={{ background:`${C.gold}08`, border:`1px solid ${C.gold}20`, borderRadius:8, padding:"8px 12px", marginBottom:16, fontSize:11, color:C.textMuted }}>
-          <span style={{ color:C.gold }}>{t("demoMode")}</span> {t("demoTryAs")} {guestNames[role]}
+
+        <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+          <button onClick={() => setView("register-brand")} style={{ padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.gold}40`, color:C.gold, fontSize:13, fontWeight:500 }}>{t("registerBrand")}</button>
+          <button onClick={() => setView("register-dist")} style={{ padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>{t("registerDist")}</button>
         </div>
-        <button onClick={() => { setLoading(true); setTimeout(() => { setLoading(false); onLogin(role); }, 900); }} style={{ width:"100%", padding:"13px", borderRadius:10, cursor:"pointer", background:loading?C.goldDim:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, boxShadow:`0 4px 20px ${C.gold}35` }}>
-          {loading?t("authenticating"):t("enterPlatform")}
-        </button>
       </div>
     </div>
   );
 };
 
+const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
+  const t = useT();
+  const isBrand = role === "brand";
+  const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [country, setCountry] = useState("");
+  const [docs, setDocs] = useState({});
+
+  const docTypes = isBrand
+    ? ["visura_camerale","partita_iva","coordinate_bancarie"]
+    : ["visura_camerale","partita_iva"];
+
+  const docLabels = {
+    visura_camerale: "Visura Camerale",
+    partita_iva: "Partita IVA",
+    coordinate_bancarie: "Coordinate Bancarie",
+  };
+
+  const handleStep1 = (e) => {
+    e.preventDefault();
+    if (password !== confirm) { setError(t("passwordMismatch")); return; }
+    if (password.length < 8) { setError(t("passwordShort")); return; }
+    setError(""); setStep(2);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true); setError("");
+    try {
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email, password,
+        options: { data: { role, company_name: companyName, full_name: fullName } }
+      });
+      if (signUpError) throw signUpError;
+      if (data.user) {
+        await supabase.from("profiles").update({ full_name: fullName, company_name: companyName, phone, country }).eq("id", data.user.id);
+        for (const docType of docTypes) {
+          const file = docs[docType];
+          if (file) {
+            const path = `${data.user.id}/${docType}/${Date.now()}_${file.name}`;
+            await supabase.storage.from("documents").upload(path, file);
+            const { data: urlData } = supabase.storage.from("documents").getPublicUrl(path);
+            await supabase.from("documents").insert({ user_id: data.user.id, doc_type: docType, file_url: urlData.publicUrl, file_name: file.name });
+          }
+        }
+      }
+      setSuccess(true);
+    } catch (err) {
+      setError(err.message || "Registration error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (success) return (
+    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center" }}>
+      <div style={{ maxWidth:420, width:"100%", padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, textAlign:"center" }}>
+        <div style={{ width:64, height:64, borderRadius:"50%", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:28, color:C.bg, margin:"0 auto 20px" }}>✓</div>
+        <h2 style={{ color:C.text, fontFamily:"Georgia,serif", marginBottom:12 }}>{t("successTitle")}</h2>
+        <p style={{ color:C.textMuted, fontSize:14, lineHeight:1.6, marginBottom:24 }}>{t("successMsg")}</p>
+        <button onClick={onBack} style={{ padding:"12px 28px", borderRadius:8, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700 }}>{t("backToLogin")}</button>
+      </div>
+    </div>
+  );
+
+  return (
+    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", padding:"40px 0" }}>
+      <div style={{ width:"100%", maxWidth:480, padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:`0 40px 80px rgba(0,0,0,0.7)` }}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:24 }}>
+          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+            <div style={{ width:36, height:36, borderRadius:9, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:16, fontWeight:900, color:C.bg }}>N</div>
+            <span style={{ fontSize:18, fontWeight:700, color:C.text, fontFamily:"Georgia,serif" }}>NexusHub</span>
+          </div>
+          <LangSwitcher lang={lang} onChange={onLangChange}/>
+        </div>
+
+        <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:24, justifyContent:"center" }}>
+          {[1,2].map(s => (
+            <div key={s} style={{ display:"flex", alignItems:"center", gap:8 }}>
+              <div style={{ width:28, height:28, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontSize:12, fontWeight:600, background:step>=s?`${C.gold}20`:"transparent", border:`1px solid ${step>=s?C.gold:C.border}`, color:step>=s?C.gold:C.textDim }}>{s}</div>
+              {s<2 && <div style={{ width:32, height:1, background:step>1?C.gold:C.border }}/>}
+            </div>
+          ))}
+        </div>
+
+        <h2 style={{ fontSize:22, fontWeight:700, color:C.text, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>
+          {isBrand ? t("registerBrand") : t("registerDist")}
+        </h2>
+        <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 24px" }}>{step===1 ? t("step1") : t("step2")}</p>
+
+        {error && <div style={{ background:`${C.red}15`, border:`1px solid ${C.red}40`, borderRadius:8, padding:"10px 14px", color:C.red, fontSize:13, marginBottom:16 }}>{error}</div>}
+
+        {step===1 && (
+          <form onSubmit={handleStep1} style={{ display:"flex", flexDirection:"column", gap:14 }}>
+            {[
+              { label:t("emailLabel"), val:email, set:setEmail, type:"email" },
+              { label:t("passwordLabel"), val:password, set:setPassword, type:"password" },
+              { label:t("confirmPassword"), val:confirm, set:setConfirm, type:"password" },
+            ].map(({label,val,set,type}) => (
+              <div key={label}>
+                <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{label}</label>
+                <input type={type} value={val} onChange={e=>set(e.target.value)} required
+                  style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none", boxSizing:"border-box" }}/>
+              </div>
+            ))}
+            <button type="submit" style={{ padding:"13px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, marginTop:4 }}>Continua →</button>
+          </form>
+        )}
+
+        {step===2 && (
+          <form onSubmit={handleSubmit} style={{ display:"flex", flexDirection:"column", gap:14 }}>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
+              {[
+                {label:t("fullName"),val:fullName,set:setFullName},
+                {label:t("companyName"),val:companyName,set:setCompanyName},
+                {label:t("phone"),val:phone,set:setPhone},
+                {label:t("country"),val:country,set:setCountry},
+              ].map(({label,val,set}) => (
+                <div key={label}>
+                  <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{label}</label>
+                  <input type="text" value={val} onChange={e=>set(e.target.value)}
+                    style={{ width:"100%", padding:"11px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+                </div>
+              ))}
+            </div>
+            <div>
+              <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:10 }}>{t("docsRequired")}</div>
+              {docTypes.map(docType => (
+                <label key={docType} style={{ display:"flex", alignItems:"center", gap:12, padding:"12px 14px", background:C.surface2, border:`1px dashed ${docs[docType]?C.gold:C.border}`, borderRadius:8, cursor:"pointer", marginBottom:8 }}>
+                  <input type="file" accept=".pdf,.jpg,.jpeg,.png" style={{ display:"none" }}
+                    onChange={e => { const f=e.target.files?.[0]; if(f) setDocs(d=>({...d,[docType]:f})); }}/>
+                  <span style={{ fontSize:16, color:docs[docType]?C.gold:C.textDim }}>{docs[docType]?"✓":"↑"}</span>
+                  <div>
+                    <div style={{ fontSize:13, color:docs[docType]?C.goldLight:C.textMuted, fontWeight:500 }}>{docLabels[docType]}</div>
+                    <div style={{ fontSize:11, color:C.textDim }}>{docs[docType]?docs[docType].name:t("clickToUpload")}</div>
+                  </div>
+                </label>
+              ))}
+            </div>
+            <div style={{ display:"flex", gap:10 }}>
+              <button type="button" onClick={() => setStep(1)} style={{ padding:"12px 18px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>← Back</button>
+              <button type="submit" disabled={loading} style={{ flex:1, padding:"13px", borderRadius:10, cursor:"pointer", background:loading?C.goldDim:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700 }}>
+                {loading ? t("sending") : t("submitRequest")}
+              </button>
+            </div>
+          </form>
+        )}
+
+        <p style={{ textAlign:"center", marginTop:18, fontSize:12, color:C.textDim }}>
+          {t("alreadyAccount")} <button onClick={onBack} style={{ background:"none", border:"none", color:C.gold, cursor:"pointer", fontSize:12 }}>{t("backToLogin")}</button>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+const PendingScreen = ({ status, profile, onLogout, lang, onLangChange }) => {
+  const t = useT();
+  const isPending = status === "pending";
+  return (
+    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", flexDirection:"column" }}>
+      <div style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:"0 24px", display:"flex", alignItems:"center", height:56, gap:10 }}>
+        <div style={{ width:30, height:30, borderRadius:7, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:13, fontWeight:900, color:C.bg }}>N</div>
+        <span style={{ fontSize:16, fontWeight:700, color:C.text, fontFamily:"Georgia,serif" }}>NexusHub</span>
+        <div style={{ flex:1 }}/>
+        <LangSwitcher lang={lang} onChange={onLangChange}/>
+        <button onClick={onLogout} style={{ padding:"5px 12px", borderRadius:6, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:11 }}>{t("logout")}</button>
+      </div>
+      <div style={{ flex:1, display:"flex", alignItems:"center", justifyContent:"center" }}>
+        <div style={{ textAlign:"center", maxWidth:400, padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}` }}>
+          <div style={{ fontSize:48, marginBottom:16 }}>{isPending ? "⏳" : "✗"}</div>
+          <h2 style={{ color:C.text, fontFamily:"Georgia,serif", marginBottom:12 }}>{isPending ? t("pendingTitle") : t("rejectedTitle")}</h2>
+          <p style={{ color:C.textMuted, fontSize:14, lineHeight:1.6 }}>{isPending ? t("pendingMsg") : t("rejectedMsg")}</p>
+          {profile?.rejection_reason && <p style={{ color:C.red, fontSize:13, marginTop:12 }}>{profile.rejection_reason}</p>}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ============================================================
+// DASHBOARDS (unchanged from original)
+// ============================================================
 const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
   const [tab, setTab] = useState("overview");
@@ -720,7 +643,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   ];
   return (
     <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
-      <Navbar name="Lattafa Perfumes · Dubai HQ" badge="brand" onLogout={onLogout} lang={lang} onLangChange={onLangChange}/>
+      <Navbar name="Brand Portal" badge="brand" onLogout={onLogout} lang={lang} onLangChange={onLangChange}/>
       <div style={{ padding:"24px 28px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
         {tab==="overview" && (
@@ -947,7 +870,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   ];
   return (
     <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
-      <Navbar name="GigaTrade S.R.L. · Italy 🇮🇹" badge="distributor" onLogout={onLogout} lang={lang} onLangChange={onLangChange}/>
+      <Navbar name="Distributor Portal" badge="distributor" onLogout={onLogout} lang={lang} onLangChange={onLangChange}/>
       <div style={{ padding:"24px 28px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
         {tab==="brands" && (
@@ -1108,21 +1031,64 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   );
 };
 
+// ============================================================
+// MAIN APP — con Supabase auth reale
+// ============================================================
 export default function App() {
-  const [screen, setScreen] = useState("login");
+  const [screen, setScreen] = useState("loading");
+  const [userRole, setUserRole] = useState(null);
+  const [userStatus, setUserStatus] = useState(null);
   const [lang, setLang] = useState("en");
+
   const t = key => T[lang]?.[key] ?? T["en"][key] ?? key;
   const dir = LANGS.find(l=>l.key===lang)?.dir ?? "ltr";
   const fontFamily = lang==="ar" ? "'Segoe UI', Tahoma, Arial, sans-serif"
                    : lang==="zh" ? "'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif"
                    : "'Trebuchet MS', sans-serif";
+
+  // Controlla sessione esistente all'avvio
+  useEffect(() => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (session?.user) {
+        const { data: profile } = await supabase.from("profiles").select("role,status").eq("id", session.user.id).single();
+        if (profile) { setUserRole(profile.role); setUserStatus(profile.status); setScreen("app"); }
+        else setScreen("login");
+      } else {
+        setScreen("login");
+      }
+    });
+  }, []);
+
+  const handleLogin = (role, status) => {
+    setUserRole(role); setUserStatus(status); setScreen("app");
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUserRole(null); setUserStatus(null); setScreen("login");
+  };
+
+  if (screen === "loading") return (
+    <div style={{ minHeight:"100vh", background:"#08080f", display:"flex", alignItems:"center", justifyContent:"center" }}>
+      <div style={{ color:"#c9a84c", fontSize:20, fontFamily:"Georgia,serif", letterSpacing:"0.2em" }}>NEXUSHUB</div>
+    </div>
+  );
+
+  const dashboardProps = { onLogout: handleLogout, lang, onLangChange: setLang };
+
   return (
     <LangCtx.Provider value={{ lang, t, dir }}>
       <div dir={dir} style={{ fontFamily }}>
-        {screen==="login"       && <Login onLogin={setScreen} lang={lang} onLangChange={setLang}/>}
-        {screen==="brand"       && <BrandDashboard onLogout={()=>setScreen("login")} lang={lang} onLangChange={setLang}/>}
-        {screen==="distributor" && <DistributorDashboard onLogout={()=>setScreen("login")} lang={lang} onLangChange={setLang}/>}
-        {screen==="admin"       && <AdminDashboard onLogout={()=>setScreen("login")} lang={lang} onLangChange={setLang}/>}
+        {screen === "login" && <Login onLogin={handleLogin} lang={lang} onLangChange={setLang}/>}
+        {screen === "app" && userRole === "admin" && <AdminDashboard {...dashboardProps}/>}
+        {screen === "app" && userRole === "brand" && (userStatus === "approved"
+          ? <BrandDashboard {...dashboardProps}/>
+          : <PendingScreen status={userStatus} onLogout={handleLogout} lang={lang} onLangChange={setLang}/>
+        )}
+        {screen === "app" && userRole === "distributor" && (userStatus === "approved"
+          ? <DistributorDashboard {...dashboardProps}/>
+          : <PendingScreen status={userStatus} onLogout={handleLogout} lang={lang} onLangChange={setLang}/>
+        )}
       </div>
     </LangCtx.Provider>
   );
