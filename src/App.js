@@ -178,7 +178,7 @@ const Login = ({ onLogin }) => {
           ))}
         </div>
         <div style={{ background:`${C.gold}08`, border:`1px solid ${C.gold}20`, borderRadius:8, padding:"8px 12px", marginBottom:16, fontSize:11, color:C.textMuted }}>
-          <span style={{ color:C.gold }}>Demo mode</span> — logging in as {role==="brand" ? "Lattafa Perfumes" : role==="distributor" ? "GigaTrade S.R.L." : "NexusHub Admin"}
+          <span style={{ color:C.gold }}>Demo mode</span> — Try as Guest {role==="brand" ? "Lattafa Perfumes" : role==="distributor" ? "GigaTrade S.R.L." : "NexusHub Admin"}
         </div>
         <button onClick={() => { setLoading(true); setTimeout(() => { setLoading(false); onLogin(role); }, 900); }} style={{ width:"100%", padding:"13px", borderRadius:10, cursor:"pointer", background:loading ? C.goldDim : `linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, boxShadow:`0 4px 20px ${C.gold}35` }}>
           {loading ? "Authenticating…" : "Enter Platform →"}
