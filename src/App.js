@@ -166,7 +166,7 @@ const Login = ({ onLogin }) => {
         <div style={{ textAlign:"center", marginBottom:28 }}>
           <div style={{ display:"inline-flex", alignItems:"center", justifyContent:"center", width:56, height:56, borderRadius:14, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, fontSize:24, fontWeight:900, color:C.bg, marginBottom:12, boxShadow:`0 8px 24px ${C.gold}35` }}>N</div>
           <div style={{ fontSize:24, fontWeight:800, color:C.text, fontFamily:"Georgia,serif" }}>NexusHub</div>
-          <div style={{ fontSize:11, color:C.textMuted, marginTop:4, letterSpacing:"0.12em", textTransform:"uppercase" }}>B2B Fragrance Distribution Platform</div>
+          <div style={{ fontSize:11, color:C.textMuted, marginTop:4, letterSpacing:"0.12em", textTransform:"uppercase" }}>Global Brand Distribution Platform</div>
         </div>
         <div style={{ fontSize:11, color:C.textMuted, marginBottom:8, letterSpacing:"0.08em", textTransform:"uppercase" }}>Access as</div>
         <div style={{ display:"flex", flexDirection:"column", gap:8, marginBottom:20 }}>
