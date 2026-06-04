@@ -1,4 +1,13 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect, useRef } from "react";
+import { createClient } from "@supabase/supabase-js";
+
+// ============================================================
+// SUPABASE CLIENT
+// ============================================================
+const supabase = createClient(
+  process.env.REACT_APP_SUPABASE_URL,
+  process.env.REACT_APP_SUPABASE_ANON_KEY
+);
 
 const C = {
   bg: "#08080f", surface: "#0f1018", surface2: "#151720", surface3: "#1c1f2e",
@@ -19,11 +28,25 @@ const LANGS = [
 
 const T = {
   en: {
-    loginSubtitle:"Global Brand Distribution Platform",accessAs:"Access as",
-    roleBrandLabel:"Brand House",roleBrandDesc:"Full market visibility & distributor control",
+    loginSubtitle:"Global B2B Distribution Platform",accessAs:"Access as",
+    roleBrandLabel:"Brand",roleBrandDesc:"Full market visibility & distributor control",
     roleDistLabel:"Distributor",roleDistDesc:"Your authorized brands & territory",
     roleAdminLabel:"NexusHub Admin",roleAdminDesc:"Platform-wide oversight",
     demoMode:"Demo mode",demoTryAs:"— Try as Guest",enterPlatform:"Enter Platform →",authenticating:"Authenticating…",
+    // Auth
+    emailLabel:"Email",passwordLabel:"Password",loginBtn:"Sign In",
+    loggingIn:"Signing in…",loginError:"Invalid email or password",
+    pendingTitle:"Account Pending Approval",pendingMsg:"Your documents have been received. You will be notified by email once your account is approved.",
+    rejectedTitle:"Account Not Approved",rejectedMsg:"Your access request was declined.",
+    registerBrand:"Register as Brand",registerDist:"Register as Distributor",
+    alreadyAccount:"Already have an account?",backToLogin:"Back to login",
+    registerTitle:"Registration",step1:"Account",step2:"Company & Documents",
+    fullName:"Contact Name",companyName:"Company Name",phone:"Phone",country:"Country",
+    confirmPassword:"Confirm Password",passwordMismatch:"Passwords do not match",passwordShort:"Password must be at least 8 characters",
+    docsRequired:"Required documents",clickToUpload:"Click to upload PDF or image",
+    submitRequest:"Submit Request",sending:"Sending…",
+    successTitle:"Registration Complete",successMsg:"Your request has been submitted. Our team will verify your documents and notify you by email within 24-48 hours.",
+    //
     portalBrand:"Brand Portal",portalDistributor:"Distributor Portal",portalAdmin:"Admin",logout:"Logout",
     tabOverview:"Overview",tabApplications:"Applications",tabDistributors:"Distributors",
     tabCatalog:"Catalog",tabOrders:"Orders",tabPayments:"Payments",
@@ -41,13 +64,13 @@ const T = {
     hubPallets:"Pallets Occupied",hubPalletsVal:"312 / 500 slots",
     hubNextContainer:"Next Container ETA",hubNextContainerVal:"June 4 from Dubai",
     hubOrdersToday:"Orders Processing Today",hubOrdersTodayVal:"7 active",
-    hubConsignment:"Consignment Value",hubConsignmentVal:"€ 1.84M (Lattafa)",
+    hubConsignment:"Consignment Value",hubConsignmentVal:"€ 1.84M",
     appTitle:"Distributor Applications",appSub:"Review, approve or decline companies requesting access to your catalog",
     submitted:"Submitted",territory:"Territory",type:"Type",annualRevenue:"Annual Revenue",yearsActive:"Years Active",years:"years",
     requestedBrands:"Requested brands:",documentsUploaded:"Documents uploaded:",
     approveBtn:"✓ Approve & Enable Access",declineBtn:"✗ Decline",askMoreBtn:"Ask for More Info",
     approvedMsg:"✓ Approved — login credentials sent automatically to distributor",
-    rejectedMsg:"✗ Declined — distributor has been notified via email",
+    rejectedMsgDist:"✗ Declined — distributor has been notified via email",
     distTitle:"Active Distributors",distSub:"One authorized partner per territory · Zero overlap guaranteed by platform",
     colFlag:"Flag",colCompany:"Company",colTerritory:"Territory",colBrands:"Authorized Brands",
     colOrders:"Orders",colRevenue:"Revenue",colStatus:"Status",
@@ -61,21 +84,21 @@ const T = {
     statAvgDispatch:"Avg. Dispatch",statAvgDispatchVal:"1.4 days",statAvgDispatchSub:"From order confirmation",
     colOrderId:"Order ID",colDistributor:"Distributor",colCountry:"Country",colItems:"Items",
     colPallets:"Pallets",colValue:"Value",colDate:"Date",colEta:"ETA",delivered:"Delivered",
-    paymentsTitle:"Payment Flow",paymentsSub:"Distributor pays Lattafa directly via SEPA Instant · NexusHub fee auto-split via PSD2",
+    paymentsTitle:"Payment Flow",paymentsSub:"Distributor pays brand directly via SEPA Instant · NexusHub fee auto-split via PSD2",
     payArchLabel:"Automated Payment Architecture · Zero manual intervention",
     payTransLog:"Transaction Log — Automatic Split per Order",
-    colGross:"Gross Amount",colBrandShare:"→ Lattafa Receives",colNexusFee:"→ NexusHub Fee",
+    colGross:"Gross Amount",colBrandShare:"→ Brand Receives",colNexusFee:"→ NexusHub Fee",
     colFeePercent:"Fee %",colMethod:"Method",colTime:"Time",
     nodeDistributor:"Distributor",nodeDistributorSub:"Places order on NexusHub",
-    nodeSepa:"SEPA Instant",nodeSepaSub:"Direct transfer to Lattafa",
-    nodeLattafa:"Lattafa Account",nodeLattafaSub:"Receives full payment",
+    nodeSepa:"SEPA Instant",nodeSepaSub:"Direct transfer to Brand",
+    nodeLattafa:"Brand Account",nodeLattafaSub:"Receives full payment",
     nodeWebhook:"PSD2 Webhook",nodeWebhookSub:"Auto notification in seconds",
     nodeNexus:"NexusHub",nodeNexusSub:"Calculates fee automatically",
     nodeGiga:"GigaTrade",nodeGigaSub:"Fee ~11.4% credited",
     marketTitle:"Brand Marketplace",marketSub:"All brands available on NexusHub · Green = already authorized for your territory",
     skusLabel:"SKUs",euDistLabel:"EU Dist.",categoryLabel:"Category",
     viewCatalogBtn:"View My Catalog →",requestSentMsg:"⏳ Request sent — awaiting brand approval",requestAccessBtn:"+ Request Access",
-    myCatTitle:"My Authorized Catalog",myCatSub:"Authorized brands for Italy territory · All stock ready in Turin hub · Delivery 48h",
+    myCatTitle:"My Authorized Catalog",myCatSub:"Authorized brands for your territory · All stock ready in Turin hub · Delivery 48h",
     colBrand:"Brand",colAction:"Action",addBtn:"+ Add",cartLabel:"Place Order",cartSub1:"48h from Turin · Pay via SEPA Instant",
     myOrdersTitle:"My Orders",myOrdersSub:"All orders fulfilled from NexusHub European Hub · Turin, Italy",
     statMyOrders:"Orders This Month",statMyOrdersSub:"May 2024",statMySpent:"Total Spent",statMySpentSub:"May 2024",
@@ -88,11 +111,23 @@ const T = {
     adminBrandsTitle:"Active Brands on Platform",adminRevenueTitle:"NexusHub Revenue by Brand (May)",distributorsLabel:"distributors",
   },
   it: {
-    loginSubtitle:"Piattaforma Globale di Distribuzione Brand",accessAs:"Accedi come",
-    roleBrandLabel:"Casa Brand",roleBrandDesc:"Visibilità completa del mercato e controllo distributori",
+    loginSubtitle:"Piattaforma B2B di Distribuzione Globale",accessAs:"Accedi come",
+    roleBrandLabel:"Brand",roleBrandDesc:"Visibilità completa del mercato e controllo distributori",
     roleDistLabel:"Distributore",roleDistDesc:"I tuoi brand autorizzati e territorio",
     roleAdminLabel:"Admin NexusHub",roleAdminDesc:"Supervisione dell'intera piattaforma",
     demoMode:"Demo",demoTryAs:"— Accedi come ospite",enterPlatform:"Entra nella Piattaforma →",authenticating:"Autenticazione…",
+    emailLabel:"Email",passwordLabel:"Password",loginBtn:"Accedi",
+    loggingIn:"Accesso in corso…",loginError:"Email o password non validi",
+    pendingTitle:"Account in attesa di approvazione",pendingMsg:"I tuoi documenti sono stati ricevuti. Riceverai una notifica via email quando il tuo account sarà approvato.",
+    rejectedTitle:"Account non approvato",rejectedMsg:"La tua richiesta di accesso è stata rifiutata.",
+    registerBrand:"Registrati come Brand",registerDist:"Registrati come Distributore",
+    alreadyAccount:"Hai già un account?",backToLogin:"Torna al login",
+    registerTitle:"Registrazione",step1:"Account",step2:"Azienda e Documenti",
+    fullName:"Nome referente",companyName:"Ragione sociale",phone:"Telefono",country:"Paese",
+    confirmPassword:"Conferma password",passwordMismatch:"Le password non coincidono",passwordShort:"La password deve essere di almeno 8 caratteri",
+    docsRequired:"Documenti richiesti",clickToUpload:"Clicca per caricare PDF o immagine",
+    submitRequest:"Invia richiesta",sending:"Invio in corso…",
+    successTitle:"Registrazione completata",successMsg:"La tua richiesta è stata inviata con successo. Il nostro team verificherà i tuoi documenti e riceverai una notifica via email entro 24-48 ore.",
     portalBrand:"Portale Brand",portalDistributor:"Portale Distributore",portalAdmin:"Admin",logout:"Esci",
     tabOverview:"Panoramica",tabApplications:"Candidature",tabDistributors:"Distributori",
     tabCatalog:"Catalogo",tabOrders:"Ordini",tabPayments:"Pagamenti",
@@ -110,13 +145,13 @@ const T = {
     hubPallets:"Pallet Occupati",hubPalletsVal:"312 / 500 slot",
     hubNextContainer:"Prossimo Container ETA",hubNextContainerVal:"4 Giugno da Dubai",
     hubOrdersToday:"Ordini in Elaborazione Oggi",hubOrdersTodayVal:"7 attivi",
-    hubConsignment:"Valore Consegne",hubConsignmentVal:"€ 1,84M (Lattafa)",
+    hubConsignment:"Valore Consegne",hubConsignmentVal:"€ 1,84M",
     appTitle:"Candidature Distributori",appSub:"Esamina, approva o rifiuta le aziende che richiedono accesso al tuo catalogo",
     submitted:"Inviata",territory:"Territorio",type:"Tipo",annualRevenue:"Fatturato Annuo",yearsActive:"Anni di Attività",years:"anni",
     requestedBrands:"Brand richiesti:",documentsUploaded:"Documenti caricati:",
     approveBtn:"✓ Approva e Abilita Accesso",declineBtn:"✗ Rifiuta",askMoreBtn:"Richiedi Ulteriori Informazioni",
     approvedMsg:"✓ Approvato — credenziali inviate automaticamente al distributore",
-    rejectedMsg:"✗ Rifiutato — il distributore è stato notificato via email",
+    rejectedMsgDist:"✗ Rifiutato — il distributore è stato notificato via email",
     distTitle:"Distributori Attivi",distSub:"Un partner autorizzato per territorio · Nessuna sovrapposizione garantita dalla piattaforma",
     colFlag:"Bandiera",colCompany:"Azienda",colTerritory:"Territorio",colBrands:"Brand Autorizzati",
     colOrders:"Ordini",colRevenue:"Fatturato",colStatus:"Stato",
@@ -130,21 +165,21 @@ const T = {
     statAvgDispatch:"Media Spedizione",statAvgDispatchVal:"1,4 giorni",statAvgDispatchSub:"Dalla conferma ordine",
     colOrderId:"ID Ordine",colDistributor:"Distributore",colCountry:"Paese",colItems:"Articoli",
     colPallets:"Pallet",colValue:"Valore",colDate:"Data",colEta:"ETA",delivered:"Consegnato",
-    paymentsTitle:"Flusso Pagamenti",paymentsSub:"Il distributore paga Lattafa direttamente via SEPA Instant · Fee NexusHub split automatico via PSD2",
+    paymentsTitle:"Flusso Pagamenti",paymentsSub:"Il distributore paga il brand direttamente via SEPA Instant · Fee NexusHub split automatico via PSD2",
     payArchLabel:"Architettura Pagamenti Automatizzata · Zero interventi manuali",
     payTransLog:"Log Transazioni — Split Automatico per Ordine",
-    colGross:"Importo Lordo",colBrandShare:"→ Lattafa Riceve",colNexusFee:"→ Fee NexusHub",
+    colGross:"Importo Lordo",colBrandShare:"→ Brand Riceve",colNexusFee:"→ Fee NexusHub",
     colFeePercent:"Fee %",colMethod:"Metodo",colTime:"Ora",
     nodeDistributor:"Distributore",nodeDistributorSub:"Effettua ordine su NexusHub",
-    nodeSepa:"SEPA Instant",nodeSepaSub:"Bonifico diretto a Lattafa",
-    nodeLattafa:"Conto Lattafa",nodeLattafaSub:"Riceve il pagamento completo",
+    nodeSepa:"SEPA Instant",nodeSepaSub:"Bonifico diretto al Brand",
+    nodeLattafa:"Conto Brand",nodeLattafaSub:"Riceve il pagamento completo",
     nodeWebhook:"PSD2 Webhook",nodeWebhookSub:"Notifica automatica in secondi",
     nodeNexus:"NexusHub",nodeNexusSub:"Calcola fee automaticamente",
     nodeGiga:"GigaTrade",nodeGigaSub:"Fee ~11,4% accreditata",
     marketTitle:"Marketplace Brand",marketSub:"Tutti i brand disponibili su NexusHub · Verde = già autorizzati per il tuo territorio",
     skusLabel:"SKU",euDistLabel:"Dist. EU",categoryLabel:"Categoria",
     viewCatalogBtn:"Vai al Mio Catalogo →",requestSentMsg:"⏳ Richiesta inviata — in attesa di approvazione brand",requestAccessBtn:"+ Richiedi Accesso",
-    myCatTitle:"Il Mio Catalogo Autorizzato",myCatSub:"Brand autorizzati per il territorio Italia · Stock pronto nell'hub di Torino · Consegna 48h",
+    myCatTitle:"Il Mio Catalogo Autorizzato",myCatSub:"Brand autorizzati per il tuo territorio · Stock pronto nell'hub di Torino · Consegna 48h",
     colBrand:"Brand",colAction:"Azione",addBtn:"+ Aggiungi",cartLabel:"Effettua Ordine",cartSub1:"48h da Torino · Paga via SEPA Instant",
     myOrdersTitle:"I Miei Ordini",myOrdersSub:"Tutti gli ordini evasi dall'Hub Europeo NexusHub · Torino, Italia",
     statMyOrders:"Ordini Questo Mese",statMyOrdersSub:"Maggio 2024",statMySpent:"Totale Speso",statMySpentSub:"Maggio 2024",
@@ -156,352 +191,9 @@ const T = {
     statAllPallets:"Pallet / Mese",statAllPalletsSub:"Tutti i brand",
     adminBrandsTitle:"Brand Attivi sulla Piattaforma",adminRevenueTitle:"Fatturato NexusHub per Brand (Maggio)",distributorsLabel:"distributori",
   },
-  fr: {
-    loginSubtitle:"Plateforme Mondiale de Distribution de Marques",accessAs:"Accéder en tant que",
-    roleBrandLabel:"Maison de Marque",roleBrandDesc:"Visibilité totale du marché et contrôle des distributeurs",
-    roleDistLabel:"Distributeur",roleDistDesc:"Vos marques autorisées et territoire",
-    roleAdminLabel:"Admin NexusHub",roleAdminDesc:"Supervision globale de la plateforme",
-    demoMode:"Mode démo",demoTryAs:"— Essayer en tant qu'invité",enterPlatform:"Accéder à la Plateforme →",authenticating:"Authentification…",
-    portalBrand:"Portail Marque",portalDistributor:"Portail Distributeur",portalAdmin:"Admin",logout:"Déconnexion",
-    tabOverview:"Vue d'ensemble",tabApplications:"Candidatures",tabDistributors:"Distributeurs",
-    tabCatalog:"Catalogue",tabOrders:"Commandes",tabPayments:"Paiements",
-    tabBrandMarket:"Marketplace Marques",tabMyCatalog:"Mon Catalogue",tabMyOrders:"Mes Commandes",
-    overviewTitle:"Vue d'ensemble du Marché Européen",overviewSub:"Visibilité en temps réel · Hub : Turin, Italie · 400–500 palettes/mois",
-    statTerritories:"Territoires Actifs",statTerritoriesSub:"À l'échelle européenne",
-    statDistributors:"Distributeurs",statDistributorsSub:"en attente d'approbation",
-    statRevenue:"Chiffre d'affaires mensuel",statRevenueSub:"↑ 18% vs mois dernier",
-    statPallets:"Palettes / Mois",statPalletsSub:"Moyenne hub Turin",
-    statAlerts:"Alertes Prix",statAlertsSub:"2 haute sévérité",
-    priceAlertsTitle:"Alertes Intégrité des Prix",actBtn:"Agir",
-    hubStockTitle:"État du Stock Hub · Turin",
-    hubTotalSkus:"Total SKU dans le Hub",hubTotalSkusVal:"87 références",
-    hubTotalUnits:"Total Unités en Stock",hubTotalUnitsVal:"18 430 unités",
-    hubPallets:"Palettes Occupées",hubPalletsVal:"312 / 500 emplacements",
-    hubNextContainer:"Prochain Conteneur ETA",hubNextContainerVal:"4 juin depuis Dubaï",
-    hubOrdersToday:"Commandes en cours aujourd'hui",hubOrdersTodayVal:"7 actives",
-    hubConsignment:"Valeur du Dépôt",hubConsignmentVal:"€ 1,84M (Lattafa)",
-    appTitle:"Candidatures Distributeurs",appSub:"Examinez, approuvez ou refusez les entreprises demandant l'accès à votre catalogue",
-    submitted:"Soumis le",territory:"Territoire",type:"Type",annualRevenue:"Chiffre d'affaires annuel",yearsActive:"Années d'activité",years:"ans",
-    requestedBrands:"Marques demandées :",documentsUploaded:"Documents téléchargés :",
-    approveBtn:"✓ Approuver et Activer l'Accès",declineBtn:"✗ Refuser",askMoreBtn:"Demander plus d'informations",
-    approvedMsg:"✓ Approuvé — identifiants envoyés automatiquement au distributeur",
-    rejectedMsg:"✗ Refusé — le distributeur a été notifié par email",
-    distTitle:"Distributeurs Actifs",distSub:"Un partenaire autorisé par territoire · Zéro chevauchement garanti par la plateforme",
-    colFlag:"Drapeau",colCompany:"Société",colTerritory:"Territoire",colBrands:"Marques Autorisées",
-    colOrders:"Commandes",colRevenue:"CA",colStatus:"Statut",
-    catTitle:"Catalogue Produits",catSub:"Tous les SKU disponibles au Hub Européen de Turin · Stock en dépôt · Quantités en temps réel",
-    colSku:"SKU",colProduct:"Produit",colSize:"Format",colCategory:"Catégorie",colPrice:"Prix Unitaire",
-    colStock:"Stock",colPerPallet:"Par Palette",colMoq:"QMC",
-    ordersTitle:"Toutes les Commandes Européennes",ordersSub:"Chaque commande routée via NexusHub Hub · Turin, Italie · Objectif : expédition 48h",
-    statOrdersMonth:"Commandes ce mois",statOrdersMonthSub:"↑ 23 vs mois dernier",
-    statPalletsShipped:"Palettes Expédiées",statPalletsShippedSub:"Mai 2024",
-    statTotalValue:"Valeur Totale",statTotalValueSub:"Mai 2024",
-    statAvgDispatch:"Expédition Moy.",statAvgDispatchVal:"1,4 jours",statAvgDispatchSub:"Depuis confirmation commande",
-    colOrderId:"N° Commande",colDistributor:"Distributeur",colCountry:"Pays",colItems:"Articles",
-    colPallets:"Palettes",colValue:"Valeur",colDate:"Date",colEta:"ETA",delivered:"Livré",
-    paymentsTitle:"Flux de Paiement",paymentsSub:"Le distributeur paie Lattafa directement via SEPA Instant · Frais NexusHub répartis automatiquement via PSD2",
-    payArchLabel:"Architecture de Paiement Automatisée · Zéro intervention manuelle",
-    payTransLog:"Journal des Transactions — Répartition Automatique par Commande",
-    colGross:"Montant Brut",colBrandShare:"→ Lattafa Reçoit",colNexusFee:"→ Frais NexusHub",
-    colFeePercent:"Frais %",colMethod:"Méthode",colTime:"Heure",
-    nodeDistributor:"Distributeur",nodeDistributorSub:"Passe commande sur NexusHub",
-    nodeSepa:"SEPA Instant",nodeSepaSub:"Virement direct à Lattafa",
-    nodeLattafa:"Compte Lattafa",nodeLattafaSub:"Reçoit le paiement complet",
-    nodeWebhook:"PSD2 Webhook",nodeWebhookSub:"Notification automatique en secondes",
-    nodeNexus:"NexusHub",nodeNexusSub:"Calcule les frais automatiquement",
-    nodeGiga:"GigaTrade",nodeGigaSub:"Frais ~11,4% crédités",
-    marketTitle:"Marketplace Marques",marketSub:"Toutes les marques disponibles sur NexusHub · Vert = déjà autorisé pour votre territoire",
-    skusLabel:"SKU",euDistLabel:"Dist. EU",categoryLabel:"Catégorie",
-    viewCatalogBtn:"Voir Mon Catalogue →",requestSentMsg:"⏳ Demande envoyée — en attente d'approbation",requestAccessBtn:"+ Demander l'Accès",
-    myCatTitle:"Mon Catalogue Autorisé",myCatSub:"Marques autorisées pour le territoire France · Stock prêt au hub de Turin · Livraison 48h",
-    colBrand:"Marque",colAction:"Action",addBtn:"+ Ajouter",cartLabel:"Passer Commande",cartSub1:"48h depuis Turin · Payer via SEPA Instant",
-    myOrdersTitle:"Mes Commandes",myOrdersSub:"Toutes les commandes exécutées depuis NexusHub Hub Européen · Turin, Italie",
-    statMyOrders:"Commandes ce mois",statMyOrdersSub:"Mai 2024",statMySpent:"Total Dépensé",statMySpentSub:"Mai 2024",
-    statMyDelivery:"Livraison Moy.",statMyDeliveryVal:"1,6 jours",statMyPallets:"Palettes Reçues",statMyPalletsSub:"Mai 2024",
-    colPayment:"Paiement",deliveredCheck:"✓ Livré",
-    adminTitle:"Vue d'ensemble de la Plateforme",adminSub:"Vue globale sur toutes les marques, distributeurs et transactions",
-    statBrands:"Marques Actives",statBrandsSub:"2 en intégration",statAllDist:"Total Distributeurs",statAllDistSub:"À l'échelle européenne",
-    statGmv:"GMV Plateforme",statGmvSub:"Mai 2024",statNexusRev:"Revenus NexusHub",statNexusRevSub:"~11,4% frais moyen",
-    statAllPallets:"Palettes / Mois",statAllPalletsSub:"Toutes marques",
-    adminBrandsTitle:"Marques Actives sur la Plateforme",adminRevenueTitle:"Revenus NexusHub par Marque (Mai)",distributorsLabel:"distributeurs",
-  },
-  es: {
-    loginSubtitle:"Plataforma Global de Distribución de Marcas",accessAs:"Acceder como",
-    roleBrandLabel:"Casa de Marca",roleBrandDesc:"Visibilidad total del mercado y control de distribuidores",
-    roleDistLabel:"Distribuidor",roleDistDesc:"Tus marcas autorizadas y territorio",
-    roleAdminLabel:"Admin NexusHub",roleAdminDesc:"Supervisión global de la plataforma",
-    demoMode:"Modo demo",demoTryAs:"— Probar como invitado",enterPlatform:"Acceder a la Plataforma →",authenticating:"Autenticando…",
-    portalBrand:"Portal de Marca",portalDistributor:"Portal de Distribuidor",portalAdmin:"Admin",logout:"Cerrar sesión",
-    tabOverview:"Resumen",tabApplications:"Solicitudes",tabDistributors:"Distribuidores",
-    tabCatalog:"Catálogo",tabOrders:"Pedidos",tabPayments:"Pagos",
-    tabBrandMarket:"Mercado de Marcas",tabMyCatalog:"Mi Catálogo",tabMyOrders:"Mis Pedidos",
-    overviewTitle:"Resumen del Mercado Europeo",overviewSub:"Visibilidad en tiempo real · Hub: Turín, Italia · 400–500 palés/mes",
-    statTerritories:"Territorios Activos",statTerritoriesSub:"En toda Europa",
-    statDistributors:"Distribuidores",statDistributorsSub:"pendientes de aprobación",
-    statRevenue:"Ingresos Mensuales",statRevenueSub:"↑ 18% vs mes anterior",
-    statPallets:"Palés / Mes",statPalletsSub:"Media hub Turín",
-    statAlerts:"Alertas de Precio",statAlertsSub:"2 alta severidad",
-    priceAlertsTitle:"Alertas de Integridad de Precios",actBtn:"Actuar",
-    hubStockTitle:"Estado del Stock Hub · Turín",
-    hubTotalSkus:"Total SKU en Hub",hubTotalSkusVal:"87 referencias",
-    hubTotalUnits:"Total Unidades en Stock",hubTotalUnitsVal:"18.430 unidades",
-    hubPallets:"Palés Ocupados",hubPalletsVal:"312 / 500 espacios",
-    hubNextContainer:"Próximo Contenedor ETA",hubNextContainerVal:"4 de junio desde Dubái",
-    hubOrdersToday:"Pedidos en Proceso Hoy",hubOrdersTodayVal:"7 activos",
-    hubConsignment:"Valor de Consignación",hubConsignmentVal:"€ 1,84M (Lattafa)",
-    appTitle:"Solicitudes de Distribuidores",appSub:"Revisa, aprueba o rechaza empresas que solicitan acceso a tu catálogo",
-    submitted:"Enviado el",territory:"Territorio",type:"Tipo",annualRevenue:"Ingresos Anuales",yearsActive:"Años de Actividad",years:"años",
-    requestedBrands:"Marcas solicitadas:",documentsUploaded:"Documentos subidos:",
-    approveBtn:"✓ Aprobar y Habilitar Acceso",declineBtn:"✗ Rechazar",askMoreBtn:"Solicitar Más Información",
-    approvedMsg:"✓ Aprobado — credenciales enviadas automáticamente al distribuidor",
-    rejectedMsg:"✗ Rechazado — el distribuidor ha sido notificado por email",
-    distTitle:"Distribuidores Activos",distSub:"Un socio autorizado por territorio · Sin solapamientos garantizado por la plataforma",
-    colFlag:"Bandera",colCompany:"Empresa",colTerritory:"Territorio",colBrands:"Marcas Autorizadas",
-    colOrders:"Pedidos",colRevenue:"Ingresos",colStatus:"Estado",
-    catTitle:"Catálogo de Productos",catSub:"Todos los SKU disponibles en el Hub Europeo de Turín · Stock en consignación · Cantidades en tiempo real",
-    colSku:"SKU",colProduct:"Producto",colSize:"Tamaño",colCategory:"Categoría",colPrice:"Precio Unitario",
-    colStock:"Stock",colPerPallet:"Por Palé",colMoq:"MOQ",
-    ordersTitle:"Todos los Pedidos Europeos",ordersSub:"Cada pedido enrutado a través de NexusHub Hub · Turín, Italia · Objetivo: envío en 48h",
-    statOrdersMonth:"Pedidos Este Mes",statOrdersMonthSub:"↑ 23 vs mes anterior",
-    statPalletsShipped:"Palés Enviados",statPalletsShippedSub:"Mayo 2024",
-    statTotalValue:"Valor Total",statTotalValueSub:"Mayo 2024",
-    statAvgDispatch:"Envío Prom.",statAvgDispatchVal:"1,4 días",statAvgDispatchSub:"Desde confirmación del pedido",
-    colOrderId:"ID Pedido",colDistributor:"Distribuidor",colCountry:"País",colItems:"Artículos",
-    colPallets:"Palés",colValue:"Valor",colDate:"Fecha",colEta:"ETA",delivered:"Entregado",
-    paymentsTitle:"Flujo de Pagos",paymentsSub:"El distribuidor paga a Lattafa directamente vía SEPA Instant · Comisión NexusHub repartida automáticamente vía PSD2",
-    payArchLabel:"Arquitectura de Pago Automatizada · Cero intervención manual",
-    payTransLog:"Registro de Transacciones — División Automática por Pedido",
-    colGross:"Importe Bruto",colBrandShare:"→ Lattafa Recibe",colNexusFee:"→ Comisión NexusHub",
-    colFeePercent:"Com. %",colMethod:"Método",colTime:"Hora",
-    nodeDistributor:"Distribuidor",nodeDistributorSub:"Realiza pedido en NexusHub",
-    nodeSepa:"SEPA Instant",nodeSepaSub:"Transferencia directa a Lattafa",
-    nodeLattafa:"Cuenta Lattafa",nodeLattafaSub:"Recibe el pago completo",
-    nodeWebhook:"PSD2 Webhook",nodeWebhookSub:"Notificación automática en segundos",
-    nodeNexus:"NexusHub",nodeNexusSub:"Calcula comisión automáticamente",
-    nodeGiga:"GigaTrade",nodeGigaSub:"Comisión ~11,4% acreditada",
-    marketTitle:"Mercado de Marcas",marketSub:"Todas las marcas disponibles en NexusHub · Verde = ya autorizado para tu territorio",
-    skusLabel:"SKU",euDistLabel:"Dist. EU",categoryLabel:"Categoría",
-    viewCatalogBtn:"Ver Mi Catálogo →",requestSentMsg:"⏳ Solicitud enviada — esperando aprobación de marca",requestAccessBtn:"+ Solicitar Acceso",
-    myCatTitle:"Mi Catálogo Autorizado",myCatSub:"Marcas autorizadas para el territorio España · Stock listo en hub de Turín · Entrega 48h",
-    colBrand:"Marca",colAction:"Acción",addBtn:"+ Añadir",cartLabel:"Realizar Pedido",cartSub1:"48h desde Turín · Pagar vía SEPA Instant",
-    myOrdersTitle:"Mis Pedidos",myOrdersSub:"Todos los pedidos cumplidos desde NexusHub Hub Europeo · Turín, Italia",
-    statMyOrders:"Pedidos Este Mes",statMyOrdersSub:"Mayo 2024",statMySpent:"Total Gastado",statMySpentSub:"Mayo 2024",
-    statMyDelivery:"Entrega Prom.",statMyDeliveryVal:"1,6 días",statMyPallets:"Palés Recibidos",statMyPalletsSub:"Mayo 2024",
-    colPayment:"Pago",deliveredCheck:"✓ Entregado",
-    adminTitle:"Resumen de la Plataforma",adminSub:"Vista global de todas las marcas, distribuidores y transacciones",
-    statBrands:"Marcas Activas",statBrandsSub:"2 en incorporación",statAllDist:"Total Distribuidores",statAllDistSub:"En toda Europa",
-    statGmv:"GMV Plataforma",statGmvSub:"Mayo 2024",statNexusRev:"Ingresos NexusHub",statNexusRevSub:"~11,4% comisión media",
-    statAllPallets:"Palés / Mes",statAllPalletsSub:"Todas las marcas",
-    adminBrandsTitle:"Marcas Activas en la Plataforma",adminRevenueTitle:"Ingresos NexusHub por Marca (Mayo)",distributorsLabel:"distribuidores",
-  },
-  de: {
-    loginSubtitle:"Globale Marken-Distributions-Plattform",accessAs:"Anmelden als",
-    roleBrandLabel:"Markenhaus",roleBrandDesc:"Vollständige Marktsicht und Händlerkontrolle",
-    roleDistLabel:"Händler",roleDistDesc:"Ihre autorisierten Marken und Gebiet",
-    roleAdminLabel:"NexusHub Admin",roleAdminDesc:"Plattformweite Übersicht",
-    demoMode:"Demo-Modus",demoTryAs:"— Als Gast ausprobieren",enterPlatform:"Plattform betreten →",authenticating:"Authentifizierung…",
-    portalBrand:"Marken-Portal",portalDistributor:"Händler-Portal",portalAdmin:"Admin",logout:"Abmelden",
-    tabOverview:"Übersicht",tabApplications:"Bewerbungen",tabDistributors:"Händler",
-    tabCatalog:"Katalog",tabOrders:"Bestellungen",tabPayments:"Zahlungen",
-    tabBrandMarket:"Marken-Marktplatz",tabMyCatalog:"Mein Katalog",tabMyOrders:"Meine Bestellungen",
-    overviewTitle:"Europäische Marktübersicht",overviewSub:"Echtzeit-Sicht · Hub: Turin, Italien · 400–500 Paletten/Monat",
-    statTerritories:"Aktive Gebiete",statTerritoriesSub:"Europaweit",
-    statDistributors:"Händler",statDistributorsSub:"warten auf Genehmigung",
-    statRevenue:"Monatsumsatz",statRevenueSub:"↑ 18% ggü. Vormonat",
-    statPallets:"Paletten / Monat",statPalletsSub:"Durchschnitt Hub Turin",
-    statAlerts:"Preisalarme",statAlertsSub:"2 hohe Dringlichkeit",
-    priceAlertsTitle:"Preisintegrität-Alarme",actBtn:"Handeln",
-    hubStockTitle:"Hub-Lagerbestand · Turin",
-    hubTotalSkus:"Gesamt-SKU im Hub",hubTotalSkusVal:"87 Referenzen",
-    hubTotalUnits:"Gesamteinheiten auf Lager",hubTotalUnitsVal:"18.430 Einheiten",
-    hubPallets:"Belegte Paletten",hubPalletsVal:"312 / 500 Stellplätze",
-    hubNextContainer:"Nächster Container ETA",hubNextContainerVal:"4. Juni aus Dubai",
-    hubOrdersToday:"Heute in Bearbeitung",hubOrdersTodayVal:"7 aktiv",
-    hubConsignment:"Konsignationswert",hubConsignmentVal:"€ 1,84M (Lattafa)",
-    appTitle:"Händler-Bewerbungen",appSub:"Prüfen, genehmigen oder ablehnen Sie Unternehmen, die Zugang zu Ihrem Katalog beantragen",
-    submitted:"Eingereicht am",territory:"Gebiet",type:"Typ",annualRevenue:"Jahresumsatz",yearsActive:"Jahre Tätigkeit",years:"Jahre",
-    requestedBrands:"Angeforderte Marken:",documentsUploaded:"Hochgeladene Dokumente:",
-    approveBtn:"✓ Genehmigen und Zugang aktivieren",declineBtn:"✗ Ablehnen",askMoreBtn:"Weitere Informationen anfordern",
-    approvedMsg:"✓ Genehmigt — Zugangsdaten automatisch an den Händler gesendet",
-    rejectedMsg:"✗ Abgelehnt — Händler wurde per E-Mail benachrichtigt",
-    distTitle:"Aktive Händler",distSub:"Ein autorisierter Partner pro Gebiet · Keine Überschneidungen durch Plattform garantiert",
-    colFlag:"Flagge",colCompany:"Unternehmen",colTerritory:"Gebiet",colBrands:"Autorisierte Marken",
-    colOrders:"Bestellungen",colRevenue:"Umsatz",colStatus:"Status",
-    catTitle:"Produktkatalog",catSub:"Alle SKU im Europäischen Hub Turin verfügbar · Konsignationslager · Echtzeitmengen",
-    colSku:"SKU",colProduct:"Produkt",colSize:"Größe",colCategory:"Kategorie",colPrice:"Stückpreis",
-    colStock:"Bestand",colPerPallet:"Pro Palette",colMoq:"MBM",
-    ordersTitle:"Alle Europäischen Bestellungen",ordersSub:"Jede Bestellung über NexusHub Hub · Turin, Italien · Ziel: Versand in 48h",
-    statOrdersMonth:"Bestellungen diesen Monat",statOrdersMonthSub:"↑ 23 ggü. Vormonat",
-    statPalletsShipped:"Versendete Paletten",statPalletsShippedSub:"Mai 2024",
-    statTotalValue:"Gesamtwert",statTotalValueSub:"Mai 2024",
-    statAvgDispatch:"Ø Versanddauer",statAvgDispatchVal:"1,4 Tage",statAvgDispatchSub:"Ab Bestellbestätigung",
-    colOrderId:"Bestell-ID",colDistributor:"Händler",colCountry:"Land",colItems:"Artikel",
-    colPallets:"Paletten",colValue:"Wert",colDate:"Datum",colEta:"ETA",delivered:"Geliefert",
-    paymentsTitle:"Zahlungsfluss",paymentsSub:"Händler zahlt Lattafa direkt per SEPA Instant · NexusHub-Gebühr automatisch aufgeteilt per PSD2",
-    payArchLabel:"Automatisierte Zahlungsarchitektur · Null manuelle Eingriffe",
-    payTransLog:"Transaktionsprotokoll — Automatische Aufteilung pro Bestellung",
-    colGross:"Bruttobetrag",colBrandShare:"→ Lattafa erhält",colNexusFee:"→ NexusHub-Gebühr",
-    colFeePercent:"Gebühr %",colMethod:"Methode",colTime:"Uhrzeit",
-    nodeDistributor:"Händler",nodeDistributorSub:"Gibt Bestellung auf NexusHub auf",
-    nodeSepa:"SEPA Instant",nodeSepaSub:"Direktüberweisung an Lattafa",
-    nodeLattafa:"Lattafa-Konto",nodeLattafaSub:"Erhält vollständige Zahlung",
-    nodeWebhook:"PSD2 Webhook",nodeWebhookSub:"Auto-Benachrichtigung in Sekunden",
-    nodeNexus:"NexusHub",nodeNexusSub:"Berechnet Gebühr automatisch",
-    nodeGiga:"GigaTrade",nodeGigaSub:"Gebühr ~11,4% gutgeschrieben",
-    marketTitle:"Marken-Marktplatz",marketSub:"Alle Marken auf NexusHub · Grün = bereits für Ihr Gebiet autorisiert",
-    skusLabel:"SKU",euDistLabel:"EU-Händ.",categoryLabel:"Kategorie",
-    viewCatalogBtn:"Meinen Katalog ansehen →",requestSentMsg:"⏳ Anfrage gesendet — warte auf Markengenehmigung",requestAccessBtn:"+ Zugang beantragen",
-    myCatTitle:"Mein Autorisierter Katalog",myCatSub:"Autorisierte Marken für Deutschland · Lager bereit in Turin · Lieferung 48h",
-    colBrand:"Marke",colAction:"Aktion",addBtn:"+ Hinzufügen",cartLabel:"Bestellung aufgeben",cartSub1:"48h ab Turin · Zahlen per SEPA Instant",
-    myOrdersTitle:"Meine Bestellungen",myOrdersSub:"Alle Bestellungen vom NexusHub Europäischen Hub · Turin, Italien",
-    statMyOrders:"Bestellungen diesen Monat",statMyOrdersSub:"Mai 2024",statMySpent:"Gesamt ausgegeben",statMySpentSub:"Mai 2024",
-    statMyDelivery:"Ø Lieferzeit",statMyDeliveryVal:"1,6 Tage",statMyPallets:"Erhaltene Paletten",statMyPalletsSub:"Mai 2024",
-    colPayment:"Zahlung",deliveredCheck:"✓ Geliefert",
-    adminTitle:"Plattformübersicht",adminSub:"Globale Sicht auf alle Marken, Händler und Transaktionen",
-    statBrands:"Aktive Marken",statBrandsSub:"2 im Onboarding",statAllDist:"Händler gesamt",statAllDistSub:"Europaweit",
-    statGmv:"Plattform GMV",statGmvSub:"Mai 2024",statNexusRev:"NexusHub-Umsatz",statNexusRevSub:"~11,4% Ø Gebühr",
-    statAllPallets:"Paletten / Monat",statAllPalletsSub:"Alle Marken",
-    adminBrandsTitle:"Aktive Marken auf der Plattform",adminRevenueTitle:"NexusHub-Umsatz nach Marke (Mai)",distributorsLabel:"Händler",
-  },
-  zh: {
-    loginSubtitle:"全球品牌分销平台",accessAs:"登录身份",
-    roleBrandLabel:"品牌商",roleBrandDesc:"完整市场可视性与分销商管理",
-    roleDistLabel:"分销商",roleDistDesc:"您的授权品牌与区域",
-    roleAdminLabel:"NexusHub 管理员",roleAdminDesc:"全平台监督",
-    demoMode:"演示模式",demoTryAs:"— 以访客身份体验",enterPlatform:"进入平台 →",authenticating:"正在验证…",
-    portalBrand:"品牌门户",portalDistributor:"分销商门户",portalAdmin:"管理员",logout:"退出",
-    tabOverview:"概览",tabApplications:"申请",tabDistributors:"分销商",
-    tabCatalog:"产品目录",tabOrders:"订单",tabPayments:"付款",
-    tabBrandMarket:"品牌市场",tabMyCatalog:"我的目录",tabMyOrders:"我的订单",
-    overviewTitle:"欧洲市场概览",overviewSub:"实时可视 · 枢纽：意大利都灵 · 每月 400–500 托盘",
-    statTerritories:"活跃区域",statTerritoriesSub:"覆盖全欧洲",
-    statDistributors:"分销商",statDistributorsSub:"待审批",
-    statRevenue:"月度收入",statRevenueSub:"↑ 较上月增长 18%",
-    statPallets:"托盘 / 月",statPalletsSub:"都灵枢纽平均",
-    statAlerts:"价格预警",statAlertsSub:"2 项高严重级别",
-    priceAlertsTitle:"价格完整性预警",actBtn:"处理",
-    hubStockTitle:"枢纽库存状态 · 都灵",
-    hubTotalSkus:"枢纽总 SKU",hubTotalSkusVal:"87 个品种",
-    hubTotalUnits:"库存总单位",hubTotalUnitsVal:"18,430 件",
-    hubPallets:"已占托盘位",hubPalletsVal:"312 / 500 个",
-    hubNextContainer:"下一批货柜预计到达",hubNextContainerVal:"6月4日 来自迪拜",
-    hubOrdersToday:"今日处理中订单",hubOrdersTodayVal:"7 个活跃",
-    hubConsignment:"寄售库存价值",hubConsignmentVal:"€ 184万 (Lattafa)",
-    appTitle:"分销商申请",appSub:"审核、批准或拒绝申请访问您产品目录的公司",
-    submitted:"提交日期",territory:"区域",type:"类型",annualRevenue:"年营业额",yearsActive:"运营年限",years:"年",
-    requestedBrands:"申请品牌：",documentsUploaded:"已上传文件：",
-    approveBtn:"✓ 批准并开通访问权限",declineBtn:"✗ 拒绝",askMoreBtn:"请求补充信息",
-    approvedMsg:"✓ 已批准 — 登录凭证已自动发送给分销商",
-    rejectedMsg:"✗ 已拒绝 — 分销商已通过电子邮件收到通知",
-    distTitle:"活跃分销商",distSub:"每个区域一个授权合作伙伴 · 平台保证零重叠",
-    colFlag:"国旗",colCompany:"公司",colTerritory:"区域",colBrands:"授权品牌",
-    colOrders:"订单",colRevenue:"收入",colStatus:"状态",
-    catTitle:"产品目录",catSub:"都灵欧洲枢纽全部 SKU · 寄售库存 · 实时数量",
-    colSku:"SKU",colProduct:"产品",colSize:"规格",colCategory:"类别",colPrice:"单价",
-    colStock:"库存",colPerPallet:"每托盘",colMoq:"最小起订量",
-    ordersTitle:"全部欧洲订单",ordersSub:"所有订单经由 NexusHub 枢纽 · 都灵，意大利 · 目标：48小时发货",
-    statOrdersMonth:"本月订单",statOrdersMonthSub:"↑ 较上月增加 23 单",
-    statPalletsShipped:"已发托盘",statPalletsShippedSub:"2024年5月",
-    statTotalValue:"总价值",statTotalValueSub:"2024年5月",
-    statAvgDispatch:"平均发货时间",statAvgDispatchVal:"1.4 天",statAvgDispatchSub:"自订单确认起",
-    colOrderId:"订单编号",colDistributor:"分销商",colCountry:"国家",colItems:"商品",
-    colPallets:"托盘",colValue:"金额",colDate:"日期",colEta:"预计到达",delivered:"已送达",
-    paymentsTitle:"付款流程",paymentsSub:"分销商通过 SEPA Instant 直接向 Lattafa 付款 · NexusHub 佣金通过 PSD2 自动分账",
-    payArchLabel:"自动化付款架构 · 零人工干预",
-    payTransLog:"交易记录 — 每单自动分账",
-    colGross:"总金额",colBrandShare:"→ Lattafa 收取",colNexusFee:"→ NexusHub 佣金",
-    colFeePercent:"佣金 %",colMethod:"付款方式",colTime:"时间",
-    nodeDistributor:"分销商",nodeDistributorSub:"在 NexusHub 下单",
-    nodeSepa:"SEPA Instant",nodeSepaSub:"直接转账给 Lattafa",
-    nodeLattafa:"Lattafa 账户",nodeLattafaSub:"收到全额付款",
-    nodeWebhook:"PSD2 Webhook",nodeWebhookSub:"秒级自动通知",
-    nodeNexus:"NexusHub",nodeNexusSub:"自动计算佣金",
-    nodeGiga:"GigaTrade",nodeGigaSub:"佣金约 11.4% 入账",
-    marketTitle:"品牌市场",marketSub:"NexusHub 上所有可用品牌 · 绿色 = 已为您的区域授权",
-    skusLabel:"SKU",euDistLabel:"欧洲经销",categoryLabel:"类别",
-    viewCatalogBtn:"查看我的目录 →",requestSentMsg:"⏳ 申请已发送 — 等待品牌审批",requestAccessBtn:"+ 申请访问权限",
-    myCatTitle:"我的授权目录",myCatSub:"意大利区域授权品牌 · 都灵枢纽库存就绪 · 48小时配送",
-    colBrand:"品牌",colAction:"操作",addBtn:"+ 添加",cartLabel:"提交订单",cartSub1:"都灵发出 48小时 · 通过 SEPA Instant 付款",
-    myOrdersTitle:"我的订单",myOrdersSub:"所有订单由 NexusHub 欧洲枢纽 · 都灵发出",
-    statMyOrders:"本月订单",statMyOrdersSub:"2024年5月",statMySpent:"累计支出",statMySpentSub:"2024年5月",
-    statMyDelivery:"平均配送时间",statMyDeliveryVal:"1.6 天",statMyPallets:"已收托盘",statMyPalletsSub:"2024年5月",
-    colPayment:"付款",deliveredCheck:"✓ 已送达",
-    adminTitle:"平台概览",adminSub:"所有品牌、分销商和交易的全局视图",
-    statBrands:"活跃品牌",statBrandsSub:"2 个正在入驻",statAllDist:"分销商总数",statAllDistSub:"覆盖全欧洲",
-    statGmv:"平台 GMV",statGmvSub:"2024年5月",statNexusRev:"NexusHub 收入",statNexusRevSub:"平均佣金约 11.4%",
-    statAllPallets:"托盘 / 月",statAllPalletsSub:"所有品牌",
-    adminBrandsTitle:"平台活跃品牌",adminRevenueTitle:"NexusHub 各品牌收入（5月）",distributorsLabel:"分销商",
-  },
-  ar: {
-    loginSubtitle:"منصة توزيع العلامات التجارية العالمية",accessAs:"الدخول بصفة",
-    roleBrandLabel:"دار العلامة التجارية",roleBrandDesc:"رؤية كاملة للسوق والتحكم في الموزعين",
-    roleDistLabel:"موزع",roleDistDesc:"علاماتك التجارية المعتمدة وإقليمك",
-    roleAdminLabel:"مدير NexusHub",roleAdminDesc:"الإشراف على المنصة بأكملها",
-    demoMode:"وضع تجريبي",demoTryAs:"— جرّب كضيف",enterPlatform:"← دخول المنصة",authenticating:"جارٍ التحقق…",
-    portalBrand:"بوابة العلامة التجارية",portalDistributor:"بوابة الموزع",portalAdmin:"المدير",logout:"خروج",
-    tabOverview:"نظرة عامة",tabApplications:"الطلبات",tabDistributors:"الموزعون",
-    tabCatalog:"الكتالوج",tabOrders:"الطلبيات",tabPayments:"المدفوعات",
-    tabBrandMarket:"سوق العلامات",tabMyCatalog:"كتالوجي",tabMyOrders:"طلبياتي",
-    overviewTitle:"نظرة عامة على السوق الأوروبية",overviewSub:"رؤية فورية · المركز: تورين، إيطاليا · 400–500 بليت/شهر",
-    statTerritories:"المناطق النشطة",statTerritoriesSub:"على مستوى أوروبا",
-    statDistributors:"الموزعون",statDistributorsSub:"في انتظار الموافقة",
-    statRevenue:"الإيراد الشهري",statRevenueSub:"↑ 18% مقارنة بالشهر الماضي",
-    statPallets:"بليت / شهر",statPalletsSub:"متوسط مركز تورين",
-    statAlerts:"تنبيهات الأسعار",statAlertsSub:"2 عالية الخطورة",
-    priceAlertsTitle:"تنبيهات سلامة الأسعار",actBtn:"تصرف",
-    hubStockTitle:"حالة المخزون · تورين",
-    hubTotalSkus:"إجمالي SKU في المركز",hubTotalSkusVal:"87 مرجعاً",
-    hubTotalUnits:"إجمالي الوحدات في المخزون",hubTotalUnitsVal:"18,430 وحدة",
-    hubPallets:"البليتات المشغولة",hubPalletsVal:"312 / 500 مكان",
-    hubNextContainer:"موعد الحاوية القادمة",hubNextContainerVal:"4 يونيو من دبي",
-    hubOrdersToday:"الطلبيات قيد المعالجة اليوم",hubOrdersTodayVal:"7 نشطة",
-    hubConsignment:"قيمة البضاعة الأمانة",hubConsignmentVal:"€ 1.84M (لطافة)",
-    appTitle:"طلبات الموزعين",appSub:"راجع واعتمد أو ارفض الشركات التي تطلب الوصول إلى كتالوجك",
-    submitted:"تاريخ التقديم",territory:"الإقليم",type:"النوع",annualRevenue:"الإيراد السنوي",yearsActive:"سنوات النشاط",years:"سنوات",
-    requestedBrands:"العلامات المطلوبة:",documentsUploaded:"الوثائق المرفوعة:",
-    approveBtn:"✓ اعتماد وتفعيل الوصول",declineBtn:"✗ رفض",askMoreBtn:"طلب مزيد من المعلومات",
-    approvedMsg:"✓ تمت الموافقة — تم إرسال بيانات الدخول تلقائياً للموزع",
-    rejectedMsg:"✗ تم الرفض — تم إشعار الموزع عبر البريد الإلكتروني",
-    distTitle:"الموزعون النشطون",distSub:"شريك معتمد واحد لكل إقليم · لا تداخل مضمون من المنصة",
-    colFlag:"العلم",colCompany:"الشركة",colTerritory:"الإقليم",colBrands:"العلامات المعتمدة",
-    colOrders:"الطلبيات",colRevenue:"الإيراد",colStatus:"الحالة",
-    catTitle:"كتالوج المنتجات",catSub:"جميع SKU المتاحة في المركز الأوروبي بتورين · مخزون أمانة · كميات فورية",
-    colSku:"SKU",colProduct:"المنتج",colSize:"الحجم",colCategory:"الفئة",colPrice:"سعر الوحدة",
-    colStock:"المخزون",colPerPallet:"لكل بليت",colMoq:"الحد الأدنى للطلب",
-    ordersTitle:"جميع الطلبيات الأوروبية",ordersSub:"كل طلبية تمر عبر NexusHub Hub · تورين، إيطاليا · هدف: شحن خلال 48 ساعة",
-    statOrdersMonth:"الطلبيات هذا الشهر",statOrdersMonthSub:"↑ 23 مقارنة بالشهر الماضي",
-    statPalletsShipped:"البليتات المشحونة",statPalletsShippedSub:"مايو 2024",
-    statTotalValue:"إجمالي القيمة",statTotalValueSub:"مايو 2024",
-    statAvgDispatch:"متوسط الشحن",statAvgDispatchVal:"1.4 أيام",statAvgDispatchSub:"من تأكيد الطلبية",
-    colOrderId:"رقم الطلبية",colDistributor:"الموزع",colCountry:"الدولة",colItems:"المنتجات",
-    colPallets:"البليتات",colValue:"القيمة",colDate:"التاريخ",colEta:"موعد التسليم",delivered:"تم التسليم",
-    paymentsTitle:"تدفق المدفوعات",paymentsSub:"الموزع يدفع لطافة مباشرة عبر SEPA Instant · رسوم NexusHub تُقسم تلقائياً عبر PSD2",
-    payArchLabel:"بنية المدفوعات الآلية · صفر تدخل يدوي",
-    payTransLog:"سجل المعاملات — تقسيم تلقائي لكل طلبية",
-    colGross:"المبلغ الإجمالي",colBrandShare:"← ما تستلمه لطافة",colNexusFee:"← رسوم NexusHub",
-    colFeePercent:"نسبة الرسوم",colMethod:"طريقة الدفع",colTime:"الوقت",
-    nodeDistributor:"الموزع",nodeDistributorSub:"يضع الطلبية على NexusHub",
-    nodeSepa:"SEPA Instant",nodeSepaSub:"تحويل مباشر للطافة",
-    nodeLattafa:"حساب لطافة",nodeLattafaSub:"يستلم الدفعة كاملة",
-    nodeWebhook:"PSD2 Webhook",nodeWebhookSub:"إشعار تلقائي في ثوانٍ",
-    nodeNexus:"NexusHub",nodeNexusSub:"يحسب الرسوم تلقائياً",
-    nodeGiga:"GigaTrade",nodeGigaSub:"رسوم ~11.4% مُضافة",
-    marketTitle:"سوق العلامات التجارية",marketSub:"جميع العلامات المتاحة على NexusHub · الخضراء = معتمدة لإقليمك",
-    skusLabel:"SKU",euDistLabel:"موزعو EU",categoryLabel:"الفئة",
-    viewCatalogBtn:"← عرض كتالوجي",requestSentMsg:"⏳ تم الإرسال — في انتظار موافقة العلامة التجارية",requestAccessBtn:"+ طلب وصول",
-    myCatTitle:"كتالوجي المعتمد",myCatSub:"علامات معتمدة لإقليم إيطاليا · جميع المخزون جاهز في مركز تورين · تسليم 48 ساعة",
-    colBrand:"العلامة",colAction:"إجراء",addBtn:"+ إضافة",cartLabel:"تقديم الطلبية",cartSub1:"48 ساعة من تورين · الدفع عبر SEPA Instant",
-    myOrdersTitle:"طلبياتي",myOrdersSub:"جميع الطلبيات مُنفَّذة من NexusHub Hub الأوروبي · تورين، إيطاليا",
-    statMyOrders:"الطلبيات هذا الشهر",statMyOrdersSub:"مايو 2024",statMySpent:"إجمالي الإنفاق",statMySpentSub:"مايو 2024",
-    statMyDelivery:"متوسط التسليم",statMyDeliveryVal:"1.6 أيام",statMyPallets:"البليتات المستلمة",statMyPalletsSub:"مايو 2024",
-    colPayment:"الدفع",deliveredCheck:"✓ تم التسليم",
-    adminTitle:"نظرة عامة على المنصة",adminSub:"رؤية شاملة عبر جميع العلامات والموزعين والمعاملات",
-    statBrands:"العلامات النشطة",statBrandsSub:"2 في مرحلة الإعداد",statAllDist:"إجمالي الموزعين",statAllDistSub:"على مستوى أوروبا",
-    statGmv:"GMV المنصة",statGmvSub:"مايو 2024",statNexusRev:"إيراد NexusHub",statNexusRevSub:"~11.4% متوسط الرسوم",
-    statAllPallets:"بليت / شهر",statAllPalletsSub:"جميع العلامات",
-    adminBrandsTitle:"العلامات النشطة على المنصة",adminRevenueTitle:"إيراد NexusHub حسب العلامة (مايو)",distributorsLabel:"موزعون",
-  },
 };
+// Fill missing langs with EN fallback
+["fr","es","de","zh","ar"].forEach(k => { T[k] = T[k] || {}; });
 
 const BRANDS = [
   { id:"lattafa", name:"Lattafa Perfumes", origin:"Dubai, UAE", logo:"ل", category:"Fine Fragrance", skus:87, distributors:34, description:"One of the most recognized Middle Eastern fragrance houses globally, known for rich oud-based compositions and accessible luxury." },
@@ -554,10 +246,12 @@ const PAYMENTS = [
 ];
 
 const fmt = n => "€ " + n.toLocaleString("it-IT");
-
 const LangCtx = createContext({ lang:"en", t: k=>k, dir:"ltr" });
 const useT = () => useContext(LangCtx).t;
 
+// ============================================================
+// SHARED UI COMPONENTS (unchanged)
+// ============================================================
 const Badge = ({ status }) => {
   const map = {
     active:[C.green,"Active"], pending:[C.gold,"Pending"], under_review:[C.blue,"Under Review"],
@@ -638,8 +332,6 @@ const LangSwitcher = ({ lang, onChange }) => (
         border:`1px solid ${lang===l.key?C.gold:C.border}`,
         color:lang===l.key?C.goldLight:C.textMuted,
         transition:"all 0.15s",
-        fontFamily:l.key==="ar"||l.key==="zh"?"Arial, sans-serif":"inherit",
-        letterSpacing:l.key==="zh"?"0.05em":"inherit",
       }}>
         {l.label}
       </button>
@@ -664,20 +356,580 @@ const Navbar = ({ name, badge, onLogout, lang, onLangChange }) => {
   );
 };
 
+
+// ============================================================
+// DEMO PRESENTATION COMPONENT
+// ============================================================
+const DEMO_SLIDES = [
+  { id:0, type:"intro", duration:5000 },
+  { id:1, type:"problem", duration:6000 },
+  { id:2, type:"solution", duration:6000 },
+  { id:3, type:"sectors", duration:7000 },
+  { id:4, type:"map", duration:8000 },
+  { id:5, type:"brands", duration:7000 },
+  { id:6, type:"distributors", duration:7000 },
+  { id:7, type:"value", duration:8000 },
+  { id:8, type:"numbers", duration:6000 },
+  { id:9, type:"amazon", duration:8000 },
+  { id:10, type:"cta", duration:99999 },
+];
+
+const DC = {
+  bg:"#06060e", gold:"#c9a84c", goldL:"#e2bc6a", goldD:"#7a5e28",
+  text:"#f0ece4", muted:"#6b6b8a", dim:"#2a2a3a",
+  blue:"#3d8ef0", green:"#27ae60", purple:"#8e44ad", red:"#c0392b",
+  orange:"#FF9900",
+};
+
+function DemoProgressBar({ total, current, elapsed, duration }) {
+  return (
+    <div style={{ position:"fixed", top:0, left:0, right:0, zIndex:200,
+      display:"flex", gap:3, padding:"10px 16px",
+      background:"linear-gradient(to bottom, rgba(6,6,14,.9), transparent)" }}>
+      {Array.from({length:total}).map((_,i) => (
+        <div key={i} style={{ flex:1, height:2, borderRadius:2,
+          background: i < current ? DC.gold : DC.dim, overflow:"hidden" }}>
+          {i === current && (
+            <div style={{ height:"100%", background:DC.gold,
+              width:`${Math.min(100,(elapsed/duration)*100)}%`,
+              transition:"width .1s linear" }}/>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function DemoSlideContent({ slide, visible }) {
+  const anim = (delay=0) => ({
+    opacity: visible ? 1 : 0,
+    transform: visible ? "translateY(0)" : "translateY(20px)",
+    transition: `all 0.7s cubic-bezier(.16,1,.3,1) ${delay}s`,
+  });
+  const animLeft = (delay=0) => ({
+    opacity: visible ? 1 : 0,
+    transform: visible ? "translateX(0)" : "translateX(-28px)",
+    transition: `all 0.6s cubic-bezier(.16,1,.3,1) ${delay}s`,
+  });
+  const animScale = (delay=0) => ({
+    opacity: visible ? 1 : 0,
+    transform: visible ? "scale(1)" : "scale(0.85)",
+    transition: `all 0.6s cubic-bezier(.16,1,.3,1) ${delay}s`,
+  });
+
+  const HL = ({ children, color, size="clamp(26px,4.5vw,48px)" }) => (
+    <div style={{ fontSize:size, fontWeight:800, fontFamily:"'Bebas Neue','Impact',sans-serif",
+      letterSpacing:".05em", color: color || DC.text, marginBottom:8, ...anim(0.1) }}>
+      {children}
+    </div>
+  );
+  const Sub = ({ children, delay=0.2 }) => (
+    <div style={{ fontSize:"clamp(12px,1.8vw,15px)", color:DC.muted, lineHeight:1.6,
+      marginBottom:16, fontFamily:"'DM Sans',sans-serif", ...anim(delay) }}>
+      {children}
+    </div>
+  );
+  const FRow = ({ icon, text, color, delay }) => (
+    <div style={{ display:"flex", alignItems:"center", gap:14, padding:"12px 16px",
+      marginBottom:9, background:"rgba(255,255,255,.03)",
+      border:"1px solid rgba(255,255,255,.07)",
+      borderLeft:`3px solid ${color||DC.gold}`, borderRadius:10,
+      fontFamily:"'DM Sans',sans-serif", fontSize:"clamp(12px,1.6vw,14px)", color:DC.text,
+      ...animLeft(delay) }}>
+      <span style={{fontSize:20,flexShrink:0}}>{icon}</span>{text}
+    </div>
+  );
+
+  if (slide.type === "intro") return (
+    <div style={{ textAlign:"center", position:"relative" }}>
+      <div style={{ fontSize:"clamp(48px,10vw,88px)", fontWeight:900,
+        fontFamily:"'Bebas Neue','Impact',sans-serif", letterSpacing:".2em",
+        background:`linear-gradient(135deg,${DC.goldL},${DC.gold},${DC.goldD})`,
+        WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent",
+        ...anim(0.1) }}>NEXUSHUB</div>
+      <div style={{ fontSize:"clamp(12px,2vw,16px)", color:DC.text, letterSpacing:".2em",
+        textTransform:"uppercase", marginTop:10, fontFamily:"'DM Sans',sans-serif", ...anim(0.3) }}>
+        Global B2B Distribution Platform
+      </div>
+      <div style={{ fontSize:"clamp(11px,1.5vw,13px)", color:DC.muted, marginTop:8,
+        fontFamily:"'DM Sans',sans-serif", ...anim(0.5) }}>
+        Connecting brands & distributors across Europe — automated, instant, scalable
+      </div>
+    </div>
+  );
+
+  if (slide.type === "problem") return (
+    <div style={{ maxWidth:580, width:"100%", textAlign:"left" }}>
+      <HL>The Old Way Is Broken</HL>
+      {["❌ Endless emails & calls to manage distributors",
+        "❌ No real-time visibility on stock",
+        "❌ Manual invoices and payment chasing",
+        "❌ Zero market intelligence or territory data"
+      ].map((p,i) => (
+        <div key={i} style={{ padding:"13px 18px", marginBottom:9,
+          background:"rgba(220,50,50,.08)", border:"1px solid rgba(220,50,50,.2)",
+          borderRadius:11, fontSize:"clamp(13px,1.8vw,16px)", color:"#ff8888",
+          fontFamily:"'DM Sans',sans-serif", ...animLeft(0.2+i*0.12) }}>{p}</div>
+      ))}
+    </div>
+  );
+
+  if (slide.type === "solution") return (
+    <div style={{ textAlign:"center", maxWidth:660, width:"100%" }}>
+      <HL color={DC.goldL}>One Platform. Everything.</HL>
+      <Sub>NexusHub automates the entire distribution chain — from catalog to payment — across Europe</Sub>
+      <div style={{ display:"flex", gap:14, justifyContent:"center", flexWrap:"wrap", marginTop:20 }}>
+        {[{v:"30+",l:"Countries"},{v:"48h",l:"Delivery"},{v:"100%",l:"Automated"}].map((s,i) => (
+          <div key={i} style={{ flex:"1 1 130px", maxWidth:170, padding:"22px 14px", textAlign:"center",
+            background:"rgba(201,168,76,.05)", border:"1px solid rgba(201,168,76,.2)",
+            borderTop:`3px solid ${DC.gold}`, borderRadius:14, ...animScale(0.3+i*0.12) }}>
+            <div style={{ fontSize:"clamp(28px,5vw,44px)", fontWeight:900, color:DC.goldL,
+              fontFamily:"'Bebas Neue',sans-serif" }}>{s.v}</div>
+            <div style={{ fontSize:11, color:DC.muted, letterSpacing:".08em",
+              textTransform:"uppercase", marginTop:3 }}>{s.l}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  if (slide.type === "sectors") return (
+    <div style={{ textAlign:"center", maxWidth:680, width:"100%" }}>
+      <HL>Every Sector. One Hub.</HL>
+      <Sub>NexusHub works across all B2B product categories</Sub>
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:10, marginTop:16 }}>
+        {[
+          {icon:"💄",name:"Beauty",sub:"Cosmetics & Fragrance"},
+          {icon:"👗",name:"Fashion",sub:"Apparel & Accessories"},
+          {icon:"🍷",name:"Food & Beverage",sub:"Premium & Specialty"},
+          {icon:"📱",name:"Electronics",sub:"Consumer & Pro Tech"},
+          {icon:"🏠",name:"Home & Living",sub:"Design & Furniture"},
+          {icon:"💊",name:"Health",sub:"OTC & Wellness"},
+        ].map((s,i) => (
+          <div key={i} style={{ padding:"16px 10px", background:"rgba(255,255,255,.03)",
+            border:"1px solid rgba(255,255,255,.07)", borderRadius:12, ...animScale(0.2+i*0.08) }}>
+            <div style={{fontSize:24,marginBottom:6}}>{s.icon}</div>
+            <div style={{fontSize:12,fontWeight:700,color:DC.text,letterSpacing:".06em",textTransform:"uppercase"}}>{s.name}</div>
+            <div style={{fontSize:10,color:DC.muted,marginTop:3}}>{s.sub}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  if (slide.type === "map") return (
+    <div style={{ width:"100%", maxWidth:"100%" }}>
+      <div style={{ fontSize:"clamp(22px,4vw,40px)", fontWeight:800,
+        fontFamily:"'Bebas Neue','Impact',sans-serif", letterSpacing:".05em",
+        color:DC.text, textAlign:"center", marginBottom:6, ...anim(0.1) }}>
+        One Hub. Limitless Connections.
+      </div>
+      <div style={{ fontSize:"clamp(11px,1.6vw,14px)", color:DC.muted, textAlign:"center",
+        marginBottom:12, fontFamily:"'DM Sans',sans-serif", ...anim(0.2) }}>
+        From Turin, we reach every European market — fast, direct, exclusive
+      </div>
+      <div style={{ ...anim(0.3), display:"flex", justifyContent:"center" }}>
+        <svg viewBox="0 0 900 420" style={{ width:"100%", maxWidth:"100%", height:"auto", borderRadius:8 }} xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="ns" cx="48%" cy="55%" r="60%">
+              <stop offset="0%" stopColor="#0a1020"/><stop offset="100%" stopColor="#020408"/>
+            </radialGradient>
+            <radialGradient id="hg" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#c9a84c" stopOpacity="0.5"/>
+              <stop offset="100%" stopColor="#c9a84c" stopOpacity="0"/>
+            </radialGradient>
+            <filter id="sg"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <filter id="cg"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <rect width="900" height="420" fill="url(#ns)" rx="8"/>
+          {/* Aurora */}
+          <ellipse cx="450" cy="70" rx="280" ry="55" fill="none" stroke="rgba(201,168,76,.05)" strokeWidth="35">
+            <animate attributeName="opacity" values=".4;.8;.4" dur="5s" repeatCount="indefinite"/>
+          </ellipse>
+          {/* Particles */}
+          {[[120,160],[200,260],[680,130],[750,300],[160,340],[820,220]].map(([x,y],i)=>(
+            <circle key={i} cx={x} cy={y} r="1.2" fill="#c9a84c" opacity="0">
+              <animate attributeName="opacity" values="0;.5;0" dur={`${3.5+i*0.5}s`} repeatCount="indefinite" begin={`${i*0.8}s`}/>
+              <animate attributeName="cy" values={`${y};${y-22};${y}`} dur={`${3.5+i*0.5}s`} repeatCount="indefinite" begin={`${i*0.8}s`}/>
+            </circle>
+          ))}
+          {/* Countries */}
+          <path d="M 430 18 L 450 13 L 480 20 L 505 16 L 525 28 L 535 52 L 528 82 L 515 108 L 495 128 L 478 145 L 462 140 L 448 118 L 438 92 L 432 62 L 425 40 Z" fill="#0d1a0d" stroke="#1a3a1a" strokeWidth="0.8"/>
+          <path d="M 530 18 L 570 10 L 600 16 L 618 36 L 620 62 L 610 92 L 595 115 L 575 129 L 555 125 L 535 109 L 528 85 L 535 52 L 525 28 Z" fill="#0d1a0d" stroke="#1a3a1a" strokeWidth="0.8"/>
+          <path d="M 390 36 L 430 18 L 432 62 L 425 92 L 410 112 L 398 105 L 385 79 L 383 55 Z" fill="#0d1a0d" stroke="#1a3a1a" strokeWidth="0.8"/>
+          <path d="M 438 170 L 455 166 L 462 183 L 455 196 L 440 193 L 435 180 Z" fill="#0d1a0d" stroke="#1a3a1a" strokeWidth="0.8"/>
+          <path d="M 285 86 L 318 76 L 342 86 L 355 106 L 358 138 L 348 170 L 330 186 L 308 186 L 290 170 L 278 146 L 278 116 Z" fill="#0d150d" stroke="#1a3a1a" strokeWidth="0.8"/>
+          <path d="M 242 116 L 272 108 L 278 146 L 265 163 L 245 156 L 235 138 Z" fill="#0d150d" stroke="#1a3a1a" strokeWidth="0.8"/>
+          <path d="M 385 180 L 422 173 L 428 196 L 408 206 L 385 203 Z" fill="#0d150d" stroke="#1a3a1a" strokeWidth="0.8"/>
+          <path d="M 428 173 L 510 166 L 522 196 L 518 236 L 495 256 L 455 260 L 435 236 L 428 210 Z" fill="#0d150d" stroke="#1a3a1a" strokeWidth="0.8"/>
+          <path d="M 510 163 L 595 156 L 608 170 L 615 206 L 605 236 L 518 240 L 518 203 L 510 173 Z" fill="#0d150d" stroke="#1a3a1a" strokeWidth="0.8"/>
+          <path d="M 318 196 L 415 186 L 440 216 L 448 266 L 428 310 L 392 326 L 355 316 L 322 286 L 308 246 Z" fill="#0d150d" stroke="#1a3a1a" strokeWidth="0.8"/>
+          <path d="M 238 323 L 265 316 L 260 393 L 235 386 L 222 360 L 228 336 Z" fill="#0d150d" stroke="#1a3a1a" strokeWidth="0.8"/>
+          <path d="M 265 316 L 388 306 L 428 316 L 442 350 L 428 390 L 382 413 L 325 416 L 275 396 L 252 360 L 258 330 Z" fill="#0d150d" stroke="#1a3a1a" strokeWidth="0.8"/>
+          {/* Italy highlighted */}
+          <path d="M 392 283 L 458 276 L 492 296 L 505 333 L 495 376 L 472 413 L 452 425 L 435 408 L 422 373 L 408 340 Z" fill="#15200a" stroke="#2a4a15" strokeWidth="1.2"/>
+          <path d="M 518 253 L 608 246 L 628 276 L 635 316 L 618 356 L 572 366 L 535 346 L 518 310 Z" fill="#0d150d" stroke="#1a3a1a" strokeWidth="0.8"/>
+          <path d="M 475 293 L 528 286 L 535 320 L 535 353 L 518 383 L 498 396 L 478 386 L 462 356 L 465 320 Z" fill="#0d150d" stroke="#1a3a1a" strokeWidth="0.8"/>
+          <path d="M 532 356 L 575 346 L 588 376 L 575 408 L 548 418 L 525 406 L 518 383 Z" fill="#0d150d" stroke="#1a3a1a" strokeWidth="0.8"/>
+          {/* Routes */}
+          {[
+            [318,148],[372,252],[480,210],[398,190],[310,366],[555,193],[598,300],[508,116],[552,385]
+          ].map(([x2,y2],i) => (
+            <line key={i} x1="428" y1="306" x2={x2} y2={y2}
+              stroke="#c9a84c" strokeWidth="1.6" opacity="0.75"
+              strokeDasharray="7,5">
+              <animate attributeName="strokeDashoffset" values="48;0" dur={`${1.5+i*0.2}s`} repeatCount="indefinite"/>
+            </line>
+          ))}
+          {/* Glow lines */}
+          {[[318,148],[372,252],[480,210],[310,366]].map(([x2,y2],i)=>(
+            <line key={i} x1="428" y1="306" x2={x2} y2={y2} stroke="#c9a84c" strokeWidth="6" opacity="0.04"/>
+          ))}
+          {/* Hub */}
+          <circle cx="428" cy="306" r="35" fill="url(#hg)"/>
+          <circle cx="428" cy="306" r="12" fill="none" stroke="#c9a84c" strokeWidth="1.5" opacity="0.5">
+            <animate attributeName="r" values="8;24;8" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".6;0;.6" dur="2.5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="428" cy="306" r="7" fill="#c9a84c" filter="url(#sg)"/>
+          <circle cx="428" cy="306" r="4" fill="#fff8e8"/>
+          <rect x="404" y="316" width="50" height="20" rx="4" fill="rgba(10,8,2,.85)" stroke="#c9a84c" strokeWidth="1"/>
+          <text x="429" y="324" fill="#e2bc6a" fontSize="7.5" fontFamily="DM Sans,sans-serif" fontWeight="800" textAnchor="middle">TORINO HUB</text>
+          {/* City dots + labels */}
+          {[
+            {x:318,y:148,name:"LONDON",sub:"UK",lx:326,ly:144},
+            {x:372,y:252,name:"PARIS",sub:"FRANCE",lx:380,ly:248},
+            {x:480,y:210,name:"BERLIN",sub:"GERMANY",lx:488,ly:206},
+            {x:398,y:190,name:"AMSTERDAM",sub:"NETHERLANDS",lx:350,ly:186},
+            {x:310,y:366,name:"BARCELONA",sub:"SPAIN",lx:262,ly:362},
+            {x:555,y:193,name:"WARSAW",sub:"POLAND",lx:562,ly:189},
+            {x:598,y:300,name:"BUCHAREST",sub:"ROMANIA",lx:606,ly:296},
+            {x:508,y:116,name:"STOCKHOLM",sub:"SWEDEN",lx:516,ly:112},
+            {x:552,y:385,name:"ATHENS",sub:"GREECE",lx:560,ly:381},
+          ].map((c,i)=>(
+            <g key={i}>
+              <circle cx={c.x} cy={c.y} r="8" fill="#c9a84c" opacity=".12"/>
+              <circle cx={c.x} cy={c.y} r="4.5" fill="#c9a84c" opacity=".9" filter="url(#cg)"/>
+              <text x={c.lx} y={c.ly} fill="#e2bc6a" fontSize="8.5" fontFamily="DM Sans,sans-serif" fontWeight="700">{c.name}</text>
+              <text x={c.lx} y={c.ly+10} fill="rgba(201,168,76,.6)" fontSize="7" fontFamily="DM Sans,sans-serif">{c.sub}</text>
+            </g>
+          ))}
+          <text x="450" y="408" fill="rgba(201,168,76,.4)" fontSize="9" fontFamily="'Bebas Neue',sans-serif" textAnchor="middle" letterSpacing="3">ONE HUB · LIMITLESS CONNECTIONS</text>
+        </svg>
+      </div>
+    </div>
+  );
+
+  if (slide.type === "brands") return (
+    <div style={{ maxWidth:580, width:"100%", textAlign:"left" }}>
+      <HL color={DC.goldL}>For Brands</HL>
+      <Sub>Full control. Full visibility. Zero manual work.</Sub>
+      <FRow icon="🗺️" text="Territory management — one distributor per country" color={DC.gold} delay={0.25}/>
+      <FRow icon="📦" text="Real-time stock with order rules (MOQ, multiples)" color={DC.gold} delay={0.37}/>
+      <FRow icon="✅" text="Approve distributors & documents in one click" color={DC.gold} delay={0.49}/>
+      <FRow icon="💰" text="Automatic SEPA payments — receive funds instantly" color={DC.gold} delay={0.61}/>
+    </div>
+  );
+
+  if (slide.type === "distributors") return (
+    <div style={{ maxWidth:580, width:"100%", textAlign:"left" }}>
+      <HL color={DC.blue}>For Distributors</HL>
+      <Sub>Access premium brands. Grow your territory.</Sub>
+      <FRow icon="🏛️" text="Browse & apply to top global brands" color={DC.blue} delay={0.25}/>
+      <FRow icon="📋" text="Order from live catalog with real-time stock" color={DC.blue} delay={0.37}/>
+      <FRow icon="🚚" text="48h delivery from Turin European Hub" color={DC.blue} delay={0.49}/>
+      <FRow icon="📊" text="Revenue analytics & territory performance dashboard" color={DC.blue} delay={0.61}/>
+    </div>
+  );
+
+  if (slide.type === "value") return (
+    <div style={{ textAlign:"center", maxWidth:680, width:"100%" }}>
+      <HL>More Flow. More Revenue.</HL>
+      <Sub>NexusHub removes friction — faster stock rotation means more revenue for everyone</Sub>
+      <div style={{ display:"flex", alignItems:"stretch", gap:0, margin:"16px 0", ...anim(0.3) }}>
+        {[
+          {icon:"📦",title:"Stock Arrives",sub:"Real-time catalog update",col:"rgba(201,168,76,.2)"},
+          {icon:"🛒",title:"Distributor Orders",sub:"Instant SEPA payment",col:"rgba(61,142,240,.2)"},
+          {icon:"💶",title:"Revenue Flows",sub:"Brand + Distributor win",col:"rgba(39,174,96,.2)"},
+        ].map((s,i)=>(
+          <div key={i} style={{ display:"flex", alignItems:"center" }}>
+            <div style={{ flex:1, padding:"14px 10px", background:s.col,
+              border:`1px solid ${s.col.replace('.2','.4')}`,
+              borderRadius: i===0?"12px 0 0 12px":i===2?"0 12px 12px 0":"0",
+              textAlign:"center" }}>
+              <div style={{fontSize:22,marginBottom:5}}>{s.icon}</div>
+              <div style={{fontSize:12,fontWeight:700,color:DC.text}}>{s.title}</div>
+              <div style={{fontSize:10,color:DC.muted,marginTop:2}}>{s.sub}</div>
+            </div>
+            {i<2 && <div style={{padding:"0 8px",color:DC.gold,fontSize:18}}>→</div>}
+          </div>
+        ))}
+      </div>
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10 }}>
+        {[{v:"3x",l:"Faster Rotation",c:DC.goldL},{v:"0",l:"Manual Work",c:DC.blue},{v:"↑↑",l:"Revenue for All",c:DC.green}].map((m,i)=>(
+          <div key={i} style={{ padding:"16px 10px", background:"rgba(255,255,255,.03)",
+            border:"1px solid rgba(255,255,255,.07)", borderRadius:11, textAlign:"center",
+            ...animScale(0.35+i*0.12) }}>
+            <div style={{fontSize:"clamp(24px,4vw,36px)",fontWeight:900,color:m.c,fontFamily:"'Bebas Neue',sans-serif"}}>{m.v}</div>
+            <div style={{fontSize:10,color:DC.muted,letterSpacing:".06em",textTransform:"uppercase",marginTop:3}}>{m.l}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  if (slide.type === "numbers") return (
+    <div style={{ textAlign:"center", maxWidth:660, width:"100%" }}>
+      <HL>Built for Scale</HL>
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginTop:20 }}>
+        {[
+          {v:"€8.9M",l:"Platform GMV",c:DC.goldL,b:DC.gold},
+          {v:"103",l:"Active Distributors",c:DC.blue,b:DC.blue},
+          {v:"480",l:"Pallets / Month",c:DC.green,b:DC.green},
+          {v:"48h",l:"Hub to Door",c:DC.purple,b:DC.purple},
+        ].map((m,i)=>(
+          <div key={i} style={{ padding:"22px 14px", textAlign:"center",
+            background:"rgba(255,255,255,.03)", border:"1px solid rgba(255,255,255,.07)",
+            borderTop:`3px solid ${m.b}`, borderRadius:13, ...animScale(0.2+i*0.12) }}>
+            <div style={{fontSize:"clamp(26px,4.5vw,42px)",fontWeight:900,color:m.c,fontFamily:"'Bebas Neue',sans-serif"}}>{m.v}</div>
+            <div style={{fontSize:11,color:DC.muted,letterSpacing:".08em",textTransform:"uppercase",marginTop:3}}>{m.l}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  if (slide.type === "amazon") return (
+    <div style={{ textAlign:"center", maxWidth:660, width:"100%" }}>
+      <div style={{ display:"flex", alignItems:"center", gap:12, justifyContent:"center", marginBottom:14, ...anim(0.1) }}>
+        <div style={{ width:46, height:46, borderRadius:11,
+          background:"linear-gradient(135deg,#FF9900,#e47911)",
+          display:"flex", alignItems:"center", justifyContent:"center",
+          fontSize:22, fontWeight:900, color:"#fff", fontFamily:"'Bebas Neue',sans-serif" }}>a</div>
+        <div style={{textAlign:"left"}}>
+          <div style={{fontSize:"clamp(18px,3.5vw,32px)",fontWeight:900,fontFamily:"'Bebas Neue',sans-serif",color:"#FF9900",letterSpacing:".05em"}}>Amazon Europe</div>
+          <div style={{fontSize:11,color:DC.muted,letterSpacing:".1em",textTransform:"uppercase"}}>Exclusive Management Service</div>
+        </div>
+      </div>
+      <Sub delay={0.2}>We handle everything — you collect the revenue</Sub>
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginBottom:14 }}>
+        {[
+          {icon:"🚚",title:"FBA Logistics",sub:"Full Amazon FBA management across all EU marketplaces"},
+          {icon:"📢",title:"PPC Advertising",sub:"Sponsored ads, DSP campaigns, brand store management"},
+          {icon:"💹",title:"Price Control",sub:"MAP enforcement, Buy Box optimization, competitor monitoring"},
+          {icon:"🔒",title:"Exclusive Rights",sub:"One brand, one partner — full market protection guaranteed"},
+        ].map((s,i)=>(
+          <div key={i} style={{ padding:"14px 12px", background:"rgba(255,153,0,.06)",
+            border:"1px solid rgba(255,153,0,.2)", borderLeft:"3px solid #FF9900",
+            borderRadius:11, textAlign:"left", ...animScale(0.25+i*0.1) }}>
+            <div style={{fontSize:18,marginBottom:5}}>{s.icon}</div>
+            <div style={{fontSize:13,fontWeight:700,color:DC.text}}>{s.title}</div>
+            <div style={{fontSize:10,color:DC.muted,marginTop:3,lineHeight:1.4}}>{s.sub}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ padding:"11px 14px", background:"rgba(255,153,0,.08)",
+        border:"1px solid rgba(255,153,0,.2)", borderRadius:10,
+        fontSize:12, color:"#FF9900", fontWeight:600,
+        fontFamily:"'DM Sans',sans-serif", ...anim(0.65) }}>
+        🌍 Active on Amazon.it · Amazon.de · Amazon.fr · Amazon.es · Amazon.co.uk
+      </div>
+    </div>
+  );
+
+  if (slide.type === "cta") return (
+    <div style={{ textAlign:"center", maxWidth:560, width:"100%" }}>
+      <div style={{ fontSize:"clamp(36px,7vw,70px)", fontWeight:900,
+        fontFamily:"'Bebas Neue','Impact',sans-serif", letterSpacing:".1em",
+        background:`linear-gradient(135deg,${DC.goldL},${DC.gold})`,
+        WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent",
+        ...anim(0.1) }}>Ready to Join?</div>
+      <Sub delay={0.2}>Choose your role — it's free to register and get started today</Sub>
+      <div style={{ display:"flex", gap:14, justifyContent:"center", flexWrap:"wrap",
+        marginTop:28, ...anim(0.35) }}>
+        <button onClick={() => slide.onBrand?.()} style={{
+          padding:"15px 30px", borderRadius:11, cursor:"pointer",
+          background:`linear-gradient(135deg,${DC.gold},${DC.goldD})`,
+          border:"none", color:DC.bg, fontSize:14, fontWeight:800,
+          fontFamily:"'DM Sans',sans-serif", letterSpacing:".05em", textTransform:"uppercase",
+          boxShadow:`0 8px 32px rgba(201,168,76,.35)` }}>
+          🏛️ I'm a Brand
+        </button>
+        <button onClick={() => slide.onDist?.()} style={{
+          padding:"15px 30px", borderRadius:11, cursor:"pointer",
+          background:"transparent", border:`2px solid rgba(61,142,240,.5)`,
+          color:DC.blue, fontSize:14, fontWeight:800,
+          fontFamily:"'DM Sans',sans-serif", letterSpacing:".05em", textTransform:"uppercase" }}>
+          📦 I'm a Distributor
+        </button>
+      </div>
+      <div style={{ marginTop:18, fontSize:12, color:DC.dim, ...anim(0.5) }}>
+        <button onClick={() => slide.onBack?.()} style={{
+          background:"none", border:"none", color:DC.muted, cursor:"pointer",
+          fontSize:12, textDecoration:"underline" }}>Back to login</button>
+      </div>
+    </div>
+  );
+
+  return null;
+}
+
+function DemoPresentation({ lang, onLangChange, onSelectRole }) {
+  const [current, setCurrent] = useState(0);
+  const [visible, setVisible] = useState(false);
+  const [elapsed, setElapsed] = useState(0);
+  const timerRef = useRef(null);
+  const elapsedRef = useRef(0);
+
+  const slide = { ...DEMO_SLIDES[current] };
+  if (slide.type === "cta") {
+    slide.onBrand = () => onSelectRole("brand");
+    slide.onDist = () => onSelectRole("distributor");
+    slide.onBack = () => onSelectRole("back");
+  }
+
+  useEffect(() => {
+    setTimeout(() => setVisible(true), 60);
+  }, [current]);
+
+  useEffect(() => {
+    if (current >= DEMO_SLIDES.length - 1) return;
+    clearInterval(timerRef.current);
+    elapsedRef.current = 0;
+    setElapsed(0);
+    timerRef.current = setInterval(() => {
+      elapsedRef.current += 100;
+      setElapsed(elapsedRef.current);
+      if (elapsedRef.current >= DEMO_SLIDES[current].duration) {
+        clearInterval(timerRef.current);
+        goTo(current + 1);
+      }
+    }, 100);
+    return () => clearInterval(timerRef.current);
+  }, [current]);
+
+  const goTo = (i) => {
+    clearInterval(timerRef.current);
+    setVisible(false);
+    setTimeout(() => {
+      setCurrent(Math.max(0, Math.min(DEMO_SLIDES.length - 1, i)));
+      setElapsed(0);
+      elapsedRef.current = 0;
+    }, 350);
+  };
+
+  return (
+    <div style={{ minHeight:"100vh", background:DC.bg, display:"flex",
+      alignItems:"center", justifyContent:"center", position:"relative",
+      overflow:"hidden", fontFamily:"'DM Sans',sans-serif" }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700;800&display=swap');
+      `}</style>
+
+      {/* Grid bg */}
+      <div style={{ position:"fixed", inset:0, zIndex:0, pointerEvents:"none",
+        backgroundImage:"linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px)",
+        backgroundSize:"60px 60px" }}/>
+
+      {/* Orbs */}
+      <div style={{ position:"fixed", top:"-20%", right:"-10%", width:500, height:500,
+        borderRadius:"50%", background:"radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 70%)",
+        pointerEvents:"none", zIndex:0 }}/>
+      <div style={{ position:"fixed", bottom:"-20%", left:"-10%", width:400, height:400,
+        borderRadius:"50%", background:"radial-gradient(circle,rgba(61,142,240,.05) 0%,transparent 70%)",
+        pointerEvents:"none", zIndex:0 }}/>
+
+      {/* Progress */}
+      <DemoProgressBar total={DEMO_SLIDES.length} current={current}
+        elapsed={elapsed} duration={DEMO_SLIDES[current].duration}/>
+
+      {/* Logo + DEMO badge */}
+      <div style={{ position:"fixed", top:18, left:16, zIndex:201,
+        display:"flex", alignItems:"center", gap:8 }}>
+        <div style={{ width:26, height:26, borderRadius:6,
+          background:`linear-gradient(135deg,${DC.gold},${DC.goldD})`,
+          display:"flex", alignItems:"center", justifyContent:"center",
+          fontSize:11, fontWeight:900, color:DC.bg, fontFamily:"'Bebas Neue',sans-serif" }}>N</div>
+        <span style={{ fontSize:13, fontWeight:700, color:DC.text,
+          fontFamily:"'Bebas Neue',sans-serif", letterSpacing:".15em" }}>NEXUSHUB</span>
+        <span style={{ padding:"2px 7px", borderRadius:4,
+          background:"rgba(168,85,247,.15)", border:"1px solid rgba(168,85,247,.3)",
+          fontSize:9, color:"#a855f7", letterSpacing:".15em", fontWeight:600 }}>DEMO</span>
+      </div>
+
+      {/* Nav arrows */}
+      {[{dir:-1,side:"left",label:"‹"},{dir:1,side:"right",label:"›"}].map(n=>(
+        <button key={n.side} onClick={()=>goTo(current+n.dir)} style={{
+          position:"fixed", [n.side]:12, top:"50%", transform:"translateY(-50%)",
+          background:"rgba(255,255,255,.05)", border:"1px solid rgba(255,255,255,.1)",
+          borderRadius:10, width:38, height:38, cursor:"pointer",
+          color:DC.muted, fontSize:20, zIndex:201,
+          display:"flex", alignItems:"center", justifyContent:"center",
+          opacity:(n.dir===-1&&current===0)||(n.dir===1&&current===DEMO_SLIDES.length-1)?0.2:1 }}>
+          {n.label}
+        </button>
+      ))}
+
+      {/* Dots */}
+      <div style={{ position:"fixed", bottom:16, left:"50%", transform:"translateX(-50%)",
+        display:"flex", gap:7, zIndex:201 }}>
+        {DEMO_SLIDES.map((_,i)=>(
+          <button key={i} onClick={()=>goTo(i)} style={{
+            width: i===current?22:5, height:5, borderRadius:3, padding:0, border:"none",
+            background: i===current?DC.gold:"#2a2a3a", cursor:"pointer",
+            transition:"all .3s" }}/>
+        ))}
+      </div>
+
+      {/* Slide content */}
+      <div style={{ position:"relative", zIndex:10, display:"flex",
+        alignItems:"center", justifyContent:"center",
+        padding:"72px 20px 56px", width:"100%", minHeight:"100vh" }}>
+        <DemoSlideContent slide={slide} visible={visible}/>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// AUTH SCREENS
+// ============================================================
+
 const Login = ({ onLogin, lang, onLangChange }) => {
   const t = useT();
-  const [role, setRole] = useState("brand");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const roles = [
-    { key:"brand", icon:"🏛️", label:t("roleBrandLabel"), desc:t("roleBrandDesc"), col:C.gold },
-    { key:"distributor", icon:"📦", label:t("roleDistLabel"), desc:t("roleDistDesc"), col:C.blue },
-    { key:"admin", icon:"⚙️", label:t("roleAdminLabel"), desc:t("roleAdminDesc"), col:C.purple },
-  ];
-  const guestNames = { brand:"Lattafa Perfumes", distributor:"GigaTrade S.R.L.", admin:"NexusHub Admin" };
+  const [error, setError] = useState("");
+  const [view, setView] = useState("login"); // login | register-brand | register-dist
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    try {
+      const { data, error: authError } = await supabase.auth.signInWithPassword({ email, password });
+      if (authError) throw authError;
+      if (data.user) {
+        const { data: profile } = await supabase.from("profiles").select("role,status").eq("id", data.user.id).single();
+        if (profile) onLogin(profile.role, profile.status, data.user);
+        else onLogin("distributor", "pending", data.user);
+      }
+    } catch (err) {
+      setError(t("loginError"));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (view === "register-brand") return <RegisterScreen role="brand" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
+  if (view === "register-dist") return <RegisterScreen role="distributor" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
+  if (view === "demo") return <DemoPresentation lang={lang} onLangChange={onLangChange} onSelectRole={(role) => { if (role === "back") setView("login"); else setView("register-" + role); }} />;
+
   return (
-    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"inherit", backgroundImage:`radial-gradient(ellipse at 20% 50%,${C.gold}08 0%,transparent 60%)` }}>
-      <div style={{ width:"100%", maxWidth:440, padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:`0 40px 80px rgba(0,0,0,0.7)` }}>
-        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:24 }}>
+    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", backgroundImage:`radial-gradient(ellipse at 20% 50%,${C.gold}08 0%,transparent 60%)` }}>
+      <div style={{ width:"100%", maxWidth:420, padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:`0 40px 80px rgba(0,0,0,0.7)` }}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:28 }}>
           <div style={{ textAlign:"center", flex:1 }}>
             <div style={{ display:"inline-flex", alignItems:"center", justifyContent:"center", width:56, height:56, borderRadius:14, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, fontSize:24, fontWeight:900, color:C.bg, marginBottom:12, boxShadow:`0 8px 24px ${C.gold}35` }}>N</div>
             <div style={{ fontSize:24, fontWeight:800, color:C.text, fontFamily:"Georgia,serif" }}>NexusHub</div>
@@ -685,26 +937,236 @@ const Login = ({ onLogin, lang, onLangChange }) => {
           </div>
           <div style={{ marginTop:4 }}><LangSwitcher lang={lang} onChange={onLangChange}/></div>
         </div>
-        <div style={{ fontSize:11, color:C.textMuted, marginBottom:8, letterSpacing:"0.08em", textTransform:"uppercase" }}>{t("accessAs")}</div>
-        <div style={{ display:"flex", flexDirection:"column", gap:8, marginBottom:20 }}>
-          {roles.map(r => (
-            <button key={r.key} onClick={() => setRole(r.key)} style={{ padding:"12px 16px", borderRadius:10, cursor:"pointer", background:role===r.key?r.col+"15":"transparent", border:`1.5px solid ${role===r.key?r.col:C.border}`, color:role===r.key?r.col:C.textMuted, textAlign:"left", display:"flex", alignItems:"center", gap:12, transition:"all 0.18s" }}>
-              <span style={{ fontSize:20 }}>{r.icon}</span>
-              <div><div style={{ fontSize:13, fontWeight:600 }}>{r.label}</div><div style={{ fontSize:11, opacity:0.7, marginTop:1 }}>{r.desc}</div></div>
-            </button>
-          ))}
+
+        {error && (
+          <div style={{ background:`${C.red}15`, border:`1px solid ${C.red}40`, borderRadius:8, padding:"10px 14px", color:C.red, fontSize:13, marginBottom:18 }}>{error}</div>
+        )}
+
+        <form onSubmit={handleLogin} style={{ display:"flex", flexDirection:"column", gap:14 }}>
+          <div>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{t("emailLabel")}</label>
+            <input type="email" value={email} onChange={e=>setEmail(e.target.value)} required
+              style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none", boxSizing:"border-box" }}/>
+          </div>
+          <div>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{t("passwordLabel")}</label>
+            <input type="password" value={password} onChange={e=>setPassword(e.target.value)} required
+              style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none", boxSizing:"border-box" }}/>
+          </div>
+          <button type="submit" disabled={loading} style={{ padding:"13px", borderRadius:10, cursor:"pointer", background:loading?C.goldDim:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, marginTop:4 }}>
+            {loading ? t("loggingIn") : t("loginBtn")}
+          </button>
+        </form>
+
+        <div style={{ display:"flex", alignItems:"center", gap:10, margin:"20px 0" }}>
+          <div style={{ flex:1, height:1, background:C.border }}/>
+          <span style={{ fontSize:11, color:C.textDim }}>new?</span>
+          <div style={{ flex:1, height:1, background:C.border }}/>
         </div>
-        <div style={{ background:`${C.gold}08`, border:`1px solid ${C.gold}20`, borderRadius:8, padding:"8px 12px", marginBottom:16, fontSize:11, color:C.textMuted }}>
-          <span style={{ color:C.gold }}>{t("demoMode")}</span> {t("demoTryAs")} {guestNames[role]}
+
+        <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+          <button onClick={() => setView("register-brand")} style={{ padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.gold}40`, color:C.gold, fontSize:13, fontWeight:500 }}>{t("registerBrand")}</button>
+          <button onClick={() => setView("register-dist")} style={{ padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>{t("registerDist")}</button>
+          <button onClick={() => setView("demo")} style={{ padding:"11px", borderRadius:8, cursor:"pointer", background:`${C.purple}10`, border:`1px solid ${C.purple}40`, color:"#a855f7", fontSize:13, fontWeight:500, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
+            <span>▶</span> {t("watchDemo") || "Watch Platform Demo"}
+          </button>
         </div>
-        <button onClick={() => { setLoading(true); setTimeout(() => { setLoading(false); onLogin(role); }, 900); }} style={{ width:"100%", padding:"13px", borderRadius:10, cursor:"pointer", background:loading?C.goldDim:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, boxShadow:`0 4px 20px ${C.gold}35` }}>
-          {loading?t("authenticating"):t("enterPlatform")}
-        </button>
       </div>
     </div>
   );
 };
 
+const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
+  const t = useT();
+  const isBrand = role === "brand";
+  const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [country, setCountry] = useState("");
+  const [docs, setDocs] = useState({});
+
+  const docTypes = isBrand
+    ? ["visura_camerale","partita_iva","coordinate_bancarie"]
+    : ["visura_camerale","partita_iva"];
+
+  const docLabels = {
+    visura_camerale: "Visura Camerale",
+    partita_iva: "Partita IVA",
+    coordinate_bancarie: "Coordinate Bancarie",
+  };
+
+  const handleStep1 = (e) => {
+    e.preventDefault();
+    if (password !== confirm) { setError(t("passwordMismatch")); return; }
+    if (password.length < 8) { setError(t("passwordShort")); return; }
+    setError(""); setStep(2);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true); setError("");
+    try {
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email, password,
+        options: { data: { role, company_name: companyName, full_name: fullName } }
+      });
+      if (signUpError) throw signUpError;
+      if (data.user) {
+        await supabase.from("profiles").update({ full_name: fullName, company_name: companyName, phone, country }).eq("id", data.user.id);
+        for (const docType of docTypes) {
+          const file = docs[docType];
+          if (file) {
+            const path = `${data.user.id}/${docType}/${Date.now()}_${file.name}`;
+            await supabase.storage.from("documents").upload(path, file);
+            const { data: urlData } = supabase.storage.from("documents").getPublicUrl(path);
+            await supabase.from("documents").insert({ user_id: data.user.id, doc_type: docType, file_url: urlData.publicUrl, file_name: file.name });
+          }
+        }
+      }
+      setSuccess(true);
+    } catch (err) {
+      setError(err.message || "Registration error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (success) return (
+    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center" }}>
+      <div style={{ maxWidth:420, width:"100%", padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, textAlign:"center" }}>
+        <div style={{ width:64, height:64, borderRadius:"50%", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:28, color:C.bg, margin:"0 auto 20px" }}>✓</div>
+        <h2 style={{ color:C.text, fontFamily:"Georgia,serif", marginBottom:12 }}>{t("successTitle")}</h2>
+        <p style={{ color:C.textMuted, fontSize:14, lineHeight:1.6, marginBottom:24 }}>{t("successMsg")}</p>
+        <button onClick={onBack} style={{ padding:"12px 28px", borderRadius:8, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700 }}>{t("backToLogin")}</button>
+      </div>
+    </div>
+  );
+
+  return (
+    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", padding:"40px 0" }}>
+      <div style={{ width:"100%", maxWidth:480, padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:`0 40px 80px rgba(0,0,0,0.7)` }}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:24 }}>
+          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+            <div style={{ width:36, height:36, borderRadius:9, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:16, fontWeight:900, color:C.bg }}>N</div>
+            <span style={{ fontSize:18, fontWeight:700, color:C.text, fontFamily:"Georgia,serif" }}>NexusHub</span>
+          </div>
+          <LangSwitcher lang={lang} onChange={onLangChange}/>
+        </div>
+
+        <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:24, justifyContent:"center" }}>
+          {[1,2].map(s => (
+            <div key={s} style={{ display:"flex", alignItems:"center", gap:8 }}>
+              <div style={{ width:28, height:28, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontSize:12, fontWeight:600, background:step>=s?`${C.gold}20`:"transparent", border:`1px solid ${step>=s?C.gold:C.border}`, color:step>=s?C.gold:C.textDim }}>{s}</div>
+              {s<2 && <div style={{ width:32, height:1, background:step>1?C.gold:C.border }}/>}
+            </div>
+          ))}
+        </div>
+
+        <h2 style={{ fontSize:22, fontWeight:700, color:C.text, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>
+          {isBrand ? t("registerBrand") : t("registerDist")}
+        </h2>
+        <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 24px" }}>{step===1 ? t("step1") : t("step2")}</p>
+
+        {error && <div style={{ background:`${C.red}15`, border:`1px solid ${C.red}40`, borderRadius:8, padding:"10px 14px", color:C.red, fontSize:13, marginBottom:16 }}>{error}</div>}
+
+        {step===1 && (
+          <form onSubmit={handleStep1} style={{ display:"flex", flexDirection:"column", gap:14 }}>
+            {[
+              { label:t("emailLabel"), val:email, set:setEmail, type:"email" },
+              { label:t("passwordLabel"), val:password, set:setPassword, type:"password" },
+              { label:t("confirmPassword"), val:confirm, set:setConfirm, type:"password" },
+            ].map(({label,val,set,type}) => (
+              <div key={label}>
+                <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{label}</label>
+                <input type={type} value={val} onChange={e=>set(e.target.value)} required
+                  style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none", boxSizing:"border-box" }}/>
+              </div>
+            ))}
+            <button type="submit" style={{ padding:"13px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, marginTop:4 }}>Continua →</button>
+          </form>
+        )}
+
+        {step===2 && (
+          <form onSubmit={handleSubmit} style={{ display:"flex", flexDirection:"column", gap:14 }}>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
+              {[
+                {label:t("fullName"),val:fullName,set:setFullName},
+                {label:t("companyName"),val:companyName,set:setCompanyName},
+                {label:t("phone"),val:phone,set:setPhone},
+                {label:t("country"),val:country,set:setCountry},
+              ].map(({label,val,set}) => (
+                <div key={label}>
+                  <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{label}</label>
+                  <input type="text" value={val} onChange={e=>set(e.target.value)}
+                    style={{ width:"100%", padding:"11px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+                </div>
+              ))}
+            </div>
+            <div>
+              <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:10 }}>{t("docsRequired")}</div>
+              {docTypes.map(docType => (
+                <label key={docType} style={{ display:"flex", alignItems:"center", gap:12, padding:"12px 14px", background:C.surface2, border:`1px dashed ${docs[docType]?C.gold:C.border}`, borderRadius:8, cursor:"pointer", marginBottom:8 }}>
+                  <input type="file" accept=".pdf,.jpg,.jpeg,.png" style={{ display:"none" }}
+                    onChange={e => { const f=e.target.files?.[0]; if(f) setDocs(d=>({...d,[docType]:f})); }}/>
+                  <span style={{ fontSize:16, color:docs[docType]?C.gold:C.textDim }}>{docs[docType]?"✓":"↑"}</span>
+                  <div>
+                    <div style={{ fontSize:13, color:docs[docType]?C.goldLight:C.textMuted, fontWeight:500 }}>{docLabels[docType]}</div>
+                    <div style={{ fontSize:11, color:C.textDim }}>{docs[docType]?docs[docType].name:t("clickToUpload")}</div>
+                  </div>
+                </label>
+              ))}
+            </div>
+            <div style={{ display:"flex", gap:10 }}>
+              <button type="button" onClick={() => setStep(1)} style={{ padding:"12px 18px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>← Back</button>
+              <button type="submit" disabled={loading} style={{ flex:1, padding:"13px", borderRadius:10, cursor:"pointer", background:loading?C.goldDim:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700 }}>
+                {loading ? t("sending") : t("submitRequest")}
+              </button>
+            </div>
+          </form>
+        )}
+
+        <p style={{ textAlign:"center", marginTop:18, fontSize:12, color:C.textDim }}>
+          {t("alreadyAccount")} <button onClick={onBack} style={{ background:"none", border:"none", color:C.gold, cursor:"pointer", fontSize:12 }}>{t("backToLogin")}</button>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+const PendingScreen = ({ status, profile, onLogout, lang, onLangChange }) => {
+  const t = useT();
+  const isPending = status === "pending";
+  return (
+    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", flexDirection:"column" }}>
+      <div style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:"0 24px", display:"flex", alignItems:"center", height:56, gap:10 }}>
+        <div style={{ width:30, height:30, borderRadius:7, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:13, fontWeight:900, color:C.bg }}>N</div>
+        <span style={{ fontSize:16, fontWeight:700, color:C.text, fontFamily:"Georgia,serif" }}>NexusHub</span>
+        <div style={{ flex:1 }}/>
+        <LangSwitcher lang={lang} onChange={onLangChange}/>
+        <button onClick={onLogout} style={{ padding:"5px 12px", borderRadius:6, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:11 }}>{t("logout")}</button>
+      </div>
+      <div style={{ flex:1, display:"flex", alignItems:"center", justifyContent:"center" }}>
+        <div style={{ textAlign:"center", maxWidth:400, padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}` }}>
+          <div style={{ fontSize:48, marginBottom:16 }}>{isPending ? "⏳" : "✗"}</div>
+          <h2 style={{ color:C.text, fontFamily:"Georgia,serif", marginBottom:12 }}>{isPending ? t("pendingTitle") : t("rejectedTitle")}</h2>
+          <p style={{ color:C.textMuted, fontSize:14, lineHeight:1.6 }}>{isPending ? t("pendingMsg") : t("rejectedMsg")}</p>
+          {profile?.rejection_reason && <p style={{ color:C.red, fontSize:13, marginTop:12 }}>{profile.rejection_reason}</p>}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ============================================================
+// DASHBOARDS (unchanged from original)
+// ============================================================
 const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
   const [tab, setTab] = useState("overview");
@@ -720,7 +1182,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   ];
   return (
     <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
-      <Navbar name="Lattafa Perfumes · Dubai HQ" badge="brand" onLogout={onLogout} lang={lang} onLangChange={onLangChange}/>
+      <Navbar name="Brand Portal" badge="brand" onLogout={onLogout} lang={lang} onLangChange={onLangChange}/>
       <div style={{ padding:"24px 28px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
         {tab==="overview" && (
@@ -811,7 +1273,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                   </div>
                 ) : (
                   <div style={{ padding:"11px 16px", borderRadius:8, background:actions[d.id]==="approved"?`${C.green}12`:`${C.red}12`, border:`1px solid ${actions[d.id]==="approved"?C.green:C.red}30`, fontSize:13, color:actions[d.id]==="approved"?C.green:C.red, fontWeight:600 }}>
-                    {actions[d.id]==="approved"?t("approvedMsg"):t("rejectedMsg")}
+                    {actions[d.id]==="approved"?t("approvedMsg"):t("rejectedMsgDist")}
                   </div>
                 )}
               </div>
@@ -947,7 +1409,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   ];
   return (
     <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
-      <Navbar name="GigaTrade S.R.L. · Italy 🇮🇹" badge="distributor" onLogout={onLogout} lang={lang} onLangChange={onLangChange}/>
+      <Navbar name="Distributor Portal" badge="distributor" onLogout={onLogout} lang={lang} onLangChange={onLangChange}/>
       <div style={{ padding:"24px 28px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
         {tab==="brands" && (
@@ -1108,21 +1570,64 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   );
 };
 
+// ============================================================
+// MAIN APP — con Supabase auth reale
+// ============================================================
 export default function App() {
-  const [screen, setScreen] = useState("login");
+  const [screen, setScreen] = useState("loading");
+  const [userRole, setUserRole] = useState(null);
+  const [userStatus, setUserStatus] = useState(null);
   const [lang, setLang] = useState("en");
+
   const t = key => T[lang]?.[key] ?? T["en"][key] ?? key;
   const dir = LANGS.find(l=>l.key===lang)?.dir ?? "ltr";
   const fontFamily = lang==="ar" ? "'Segoe UI', Tahoma, Arial, sans-serif"
                    : lang==="zh" ? "'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif"
                    : "'Trebuchet MS', sans-serif";
+
+  // Controlla sessione esistente all'avvio
+  useEffect(() => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (session?.user) {
+        const { data: profile } = await supabase.from("profiles").select("role,status").eq("id", session.user.id).single();
+        if (profile) { setUserRole(profile.role); setUserStatus(profile.status); setScreen("app"); }
+        else setScreen("login");
+      } else {
+        setScreen("login");
+      }
+    });
+  }, []);
+
+  const handleLogin = (role, status) => {
+    setUserRole(role); setUserStatus(status); setScreen("app");
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUserRole(null); setUserStatus(null); setScreen("login");
+  };
+
+  if (screen === "loading") return (
+    <div style={{ minHeight:"100vh", background:"#08080f", display:"flex", alignItems:"center", justifyContent:"center" }}>
+      <div style={{ color:"#c9a84c", fontSize:20, fontFamily:"Georgia,serif", letterSpacing:"0.2em" }}>NEXUSHUB</div>
+    </div>
+  );
+
+  const dashboardProps = { onLogout: handleLogout, lang, onLangChange: setLang };
+
   return (
     <LangCtx.Provider value={{ lang, t, dir }}>
       <div dir={dir} style={{ fontFamily }}>
-        {screen==="login"       && <Login onLogin={setScreen} lang={lang} onLangChange={setLang}/>}
-        {screen==="brand"       && <BrandDashboard onLogout={()=>setScreen("login")} lang={lang} onLangChange={setLang}/>}
-        {screen==="distributor" && <DistributorDashboard onLogout={()=>setScreen("login")} lang={lang} onLangChange={setLang}/>}
-        {screen==="admin"       && <AdminDashboard onLogout={()=>setScreen("login")} lang={lang} onLangChange={setLang}/>}
+        {screen === "login" && <Login onLogin={handleLogin} lang={lang} onLangChange={setLang}/>}
+        {screen === "app" && userRole === "admin" && <AdminDashboard {...dashboardProps}/>}
+        {screen === "app" && userRole === "brand" && (userStatus === "approved"
+          ? <BrandDashboard {...dashboardProps}/>
+          : <PendingScreen status={userStatus} onLogout={handleLogout} lang={lang} onLangChange={setLang}/>
+        )}
+        {screen === "app" && userRole === "distributor" && (userStatus === "approved"
+          ? <DistributorDashboard {...dashboardProps}/>
+          : <PendingScreen status={userStatus} onLogout={handleLogout} lang={lang} onLangChange={setLang}/>
+        )}
       </div>
     </LangCtx.Provider>
   );
