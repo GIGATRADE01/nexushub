@@ -1517,58 +1517,668 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
 
 const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
-  return (
-    <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
-      <Navbar name="NexusHub Admin" badge="admin" onLogout={onLogout} lang={lang} onLangChange={onLangChange}/>
-      <div style={{ padding:"24px 28px", maxWidth:1400, margin:"0 auto" }}>
-        <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("adminTitle")}</h2>
-        <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("adminSub")}</p>
-        <div style={{ display:"flex", gap:14, marginBottom:26, flexWrap:"wrap" }}>
-          <Stat icon="🏛️" label={t("statBrands")} value="4" sub={t("statBrandsSub")} accent={C.gold}/>
-          <Stat icon="⬡" label={t("statAllDist")} value="103" sub={t("statAllDistSub")} accent={C.blue}/>
-          <Stat icon="↗" label={t("statGmv")} value="€ 8.9M" sub={t("statGmvSub")}/>
-          <Stat icon="💼" label={t("statNexusRev")} value="€ 1.01M" sub={t("statNexusRevSub")} accent={C.green}/>
-          <Stat icon="📦" label={t("statAllPallets")} value="1,840" sub={t("statAllPalletsSub")} accent={C.purple}/>
+  const [tab, setTab] = useState("users");
+  const [users, setUsers] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [notification, setNotification] = useState(null);
+
+  // Modal states
+  const [showAddBrand, setShowAddBrand] = useState(false);
+  const [showAddProduct, setShowAddProduct] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null);
+
+  // Form states
+  const [brandForm, setBrandForm] = useState({ name:"", origin:"", category:"", description:"" });
+  const [productForm, setProductForm] = useState({
+    name:"", sku:"", category:"", size:"", price:"", brand_id:"",
+    order_multiple:12, min_order_qty:12, max_order_qty:"", description:""
+  });
+
+  const notify = (msg, type="success") => {
+    setNotification({ msg, type });
+    setTimeout(() => setNotification(null), 3500);
+  };
+
+  // Load data from Supabase
+  const loadUsers = async () => {
+    setLoading(true);
+    try {
+      const { data } = await supabase.from("profiles")
+        .select("*").neq("role","admin").order("created_at", { ascending: false });
+      setUsers(data || []);
+    } catch(e) { console.error(e); }
+    setLoading(false);
+  };
+
+  const loadBrands = async () => {
+    try {
+      const { data } = await supabase.from("profiles")
+        .select("*").eq("role","brand").order("created_at", { ascending: false });
+      setBrands(data || []);
+    } catch(e) { console.error(e); }
+  };
+
+  const loadProducts = async () => {
+    try {
+      const { data } = await supabase.from("products")
+        .select("*, inventory(*), profiles!products_brand_id_fkey(company_name)")
+        .order("created_at", { ascending: false });
+      setProducts(data || []);
+    } catch(e) { console.error(e); }
+  };
+
+  const loadOrders = async () => {
+    try {
+      const { data } = await supabase.from("orders")
+        .select("*, profiles!orders_distributor_id_fkey(company_name), profiles!orders_brand_id_fkey(company_name)")
+        .order("created_at", { ascending: false }).limit(50);
+      setOrders(data || []);
+    } catch(e) { console.error(e); }
+  };
+
+  useEffect(() => {
+    loadUsers(); loadBrands(); loadProducts(); loadOrders();
+  }, []);
+
+  useEffect(() => {
+    if (tab === "users") loadUsers();
+    if (tab === "brands") loadBrands();
+    if (tab === "catalog") loadProducts();
+    if (tab === "orders") loadOrders();
+  }, [tab]);
+
+  // Approve / Reject user
+  const approveUser = async (id) => {
+    await supabase.from("profiles").update({ status:"approved" }).eq("id", id);
+    notify("✓ User approved!");
+    loadUsers();
+  };
+
+  const rejectUser = async (id, reason="Application declined") => {
+    await supabase.from("profiles").update({ status:"rejected", rejection_reason: reason }).eq("id", id);
+    notify("User rejected", "error");
+    loadUsers();
+  };
+
+  // Add brand manually
+  const addBrand = async () => {
+    const { data: authData } = await supabase.auth.signUp({
+      email: `brand_${Date.now()}@nexushub.platform`,
+      password: Math.random().toString(36).slice(-12),
+    });
+    if (authData.user) {
+      await supabase.from("profiles").upsert({
+        id: authData.user.id,
+        email: `brand_${Date.now()}@nexushub.platform`,
+        role: "brand", status: "approved",
+        company_name: brandForm.name,
+        full_name: brandForm.name,
+      });
+    }
+    notify("Brand added!");
+    setShowAddBrand(false);
+    setBrandForm({ name:"", origin:"", category:"", description:"" });
+    loadBrands();
+  };
+
+  // Add / Edit product
+  const saveProduct = async () => {
+    const payload = {
+      name: productForm.name,
+      sku: productForm.sku,
+      category: productForm.category,
+      description: productForm.description,
+      unit_price: parseFloat(productForm.price) || 0,
+      brand_id: productForm.brand_id,
+      order_multiple: parseInt(productForm.order_multiple) || 12,
+      min_order_qty: parseInt(productForm.min_order_qty) || 12,
+      max_order_qty: productForm.max_order_qty ? parseInt(productForm.max_order_qty) : null,
+      is_active: true,
+    };
+    if (editingProduct) {
+      await supabase.from("products").update(payload).eq("id", editingProduct.id);
+      notify("Product updated!");
+    } else {
+      await supabase.from("products").insert(payload);
+      notify("Product added!");
+    }
+    setShowAddProduct(false);
+    setEditingProduct(null);
+    setProductForm({ name:"", sku:"", category:"", size:"", price:"", brand_id:"", order_multiple:12, min_order_qty:12, max_order_qty:"", description:"" });
+    loadProducts();
+  };
+
+  // Update inventory
+  const updateStock = async (productId, qty) => {
+    await supabase.from("inventory")
+      .update({ quantity_available: parseInt(qty), last_restock_at: new Date().toISOString(), last_restock_qty: parseInt(qty) })
+      .eq("product_id", productId);
+    notify("Stock updated!");
+    loadProducts();
+  };
+
+  // Update order status
+  const updateOrderStatus = async (orderId, status) => {
+    await supabase.from("orders").update({ status }).eq("id", orderId);
+    notify(`Order ${status}!`);
+    loadOrders();
+  };
+
+  const pendingUsers = users.filter(u => u.status === "pending");
+  const approvedUsers = users.filter(u => u.status === "approved");
+
+  const tabs = [
+    { key:"users", icon:"👥", label:"Users", badge: pendingUsers.length },
+    { key:"brands", icon:"🏛️", label:"Brands" },
+    { key:"catalog", icon:"📦", label:"Catalog" },
+    { key:"inventory", icon:"🏭", label:"Inventory" },
+    { key:"orders", icon:"📋", label:"Orders" },
+    { key:"payments", icon:"💰", label:"Payments" },
+    { key:"settings", icon:"⚙️", label:"Settings" },
+  ];
+
+  const Input = ({ label, value, onChange, type="text", placeholder="" }) => (
+    <div style={{ marginBottom:14 }}>
+      <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
+      <input type={type} value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder}
+        style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2,
+          border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+    </div>
+  );
+
+  const Modal = ({ title, onClose, onSave, children }) => (
+    <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.7)", zIndex:500,
+      display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
+      <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:16,
+        padding:28, width:"100%", maxWidth:520, maxHeight:"85vh", overflowY:"auto" }}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
+          <h3 style={{ color:C.text, fontFamily:"Georgia,serif", fontSize:18, margin:0 }}>{title}</h3>
+          <button onClick={onClose} style={{ background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:20 }}>×</button>
         </div>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(320px, 1fr))", gap:16 }}>
-          <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
-            <h3 style={{ margin:"0 0 16px", fontSize:14 }}>{t("adminBrandsTitle")}</h3>
-            {BRANDS.map((b,i) => (
-              <div key={i} style={{ display:"flex", alignItems:"center", gap:12, padding:"11px 0", borderBottom:i<BRANDS.length-1?`1px solid ${C.border}`:"none" }}>
-                <BrandLogo brand={b} size={34}/>
-                <div style={{ flex:1 }}>
-                  <div style={{ fontSize:13, color:C.text, fontWeight:500 }}>{b.name}</div>
-                  <div style={{ fontSize:11, color:C.textMuted }}>{b.distributors} {t("distributorsLabel")} · {b.skus} SKUs</div>
-                </div>
-                <Badge status="active"/>
-              </div>
-            ))}
-          </div>
-          <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
-            <h3 style={{ margin:"0 0 16px", fontSize:14 }}>{t("adminRevenueTitle")}</h3>
-            {[
-              { name:"Armaf", gmv:"€ 3.1M", fee:"€ 354K", pct:100 },
-              { name:"Lattafa Perfumes", gmv:"€ 2.4M", fee:"€ 274K", pct:77 },
-              { name:"Rasasi Perfumes", gmv:"€ 1.8M", fee:"€ 205K", pct:58 },
-              { name:"Ajmal Perfumes", gmv:"€ 1.6M", fee:"€ 182K", pct:52 },
-            ].map((b,i) => (
-              <div key={i} style={{ marginBottom:16 }}>
-                <div style={{ display:"flex", justifyContent:"space-between", marginBottom:6 }}>
-                  <span style={{ fontSize:13, color:C.text }}>{b.name}</span>
-                  <span style={{ fontSize:13, color:C.goldLight, fontWeight:600 }}>{b.fee}</span>
-                </div>
-                <div style={{ height:6, background:C.surface2, borderRadius:3, overflow:"hidden" }}>
-                  <div style={{ height:"100%", width:`${b.pct}%`, background:`linear-gradient(90deg,${C.gold},${C.goldDim})`, borderRadius:3 }}/>
-                </div>
-                <div style={{ fontSize:11, color:C.textDim, marginTop:4 }}>GMV: {b.gmv}</div>
-              </div>
-            ))}
-          </div>
+        {children}
+        <div style={{ display:"flex", gap:10, marginTop:20 }}>
+          <button onClick={onClose} style={{ flex:1, padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>Cancel</button>
+          <button onClick={onSave} style={{ flex:2, padding:"11px", borderRadius:8, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>Save</button>
         </div>
       </div>
     </div>
   );
+
+  return (
+    <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
+      <Navbar name="NexusHub Admin" badge="admin" onLogout={onLogout} lang={lang} onLangChange={onLangChange}/>
+
+      {/* Notification */}
+      {notification && (
+        <div style={{ position:"fixed", top:64, right:20, zIndex:400,
+          padding:"12px 20px", borderRadius:10,
+          background: notification.type==="error" ? `${C.red}20` : `${C.green}20`,
+          border:`1px solid ${notification.type==="error" ? C.red : C.green}`,
+          color: notification.type==="error" ? C.red : C.green,
+          fontSize:13, fontWeight:600, boxShadow:"0 4px 20px rgba(0,0,0,.3)" }}>
+          {notification.msg}
+        </div>
+      )}
+
+      <div style={{ padding:"24px 20px", maxWidth:1400, margin:"0 auto" }}>
+        {/* Tab Nav */}
+        <div style={{ display:"flex", gap:4, marginBottom:24, borderBottom:`1px solid ${C.border}`, overflowX:"auto" }}>
+          {tabs.map(tb => (
+            <button key={tb.key} onClick={() => setTab(tb.key)} style={{
+              padding:"10px 16px", cursor:"pointer", background:"transparent",
+              border:"none", borderBottom:`2px solid ${tab===tb.key?C.gold:"transparent"}`,
+              color: tab===tb.key ? C.goldLight : C.textMuted,
+              fontSize:13, fontWeight: tab===tb.key ? 600 : 400,
+              display:"flex", alignItems:"center", gap:6, whiteSpace:"nowrap",
+              transition:"all .15s", marginBottom:-1 }}>
+              {tb.icon} {tb.label}
+              {tb.badge>0 && <span style={{ background:C.red, color:"#fff", borderRadius:10, padding:"1px 6px", fontSize:10, fontWeight:700 }}>{tb.badge}</span>}
+            </button>
+          ))}
+        </div>
+
+        {/* USERS TAB */}
+        {tab === "users" && (
+          <div>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
+              <div>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>User Management</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Approve or reject brand and distributor registrations</p>
+              </div>
+              <div style={{ display:"flex", gap:10 }}>
+                <div style={{ padding:"10px 16px", background:`${C.red}15`, border:`1px solid ${C.red}30`, borderRadius:10, fontSize:13, color:C.red, fontWeight:600 }}>
+                  ⏳ {pendingUsers.length} Pending
+                </div>
+                <div style={{ padding:"10px 16px", background:`${C.green}15`, border:`1px solid ${C.green}30`, borderRadius:10, fontSize:13, color:C.green, fontWeight:600 }}>
+                  ✓ {approvedUsers.length} Active
+                </div>
+              </div>
+            </div>
+
+            {loading ? <div style={{ color:C.textMuted, padding:40, textAlign:"center" }}>Loading...</div> : (
+              <>
+                {pendingUsers.length > 0 && (
+                  <div style={{ marginBottom:28 }}>
+                    <h3 style={{ fontSize:14, color:C.gold, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>⏳ Pending Approval</h3>
+                    {pendingUsers.map(u => (
+                      <div key={u.id} style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20, marginBottom:12 }}>
+                        <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", flexWrap:"wrap", gap:10 }}>
+                          <div style={{ display:"flex", alignItems:"center", gap:14 }}>
+                            <div style={{ width:44, height:44, borderRadius:10, background:C.surface2,
+                              display:"flex", alignItems:"center", justifyContent:"center",
+                              fontSize:18, fontWeight:700, color:C.gold, border:`1px solid ${C.border}` }}>
+                              {u.role === "brand" ? "🏛️" : "📦"}
+                            </div>
+                            <div>
+                              <div style={{ fontSize:15, fontWeight:700, color:C.text }}>{u.company_name || u.email}</div>
+                              <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{u.email} · {u.role.toUpperCase()}</div>
+                              <div style={{ fontSize:11, color:C.textDim, marginTop:2 }}>{u.country || "—"} · {new Date(u.created_at).toLocaleDateString()}</div>
+                            </div>
+                          </div>
+                          <Badge status="pending"/>
+                        </div>
+                        <div style={{ display:"flex", gap:10, marginTop:14, flexWrap:"wrap" }}>
+                          <button onClick={() => approveUser(u.id)} style={{ padding:"9px 20px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.green}18`, border:`1px solid ${C.green}50`, color:C.green }}>✓ Approve</button>
+                          <button onClick={() => rejectUser(u.id)} style={{ padding:"9px 20px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.red}12`, border:`1px solid ${C.red}40`, color:C.red }}>✗ Reject</button>
+                          <a href={`mailto:${u.email}`} style={{ padding:"9px 20px", borderRadius:8, cursor:"pointer", fontSize:13, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, textDecoration:"none", display:"inline-flex", alignItems:"center" }}>✉ Contact</a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <h3 style={{ fontSize:14, color:C.textMuted, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>All Users ({users.length})</h3>
+                <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                  <table style={{ width:"100%", borderCollapse:"collapse", minWidth:600 }}>
+                    <thead>
+                      <tr style={{ background:C.surface2 }}>
+                        {["Company","Email","Role","Country","Status","Joined","Actions"].map((h,i) => (
+                          <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {users.map((u,i) => (
+                        <tr key={u.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
+                          <td style={{ padding:"12px 14px", fontSize:13, fontWeight:600, color:C.text, whiteSpace:"nowrap" }}>{u.company_name || "—"}</td>
+                          <td style={{ padding:"12px 14px", fontSize:12, color:C.textMuted, whiteSpace:"nowrap" }}>{u.email}</td>
+                          <td style={{ padding:"12px 14px" }}><span style={{ padding:"2px 8px", borderRadius:5, fontSize:11, fontWeight:600, background: u.role==="brand"?`${C.gold}15`:`${C.blue}15`, color: u.role==="brand"?C.gold:C.blue, border:`1px solid ${u.role==="brand"?C.gold:C.blue}30` }}>{u.role}</span></td>
+                          <td style={{ padding:"12px 14px", fontSize:12, color:C.textMuted }}>{u.country || "—"}</td>
+                          <td style={{ padding:"12px 14px" }}><Badge status={u.status}/></td>
+                          <td style={{ padding:"12px 14px", fontSize:11, color:C.textDim, whiteSpace:"nowrap" }}>{new Date(u.created_at).toLocaleDateString()}</td>
+                          <td style={{ padding:"12px 14px" }}>
+                            <div style={{ display:"flex", gap:6 }}>
+                              {u.status !== "approved" && <button onClick={() => approveUser(u.id)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green }}>✓</button>}
+                              {u.status !== "rejected" && <button onClick={() => rejectUser(u.id)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>✗</button>}
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+
+        {/* BRANDS TAB */}
+        {tab === "brands" && (
+          <div>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
+              <div>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Brand Management</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{brands.length} brands on platform</p>
+              </div>
+              <button onClick={() => setShowAddBrand(true)} style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ Add Brand</button>
+            </div>
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(280px,1fr))", gap:14 }}>
+              {brands.map(b => (
+                <div key={b.id} style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:18 }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:12 }}>
+                    <div style={{ width:42, height:42, borderRadius:10, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:18, fontWeight:900, color:C.bg, flexShrink:0 }}>
+                      {(b.company_name||"B")[0]}
+                    </div>
+                    <div style={{ flex:1 }}>
+                      <div style={{ fontSize:14, fontWeight:700, color:C.text }}>{b.company_name || b.email}</div>
+                      <div style={{ fontSize:11, color:C.textMuted, marginTop:2 }}>{b.email}</div>
+                    </div>
+                    <Badge status={b.status}/>
+                  </div>
+                  <div style={{ display:"flex", gap:8 }}>
+                    {b.status !== "approved" && <button onClick={() => approveUser(b.id)} style={{ flex:1, padding:"7px", borderRadius:7, cursor:"pointer", fontSize:11, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green, fontWeight:600 }}>✓ Approve</button>}
+                    {b.status !== "rejected" && <button onClick={() => rejectUser(b.id)} style={{ flex:1, padding:"7px", borderRadius:7, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>✗ Reject</button>}
+                  </div>
+                </div>
+              ))}
+              {brands.length === 0 && <div style={{ color:C.textMuted, padding:40, textAlign:"center", gridColumn:"1/-1" }}>No brands yet. Add the first one!</div>}
+            </div>
+          </div>
+        )}
+
+        {/* CATALOG TAB */}
+        {tab === "catalog" && (
+          <div>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
+              <div>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Product Catalog</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{products.length} products</p>
+              </div>
+              <button onClick={() => setShowAddProduct(true)} style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ Add Product</button>
+            </div>
+            <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <table style={{ width:"100%", borderCollapse:"collapse", minWidth:800 }}>
+                <thead>
+                  <tr style={{ background:C.surface2 }}>
+                    {["Brand","SKU","Product","Category","Price","Stock","MOQ","Multiple","Status","Actions"].map((h,i) => (
+                      <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map((p,i) => (
+                    <tr key={p.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
+                      <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted, whiteSpace:"nowrap" }}>{p.profiles?.company_name || "—"}</td>
+                      <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{p.sku || "—"}</span></td>
+                      <td style={{ padding:"11px 14px", fontSize:13, fontWeight:600, color:C.text, whiteSpace:"nowrap" }}>{p.name}</td>
+                      <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{p.category || "—"}</td>
+                      <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.goldLight }}>€{p.unit_price?.toFixed(2)}</td>
+                      <td style={{ padding:"11px 14px" }}>
+                        <span style={{ fontSize:12, color: (p.inventory?.quantity_available||0)>50?C.green:(p.inventory?.quantity_available||0)>10?C.gold:C.red, fontWeight:600 }}>
+                          {p.inventory?.quantity_available ?? 0} u.
+                        </span>
+                      </td>
+                      <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{p.min_order_qty}</td>
+                      <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>×{p.order_multiple}</td>
+                      <td style={{ padding:"11px 14px" }}><Badge status={p.is_active?"active":"rejected"}/></td>
+                      <td style={{ padding:"11px 14px" }}>
+                        <div style={{ display:"flex", gap:6 }}>
+                          <button onClick={() => { setEditingProduct(p); setProductForm({ name:p.name, sku:p.sku||"", category:p.category||"", size:"", price:p.unit_price?.toString()||"", brand_id:p.brand_id, order_multiple:p.order_multiple, min_order_qty:p.min_order_qty, max_order_qty:p.max_order_qty||"", description:p.description||"" }); setShowAddProduct(true); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>Edit</button>
+                          <button onClick={async () => { await supabase.from("products").update({ is_active:!p.is_active }).eq("id",p.id); loadProducts(); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted }}>
+                            {p.is_active?"Deactivate":"Activate"}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* INVENTORY TAB */}
+        {tab === "inventory" && (
+          <div>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:12 }}>
+              <div>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Inventory Management</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Update stock levels — changes reflect immediately for all users</p>
+              </div>
+              <div style={{ padding:"12px 18px", background:`${C.purple}15`, border:`1px solid ${C.purple}40`, borderRadius:10, fontSize:13, color:"#a855f7", fontWeight:600 }}>
+                📱 Scanner Mode — coming soon
+              </div>
+            </div>
+
+            {/* Stock summary */}
+            <div style={{ display:"flex", gap:12, marginBottom:20, flexWrap:"wrap" }}>
+              {[
+                { label:"Total Products", value:products.length, color:C.gold },
+                { label:"In Stock", value:products.filter(p=>(p.inventory?.quantity_available||0)>0).length, color:C.green },
+                { label:"Low Stock (<20)", value:products.filter(p=>(p.inventory?.quantity_available||0)<20&&(p.inventory?.quantity_available||0)>0).length, color:C.gold },
+                { label:"Out of Stock", value:products.filter(p=>(p.inventory?.quantity_available||0)===0).length, color:C.red },
+              ].map((s,i) => (
+                <div key={i} style={{ flex:"1 1 140px", padding:"16px 18px", background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${s.color}`, borderRadius:12 }}>
+                  <div style={{ fontSize:24, fontWeight:900, color:s.color, fontFamily:"Georgia,serif" }}>{s.value}</div>
+                  <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{s.label}</div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <table style={{ width:"100%", borderCollapse:"collapse", minWidth:700 }}>
+                <thead>
+                  <tr style={{ background:C.surface2 }}>
+                    {["Product","SKU","Brand","Current Stock","Reserved","Update Stock","Last Restock"].map((h,i) => (
+                      <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map((p,i) => {
+                    const stock = p.inventory?.quantity_available || 0;
+                    const reserved = p.inventory?.quantity_reserved || 0;
+                    return (
+                      <tr key={p.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
+                        <td style={{ padding:"11px 14px", fontSize:13, fontWeight:600, color:C.text }}>{p.name}</td>
+                        <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{p.sku||"—"}</span></td>
+                        <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{p.profiles?.company_name||"—"}</td>
+                        <td style={{ padding:"11px 14px" }}>
+                          <span style={{ fontSize:14, fontWeight:700, color:stock>50?C.green:stock>10?C.gold:C.red }}>{stock}</span>
+                          <span style={{ fontSize:11, color:C.textDim }}> u.</span>
+                        </td>
+                        <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{reserved} u.</td>
+                        <td style={{ padding:"11px 14px" }}>
+                          <div style={{ display:"flex", gap:6, alignItems:"center" }}>
+                            <input type="number" defaultValue={stock} id={`stock-${p.id}`}
+                              style={{ width:80, padding:"6px 8px", borderRadius:7, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none" }}/>
+                            <button onClick={() => updateStock(p.id, document.getElementById(`stock-${p.id}`).value)}
+                              style={{ padding:"6px 12px", borderRadius:7, cursor:"pointer", background:`${C.gold}20`, border:`1px solid ${C.gold}50`, color:C.goldLight, fontSize:11, fontWeight:600, whiteSpace:"nowrap" }}>
+                              Update
+                            </button>
+                          </div>
+                        </td>
+                        <td style={{ padding:"11px 14px", fontSize:11, color:C.textDim }}>
+                          {p.inventory?.last_restock_at ? new Date(p.inventory.last_restock_at).toLocaleDateString() : "Never"}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* ORDERS TAB */}
+        {tab === "orders" && (
+          <div>
+            <div style={{ marginBottom:20 }}>
+              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Order Management</h2>
+              <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{orders.length} orders total</p>
+            </div>
+            <div style={{ display:"flex", gap:12, marginBottom:20, flexWrap:"wrap" }}>
+              {["pending","confirmed","shipped","delivered"].map(s => (
+                <div key={s} style={{ flex:"1 1 120px", padding:"14px 16px", background:C.surface, border:`1px solid ${C.border}`, borderRadius:10, textAlign:"center" }}>
+                  <div style={{ fontSize:20, fontWeight:900, color:s==="delivered"?C.green:s==="shipped"?C.blue:s==="confirmed"?C.gold:C.textMuted, fontFamily:"Georgia,serif" }}>
+                    {orders.filter(o=>o.status===s).length}
+                  </div>
+                  <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em", marginTop:3 }}>{s}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <table style={{ width:"100%", borderCollapse:"collapse", minWidth:800 }}>
+                <thead>
+                  <tr style={{ background:C.surface2 }}>
+                    {["Order #","Distributor","Brand","Amount","Status","Date","Actions"].map((h,i) => (
+                      <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((o,i) => (
+                    <tr key={o.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
+                      <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{o.order_number}</span></td>
+                      <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>{o.profiles?.company_name||"—"}</td>
+                      <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>—</td>
+                      <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.goldLight }}>€{o.total_amount?.toLocaleString("it-IT")}</td>
+                      <td style={{ padding:"11px 14px" }}><Badge status={o.status}/></td>
+                      <td style={{ padding:"11px 14px", fontSize:11, color:C.textDim }}>{new Date(o.created_at).toLocaleDateString()}</td>
+                      <td style={{ padding:"11px 14px" }}>
+                        <select onChange={e => updateOrderStatus(o.id, e.target.value)} value={o.status}
+                          style={{ padding:"5px 8px", borderRadius:6, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:11, cursor:"pointer" }}>
+                          {["pending","confirmed","shipped","delivered","cancelled"].map(s => (
+                            <option key={s} value={s}>{s}</option>
+                          ))}
+                        </select>
+                      </td>
+                    </tr>
+                  ))}
+                  {orders.length === 0 && (
+                    <tr><td colSpan={7} style={{ padding:40, textAlign:"center", color:C.textMuted }}>No orders yet</td></tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* PAYMENTS TAB */}
+        {tab === "payments" && (
+          <div>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Payment Overview</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Global revenue across all brands and distributors</p>
+            <div style={{ display:"flex", gap:12, marginBottom:24, flexWrap:"wrap" }}>
+              {[
+                { label:"Platform GMV", value:`€${orders.reduce((s,o)=>s+(o.total_amount||0),0).toLocaleString("it-IT")}`, color:C.gold },
+                { label:"NexusHub Revenue (11.4%)", value:`€${(orders.reduce((s,o)=>s+(o.total_amount||0),0)*0.114).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,",")}`, color:C.green },
+                { label:"Total Orders", value:orders.length, color:C.blue },
+                { label:"Avg Order Value", value:orders.length>0?`€${(orders.reduce((s,o)=>s+(o.total_amount||0),0)/orders.length).toFixed(0)}`:"—", color:C.purple },
+              ].map((s,i) => (
+                <div key={i} style={{ flex:"1 1 160px", padding:"18px 20px", background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${s.color}`, borderRadius:12 }}>
+                  <div style={{ fontSize:24, fontWeight:900, color:s.color, fontFamily:"Georgia,serif" }}>{s.value}</div>
+                  <div style={{ fontSize:12, color:C.textMuted, marginTop:3 }}>{s.label}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
+              <h3 style={{ fontSize:14, color:C.text, marginBottom:16 }}>Transaction Log</h3>
+              {orders.length === 0 ? (
+                <div style={{ color:C.textMuted, textAlign:"center", padding:30 }}>No transactions yet</div>
+              ) : (
+                <div style={{ overflowX:"auto" }}>
+                  <table style={{ width:"100%", borderCollapse:"collapse", minWidth:600 }}>
+                    <thead>
+                      <tr style={{ background:C.surface2 }}>
+                        {["Order","Amount","NexusHub Fee","Brand Share","Date","Status"].map((h,i) => (
+                          <th key={i} style={{ padding:"9px 12px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase" }}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {orders.map((o,i) => (
+                        <tr key={o.id} style={{ borderTop:`1px solid ${C.border}` }}>
+                          <td style={{ padding:"10px 12px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{o.order_number}</span></td>
+                          <td style={{ padding:"10px 12px", fontSize:13, fontWeight:700, color:C.text }}>€{o.total_amount?.toLocaleString("it-IT")}</td>
+                          <td style={{ padding:"10px 12px", fontSize:13, color:C.goldLight }}>€{((o.total_amount||0)*0.114).toFixed(2)}</td>
+                          <td style={{ padding:"10px 12px", fontSize:13, color:C.green }}>€{((o.total_amount||0)*0.886).toFixed(2)}</td>
+                          <td style={{ padding:"10px 12px", fontSize:11, color:C.textDim }}>{new Date(o.created_at).toLocaleDateString()}</td>
+                          <td style={{ padding:"10px 12px" }}><Badge status={o.status==="delivered"?"settled":"pending"}/></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* SETTINGS TAB */}
+        {tab === "settings" && (
+          <div style={{ maxWidth:600 }}>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Platform Settings</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 24px" }}>Configure NexusHub platform behaviour</p>
+
+            {[
+              { title:"Demo Mode", desc:"Show 'Watch Demo' button on login page — disable when platform is live", key:"demo" },
+              { title:"Public Registration", desc:"Allow brands and distributors to self-register", key:"registration" },
+              { title:"SEPA Payments", desc:"Enable automatic payment processing via SEPA Instant", key:"payments" },
+              { title:"Email Notifications", desc:"Send automatic emails on approval/rejection", key:"emails" },
+              { title:"Scanner Integration", desc:"Enable barcode scanner for inventory updates (mobile app)", key:"scanner" },
+            ].map((s,i) => (
+              <div key={i} style={{ display:"flex", alignItems:"center", justifyContent:"space-between",
+                padding:"18px 20px", background:C.surface, border:`1px solid ${C.border}`,
+                borderRadius:12, marginBottom:10 }}>
+                <div>
+                  <div style={{ fontSize:14, fontWeight:600, color:C.text }}>{s.title}</div>
+                  <div style={{ fontSize:12, color:C.textMuted, marginTop:3 }}>{s.desc}</div>
+                </div>
+                <div style={{ width:44, height:24, borderRadius:12,
+                  background: i===0||i===1 ? C.gold : C.surface3,
+                  border:`1px solid ${i===0||i===1?C.gold:C.border}`,
+                  cursor:"pointer", position:"relative", flexShrink:0, marginLeft:16 }}
+                  onClick={() => notify(`Setting "${s.title}" updated`)}>
+                  <div style={{ position:"absolute", top:3, width:18, height:18, borderRadius:"50%",
+                    background:"#fff", transition:"left .2s",
+                    left: i===0||i===1 ? 23 : 3 }}/>
+                </div>
+              </div>
+            ))}
+
+            <div style={{ marginTop:24, padding:"18px 20px", background:`${C.red}08`, border:`1px solid ${C.red}20`, borderRadius:12 }}>
+              <div style={{ fontSize:14, fontWeight:600, color:C.red, marginBottom:6 }}>⚠️ Danger Zone</div>
+              <div style={{ fontSize:12, color:C.textMuted, marginBottom:14 }}>These actions are irreversible</div>
+              <button style={{ padding:"9px 18px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.red}50`, color:C.red, fontSize:12 }}
+                onClick={() => notify("Feature coming soon", "error")}>
+                Reset Demo Data
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Add Brand Modal */}
+      {showAddBrand && (
+        <Modal title="Add New Brand" onClose={() => setShowAddBrand(false)} onSave={addBrand}>
+          <Input label="Brand Name" value={brandForm.name} onChange={v=>setBrandForm(f=>({...f,name:v}))} placeholder="e.g. Lattafa Perfumes"/>
+          <Input label="Origin Country" value={brandForm.origin} onChange={v=>setBrandForm(f=>({...f,origin:v}))} placeholder="e.g. Dubai, UAE"/>
+          <Input label="Category" value={brandForm.category} onChange={v=>setBrandForm(f=>({...f,category:v}))} placeholder="e.g. Fine Fragrance"/>
+          <div style={{ marginBottom:14 }}>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Description</label>
+            <textarea value={brandForm.description} onChange={e=>setBrandForm(f=>({...f,description:e.target.value}))}
+              style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", minHeight:80, resize:"vertical" }}/>
+          </div>
+        </Modal>
+      )}
+
+      {/* Add/Edit Product Modal */}
+      {showAddProduct && (
+        <Modal title={editingProduct ? "Edit Product" : "Add New Product"} onClose={() => { setShowAddProduct(false); setEditingProduct(null); }} onSave={saveProduct}>
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
+            <Input label="Product Name" value={productForm.name} onChange={v=>setProductForm(f=>({...f,name:v}))} placeholder="e.g. Khamrah EDP"/>
+            <Input label="SKU" value={productForm.sku} onChange={v=>setProductForm(f=>({...f,sku:v}))} placeholder="e.g. LT-KHM-100"/>
+            <Input label="Category" value={productForm.category} onChange={v=>setProductForm(f=>({...f,category:v}))} placeholder="e.g. Premium"/>
+            <Input label="Size" value={productForm.size} onChange={v=>setProductForm(f=>({...f,size:v}))} placeholder="e.g. 100ml"/>
+            <Input label="Unit Price (€)" value={productForm.price} onChange={v=>setProductForm(f=>({...f,price:v}))} type="number" placeholder="0.00"/>
+            <div style={{ marginBottom:14 }}>
+              <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Brand</label>
+              <select value={productForm.brand_id} onChange={e=>setProductForm(f=>({...f,brand_id:e.target.value}))}
+                style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}>
+                <option value="">Select brand...</option>
+                {brands.map(b => <option key={b.id} value={b.id}>{b.company_name||b.email}</option>)}
+              </select>
+            </div>
+            <Input label="Order Multiple (e.g. 12)" value={productForm.order_multiple} onChange={v=>setProductForm(f=>({...f,order_multiple:v}))} type="number"/>
+            <Input label="Min Order Qty" value={productForm.min_order_qty} onChange={v=>setProductForm(f=>({...f,min_order_qty:v}))} type="number"/>
+          </div>
+          <Input label="Max Order Qty (leave empty = unlimited)" value={productForm.max_order_qty} onChange={v=>setProductForm(f=>({...f,max_order_qty:v}))} type="number"/>
+          <div>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Description</label>
+            <textarea value={productForm.description} onChange={e=>setProductForm(f=>({...f,description:e.target.value}))}
+              style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", minHeight:70, resize:"vertical" }}/>
+          </div>
+        </Modal>
+      )}
+    </div>
+  );
 };
+
+
 
 // ============================================================
 // MAIN APP — con Supabase auth reale
