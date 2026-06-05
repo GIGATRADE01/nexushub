@@ -1533,8 +1533,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [brandForm, setBrandForm] = useState({ name:"", origin:"", category:"", description:"" });
   const [productForm, setProductForm] = useState({
     name:"", sku:"", category:"", size:"", price:"", brand_id:"",
-    order_multiple:12, min_order_qty:12, max_order_qty:"", description:""
+    order_multiple:"", min_order_qty:"", max_order_qty:"", description:"",
+    image_url:"", image_file:null
   });
+  const [importLoading, setImportLoading] = useState(false);
+  const [importResults, setImportResults] = useState(null);
 
   const notify = (msg, type="success") => {
     setNotification({ msg, type });
@@ -1625,16 +1628,30 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
   // Add / Edit product
   const saveProduct = async () => {
+    let imageUrl = productForm.image_url || null;
+    
+    // Upload image file if provided
+    if (productForm.image_file) {
+      const file = productForm.image_file;
+      const path = `products/${Date.now()}_${file.name}`;
+      const { data: uploadData } = await supabase.storage.from("documents").upload(path, file, { upsert: true });
+      if (uploadData) {
+        const { data: urlData } = supabase.storage.from("documents").getPublicUrl(path);
+        imageUrl = urlData.publicUrl;
+      }
+    }
+
     const payload = {
       name: productForm.name,
       sku: productForm.sku,
       category: productForm.category,
       description: productForm.description,
       unit_price: parseFloat(productForm.price) || 0,
-      brand_id: productForm.brand_id,
-      order_multiple: parseInt(productForm.order_multiple) || 12,
-      min_order_qty: parseInt(productForm.min_order_qty) || 12,
+      brand_id: productForm.brand_id || null,
+      order_multiple: productForm.order_multiple ? parseInt(productForm.order_multiple) : null,
+      min_order_qty: productForm.min_order_qty ? parseInt(productForm.min_order_qty) : null,
       max_order_qty: productForm.max_order_qty ? parseInt(productForm.max_order_qty) : null,
+      image_url: imageUrl,
       is_active: true,
     };
     if (editingProduct) {
@@ -1646,8 +1663,61 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     }
     setShowAddProduct(false);
     setEditingProduct(null);
-    setProductForm({ name:"", sku:"", category:"", size:"", price:"", brand_id:"", order_multiple:12, min_order_qty:12, max_order_qty:"", description:"" });
+    setProductForm({ name:"", sku:"", category:"", size:"", price:"", brand_id:"", order_multiple:"", min_order_qty:"", max_order_qty:"", description:"", image_url:"", image_file:null });
     loadProducts();
+  };
+
+  // Import products from CSV/Excel
+  const importProducts = async (file) => {
+    setImportLoading(true);
+    setImportResults(null);
+    try {
+      const text = await file.text();
+      const lines = text.split(/\r?\n/).filter(l => l.trim());
+      if (lines.length < 2) { notify("File vuoto o non valido", "error"); setImportLoading(false); return; }
+      
+      const headers = lines[0].split(/[,;\t]/).map(h => h.trim().toLowerCase().replace(/[^a-z_]/g,''));
+      const rows = lines.slice(1);
+      let success = 0, errors = 0;
+      
+      for (const row of rows) {
+        const vals = row.split(/[,;\t]/);
+        const obj = {};
+        headers.forEach((h, i) => { obj[h] = (vals[i] || "").trim().replace(/^"|"$/g, ""); });
+        
+        if (!obj.name && !obj.nome && !obj.product) continue;
+        
+        const payload = {
+          name: obj.name || obj.nome || obj.product || "",
+          sku: obj.sku || obj.cod || obj.codice || "",
+          category: obj.category || obj.categoria || "",
+          unit_price: parseFloat(obj.price || obj.prezzo || obj.unit_price || 0) || 0,
+          order_multiple: parseInt(obj.order_multiple || obj.multiplo || 0) || null,
+          min_order_qty: parseInt(obj.min_order_qty || obj.moq || obj.min || 0) || null,
+          description: obj.description || obj.descrizione || "",
+          image_url: obj.image_url || obj.immagine || obj.foto || null,
+          is_active: true,
+        };
+        
+        // Find brand by name if provided
+        if (obj.brand || obj.marca) {
+          const brandMatch = brands.find(b => 
+            b.company_name?.toLowerCase().includes((obj.brand || obj.marca).toLowerCase())
+          );
+          if (brandMatch) payload.brand_id = brandMatch.id;
+        }
+        
+        const { error } = await supabase.from("products").insert(payload);
+        if (error) errors++; else success++;
+      }
+      
+      setImportResults({ success, errors, total: rows.length });
+      notify(\`✓ Importati \${success} prodotti\${errors > 0 ? \`, \${errors} errori\` : ""}\`);
+      loadProducts();
+    } catch(e) {
+      notify("Errore durante l'importazione", "error");
+    }
+    setImportLoading(false);
   };
 
   // Update inventory
@@ -1861,13 +1931,29 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* CATALOG TAB */}
         {tab === "catalog" && (
           <div>
-            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
                 <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Product Catalog</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{products.length} products</p>
               </div>
-              <button onClick={() => setShowAddProduct(true)} style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ Add Product</button>
+              <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
+                <label style={{ padding:"10px 16px", borderRadius:10, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13, fontWeight:600, display:"flex", alignItems:"center", gap:6 }}>
+                  📊 {importLoading ? "Importando..." : "Import Excel/CSV"}
+                  <input type="file" accept=".csv,.xlsx,.xls,.tsv" style={{ display:"none" }}
+                    onChange={e => { const f = e.target.files?.[0]; if(f) importProducts(f); e.target.value=""; }}/>
+                </label>
+                <button onClick={() => setShowAddProduct(true)} style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ Add Product</button>
+              </div>
             </div>
+            {importResults && (
+              <div style={{ padding:"12px 16px", background:`${C.green}12`, border:`1px solid ${C.green}30`, borderRadius:10, marginBottom:16, fontSize:13, color:C.green }}>
+                ✓ Import completato: {importResults.success} prodotti importati{importResults.errors > 0 ? `, ${importResults.errors} errori` : ""}
+                <button onClick={() => setImportResults(null)} style={{ marginLeft:12, background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:12 }}>×</button>
+                <div style={{ marginTop:6, fontSize:11, color:C.textMuted }}>
+                  Formato CSV supportato: name, sku, category, price, brand, order_multiple, min_order_qty, description, image_url
+                </div>
+              </div>
+            )}
             <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:800 }}>
                 <thead>
@@ -1882,7 +1968,12 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                     <tr key={p.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
                       <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted, whiteSpace:"nowrap" }}>{p.profiles?.company_name || "—"}</td>
                       <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{p.sku || "—"}</span></td>
-                      <td style={{ padding:"11px 14px", fontSize:13, fontWeight:600, color:C.text, whiteSpace:"nowrap" }}>{p.name}</td>
+                      <td style={{ padding:"11px 14px", whiteSpace:"nowrap" }}>
+                        <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+                          {p.image_url && <img src={p.image_url} alt="" style={{ width:32, height:32, objectFit:"cover", borderRadius:6, flexShrink:0 }} onError={e=>e.target.style.display="none"}/>}
+                          <span style={{ fontSize:13, fontWeight:600, color:C.text }}>{p.name}</span>
+                        </div>
+                      </td>
                       <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{p.category || "—"}</td>
                       <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.goldLight }}>€{p.unit_price?.toFixed(2)}</td>
                       <td style={{ padding:"11px 14px" }}>
@@ -2149,27 +2240,65 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       {showAddProduct && (
         <Modal title={editingProduct ? "Edit Product" : "Add New Product"} onClose={() => { setShowAddProduct(false); setEditingProduct(null); }} onSave={saveProduct}>
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
-            <Input label="Product Name" value={productForm.name} onChange={v=>setProductForm(f=>({...f,name:v}))} placeholder="e.g. Khamrah EDP"/>
-            <Input label="SKU" value={productForm.sku} onChange={v=>setProductForm(f=>({...f,sku:v}))} placeholder="e.g. LT-KHM-100"/>
-            <Input label="Category" value={productForm.category} onChange={v=>setProductForm(f=>({...f,category:v}))} placeholder="e.g. Premium"/>
-            <Input label="Size" value={productForm.size} onChange={v=>setProductForm(f=>({...f,size:v}))} placeholder="e.g. 100ml"/>
-            <Input label="Unit Price (€)" value={productForm.price} onChange={v=>setProductForm(f=>({...f,price:v}))} type="number" placeholder="0.00"/>
+            <Input label="Product Name *" value={productForm.name} onChange={v=>setProductForm(f=>({...f,name:v}))} placeholder="es. Khamrah EDP"/>
+            <Input label="SKU" value={productForm.sku} onChange={v=>setProductForm(f=>({...f,sku:v}))} placeholder="es. LT-KHM-100"/>
+            <Input label="Category" value={productForm.category} onChange={v=>setProductForm(f=>({...f,category:v}))} placeholder="es. Premium"/>
+            <Input label="Size" value={productForm.size} onChange={v=>setProductForm(f=>({...f,size:v}))} placeholder="es. 100ml"/>
+            <Input label="Unit Price (€) *" value={productForm.price} onChange={v=>setProductForm(f=>({...f,price:v}))} type="number" placeholder="0.00"/>
             <div style={{ marginBottom:14 }}>
               <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Brand</label>
               <select value={productForm.brand_id} onChange={e=>setProductForm(f=>({...f,brand_id:e.target.value}))}
                 style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}>
-                <option value="">Select brand...</option>
+                <option value="">Seleziona brand...</option>
                 {brands.map(b => <option key={b.id} value={b.id}>{b.company_name||b.email}</option>)}
               </select>
             </div>
-            <Input label="Order Multiple (e.g. 12)" value={productForm.order_multiple} onChange={v=>setProductForm(f=>({...f,order_multiple:v}))} type="number"/>
-            <Input label="Min Order Qty" value={productForm.min_order_qty} onChange={v=>setProductForm(f=>({...f,min_order_qty:v}))} type="number"/>
+            <Input label="Order Multiple" value={productForm.order_multiple} onChange={v=>setProductForm(f=>({...f,order_multiple:v}))} type="number" placeholder="es. 12"/>
+            <Input label="Min Order Qty (MOQ)" value={productForm.min_order_qty} onChange={v=>setProductForm(f=>({...f,min_order_qty:v}))} type="number" placeholder="es. 24"/>
           </div>
-          <Input label="Max Order Qty (leave empty = unlimited)" value={productForm.max_order_qty} onChange={v=>setProductForm(f=>({...f,max_order_qty:v}))} type="number"/>
+          <Input label="Max Order Qty (vuoto = illimitato)" value={productForm.max_order_qty} onChange={v=>setProductForm(f=>({...f,max_order_qty:v}))} type="number" placeholder="es. 500"/>
+          
+          {/* Image section */}
+          <div style={{ marginBottom:14 }}>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:8 }}>Immagine Prodotto</label>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
+              {/* Upload file */}
+              <label style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6,
+                padding:"16px 12px", borderRadius:10, cursor:"pointer",
+                background: productForm.image_file ? `${C.green}10` : C.surface2,
+                border:`1px dashed ${productForm.image_file ? C.green : C.border}`,
+                textAlign:"center" }}>
+                <input type="file" accept="image/*" style={{ display:"none" }}
+                  onChange={e => { const f=e.target.files?.[0]; if(f) setProductForm(p=>({...p,image_file:f,image_url:""})); }}/>
+                <span style={{ fontSize:22 }}>{productForm.image_file ? "✓" : "📁"}</span>
+                <span style={{ fontSize:11, color: productForm.image_file ? C.green : C.textMuted }}>
+                  {productForm.image_file ? productForm.image_file.name : "Carica immagine"}
+                </span>
+              </label>
+              {/* URL esterno */}
+              <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+                <span style={{ fontSize:11, color:C.textMuted }}>oppure URL esterno:</span>
+                <input type="text" value={productForm.image_url} 
+                  onChange={e => setProductForm(p=>({...p,image_url:e.target.value, image_file:null}))}
+                  placeholder="https://..."
+                  style={{ padding:"8px 10px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, outline:"none" }}/>
+                {productForm.image_url && (
+                  <img src={productForm.image_url} alt="preview" style={{ width:"100%", height:60, objectFit:"cover", borderRadius:6 }}
+                    onError={e => { e.target.style.display="none"; }}/>
+                )}
+              </div>
+            </div>
+          </div>
+
           <div>
             <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Description</label>
             <textarea value={productForm.description} onChange={e=>setProductForm(f=>({...f,description:e.target.value}))}
               style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", minHeight:70, resize:"vertical" }}/>
+          </div>
+
+          <div style={{ padding:"10px 14px", background:`${C.blue}08`, border:`1px solid ${C.blue}15`, borderRadius:8, fontSize:11, color:C.textMuted }}>
+            💡 Per importare molti prodotti usa il pulsante <strong style={{color:C.text}}>Import Excel/CSV</strong> nel catalogo.<br/>
+            Colonne supportate: name, sku, category, price, brand, order_multiple, min_order_qty, description, image_url
           </div>
         </Modal>
       )}
