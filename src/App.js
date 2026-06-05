@@ -1516,7 +1516,6 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
 };
 
 const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
-  const t = useT();
   const [tab, setTab] = useState("users");
   const [users, setUsers] = useState([]);
   const [brands, setBrands] = useState([]);
