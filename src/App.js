@@ -1712,7 +1712,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       }
       
       setImportResults({ success, errors, total: rows.length });
-      notify(\`✓ Importati \${success} prodotti\${errors > 0 ? \`, \${errors} errori\` : ""}\`);
+      notify("✓ Importati " + success + " prodotti" + (errors > 0 ? ", " + errors + " errori" : ""));
       loadProducts();
     } catch(e) {
       notify("Errore durante l'importazione", "error");
