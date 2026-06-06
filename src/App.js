@@ -9,6 +9,23 @@ const supabase = createClient(
   process.env.REACT_APP_SUPABASE_ANON_KEY
 );
 
+// Send email via Edge Function
+const sendEmail = async (type, email, company_name, role, reason = "") => {
+  try {
+    await fetch(
+      `${process.env.REACT_APP_SUPABASE_URL}/functions/v1/send-email`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({ type, email, company_name, role, reason }),
+      }
+    );
+  } catch(e) { console.log("Email error:", e); }
+};
+
 const C = {
   bg: "#08080f", surface: "#0f1018", surface2: "#151720", surface3: "#1c1f2e",
   border: "#252838", gold: "#c9a84c", goldLight: "#e2bc6a", goldDim: "#7a5e28",
@@ -1030,6 +1047,8 @@ const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
           }
         }
       }
+      // Send confirmation email
+      await sendEmail("pending", email, companyName || email, role);
       setSuccess(true);
     } catch (err) {
       setError(err.message || "Registration error");
@@ -1615,12 +1634,18 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const approveUser = async (id) => {
     await supabase.from("profiles").update({ status:"approved" }).eq("id", id);
     notify("✓ User approved!");
+    // Send approval email
+    const user = users.find(u => u.id === id);
+    if (user) await sendEmail("approved", user.email, user.company_name || user.email, user.role);
     loadUsers();
   };
 
   const rejectUser = async (id, reason="Application declined") => {
     await supabase.from("profiles").update({ status:"rejected", rejection_reason: reason }).eq("id", id);
     notify("User rejected", "error");
+    // Send rejection email
+    const user = users.find(u => u.id === id);
+    if (user) await sendEmail("rejected", user.email, user.company_name || user.email, user.role, reason);
     loadUsers();
   };
 
