@@ -1528,6 +1528,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [showAddBrand, setShowAddBrand] = useState(false);
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [editingUser, setEditingUser] = useState(null);
+  const [userDocs, setUserDocs] = useState([]);
+  const [showUserModal, setShowUserModal] = useState(false);
+  const [userEditForm, setUserEditForm] = useState({});
 
   // Form states
   const [brandForm, setBrandForm] = useState({ name:"", origin:"", category:"", description:"" });
@@ -1579,6 +1583,20 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         .order("created_at", { ascending: false }).limit(50);
       setOrders(data || []);
     } catch(e) { console.error(e); }
+  };
+
+  const loadDocuments = async (userId) => {
+    try {
+      const { data } = await supabase.from("documents")
+        .select("*").eq("user_id", userId).order("created_at", { ascending: false });
+      return data || [];
+    } catch(e) { return []; }
+  };
+
+  const updateUserProfile = async (userId, updates) => {
+    await supabase.from("profiles").update(updates).eq("id", userId);
+    notify("✓ Profile updated!");
+    loadUsers();
   };
 
   useEffect(() => {
@@ -1752,7 +1770,12 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const Input = ({ label, value, onChange, type="text", placeholder="" }) => (
     <div style={{ marginBottom:14 }}>
       <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
-      <input type={type} value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder}
+      <input
+        type="text"
+        inputMode={type === "number" ? "numeric" : "text"}
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        placeholder={placeholder}
         style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2,
           border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
     </div>
@@ -1882,6 +1905,13 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                             <div style={{ display:"flex", gap:6 }}>
                               {u.status !== "approved" && <button onClick={() => approveUser(u.id)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green }}>✓</button>}
                               {u.status !== "rejected" && <button onClick={() => rejectUser(u.id)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>✗</button>}
+                              <button onClick={async () => {
+                                setEditingUser(u);
+                                setUserEditForm({ full_name: u.full_name||"", company_name: u.company_name||"", phone: u.phone||"", country: u.country||"", role: u.role, status: u.status });
+                                const docs = await loadDocuments(u.id);
+                                setUserDocs(docs);
+                                setShowUserModal(true);
+                              }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}10`, border:`1px solid ${C.blue}30`, color:C.blue }}>✏️</button>
                             </div>
                           </td>
                         </tr>
@@ -2221,6 +2251,133 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           </div>
         )}
       </div>
+
+      {/* User Edit Modal */}
+      {showUserModal && editingUser && (
+        <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:500,
+          display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
+          <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:16,
+            padding:28, width:"100%", maxWidth:600, maxHeight:"88vh", overflowY:"auto" }}>
+            
+            {/* Header */}
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
+              <div>
+                <h3 style={{ color:C.text, fontFamily:"Georgia,serif", fontSize:18, margin:0 }}>
+                  {editingUser.role === "brand" ? "🏛️" : "📦"} {editingUser.company_name || editingUser.email}
+                </h3>
+                <div style={{ fontSize:12, color:C.textMuted, marginTop:3 }}>{editingUser.email}</div>
+              </div>
+              <button onClick={() => setShowUserModal(false)} style={{ background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:22 }}>×</button>
+            </div>
+
+            {/* Edit fields */}
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:16 }}>
+              {[
+                { label:"Full Name", key:"full_name", placeholder:"Nome referente" },
+                { label:"Company Name", key:"company_name", placeholder:"Ragione sociale" },
+                { label:"Phone", key:"phone", placeholder:"+39..." },
+                { label:"Country", key:"country", placeholder:"Italia" },
+              ].map(({label,key,placeholder}) => (
+                <div key={key}>
+                  <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
+                  <input type="text" value={userEditForm[key]||""} onChange={e=>setUserEditForm(f=>({...f,[key]:e.target.value}))}
+                    placeholder={placeholder}
+                    style={{ width:"100%", padding:"9px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+                </div>
+              ))}
+            </div>
+
+            {/* Role + Status */}
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:20 }}>
+              <div>
+                <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Role</label>
+                <select value={userEditForm.role||""} onChange={e=>setUserEditForm(f=>({...f,role:e.target.value}))}
+                  style={{ width:"100%", padding:"9px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}>
+                  <option value="brand">Brand</option>
+                  <option value="distributor">Distributor</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
+              <div>
+                <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Status</label>
+                <select value={userEditForm.status||""} onChange={e=>setUserEditForm(f=>({...f,status:e.target.value}))}
+                  style={{ width:"100%", padding:"9px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}>
+                  <option value="pending">Pending</option>
+                  <option value="approved">Approved</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Documents section */}
+            <div style={{ marginBottom:20 }}>
+              <h4 style={{ fontSize:13, color:C.text, marginBottom:12, textTransform:"uppercase", letterSpacing:".06em" }}>
+                📄 Documents ({userDocs.length})
+              </h4>
+              {userDocs.length === 0 ? (
+                <div style={{ padding:"16px", background:C.surface2, borderRadius:10, fontSize:13, color:C.textMuted, textAlign:"center" }}>
+                  No documents uploaded yet
+                </div>
+              ) : (
+                <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+                  {userDocs.map((doc, i) => (
+                    <div key={i} style={{ display:"flex", alignItems:"center", justifyContent:"space-between",
+                      padding:"12px 16px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:10 }}>
+                      <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+                        <span style={{ fontSize:18 }}>
+                          {doc.file_name && /[.](jpg|jpeg|png|gif)$/i.test(doc.file_name) ? "🖼️" : "📄"}
+                        </span>
+                        <div>
+                          <div style={{ fontSize:13, color:C.text, fontWeight:500 }}>
+                            {doc.doc_type === "visura_camerale" ? "Visura Camerale" :
+                             doc.doc_type === "partita_iva" ? "Partita IVA" :
+                             doc.doc_type === "coordinate_bancarie" ? "Coordinate Bancarie" : doc.doc_type}
+                          </div>
+                          <div style={{ fontSize:11, color:C.textMuted, marginTop:2 }}>{doc.file_name}</div>
+                        </div>
+                      </div>
+                      <div style={{ display:"flex", gap:8, alignItems:"center" }}>
+                        <span style={{ fontSize:10, padding:"2px 7px", borderRadius:4,
+                          background: doc.verified ? `${C.green}15` : `${C.gold}15`,
+                          color: doc.verified ? C.green : C.gold,
+                          border: `1px solid ${doc.verified ? C.green : C.gold}40` }}>
+                          {doc.verified ? "✓ Verified" : "Pending"}
+                        </span>
+                        <a href={doc.file_url} target="_blank" rel="noreferrer"
+                          style={{ padding:"5px 12px", borderRadius:6, fontSize:11, fontWeight:600,
+                            background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue,
+                            textDecoration:"none", cursor:"pointer" }}>
+                          View
+                        </a>
+                        <button onClick={async () => {
+                          await supabase.from("documents").update({ verified: !doc.verified }).eq("id", doc.id);
+                          const docs = await loadDocuments(editingUser.id);
+                          setUserDocs(docs);
+                          notify(doc.verified ? "Document unverified" : "✓ Document verified!");
+                        }} style={{ padding:"5px 12px", borderRadius:6, fontSize:11,
+                          background:`${C.green}10`, border:`1px solid ${C.green}30`, color:C.green, cursor:"pointer" }}>
+                          {doc.verified ? "Unverify" : "Verify"}
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Action buttons */}
+            <div style={{ display:"flex", gap:10 }}>
+              <button onClick={() => setShowUserModal(false)} style={{ flex:1, padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>Cancel</button>
+              <button onClick={async () => {
+                await updateUserProfile(editingUser.id, userEditForm);
+                setShowUserModal(false);
+              }} style={{ flex:2, padding:"11px", borderRadius:8, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Add Brand Modal */}
       {showAddBrand && (
