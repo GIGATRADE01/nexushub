@@ -1532,6 +1532,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [userDocs, setUserDocs] = useState([]);
   const [showUserModal, setShowUserModal] = useState(false);
   const [userEditForm, setUserEditForm] = useState({});
+  const [impersonating, setImpersonating] = useState(null); // {user, role}
 
   // Form states
   const [brandForm, setBrandForm] = useState({ name:"", origin:"", category:"", description:"" });
@@ -1799,6 +1800,43 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     </div>
   );
 
+  // If impersonating, render that user's dashboard
+  if (impersonating) {
+    return (
+      <div style={{ position:"relative" }}>
+        {/* Admin banner */}
+        <div style={{ position:"fixed", top:0, left:0, right:0, zIndex:9999,
+          background:`linear-gradient(135deg, #a855f7, #7c3aed)`,
+          padding:"10px 20px", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+            <span style={{ fontSize:16 }}>👁️</span>
+            <div>
+              <span style={{ fontSize:13, fontWeight:700, color:"#fff" }}>
+                ADMIN MODE — Visualizzando come: {impersonating.company_name || impersonating.email}
+              </span>
+              <span style={{ fontSize:11, color:"rgba(255,255,255,.7)", marginLeft:10 }}>
+                {impersonating.role.toUpperCase()} · {impersonating.email}
+              </span>
+            </div>
+          </div>
+          <button onClick={() => setImpersonating(null)} style={{
+            padding:"7px 18px", borderRadius:8, cursor:"pointer",
+            background:"rgba(255,255,255,.2)", border:"1px solid rgba(255,255,255,.4)",
+            color:"#fff", fontSize:12, fontWeight:700 }}>
+            ← Torna ad Admin
+          </button>
+        </div>
+        {/* Render user's dashboard with extra top padding for banner */}
+        <div style={{ paddingTop:44 }}>
+          {impersonating.role === "brand"
+            ? <BrandDashboard onLogout={() => setImpersonating(null)} lang={lang} onLangChange={onLangChange}/>
+            : <DistributorDashboard onLogout={() => setImpersonating(null)} lang={lang} onLangChange={onLangChange}/>
+          }
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
       <Navbar name="NexusHub Admin" badge="admin" onLogout={onLogout} lang={lang} onLangChange={onLangChange}/>
@@ -1912,6 +1950,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                                 setUserDocs(docs);
                                 setShowUserModal(true);
                               }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}10`, border:`1px solid ${C.blue}30`, color:C.blue }}>✏️</button>
+                              <button onClick={() => setImpersonating(u)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.purple}10`, border:`1px solid ${C.purple}30`, color:"#a855f7", whiteSpace:"nowrap" }} title="Entra come questo utente">👁️</button>
                             </div>
                           </td>
                         </tr>
