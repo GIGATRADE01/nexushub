@@ -1553,10 +1553,94 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [tab, setTab] = useState("brands");
   const [cart, setCart] = useState({});
   const [requested, setRequested] = useState({});
+  const [realProducts, setRealProducts] = useState([]);
+  const [realOrders, setRealOrders] = useState([]);
+  const [showCheckout, setShowCheckout] = useState(false);
+  const [orderNote, setOrderNote] = useState("");
+  const [orderLoading, setOrderLoading] = useState(false);
+  const [orderSuccess, setOrderSuccess] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const myBrands = ["lattafa","rasasi"];
-  const addToCart = sku => setCart(c=>({...c,[sku]:(c[sku]||0)+1}));
   const cartCount = Object.values(cart).reduce((a,b)=>a+b,0);
-  const cartValue = Object.entries(cart).reduce((s,[sku,qty]) => { const item=CATALOG.find(i=>i.sku===sku); return s+(item?item.price*qty:0); },0);
+  const cartValue = Object.entries(cart).reduce((s,[pid,qty]) => {
+    const item = realProducts.find(p=>p.id===pid);
+    return s + (item ? item.unit_price * qty : 0);
+  }, 0);
+
+  useEffect(() => {
+    // Load current user
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) {
+        supabase.from("profiles").select("*").eq("id", data.user.id).single()
+          .then(({ data: profile }) => setCurrentUser(profile));
+      }
+    });
+    // Load real products from Supabase
+    supabase.from("products")
+      .select("*, inventory(*)")
+      .eq("is_active", true)
+      .order("created_at", { ascending: false })
+      .then(({ data }) => setRealProducts(data || []));
+    // Load real orders
+    supabase.from("orders")
+      .select("*, order_items(*)")
+      .order("created_at", { ascending: false })
+      .then(({ data }) => setRealOrders(data || []));
+  }, []);
+
+  const placeOrder = async () => {
+    if (cartCount === 0) return;
+    setOrderLoading(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      // Build order items
+      const items = Object.entries(cart)
+        .filter(([pid, qty]) => qty > 0)
+        .map(([pid, qty]) => {
+          const product = realProducts.find(p => p.id === pid);
+          return { product_id: pid, quantity: qty, product_name: product?.name || "", sku: product?.sku || "", unit_price: product?.unit_price || 0 };
+        });
+
+      const total = items.reduce((s, i) => s + (i.unit_price * i.quantity), 0);
+
+      // Create order
+      const { data: order, error } = await supabase.from("orders").insert({
+        distributor_id: user.id,
+        brand_id: items[0] ? realProducts.find(p=>p.id===items[0].product_id)?.brand_id : null,
+        total_amount: total,
+        status: "pending",
+        notes: orderNote,
+      }).select().single();
+
+      if (error) throw error;
+
+      // Insert order items
+      await supabase.from("order_items").insert(
+        items.map(i => ({ ...i, order_id: order.id }))
+      );
+
+      // Send confirmation email
+      if (currentUser) {
+        await sendEmail("order_confirmed", currentUser.email, currentUser.company_name || currentUser.email,
+          "distributor", "", order.order_number, total.toLocaleString("it-IT"), items.length.toString());
+      }
+
+      setOrderSuccess(order);
+      setCart({});
+      setOrderNote("");
+      setShowCheckout(false);
+
+      // Reload orders
+      const { data: orders } = await supabase.from("orders").select("*, order_items(*)").order("created_at", { ascending: false });
+      setRealOrders(orders || []);
+
+    } catch(e) {
+      console.error("Order error:", e);
+      alert("Errore nell'ordine: " + e.message);
+    }
+    setOrderLoading(false);
+  };
   const tabs = [
     { key:"brands", icon:"◈", label:t("tabBrandMarket") },
     { key:"catalog", icon:"◻", label:t("tabMyCatalog") },
@@ -1608,36 +1692,93 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         )}
         {tab==="catalog" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("myCatTitle")}</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("myCatSub")}</p>
-            <Table minWidth={850}
-              headers={[t("colBrand"),t("colSku"),t("colProduct"),t("colSize"),t("colCategory"),t("colPrice"),t("colStock"),t("colMoq"),t("colAction")]}
-              rows={CATALOG.filter(p=>myBrands.includes(p.brand)).map(item => {
-                const brand=BRANDS.find(b=>b.id===item.brand);
-                return [
-                  brand?<div style={{ display:"flex", alignItems:"center", gap:7 }}><BrandLogo brand={brand} size={24}/><span style={{ fontSize:12, color:C.textMuted }}>{brand.name.split(" ")[0]}</span></div>:null,
-                  <span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{item.sku}</span>,
-                  <span style={{ fontSize:13, color:C.text, fontWeight:500 }}>{item.name}</span>,
-                  <span style={{ fontSize:12, color:C.textMuted }}>{item.size}</span>,
-                  <span style={{ fontSize:12, color:C.textMuted }}>{item.category}</span>,
-                  <span style={{ fontSize:13, fontWeight:700, color:C.goldLight }}>€ {item.price.toFixed(2)}</span>,
-                  <span style={{ fontSize:12, color:item.stock>200?C.green:item.stock>100?C.gold:C.red, fontWeight:600 }}>{item.stock>200?"✓ ":"⚠ "}{item.stock}</span>,
-                  <span style={{ fontSize:12, color:C.textMuted }}>{item.moq} u.</span>,
-                  <button onClick={() => addToCart(item.sku)} style={{ padding:"6px 14px", borderRadius:7, cursor:"pointer", background:cart[item.sku]?`${C.gold}25`:`${C.gold}10`, border:`1px solid ${cart[item.sku]?C.gold:C.gold+"35"}`, color:C.goldLight, fontSize:12, fontWeight:600, whiteSpace:"nowrap" }}>
-                    {cart[item.sku]?`×${cart[item.sku]} · Add`:t("addBtn")}
-                  </button>,
-                ];
-              })}
-            />
-            {cartCount>0 && (
-              <div style={{ position:"fixed", bottom:20, right:24, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, borderRadius:12, padding:"13px 22px", cursor:"pointer", boxShadow:`0 8px 32px ${C.gold}45`, display:"flex", alignItems:"center", gap:14 }}>
-                <div>
-                  <div style={{ fontSize:14, fontWeight:700, color:C.bg }}>{t("cartLabel")} · {cartCount} items</div>
-                  <div style={{ fontSize:12, color:C.bg+"99" }}>€ {cartValue.toLocaleString("it-IT",{minimumFractionDigits:2})} · {t("cartSub1")}</div>
-                </div>
-                <span style={{ fontSize:18, color:C.bg }}>→</span>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
+              <div>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("myCatTitle")}</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("myCatSub")}</p>
               </div>
-            )}
+              {cartCount > 0 && (
+                <button onClick={() => setShowCheckout(true)} style={{
+                  padding:"11px 22px", borderRadius:10, cursor:"pointer",
+                  background:`linear-gradient(135deg,${C.gold},${C.goldDim})`,
+                  border:"none", color:C.bg, fontSize:13, fontWeight:700,
+                  display:"flex", alignItems:"center", gap:10,
+                  boxShadow:`0 4px 20px ${C.gold}40` }}>
+                  🛒 {cartCount} items · € {cartValue.toLocaleString("it-IT",{minimumFractionDigits:2})} → Checkout
+                </button>
+              )}
+            </div>
+
+            {/* Product grid with real stock */}
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px,1fr))", gap:14 }}>
+              {realProducts.length === 0 ? (
+                <div style={{ gridColumn:"1/-1", textAlign:"center", padding:40, color:C.textMuted }}>
+                  No products available yet. Contact your brand manager.
+                </div>
+              ) : realProducts.map(p => {
+                const stock = p.inventory?.quantity_available || 0;
+                const inCart = cart[p.id] || 0;
+                const moq = p.min_order_qty || 1;
+                const multiple = p.order_multiple || 1;
+                return (
+                  <div key={p.id} style={{ background:C.surface, border:`1px solid ${inCart>0?C.gold:C.border}`,
+                    borderTop:`2px solid ${inCart>0?C.gold:stock>0?C.green:C.red}`,
+                    borderRadius:12, padding:18, transition:"all .2s" }}>
+                    {/* Product image */}
+                    {p.image_url && (
+                      <img src={p.image_url} alt={p.name}
+                        style={{ width:"100%", height:120, objectFit:"cover", borderRadius:8, marginBottom:12 }}
+                        onError={e=>e.target.style.display="none"}/>
+                    )}
+                    <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:8 }}>
+                      <div>
+                        <div style={{ fontSize:14, fontWeight:700, color:C.text }}>{p.name}</div>
+                        <div style={{ fontSize:11, color:C.textMuted, marginTop:2 }}>{p.sku} · {p.category}</div>
+                      </div>
+                      <div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€{p.unit_price?.toFixed(2)}</div>
+                    </div>
+                    <div style={{ display:"flex", gap:8, marginBottom:12, flexWrap:"wrap" }}>
+                      <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, fontWeight:600,
+                        background:stock>50?`${C.green}15`:stock>0?`${C.gold}15`:`${C.red}15`,
+                        color:stock>50?C.green:stock>0?C.gold:C.red,
+                        border:`1px solid ${stock>50?C.green:stock>0?C.gold:C.red}30` }}>
+                        {stock>0 ? `${stock} in stock` : "Out of stock"}
+                      </span>
+                      {moq > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.blue}10`, color:C.blue, border:`1px solid ${C.blue}25` }}>MOQ: {moq}</span>}
+                      {multiple > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.purple}10`, color:"#a855f7", border:`1px solid #a855f740` }}>×{multiple}</span>}
+                    </div>
+                    {stock > 0 ? (
+                      <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+                        <button onClick={() => {
+                          const newQty = Math.max(0, (cart[p.id]||0) - multiple);
+                          setCart(c => ({ ...c, [p.id]: newQty }));
+                        }} style={{ width:32, height:32, borderRadius:7, cursor:"pointer", background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:16, display:"flex", alignItems:"center", justifyContent:"center" }}>−</button>
+                        <div style={{ flex:1, textAlign:"center", fontSize:14, fontWeight:700, color:inCart>0?C.goldLight:C.textMuted }}>
+                          {inCart > 0 ? `${inCart} u.` : "0"}
+                        </div>
+                        <button onClick={() => {
+                          const base = cart[p.id] || 0;
+                          const newQty = base === 0 ? Math.max(moq, multiple) : base + multiple;
+                          if (newQty <= stock) setCart(c => ({ ...c, [p.id]: newQty }));
+                        }} style={{ width:32, height:32, borderRadius:7, cursor:"pointer", background:`${C.gold}20`, border:`1px solid ${C.gold}50`, color:C.goldLight, fontSize:16, display:"flex", alignItems:"center", justifyContent:"center", fontWeight:700 }}>+</button>
+                        <button onClick={() => {
+                          const base = cart[p.id] || 0;
+                          const newQty = base === 0 ? Math.max(moq, multiple) : base + multiple;
+                          if (newQty <= stock) setCart(c => ({ ...c, [p.id]: newQty }));
+                        }} style={{ flex:2, padding:"7px 10px", borderRadius:7, cursor:"pointer",
+                          background:inCart>0?`${C.gold}25`:`${C.gold}10`,
+                          border:`1px solid ${inCart>0?C.gold:C.gold+"40"}`,
+                          color:C.goldLight, fontSize:12, fontWeight:600 }}>
+                          {inCart > 0 ? `+ Add more` : `Add to cart`}
+                        </button>
+                      </div>
+                    ) : (
+                      <div style={{ padding:"8px", borderRadius:7, textAlign:"center", background:`${C.red}08`, border:`1px solid ${C.red}20`, color:C.red, fontSize:12 }}>Out of Stock</div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         )}
         {tab==="orders" && (
@@ -1645,27 +1786,140 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("myOrdersTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("myOrdersSub")}</p>
             <div style={{ display:"flex", gap:14, marginBottom:22, flexWrap:"wrap" }}>
-              <Stat icon="◻" label={t("statMyOrders")} value="7" sub={t("statMyOrdersSub")}/>
-              <Stat icon="↗" label={t("statMySpent")} value="€ 89.2K" sub={t("statMySpentSub")}/>
-              <Stat icon="⚡" label={t("statMyDelivery")} value={t("statMyDeliveryVal")} accent={C.green}/>
-              <Stat icon="📦" label={t("statMyPallets")} value="12" sub={t("statMyPalletsSub")} accent={C.blue}/>
+              <Stat icon="◻" label="Total Orders" value={realOrders.length} sub="All time"/>
+              <Stat icon="↗" label="Total Spent" value={`€${realOrders.reduce((s,o)=>s+(o.total_amount||0),0).toLocaleString("it-IT")}`} sub="All orders"/>
+              <Stat icon="⚡" label="Pending" value={realOrders.filter(o=>o.status==="pending").length} accent={C.gold}/>
+              <Stat icon="📦" label="Delivered" value={realOrders.filter(o=>o.status==="delivered").length} accent={C.green}/>
             </div>
-            <Table minWidth={800}
-              headers={[t("colOrderId"),t("colItems"),t("colPallets"),t("colValue"),t("colStatus"),t("colDate"),t("colEta"),t("colPayment")]}
-              rows={ORDERS.slice(0,4).map(o => [
-                <span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{o.id}</span>,
-                <span style={{ fontSize:13, color:C.textMuted }}>{o.items} units</span>,
-                <span style={{ fontSize:13, color:C.textMuted }}>{o.pallets}</span>,
-                <span style={{ fontSize:13, fontWeight:700, color:C.goldLight }}>{fmt(o.value)}</span>,
-                <Badge status={o.status}/>,
-                <span style={{ fontSize:12, color:C.textMuted }}>{o.date}</span>,
-                <span style={{ fontSize:12, color:o.eta==="Delivered"?C.green:C.blue, fontWeight:500 }}>{o.eta==="Delivered"?t("deliveredCheck"):`📦 ${o.eta}`}</span>,
-                <Badge status="settled"/>,
-              ])}
-            />
+            {realOrders.length === 0 ? (
+              <div style={{ textAlign:"center", padding:60, background:C.surface, borderRadius:12, border:`1px solid ${C.border}` }}>
+                <div style={{ fontSize:40, marginBottom:12 }}>📦</div>
+                <div style={{ fontSize:16, fontWeight:600, color:C.text, marginBottom:8 }}>No orders yet</div>
+                <div style={{ fontSize:13, color:C.textMuted, marginBottom:20 }}>Go to My Catalog to place your first order</div>
+                <button onClick={() => setTab("catalog")} style={{ padding:"10px 24px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>Browse Catalog →</button>
+              </div>
+            ) : (
+              <div style={{ display:"flex", flexDirection:"column", gap:12 }}>
+                {realOrders.map(o => (
+                  <div key={o.id} style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:18 }}>
+                    <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", flexWrap:"wrap", gap:10, marginBottom:12 }}>
+                      <div>
+                        <div style={{ fontFamily:"monospace", fontSize:13, color:C.gold, fontWeight:700 }}>{o.order_number}</div>
+                        <div style={{ fontSize:11, color:C.textMuted, marginTop:3 }}>{new Date(o.created_at).toLocaleDateString("it-IT", {day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}</div>
+                      </div>
+                      <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+                        <span style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€{o.total_amount?.toLocaleString("it-IT")}</span>
+                        <Badge status={o.status}/>
+                      </div>
+                    </div>
+                    {o.order_items && o.order_items.length > 0 && (
+                      <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginBottom:10 }}>
+                        {o.order_items.map((item,i) => (
+                          <span key={i} style={{ padding:"3px 10px", borderRadius:5, fontSize:11, background:C.surface2, border:`1px solid ${C.border}`, color:C.textMuted }}>
+                            {item.product_name} × {item.quantity}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    <div style={{ display:"flex", gap:8, alignItems:"center" }}>
+                      {o.status === "shipped" && <span style={{ fontSize:12, color:C.blue }}>🚚 Spedito — consegna 48h</span>}
+                      {o.status === "delivered" && <span style={{ fontSize:12, color:C.green }}>✓ Consegnato</span>}
+                      {o.status === "pending" && <span style={{ fontSize:12, color:C.gold }}>⏳ In attesa di conferma</span>}
+                      {o.status === "confirmed" && <span style={{ fontSize:12, color:C.blue }}>📦 Confermato — in preparazione</span>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
+    {/* Checkout Modal */}
+    {showCheckout && (
+      <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:500,
+        display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
+        <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:16,
+          padding:28, width:"100%", maxWidth:520, maxHeight:"85vh", overflowY:"auto" }}>
+          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
+            <h3 style={{ color:C.text, fontFamily:"Georgia,serif", fontSize:18, margin:0 }}>🛒 Confirm Order</h3>
+            <button onClick={() => setShowCheckout(false)} style={{ background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:22 }}>×</button>
+          </div>
+
+          {/* Order items summary */}
+          <div style={{ marginBottom:16 }}>
+            {Object.entries(cart).filter(([,qty])=>qty>0).map(([pid,qty]) => {
+              const p = realProducts.find(x=>x.id===pid);
+              if (!p) return null;
+              return (
+                <div key={pid} style={{ display:"flex", justifyContent:"space-between", alignItems:"center",
+                  padding:"10px 0", borderBottom:`1px solid ${C.border}` }}>
+                  <div>
+                    <div style={{ fontSize:13, fontWeight:600, color:C.text }}>{p.name}</div>
+                    <div style={{ fontSize:11, color:C.textMuted }}>{p.sku} · {qty} units</div>
+                  </div>
+                  <div style={{ fontSize:13, fontWeight:700, color:C.goldLight }}>
+                    €{(p.unit_price * qty).toLocaleString("it-IT")}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Total */}
+          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center",
+            padding:"14px 0", borderTop:`2px solid ${C.gold}30`, marginBottom:16 }}>
+            <span style={{ fontSize:15, fontWeight:700, color:C.text }}>Total</span>
+            <span style={{ fontSize:20, fontWeight:900, color:C.goldLight }}>€{cartValue.toLocaleString("it-IT", {minimumFractionDigits:2})}</span>
+          </div>
+
+          {/* Payment info */}
+          <div style={{ padding:"12px 16px", background:`${C.blue}08`, border:`1px solid ${C.blue}20`,
+            borderRadius:10, marginBottom:16, fontSize:12, color:C.textMuted, lineHeight:1.6 }}>
+            💳 <strong style={{ color:C.text }}>Pagamento via bonifico SEPA</strong><br/>
+            Riceverai le coordinate bancarie via email dopo la conferma dell'ordine.
+            Consegna prevista: <strong style={{ color:C.green }}>48h dall'hub di Torino</strong>
+          </div>
+
+          {/* Note */}
+          <div style={{ marginBottom:20 }}>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:6 }}>Note (opzionale)</label>
+            <textarea value={orderNote} onChange={e=>setOrderNote(e.target.value)}
+              placeholder="Istruzioni speciali per la consegna..."
+              style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2,
+                border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none",
+                boxSizing:"border-box", minHeight:70, resize:"vertical" }}/>
+          </div>
+
+          <div style={{ display:"flex", gap:10 }}>
+            <button onClick={() => setShowCheckout(false)} style={{ flex:1, padding:"12px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>Cancel</button>
+            <button onClick={placeOrder} disabled={orderLoading} style={{ flex:2, padding:"12px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700 }}>
+              {orderLoading ? "Invio ordine..." : "✓ Conferma Ordine"}
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {/* Order Success */}
+    {orderSuccess && (
+      <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:500,
+        display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
+        <div style={{ background:C.surface, border:`1px solid ${C.green}40`, borderRadius:16,
+          padding:40, width:"100%", maxWidth:440, textAlign:"center" }}>
+          <div style={{ fontSize:56, marginBottom:16 }}>🎉</div>
+          <h3 style={{ color:C.green, fontFamily:"Georgia,serif", fontSize:22, marginBottom:8 }}>Ordine Inviato!</h3>
+          <div style={{ fontFamily:"monospace", fontSize:16, color:C.goldLight, fontWeight:700, marginBottom:12 }}>{orderSuccess.order_number}</div>
+          <p style={{ color:C.textMuted, fontSize:14, lineHeight:1.6, marginBottom:24 }}>
+            Il tuo ordine è stato ricevuto. Riceverai una email di conferma con le coordinate bancarie per il pagamento.
+            <br/><strong style={{ color:C.text }}>Consegna stimata: 48h dall'hub di Torino</strong>
+          </p>
+          <button onClick={() => { setOrderSuccess(null); setTab("orders"); }}
+            style={{ padding:"12px 28px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700 }}>
+            Vedi i miei ordini →
+          </button>
+        </div>
+      </div>
+    )}
     </div>
   );
 };
