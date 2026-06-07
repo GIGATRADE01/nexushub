@@ -1008,6 +1008,10 @@ const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("");
   const [docs, setDocs] = useState({});
+  const [iban, setIban] = useState("");
+  const [bankName, setBankName] = useState("");
+  const [accountHolder, setAccountHolder] = useState("");
+  const [swiftBic, setSwiftBic] = useState("");
 
   const docTypes = isBrand
     ? ["visura_camerale","partita_iva","coordinate_bancarie"]
@@ -1036,7 +1040,11 @@ const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
       });
       if (signUpError) throw signUpError;
       if (data.user) {
-        await supabase.from("profiles").update({ full_name: fullName, company_name: companyName, phone, country }).eq("id", data.user.id);
+        await supabase.from("profiles").update({ 
+          full_name: fullName, company_name: companyName, phone, country,
+          iban: iban || null, bank_name: bankName || null,
+          account_holder: accountHolder || null, swift_bic: swiftBic || null
+        }).eq("id", data.user.id);
         for (const docType of docTypes) {
           const file = docs[docType];
           if (file) {
@@ -1128,6 +1136,30 @@ const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
                 </div>
               ))}
             </div>
+            {/* Banking fields - for both brand and distributor */}
+            <div style={{ marginBottom:14 }}>
+              <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:10 }}>
+                💳 {isBrand ? "Dati Bancari per Ricezione Pagamenti" : "Dati Bancari per Pagamenti Ordini"}
+              </div>
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
+                {[
+                  { label:"Intestatario Conto", val:accountHolder, set:setAccountHolder, placeholder:"Nome/Ragione Sociale" },
+                  { label:"Banca", val:bankName, set:setBankName, placeholder:"es. Unicredit, Intesa..." },
+                  { label:"IBAN", val:iban, set:setIban, placeholder:"IT60 X054 2811 1010 0000 0123 456" },
+                  { label:"SWIFT/BIC (opzionale)", val:swiftBic, set:setSwiftBic, placeholder:"es. UNCRITMM" },
+                ].map(({label,val,set,placeholder}) => (
+                  <div key={label}>
+                    <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:5 }}>{label}</label>
+                    <input type="text" value={val} onChange={e=>set(e.target.value)} placeholder={placeholder}
+                      style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, outline:"none", boxSizing:"border-box" }}/>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop:8, padding:"8px 12px", background:`${C.gold}08`, border:`1px solid ${C.gold}20`, borderRadius:8, fontSize:11, color:C.textMuted }}>
+                💡 {isBrand ? "I distributori useranno questi dati per inviarti i pagamenti via bonifico SEPA" : "Questi dati saranno usati per i pagamenti degli ordini"}
+              </div>
+            </div>
+
             <div>
               <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:10 }}>{t("docsRequired")}</div>
               {docTypes.map(docType => (
@@ -2390,6 +2422,26 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 </div>
               ))}
             </div>
+
+            {/* Banking info (read-only display) */}
+            {(editingUser.iban || editingUser.bank_name) && (
+              <div style={{ marginBottom:16, padding:"14px 16px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:10 }}>
+                <div style={{ fontSize:12, color:C.gold, fontWeight:600, marginBottom:10, textTransform:"uppercase", letterSpacing:".06em" }}>💳 Dati Bancari</div>
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8 }}>
+                  {[
+                    ["Intestatario", editingUser.account_holder],
+                    ["Banca", editingUser.bank_name],
+                    ["IBAN", editingUser.iban],
+                    ["SWIFT/BIC", editingUser.swift_bic],
+                  ].map(([k,v]) => v ? (
+                    <div key={k}>
+                      <div style={{ fontSize:10, color:C.textDim, textTransform:"uppercase", letterSpacing:".06em" }}>{k}</div>
+                      <div style={{ fontSize:12, color:C.text, fontWeight:600, marginTop:2, fontFamily:"monospace" }}>{v}</div>
+                    </div>
+                  ) : null)}
+                </div>
+              </div>
+            )}
 
             {/* Role + Status */}
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:20 }}>
