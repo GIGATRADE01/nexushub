@@ -10,7 +10,7 @@ const supabase = createClient(
 );
 
 // Send email via Edge Function
-const sendEmail = async (type, email, company_name, role, reason = "") => {
+const sendEmail = async (type, email, company_name, role = "", reason = "", order_number = "", order_amount = "", items_count = "") => {
   try {
     await fetch(
       `${process.env.REACT_APP_SUPABASE_URL}/functions/v1/send-email`,
@@ -20,7 +20,7 @@ const sendEmail = async (type, email, company_name, role, reason = "") => {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}`,
         },
-        body: JSON.stringify({ type, email, company_name, role, reason }),
+        body: JSON.stringify({ type, email, company_name, role, reason, order_number, order_amount, items_count }),
       }
     );
   } catch(e) { console.log("Email error:", e); }
@@ -1776,7 +1776,47 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   // Update order status
   const updateOrderStatus = async (orderId, status) => {
     await supabase.from("orders").update({ status }).eq("id", orderId);
-    notify(`Order ${status}!`);
+    notify("Order " + status + "!");
+    
+    // Send email notification based on status
+    const order = orders.find(o => o.id === orderId);
+    if (order) {
+      const distProfile = await supabase.from("profiles").select("email,company_name").eq("id", order.distributor_id).single();
+      if (distProfile.data) {
+        const emailMap = {
+          confirmed: "order_confirmed",
+          preparing: "order_preparing", 
+          shipped: "order_shipped",
+          delivered: "order_delivered",
+        };
+        if (emailMap[status]) {
+          await sendEmail(
+            emailMap[status],
+            distProfile.data.email,
+            distProfile.data.company_name || distProfile.data.email,
+            "distributor", "", 
+            order.order_number,
+            order.total_amount?.toLocaleString("it-IT"),
+            ""
+          );
+        }
+        // Payment email when delivered
+        if (status === "delivered") {
+          const brandProfile = await supabase.from("profiles").select("email,company_name").eq("id", order.brand_id).single();
+          if (brandProfile.data) {
+            await sendEmail(
+              "payment_received",
+              brandProfile.data.email,
+              brandProfile.data.company_name || brandProfile.data.email,
+              "brand", "",
+              order.order_number,
+              order.total_amount?.toLocaleString("it-IT"),
+              ""
+            );
+          }
+        }
+      }
+    }
     loadOrders();
   };
 
