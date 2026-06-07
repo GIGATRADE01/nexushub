@@ -1012,6 +1012,9 @@ const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
   const [bankName, setBankName] = useState("");
   const [accountHolder, setAccountHolder] = useState("");
   const [swiftBic, setSwiftBic] = useState("");
+  const [vatNumber, setVatNumber] = useState("");
+  const [sdiCode, setSdiCode] = useState("");
+  const [pecEmail, setPecEmail] = useState("");
 
   const docTypes = isBrand
     ? ["visura_camerale","partita_iva","coordinate_bancarie"]
@@ -1043,7 +1046,10 @@ const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
         await supabase.from("profiles").update({ 
           full_name: fullName, company_name: companyName, phone, country,
           iban: iban || null, bank_name: bankName || null,
-          account_holder: accountHolder || null, swift_bic: swiftBic || null
+          account_holder: accountHolder || null, swift_bic: swiftBic || null,
+          vat_number: vatNumber || null,
+          sdi_code: country === "Italia" || country === "Italy" || country === "IT" ? (sdiCode || null) : null,
+          pec_email: country === "Italia" || country === "Italy" || country === "IT" ? (pecEmail || null) : null,
         }).eq("id", data.user.id);
         for (const docType of docTypes) {
           const file = docs[docType];
@@ -1157,6 +1163,43 @@ const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
               </div>
               <div style={{ marginTop:8, padding:"8px 12px", background:`${C.gold}08`, border:`1px solid ${C.gold}20`, borderRadius:8, fontSize:11, color:C.textMuted }}>
                 💡 {isBrand ? "I distributori useranno questi dati per inviarti i pagamenti via bonifico SEPA" : "Questi dati saranno usati per i pagamenti degli ordini"}
+              </div>
+            </div>
+
+            {/* VAT + SDI Section */}
+            <div style={{ marginBottom:14 }}>
+              <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:10 }}>
+                🧾 Dati Fiscali
+              </div>
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
+                <div>
+                  <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:5 }}>
+                    VAT Number <span style={{ color:C.red }}>*</span>
+                  </label>
+                  <input type="text" value={vatNumber} onChange={e=>setVatNumber(e.target.value)}
+                    placeholder="es. IT12345678901 / DE123456789"
+                    style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, outline:"none", boxSizing:"border-box" }}/>
+                </div>
+                {/* SDI solo per Italia */}
+                {(country === "Italia" || country === "Italy" || country === "IT") && (
+                  <>
+                    <div>
+                      <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:5 }}>Codice SDI</label>
+                      <input type="text" value={sdiCode} onChange={e=>setSdiCode(e.target.value)}
+                        placeholder="es. ABCDEFG (7 caratteri)"
+                        style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, outline:"none", boxSizing:"border-box" }}/>
+                    </div>
+                    <div style={{ gridColumn:"1/-1" }}>
+                      <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:5 }}>PEC (opzionale)</label>
+                      <input type="email" value={pecEmail} onChange={e=>setPecEmail(e.target.value)}
+                        placeholder="es. azienda@pec.it"
+                        style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, outline:"none", boxSizing:"border-box" }}/>
+                    </div>
+                  </>
+                )}
+              </div>
+              <div style={{ marginTop:8, padding:"8px 12px", background:`${C.blue}08`, border:`1px solid ${C.blue}15`, borderRadius:8, fontSize:11, color:C.textMuted }}>
+                💡 VAT Number obbligatorio per tutti · Codice SDI e PEC solo per aziende italiane
               </div>
             </div>
 
@@ -2439,6 +2482,25 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                     ["Banca", editingUser.bank_name],
                     ["IBAN", editingUser.iban],
                     ["SWIFT/BIC", editingUser.swift_bic],
+                  ].map(([k,v]) => v ? (
+                    <div key={k}>
+                      <div style={{ fontSize:10, color:C.textDim, textTransform:"uppercase", letterSpacing:".06em" }}>{k}</div>
+                      <div style={{ fontSize:12, color:C.text, fontWeight:600, marginTop:2, fontFamily:"monospace" }}>{v}</div>
+                    </div>
+                  ) : null)}
+                </div>
+              </div>
+            )}
+
+            {/* VAT/SDI/PEC display */}
+            {(editingUser.vat_number || editingUser.sdi_code) && (
+              <div style={{ marginBottom:16, padding:"14px 16px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:10 }}>
+                <div style={{ fontSize:12, color:C.blue, fontWeight:600, marginBottom:10, textTransform:"uppercase", letterSpacing:".06em" }}>🧾 Dati Fiscali</div>
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8 }}>
+                  {[
+                    ["VAT Number", editingUser.vat_number],
+                    ["Codice SDI", editingUser.sdi_code],
+                    ["PEC", editingUser.pec_email],
                   ].map(([k,v]) => v ? (
                     <div key={k}>
                       <div style={{ fontSize:10, color:C.textDim, textTransform:"uppercase", letterSpacing:".06em" }}>{k}</div>
