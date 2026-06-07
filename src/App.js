@@ -2083,6 +2083,12 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                     </div>
                     <Badge status={b.status}/>
                   </div>
+                  {b.brand_code && (
+                    <div style={{ marginBottom:8, padding:"6px 10px", background:`${C.gold}08`, border:`1px solid ${C.gold}20`, borderRadius:7, display:"flex", alignItems:"center", gap:8 }}>
+                      <span style={{ fontSize:10, color:C.textDim, textTransform:"uppercase", letterSpacing:".06em" }}>Code</span>
+                      <span style={{ fontSize:13, fontWeight:700, color:C.goldLight, fontFamily:"monospace" }}>{b.brand_code}</span>
+                    </div>
+                  )}
                   <div style={{ display:"flex", gap:8 }}>
                     {b.status !== "approved" && <button onClick={() => approveUser(b.id)} style={{ flex:1, padding:"7px", borderRadius:7, cursor:"pointer", fontSize:11, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green, fontWeight:600 }}>✓ Approve</button>}
                     {b.status !== "rejected" && <button onClick={() => rejectUser(b.id)} style={{ flex:1, padding:"7px", borderRadius:7, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>✗ Reject</button>}
@@ -2439,6 +2445,21 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                       <div style={{ fontSize:12, color:C.text, fontWeight:600, marginTop:2, fontFamily:"monospace" }}>{v}</div>
                     </div>
                   ) : null)}
+                </div>
+              </div>
+            )}
+
+            {/* Brand Code - only for brands */}
+            {editingUser.role === "brand" && editingUser.brand_code && (
+              <div style={{ marginBottom:16, padding:"12px 16px",
+                background:`${C.gold}08`, border:`1px solid ${C.gold}25`, borderRadius:10,
+                display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+                <div>
+                  <div style={{ fontSize:10, color:C.textDim, textTransform:"uppercase", letterSpacing:".08em" }}>Brand Code</div>
+                  <div style={{ fontSize:16, fontWeight:800, color:C.goldLight, fontFamily:"monospace", marginTop:3 }}>{editingUser.brand_code}</div>
+                </div>
+                <div style={{ fontSize:10, color:C.textMuted, maxWidth:200, textAlign:"right", lineHeight:1.5 }}>
+                  Codice univoco per fatture e bonifici
                 </div>
               </div>
             )}
