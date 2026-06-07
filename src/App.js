@@ -1609,7 +1609,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         distributor_id: user.id,
         brand_id: items[0] ? realProducts.find(p=>p.id===items[0].product_id)?.brand_id : null,
         total_amount: total,
-        status: "pending",
+        status: "confirmed", // Auto-confirmed, stock scales immediately via DB trigger
         notes: orderNote,
       }).select().single();
 
@@ -1825,7 +1825,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       {o.status === "shipped" && <span style={{ fontSize:12, color:C.blue }}>🚚 Spedito — consegna 48h</span>}
                       {o.status === "delivered" && <span style={{ fontSize:12, color:C.green }}>✓ Consegnato</span>}
                       {o.status === "pending" && <span style={{ fontSize:12, color:C.gold }}>⏳ In attesa di conferma</span>}
-                      {o.status === "confirmed" && <span style={{ fontSize:12, color:C.blue }}>📦 Confermato — in preparazione</span>}
+                      {o.status === "confirmed" && <span style={{ fontSize:12, color:C.blue }}>📦 Confermato — in preparazione all'hub di Torino</span>}
                     </div>
                   </div>
                 ))}
@@ -1876,8 +1876,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           <div style={{ padding:"12px 16px", background:`${C.blue}08`, border:`1px solid ${C.blue}20`,
             borderRadius:10, marginBottom:16, fontSize:12, color:C.textMuted, lineHeight:1.6 }}>
             💳 <strong style={{ color:C.text }}>Pagamento via bonifico SEPA</strong><br/>
-            Riceverai le coordinate bancarie via email dopo la conferma dell'ordine.
-            Consegna prevista: <strong style={{ color:C.green }}>48h dall'hub di Torino</strong>
+            L'ordine viene <strong style={{ color:C.green }}>confermato automaticamente</strong> — lo stock viene riservato subito.<br/>
+            Riceverai le coordinate bancarie via email. Consegna: <strong style={{ color:C.green }}>48h dall'hub di Torino</strong>
           </div>
 
           {/* Note */}
@@ -1910,8 +1910,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           <h3 style={{ color:C.green, fontFamily:"Georgia,serif", fontSize:22, marginBottom:8 }}>Ordine Inviato!</h3>
           <div style={{ fontFamily:"monospace", fontSize:16, color:C.goldLight, fontWeight:700, marginBottom:12 }}>{orderSuccess.order_number}</div>
           <p style={{ color:C.textMuted, fontSize:14, lineHeight:1.6, marginBottom:24 }}>
-            Il tuo ordine è stato ricevuto. Riceverai una email di conferma con le coordinate bancarie per il pagamento.
-            <br/><strong style={{ color:C.text }}>Consegna stimata: 48h dall'hub di Torino</strong>
+            Il tuo ordine è stato <strong style={{ color:C.green }}>confermato automaticamente</strong>. Lo stock è stato riservato per te. Riceverai una email con i dettagli dell'ordine e le coordinate bancarie per il pagamento via bonifico SEPA.
+            <br/><br/><strong style={{ color:C.text }}>📦 Consegna stimata: 48h dall'hub di Torino</strong>
           </p>
           <button onClick={() => { setOrderSuccess(null); setTab("orders"); }}
             style={{ padding:"12px 28px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700 }}>
