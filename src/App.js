@@ -918,7 +918,10 @@ const Login = ({ onLogin, lang, onLangChange }) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [view, setView] = useState("login"); // login | register-brand | register-dist
+  const [view, setView] = useState("login"); // login | register-brand | register-dist | reset
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetSent, setResetSent] = useState(false);
+  const [resetLoading, setResetLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -942,6 +945,59 @@ const Login = ({ onLogin, lang, onLangChange }) => {
   if (view === "register-brand") return <RegisterScreen role="brand" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
   if (view === "register-dist") return <RegisterScreen role="distributor" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
   if (view === "demo") return <DemoPresentation lang={lang} onLangChange={onLangChange} onSelectRole={(role) => { if (role === "back") setView("login"); else setView("register-" + role); }} />;
+
+  if (view === "reset") return (
+    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", backgroundImage:`radial-gradient(ellipse at 20% 50%,${C.gold}08 0%,transparent 60%)` }}>
+      <div style={{ width:"100%", maxWidth:420, padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:`0 40px 80px rgba(0,0,0,0.7)` }}>
+        <div style={{ textAlign:"center", marginBottom:28 }}>
+          <div style={{ display:"inline-flex", alignItems:"center", justifyContent:"center", width:52, height:52, borderRadius:13, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, fontSize:22, fontWeight:900, color:C.bg, marginBottom:12 }}>N</div>
+          <div style={{ fontSize:20, fontWeight:800, color:C.text, fontFamily:"Georgia,serif" }}>Reset Password</div>
+          <div style={{ fontSize:12, color:C.textMuted, marginTop:4 }}>Ti invieremo un link via email</div>
+        </div>
+
+        {resetSent ? (
+          <div>
+            <div style={{ background:`${C.green}15`, border:`1px solid ${C.green}40`, borderRadius:10, padding:"18px 20px", textAlign:"center", marginBottom:20 }}>
+              <div style={{ fontSize:32, marginBottom:8 }}>📧</div>
+              <div style={{ fontSize:15, fontWeight:700, color:C.green, marginBottom:6 }}>Email inviata!</div>
+              <div style={{ fontSize:13, color:C.textMuted, lineHeight:1.6 }}>
+                Controlla la tua email <strong style={{ color:C.text }}>{resetEmail}</strong> e clicca sul link per reimpostare la password.
+              </div>
+            </div>
+            <button onClick={() => { setView("login"); setResetSent(false); setResetEmail(""); }}
+              style={{ width:"100%", padding:"13px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700 }}>
+              ← Torna al login
+            </button>
+          </div>
+        ) : (
+          <div>
+            <div style={{ marginBottom:18 }}>
+              <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>Email</label>
+              <input type="email" value={resetEmail} onChange={e=>setResetEmail(e.target.value)}
+                placeholder="La tua email registrata"
+                style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none", boxSizing:"border-box" }}/>
+            </div>
+            <button onClick={async () => {
+              if (!resetEmail) return;
+              setResetLoading(true);
+              await supabase.auth.resetPasswordForEmail(resetEmail, {
+                redirectTo: "https://nexushub-eosin.vercel.app/reset-password"
+              });
+              setResetLoading(false);
+              setResetSent(true);
+            }} disabled={resetLoading || !resetEmail}
+              style={{ width:"100%", padding:"13px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, marginBottom:12, opacity: !resetEmail ? 0.6 : 1 }}>
+              {resetLoading ? "Invio in corso..." : "Invia link di reset"}
+            </button>
+            <button onClick={() => setView("login")}
+              style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>
+              ← Torna al login
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", backgroundImage:`radial-gradient(ellipse at 20% 50%,${C.gold}08 0%,transparent 60%)` }}>
@@ -973,6 +1029,11 @@ const Login = ({ onLogin, lang, onLangChange }) => {
           <button type="submit" disabled={loading} style={{ padding:"13px", borderRadius:10, cursor:"pointer", background:loading?C.goldDim:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, marginTop:4 }}>
             {loading ? t("loggingIn") : t("loginBtn")}
           </button>
+          <div style={{ textAlign:"center", marginTop:8 }}>
+            <button onClick={() => setView("reset")} type="button" style={{ background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:12, textDecoration:"underline" }}>
+              Hai dimenticato la password?
+            </button>
+          </div>
         </form>
 
         <div style={{ display:"flex", alignItems:"center", gap:10, margin:"20px 0" }}>
