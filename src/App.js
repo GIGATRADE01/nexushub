@@ -1332,6 +1332,178 @@ const PendingScreen = ({ status, profile, onLogout, lang, onLangChange }) => {
 // ============================================================
 // DASHBOARDS (unchanged from original)
 // ============================================================
+
+// ============================================================
+// EUROPE MAP COMPONENT
+// ============================================================
+const EuropeMap = ({ distributors = [], highlightCountries = [], hubCity = "Turin", compact = false }) => {
+  const [tooltip, setTooltip] = useState(null);
+  
+  const countries = [
+    // Western Europe
+    { id:"GB", name:"United Kingdom", path:"M 285 86 L 318 76 L 342 86 L 355 106 L 358 138 L 348 170 L 330 186 L 308 186 L 290 170 L 278 146 L 278 116 Z", cx:318, cy:135 },
+    { id:"IE", name:"Ireland", path:"M 242 116 L 272 108 L 278 146 L 265 163 L 245 156 L 235 138 Z", cx:258, cy:138 },
+    { id:"FR", name:"France", path:"M 318 196 L 415 186 L 440 216 L 448 266 L 428 310 L 392 326 L 355 316 L 322 286 L 308 246 Z", cx:375, cy:258 },
+    { id:"ES", name:"Spain", path:"M 265 316 L 388 306 L 428 316 L 442 350 L 428 390 L 382 413 L 325 416 L 275 396 L 252 360 L 258 330 Z", cx:345, cy:362 },
+    { id:"PT", name:"Portugal", path:"M 238 323 L 265 316 L 260 393 L 235 386 L 222 360 L 228 336 Z", cx:245, cy:358 },
+    { id:"DE", name:"Germany", path:"M 428 173 L 510 166 L 522 196 L 518 236 L 495 256 L 455 260 L 435 236 L 428 210 Z", cx:475, cy:213 },
+    { id:"NL", name:"Netherlands", path:"M 385 180 L 422 173 L 428 196 L 408 206 L 385 203 Z", cx:405, cy:192 },
+    { id:"BE", name:"Belgium", path:"M 385 203 L 422 196 L 428 220 L 395 225 Z", cx:405, cy:212 },
+    { id:"LU", name:"Luxembourg", path:"M 415 220 L 428 218 L 430 232 L 415 234 Z", cx:422, cy:226 },
+    { id:"CH", name:"Switzerland", path:"M 408 260 L 455 255 L 458 278 L 408 282 Z", cx:433, cy:268 },
+    { id:"AT", name:"Austria", path:"M 455 236 L 522 230 L 525 255 L 458 260 Z", cx:488, cy:246 },
+    // Italy - HIGHLIGHT (hub)
+    { id:"IT", name:"Italy", path:"M 392 283 L 458 276 L 492 296 L 505 333 L 495 376 L 472 413 L 452 425 L 435 408 L 422 373 L 408 340 Z", cx:448, cy:345 },
+    // Northern Europe
+    { id:"NO", name:"Norway", path:"M 390 36 L 430 18 L 432 62 L 425 92 L 410 112 L 398 105 L 385 79 L 383 55 Z", cx:408, cy:72 },
+    { id:"SE", name:"Sweden", path:"M 430 18 L 450 13 L 480 20 L 505 16 L 525 28 L 535 52 L 528 82 L 515 108 L 495 128 L 478 145 L 462 140 L 448 118 L 438 92 L 432 62 Z", cx:478, cy:88 },
+    { id:"FI", name:"Finland", path:"M 530 18 L 570 10 L 600 16 L 618 36 L 620 62 L 610 92 L 595 115 L 575 129 L 555 125 L 535 109 L 528 85 L 535 52 L 525 28 Z", cx:572, cy:72 },
+    { id:"DK", name:"Denmark", path:"M 438 170 L 455 166 L 462 183 L 455 196 L 440 193 L 435 180 Z", cx:448, cy:182 },
+    // Eastern Europe
+    { id:"PL", name:"Poland", path:"M 510 163 L 595 156 L 608 170 L 615 206 L 605 236 L 518 240 L 518 203 L 510 173 Z", cx:560, cy:198 },
+    { id:"CZ", name:"Czech Republic", path:"M 455 236 L 518 230 L 522 256 L 458 262 Z", cx:488, cy:246 },
+    { id:"SK", name:"Slovakia", path:"M 518 256 L 608 248 L 612 268 L 518 272 Z", cx:563, cy:260 },
+    { id:"HU", name:"Hungary", path:"M 518 268 L 612 262 L 618 292 L 518 296 Z", cx:565, cy:280 },
+    { id:"RO", name:"Romania", path:"M 560 265 L 670 258 L 680 310 L 660 360 L 600 368 L 555 340 L 548 295 Z", cx:615, cy:310 },
+    { id:"BG", name:"Bulgaria", path:"M 555 368 L 660 360 L 663 395 L 555 400 Z", cx:608, cy:380 },
+    // Balkans
+    { id:"SI", name:"Slovenia", path:"M 488 278 L 520 274 L 522 292 L 488 296 Z", cx:505, cy:285 },
+    { id:"HR", name:"Croatia", path:"M 488 296 L 530 290 L 538 335 L 505 340 L 488 320 Z", cx:510, cy:315 },
+    { id:"RS", name:"Serbia", path:"M 530 290 L 560 285 L 568 335 L 540 340 L 530 320 Z", cx:548, cy:312 },
+    { id:"GR", name:"Greece", path:"M 532 356 L 575 346 L 588 376 L 575 408 L 548 418 L 525 406 L 518 383 Z", cx:553, cy:382 },
+    // Baltic
+    { id:"EE", name:"Estonia", path:"M 558 145 L 608 138 L 613 158 L 560 165 Z", cx:583, cy:152 },
+    { id:"LV", name:"Latvia", path:"M 555 165 L 613 158 L 616 182 L 556 188 Z", cx:583, cy:173 },
+    { id:"LT", name:"Lithuania", path:"M 552 188 L 616 182 L 618 205 L 554 210 Z", cx:583, cy:196 },
+  ];
+
+  const getCountryColor = (countryId) => {
+    if (countryId === "IT") return "#1a2a10"; // Hub country - slightly highlighted
+    const hasDistributor = distributors.some(d => d.country_code === countryId || d.territory?.includes(countryId));
+    const isHighlighted = highlightCountries.includes(countryId);
+    if (hasDistributor || isHighlighted) return "rgba(201,168,76,0.15)";
+    return "#0d150d";
+  };
+
+  const getCountryStroke = (countryId) => {
+    if (countryId === "IT") return "#c9a84c";
+    const hasDistributor = distributors.some(d => d.country_code === countryId || d.territory?.includes(countryId));
+    if (hasDistributor) return "rgba(201,168,76,0.5)";
+    return "#1a3a1a";
+  };
+
+  const h = compact ? 280 : 420;
+
+  return (
+    <div style={{ position:"relative", width:"100%" }}>
+      <svg viewBox={`0 0 750 ${h}`} style={{ width:"100%", height:"auto", borderRadius:10 }}
+        xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="mapbg" cx="48%" cy="55%" r="60%">
+            <stop offset="0%" stopColor="#0a1020"/>
+            <stop offset="100%" stopColor="#020408"/>
+          </radialGradient>
+          <radialGradient id="hubglow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#c9a84c" stopOpacity="0.4"/>
+            <stop offset="100%" stopColor="#c9a84c" stopOpacity="0"/>
+          </radialGradient>
+          <filter id="mapglow">
+            <feGaussianBlur stdDeviation="2" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect width="750" height={h} fill="url(#mapbg)" rx="10"/>
+
+        {/* Grid */}
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(201,168,76,0.03)" strokeWidth="1"/>
+          </pattern>
+        </defs>
+        <rect width="750" height={h} fill="url(#grid)"/>
+
+        {/* Countries */}
+        {countries.map(c => (
+          <g key={c.id}>
+            <path
+              d={c.path}
+              fill={getCountryColor(c.id)}
+              stroke={getCountryStroke(c.id)}
+              strokeWidth={c.id === "IT" ? "1.5" : "0.8"}
+              style={{ cursor:"pointer", transition:"fill 0.2s" }}
+              onMouseEnter={e => setTooltip({ id:c.id, name:c.name, x:c.cx, y:c.cy })}
+              onMouseLeave={() => setTooltip(null)}
+            />
+          </g>
+        ))}
+
+        {/* Distributor dots */}
+        {distributors.map((d, i) => {
+          const country = countries.find(c => c.id === d.country_code);
+          if (!country) return null;
+          return (
+            <g key={i}>
+              <circle cx={country.cx} cy={country.cy} r="7" fill="#c9a84c" opacity="0.15"/>
+              <circle cx={country.cx} cy={country.cy} r="4" fill="#c9a84c" opacity="0.9" filter="url(#mapglow)"/>
+            </g>
+          );
+        })}
+
+        {/* Turin Hub */}
+        <circle cx="430" cy="306" r="30" fill="url(#hubglow)"/>
+        <circle cx="430" cy="306" r="10" fill="none" stroke="#c9a84c" strokeWidth="1.5" opacity="0.5">
+          <animate attributeName="r" values="6;20;6" dur="2.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values=".6;0;.6" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="430" cy="306" r="5" fill="#c9a84c" filter="url(#mapglow)"/>
+        <circle cx="430" cy="306" r="3" fill="#fff8e8"/>
+        <rect x="410" y="315" width="42" height="16" rx="3" fill="rgba(6,6,14,.9)" stroke="#c9a84c" strokeWidth="0.8"/>
+        <text x="431" y="326" fill="#e2bc6a" fontSize="6.5" fontFamily="DM Sans,sans-serif" fontWeight="700" textAnchor="middle">TORINO HUB</text>
+
+        {/* Route lines to distributors */}
+        {distributors.map((d, i) => {
+          const country = countries.find(c => c.id === d.country_code);
+          if (!country) return null;
+          return (
+            <line key={i} x1="430" y1="306" x2={country.cx} y2={country.cy}
+              stroke="#c9a84c" strokeWidth="1" opacity="0.3"
+              strokeDasharray="4,4">
+              <animate attributeName="strokeDashoffset" values="16;0" dur={`${1.5+i*0.3}s`} repeatCount="indefinite"/>
+            </line>
+          );
+        })}
+
+        {/* Tooltip */}
+        {tooltip && (
+          <g>
+            <rect x={Math.min(tooltip.x-40, 670)} y={Math.max(tooltip.y-36, 5)} width="100" height="28" rx="5"
+              fill="rgba(6,6,14,.92)" stroke="rgba(201,168,76,.4)" strokeWidth="1"/>
+            <text x={Math.min(tooltip.x+10, 720)} y={Math.max(tooltip.y-17, 22)}
+              fill="#e2bc6a" fontSize="10" fontFamily="DM Sans,sans-serif" fontWeight="700" textAnchor="middle">
+              {tooltip.name}
+            </text>
+          </g>
+        )}
+      </svg>
+
+      {/* Legend */}
+      <div style={{ display:"flex", gap:16, justifyContent:"center", marginTop:10, flexWrap:"wrap" }}>
+        <div style={{ display:"flex", alignItems:"center", gap:6, fontSize:11, color:"#6b6b8a" }}>
+          <div style={{ width:8, height:8, borderRadius:"50%", background:"#c9a84c" }}/>Turin Hub
+        </div>
+        {distributors.length > 0 && (
+          <div style={{ display:"flex", alignItems:"center", gap:6, fontSize:11, color:"#6b6b8a" }}>
+            <div style={{ width:8, height:8, borderRadius:"50%", background:"rgba(201,168,76,0.7)" }}/>Active Distributors ({distributors.length})
+          </div>
+        )}
+        <div style={{ display:"flex", alignItems:"center", gap:6, fontSize:11, color:"#6b6b8a" }}>
+          <div style={{ width:12, height:8, borderRadius:2, background:"rgba(201,168,76,0.15)", border:"1px solid rgba(201,168,76,0.4)" }}/>Covered Territory
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
   const [tab, setTab] = useState("overview");
@@ -1435,6 +1607,16 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                     <button style={{ padding:"4px 12px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}15`, border:`1px solid ${C.red}40`, color:C.red }}>{t("actBtn")}</button>
                   </div>
                 ))}
+              </div>
+              {/* Europe Map */}
+              <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20, gridColumn:"1/-1" }}>
+                <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>🗺️ European Distribution Map</h3>
+                <EuropeMap
+                  distributors={ACTIVE_DISTRIBUTORS.map(d => ({
+                    ...d,
+                    country_code: d.country === "Italy" ? "IT" : d.country === "Germany" ? "DE" : d.country === "Romania" ? "RO" : d.country === "France" ? "FR" : d.country === "UK" ? "GB" : d.country === "Greece" ? "GR" : "IT"
+                  }))}
+                />
               </div>
               <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
                 <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>📦 {t("hubStockTitle")}</h3>
@@ -2050,7 +2232,6 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
 };
 
 const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
-  const [tab, setTab] = useState("users");
   const [users, setUsers] = useState([]);
   const [brands, setBrands] = useState([]);
   const [products, setProducts] = useState([]);
@@ -2393,6 +2574,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const approvedUsers = users.filter(u => u.status === "approved");
 
   const tabs = [
+    { key:"overview", icon:"◈", label:"Overview" },
     { key:"users", icon:"👥", label:"Users", badge: pendingUsers.length },
     { key:"brands", icon:"🏛️", label:"Brands" },
     { key:"catalog", icon:"📦", label:"Catalog" },
@@ -2401,6 +2583,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"payments", icon:"💰", label:"Payments" },
     { key:"settings", icon:"⚙️", label:"Settings" },
   ];
+  const [tab, setTab] = useState("overview");
 
   const Input = ({ label, value, onChange, type="text", placeholder="" }) => (
     <div style={{ marginBottom:14 }}>
@@ -2552,6 +2735,37 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             </button>
           ))}
         </div>
+
+        {/* OVERVIEW TAB - shown when no tab selected, or add as first tab */}
+        {tab === "overview" && (
+          <div>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Platform Overview</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Real-time view across all brands, distributors and inventory</p>
+            <div style={{ display:"flex", gap:12, marginBottom:20, flexWrap:"wrap" }}>
+              {[
+                { label:"Active Brands", value:brands.length, color:C.gold },
+                { label:"Total Users", value:users.length, color:C.blue },
+                { label:"Pending Approval", value:pendingUsers.length, color:C.red },
+                { label:"Total Products", value:products.length, color:C.green },
+                { label:"Total Orders", value:orders.length, color:C.purple },
+              ].map((s,i) => (
+                <div key={i} style={{ flex:"1 1 140px", padding:"16px 18px", background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${s.color}`, borderRadius:12 }}>
+                  <div style={{ fontSize:24, fontWeight:900, color:s.color, fontFamily:"Georgia,serif" }}>{s.value}</div>
+                  <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{s.label}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
+              <h3 style={{ fontSize:14, color:C.text, marginBottom:14 }}>🗺️ European Distribution Network</h3>
+              <EuropeMap
+                distributors={users.filter(u=>u.role==="distributor"&&u.status==="approved").map(u=>({
+                  ...u,
+                  country_code: u.country==="Italy"||u.country==="IT"?"IT":u.country==="Germany"||u.country==="DE"?"DE":u.country==="Romania"||u.country==="RO"?"RO":u.country==="France"||u.country==="FR"?"FR":u.country==="UK"||u.country==="GB"?"GB":u.country==="Greece"||u.country==="GR"?"GR":u.country==="Spain"||u.country==="ES"?"ES":u.country==="Poland"||u.country==="PL"?"PL":"IT"
+                }))}
+              />
+            </div>
+          </div>
+        )}
 
         {/* USERS TAB */}
         {tab === "users" && (
