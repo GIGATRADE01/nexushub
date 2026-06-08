@@ -939,19 +939,6 @@ const FormInput = ({ label, value, onChange, type="text", placeholder="" }) => (
   </div>
 );
 
-const FormTextarea = ({ label, value, onChange, placeholder="", minHeight=70 }) => (
-  <div style={{ marginBottom:14 }}>
-    {label && <label style={{ fontSize:11, color:"#8890aa", textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>}
-    <textarea
-      value={value}
-      onChange={e => onChange(e.target.value)}
-      placeholder={placeholder}
-      style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:"#151720",
-        border:"1px solid #252838", color:"#ede9e3", fontSize:13, outline:"none",
-        boxSizing:"border-box", minHeight, resize:"vertical" }}/>
-  </div>
-);
-
 
 // ============================================================
 // GLOBAL MODAL COMPONENT - top level to prevent focus loss
@@ -2904,20 +2891,6 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       );
       notify("✓ Fattura inviata via email!");
     } catch(e) { notify("Errore invio email", "error"); }
-  };
-
-  const createContract = async (brandId, distributorId, territory) => {
-    await supabase.from("contracts").insert({
-      contract_number: "",
-      brand_id: brandId,
-      distributor_id: distributorId,
-      territory: territory,
-      status: "draft",
-      valid_from: new Date().toISOString().split("T")[0],
-      valid_until: new Date(Date.now() + 365*24*60*60*1000).toISOString().split("T")[0],
-    });
-    notify("✓ Contratto creato!");
-    loadContracts();
   };
 
   const loadDocuments = async (userId) => {
