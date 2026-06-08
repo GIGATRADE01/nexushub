@@ -1813,6 +1813,9 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [distNotifs, setDistNotifs] = useState([]);
   const [distNotifPanel, setDistNotifPanel] = useState(false);
   const distUnread = distNotifs.filter(n => !n.read).length;
+  const [aiSuggestions, setAiSuggestions] = useState([]);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiPrompt, setAiPrompt] = useState("");
   const cartCount = Object.values(cart).reduce((a,b)=>a+b,0);
   const cartValue = Object.entries(cart).reduce((s,[pid,qty]) => {
     const item = realProducts.find(p=>p.id===pid);
@@ -1914,6 +1917,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"brands", icon:"◈", label:t("tabBrandMarket") },
     { key:"catalog", icon:"◻", label:t("tabMyCatalog") },
     { key:"orders", icon:"↗", label:t("tabMyOrders") },
+    { key:"ai", icon:"🤖", label:"AI Suggestions" },
   ];
   return (
     <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
@@ -2104,6 +2108,106 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           </div>
         )}
       </div>
+        {tab==="ai" && (
+          <div>
+            <div style={{ marginBottom:20 }}>
+              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🤖 AI Product Suggestions</h2>
+              <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Ricevi suggerimenti personalizzati su cosa ordinare basati sul tuo storico e la stagionalità</p>
+            </div>
+
+            {/* AI Chat Input */}
+            <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, padding:20, marginBottom:20 }}>
+              <div style={{ fontSize:13, color:C.text, fontWeight:600, marginBottom:12 }}>💬 Chiedi all'AI</div>
+              <div style={{ display:"flex", gap:10 }}>
+                <input
+                  type="text"
+                  value={aiPrompt}
+                  onChange={e => setAiPrompt(e.target.value)}
+                  onKeyDown={e => e.key === "Enter" && !aiLoading && aiPrompt.trim() && generateAiSuggestions()}
+                  placeholder="es. Cosa dovrei ordinare per l'estate? Quali prodotti vanno meglio in Romania?"
+                  style={{ flex:1, padding:"12px 14px", borderRadius:9, background:C.surface2,
+                    border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none" }}/>
+                <button
+                  onClick={generateAiSuggestions}
+                  disabled={aiLoading || !aiPrompt.trim()}
+                  style={{ padding:"12px 20px", borderRadius:9, cursor:"pointer",
+                    background: aiLoading || !aiPrompt.trim() ? C.surface2 : `linear-gradient(135deg,${C.gold},${C.goldDim})`,
+                    border:"none", color: aiLoading || !aiPrompt.trim() ? C.textMuted : C.bg,
+                    fontSize:13, fontWeight:700, whiteSpace:"nowrap" }}>
+                  {aiLoading ? "⏳ Analisi..." : "✨ Genera"}
+                </button>
+              </div>
+              <div style={{ display:"flex", gap:8, marginTop:10, flexWrap:"wrap" }}>
+                {["Suggerimenti estate 2024", "Prodotti bestseller", "Stock quasi esaurito", "Novità catalogo"].map(q => (
+                  <button key={q} onClick={() => { setAiPrompt(q); }} style={{
+                    padding:"5px 12px", borderRadius:20, cursor:"pointer", fontSize:11,
+                    background:`${C.gold}10`, border:`1px solid ${C.gold}30`, color:C.gold }}>
+                    {q}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* AI Suggestions Results */}
+            {aiLoading && (
+              <div style={{ textAlign:"center", padding:40, background:C.surface, borderRadius:14, border:`1px solid ${C.border}` }}>
+                <div style={{ fontSize:32, marginBottom:12 }}>🤖</div>
+                <div style={{ fontSize:14, color:C.textMuted }}>Analisi in corso...</div>
+                <div style={{ fontSize:12, color:C.textDim, marginTop:6 }}>L'AI sta analizzando il tuo storico ordini e la stagionalità</div>
+              </div>
+            )}
+
+            {aiSuggestions.length > 0 && !aiLoading && (
+              <div>
+                <div style={{ fontSize:14, fontWeight:600, color:C.text, marginBottom:14 }}>
+                  ✨ Suggerimenti personalizzati per te:
+                </div>
+                <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:14 }}>
+                  {aiSuggestions.map((s, i) => (
+                    <div key={i} style={{ background:C.surface, border:`1px solid ${C.border}`,
+                      borderTop:`2px solid ${s.priority==="high"?C.red:s.priority==="medium"?C.gold:C.green}`,
+                      borderRadius:12, padding:18 }}>
+                      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:10 }}>
+                        <div style={{ fontSize:14, fontWeight:700, color:C.text }}>{s.product_name}</div>
+                        <span style={{ padding:"2px 8px", borderRadius:5, fontSize:10, fontWeight:700,
+                          background: s.priority==="high"?`${C.red}15`:s.priority==="medium"?`${C.gold}15`:`${C.green}15`,
+                          color: s.priority==="high"?C.red:s.priority==="medium"?C.gold:C.green,
+                          border:`1px solid ${s.priority==="high"?C.red:s.priority==="medium"?C.gold:C.green}30` }}>
+                          {s.priority==="high"?"🔥 Urgente":s.priority==="medium"?"⚡ Consigliato":"✓ Opportunità"}
+                        </span>
+                      </div>
+                      <div style={{ fontSize:12, color:C.textMuted, lineHeight:1.6, marginBottom:12 }}>{s.reason}</div>
+                      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                        <div>
+                          <span style={{ fontSize:12, color:C.textDim }}>Quantità suggerita: </span>
+                          <span style={{ fontSize:13, fontWeight:700, color:C.goldLight }}>{s.suggested_qty} u.</span>
+                        </div>
+                        <button onClick={() => {
+                          setCart(c => ({ ...c, [s.product_id]: (c[s.product_id]||0) + s.suggested_qty }));
+                          setTab("catalog");
+                        }} style={{ padding:"6px 14px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600,
+                          background:`${C.gold}15`, border:`1px solid ${C.gold}40`, color:C.goldLight }}>
+                          + Aggiungi al carrello
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {aiSuggestions.length === 0 && !aiLoading && (
+              <div style={{ textAlign:"center", padding:60, background:C.surface, borderRadius:14, border:`1px solid ${C.border}` }}>
+                <div style={{ fontSize:48, marginBottom:16 }}>🤖</div>
+                <div style={{ fontSize:16, fontWeight:600, color:C.text, marginBottom:8 }}>AI Pronta ad Aiutarti</div>
+                <div style={{ fontSize:13, color:C.textMuted, maxWidth:400, margin:"0 auto", lineHeight:1.6 }}>
+                  Fai una domanda o clicca su uno dei suggerimenti rapidi per ricevere raccomandazioni personalizzate basate sul catalogo disponibile e la stagionalità.
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
     {/* Distributor Notification Panel */}
     {distNotifPanel && (
       <div style={{ position:"fixed", top:56, right:0, width:360, maxWidth:"100vw",
