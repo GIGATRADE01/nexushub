@@ -922,42 +922,6 @@ function DemoPresentation({ lang, onLangChange, onSelectRole }) {
 // AUTH SCREENS
 // ============================================================
 
-// ============================================================
-// GLOBAL INPUT COMPONENTS - defined at top level to prevent focus loss
-// ============================================================
-const FormInput = ({ label, value, onChange, type="text", placeholder="" }) => (
-  <div style={{ marginBottom:14 }}>
-    <label style={{ fontSize:11, color:"#8890aa", textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
-    <input
-      type="text"
-      inputMode={type === "number" ? "numeric" : type === "decimal" ? "decimal" : type === "email" ? "email" : "text"}
-      value={value}
-      onChange={e => onChange(e.target.value)}
-      placeholder={placeholder}
-      style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:"#151720",
-        border:"1px solid #252838", color:"#ede9e3", fontSize:13, outline:"none", boxSizing:"border-box" }}/>
-  </div>
-);
-
-const FormTextarea = ({ label, value, onChange, placeholder="", minHeight=70 }) => (
-  <div style={{ marginBottom:14 }}>
-    {label && <label style={{ fontSize:11, color:"#8890aa", textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>}
-    <textarea
-      value={value}
-      onChange={e => onChange(e.target.value)}
-      placeholder={placeholder}
-      style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:"#151720",
-        border:"1px solid #252838", color:"#ede9e3", fontSize:13, outline:"none",
-        boxSizing:"border-box", minHeight, resize:"vertical" }}/>
-  </div>
-);
-
-
-// ============================================================
-// GLOBAL MODAL COMPONENT - top level to prevent focus loss
-// ============================================================
-
-
 const Login = ({ onLogin, lang, onLangChange }) => {
   const t = useT();
   const [email, setEmail] = useState("");
@@ -2690,26 +2654,42 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   );
 };
 
+// ============================================================
+// GLOBAL FORM COMPONENTS — module level to prevent input focus loss
+// (NEVER define these inside a dashboard: React would remount them on
+//  every keystroke and the input would lose focus)
+// ============================================================
+const Input = ({ label, value, onChange, type="text", placeholder="" }) => (
+  <div style={{ marginBottom:14 }}>
+    <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
+    <input
+      type="text"
+      inputMode={type === "number" ? "numeric" : "text"}
+      value={value}
+      onChange={e => onChange(e.target.value)}
+      placeholder={placeholder}
+      style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2,
+        border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+  </div>
+);
 
-
-const Modal = ({ title, onClose, onSave, children, saveLabel="Save" }) => (
-  <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:500,
+const Modal = ({ title, onClose, onSave, children }) => (
+  <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.7)", zIndex:500,
     display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
-    <div style={{ background:"#0e0e1a", border:"1px solid #252838", borderRadius:16,
-      padding:28, width:"100%", maxWidth:560, maxHeight:"88vh", overflowY:"auto" }}>
+    <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:16,
+      padding:28, width:"100%", maxWidth:520, maxHeight:"85vh", overflowY:"auto" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
-        <h3 style={{ color:"#ede9e3", fontFamily:"Georgia,serif", fontSize:18, margin:0 }}>{title}</h3>
-        <button onClick={onClose} style={{ background:"none", border:"none", color:"#8890aa", cursor:"pointer", fontSize:22 }}>×</button>
+        <h3 style={{ color:C.text, fontFamily:"Georgia,serif", fontSize:18, margin:0 }}>{title}</h3>
+        <button onClick={onClose} style={{ background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:20 }}>×</button>
       </div>
       {children}
       <div style={{ display:"flex", gap:10, marginTop:20 }}>
-        <button onClick={onClose} style={{ flex:1, padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:"1px solid #252838", color:"#8890aa", fontSize:13 }}>Cancel</button>
-        <button onClick={onSave} style={{ flex:2, padding:"11px", borderRadius:10, cursor:"pointer", background:"linear-gradient(135deg,#c9a84c,#7a5e28)", border:"none", color:"#08080f", fontSize:13, fontWeight:700 }}>{saveLabel}</button>
+        <button onClick={onClose} style={{ flex:1, padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>Cancel</button>
+        <button onClick={onSave} style={{ flex:2, padding:"11px", borderRadius:8, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>Save</button>
       </div>
     </div>
   </div>
 );
-
 
 const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [tab, setTab] = useState("overview");
@@ -3064,10 +3044,6 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"payments", icon:"💰", label:"Payments" },
     { key:"settings", icon:"⚙️", label:"Settings" },
   ];
-
-
-
-
 
   // If impersonating, render that user's dashboard
   if (impersonating) {
@@ -3999,9 +3975,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       {/* Add Brand Modal */}
       {showAddBrand && (
         <Modal title="Add New Brand" onClose={() => setShowAddBrand(false)} onSave={addBrand}>
-          <FormInput label="Brand Name" value={brandForm.name} onChange={v=>setBrandForm(f=>({...f,name:v}))} placeholder="e.g. Lattafa Perfumes"/>
-          <FormInput label="Origin Country" value={brandForm.origin} onChange={v=>setBrandForm(f=>({...f,origin:v}))} placeholder="e.g. Dubai, UAE"/>
-          <FormInput label="Category" value={brandForm.category} onChange={v=>setBrandForm(f=>({...f,category:v}))} placeholder="e.g. Fine Fragrance"/>
+          <Input label="Brand Name" value={brandForm.name} onChange={v=>setBrandForm(f=>({...f,name:v}))} placeholder="e.g. Lattafa Perfumes"/>
+          <Input label="Origin Country" value={brandForm.origin} onChange={v=>setBrandForm(f=>({...f,origin:v}))} placeholder="e.g. Dubai, UAE"/>
+          <Input label="Category" value={brandForm.category} onChange={v=>setBrandForm(f=>({...f,category:v}))} placeholder="e.g. Fine Fragrance"/>
           <div style={{ marginBottom:14 }}>
             <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Description</label>
             <textarea value={brandForm.description} onChange={e=>setBrandForm(f=>({...f,description:e.target.value}))}
