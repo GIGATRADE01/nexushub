@@ -356,7 +356,7 @@ const LangSwitcher = ({ lang, onChange }) => (
   </div>
 );
 
-const Navbar = ({ name, badge, onLogout, lang, onLangChange }) => {
+const Navbar = ({ name, badge, onLogout, lang, onLangChange, onNotifications, notifCount=0 }) => {
   const t = useT();
   const bCol = { brand:C.gold, distributor:C.blue, admin:C.purple };
   const bLabel = { brand:t("portalBrand"), distributor:t("portalDistributor"), admin:t("portalAdmin") };
@@ -367,6 +367,16 @@ const Navbar = ({ name, badge, onLogout, lang, onLangChange }) => {
       <span style={{ padding:"2px 8px", borderRadius:4, background:bCol[badge]+"18", border:`1px solid ${bCol[badge]}30`, fontSize:10, color:bCol[badge], letterSpacing:"0.1em", textTransform:"uppercase" }}>{bLabel[badge]}</span>
       <div style={{ flex:1 }}/>
       <LangSwitcher lang={lang} onChange={onLangChange}/>
+      {onNotifications && (
+        <button onClick={onNotifications} style={{ position:"relative", background:"transparent", border:"none", cursor:"pointer", padding:"4px 8px", borderRadius:8, display:"flex", alignItems:"center" }}>
+          <span style={{ fontSize:20 }}>🔔</span>
+          {notifCount > 0 && (
+            <span style={{ position:"absolute", top:0, right:0, background:C.red, color:"#fff", borderRadius:10, fontSize:10, fontWeight:700, padding:"1px 5px", minWidth:16, textAlign:"center" }}>
+              {notifCount > 9 ? "9+" : notifCount}
+            </span>
+          )}
+        </button>
+      )}
       <span style={{ fontSize:12, color:C.textMuted, marginLeft:4 }}>{name}</span>
       <button onClick={onLogout} style={{ padding:"5px 12px", borderRadius:6, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:11 }}>{t("logout")}</button>
     </div>
@@ -1964,6 +1974,54 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     setTimeout(() => setNotification(null), 3500);
   };
 
+  // Push notifications state
+  const [pushNotifs, setPushNotifs] = useState([]);
+  const [showNotifPanel, setShowNotifPanel] = useState(false);
+  const unreadCount = pushNotifs.filter(n => !n.read).length;
+
+  useEffect(() => {
+    // Load existing notifications
+    const loadNotifs = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data } = await supabase.from("notifications")
+        .select("*").eq("user_id", user.id)
+        .order("created_at", { ascending: false }).limit(30);
+      setPushNotifs(data || []);
+    };
+    loadNotifs();
+
+    // Subscribe to realtime notifications
+    const channel = supabase
+      .channel("notifications")
+      .on("postgres_changes", {
+        event: "INSERT",
+        schema: "public",
+        table: "notifications",
+      }, (payload) => {
+        setPushNotifs(prev => [payload.new, ...prev]);
+        // Browser notification if permitted
+        if (Notification.permission === "granted") {
+          new Notification(payload.new.title, { body: payload.new.message, icon: "/favicon.ico" });
+        }
+      })
+      .subscribe();
+
+    // Request browser notification permission
+    if (Notification.permission === "default") {
+      Notification.requestPermission();
+    }
+
+    return () => supabase.removeChannel(channel);
+  }, []);
+
+  const markAllRead = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    await supabase.from("notifications").update({ read: true }).eq("user_id", user.id).eq("read", false);
+    setPushNotifs(prev => prev.map(n => ({ ...n, read: true })));
+  };
+
   // Load data from Supabase
   const loadUsers = async () => {
     setLoading(true);
@@ -2300,7 +2358,56 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
   return (
     <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
-      <Navbar name="NexusHub Admin" badge="admin" onLogout={onLogout} lang={lang} onLangChange={onLangChange}/>
+      <Navbar name="NexusHub Admin" badge="admin" onLogout={onLogout} lang={lang} onLangChange={onLangChange}
+        onNotifications={() => setShowNotifPanel(p => !p)} notifCount={unreadCount}/>
+
+      {/* Push Notification Panel */}
+      {showNotifPanel && (
+        <div style={{ position:"fixed", top:56, right:0, width:380, maxWidth:"100vw",
+          height:"calc(100vh - 56px)", background:C.surface, borderLeft:`1px solid ${C.border}`,
+          zIndex:300, display:"flex", flexDirection:"column", boxShadow:"-8px 0 32px rgba(0,0,0,.4)" }}>
+          <div style={{ padding:"16px 20px", borderBottom:`1px solid ${C.border}`,
+            display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+            <div style={{ fontSize:15, fontWeight:700, color:C.text }}>🔔 Notifiche {unreadCount > 0 && <span style={{ background:C.red, color:"#fff", borderRadius:10, padding:"1px 7px", fontSize:11, marginLeft:6 }}>{unreadCount}</span>}</div>
+            <div style={{ display:"flex", gap:8, alignItems:"center" }}>
+              {unreadCount > 0 && <button onClick={markAllRead} style={{ fontSize:11, color:C.textMuted, background:"none", border:"none", cursor:"pointer", textDecoration:"underline" }}>Segna tutte lette</button>}
+              <button onClick={() => setShowNotifPanel(false)} style={{ background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:20 }}>×</button>
+            </div>
+          </div>
+          <div style={{ flex:1, overflowY:"auto" }}>
+            {pushNotifs.length === 0 ? (
+              <div style={{ textAlign:"center", padding:40, color:C.textMuted }}>
+                <div style={{ fontSize:32, marginBottom:10 }}>🔔</div>
+                Nessuna notifica
+              </div>
+            ) : pushNotifs.map(n => (
+              <div key={n.id} onClick={async () => {
+                await supabase.from("notifications").update({ read:true }).eq("id", n.id);
+                setPushNotifs(prev => prev.map(x => x.id===n.id ? {...x,read:true} : x));
+                setShowNotifPanel(false);
+                if (n.type === "new_order" || n.type === "payment") setTab("orders");
+                if (n.type === "new_user") setTab("users");
+                if (n.type === "low_stock") setTab("inventory");
+              }} style={{
+                padding:"14px 20px", borderBottom:`1px solid ${C.border}`,
+                cursor:"pointer", background: n.read ? "transparent" : `${C.gold}06`,
+                borderLeft:`3px solid ${n.read ? "transparent" : C.gold}`,
+                transition:"all .15s" }}>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:10 }}>
+                  <div style={{ flex:1 }}>
+                    <div style={{ fontSize:13, fontWeight: n.read ? 500 : 700, color:C.text }}>{n.title}</div>
+                    <div style={{ fontSize:12, color:C.textMuted, marginTop:3, lineHeight:1.5 }}>{n.message}</div>
+                    <div style={{ fontSize:10, color:C.textDim, marginTop:5 }}>
+                      {new Date(n.created_at).toLocaleString("it-IT", {day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}
+                    </div>
+                  </div>
+                  {!n.read && <div style={{ width:8, height:8, borderRadius:"50%", background:C.gold, flexShrink:0, marginTop:4 }}/>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Notification */}
       {notification && (
