@@ -1952,6 +1952,12 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   });
   const [importLoading, setImportLoading] = useState(false);
   const [importResults, setImportResults] = useState(null);
+  const [scannerMode, setScannerMode] = useState(false);
+  const [scanInput, setScanInput] = useState("");
+  const [scanResult, setScanResult] = useState(null);
+  const [scanQty, setScanQty] = useState("");
+  const [scanType, setScanType] = useState("in"); // in = restock, out = remove
+  const scanInputRef = useRef(null);
 
   const notify = (msg, type="success") => {
     setNotification({ msg, type });
@@ -2538,9 +2544,14 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Inventory Management</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Update stock levels — changes reflect immediately for all users</p>
               </div>
-              <div style={{ padding:"12px 18px", background:`${C.purple}15`, border:`1px solid ${C.purple}40`, borderRadius:10, fontSize:13, color:"#a855f7", fontWeight:600 }}>
-                📱 Scanner Mode — coming soon
-              </div>
+              <button onClick={() => setScannerMode(m => !m)} style={{
+                padding:"12px 18px", borderRadius:10, cursor:"pointer",
+                background: scannerMode ? "#a855f7" : `${C.purple}15`,
+                border:`1px solid ${C.purple}40`,
+                color: scannerMode ? "#fff" : "#a855f7",
+                fontSize:13, fontWeight:700, display:"flex", alignItems:"center", gap:8 }}>
+                📱 {scannerMode ? "✓ Scanner Mode ON" : "Scanner Mode"}
+              </button>
             </div>
 
             {/* Stock summary */}
@@ -2557,6 +2568,170 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 </div>
               ))}
             </div>
+
+            {/* SCANNER MODE */}
+            {scannerMode && (
+              <div style={{ marginBottom:20, padding:24, background:`${C.purple}08`,
+                border:`2px solid ${C.purple}40`, borderRadius:14 }}>
+                <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:16 }}>
+                  <span style={{ fontSize:24 }}>📱</span>
+                  <div>
+                    <div style={{ fontSize:15, fontWeight:700, color:"#a855f7" }}>Scanner Mode Attivo</div>
+                    <div style={{ fontSize:12, color:C.textMuted }}>Connetti il tuo scanner USB/Bluetooth oppure inserisci il barcode/SKU manualmente</div>
+                  </div>
+                </div>
+
+                {/* Scan input */}
+                <div style={{ display:"flex", gap:10, marginBottom:16, flexWrap:"wrap" }}>
+                  <input
+                    ref={scanInputRef}
+                    type="text"
+                    value={scanInput}
+                    onChange={e => setScanInput(e.target.value)}
+                    onKeyDown={async e => {
+                      if (e.key === "Enter" && scanInput.trim()) {
+                        // Search product by SKU or barcode
+                        const { data } = await supabase.from("products")
+                          .select("*, inventory(*)")
+                          .or(`sku.eq.${scanInput.trim()},name.ilike.%${scanInput.trim()}%`)
+                          .single();
+                        if (data) {
+                          setScanResult(data);
+                          setScanQty("");
+                          setScanInput("");
+                        } else {
+                          setScanResult({ notFound: true, query: scanInput.trim() });
+                          setScanInput("");
+                        }
+                      }
+                    }}
+                    placeholder="🔍 Scansiona barcode o inserisci SKU + Invio..."
+                    autoFocus
+                    style={{ flex:1, padding:"14px 18px", borderRadius:10, fontSize:15,
+                      background:C.surface2, border:`2px solid ${C.purple}50`,
+                      color:C.text, outline:"none", minWidth:280,
+                      boxShadow:`0 0 0 ${scanResult?'3px':'0px'} ${C.purple}30` }}/>
+                  <div style={{ display:"flex", gap:8 }}>
+                    <button onClick={() => setScanType("in")} style={{
+                      padding:"12px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700,
+                      background: scanType==="in" ? `${C.green}25` : "transparent",
+                      border:`2px solid ${scanType==="in" ? C.green : C.border}`,
+                      color: scanType==="in" ? C.green : C.textMuted }}>
+                      ↑ Carico
+                    </button>
+                    <button onClick={() => setScanType("out")} style={{
+                      padding:"12px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700,
+                      background: scanType==="out" ? `${C.red}20` : "transparent",
+                      border:`2px solid ${scanType==="out" ? C.red : C.border}`,
+                      color: scanType==="out" ? C.red : C.textMuted }}>
+                      ↓ Scarico
+                    </button>
+                  </div>
+                </div>
+
+                {/* Scan result */}
+                {scanResult && (
+                  <div style={{ padding:18, borderRadius:12,
+                    background: scanResult.notFound ? `${C.red}10` : `${C.green}08`,
+                    border:`1px solid ${scanResult.notFound ? C.red : C.green}40` }}>
+                    {scanResult.notFound ? (
+                      <div style={{ color:C.red, fontSize:14 }}>
+                        ❌ Prodotto non trovato: <strong>"{scanResult.query}"</strong><br/>
+                        <span style={{ fontSize:12, color:C.textMuted }}>Verifica che lo SKU sia corretto</span>
+                      </div>
+                    ) : (
+                      <div>
+                        <div style={{ display:"flex", alignItems:"center", gap:14, marginBottom:14 }}>
+                          {scanResult.image_url && (
+                            <img src={scanResult.image_url} alt="" style={{ width:56, height:56, objectFit:"cover", borderRadius:8 }} onError={e=>e.target.style.display="none"}/>
+                          )}
+                          <div style={{ flex:1 }}>
+                            <div style={{ fontSize:16, fontWeight:700, color:C.text }}>{scanResult.name}</div>
+                            <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{scanResult.sku} · {scanResult.category}</div>
+                            <div style={{ fontSize:13, fontWeight:700, marginTop:4 }}>
+                              Stock attuale: <span style={{ color: (scanResult.inventory?.quantity_available||0)>20?C.green:C.red }}>
+                                {scanResult.inventory?.quantity_available || 0} unità
+                              </span>
+                            </div>
+                          </div>
+                          <div style={{ fontSize:20, fontWeight:900, color:C.goldLight }}>€{scanResult.unit_price?.toFixed(2)}</div>
+                        </div>
+                        <div style={{ display:"flex", gap:10, alignItems:"center" }}>
+                          <input
+                            type="text"
+                            inputMode="numeric"
+                            value={scanQty}
+                            onChange={e => setScanQty(e.target.value)}
+                            placeholder={scanType==="in" ? "Quantità da aggiungere..." : "Quantità da rimuovere..."}
+                            style={{ flex:1, padding:"12px 14px", borderRadius:9,
+                              background:C.surface2, border:`1px solid ${C.border}`,
+                              color:C.text, fontSize:14, outline:"none" }}/>
+                          <button onClick={async () => {
+                            const qty = parseInt(scanQty);
+                            if (!qty || qty <= 0) return;
+                            const currentStock = scanResult.inventory?.quantity_available || 0;
+                            const newStock = scanType === "in"
+                              ? currentStock + qty
+                              : Math.max(0, currentStock - qty);
+
+                            // Update inventory
+                            if (scanResult.inventory) {
+                              await supabase.from("inventory")
+                                .update({ quantity_available: newStock, last_restock_at: new Date().toISOString(), last_restock_qty: qty, updated_at: new Date().toISOString() })
+                                .eq("product_id", scanResult.id);
+                            } else {
+                              await supabase.from("inventory")
+                                .insert({ product_id: scanResult.id, quantity_available: newStock, last_restock_at: new Date().toISOString(), last_restock_qty: qty });
+                            }
+
+                            // Log movement
+                            await supabase.from("inventory_movements").insert({
+                              product_id: scanResult.id,
+                              movement_type: scanType === "in" ? "restock" : "manual_removal",
+                              quantity: qty,
+                              quantity_before: currentStock,
+                              quantity_after: newStock,
+                              notes: `Scanner ${scanType === "in" ? "carico" : "scarico"} — ${qty} unità`
+                            });
+
+                            notify(scanType==="in"
+                              ? `✓ +${qty} unità aggiunte a ${scanResult.name}`
+                              : `✓ -${qty} unità rimosse da ${scanResult.name}`);
+
+                            // Update local state
+                            setScanResult(prev => ({
+                              ...prev,
+                              inventory: { ...prev.inventory, quantity_available: newStock }
+                            }));
+                            setScanQty("");
+                            loadProducts();
+
+                            // Refocus scanner input for next scan
+                            setTimeout(() => scanInputRef.current?.focus(), 100);
+                          }} style={{
+                            padding:"12px 20px", borderRadius:9, cursor:"pointer",
+                            background: scanType==="in"
+                              ? `linear-gradient(135deg,${C.green},#1e8449)`
+                              : `linear-gradient(135deg,${C.red},#922b21)`,
+                            border:"none", color:"#fff", fontSize:14, fontWeight:700, whiteSpace:"nowrap" }}>
+                            {scanType==="in" ? `+ Aggiungi` : `- Rimuovi`}
+                          </button>
+                          <button onClick={() => setScanResult(null)} style={{
+                            padding:"12px 16px", borderRadius:9, cursor:"pointer",
+                            background:"transparent", border:`1px solid ${C.border}`,
+                            color:C.textMuted, fontSize:13 }}>
+                            ✕
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+                <div style={{ marginTop:12, fontSize:11, color:C.textMuted }}>
+                  💡 Tieni premuto sul campo di testo e scansiona — il barcode viene letto automaticamente. Premi Invio per cercare.
+                </div>
+              </div>
+            )}
 
             <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:700 }}>
