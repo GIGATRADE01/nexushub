@@ -291,7 +291,7 @@ const BrandLogo = ({ brand, size=36 }) => (
 );
 
 const Stat = ({ icon, label, value, sub, accent }) => (
-  <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${accent||C.goldDim}`, borderRadius:12, padding:"16px 18px", minWidth:150, flex:"1 1 150px" }}>
+  <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${accent||C.goldDim}`, borderRadius:12, padding:"16px 18px", minWidth:130, flex:"1 1 130px" }}>
     <div style={{ fontSize:18, marginBottom:6 }}>{icon}</div>
     <div style={{ fontSize:22, fontWeight:700, color:accent||C.goldLight, fontFamily:"Georgia,serif", letterSpacing:"-0.02em" }}>{value}</div>
     <div style={{ fontSize:12, color:C.text, marginTop:2 }}>{label}</div>
@@ -323,7 +323,7 @@ const Table = ({ headers, rows, minWidth=700 }) => (
 );
 
 const TabNav = ({ tabs, active, onChange }) => (
-  <div style={{ display:"flex", gap:4, marginBottom:24, borderBottom:`1px solid ${C.border}`, overflowX:"auto" }}>
+  <div style={{ display:"flex", gap:4, marginBottom:16, borderBottom:`1px solid ${C.border}`, overflowX:"auto", WebkitOverflowScrolling:"touch", scrollbarWidth:"none", msOverflowStyle:"none" }}>
     {tabs.map(t => (
       <button key={t.key} onClick={() => onChange(t.key)} style={{
         padding:"10px 18px", cursor:"pointer", background:"transparent",
@@ -361,7 +361,7 @@ const Navbar = ({ name, badge, onLogout, lang, onLangChange, onNotifications, no
   const bCol = { brand:C.gold, distributor:C.blue, admin:C.purple };
   const bLabel = { brand:t("portalBrand"), distributor:t("portalDistributor"), admin:t("portalAdmin") };
   return (
-    <div style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:"0 24px", display:"flex", alignItems:"center", height:56, position:"sticky", top:0, zIndex:100, gap:10, flexWrap:"wrap" }}>
+    <div style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:"0 12px", display:"flex", alignItems:"center", height:56, position:"sticky", top:0, zIndex:100, gap:8, flexWrap:"wrap", WebkitBackdropFilter:"blur(10px)" }}>
       <div style={{ width:30, height:30, borderRadius:7, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:13, fontWeight:900, color:C.bg }}>N</div>
       <span style={{ fontSize:16, fontWeight:700, color:C.text, fontFamily:"Georgia,serif" }}>NexusHub</span>
       <span style={{ padding:"2px 8px", borderRadius:4, background:bCol[badge]+"18", border:`1px solid ${bCol[badge]}30`, fontSize:10, color:bCol[badge], letterSpacing:"0.1em", textTransform:"uppercase" }}>{bLabel[badge]}</span>
@@ -935,7 +935,7 @@ const FormInput = ({ label, value, onChange, type="text", placeholder="" }) => (
       onChange={e => onChange(e.target.value)}
       placeholder={placeholder}
       style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:"#151720",
-        border:"1px solid #252838", color:"#ede9e3", fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+        border:"1px solid #252838", color:"#ede9e3", fontSize:16, outline:"none", boxSizing:"border-box" }}/>
   </div>
 );
 
@@ -980,8 +980,8 @@ const Login = ({ onLogin, lang, onLangChange }) => {
   if (view === "demo") return <DemoPresentation lang={lang} onLangChange={onLangChange} onSelectRole={(role) => { if (role === "back") setView("login"); else setView("register-" + role); }} />;
 
   if (view === "reset") return (
-    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", backgroundImage:`radial-gradient(ellipse at 20% 50%,${C.gold}08 0%,transparent 60%)` }}>
-      <div style={{ width:"100%", maxWidth:420, padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:`0 40px 80px rgba(0,0,0,0.7)` }}>
+    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", backgroundImage:`radial-gradient(ellipse at 20% 50%,${C.gold}08 0%,transparent 60%)`, padding:"20px 12px", overflowY:"auto" }}>
+      <div style={{ width:"100%", maxWidth:420, padding:"32px 20px", background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:`0 40px 80px rgba(0,0,0,0.7)` }}>
         <div style={{ textAlign:"center", marginBottom:28 }}>
           <div style={{ display:"inline-flex", alignItems:"center", justifyContent:"center", width:52, height:52, borderRadius:13, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, fontSize:22, fontWeight:900, color:C.bg, marginBottom:12 }}>N</div>
           <div style={{ fontSize:20, fontWeight:800, color:C.text, fontFamily:"Georgia,serif" }}>Reset Password</div>
@@ -1008,7 +1008,7 @@ const Login = ({ onLogin, lang, onLangChange }) => {
               <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>Email</label>
               <input type="email" value={resetEmail} onChange={e=>setResetEmail(e.target.value)}
                 placeholder="La tua email registrata"
-                style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none", boxSizing:"border-box" }}/>
+                style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:16, outline:"none", boxSizing:"border-box" }}/>
             </div>
             <button onClick={async () => {
               if (!resetEmail) return;
@@ -1033,8 +1033,8 @@ const Login = ({ onLogin, lang, onLangChange }) => {
   );
 
   return (
-    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", backgroundImage:`radial-gradient(ellipse at 20% 50%,${C.gold}08 0%,transparent 60%)` }}>
-      <div style={{ width:"100%", maxWidth:420, padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:`0 40px 80px rgba(0,0,0,0.7)` }}>
+    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", backgroundImage:`radial-gradient(ellipse at 20% 50%,${C.gold}08 0%,transparent 60%)`, padding:"20px 12px", overflowY:"auto" }}>
+      <div style={{ width:"100%", maxWidth:420, padding:"32px 20px", background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:`0 40px 80px rgba(0,0,0,0.7)` }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:28 }}>
           <div style={{ textAlign:"center", flex:1 }}>
             <div style={{ display:"inline-flex", alignItems:"center", justifyContent:"center", width:56, height:56, borderRadius:14, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, fontSize:24, fontWeight:900, color:C.bg, marginBottom:12, boxShadow:`0 8px 24px ${C.gold}35` }}>N</div>
@@ -1052,12 +1052,12 @@ const Login = ({ onLogin, lang, onLangChange }) => {
           <div>
             <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{t("emailLabel")}</label>
             <input type="email" value={email} onChange={e=>setEmail(e.target.value)} required
-              style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none", boxSizing:"border-box" }}/>
+              style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:16, outline:"none", boxSizing:"border-box" }}/>
           </div>
           <div>
             <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{t("passwordLabel")}</label>
             <input type="password" value={password} onChange={e=>setPassword(e.target.value)} required
-              style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none", boxSizing:"border-box" }}/>
+              style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:16, outline:"none", boxSizing:"border-box" }}/>
           </div>
           <button type="submit" disabled={loading} style={{ padding:"13px", borderRadius:10, cursor:"pointer", background:loading?C.goldDim:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, marginTop:4 }}>
             {loading ? t("loggingIn") : t("loginBtn")}
@@ -1178,7 +1178,7 @@ const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
 
   return (
     <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", padding:"40px 0" }}>
-      <div style={{ width:"100%", maxWidth:480, padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:`0 40px 80px rgba(0,0,0,0.7)` }}>
+      <div style={{ width:"100%", maxWidth:480, padding:"24px 16px", background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:`0 40px 80px rgba(0,0,0,0.7)` }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:24 }}>
           <div style={{ display:"flex", alignItems:"center", gap:10 }}>
             <div style={{ width:36, height:36, borderRadius:9, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:16, fontWeight:900, color:C.bg }}>N</div>
@@ -1213,7 +1213,7 @@ const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
               <div key={label}>
                 <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{label}</label>
                 <input type={type} value={val} onChange={e=>set(e.target.value)} required
-                  style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none", boxSizing:"border-box" }}/>
+                  style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:16, outline:"none", boxSizing:"border-box" }}/>
               </div>
             ))}
             <button type="submit" style={{ padding:"13px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, marginTop:4 }}>Continua →</button>
@@ -1997,7 +1997,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
         </div>
       )}
 
-      <div style={{ padding:"24px 28px", maxWidth:1400, margin:"0 auto" }}>
+      <div style={{ padding:"16px 12px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
         {tab==="overview" && (
           <div>
@@ -2357,13 +2357,13 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
       <Navbar name="Distributor Portal" badge="distributor" onLogout={onLogout} lang={lang} onLangChange={onLangChange}
         onNotifications={() => setDistNotifPanel(p=>!p)} notifCount={distUnread}/>
-      <div style={{ padding:"24px 28px", maxWidth:1400, margin:"0 auto" }}>
+      <div style={{ padding:"16px 12px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
         {tab==="brands" && (
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("marketTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("marketSub")}</p>
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:16 }}>
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(min(280px, 100%), 1fr))", gap:16 }}>
               {BRANDS.map(brand => {
                 const enabled=myBrands.includes(brand.id); const req=requested[brand.id];
                 return (
@@ -2418,7 +2418,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
             </div>
 
             {/* Product grid with real stock */}
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px,1fr))", gap:14 }}>
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(min(280px,100%), 1fr))", gap:14 }}>
               {realProducts.length === 0 ? (
                 <div style={{ gridColumn:"1/-1", textAlign:"center", padding:40, color:C.textMuted }}>
                   No products available yet. Contact your brand manager.
@@ -2592,7 +2592,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:500,
         display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
         <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:16,
-          padding:28, width:"100%", maxWidth:520, maxHeight:"85vh", overflowY:"auto" }}>
+          padding:"20px 16px", width:"100%", maxWidth:520, maxHeight:"92vh", overflowY:"auto", WebkitOverflowScrolling:"touch" }}>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
             <h3 style={{ color:C.text, fontFamily:"Georgia,serif", fontSize:18, margin:0 }}>🛒 Confirm Order</h3>
             <button onClick={() => setShowCheckout(false)} style={{ background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:22 }}>×</button>
@@ -2675,7 +2675,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:500,
         display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
         <div style={{ background:C.surface, border:`1px solid ${C.green}40`, borderRadius:16,
-          padding:40, width:"100%", maxWidth:440, textAlign:"center" }}>
+          padding:"28px 16px", width:"100%", maxWidth:440, textAlign:"center" }}>
           <div style={{ fontSize:56, marginBottom:16 }}>🎉</div>
           <h3 style={{ color:C.green, fontFamily:"Georgia,serif", fontSize:22, marginBottom:8 }}>Ordine Inviato!</h3>
           <div style={{ fontFamily:"monospace", fontSize:16, color:C.goldLight, fontWeight:700, marginBottom:12 }}>{orderSuccess.order_number}</div>
@@ -2700,7 +2700,7 @@ const Modal = ({ title, onClose, onSave, children, saveLabel="Save" }) => (
   <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:500,
     display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
     <div style={{ background:"#0e0e1a", border:"1px solid #252838", borderRadius:16,
-      padding:28, width:"100%", maxWidth:560, maxHeight:"88vh", overflowY:"auto" }}>
+      padding:"20px 16px", width:"100%", maxWidth:560, maxHeight:"92vh", overflowY:"auto", WebkitOverflowScrolling:"touch" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
         <h3 style={{ color:"#ede9e3", fontFamily:"Georgia,serif", fontSize:18, margin:0 }}>{title}</h3>
         <button onClick={onClose} style={{ background:"none", border:"none", color:"#8890aa", cursor:"pointer", fontSize:22 }}>×</button>
@@ -3232,9 +3232,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         </div>
       )}
 
-      <div style={{ padding:"24px 20px", maxWidth:1400, margin:"0 auto" }}>
+      <div style={{ padding:"16px 12px", maxWidth:1400, margin:"0 auto" }}>
         {/* Tab Nav */}
-        <div style={{ display:"flex", gap:4, marginBottom:24, borderBottom:`1px solid ${C.border}`, overflowX:"auto" }}>
+        <div style={{ display:"flex", gap:4, marginBottom:16, borderBottom:`1px solid ${C.border}`, overflowX:"auto", WebkitOverflowScrolling:"touch", scrollbarWidth:"none", msOverflowStyle:"none" }}>
           {tabs.map(tb => (
             <button key={tb.key} onClick={() => setTab(tb.key)} style={{
               padding:"10px 16px", cursor:"pointer", background:"transparent",
@@ -4026,7 +4026,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:500,
           display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
           <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:16,
-            padding:28, width:"100%", maxWidth:600, maxHeight:"88vh", overflowY:"auto" }}>
+            padding:"20px 16px", width:"100%", maxWidth:600, maxHeight:"92vh", overflowY:"auto", WebkitOverflowScrolling:"touch" }}>
             
             {/* Header */}
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
@@ -4416,7 +4416,32 @@ export default function App() {
 
   return (
     <LangCtx.Provider value={{ lang, t, dir }}>
-      <div dir={dir} style={{ fontFamily }}>
+      <style>{`
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+        input, textarea, select, button { 
+          -webkit-appearance: none; 
+          appearance: none;
+          font-size: 16px !important;
+          border-radius: 0;
+        }
+        body { 
+          -webkit-text-size-adjust: 100%;
+          overscroll-behavior: none;
+          overflow-x: hidden;
+        }
+        :root {
+          --safe-top: env(safe-area-inset-top, 0px);
+          --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+        @supports (-webkit-touch-callout: none) {
+          .safari-fix { padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
+        }
+        button { cursor: pointer; }
+        select { background-image: none; }
+        table { border-collapse: collapse; }
+        img { max-width: 100%; }
+      `}</style>
+      <div dir={dir} style={{ fontFamily, WebkitFontSmoothing:"antialiased", MozOsxFontSmoothing:"grayscale" }}>
         {screen === "login" && <Login onLogin={handleLogin} lang={lang} onLangChange={setLang}/>}
         {screen === "app" && userRole === "admin" && <AdminDashboard {...dashboardProps}/>}
         {screen === "app" && userRole === "brand" && (userStatus === "approved"
