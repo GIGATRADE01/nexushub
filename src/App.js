@@ -361,24 +361,44 @@ const Navbar = ({ name, badge, onLogout, lang, onLangChange, onNotifications, no
   const bCol = { brand:C.gold, distributor:C.blue, admin:C.purple };
   const bLabel = { brand:t("portalBrand"), distributor:t("portalDistributor"), admin:t("portalAdmin") };
   return (
-    <div style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:"0 12px", display:"flex", alignItems:"center", height:56, position:"sticky", top:0, zIndex:100, gap:8, flexWrap:"wrap", WebkitBackdropFilter:"blur(10px)" }}>
-      <div style={{ width:30, height:30, borderRadius:7, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:13, fontWeight:900, color:C.bg }}>N</div>
-      <span style={{ fontSize:16, fontWeight:700, color:C.text, fontFamily:"Georgia,serif" }}>NexusHub</span>
-      <span style={{ padding:"2px 8px", borderRadius:4, background:bCol[badge]+"18", border:`1px solid ${bCol[badge]}30`, fontSize:10, color:bCol[badge], letterSpacing:"0.1em", textTransform:"uppercase" }}>{bLabel[badge]}</span>
-      <div style={{ flex:1 }}/>
-      <LangSwitcher lang={lang} onChange={onLangChange}/>
+    <div style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:"0 10px", display:"flex", alignItems:"center", height:52, position:"sticky", top:0, zIndex:200, gap:6, flexWrap:"nowrap", WebkitBackdropFilter:"blur(10px)", overflow:"hidden" }}>
+      {/* Logo */}
+      <div style={{ width:28, height:28, borderRadius:7, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:12, fontWeight:900, color:C.bg, flexShrink:0 }}>N</div>
+      <span style={{ fontSize:15, fontWeight:700, color:C.text, fontFamily:"Georgia,serif", flexShrink:0 }}>NexusHub</span>
+      {/* Badge - hidden on very small screens */}
+      <span style={{ padding:"2px 6px", borderRadius:4, background:bCol[badge]+"18", border:`1px solid ${bCol[badge]}30`, fontSize:9, color:bCol[badge], letterSpacing:"0.08em", textTransform:"uppercase", flexShrink:0, display:"none" }} className="nav-badge">{bLabel[badge]}</span>
+      {/* Spacer */}
+      <div style={{ flex:1, minWidth:0 }}/>
+      {/* Lang switcher — compact on mobile */}
+      <div style={{ display:"flex", gap:2, flexShrink:0 }}>
+        {["en","it"].map(l => (
+          <button key={l} onClick={() => onLangChange(l)} style={{
+            padding:"2px 5px", borderRadius:4, cursor:"pointer", fontSize:10, fontWeight:600,
+            background:lang===l?`${C.gold}20`:"transparent",
+            border:`1px solid ${lang===l?C.gold:C.border}`,
+            color:lang===l?C.goldLight:C.textMuted,
+          }}>{l.toUpperCase()}</button>
+        ))}
+        <button onClick={() => onLangChange(lang === "ar" ? "en" : lang === "fr" ? "en" : "fr")} style={{
+          padding:"2px 5px", borderRadius:4, cursor:"pointer", fontSize:10,
+          background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted
+        }}>···</button>
+      </div>
+      {/* Notifications */}
       {onNotifications && (
-        <button onClick={onNotifications} style={{ position:"relative", background:"transparent", border:"none", cursor:"pointer", padding:"4px 8px", borderRadius:8, display:"flex", alignItems:"center" }}>
-          <span style={{ fontSize:20 }}>🔔</span>
+        <button onClick={onNotifications} style={{ position:"relative", background:"transparent", border:"none", cursor:"pointer", padding:"4px 6px", borderRadius:8, display:"flex", alignItems:"center", flexShrink:0 }}>
+          <span style={{ fontSize:18 }}>🔔</span>
           {notifCount > 0 && (
-            <span style={{ position:"absolute", top:0, right:0, background:C.red, color:"#fff", borderRadius:10, fontSize:10, fontWeight:700, padding:"1px 5px", minWidth:16, textAlign:"center" }}>
+            <span style={{ position:"absolute", top:0, right:0, background:C.red, color:"#fff", borderRadius:10, fontSize:9, fontWeight:700, padding:"1px 4px", minWidth:14, textAlign:"center" }}>
               {notifCount > 9 ? "9+" : notifCount}
             </span>
           )}
         </button>
       )}
-      <span style={{ fontSize:12, color:C.textMuted, marginLeft:4 }}>{name}</span>
-      <button onClick={onLogout} style={{ padding:"5px 12px", borderRadius:6, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:11 }}>{t("logout")}</button>
+      {/* Logout — icona su mobile */}
+      <button onClick={onLogout} style={{ padding:"5px 10px", borderRadius:6, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:11, flexShrink:0, whiteSpace:"nowrap" }}>
+        {t("logout")}
+      </button>
     </div>
   );
 };
@@ -1333,7 +1353,7 @@ const PendingScreen = ({ status, profile, onLogout, lang, onLangChange }) => {
   const isPending = status === "pending";
   return (
     <div style={{ minHeight:"100vh", background:C.bg, display:"flex", flexDirection:"column" }}>
-      <div style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:"0 24px", display:"flex", alignItems:"center", height:56, gap:10 }}>
+      <div style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:"0 10px", display:"flex", alignItems:"center", height:52, gap:6, flexWrap:"nowrap" }}>
         <div style={{ width:30, height:30, borderRadius:7, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:13, fontWeight:900, color:C.bg }}>N</div>
         <span style={{ fontSize:16, fontWeight:700, color:C.text, fontFamily:"Georgia,serif" }}>NexusHub</span>
         <div style={{ flex:1 }}/>
