@@ -219,11 +219,6 @@ const BRANDS = [
   { id:"armaf", name:"Armaf", origin:"Dubai, UAE", logo:"A", category:"Accessible Luxury", skus:78, distributors:29, description:"Fast-growing fragrance brand offering European-inspired luxury at accessible price points." },
 ];
 
-const PENDING_DISTRIBUTORS = [
-  { id:"pd1", company:"Balkan Beauty Group", country:"Albania", flag:"🇦🇱", contact:"Artan Koci", email:"artan@balkanbeauty.al", type:"Regional Distributor", territory:"Albania, Kosovo, North Macedonia", annualRevenue:"€ 2.1M", yearsActivity:8, requestedBrands:["lattafa","rasasi"], submittedDate:"May 27, 2024", documents:["Company Registration","Tax Certificate","Bank Reference"], status:"pending" },
-  { id:"pd2", company:"Nordic Scent AB", country:"Sweden", flag:"🇸🇪", contact:"Erik Lindström", email:"erik@nordicscent.se", type:"National Distributor", territory:"Sweden, Norway, Denmark", annualRevenue:"€ 5.8M", yearsActivity:12, requestedBrands:["lattafa","ajmal","armaf"], submittedDate:"May 25, 2024", documents:["Company Registration","Tax Certificate","Bank Reference","Insurance Certificate"], status:"pending" },
-  { id:"pd3", company:"Iberian Luxury SL", country:"Portugal", flag:"🇵🇹", contact:"Carlos Mendes", email:"carlos@iberianluxury.pt", type:"Regional Distributor", territory:"Portugal", annualRevenue:"€ 1.4M", yearsActivity:5, requestedBrands:["lattafa"], submittedDate:"May 23, 2024", documents:["Company Registration","Tax Certificate"], status:"under_review" },
-];
 
 const ACTIVE_DISTRIBUTORS = [
   { id:"d1", company:"GigaTrade S.R.L.", country:"Italy", flag:"🇮🇹", territory:"Italy", brands:["lattafa","rasasi"], orders:23, revenue:"€ 412K", status:"active" },
@@ -1951,11 +1946,11 @@ const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
 const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
   const [tab, setTab] = useState("overview");
-  const [actions, setActions] = useState({});
+  const [accessReqs, setAccessReqs] = useState([]);
   const [brandNotifs, setBrandNotifs] = useState([]);
   const [brandNotifPanel, setBrandNotifPanel] = useState(false);
   const brandUnread = brandNotifs.filter(n => !n.read).length;
-  const pending = PENDING_DISTRIBUTORS.filter(d => !actions[d.id]).length;
+  const pending = accessReqs.filter(r => r.status === "pending").length;
 
   useEffect(() => {
     const loadBrandNotifs = async () => {
@@ -1967,12 +1962,35 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
       setBrandNotifs(data || []);
     };
     loadBrandNotifs();
+    const loadAccessReqs = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data } = await supabase.from("brand_access_requests")
+        .select("*, distributor:profiles!brand_access_requests_distributor_id_fkey(company_name, email, country)")
+        .eq("brand_id", user.id).order("created_at", { ascending: false });
+      setAccessReqs(data || []);
+    };
+    loadAccessReqs();
     const channel = supabase.channel("brand-notifs")
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "notifications" },
-        (payload) => { setBrandNotifs(prev => [payload.new, ...prev]); })
+        (payload) => { setBrandNotifs(prev => [payload.new, ...prev]); if (payload.new?.type === "access_request") loadAccessReqs(); })
       .subscribe();
     return () => supabase.removeChannel(channel);
   }, []);
+  const handleAccess = async (req, newStatus) => {
+    setAccessReqs(prev => prev.map(r => r.id === req.id ? { ...r, status: newStatus } : r));
+    await supabase.from("brand_access_requests")
+      .update({ status: newStatus, updated_at: new Date().toISOString() })
+      .eq("id", req.id);
+    await supabase.from("notifications").insert({
+      user_id: req.distributor_id,
+      title: newStatus === "approved" ? "Accesso approvato ✓" : "Accesso bloccato",
+      message: newStatus === "approved"
+        ? "Un brand ha approvato la tua richiesta: ora puoi vedere e ordinare i suoi prodotti."
+        : "Un brand ha bloccato il tuo accesso ai suoi prodotti.",
+      type: "access_update",
+    });
+  };
   const tabs = [
     { key:"overview", icon:"◈", label:t("tabOverview") },
     { key:"applications", icon:"📋", label:t("tabApplications"), badge:pending },
@@ -2083,50 +2101,45 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("appTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("appSub")}</p>
-            {PENDING_DISTRIBUTORS.map(d => (
-              <div key={d.id} style={{ background:C.surface, border:`1px solid ${actions[d.id]==="approved"?C.green+"60":actions[d.id]==="rejected"?C.red+"60":C.border}`, borderRadius:14, padding:24, marginBottom:18 }}>
+            {accessReqs.length === 0 ? (
+              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>
+                <div style={{ fontSize:40, marginBottom:12 }}>📭</div>
+                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:6 }}>Nessuna richiesta al momento</div>
+                <div style={{ fontSize:13, lineHeight:1.6, maxWidth:440, margin:"0 auto" }}>Quando un distributore richiederà l'accesso ai tuoi prodotti, comparirà qui per l'approvazione o il blocco.</div>
+              </div>
+            ) : accessReqs.map(r => {
+              const dist = r.distributor || {};
+              const dname = dist.company_name || dist.email || "Distributore";
+              return (
+              <div key={r.id} style={{ background:C.surface, border:`1px solid ${r.status==="approved"?C.green+"60":r.status==="blocked"?C.red+"60":C.border}`, borderRadius:14, padding:24, marginBottom:18 }}>
                 <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginBottom:16, flexWrap:"wrap", gap:10 }}>
                   <div style={{ display:"flex", alignItems:"center", gap:14 }}>
-                    <div style={{ width:50, height:50, borderRadius:12, background:C.surface3, border:`1px solid ${C.border}`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:26 }}>{d.flag}</div>
+                    <div style={{ width:50, height:50, borderRadius:12, background:C.surface3, border:`1px solid ${C.border}`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:22, fontWeight:800, color:C.gold }}>{(dname[0]||"D").toUpperCase()}</div>
                     <div>
-                      <div style={{ fontSize:16, fontWeight:700, color:C.text }}>{d.company}</div>
-                      <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{d.contact} · {d.email}</div>
-                      <div style={{ fontSize:11, color:C.textDim, marginTop:2 }}>{t("submitted")}: {d.submittedDate}</div>
+                      <div style={{ fontSize:16, fontWeight:700, color:C.text }}>{dname}</div>
+                      <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{dist.email || "—"}</div>
+                      <div style={{ fontSize:11, color:C.textDim, marginTop:2 }}>📍 {dist.country || "—"} · {t("submitted")}: {new Date(r.created_at).toLocaleDateString("it-IT")}</div>
                     </div>
                   </div>
-                  <Badge status={actions[d.id]||d.status}/>
+                  <Badge status={r.status==="blocked"?"rejected":r.status==="approved"?"approved":"pending"}/>
                 </div>
-                <div style={{ overflowX:"auto", marginBottom:14 }}>
-                  <div style={{ display:"flex", gap:10, minWidth:500 }}>
-                    {[[t("territory"),d.territory],[t("type"),d.type],[t("annualRevenue"),d.annualRevenue],[t("yearsActive"),`${d.yearsActivity} ${t("years")}`]].map(([k,v],i) => (
-                      <div key={i} style={{ background:C.surface2, borderRadius:8, padding:"10px 14px", flex:"1 1 120px", minWidth:120 }}>
-                        <div style={{ fontSize:10, color:C.textDim, textTransform:"uppercase", letterSpacing:"0.07em", marginBottom:4 }}>{k}</div>
-                        <div style={{ fontSize:13, color:C.text, fontWeight:500 }}>{v}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:12, flexWrap:"wrap" }}>
-                  <span style={{ fontSize:12, color:C.textMuted }}>{t("requestedBrands")}</span>
-                  {d.requestedBrands.map(bid => { const b=BRANDS.find(x=>x.id===bid); return b?<span key={bid} style={{ padding:"3px 10px", borderRadius:6, background:`${C.gold}12`, border:`1px solid ${C.gold}30`, fontSize:12, color:C.gold }}>{b.name}</span>:null; })}
-                </div>
-                <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:16, flexWrap:"wrap" }}>
-                  <span style={{ fontSize:12, color:C.textMuted }}>{t("documentsUploaded")}</span>
-                  {d.documents.map((doc,i) => <span key={i} style={{ padding:"3px 10px", borderRadius:5, background:`${C.green}10`, border:`1px solid ${C.green}30`, fontSize:12, color:C.green }}>✓ {doc}</span>)}
-                </div>
-                {!actions[d.id] ? (
+                {r.status==="pending" ? (
                   <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
-                    <button onClick={() => setActions(a=>({...a,[d.id]:"approved"}))} style={{ padding:"10px 22px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.green}18`, border:`1px solid ${C.green}50`, color:C.green }}>{t("approveBtn")}</button>
-                    <button onClick={() => setActions(a=>({...a,[d.id]:"rejected"}))} style={{ padding:"10px 22px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.red}12`, border:`1px solid ${C.red}40`, color:C.red }}>{t("declineBtn")}</button>
-                    <button style={{ padding:"10px 22px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:500, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted }}>{t("askMoreBtn")}</button>
+                    <button onClick={() => handleAccess(r, "approved")} style={{ padding:"10px 22px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.green}18`, border:`1px solid ${C.green}50`, color:C.green }}>✓ Approva e abilita accesso</button>
+                    <button onClick={() => handleAccess(r, "blocked")} style={{ padding:"10px 22px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.red}12`, border:`1px solid ${C.red}40`, color:C.red }}>✗ Blocca</button>
                   </div>
                 ) : (
-                  <div style={{ padding:"11px 16px", borderRadius:8, background:actions[d.id]==="approved"?`${C.green}12`:`${C.red}12`, border:`1px solid ${actions[d.id]==="approved"?C.green:C.red}30`, fontSize:13, color:actions[d.id]==="approved"?C.green:C.red, fontWeight:600 }}>
-                    {actions[d.id]==="approved"?t("approvedMsg"):t("rejectedMsgDist")}
+                  <div style={{ display:"flex", alignItems:"center", gap:10, flexWrap:"wrap" }}>
+                    <div style={{ padding:"11px 16px", borderRadius:8, background:r.status==="approved"?`${C.green}12`:`${C.red}12`, border:`1px solid ${r.status==="approved"?C.green:C.red}30`, fontSize:13, color:r.status==="approved"?C.green:C.red, fontWeight:600 }}>
+                      {r.status==="approved"?"✓ Accesso approvato — può ordinare i tuoi prodotti":"🚫 Accesso bloccato"}
+                    </div>
+                    {r.status==="approved" && <button onClick={() => handleAccess(r, "blocked")} style={{ padding:"9px 18px", borderRadius:8, cursor:"pointer", fontSize:12, background:"transparent", border:`1px solid ${C.red}40`, color:C.red }}>Blocca accesso</button>}
+                    {r.status==="blocked" && <button onClick={() => handleAccess(r, "approved")} style={{ padding:"9px 18px", borderRadius:8, cursor:"pointer", fontSize:12, background:"transparent", border:`1px solid ${C.green}40`, color:C.green }}>Sblocca</button>}
                   </div>
                 )}
               </div>
-            ))}
+              );
+            })}
           </div>
         )}
         {tab==="distributors" && (
@@ -2262,7 +2275,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
   const [tab, setTab] = useState("brands");
   const [cart, setCart] = useState({});
-  const [requested, setRequested] = useState({});
+  const [dbBrands, setDbBrands] = useState([]);
+  const [accessRequests, setAccessRequests] = useState({});
   const [realProducts, setRealProducts] = useState([]);
   const [realOrders, setRealOrders] = useState([]);
   const [showCheckout, setShowCheckout] = useState(false);
@@ -2271,7 +2285,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [orderSuccess, setOrderSuccess] = useState(null);
   const [selectedPayment, setSelectedPayment] = useState("sepa"); // sepa, card, sepa_debit
   const [currentUser, setCurrentUser] = useState(null);
-  const myBrands = ["lattafa","rasasi"];
+  const approvedBrandIds = Object.keys(accessRequests).filter(id => accessRequests[id] === "approved");
+  const visibleProducts = realProducts.filter(p => approvedBrandIds.includes(p.brand_id));
   const [distNotifs, setDistNotifs] = useState([]);
   const [distNotifPanel, setDistNotifPanel] = useState(false);
   const distUnread = distNotifs.filter(n => !n.read).length;
@@ -2303,6 +2318,20 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       .then(({ data }) => setRealOrders(data || []));
 
     // Load notifications
+    // Load real brands (approved) for the marketplace — empty until brands register
+    supabase.from("profiles").select("id, company_name, email, country")
+      .eq("role", "brand").eq("status", "approved")
+      .then(({ data }) => setDbBrands(data || []));
+    const loadAccess = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data } = await supabase.from("brand_access_requests")
+        .select("brand_id, status").eq("distributor_id", user.id);
+      const map = {};
+      (data || []).forEach(rec => { map[rec.brand_id] = rec.status; });
+      setAccessRequests(map);
+    };
+    loadAccess();
     const loadDistNotifs = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
@@ -2315,11 +2344,26 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
 
     const channel = supabase.channel("dist-notifs")
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "notifications" },
-        (payload) => { setDistNotifs(prev => [payload.new, ...prev]); })
+        (payload) => { setDistNotifs(prev => [payload.new, ...prev]); if (payload.new?.type === "access_update") loadAccess(); })
       .subscribe();
     return () => supabase.removeChannel(channel);
   }, []);
 
+  const requestAccess = async (brand) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    setAccessRequests(prev => ({ ...prev, [brand.id]: "pending" }));
+    const { error } = await supabase.from("brand_access_requests").upsert({
+      distributor_id: user.id, brand_id: brand.id, status: "pending", updated_at: new Date().toISOString()
+    }, { onConflict: "distributor_id,brand_id" });
+    if (error) { console.error("access request error:", error); return; }
+    await supabase.from("notifications").insert({
+      user_id: brand.id,
+      title: "Nuova richiesta di accesso",
+      message: `${currentUser?.company_name || "Un distributore"} ha richiesto l'accesso ai tuoi prodotti.`,
+      type: "access_request",
+    });
+  };
   const placeOrder = async () => {
     if (cartCount === 0) return;
     setOrderLoading(true);
@@ -2389,39 +2433,43 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("marketTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("marketSub")}</p>
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(min(280px, 100%), 1fr))", gap:16 }}>
-              {BRANDS.map(brand => {
-                const enabled=myBrands.includes(brand.id); const req=requested[brand.id];
+            {dbBrands.length === 0 ? (
+              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>
+                <div style={{ fontSize:40, marginBottom:12 }}>🏛️</div>
+                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:6 }}>Nessun brand disponibile al momento</div>
+                <div style={{ fontSize:13, lineHeight:1.6, maxWidth:420, margin:"0 auto" }}>Appena un brand si registra e viene approvato sulla piattaforma comparirà qui, e potrai richiedere l'accesso ai suoi prodotti.</div>
+              </div>
+            ) : (
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(min(280px,100%), 1fr))", gap:16 }}>
+              {dbBrands.map(brand => {
+                const status = accessRequests[brand.id];
+                const bname = brand.company_name || brand.email || "Brand";
                 return (
-                  <div key={brand.id} style={{ background:C.surface, border:`1px solid ${enabled?C.goldDim:C.border}`, borderTop:`2px solid ${enabled?C.gold:C.border}`, borderRadius:14, padding:22 }}>
+                  <div key={brand.id} style={{ background:C.surface, border:`1px solid ${status==="approved"?C.goldDim:C.border}`, borderTop:`2px solid ${status==="approved"?C.gold:status==="blocked"?C.red:C.border}`, borderRadius:14, padding:22 }}>
                     <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:14 }}>
-                      <BrandLogo brand={brand} size={46}/>
+                      <div style={{ width:46, height:46, borderRadius:12, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20, fontWeight:900, color:C.bg, flexShrink:0 }}>{(bname[0]||"B").toUpperCase()}</div>
                       <div style={{ flex:1 }}>
-                        <div style={{ fontSize:15, fontWeight:700, color:C.text }}>{brand.name}</div>
-                        <div style={{ fontSize:12, color:C.textMuted }}>📍 {brand.origin}</div>
+                        <div style={{ fontSize:15, fontWeight:700, color:C.text }}>{bname}</div>
+                        <div style={{ fontSize:12, color:C.textMuted }}>📍 {brand.country || "—"}</div>
                       </div>
-                      {enabled && <Badge status="active"/>}
+                      {status==="approved" && <Badge status="active"/>}
+                      {status==="blocked" && <Badge status="rejected"/>}
                     </div>
-                    <p style={{ fontSize:13, color:C.textMuted, margin:"0 0 16px", lineHeight:1.55 }}>{brand.description}</p>
-                    <div style={{ display:"flex", gap:10, marginBottom:18 }}>
-                      {[[t("skusLabel"),brand.skus],[t("euDistLabel"),brand.distributors],[t("categoryLabel"),brand.category]].map(([k,v],i) => (
-                        <div key={i} style={{ background:C.surface2, borderRadius:7, padding:"9px 10px", flex:1, textAlign:"center" }}>
-                          <div style={{ fontSize:i<2?15:10, fontWeight:700, color:C.goldLight }}>{v}</div>
-                          <div style={{ fontSize:10, color:C.textDim, textTransform:"uppercase", letterSpacing:"0.05em", marginTop:2 }}>{k}</div>
-                        </div>
-                      ))}
-                    </div>
-                    {enabled?(
+                    <p style={{ fontSize:13, color:C.textMuted, margin:"0 0 16px", lineHeight:1.55 }}>Richiedi l'accesso per visualizzare e ordinare il catalogo di questo brand nel tuo territorio.</p>
+                    {status==="approved" ? (
                       <button onClick={() => setTab("catalog")} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:`${C.gold}20`, border:`1px solid ${C.gold}50`, color:C.goldLight, fontSize:13, fontWeight:600 }}>{t("viewCatalogBtn")}</button>
-                    ):req?(
+                    ) : status==="pending" ? (
                       <div style={{ width:"100%", padding:"11px", borderRadius:8, textAlign:"center", background:`${C.blue}10`, border:`1px solid ${C.blue}30`, color:C.blue, fontSize:13 }}>{t("requestSentMsg")}</div>
-                    ):(
-                      <button onClick={() => setRequested(r=>({...r,[brand.id]:true}))} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>{t("requestAccessBtn")}</button>
+                    ) : status==="blocked" ? (
+                      <div style={{ width:"100%", padding:"11px", borderRadius:8, textAlign:"center", background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red, fontSize:13 }}>🚫 Accesso bloccato dal brand</div>
+                    ) : (
+                      <button onClick={() => requestAccess(brand)} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>{t("requestAccessBtn")}</button>
                     )}
                   </div>
                 );
               })}
             </div>
+            )}
           </div>
         )}
         {tab==="catalog" && (
@@ -2445,11 +2493,11 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
 
             {/* Product grid with real stock */}
             <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(min(280px,100%), 1fr))", gap:14 }}>
-              {realProducts.length === 0 ? (
+              {visibleProducts.length === 0 ? (
                 <div style={{ gridColumn:"1/-1", textAlign:"center", padding:40, color:C.textMuted }}>
-                  No products available yet. Contact your brand manager.
+                  Non hai ancora accesso a nessun brand. Vai su "Marketplace Brand" e richiedi l'accesso per vedere i prodotti.
                 </div>
-              ) : realProducts.map(p => {
+              ) : visibleProducts.map(p => {
                 const stock = p.inventory?.quantity_available || 0;
                 const inCart = cart[p.id] || 0;
                 const moq = p.min_order_qty || 1;
