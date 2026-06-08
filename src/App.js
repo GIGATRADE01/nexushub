@@ -1336,7 +1336,27 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
   const [tab, setTab] = useState("overview");
   const [actions, setActions] = useState({});
+  const [brandNotifs, setBrandNotifs] = useState([]);
+  const [brandNotifPanel, setBrandNotifPanel] = useState(false);
+  const brandUnread = brandNotifs.filter(n => !n.read).length;
   const pending = PENDING_DISTRIBUTORS.filter(d => !actions[d.id]).length;
+
+  useEffect(() => {
+    const loadBrandNotifs = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data } = await supabase.from("notifications")
+        .select("*").eq("user_id", user.id)
+        .order("created_at", { ascending: false }).limit(30);
+      setBrandNotifs(data || []);
+    };
+    loadBrandNotifs();
+    const channel = supabase.channel("brand-notifs")
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "notifications" },
+        (payload) => { setBrandNotifs(prev => [payload.new, ...prev]); })
+      .subscribe();
+    return () => supabase.removeChannel(channel);
+  }, []);
   const tabs = [
     { key:"overview", icon:"◈", label:t("tabOverview") },
     { key:"applications", icon:"📋", label:t("tabApplications"), badge:pending },
@@ -1347,7 +1367,44 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   ];
   return (
     <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
-      <Navbar name="Brand Portal" badge="brand" onLogout={onLogout} lang={lang} onLangChange={onLangChange}/>
+      <Navbar name="Brand Portal" badge="brand" onLogout={onLogout} lang={lang} onLangChange={onLangChange}
+        onNotifications={() => setBrandNotifPanel(p=>!p)} notifCount={brandUnread}/>
+      {/* Brand Notification Panel */}
+      {brandNotifPanel && (
+        <div style={{ position:"fixed", top:56, right:0, width:360, maxWidth:"100vw",
+          height:"calc(100vh - 56px)", background:C.surface, borderLeft:`1px solid ${C.border}`,
+          zIndex:300, display:"flex", flexDirection:"column", boxShadow:"-8px 0 32px rgba(0,0,0,.4)" }}>
+          <div style={{ padding:"16px 20px", borderBottom:`1px solid ${C.border}`,
+            display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+            <div style={{ fontSize:15, fontWeight:700, color:C.text }}>
+              🔔 Notifiche {brandUnread > 0 && <span style={{ background:C.red, color:"#fff", borderRadius:10, padding:"1px 7px", fontSize:11, marginLeft:6 }}>{brandUnread}</span>}
+            </div>
+            <button onClick={() => setBrandNotifPanel(false)} style={{ background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:20 }}>×</button>
+          </div>
+          <div style={{ flex:1, overflowY:"auto" }}>
+            {brandNotifs.length === 0 ? (
+              <div style={{ textAlign:"center", padding:40, color:C.textMuted }}>
+                <div style={{ fontSize:32, marginBottom:10 }}>🔔</div>Nessuna notifica
+              </div>
+            ) : brandNotifs.map(n => (
+              <div key={n.id} onClick={async () => {
+                await supabase.from("notifications").update({ read:true }).eq("id", n.id);
+                setBrandNotifs(prev => prev.map(x => x.id===n.id ? {...x,read:true} : x));
+                setBrandNotifPanel(false);
+              }} style={{ padding:"14px 20px", borderBottom:`1px solid ${C.border}`, cursor:"pointer",
+                background: n.read ? "transparent" : `${C.gold}06`,
+                borderLeft:`3px solid ${n.read ? "transparent" : C.gold}` }}>
+                <div style={{ fontSize:13, fontWeight: n.read ? 500 : 700, color:C.text }}>{n.title}</div>
+                <div style={{ fontSize:12, color:C.textMuted, marginTop:3, lineHeight:1.5 }}>{n.message}</div>
+                <div style={{ fontSize:10, color:C.textDim, marginTop:5 }}>
+                  {new Date(n.created_at).toLocaleString("it-IT", {day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div style={{ padding:"24px 28px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
         {tab==="overview" && (
@@ -1571,6 +1628,9 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [orderSuccess, setOrderSuccess] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const myBrands = ["lattafa","rasasi"];
+  const [distNotifs, setDistNotifs] = useState([]);
+  const [distNotifPanel, setDistNotifPanel] = useState(false);
+  const distUnread = distNotifs.filter(n => !n.read).length;
   const cartCount = Object.values(cart).reduce((a,b)=>a+b,0);
   const cartValue = Object.entries(cart).reduce((s,[pid,qty]) => {
     const item = realProducts.find(p=>p.id===pid);
@@ -1596,6 +1656,23 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       .select("*, order_items(*)")
       .order("created_at", { ascending: false })
       .then(({ data }) => setRealOrders(data || []));
+
+    // Load notifications
+    const loadDistNotifs = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data } = await supabase.from("notifications")
+        .select("*").eq("user_id", user.id)
+        .order("created_at", { ascending: false }).limit(30);
+      setDistNotifs(data || []);
+    };
+    loadDistNotifs();
+
+    const channel = supabase.channel("dist-notifs")
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "notifications" },
+        (payload) => { setDistNotifs(prev => [payload.new, ...prev]); })
+      .subscribe();
+    return () => supabase.removeChannel(channel);
   }, []);
 
   const placeOrder = async () => {
@@ -1658,7 +1735,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   ];
   return (
     <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
-      <Navbar name="Distributor Portal" badge="distributor" onLogout={onLogout} lang={lang} onLangChange={onLangChange}/>
+      <Navbar name="Distributor Portal" badge="distributor" onLogout={onLogout} lang={lang} onLangChange={onLangChange}
+        onNotifications={() => setDistNotifPanel(p=>!p)} notifCount={distUnread}/>
       <div style={{ padding:"24px 28px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
         {tab==="brands" && (
@@ -1844,6 +1922,43 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           </div>
         )}
       </div>
+    {/* Distributor Notification Panel */}
+    {distNotifPanel && (
+      <div style={{ position:"fixed", top:56, right:0, width:360, maxWidth:"100vw",
+        height:"calc(100vh - 56px)", background:C.surface, borderLeft:`1px solid ${C.border}`,
+        zIndex:300, display:"flex", flexDirection:"column", boxShadow:"-8px 0 32px rgba(0,0,0,.4)" }}>
+        <div style={{ padding:"16px 20px", borderBottom:`1px solid ${C.border}`,
+          display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+          <div style={{ fontSize:15, fontWeight:700, color:C.text }}>
+            🔔 Notifiche {distUnread > 0 && <span style={{ background:C.red, color:"#fff", borderRadius:10, padding:"1px 7px", fontSize:11, marginLeft:6 }}>{distUnread}</span>}
+          </div>
+          <button onClick={() => setDistNotifPanel(false)} style={{ background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:20 }}>×</button>
+        </div>
+        <div style={{ flex:1, overflowY:"auto" }}>
+          {distNotifs.length === 0 ? (
+            <div style={{ textAlign:"center", padding:40, color:C.textMuted }}>
+              <div style={{ fontSize:32, marginBottom:10 }}>🔔</div>Nessuna notifica
+            </div>
+          ) : distNotifs.map(n => (
+            <div key={n.id} onClick={async () => {
+              await supabase.from("notifications").update({ read:true }).eq("id", n.id);
+              setDistNotifs(prev => prev.map(x => x.id===n.id ? {...x,read:true} : x));
+              setDistNotifPanel(false);
+              if (n.type?.includes("order")) setTab("orders");
+            }} style={{ padding:"14px 20px", borderBottom:`1px solid ${C.border}`, cursor:"pointer",
+              background: n.read ? "transparent" : `${C.blue}06`,
+              borderLeft:`3px solid ${n.read ? "transparent" : C.blue}` }}>
+              <div style={{ fontSize:13, fontWeight: n.read ? 500 : 700, color:C.text }}>{n.title}</div>
+              <div style={{ fontSize:12, color:C.textMuted, marginTop:3, lineHeight:1.5 }}>{n.message}</div>
+              <div style={{ fontSize:10, color:C.textDim, marginTop:5 }}>
+                {new Date(n.created_at).toLocaleString("it-IT", {day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
     {/* Checkout Modal */}
     {showCheckout && (
       <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:500,
