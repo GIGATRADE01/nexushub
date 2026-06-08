@@ -2783,17 +2783,21 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         table: "notifications",
       }, (payload) => {
         setPushNotifs(prev => [payload.new, ...prev]);
-        // Browser notification if permitted
-        if (Notification.permission === "granted") {
-          new Notification(payload.new.title, { body: payload.new.message, icon: "/favicon.ico" });
-        }
+        // Browser notification if permitted (not available on Safari iOS)
+        try {
+          if (typeof Notification !== "undefined" && Notification.permission === "granted") {
+            new Notification(payload.new.title, { body: payload.new.message, icon: "/favicon.ico" });
+          }
+        } catch(e) { /* Safari iOS does not support Notifications */ }
       })
       .subscribe();
 
-    // Request browser notification permission
-    if (Notification.permission === "default") {
-      Notification.requestPermission();
-    }
+    // Request browser notification permission (not on Safari iOS)
+    try {
+      if (typeof Notification !== "undefined" && Notification.permission === "default") {
+        Notification.requestPermission();
+      }
+    } catch(e) { /* Safari iOS */ }
 
     return () => supabase.removeChannel(channel);
   }, []);
@@ -4372,6 +4376,25 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 // ============================================================
 // MAIN APP — con Supabase auth reale
 // ============================================================
+// Inject global CSS safely (Safari compatible)
+const injectGlobalCSS = () => {
+  if (typeof document === "undefined") return;
+  const id = "nexushub-global-css";
+  if (document.getElementById(id)) return;
+  const style = document.createElement("style");
+  style.id = id;
+  style.textContent = [
+    "*, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }",
+    "html { -webkit-text-size-adjust: 100%; }",
+    "body { overflow-x: hidden; -webkit-overflow-scrolling: touch; }",
+    "input, textarea, select { font-size: 16px !important; -webkit-appearance: none; appearance: none; }",
+    "button { cursor: pointer; -webkit-appearance: none; }",
+    "* { -webkit-font-smoothing: antialiased; }",
+  ].join("\n");
+  document.head.appendChild(style);
+};
+injectGlobalCSS();
+
 export default function App() {
   const [screen, setScreen] = useState("loading");
   const [userRole, setUserRole] = useState(null);
@@ -4416,31 +4439,7 @@ export default function App() {
 
   return (
     <LangCtx.Provider value={{ lang, t, dir }}>
-      <style>{`
-        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
-        input, textarea, select, button { 
-          -webkit-appearance: none; 
-          appearance: none;
-          font-size: 16px !important;
-          border-radius: 0;
-        }
-        body { 
-          -webkit-text-size-adjust: 100%;
-          overscroll-behavior: none;
-          overflow-x: hidden;
-        }
-        :root {
-          --safe-top: env(safe-area-inset-top, 0px);
-          --safe-bottom: env(safe-area-inset-bottom, 0px);
-        }
-        @supports (-webkit-touch-callout: none) {
-          .safari-fix { padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
-        }
-        button { cursor: pointer; }
-        select { background-image: none; }
-        table { border-collapse: collapse; }
-        img { max-width: 100%; }
-      `}</style>
+
       <div dir={dir} style={{ fontFamily, WebkitFontSmoothing:"antialiased", MozOsxFontSmoothing:"grayscale" }}>
         {screen === "login" && <Login onLogin={handleLogin} lang={lang} onLangChange={setLang}/>}
         {screen === "app" && userRole === "admin" && <AdminDashboard {...dashboardProps}/>}
