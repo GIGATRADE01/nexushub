@@ -922,6 +922,42 @@ function DemoPresentation({ lang, onLangChange, onSelectRole }) {
 // AUTH SCREENS
 // ============================================================
 
+// ============================================================
+// GLOBAL INPUT COMPONENTS - defined at top level to prevent focus loss
+// ============================================================
+const FormInput = ({ label, value, onChange, type="text", placeholder="" }) => (
+  <div style={{ marginBottom:14 }}>
+    <label style={{ fontSize:11, color:"#8890aa", textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
+    <input
+      type="text"
+      inputMode={type === "number" ? "numeric" : type === "decimal" ? "decimal" : type === "email" ? "email" : "text"}
+      value={value}
+      onChange={e => onChange(e.target.value)}
+      placeholder={placeholder}
+      style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:"#151720",
+        border:"1px solid #252838", color:"#ede9e3", fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+  </div>
+);
+
+const FormTextarea = ({ label, value, onChange, placeholder="", minHeight=70 }) => (
+  <div style={{ marginBottom:14 }}>
+    {label && <label style={{ fontSize:11, color:"#8890aa", textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>}
+    <textarea
+      value={value}
+      onChange={e => onChange(e.target.value)}
+      placeholder={placeholder}
+      style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:"#151720",
+        border:"1px solid #252838", color:"#ede9e3", fontSize:13, outline:"none",
+        boxSizing:"border-box", minHeight, resize:"vertical" }}/>
+  </div>
+);
+
+
+// ============================================================
+// GLOBAL MODAL COMPONENT - top level to prevent focus loss
+// ============================================================
+
+
 const Login = ({ onLogin, lang, onLangChange }) => {
   const t = useT();
   const [email, setEmail] = useState("");
@@ -2603,11 +2639,28 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           </div>
 
           {/* Payment info */}
-          <div style={{ padding:"12px 16px", background:`${C.blue}08`, border:`1px solid ${C.blue}20`,
-            borderRadius:10, marginBottom:16, fontSize:12, color:C.textMuted, lineHeight:1.6 }}>
-            💳 <strong style={{ color:C.text }}>Pagamento via bonifico SEPA</strong><br/>
-            L'ordine viene <strong style={{ color:C.green }}>confermato automaticamente</strong> — lo stock viene riservato subito.<br/>
-            Riceverai le coordinate bancarie via email. Consegna: <strong style={{ color:C.green }}>48h dall'hub di Torino</strong>
+          <div style={{ marginBottom:16 }}>
+            <div style={{ fontSize:12, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em", marginBottom:8 }}>Metodi di Pagamento Accettati</div>
+            <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+              {[
+                { key:"sepa", label:"Bonifico SEPA", desc:"Gratuito · IBAN ricevuto via email", icon:"🏦", always:true },
+                { key:"card", label:"Carta di Credito", desc:"~1.4% commissione · Istantaneo", icon:"💳", always:false },
+                { key:"sepa_debit", label:"SEPA Direct Debit", desc:"Addebito automatico · Gratuito", icon:"⚡", always:false },
+              ].filter(m => m.always || true).map(m => (
+                <div key={m.key} style={{ display:"flex", alignItems:"center", gap:12, padding:"10px 14px",
+                  background:C.surface2, border:`1px solid ${C.border}`, borderRadius:8 }}>
+                  <span style={{ fontSize:18 }}>{m.icon}</span>
+                  <div style={{ flex:1 }}>
+                    <div style={{ fontSize:13, fontWeight:600, color:C.text }}>{m.label}</div>
+                    <div style={{ fontSize:11, color:C.textMuted }}>{m.desc}</div>
+                  </div>
+                  <span style={{ fontSize:10, padding:"2px 8px", borderRadius:4, background:`${C.green}15`, color:C.green, border:`1px solid ${C.green}30`, fontWeight:600 }}>Accettato</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop:8, padding:"8px 12px", background:`${C.green}08`, border:`1px solid ${C.green}20`, borderRadius:8, fontSize:11, color:C.textMuted }}>
+              📦 Stock riservato automaticamente · Riceverai i dati bancari via email · Consegna: <strong style={{ color:C.green }}>48h dall'hub di Torino</strong>
+            </div>
           </div>
 
           {/* Note */}
@@ -2654,42 +2707,26 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   );
 };
 
-// ============================================================
-// GLOBAL FORM COMPONENTS — module level to prevent input focus loss
-// (NEVER define these inside a dashboard: React would remount them on
-//  every keystroke and the input would lose focus)
-// ============================================================
-const Input = ({ label, value, onChange, type="text", placeholder="" }) => (
-  <div style={{ marginBottom:14 }}>
-    <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
-    <input
-      type="text"
-      inputMode={type === "number" ? "numeric" : "text"}
-      value={value}
-      onChange={e => onChange(e.target.value)}
-      placeholder={placeholder}
-      style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2,
-        border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
-  </div>
-);
 
-const Modal = ({ title, onClose, onSave, children }) => (
-  <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.7)", zIndex:500,
+
+const Modal = ({ title, onClose, onSave, children, saveLabel="Save" }) => (
+  <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:500,
     display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
-    <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:16,
-      padding:28, width:"100%", maxWidth:520, maxHeight:"85vh", overflowY:"auto" }}>
+    <div style={{ background:"#0e0e1a", border:"1px solid #252838", borderRadius:16,
+      padding:28, width:"100%", maxWidth:560, maxHeight:"88vh", overflowY:"auto" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
-        <h3 style={{ color:C.text, fontFamily:"Georgia,serif", fontSize:18, margin:0 }}>{title}</h3>
-        <button onClick={onClose} style={{ background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:20 }}>×</button>
+        <h3 style={{ color:"#ede9e3", fontFamily:"Georgia,serif", fontSize:18, margin:0 }}>{title}</h3>
+        <button onClick={onClose} style={{ background:"none", border:"none", color:"#8890aa", cursor:"pointer", fontSize:22 }}>×</button>
       </div>
       {children}
       <div style={{ display:"flex", gap:10, marginTop:20 }}>
-        <button onClick={onClose} style={{ flex:1, padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>Cancel</button>
-        <button onClick={onSave} style={{ flex:2, padding:"11px", borderRadius:8, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>Save</button>
+        <button onClick={onClose} style={{ flex:1, padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:"1px solid #252838", color:"#8890aa", fontSize:13 }}>Cancel</button>
+        <button onClick={onSave} style={{ flex:2, padding:"11px", borderRadius:10, cursor:"pointer", background:"linear-gradient(135deg,#c9a84c,#7a5e28)", border:"none", color:"#08080f", fontSize:13, fontWeight:700 }}>{saveLabel}</button>
       </div>
     </div>
   </div>
 );
+
 
 const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [tab, setTab] = useState("overview");
@@ -2699,6 +2736,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState(null);
+  const [invoices, setInvoices] = useState([]);
+  const [contracts, setContracts] = useState([]);
 
   // Modal states
   const [showAddBrand, setShowAddBrand] = useState(false);
@@ -2816,6 +2855,71 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     } catch(e) { console.error(e); }
   };
 
+  const loadInvoices = async () => {
+    try {
+      const { data } = await supabase.from("invoices")
+        .select("*, orders(order_number, total_amount, created_at)")
+        .order("created_at", { ascending: false }).limit(100);
+      setInvoices(data || []);
+    } catch(e) { console.error(e); }
+  };
+
+  const loadContracts = async () => {
+    try {
+      const { data } = await supabase.from("contracts")
+        .select("*, profiles!contracts_brand_id_fkey(company_name), profiles!contracts_distributor_id_fkey(company_name)")
+        .order("created_at", { ascending: false });
+      setContracts(data || []);
+    } catch(e) { console.error(e); }
+  };
+
+  const viewInvoice = async (invoiceId) => {
+    try {
+      const res = await fetch(
+        `${process.env.REACT_APP_SUPABASE_URL}/functions/v1/generate-invoice-pdf`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}` },
+          body: JSON.stringify({ invoice_id: invoiceId, send_email: false })
+        }
+      );
+      const data = await res.json();
+      if (data.html) {
+        const w = window.open("", "_blank");
+        w.document.write(data.html);
+        w.document.close();
+      }
+    } catch(e) { notify("Errore generazione fattura", "error"); }
+  };
+
+  const sendInvoiceEmail = async (invoiceId) => {
+    try {
+      await fetch(
+        `${process.env.REACT_APP_SUPABASE_URL}/functions/v1/generate-invoice-pdf`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}` },
+          body: JSON.stringify({ invoice_id: invoiceId, send_email: true })
+        }
+      );
+      notify("✓ Fattura inviata via email!");
+    } catch(e) { notify("Errore invio email", "error"); }
+  };
+
+  const createContract = async (brandId, distributorId, territory) => {
+    await supabase.from("contracts").insert({
+      contract_number: "",
+      brand_id: brandId,
+      distributor_id: distributorId,
+      territory: territory,
+      status: "draft",
+      valid_from: new Date().toISOString().split("T")[0],
+      valid_until: new Date(Date.now() + 365*24*60*60*1000).toISOString().split("T")[0],
+    });
+    notify("✓ Contratto creato!");
+    loadContracts();
+  };
+
   const loadDocuments = async (userId) => {
     try {
       const { data } = await supabase.from("documents")
@@ -2839,6 +2943,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "brands") loadBrands();
     if (tab === "catalog") loadProducts();
     if (tab === "orders") loadOrders();
+    if (tab === "invoices") loadInvoices();
+    if (tab === "contracts") { loadContracts(); loadBrands(); loadUsers(); }
   }, [tab]);
 
   // Approve / Reject user
@@ -3041,9 +3147,15 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"catalog", icon:"📦", label:"Catalog" },
     { key:"inventory", icon:"🏭", label:"Inventory" },
     { key:"orders", icon:"📋", label:"Orders" },
+    { key:"invoices", icon:"🧾", label:"Fatture" },
+    { key:"contracts", icon:"📝", label:"Contratti" },
     { key:"payments", icon:"💰", label:"Payments" },
     { key:"settings", icon:"⚙️", label:"Settings" },
   ];
+
+
+
+
 
   // If impersonating, render that user's dashboard
   if (impersonating) {
@@ -3696,6 +3808,151 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           </div>
         )}
 
+        {/* INVOICES TAB */}
+        {tab === "invoices" && (
+          <div>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
+              <div>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🧾 Fatturazione Automatica</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Fatture generate automaticamente al completamento degli ordini</p>
+              </div>
+              <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
+                {[
+                  { label:"Totale Fatture", value:invoices.length, color:C.gold },
+                  { label:"Commissioni NH", value:`€${invoices.filter(i=>i.type==="nexushub_commission").reduce((s,i)=>s+(i.commission_amount||0),0).toFixed(0)}`, color:C.green },
+                  { label:"Emesse oggi", value:invoices.filter(i=>new Date(i.created_at).toDateString()===new Date().toDateString()).length, color:C.blue },
+                ].map((s,i) => (
+                  <div key={i} style={{ padding:"10px 16px", background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${s.color}`, borderRadius:10, textAlign:"center" }}>
+                    <div style={{ fontSize:16, fontWeight:900, color:s.color }}>{s.value}</div>
+                    <div style={{ fontSize:10, color:C.textMuted, marginTop:2 }}>{s.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {invoices.length === 0 ? (
+              <div style={{ textAlign:"center", padding:60, background:C.surface, borderRadius:12, border:`1px solid ${C.border}` }}>
+                <div style={{ fontSize:40, marginBottom:12 }}>🧾</div>
+                <div style={{ fontSize:15, color:C.text, marginBottom:8 }}>Nessuna fattura ancora</div>
+                <div style={{ fontSize:13, color:C.textMuted }}>Le fatture vengono generate automaticamente quando un ordine viene consegnato</div>
+              </div>
+            ) : (
+              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                <table style={{ width:"100%", borderCollapse:"collapse", minWidth:900 }}>
+                  <thead>
+                    <tr style={{ background:C.surface2 }}>
+                      {["Numero","Tipo","Da","A","Imponibile","IVA","Totale","Commissione NH","Data","Azioni"].map((h,i) => (
+                        <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {invoices.map((inv,i) => (
+                      <tr key={inv.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
+                        <td style={{ padding:"11px 14px" }}>
+                          <span style={{ fontFamily:"monospace", fontSize:11, color:C.gold, fontWeight:700 }}>{inv.invoice_number}</span>
+                        </td>
+                        <td style={{ padding:"11px 14px" }}>
+                          <span style={{ padding:"3px 8px", borderRadius:5, fontSize:10, fontWeight:700,
+                            background: inv.type==="nexushub_commission"?`${C.gold}15`:inv.type==="nexushub_to_distributor"?`${C.blue}15`:`${C.green}15`,
+                            color: inv.type==="nexushub_commission"?C.gold:inv.type==="nexushub_to_distributor"?C.blue:C.green,
+                            border: `1px solid ${inv.type==="nexushub_commission"?C.gold:inv.type==="nexushub_to_distributor"?C.blue:C.green}30` }}>
+                            {inv.type==="nexushub_commission"?"NH Commission":inv.type==="nexushub_to_distributor"?"NH → Dist.":"Brand → NH"}
+                          </span>
+                        </td>
+                        <td style={{ padding:"11px 14px", fontSize:12, color:C.text, maxWidth:150, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{inv.from_entity}</td>
+                        <td style={{ padding:"11px 14px", fontSize:12, color:C.text, maxWidth:150, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{inv.to_entity}</td>
+                        <td style={{ padding:"11px 14px", fontSize:13, fontWeight:600, color:C.text }}>€{inv.subtotal?.toFixed(2)}</td>
+                        <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>€{inv.vat_amount?.toFixed(2)}</td>
+                        <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.goldLight }}>€{inv.total?.toFixed(2)}</td>
+                        <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:inv.commission_amount>0?C.gold:C.textDim }}>
+                          {inv.commission_amount>0 ? `€${inv.commission_amount?.toFixed(2)}` : "—"}
+                        </td>
+                        <td style={{ padding:"11px 14px", fontSize:11, color:C.textDim, whiteSpace:"nowrap" }}>
+                          {new Date(inv.created_at).toLocaleDateString("it-IT")}
+                        </td>
+                        <td style={{ padding:"11px 14px" }}>
+                          <div style={{ display:"flex", gap:6 }}>
+                            <button onClick={() => viewInvoice(inv.id)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>👁 Vedi</button>
+                            <button onClick={() => sendInvoiceEmail(inv.id)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.green}10`, border:`1px solid ${C.green}30`, color:C.green }}>✉ Invia</button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* CONTRACTS TAB */}
+        {tab === "contracts" && (
+          <div>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
+              <div>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📝 Contratti Digitali</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Contratti di distribuzione esclusiva per territorio</p>
+              </div>
+              <button onClick={() => notify("Seleziona brand e distributore dalla tabella per creare un contratto")}
+                style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>
+                + Nuovo Contratto
+              </button>
+            </div>
+
+            {contracts.length === 0 ? (
+              <div style={{ textAlign:"center", padding:60, background:C.surface, borderRadius:12, border:`1px solid ${C.border}` }}>
+                <div style={{ fontSize:40, marginBottom:12 }}>📝</div>
+                <div style={{ fontSize:15, color:C.text, marginBottom:8 }}>Nessun contratto ancora</div>
+                <div style={{ fontSize:13, color:C.textMuted }}>I contratti vengono creati quando approvi un distributore per un brand</div>
+              </div>
+            ) : (
+              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                <table style={{ width:"100%", borderCollapse:"collapse", minWidth:800 }}>
+                  <thead>
+                    <tr style={{ background:C.surface2 }}>
+                      {["Numero","Brand","Distributore","Territorio","Esclusiva","Validità","Status","Azioni"].map((h,i) => (
+                        <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {contracts.map((c,i) => (
+                      <tr key={c.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
+                        <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{c.contract_number}</span></td>
+                        <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>{c.profiles?.company_name || "—"}</td>
+                        <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>{c.profiles?.company_name || "—"}</td>
+                        <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{c.territory}</td>
+                        <td style={{ padding:"11px 14px" }}>
+                          <span style={{ fontSize:11, color:c.exclusivity?C.green:C.textMuted }}>{c.exclusivity?"✓ Esclusivo":"Non esclusivo"}</span>
+                        </td>
+                        <td style={{ padding:"11px 14px", fontSize:11, color:C.textMuted }}>
+                          {c.valid_from} → {c.valid_until}
+                        </td>
+                        <td style={{ padding:"11px 14px" }}><Badge status={c.status}/></td>
+                        <td style={{ padding:"11px 14px" }}>
+                          <div style={{ display:"flex", gap:6 }}>
+                            <button onClick={async () => {
+                              await supabase.from("contracts").update({ status:"active" }).eq("id", c.id);
+                              notify("✓ Contratto attivato!");
+                              loadContracts();
+                            }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green }}>Attiva</button>
+                            <button onClick={async () => {
+                              await supabase.from("contracts").update({ status:"terminated" }).eq("id", c.id);
+                              notify("Contratto terminato");
+                              loadContracts();
+                            }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>Termina</button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* PAYMENTS TAB */}
         {tab === "payments" && (
           <div>
@@ -3865,6 +4122,52 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               </div>
             )}
 
+            {/* Payment Methods - only for brands */}
+            {editingUser.role === "brand" && (
+              <div style={{ marginBottom:16, padding:"14px 16px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:10 }}>
+                <div style={{ fontSize:12, color:C.green, fontWeight:600, marginBottom:12, textTransform:"uppercase", letterSpacing:".06em" }}>💳 Metodi di Pagamento Accettati</div>
+                <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+                  {[
+                    { key:"sepa", label:"Bonifico SEPA", desc:"Gratuito · 1-2 giorni lavorativi", icon:"🏦" },
+                    { key:"card", label:"Carta di Credito", desc:"Commissione ~1.4% · Istantaneo", icon:"💳" },
+                    { key:"sepa_debit", label:"SEPA Direct Debit", desc:"Addebito automatico · Gratuito", icon:"⚡" },
+                  ].map(m => {
+                    const methods = editingUser.payment_methods || { sepa: true, card: false, sepa_debit: false };
+                    return (
+                      <div key={m.key} style={{ display:"flex", alignItems:"center", justifyContent:"space-between",
+                        padding:"10px 14px", background:C.surface, border:`1px solid ${methods[m.key]?C.green:C.border}`,
+                        borderRadius:8, cursor:"pointer" }}
+                        onClick={async () => {
+                          const updated = { ...(editingUser.payment_methods || {}), [m.key]: !methods[m.key] };
+                          await supabase.from("profiles").update({ payment_methods: updated }).eq("id", editingUser.id);
+                          setEditingUser(u => ({ ...u, payment_methods: updated }));
+                          notify("✓ Metodo pagamento aggiornato!");
+                        }}>
+                        <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+                          <span style={{ fontSize:18 }}>{m.icon}</span>
+                          <div>
+                            <div style={{ fontSize:13, fontWeight:600, color:C.text }}>{m.label}</div>
+                            <div style={{ fontSize:11, color:C.textMuted }}>{m.desc}</div>
+                          </div>
+                        </div>
+                        <div style={{ width:36, height:20, borderRadius:10,
+                          background: methods[m.key] ? C.green : C.surface2,
+                          border:`1px solid ${methods[m.key]?C.green:C.border}`,
+                          position:"relative", transition:"all .2s", flexShrink:0 }}>
+                          <div style={{ position:"absolute", top:2, width:16, height:16, borderRadius:"50%",
+                            background:"#fff", transition:"left .2s",
+                            left: methods[m.key] ? 18 : 2 }}/>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div style={{ marginTop:10, padding:"8px 12px", background:`${C.blue}08`, border:`1px solid ${C.blue}15`, borderRadius:8, fontSize:11, color:C.textMuted }}>
+                  💡 I distributori vedranno solo i metodi che il brand accetta. Clicca per attivare/disattivare.
+                </div>
+              </div>
+            )}
+
             {/* Brand Code - only for brands */}
             {editingUser.role === "brand" && editingUser.brand_code && (
               <div style={{ marginBottom:16, padding:"12px 16px",
@@ -3975,9 +4278,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       {/* Add Brand Modal */}
       {showAddBrand && (
         <Modal title="Add New Brand" onClose={() => setShowAddBrand(false)} onSave={addBrand}>
-          <Input label="Brand Name" value={brandForm.name} onChange={v=>setBrandForm(f=>({...f,name:v}))} placeholder="e.g. Lattafa Perfumes"/>
-          <Input label="Origin Country" value={brandForm.origin} onChange={v=>setBrandForm(f=>({...f,origin:v}))} placeholder="e.g. Dubai, UAE"/>
-          <Input label="Category" value={brandForm.category} onChange={v=>setBrandForm(f=>({...f,category:v}))} placeholder="e.g. Fine Fragrance"/>
+          <FormInput label="Brand Name" value={brandForm.name} onChange={v=>setBrandForm(f=>({...f,name:v}))} placeholder="e.g. Lattafa Perfumes"/>
+          <FormInput label="Origin Country" value={brandForm.origin} onChange={v=>setBrandForm(f=>({...f,origin:v}))} placeholder="e.g. Dubai, UAE"/>
+          <FormInput label="Category" value={brandForm.category} onChange={v=>setBrandForm(f=>({...f,category:v}))} placeholder="e.g. Fine Fragrance"/>
           <div style={{ marginBottom:14 }}>
             <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Description</label>
             <textarea value={brandForm.description} onChange={e=>setBrandForm(f=>({...f,description:e.target.value}))}
