@@ -1259,15 +1259,20 @@ const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
             {/* Banking fields - for both brand and distributor */}
             <div style={{ marginBottom:14 }}>
               <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:10 }}>
-                💳 {isBrand ? "Dati Bancari per Ricezione Pagamenti" : "Dati Bancari per Pagamenti Ordini"}
+                💳 {isBrand ? "Dati Bancari per Ricezione Pagamenti" : "Indirizzo di Spedizione e Dati Bancari"}
               </div>
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
-                {[
+                {(!isBrand ? [
+                  { label:"Indirizzo (Via/Piazza)", val:accountHolder, set:setAccountHolder, placeholder:"es. Via Roma 1" },
+                  { label:"Città", val:bankName, set:setBankName, placeholder:"es. Bucarest" },
+                  { label:"CAP", val:iban, set:setIban, placeholder:"es. 010101" },
+                  { label:"Provincia/Regione", val:swiftBic, set:setSwiftBic, placeholder:"es. Sector 1" },
+                ] : [
                   { label:"Intestatario Conto", val:accountHolder, set:setAccountHolder, placeholder:"Nome/Ragione Sociale" },
                   { label:"Banca", val:bankName, set:setBankName, placeholder:"es. Unicredit, Intesa..." },
                   { label:"IBAN", val:iban, set:setIban, placeholder:"IT60 X054 2811 1010 0000 0123 456" },
                   { label:"SWIFT/BIC (opzionale)", val:swiftBic, set:setSwiftBic, placeholder:"es. UNCRITMM" },
-                ].map(({label,val,set,placeholder}) => (
+                ]).map(({label,val,set,placeholder}) => (
                   <div key={label}>
                     <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:5 }}>{label}</label>
                     <input type="text" value={val} onChange={e=>set(e.target.value)} placeholder={placeholder}
@@ -2264,6 +2269,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [orderNote, setOrderNote] = useState("");
   const [orderLoading, setOrderLoading] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(null);
+  const [selectedPayment, setSelectedPayment] = useState("sepa"); // sepa, card, sepa_debit
   const [currentUser, setCurrentUser] = useState(null);
   const myBrands = ["lattafa","rasasi"];
   const [distNotifs, setDistNotifs] = useState([]);
@@ -2645,28 +2651,99 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
             <span style={{ fontSize:20, fontWeight:900, color:C.goldLight }}>€{cartValue.toLocaleString("it-IT", {minimumFractionDigits:2})}</span>
           </div>
 
-          {/* Payment info */}
+          {/* Payment method selection */}
           <div style={{ marginBottom:16 }}>
-            <div style={{ fontSize:12, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em", marginBottom:8 }}>Metodi di Pagamento Accettati</div>
-            <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
-              {[
-                { key:"sepa", label:"Bonifico SEPA", desc:"Gratuito · IBAN ricevuto via email", icon:"🏦", always:true },
-                { key:"card", label:"Carta di Credito", desc:"~1.4% commissione · Istantaneo", icon:"💳", always:false },
-                { key:"sepa_debit", label:"SEPA Direct Debit", desc:"Addebito automatico · Gratuito", icon:"⚡", always:false },
-              ].filter(m => m.always || true).map(m => (
-                <div key={m.key} style={{ display:"flex", alignItems:"center", gap:12, padding:"10px 14px",
-                  background:C.surface2, border:`1px solid ${C.border}`, borderRadius:8 }}>
-                  <span style={{ fontSize:18 }}>{m.icon}</span>
+            <div style={{ fontSize:12, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em", marginBottom:8 }}>Scegli Metodo di Pagamento</div>
+            <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+
+              {/* SEPA Bonifico */}
+              <div onClick={() => setSelectedPayment("sepa")}
+                style={{ padding:"14px 16px", background: selectedPayment==="sepa" ? `${C.gold}12` : C.surface2,
+                  border:`2px solid ${selectedPayment==="sepa" ? C.gold : C.border}`,
+                  borderRadius:10, cursor:"pointer", transition:"all .15s" }}>
+                <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom: selectedPayment==="sepa" ? 12 : 0 }}>
+                  <span style={{ fontSize:22 }}>🏦</span>
                   <div style={{ flex:1 }}>
-                    <div style={{ fontSize:13, fontWeight:600, color:C.text }}>{m.label}</div>
-                    <div style={{ fontSize:11, color:C.textMuted }}>{m.desc}</div>
+                    <div style={{ fontSize:14, fontWeight:700, color:C.text }}>Bonifico SEPA</div>
+                    <div style={{ fontSize:11, color:C.textMuted }}>Gratuito · 1-2 giorni lavorativi</div>
                   </div>
-                  <span style={{ fontSize:10, padding:"2px 8px", borderRadius:4, background:`${C.green}15`, color:C.green, border:`1px solid ${C.green}30`, fontWeight:600 }}>Accettato</span>
+                  <div style={{ width:20, height:20, borderRadius:"50%", border:`2px solid ${selectedPayment==="sepa"?C.gold:C.border}`,
+                    background: selectedPayment==="sepa" ? C.gold : "transparent",
+                    display:"flex", alignItems:"center", justifyContent:"center" }}>
+                    {selectedPayment==="sepa" && <div style={{ width:8, height:8, borderRadius:"50%", background:C.bg }}/>}
+                  </div>
                 </div>
-              ))}
-            </div>
-            <div style={{ marginTop:8, padding:"8px 12px", background:`${C.green}08`, border:`1px solid ${C.green}20`, borderRadius:8, fontSize:11, color:C.textMuted }}>
-              📦 Stock riservato automaticamente · Riceverai i dati bancari via email · Consegna: <strong style={{ color:C.green }}>48h dall'hub di Torino</strong>
+                {/* Mostra IBAN del brand solo se selezionato */}
+                {selectedPayment==="sepa" && (
+                  <div style={{ padding:"12px 14px", background:C.surface, border:`1px solid ${C.border}`, borderRadius:8 }}>
+                    <div style={{ fontSize:11, color:C.textMuted, marginBottom:8, fontWeight:600 }}>
+                      💳 Effettua il bonifico direttamente al brand:
+                    </div>
+                    <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:6 }}>
+                      {currentUser?.iban ? [
+                        ["Intestatario", currentUser.account_holder || currentUser.company_name],
+                        ["Banca", currentUser.bank_name || "—"],
+                        ["IBAN", currentUser.iban],
+                        ["BIC/SWIFT", currentUser.swift_bic || "—"],
+                      ].map(([k,v]) => (
+                        <div key={k}>
+                          <div style={{ fontSize:9, color:C.textDim, textTransform:"uppercase", letterSpacing:".06em" }}>{k}</div>
+                          <div style={{ fontSize:11, fontWeight:700, color:C.goldLight, fontFamily:"monospace", marginTop:1 }}>{v}</div>
+                        </div>
+                      )) : (
+                        <div style={{ gridColumn:"1/-1", fontSize:12, color:C.red }}>
+                          ⚠️ Dati bancari del brand non ancora inseriti. Contatta NexusHub.
+                        </div>
+                      )}
+                    </div>
+                    <div style={{ marginTop:10, padding:"8px 10px", background:`${C.gold}10`, border:`1px solid ${C.gold}25`, borderRadius:6, fontSize:11, color:C.gold }}>
+                      📋 Causale: <strong style={{ fontFamily:"monospace" }}>NEXUSHUB · €{cartValue.toLocaleString("it-IT",{minimumFractionDigits:2})}</strong>
+                    </div>
+                    <div style={{ marginTop:6, fontSize:11, color:C.textMuted }}>
+                      ✅ Stock riservato subito · Fattura automatica via email · Consegna: <strong style={{ color:C.green }}>48h da Torino</strong>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Carta di credito */}
+              <div onClick={() => setSelectedPayment("card")}
+                style={{ padding:"14px 16px", background: selectedPayment==="card" ? `#635bff15` : C.surface2,
+                  border:`2px solid ${selectedPayment==="card" ? "#635bff" : C.border}`,
+                  borderRadius:10, cursor:"pointer", transition:"all .15s" }}>
+                <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+                  <span style={{ fontSize:22 }}>💳</span>
+                  <div style={{ flex:1 }}>
+                    <div style={{ fontSize:14, fontWeight:700, color:C.text }}>Carta di Credito / Debito</div>
+                    <div style={{ fontSize:11, color:C.textMuted }}>Istantaneo · Powered by Stripe</div>
+                  </div>
+                  <div style={{ width:20, height:20, borderRadius:"50%", border:`2px solid ${selectedPayment==="card"?"#635bff":C.border}`,
+                    background: selectedPayment==="card" ? "#635bff" : "transparent",
+                    display:"flex", alignItems:"center", justifyContent:"center" }}>
+                    {selectedPayment==="card" && <div style={{ width:8, height:8, borderRadius:"50%", background:"#fff" }}/>}
+                  </div>
+                </div>
+              </div>
+
+              {/* SEPA Debit */}
+              <div onClick={() => setSelectedPayment("sepa_debit")}
+                style={{ padding:"14px 16px", background: selectedPayment==="sepa_debit" ? `${C.blue}12` : C.surface2,
+                  border:`2px solid ${selectedPayment==="sepa_debit" ? C.blue : C.border}`,
+                  borderRadius:10, cursor:"pointer", transition:"all .15s" }}>
+                <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+                  <span style={{ fontSize:22 }}>⚡</span>
+                  <div style={{ flex:1 }}>
+                    <div style={{ fontSize:14, fontWeight:700, color:C.text }}>SEPA Direct Debit</div>
+                    <div style={{ fontSize:11, color:C.textMuted }}>Addebito automatico · Gratuito</div>
+                  </div>
+                  <div style={{ width:20, height:20, borderRadius:"50%", border:`2px solid ${selectedPayment==="sepa_debit"?C.blue:C.border}`,
+                    background: selectedPayment==="sepa_debit" ? C.blue : "transparent",
+                    display:"flex", alignItems:"center", justifyContent:"center" }}>
+                    {selectedPayment==="sepa_debit" && <div style={{ width:8, height:8, borderRadius:"50%", background:"#fff" }}/>}
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -2680,10 +2757,76 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                 boxSizing:"border-box", minHeight:70, resize:"vertical" }}/>
           </div>
 
-          <div style={{ display:"flex", gap:10 }}>
-            <button onClick={() => setShowCheckout(false)} style={{ flex:1, padding:"12px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>Cancel</button>
-            <button onClick={placeOrder} disabled={orderLoading} style={{ flex:2, padding:"12px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700 }}>
-              {orderLoading ? "Invio ordine..." : "✓ Conferma Ordine"}
+          <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
+            {/* Bottone dinamico in base al metodo selezionato */}
+            {(selectedPayment === "sepa" || selectedPayment === "sepa_debit") && (
+              <button onClick={placeOrder} disabled={orderLoading}
+                style={{ width:"100%", padding:"14px", borderRadius:10, cursor:"pointer",
+                  background:`linear-gradient(135deg,${C.gold},${C.goldDim})`,
+                  border:"none", color:C.bg, fontSize:14, fontWeight:700,
+                  display:"flex", alignItems:"center", justifyContent:"center", gap:10 }}>
+                {orderLoading ? "⏳ Invio ordine..." : selectedPayment==="sepa" ? "🏦 Conferma Ordine — Paga via Bonifico" : "⚡ Conferma Ordine — SEPA Debit"}
+              </button>
+            )}
+            {/* Paga con Carta via Stripe */}
+            {selectedPayment === "card" && (
+            <button onClick={async () => {
+              if (cartCount === 0) return;
+              setOrderLoading(true);
+              try {
+                // Prima crea l ordine
+                const { data: { user } } = await supabase.auth.getUser();
+                const items = Object.entries(cart).filter(([,qty])=>qty>0).map(([pid,qty]) => {
+                  const product = realProducts.find(p=>p.id===pid);
+                  return { product_id:pid, quantity:qty, product_name:product?.name||"", sku:product?.sku||"", unit_price:product?.unit_price||0 };
+                });
+                const total = items.reduce((s,i)=>s+(i.unit_price*i.quantity),0);
+                const { data: order } = await supabase.from("orders").insert({
+                  distributor_id: user.id,
+                  brand_id: items[0] ? realProducts.find(p=>p.id===items[0].product_id)?.brand_id : null,
+                  total_amount: total,
+                  status: "pending",
+                  payment_method: "card",
+                  notes: orderNote,
+                }).select().single();
+                if (order) {
+                  await supabase.from("order_items").insert(items.map(i=>({...i, order_id:order.id})));
+                  // Crea sessione Stripe
+                  const res = await fetch(
+                    `${process.env.REACT_APP_SUPABASE_URL}/functions/v1/stripe-checkout`,
+                    {
+                      method: "POST",
+                      headers: { "Content-Type":"application/json", "Authorization":`Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}` },
+                      body: JSON.stringify({
+                        order_id: order.id,
+                        amount: total,
+                        brand_name: realProducts.find(p=>p.id===items[0]?.product_id)?.profiles?.company_name || "Brand",
+                        order_number: order.order_number,
+                        distributor_email: currentUser?.email,
+                        items: items.length,
+                      })
+                    }
+                  );
+                  const data = await res.json();
+                  if (data.checkout_url) {
+                    // Reindirizza a Stripe Checkout
+                    window.location.href = data.checkout_url;
+                  } else if (data.error && data.error.includes("not configured")) {
+                    alert("⚙️ Stripe non ancora configurato. Contatta NexusHub per abilitare i pagamenti con carta.");
+                  } else {
+                    alert("Errore Stripe: " + (data.error || "Riprova"));
+                  }
+                }
+              } catch(e) {
+                alert("Errore: " + e.message);
+              }
+              setOrderLoading(false);
+            }} disabled={orderLoading} style={{ width:"100%", padding:"14px", borderRadius:10, cursor:"pointer", background:"linear-gradient(135deg,#635bff,#4b44cc)", border:"none", color:"#fff", fontSize:14, fontWeight:700, display:"flex", alignItems:"center", justifyContent:"center", gap:10 }}>
+              💳 Paga con Carta via Stripe
+            </button>
+            )}
+            <button onClick={() => setShowCheckout(false)} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>
+              Annulla
             </button>
           </div>
         </div>
@@ -3772,7 +3915,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:800 }}>
                 <thead>
                   <tr style={{ background:C.surface2 }}>
-                    {["Order #","Distributor","Brand","Amount","Status","Date","Actions"].map((h,i) => (
+                    {["Order #","Distributor","Brand","Spedire a","Amount","Status","Date","Actions"].map((h,i) => (
                       <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
                     ))}
                   </tr>
@@ -3783,6 +3926,14 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                       <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{o.order_number}</span></td>
                       <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>{o.profiles?.company_name||"—"}</td>
                       <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>—</td>
+                      <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>
+                        {o.shipping_city ? (
+                          <div>
+                            <div style={{ fontWeight:600, color:C.text }}>{o.shipping_city}</div>
+                            <div style={{ fontSize:11, color:C.textMuted }}>{o.shipping_address} · {o.shipping_country}</div>
+                          </div>
+                        ) : "—"}
+                      </td>
                       <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.goldLight }}>€{o.total_amount?.toLocaleString("it-IT")}</td>
                       <td style={{ padding:"11px 14px" }}><Badge status={o.status}/></td>
                       <td style={{ padding:"11px 14px", fontSize:11, color:C.textDim }}>{new Date(o.created_at).toLocaleDateString()}</td>
