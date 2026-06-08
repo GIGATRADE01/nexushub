@@ -3985,11 +3985,24 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       {showAddProduct && (
         <Modal title={editingProduct ? "Edit Product" : "Add New Product"} onClose={() => { setShowAddProduct(false); setEditingProduct(null); }} onSave={saveProduct}>
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
-            <Input label="Product Name *" value={productForm.name} onChange={v=>setProductForm(f=>({...f,name:v}))} placeholder="es. Khamrah EDP"/>
-            <Input label="SKU" value={productForm.sku} onChange={v=>setProductForm(f=>({...f,sku:v}))} placeholder="es. LT-KHM-100"/>
-            <Input label="Category" value={productForm.category} onChange={v=>setProductForm(f=>({...f,category:v}))} placeholder="es. Premium"/>
-            <Input label="Size" value={productForm.size} onChange={v=>setProductForm(f=>({...f,size:v}))} placeholder="es. 100ml"/>
-            <Input label="Unit Price (€) *" value={productForm.price} onChange={v=>setProductForm(f=>({...f,price:v}))} type="number" placeholder="0.00"/>
+            {[
+              { label:"Product Name *", key:"name", placeholder:"es. Khamrah EDP", mode:"text" },
+              { label:"SKU", key:"sku", placeholder:"es. LT-KHM-100", mode:"text" },
+              { label:"Category", key:"category", placeholder:"es. Premium", mode:"text" },
+              { label:"Size", key:"size", placeholder:"es. 100ml", mode:"text" },
+              { label:"Unit Price (€) *", key:"price", placeholder:"0.00", mode:"decimal" },
+            ].map(({label, key, placeholder, mode}) => (
+              <div key={key} style={{ marginBottom:14 }}>
+                <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
+                <input
+                  type="text"
+                  inputMode={mode}
+                  value={productForm[key]}
+                  onChange={e => setProductForm(f => ({...f, [key]: e.target.value}))}
+                  placeholder={placeholder}
+                  style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+              </div>
+            ))}
             <div style={{ marginBottom:14 }}>
               <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Brand</label>
               <select value={productForm.brand_id} onChange={e=>setProductForm(f=>({...f,brand_id:e.target.value}))}
@@ -3998,10 +4011,32 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 {brands.map(b => <option key={b.id} value={b.id}>{b.company_name||b.email}</option>)}
               </select>
             </div>
-            <Input label="Order Multiple" value={productForm.order_multiple} onChange={v=>setProductForm(f=>({...f,order_multiple:v}))} type="number" placeholder="es. 12"/>
-            <Input label="Min Order Qty (MOQ)" value={productForm.min_order_qty} onChange={v=>setProductForm(f=>({...f,min_order_qty:v}))} type="number" placeholder="es. 24"/>
+            {[
+              { label:"Order Multiple", key:"order_multiple", placeholder:"es. 12" },
+              { label:"Min Order Qty (MOQ)", key:"min_order_qty", placeholder:"es. 24" },
+            ].map(({label, key, placeholder}) => (
+              <div key={key} style={{ marginBottom:14 }}>
+                <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={productForm[key]}
+                  onChange={e => setProductForm(f => ({...f, [key]: e.target.value}))}
+                  placeholder={placeholder}
+                  style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+              </div>
+            ))}
           </div>
-          <Input label="Max Order Qty (vuoto = illimitato)" value={productForm.max_order_qty} onChange={v=>setProductForm(f=>({...f,max_order_qty:v}))} type="number" placeholder="es. 500"/>
+          <div style={{ marginBottom:14 }}>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Max Order Qty (vuoto = illimitato)</label>
+            <input
+              type="text"
+              inputMode="numeric"
+              value={productForm.max_order_qty}
+              onChange={e => setProductForm(f => ({...f, max_order_qty: e.target.value}))}
+              placeholder="es. 500"
+              style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+          </div>
           
           {/* Image section */}
           <div style={{ marginBottom:14 }}>
