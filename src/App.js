@@ -2122,7 +2122,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px", color:C.text }}>🤖 AI Suggestions</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Suggerimenti intelligenti basati su stagionalità, stock e trend di mercato europeo</p>
-            <AISuggestions products={realProducts} orders={realOrders}/>
+            <AISuggestions products={CATALOG.map(p=>({...p, unit_price:p.price, inventory:{quantity_available:p.stock}}))} orders={[]}/>
           </div>
         )}
 
@@ -2527,14 +2527,6 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           </div>
         )}
       </div>
-                {tab==="ai" && (
-          <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px", color:C.text }}>🤖 AI Suggestions</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Suggerimenti intelligenti basati su stagionalità, stock e trend di mercato europeo</p>
-            <AISuggestions products={realProducts} orders={realOrders} />
-          </div>
-        )}
-
     {/* Distributor Notification Panel */}
     {distNotifPanel && (
       <div style={{ position:"fixed", top:56, right:0, width:360, maxWidth:"100vw",
