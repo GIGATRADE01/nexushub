@@ -2232,6 +2232,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
 };
 
 const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
+  const [tab, setTab] = useState("overview");
   const [users, setUsers] = useState([]);
   const [brands, setBrands] = useState([]);
   const [products, setProducts] = useState([]);
@@ -2583,7 +2584,6 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"payments", icon:"💰", label:"Payments" },
     { key:"settings", icon:"⚙️", label:"Settings" },
   ];
-  const [tab, setTab] = useState("overview");
 
   const Input = ({ label, value, onChange, type="text", placeholder="" }) => (
     <div style={{ marginBottom:14 }}>
