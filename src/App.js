@@ -1989,6 +1989,31 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
         : "Un brand ha bloccato il tuo accesso ai suoi prodotti.",
       type: "access_update",
     });
+    // CONTRATTO AUTOMATICO: all'approvazione genera (o aggiorna) il contratto di distribuzione
+    if (newStatus === "approved") {
+      const { data: bp } = await supabase.from("profiles").select("commission_rate").eq("id", req.brand_id).single();
+      const comm = (bp && bp.commission_rate != null) ? bp.commission_rate : 11.4;
+      const territory = (req.distributor?.country || "").trim() || "—";
+      const today = new Date();
+      const vu = new Date(today); vu.setFullYear(vu.getFullYear() + 1);
+      const { data: existingC } = await supabase.from("contracts")
+        .select("id").eq("brand_id", req.brand_id).eq("distributor_id", req.distributor_id).limit(1);
+      if (existingC && existingC.length) {
+        await supabase.from("contracts").update({ territory, exclusivity: exclusive, commission_rate: comm }).eq("id", existingC[0].id);
+      } else {
+        await supabase.from("contracts").insert({
+          contract_number: `CT-${today.getFullYear()}-${Math.random().toString(36).slice(2,7).toUpperCase()}`,
+          brand_id: req.brand_id,
+          distributor_id: req.distributor_id,
+          territory,
+          exclusivity: exclusive,
+          commission_rate: comm,
+          status: "draft",
+          valid_from: today.toISOString().slice(0,10),
+          valid_until: vu.toISOString().slice(0,10),
+        });
+      }
+    }
     // ESCLUSIVITÀ TERRITORIALE (scelta del brand): se approvi IN ESCLUSIVA,
     // blocca automaticamente gli altri distributori dello stesso paese per questo brand.
     if (newStatus === "approved" && exclusive) {
@@ -3022,6 +3047,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [notification, setNotification] = useState(null);
   const [invoices, setInvoices] = useState([]);
   const [contracts, setContracts] = useState([]);
+  const [commissionRows, setCommissionRows] = useState([]);
 
   // Modal states
   const [showAddBrand, setShowAddBrand] = useState(false);
@@ -3208,6 +3234,38 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     loadUsers();
   };
 
+  const tierRate = (rev) => (rev > 15000000 ? 9 : rev > 10000000 ? 10 : 11.4);
+  const loadCommissions = async () => {
+    const { data: bs } = await supabase.from("profiles").select("id, company_name, email, commission_rate, estimated_annual_revenue").eq("role", "brand");
+    const { data: ords } = await supabase.from("orders").select("brand_id, total_amount, created_at, status");
+    const yr = new Date().getFullYear();
+    const rev = {};
+    (ords || []).forEach(o => {
+      if (!o.brand_id || o.status === "cancelled") return;
+      const oy = o.created_at ? new Date(o.created_at).getFullYear() : yr;
+      if (oy !== yr) return;
+      rev[o.brand_id] = (rev[o.brand_id] || 0) + (o.total_amount || 0);
+    });
+    setCommissionRows((bs || []).map(b => ({
+      id: b.id,
+      name: b.company_name || b.email || "Brand",
+      declared: b.estimated_annual_revenue || 0,
+      actual: rev[b.id] || 0,
+      current: b.commission_rate ?? 11.4,
+    })));
+  };
+  const applyCommission = async (row, newRate) => {
+    await supabase.from("profiles").update({ commission_rate: newRate }).eq("id", row.id);
+    await supabase.from("contracts").update({ commission_rate: newRate }).eq("brand_id", row.id);
+    await supabase.from("notifications").insert({
+      user_id: row.id,
+      title: "Provvigione aggiornata",
+      message: `La tua provvigione piattaforma è stata aggiornata al ${newRate}% in base al fatturato raggiunto.`,
+      type: "commission_update",
+    });
+    notify(`✓ Provvigione ${row.name} → ${newRate}%`);
+    setCommissionRows(prev => prev.map(r => r.id === row.id ? { ...r, current: newRate } : r));
+  };
   useEffect(() => {
     loadUsers(); loadBrands(); loadProducts(); loadOrders();
   }, []);
@@ -3219,6 +3277,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "orders") loadOrders();
     if (tab === "invoices") loadInvoices();
     if (tab === "contracts") { loadContracts(); loadBrands(); loadUsers(); }
+    if (tab === "commissions") { loadCommissions(); }
   }, [tab]);
 
   // Approve / Reject user
@@ -3423,6 +3482,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"orders", icon:"📋", label:"Orders" },
     { key:"invoices", icon:"🧾", label:"Fatture" },
     { key:"contracts", icon:"📝", label:"Contratti" },
+    { key:"commissions", icon:"📊", label:"Provvigioni" },
     { key:"payments", icon:"💰", label:"Payments" },
     { key:"settings", icon:"⚙️", label:"Settings" },
   ];
@@ -4169,6 +4229,49 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         )}
 
         {/* CONTRACTS TAB */}
+        {tab === "commissions" && (
+          <div>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📊 Provvigioni automatiche</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 16px" }}>Scaglioni sul fatturato annuo reale · fino a 10M€ = 11,4% · 10–15M€ = 10% · oltre 15M€ = 9%</p>
+            <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <table style={{ width:"100%", borderCollapse:"collapse", minWidth:760 }}>
+                <thead>
+                  <tr style={{ background:C.surface2 }}>
+                    {["Brand","Fatturato stimato","Fatturato anno (reale)","% attuale","% scaglione reale","Azione"].map((h,i) => (
+                      <th key={i} style={{ padding:"11px 16px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:"0.08em", textTransform:"uppercase", whiteSpace:"nowrap", fontWeight:600 }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {commissionRows.length === 0 && (
+                    <tr><td colSpan={6} style={{ padding:28, textAlign:"center", color:C.textMuted, fontSize:13 }}>Nessun brand registrato.</td></tr>
+                  )}
+                  {commissionRows.map((row,i) => {
+                    const due = tierRate(row.actual);
+                    const changed = due < (row.current ?? 11.4);
+                    return (
+                      <tr key={row.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
+                        <td style={{ padding:"12px 16px", fontSize:13, color:C.text, fontWeight:600, whiteSpace:"nowrap" }}>{row.name}</td>
+                        <td style={{ padding:"12px 16px", fontSize:13, color:C.textMuted }}>€{(row.declared||0).toLocaleString("it-IT")}</td>
+                        <td style={{ padding:"12px 16px", fontSize:13, color:C.text, fontWeight:600 }}>€{(row.actual||0).toLocaleString("it-IT")}</td>
+                        <td style={{ padding:"12px 16px", fontSize:14, fontWeight:700, color:C.goldLight }}>{(row.current ?? 11.4)}%</td>
+                        <td style={{ padding:"12px 16px", fontSize:14, fontWeight:700, color:changed?C.green:C.textMuted }}>{due}%</td>
+                        <td style={{ padding:"12px 16px" }}>
+                          {changed
+                            ? <button onClick={() => applyCommission(row, due)} style={{ padding:"7px 16px", borderRadius:7, cursor:"pointer", fontSize:12, fontWeight:600, background:`${C.green}18`, border:`1px solid ${C.green}50`, color:C.green, whiteSpace:"nowrap" }}>Applica {due}%</button>
+                            : <span style={{ fontSize:12, color:C.textDim }}>aggiornato</span>}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <div style={{ marginTop:12, padding:"10px 14px", background:`${C.blue}08`, border:`1px solid ${C.blue}15`, borderRadius:8, fontSize:12, color:C.textMuted, lineHeight:1.6 }}>
+              💡 Durante l'anno la provvigione scende da sola quando il brand supera una soglia. Il reset annuale del 1° gennaio (rendiconto + email) sarà la fase 2.
+            </div>
+          </div>
+        )}
         {tab === "contracts" && (
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
@@ -4450,6 +4553,38 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               </div>
             )}
 
+            {editingUser.role === "brand" && (
+              <div style={{ marginBottom:16, padding:"14px 16px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:10 }}>
+                <div style={{ fontSize:12, color:C.gold, fontWeight:600, marginBottom:12, textTransform:"uppercase", letterSpacing:".06em" }}>📊 Commissione piattaforma (a carico del brand)</div>
+                <div style={{ display:"flex", gap:18, flexWrap:"wrap" }}>
+                  <div>
+                    <label style={{ fontSize:11, color:C.textMuted, display:"block", marginBottom:6 }}>Commissione % (9–11,4)</label>
+                    <input type="number" min={9} max={11.4} step={0.1} defaultValue={editingUser.commission_rate ?? 11.4}
+                      onBlur={async (e) => {
+                        const v = Math.min(11.4, Math.max(9, Number(e.target.value) || 11.4));
+                        await supabase.from("profiles").update({ commission_rate: v }).eq("id", editingUser.id);
+                        setEditingUser(u => ({ ...u, commission_rate: v }));
+                        notify("✓ Commissione aggiornata!");
+                      }}
+                      style={{ width:110, padding:"10px 12px", borderRadius:8, background:C.surface, border:`1px solid ${C.border}`, color:C.text, fontSize:14 }} />
+                  </div>
+                  <div>
+                    <label style={{ fontSize:11, color:C.textMuted, display:"block", marginBottom:6 }}>Fatturato annuo stimato (€)</label>
+                    <input type="number" min={0} step={10000} defaultValue={editingUser.estimated_annual_revenue ?? 0}
+                      onBlur={async (e) => {
+                        const v = Math.max(0, Number(e.target.value) || 0);
+                        await supabase.from("profiles").update({ estimated_annual_revenue: v }).eq("id", editingUser.id);
+                        setEditingUser(u => ({ ...u, estimated_annual_revenue: v }));
+                        notify("✓ Fatturato stimato aggiornato!");
+                      }}
+                      style={{ width:180, padding:"10px 12px", borderRadius:8, background:C.surface, border:`1px solid ${C.border}`, color:C.text, fontSize:14 }} />
+                  </div>
+                </div>
+                <div style={{ marginTop:10, padding:"8px 12px", background:`${C.gold}08`, border:`1px solid ${C.gold}15`, borderRadius:8, fontSize:11, color:C.textMuted }}>
+                  💡 La imposti tu (admin). Il brand la paga, non la sceglie. Usata nei contratti generati all'approvazione dei distributori.
+                </div>
+              </div>
+            )}
             {/* Brand Code - only for brands */}
             {editingUser.role === "brand" && editingUser.brand_code && (
               <div style={{ marginBottom:16, padding:"12px 16px",
