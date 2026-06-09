@@ -279,12 +279,6 @@ const Badge = ({ status }) => {
   );
 };
 
-const BrandLogo = ({ brand, size=36 }) => (
-  <div style={{ width:size, height:size, borderRadius:size*0.25, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:size*0.42, fontWeight:900, color:C.bg, flexShrink:0 }}>
-    {brand.logo}
-  </div>
-);
-
 const Stat = ({ icon, label, value, sub, accent }) => (
   <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${accent||C.goldDim}`, borderRadius:12, padding:"16px 18px", minWidth:130, flex:"1 1 130px" }}>
     <div style={{ fontSize:18, marginBottom:6 }}>{icon}</div>
