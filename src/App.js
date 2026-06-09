@@ -1974,19 +1974,48 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
       .subscribe();
     return () => supabase.removeChannel(channel);
   }, []);
-  const handleAccess = async (req, newStatus) => {
-    setAccessReqs(prev => prev.map(r => r.id === req.id ? { ...r, status: newStatus } : r));
-    await supabase.from("brand_access_requests")
-      .update({ status: newStatus, updated_at: new Date().toISOString() })
-      .eq("id", req.id);
+  const handleAccess = async (req, newStatus, exclusive = false) => {
+    setAccessReqs(prev => prev.map(r => r.id === req.id ? { ...r, status: newStatus, exclusive: newStatus === "approved" ? exclusive : r.exclusive } : r));
+    const upd = { status: newStatus, updated_at: new Date().toISOString() };
+    if (newStatus === "approved") upd.exclusive = exclusive;
+    await supabase.from("brand_access_requests").update(upd).eq("id", req.id);
     await supabase.from("notifications").insert({
       user_id: req.distributor_id,
       title: newStatus === "approved" ? "Accesso approvato ✓" : "Accesso bloccato",
       message: newStatus === "approved"
-        ? "Un brand ha approvato la tua richiesta: ora puoi vedere e ordinare i suoi prodotti."
+        ? (exclusive
+            ? "Un brand ti ha approvato IN ESCLUSIVA per il tuo territorio: sei l'unico distributore del tuo paese per questo brand."
+            : "Un brand ha approvato la tua richiesta: ora puoi vedere e ordinare i suoi prodotti.")
         : "Un brand ha bloccato il tuo accesso ai suoi prodotti.",
       type: "access_update",
     });
+    // ESCLUSIVITÀ TERRITORIALE (scelta del brand): se approvi IN ESCLUSIVA,
+    // blocca automaticamente gli altri distributori dello stesso paese per questo brand.
+    if (newStatus === "approved" && exclusive) {
+      const country = (req.distributor?.country || "").trim().toLowerCase();
+      if (country) {
+        const conflicts = accessReqs.filter(r =>
+          r.id !== req.id &&
+          (r.status === "pending" || r.status === "approved") &&
+          (r.distributor?.country || "").trim().toLowerCase() === country
+        );
+        if (conflicts.length) {
+          const ids = conflicts.map(c => c.id);
+          await supabase.from("brand_access_requests")
+            .update({ status: "blocked", updated_at: new Date().toISOString() })
+            .in("id", ids);
+          for (const c of conflicts) {
+            await supabase.from("notifications").insert({
+              user_id: c.distributor_id,
+              title: "Territorio non disponibile",
+              message: "Un altro distributore è stato selezionato in esclusiva per il tuo territorio: l'accesso a questo brand è stato chiuso.",
+              type: "access_update",
+            });
+          }
+          setAccessReqs(prev => prev.map(r => ids.includes(r.id) ? { ...r, status: "blocked" } : r));
+        }
+      }
+    }
   };
   const tabs = [
     { key:"overview", icon:"◈", label:t("tabOverview") },
@@ -2122,7 +2151,8 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                 </div>
                 {r.status==="pending" ? (
                   <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
-                    <button onClick={() => handleAccess(r, "approved")} style={{ padding:"10px 22px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.green}18`, border:`1px solid ${C.green}50`, color:C.green }}>✓ Approva e abilita accesso</button>
+                    <button onClick={() => handleAccess(r, "approved", true)} style={{ padding:"10px 18px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.gold}20`, border:`1px solid ${C.gold}55`, color:C.gold }}>🔒 Approva in esclusiva</button>
+                    <button onClick={() => handleAccess(r, "approved", false)} style={{ padding:"10px 18px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.green}18`, border:`1px solid ${C.green}50`, color:C.green }}>✓ Approva (condiviso)</button>
                     <button onClick={() => handleAccess(r, "blocked")} style={{ padding:"10px 22px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.red}12`, border:`1px solid ${C.red}40`, color:C.red }}>✗ Blocca</button>
                   </div>
                 ) : (
@@ -2183,7 +2213,12 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                             <td style={{ padding:"13px 16px", fontSize:13, color:C.textMuted, whiteSpace:"nowrap" }}>{dist.country || "—"}</td>
                             <td style={{ padding:"13px 16px", fontSize:14, fontWeight:700, color:C.goldLight }}>{st.orders}</td>
                             <td style={{ padding:"13px 16px", fontSize:14, fontWeight:700, color:C.goldLight }}>€{st.revenue.toLocaleString("it-IT")}</td>
-                            <td style={{ padding:"13px 16px" }}><Badge status="active"/></td>
+                            <td style={{ padding:"13px 16px" }}>
+                              <div style={{ display:"flex", alignItems:"center", gap:6, flexWrap:"wrap" }}>
+                                <Badge status="active"/>
+                                <span style={{ padding:"2px 8px", borderRadius:5, fontSize:10, fontWeight:600, background:r.exclusive?`${C.gold}15`:`${C.blue}12`, border:`1px solid ${(r.exclusive?C.gold:C.blue)}30`, color:r.exclusive?C.gold:C.blue }}>{r.exclusive?"🔒 Esclusiva":"Condiviso"}</span>
+                              </div>
+                            </td>
                             <td style={{ padding:"13px 16px" }}>
                               <button onClick={() => handleAccess(r, "blocked")} style={{ padding:"6px 14px", borderRadius:7, cursor:"pointer", fontSize:12, background:"transparent", border:`1px solid ${C.red}40`, color:C.red, whiteSpace:"nowrap" }}>Blocca</button>
                             </td>
@@ -2400,6 +2435,20 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       message: `${currentUser?.company_name || "Un distributore"} ha richiesto l'accesso ai tuoi prodotti.`,
       type: "access_request",
     });
+    // Se il territorio è già assegnato in ESCLUSIVA per questo brand, blocca subito la richiesta
+    const myCountry = (currentUser?.country || "").trim().toLowerCase();
+    if (myCountry) {
+      const { data: existing } = await supabase.from("brand_access_requests")
+        .select("id, distributor:profiles!brand_access_requests_distributor_id_fkey(country)")
+        .eq("brand_id", brand.id).eq("status", "approved").eq("exclusive", true);
+      const taken = (existing || []).some(e => (e.distributor?.country || "").trim().toLowerCase() === myCountry);
+      if (taken) {
+        await supabase.from("brand_access_requests")
+          .update({ status: "blocked", updated_at: new Date().toISOString() })
+          .eq("distributor_id", user.id).eq("brand_id", brand.id);
+        setAccessRequests(prev => ({ ...prev, [brand.id]: "blocked" }));
+      }
+    }
   };
   const placeOrder = async () => {
     if (cartCount === 0) return;
