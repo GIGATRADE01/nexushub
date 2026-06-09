@@ -212,12 +212,6 @@ const T = {
 // Fill missing langs with EN fallback
 ["fr","es","de","zh","ar"].forEach(k => { T[k] = T[k] || {}; });
 
-const BRANDS = [
-  { id:"lattafa", name:"Lattafa Perfumes", origin:"Dubai, UAE", logo:"ل", category:"Fine Fragrance", skus:87, distributors:34, description:"One of the most recognized Middle Eastern fragrance houses globally, known for rich oud-based compositions and accessible luxury." },
-  { id:"rasasi", name:"Rasasi Perfumes", origin:"Dubai, UAE", logo:"ر", category:"Fine Fragrance", skus:62, distributors:18, description:"Heritage fragrance house with over 40 years of craftsmanship in Arabic perfumery." },
-  { id:"ajmal", name:"Ajmal Perfumes", origin:"Dubai, UAE", logo:"ع", category:"Fine Fragrance & Oud", skus:94, distributors:22, description:"Premium Arabic perfume brand with a legacy of rare oud ingredients and Eastern luxury." },
-  { id:"armaf", name:"Armaf", origin:"Dubai, UAE", logo:"A", category:"Accessible Luxury", skus:78, distributors:29, description:"Fast-growing fragrance brand offering European-inspired luxury at accessible price points." },
-];
 
 
 const ACTIVE_DISTRIBUTORS = [
@@ -1941,6 +1935,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
   const [tab, setTab] = useState("overview");
   const [accessReqs, setAccessReqs] = useState([]);
+  const [brandOrders, setBrandOrders] = useState([]);
   const [brandNotifs, setBrandNotifs] = useState([]);
   const [brandNotifPanel, setBrandNotifPanel] = useState(false);
   const brandUnread = brandNotifs.filter(n => !n.read).length;
@@ -1965,6 +1960,14 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
       setAccessReqs(data || []);
     };
     loadAccessReqs();
+    const loadBrandOrders = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data } = await supabase.from("orders")
+        .select("distributor_id, total_amount, status").eq("brand_id", user.id);
+      setBrandOrders(data || []);
+    };
+    loadBrandOrders();
     const channel = supabase.channel("brand-notifs")
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "notifications" },
         (payload) => { setBrandNotifs(prev => [payload.new, ...prev]); if (payload.new?.type === "access_request") loadAccessReqs(); })
@@ -2139,19 +2142,59 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
         {tab==="distributors" && (
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("distTitle")}</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("distSub")}</p>
-            <Table minWidth={750}
-              headers={[t("colFlag"),t("colCompany"),t("colTerritory"),t("colBrands"),t("colOrders"),t("colRevenue"),t("colStatus")]}
-              rows={ACTIVE_DISTRIBUTORS.map(d => [
-                <span style={{ fontSize:22 }}>{d.flag}</span>,
-                <div><div style={{ fontSize:13, color:C.text, fontWeight:500 }}>{d.company}</div><div style={{ fontSize:11, color:C.textMuted, marginTop:2 }}>{d.country}</div></div>,
-                <span style={{ fontSize:13, color:C.textMuted }}>{d.territory}</span>,
-                <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>{d.brands.map(bid => { const b=BRANDS.find(x=>x.id===bid); return b?<span key={bid} style={{ padding:"2px 8px", borderRadius:5, background:`${C.gold}10`, border:`1px solid ${C.gold}25`, fontSize:11, color:C.gold, whiteSpace:"nowrap" }}>{b.name.split(" ")[0]}</span>:null; })}</div>,
-                <span style={{ fontSize:14, fontWeight:700, color:C.goldLight }}>{d.orders}</span>,
-                <span style={{ fontSize:14, fontWeight:700, color:C.goldLight }}>{d.revenue}</span>,
-                <Badge status={d.status}/>,
-              ])}
-            />
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>I tuoi distributori autorizzati · ordini e fatturato in tempo reale</p>
+            {(() => {
+              const active = accessReqs.filter(r => r.status === "approved");
+              const stats = {};
+              brandOrders.forEach(o => {
+                if (!o.distributor_id) return;
+                if (!stats[o.distributor_id]) stats[o.distributor_id] = { orders: 0, revenue: 0 };
+                stats[o.distributor_id].orders += 1;
+                stats[o.distributor_id].revenue += (o.total_amount || 0);
+              });
+              if (active.length === 0) return (
+                <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>
+                  <div style={{ fontSize:40, marginBottom:12 }}>⬡</div>
+                  <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:6 }}>Nessun distributore attivo</div>
+                  <div style={{ fontSize:13, lineHeight:1.6, maxWidth:440, margin:"0 auto" }}>Quando approvi una richiesta nella tab Candidature, il distributore comparirà qui con i suoi ordini e il fatturato reali.</div>
+                </div>
+              );
+              return (
+                <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                  <table style={{ width:"100%", borderCollapse:"collapse", minWidth:700 }}>
+                    <thead>
+                      <tr style={{ background:C.surface2 }}>
+                        {["Distributore","Paese","Ordini","Fatturato","Stato","Azione"].map((h,i) => (
+                          <th key={i} style={{ padding:"11px 16px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:"0.08em", textTransform:"uppercase", whiteSpace:"nowrap", fontWeight:600 }}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {active.map((r,i) => {
+                        const dist = r.distributor || {};
+                        const dname = dist.company_name || dist.email || "Distributore";
+                        const st = stats[r.distributor_id] || { orders: 0, revenue: 0 };
+                        return (
+                          <tr key={r.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
+                            <td style={{ padding:"13px 16px", whiteSpace:"nowrap" }}>
+                              <div style={{ fontSize:13, color:C.text, fontWeight:600 }}>{dname}</div>
+                              <div style={{ fontSize:11, color:C.textMuted, marginTop:2 }}>{dist.email || "—"}</div>
+                            </td>
+                            <td style={{ padding:"13px 16px", fontSize:13, color:C.textMuted, whiteSpace:"nowrap" }}>{dist.country || "—"}</td>
+                            <td style={{ padding:"13px 16px", fontSize:14, fontWeight:700, color:C.goldLight }}>{st.orders}</td>
+                            <td style={{ padding:"13px 16px", fontSize:14, fontWeight:700, color:C.goldLight }}>€{st.revenue.toLocaleString("it-IT")}</td>
+                            <td style={{ padding:"13px 16px" }}><Badge status="active"/></td>
+                            <td style={{ padding:"13px 16px" }}>
+                              <button onClick={() => handleAccess(r, "blocked")} style={{ padding:"6px 14px", borderRadius:7, cursor:"pointer", fontSize:12, background:"transparent", border:`1px solid ${C.red}40`, color:C.red, whiteSpace:"nowrap" }}>Blocca</button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              );
+            })()}
           </div>
         )}
         {tab==="catalog" && (
