@@ -1539,6 +1539,76 @@ const EuropeMap = ({ distributors = [], highlightCountries = [], hubCity = "Turi
 // ============================================================
 // AI SUGGESTIONS COMPONENT
 // ============================================================
+const InventoryForecast = ({ products = [], orders = [] }) => {
+  const today = new Date();
+  const sold = {};
+  let minDate = today;
+  (orders || []).forEach(o => {
+    const d = o.created_at ? new Date(o.created_at) : null;
+    if (d && d < minDate) minDate = d;
+    (o.order_items || []).forEach(it => {
+      if (!it.product_id) return;
+      sold[it.product_id] = (sold[it.product_id] || 0) + (it.quantity || 0);
+    });
+  });
+  const histDays = Math.max(7, Math.round((today - minDate) / 86400000));
+  const rows = (products || []).map(p => {
+    const stock = p.inventory?.quantity_available || 0;
+    const units = sold[p.id] || 0;
+    const velocity = units / histDays;
+    const daysLeft = velocity > 0 ? Math.round(stock / velocity) : null;
+    const multiple = p.order_multiple || 12;
+    const moq = p.min_order_qty || 12;
+    const suggested = velocity > 0 ? Math.max(moq, Math.ceil((velocity * 60) / multiple) * multiple) : 0;
+    let status, color, rank;
+    if (units === 0) { status = "Dati insufficienti"; color = C.textDim; rank = 5; }
+    else if (stock === 0) { status = "Esaurito"; color = C.red; rank = 0; }
+    else if (daysLeft <= 7) { status = "Critico"; color = C.red; rank = 1; }
+    else if (daysLeft <= 30) { status = "Riordina presto"; color = C.gold; rank = 2; }
+    else { status = "OK"; color = C.green; rank = 4; }
+    const soDate = daysLeft != null ? new Date(today.getTime() + daysLeft * 86400000) : null;
+    return { id:p.id, name:(p.name || p.sku || "Prodotto"), stock, velocity, daysLeft, suggested, status, color, rank, soDate };
+  }).sort((a,b) => a.rank - b.rank || ((a.daysLeft ?? 99999) - (b.daysLeft ?? 99999)));
+  const needReorder = rows.filter(r => r.rank <= 2).length;
+  const head = ["Prodotto","Stock","Vendite/sett.","Giorni residui","Esaurimento","Stato","Riordino"];
+  return (
+    <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, padding:24, marginBottom:20 }}>
+      <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:6 }}>
+        <div style={{ width:40, height:40, borderRadius:10, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20 }}>\uD83D\uDCE6</div>
+        <div>
+          <div style={{ fontSize:15, fontWeight:700, color:C.text }}>Forecast Inventario AI</div>
+          <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>Previsione esaurimento basata sullo storico ordini reali</div>
+        </div>
+      </div>
+      <div style={{ margin:"10px 0 16px", fontSize:13, color: needReorder>0 ? C.gold : C.green }}>
+        {needReorder>0 ? ("\u26A0 " + needReorder + " prodotti da riordinare entro 30 giorni") : "\u2713 Nessun prodotto in esaurimento imminente"}
+      </div>
+      {rows.length === 0 ? (
+        <div style={{ color:C.textMuted, fontSize:13, padding:"12px 0" }}>Nessun prodotto da analizzare.</div>
+      ) : (
+        <div style={{ overflowX:"auto" }}>
+          <table style={{ width:"100%", borderCollapse:"collapse", minWidth:720 }}>
+            <thead><tr>{head.map((h,i) => (<th key={i} style={{ textAlign:"left", padding:"8px 12px", fontSize:10, color:C.textDim, textTransform:"uppercase", letterSpacing:"0.06em", whiteSpace:"nowrap" }}>{h}</th>))}</tr></thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={r.id} style={{ borderTop:`1px solid ${C.border}` }}>
+                  <td style={{ padding:"10px 12px", fontSize:13, color:C.text, fontWeight:600, whiteSpace:"nowrap" }}>{r.name}</td>
+                  <td style={{ padding:"10px 12px", fontSize:13, color:C.textMuted }}>{r.stock} u.</td>
+                  <td style={{ padding:"10px 12px", fontSize:13, color:C.textMuted }}>{(r.velocity*7).toFixed(1)}</td>
+                  <td style={{ padding:"10px 12px", fontSize:13, fontWeight:700, color:r.color }}>{r.daysLeft != null ? (r.daysLeft + " gg") : "\u2014"}</td>
+                  <td style={{ padding:"10px 12px", fontSize:12, color:C.textMuted, whiteSpace:"nowrap" }}>{r.soDate ? r.soDate.toLocaleDateString("it-IT") : "\u2014"}</td>
+                  <td style={{ padding:"10px 12px" }}><span style={{ fontSize:11, fontWeight:600, color:r.color, background:`${r.color}18`, border:`1px solid ${r.color}40`, padding:"3px 9px", borderRadius:20, whiteSpace:"nowrap" }}>{r.status}</span></td>
+                  <td style={{ padding:"10px 12px", fontSize:13, fontWeight:600, color:r.suggested>0?C.goldLight:C.textDim, whiteSpace:"nowrap" }}>{r.suggested>0 ? (r.suggested + " u.") : "\u2014"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const AISuggestions = ({ products = [], orders = [] }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -2677,7 +2747,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         {tab==="ai" && (
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px", color:C.text }}>🤖 AI Suggestions</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Suggerimenti intelligenti basati su stagionalità, stock e trend di mercato europeo</p>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Previsione esaurimento scorte e suggerimenti di riordino, basati su dati reali</p>
+            <InventoryForecast products={realProducts} orders={realOrders}/>
             <AISuggestions products={realProducts} orders={realOrders}/>
           </div>
         )}
