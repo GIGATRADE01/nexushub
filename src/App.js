@@ -1574,7 +1574,7 @@ const InventoryForecast = ({ products = [], orders = [] }) => {
   return (
     <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, padding:24, marginBottom:20 }}>
       <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:6 }}>
-        <div style={{ width:40, height:40, borderRadius:10, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20 }}>\uD83D\uDCE6</div>
+        <div style={{ width:40, height:40, borderRadius:10, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20 }}>📦</div>
         <div>
           <div style={{ fontSize:15, fontWeight:700, color:C.text }}>Forecast Inventario AI</div>
           <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>Previsione esaurimento basata sullo storico ordini reali</div>
@@ -2747,8 +2747,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         {tab==="ai" && (
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px", color:C.text }}>🤖 AI Suggestions</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Previsione esaurimento scorte e suggerimenti di riordino, basati su dati reali</p>
-            <InventoryForecast products={realProducts} orders={realOrders}/>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Suggerimenti intelligenti basati su stagionalità, stock e trend di mercato europeo</p>
             <AISuggestions products={realProducts} orders={realOrders}/>
           </div>
         )}
@@ -3234,7 +3233,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const loadOrders = async () => {
     try {
       const { data } = await supabase.from("orders")
-        .select("*, profiles!orders_distributor_id_fkey(company_name), profiles!orders_brand_id_fkey(company_name)")
+        .select("*, order_items(*), profiles!orders_distributor_id_fkey(company_name), profiles!orders_brand_id_fkey(company_name)")
         .order("created_at", { ascending: false }).limit(50);
       setOrders(data || []);
     } catch(e) { console.error(e); }
@@ -3934,6 +3933,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 📱 {scannerMode ? "✓ Scanner Mode ON" : "Scanner Mode"}
               </button>
             </div>
+
+            <InventoryForecast products={products} orders={orders}/>
 
             {/* Stock summary */}
             <div style={{ display:"flex", gap:12, marginBottom:20, flexWrap:"wrap" }}>
