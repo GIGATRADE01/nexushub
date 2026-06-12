@@ -3140,6 +3140,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [invoices, setInvoices] = useState([]);
   const [contracts, setContracts] = useState([]);
   const [commissionRows, setCommissionRows] = useState([]);
+  const [commissionLog, setCommissionLog] = useState([]);
+  const [recalcing, setRecalcing] = useState(false);
 
   // Modal states
   const [showAddBrand, setShowAddBrand] = useState(false);
@@ -3328,7 +3330,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
   const tierRate = (rev) => (rev > 15000000 ? 9 : rev > 10000000 ? 10 : 11.4);
   const loadCommissions = async () => {
-    const { data: bs } = await supabase.from("profiles").select("id, company_name, email, commission_rate, estimated_annual_revenue").eq("role", "brand");
+    const { data: bs } = await supabase.from("profiles").select("id, company_name, email, commission_rate, estimated_annual_revenue, commission_locked").eq("role", "brand");
     const { data: ords } = await supabase.from("orders").select("brand_id, total_amount, created_at, status");
     const yr = new Date().getFullYear();
     const rev = {};
@@ -3344,6 +3346,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       declared: b.estimated_annual_revenue || 0,
       actual: rev[b.id] || 0,
       current: b.commission_rate ?? 11.4,
+      locked: b.commission_locked || false,
     })));
   };
   const applyCommission = async (row, newRate) => {
@@ -3358,6 +3361,26 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     notify(`✓ Provvigione ${row.name} → ${newRate}%`);
     setCommissionRows(prev => prev.map(r => r.id === row.id ? { ...r, current: newRate } : r));
   };
+
+  const toggleLock = async (row) => {
+    const nv = !row.locked;
+    await supabase.from("profiles").update({ commission_locked: nv }).eq("id", row.id);
+    setCommissionRows(prev => prev.map(r => r.id === row.id ? { ...r, locked: nv } : r));
+    notify(nv ? ("🔒 " + row.name + ": tariffa bloccata") : ("🔓 " + row.name + ": tariffa sbloccata"));
+  };
+  const loadCommissionLog = async () => {
+    const { data } = await supabase.from("commission_log")
+      .select("*, brand:profiles!commission_log_brand_id_fkey(company_name)")
+      .order("created_at", { ascending: false }).limit(20);
+    setCommissionLog(data || []);
+  };
+  const recalcNow = async () => {
+    setRecalcing(true);
+    const { error } = await supabase.rpc("commission_recalc_now");
+    if (error) { notify("Errore ricalcolo: " + error.message); }
+    else { notify("✓ Ricalcolo eseguito"); await loadCommissions(); await loadCommissionLog(); }
+    setRecalcing(false);
+  };
   useEffect(() => {
     loadUsers(); loadBrands(); loadProducts(); loadOrders();
   }, []);
@@ -3369,7 +3392,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "orders") loadOrders();
     if (tab === "invoices") loadInvoices();
     if (tab === "contracts") { loadContracts(); loadBrands(); loadUsers(); }
-    if (tab === "commissions") { loadCommissions(); }
+    if (tab === "commissions") { loadCommissions(); loadCommissionLog(); }
   }, [tab]);
 
   // Approve / Reject user
@@ -4327,18 +4350,21 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📊 Provvigioni automatiche</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 16px" }}>Scaglioni sul fatturato annuo reale · fino a 10M€ = 11,4% · 10–15M€ = 10% · oltre 15M€ = 9%</p>
+            <div style={{ display:"flex", justifyContent:"flex-end", marginBottom:12 }}>
+              <button onClick={recalcNow} disabled={recalcing} style={{ padding:"9px 18px", borderRadius:9, cursor: recalcing?"default":"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, opacity: recalcing?0.6:1 }}>{recalcing ? "Ricalcolo..." : "🔄 Ricalcola ora"}</button>
+            </div>
             <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:760 }}>
                 <thead>
                   <tr style={{ background:C.surface2 }}>
-                    {["Brand","Fatturato stimato","Fatturato anno (reale)","% attuale","% scaglione reale","Azione"].map((h,i) => (
+                    {["Brand","Fatturato stimato","Fatturato anno (reale)","% attuale","% scaglione reale","Bloccata","Azione"].map((h,i) => (
                       <th key={i} style={{ padding:"11px 16px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:"0.08em", textTransform:"uppercase", whiteSpace:"nowrap", fontWeight:600 }}>{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {commissionRows.length === 0 && (
-                    <tr><td colSpan={6} style={{ padding:28, textAlign:"center", color:C.textMuted, fontSize:13 }}>Nessun brand registrato.</td></tr>
+                    <tr><td colSpan={7} style={{ padding:28, textAlign:"center", color:C.textMuted, fontSize:13 }}>Nessun brand registrato.</td></tr>
                   )}
                   {commissionRows.map((row,i) => {
                     const due = tierRate(row.actual);
@@ -4351,7 +4377,12 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         <td style={{ padding:"12px 16px", fontSize:14, fontWeight:700, color:C.goldLight }}>{(row.current ?? 11.4)}%</td>
                         <td style={{ padding:"12px 16px", fontSize:14, fontWeight:700, color:changed?C.green:C.textMuted }}>{due}%</td>
                         <td style={{ padding:"12px 16px" }}>
-                          {changed
+                          <button onClick={() => toggleLock(row)} title={row.locked ? "Sblocca tariffa" : "Blocca tariffa: l'automatismo non la modifichera'"} style={{ padding:"5px 10px", borderRadius:7, cursor:"pointer", fontSize:12, fontWeight:600, background: row.locked ? `${C.gold}18` : "transparent", border:`1px solid ${row.locked ? C.gold : C.border}`, color: row.locked ? C.goldLight : C.textMuted, whiteSpace:"nowrap" }}>{row.locked ? "🔒 Bloccata" : "🔓 Libera"}</button>
+                        </td>
+                        <td style={{ padding:"12px 16px" }}>
+                          {row.locked
+                            ? <span style={{ fontSize:12, color:C.textDim }}>bloccata</span>
+                            : changed
                             ? <button onClick={() => applyCommission(row, due)} style={{ padding:"7px 16px", borderRadius:7, cursor:"pointer", fontSize:12, fontWeight:600, background:`${C.green}18`, border:`1px solid ${C.green}50`, color:C.green, whiteSpace:"nowrap" }}>Applica {due}%</button>
                             : <span style={{ fontSize:12, color:C.textDim }}>aggiornato</span>}
                         </td>
@@ -4362,8 +4393,31 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               </table>
             </div>
             <div style={{ marginTop:12, padding:"10px 14px", background:`${C.blue}08`, border:`1px solid ${C.blue}15`, borderRadius:8, fontSize:12, color:C.textMuted, lineHeight:1.6 }}>
-              💡 Durante l'anno la provvigione scende da sola quando il brand supera una soglia. Il reset annuale del 1° gennaio (rendiconto + email) sarà la fase 2.
+              💡 Automatico: ogni giorno la provvigione scende da sola al superamento di una soglia; il 1° gennaio si ricalcola sul fatturato dell'anno precedente. Le tariffe bloccate non vengono toccate. Notifica in-app al brand a ogni cambio (email in arrivo).
             </div>
+            <h3 style={{ fontSize:15, fontWeight:700, fontFamily:"Georgia,serif", margin:"24px 0 10px" }}>Storico modifiche</h3>
+            {commissionLog.length === 0 ? (
+              <div style={{ color:C.textMuted, fontSize:13 }}>Nessuna modifica registrata finora.</div>
+            ) : (
+              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                <table style={{ width:"100%", borderCollapse:"collapse", minWidth:680 }}>
+                  <thead><tr style={{ background:C.surface2 }}>
+                    {["Data","Brand","Da → A","Motivo","Fatturato"].map((h,i) => (<th key={i} style={{ padding:"10px 16px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:"0.08em", textTransform:"uppercase", whiteSpace:"nowrap", fontWeight:600 }}>{h}</th>))}
+                  </tr></thead>
+                  <tbody>
+                    {commissionLog.map((l) => (
+                      <tr key={l.id} style={{ borderTop:`1px solid ${C.border}` }}>
+                        <td style={{ padding:"10px 16px", fontSize:12, color:C.textMuted, whiteSpace:"nowrap" }}>{l.created_at ? new Date(l.created_at).toLocaleDateString("it-IT") : "—"}</td>
+                        <td style={{ padding:"10px 16px", fontSize:13, color:C.text, fontWeight:600, whiteSpace:"nowrap" }}>{l.brand?.company_name || "—"}</td>
+                        <td style={{ padding:"10px 16px", fontSize:13, color:C.goldLight, fontWeight:600, whiteSpace:"nowrap" }}>{l.old_rate}% → {l.new_rate}%</td>
+                        <td style={{ padding:"10px 16px", fontSize:12, color:C.textMuted, whiteSpace:"nowrap" }}>{l.reason === "annual_reset" ? "Reset annuale" : l.reason === "intra_year_drop" ? "Calo durante l'anno" : l.reason}</td>
+                        <td style={{ padding:"10px 16px", fontSize:12, color:C.textMuted, whiteSpace:"nowrap" }}>€{(l.revenue||0).toLocaleString("it-IT")}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
         {tab === "contracts" && (
