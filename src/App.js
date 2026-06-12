@@ -1540,26 +1540,30 @@ const EuropeMap = ({ distributors = [], highlightCountries = [], hubCity = "Turi
 // AI SUGGESTIONS COMPONENT
 // ============================================================
 const InventoryForecast = ({ products = [], orders = [] }) => {
+  const [leadDays, setLeadDays] = useState(14);
   const today = new Date();
+  const cutoff = new Date(today.getTime() - 90 * 86400000);
+  let firstInWindow = today;
   const sold = {};
-  let minDate = today;
   (orders || []).forEach(o => {
     const d = o.created_at ? new Date(o.created_at) : null;
-    if (d && d < minDate) minDate = d;
+    if (!d || d < cutoff) return;
+    if (d < firstInWindow) firstInWindow = d;
     (o.order_items || []).forEach(it => {
       if (!it.product_id) return;
       sold[it.product_id] = (sold[it.product_id] || 0) + (it.quantity || 0);
     });
   });
-  const histDays = Math.max(7, Math.round((today - minDate) / 86400000));
+  const windowDays = Math.max(7, Math.round((today - firstInWindow) / 86400000));
+  const fmt = (dt) => dt.toLocaleDateString("it-IT");
   const rows = (products || []).map(p => {
     const stock = p.inventory?.quantity_available || 0;
     const units = sold[p.id] || 0;
-    const velocity = units / histDays;
+    const velocity = units / windowDays;
     const daysLeft = velocity > 0 ? Math.round(stock / velocity) : null;
     const multiple = p.order_multiple || 12;
     const moq = p.min_order_qty || 12;
-    const suggested = velocity > 0 ? Math.max(moq, Math.ceil((velocity * 60) / multiple) * multiple) : 0;
+    const suggested = velocity > 0 ? Math.max(moq, Math.ceil((velocity * (leadDays + 45)) / multiple) * multiple) : 0;
     let status, color, rank;
     if (units === 0) { status = "Dati insufficienti"; color = C.textDim; rank = 5; }
     else if (stock === 0) { status = "Esaurito"; color = C.red; rank = 0; }
@@ -1567,27 +1571,35 @@ const InventoryForecast = ({ products = [], orders = [] }) => {
     else if (daysLeft <= 30) { status = "Riordina presto"; color = C.gold; rank = 2; }
     else { status = "OK"; color = C.green; rank = 4; }
     const soDate = daysLeft != null ? new Date(today.getTime() + daysLeft * 86400000) : null;
-    return { id:p.id, name:(p.name || p.sku || "Prodotto"), stock, velocity, daysLeft, suggested, status, color, rank, soDate };
+    const reorderBy = daysLeft != null ? new Date(Math.max(today.getTime(), today.getTime() + (daysLeft - leadDays) * 86400000)) : null;
+    return { id:p.id, name:(p.name || p.sku || "Prodotto"), stock, velocity, daysLeft, suggested, status, color, rank, soDate, reorderBy };
   }).sort((a,b) => a.rank - b.rank || ((a.daysLeft ?? 99999) - (b.daysLeft ?? 99999)));
   const needReorder = rows.filter(r => r.rank <= 2).length;
-  const head = ["Prodotto","Stock","Vendite/sett.","Giorni residui","Esaurimento","Stato","Riordino"];
+  const head = ["Prodotto","Stock","Vendite/sett.","Giorni residui","Esaurimento","Riordina entro","Stato","Riordino"];
   return (
     <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, padding:24, marginBottom:20 }}>
-      <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:6 }}>
-        <div style={{ width:40, height:40, borderRadius:10, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20 }}>📦</div>
-        <div>
-          <div style={{ fontSize:15, fontWeight:700, color:C.text }}>Forecast Inventario AI</div>
-          <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>Previsione esaurimento basata sullo storico ordini reali</div>
+      <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:6, flexWrap:"wrap", gap:12 }}>
+        <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+          <div style={{ width:40, height:40, borderRadius:10, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20 }}>📦</div>
+          <div>
+            <div style={{ fontSize:15, fontWeight:700, color:C.text }}>Forecast Inventario AI</div>
+            <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>Previsione su vendite ultimi 90 giorni · ordini reali</div>
+          </div>
+        </div>
+        <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+          <span style={{ fontSize:12, color:C.textMuted }}>Tempi di rifornimento</span>
+          <input type="number" min="0" max="120" value={leadDays} onChange={e => setLeadDays(Math.max(0, parseInt(e.target.value) || 0))} style={{ width:64, padding:"6px 8px", borderRadius:8, background:C.bg, border:`1px solid ${C.border}`, color:C.text, fontSize:13 }}/>
+          <span style={{ fontSize:12, color:C.textMuted }}>giorni</span>
         </div>
       </div>
       <div style={{ margin:"10px 0 16px", fontSize:13, color: needReorder>0 ? C.gold : C.green }}>
-        {needReorder>0 ? ("\u26A0 " + needReorder + " prodotti da riordinare entro 30 giorni") : "\u2713 Nessun prodotto in esaurimento imminente"}
+        {needReorder>0 ? ("⚠ " + needReorder + " prodotti da riordinare entro 30 giorni") : "✓ Tutto sotto controllo — nessun esaurimento imminente"}
       </div>
       {rows.length === 0 ? (
         <div style={{ color:C.textMuted, fontSize:13, padding:"12px 0" }}>Nessun prodotto da analizzare.</div>
       ) : (
         <div style={{ overflowX:"auto" }}>
-          <table style={{ width:"100%", borderCollapse:"collapse", minWidth:720 }}>
+          <table style={{ width:"100%", borderCollapse:"collapse", minWidth:780 }}>
             <thead><tr>{head.map((h,i) => (<th key={i} style={{ textAlign:"left", padding:"8px 12px", fontSize:10, color:C.textDim, textTransform:"uppercase", letterSpacing:"0.06em", whiteSpace:"nowrap" }}>{h}</th>))}</tr></thead>
             <tbody>
               {rows.map((r) => (
@@ -1595,10 +1607,11 @@ const InventoryForecast = ({ products = [], orders = [] }) => {
                   <td style={{ padding:"10px 12px", fontSize:13, color:C.text, fontWeight:600, whiteSpace:"nowrap" }}>{r.name}</td>
                   <td style={{ padding:"10px 12px", fontSize:13, color:C.textMuted }}>{r.stock} u.</td>
                   <td style={{ padding:"10px 12px", fontSize:13, color:C.textMuted }}>{(r.velocity*7).toFixed(1)}</td>
-                  <td style={{ padding:"10px 12px", fontSize:13, fontWeight:700, color:r.color }}>{r.daysLeft != null ? (r.daysLeft + " gg") : "\u2014"}</td>
-                  <td style={{ padding:"10px 12px", fontSize:12, color:C.textMuted, whiteSpace:"nowrap" }}>{r.soDate ? r.soDate.toLocaleDateString("it-IT") : "\u2014"}</td>
+                  <td style={{ padding:"10px 12px", fontSize:13, fontWeight:700, color:r.color }}>{r.daysLeft != null ? (r.daysLeft + " gg") : "—"}</td>
+                  <td style={{ padding:"10px 12px", fontSize:12, color:C.textMuted, whiteSpace:"nowrap" }}>{r.soDate ? fmt(r.soDate) : "—"}</td>
+                  <td style={{ padding:"10px 12px", fontSize:12, fontWeight:600, color:r.rank<=2?C.goldLight:C.textMuted, whiteSpace:"nowrap" }}>{r.reorderBy ? fmt(r.reorderBy) : "—"}</td>
                   <td style={{ padding:"10px 12px" }}><span style={{ fontSize:11, fontWeight:600, color:r.color, background:`${r.color}18`, border:`1px solid ${r.color}40`, padding:"3px 9px", borderRadius:20, whiteSpace:"nowrap" }}>{r.status}</span></td>
-                  <td style={{ padding:"10px 12px", fontSize:13, fontWeight:600, color:r.suggested>0?C.goldLight:C.textDim, whiteSpace:"nowrap" }}>{r.suggested>0 ? (r.suggested + " u.") : "\u2014"}</td>
+                  <td style={{ padding:"10px 12px", fontSize:13, fontWeight:600, color:r.suggested>0?C.goldLight:C.textDim, whiteSpace:"nowrap" }}>{r.suggested>0 ? (r.suggested + " u.") : "—"}</td>
                 </tr>
               ))}
             </tbody>
@@ -2006,6 +2019,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const [tab, setTab] = useState("overview");
   const [accessReqs, setAccessReqs] = useState([]);
   const [brandOrders, setBrandOrders] = useState([]);
+  const [brandProducts, setBrandProducts] = useState([]);
   const [brandNotifs, setBrandNotifs] = useState([]);
   const [brandNotifPanel, setBrandNotifPanel] = useState(false);
   const brandUnread = brandNotifs.filter(n => !n.read).length;
@@ -2034,10 +2048,17 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
       const { data } = await supabase.from("orders")
-        .select("distributor_id, total_amount, status").eq("brand_id", user.id);
+        .select("*, order_items(*)").eq("brand_id", user.id);
       setBrandOrders(data || []);
     };
     loadBrandOrders();
+    const loadBrandProducts = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data } = await supabase.from("products").select("*, inventory(*)").eq("brand_id", user.id);
+      setBrandProducts(data || []);
+    };
+    loadBrandProducts();
     const channel = supabase.channel("brand-notifs")
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "notifications" },
         (payload) => { setBrandNotifs(prev => [payload.new, ...prev]); if (payload.new?.type === "access_request") loadAccessReqs(); })
@@ -2384,6 +2405,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🤖 AI Brand Analytics</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Performance distributori, top prodotti, stagionalità e opportunità di crescita</p>
+            <InventoryForecast products={brandProducts} orders={brandOrders}/>
             <BrandAnalytics distributors={ACTIVE_DISTRIBUTORS} orders={[]} products={CATALOG}/>
           </div>
         )}
