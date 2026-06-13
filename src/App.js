@@ -2065,6 +2065,17 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
       .subscribe();
     return () => supabase.removeChannel(channel);
   }, []);
+  const saveDiscount = async (req, pct) => {
+    const v = Math.max(0, Math.min(90, Number(pct) || 0));
+    setAccessReqs(prev => prev.map(r => r.id === req.id ? { ...r, discount_pct: v } : r));
+    await supabase.from("brand_access_requests").update({ discount_pct: v, updated_at: new Date().toISOString() }).eq("id", req.id);
+    await supabase.from("notifications").insert({
+      user_id: req.distributor_id,
+      title: v > 0 ? ("Sconto applicato: -" + v + "%") : "Sconto rimosso",
+      message: v > 0 ? ("Hai ricevuto uno sconto del " + v + "% su tutto il catalogo di questo brand.") : "Lo sconto sul catalogo di questo brand e stato rimosso.",
+      type: "access_update",
+    });
+  };
   const handleAccess = async (req, newStatus, exclusive = false) => {
     setAccessReqs(prev => prev.map(r => r.id === req.id ? { ...r, status: newStatus, exclusive: newStatus === "approved" ? exclusive : r.exclusive } : r));
     const upd = { status: newStatus, updated_at: new Date().toISOString() };
@@ -2310,7 +2321,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                   <table style={{ width:"100%", borderCollapse:"collapse", minWidth:700 }}>
                     <thead>
                       <tr style={{ background:C.surface2 }}>
-                        {["Distributore","Paese","Ordini","Fatturato","Stato","Azione"].map((h,i) => (
+                        {["Distributore","Paese","Ordini","Fatturato","Stato","Sconto","Azione"].map((h,i) => (
                           <th key={i} style={{ padding:"11px 16px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:"0.08em", textTransform:"uppercase", whiteSpace:"nowrap", fontWeight:600 }}>{h}</th>
                         ))}
                       </tr>
@@ -2333,6 +2344,15 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                               <div style={{ display:"flex", alignItems:"center", gap:6, flexWrap:"wrap" }}>
                                 <Badge status="active"/>
                                 <span style={{ padding:"2px 8px", borderRadius:5, fontSize:10, fontWeight:600, background:r.exclusive?`${C.gold}15`:`${C.blue}12`, border:`1px solid ${(r.exclusive?C.gold:C.blue)}30`, color:r.exclusive?C.gold:C.blue }}>{r.exclusive?"🔒 Esclusiva":"Condiviso"}</span>
+                              </div>
+                            </td>
+                            <td style={{ padding:"13px 16px", whiteSpace:"nowrap" }}>
+                              <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+                                <input type="number" min={0} max={90} value={r.discount_pct == null ? 0 : r.discount_pct}
+                                  onChange={e => { const v = e.target.value; setAccessReqs(prev => prev.map(x => x.id===r.id ? { ...x, discount_pct: v } : x)); }}
+                                  style={{ width:60, padding:"6px 8px", borderRadius:7, background:C.bg, border:`1px solid ${C.border}`, color:C.text, fontSize:13 }}/>
+                                <span style={{ fontSize:12, color:C.textMuted }}>%</span>
+                                <button onClick={() => saveDiscount(r, r.discount_pct)} style={{ padding:"6px 12px", borderRadius:7, cursor:"pointer", fontSize:12, fontWeight:600, background:`${C.green}15`, border:`1px solid ${C.green}45`, color:C.green }}>Salva</button>
                               </div>
                             </td>
                             <td style={{ padding:"13px 16px" }}>
@@ -2817,6 +2837,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [cart, setCart] = useState({});
   const [dbBrands, setDbBrands] = useState([]);
   const [accessRequests, setAccessRequests] = useState({});
+  const [brandDiscounts, setBrandDiscounts] = useState({});
   const [realProducts, setRealProducts] = useState([]);
   const [realOrders, setRealOrders] = useState([]);
   const [showCheckout, setShowCheckout] = useState(false);
@@ -2829,6 +2850,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [viewContract, setViewContract] = useState(null);
   const approvedBrandIds = Object.keys(accessRequests).filter(id => accessRequests[id] === "approved");
   const visibleProducts = realProducts.filter(p => approvedBrandIds.includes(p.brand_id));
+  const discPct = (brandId) => Number(brandDiscounts[brandId] || 0);
+  const effPrice = (p) => { const base = Number((p && p.unit_price) || 0); const d = discPct(p && p.brand_id); return d > 0 ? Math.round(base * (1 - d/100) * 100) / 100 : base; };
   const [distNotifs, setDistNotifs] = useState([]);
   const [distNotifPanel, setDistNotifPanel] = useState(false);
   const distUnread = distNotifs.filter(n => !n.read).length;
@@ -2836,7 +2859,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const cartCount = Object.values(cart).reduce((a,b)=>a+b,0);
   const cartValue = Object.entries(cart).reduce((s,[pid,qty]) => {
     const item = realProducts.find(p=>p.id===pid);
-    return s + (item ? item.unit_price * qty : 0);
+    return s + (item ? effPrice(item) * qty : 0);
   }, 0);
 
   useEffect(() => {
@@ -2868,10 +2891,10 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
       const { data } = await supabase.from("brand_access_requests")
-        .select("brand_id, status").eq("distributor_id", user.id);
-      const map = {};
-      (data || []).forEach(rec => { map[rec.brand_id] = rec.status; });
-      setAccessRequests(map);
+        .select("brand_id, status, discount_pct").eq("distributor_id", user.id);
+      const map = {}; const dmap = {};
+      (data || []).forEach(rec => { map[rec.brand_id] = rec.status; dmap[rec.brand_id] = rec.discount_pct || 0; });
+      setAccessRequests(map); setBrandDiscounts(dmap);
     };
     loadAccess();
     const loadDistNotifs = async () => {
@@ -2941,7 +2964,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         .filter(([pid, qty]) => qty > 0)
         .map(([pid, qty]) => {
           const product = realProducts.find(p => p.id === pid);
-          return { product_id: pid, quantity: qty, product_name: product?.name || "", sku: product?.sku || "", unit_price: product?.unit_price || 0 };
+          return { product_id: pid, quantity: qty, product_name: product?.name || "", sku: product?.sku || "", unit_price: effPrice(product) };
         });
 
       const total = items.reduce((s, i) => s + (i.unit_price * i.quantity), 0);
@@ -3095,7 +3118,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                         <div style={{ fontSize:14, fontWeight:700, color:C.text }}>{p.name}</div>
                         <div style={{ fontSize:11, color:C.textMuted, marginTop:2 }}>{p.sku} · {p.category}</div>
                       </div>
-                      <div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€{p.unit_price?.toFixed(2)}</div>
+                      <div style={{ textAlign:"right" }}>{discPct(p.brand_id) > 0 ? (<div><div style={{ fontSize:11, color:C.textMuted, textDecoration:"line-through" }}>€{p.unit_price?.toFixed(2)}</div><div style={{ fontSize:16, fontWeight:800, color:C.green }}>€{effPrice(p).toFixed(2)}</div><div style={{ fontSize:10, color:C.green, fontWeight:700 }}>-{discPct(p.brand_id)}%</div></div>) : (<div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€{p.unit_price?.toFixed(2)}</div>)}</div>
                     </div>
                     <div style={{ display:"flex", gap:8, marginBottom:12, flexWrap:"wrap" }}>
                       <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, fontWeight:600,
@@ -3263,7 +3286,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                     <div style={{ fontSize:11, color:C.textMuted }}>{p.sku} · {qty} units</div>
                   </div>
                   <div style={{ fontSize:13, fontWeight:700, color:C.goldLight }}>
-                    €{(p.unit_price * qty).toLocaleString("it-IT")}
+                    €{(effPrice(p) * qty).toLocaleString("it-IT")}
                   </div>
                 </div>
               );
