@@ -2020,6 +2020,81 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const [accessReqs, setAccessReqs] = useState([]);
   const [brandOrders, setBrandOrders] = useState([]);
   const [brandProducts, setBrandProducts] = useState([]);
+  const [bShowAddProduct, setBShowAddProduct] = useState(false);
+  const [bEditingProduct, setBEditingProduct] = useState(null);
+  const [bProductForm, setBProductForm] = useState({ name:"", sku:"", category:"", size:"", price:"", order_multiple:"", min_order_qty:"", max_order_qty:"", description:"", image_url:"", image_file:null });
+  const [bImportLoading, setBImportLoading] = useState(false);
+  const [bImportResults, setBImportResults] = useState(null);
+  const [bToast, setBToast] = useState("");
+  const bNotify = (m) => { setBToast(m); setTimeout(() => setBToast(""), 2600); };
+  const reloadBrandProducts = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    const { data } = await supabase.from("products").select("*, inventory(*)").eq("brand_id", user.id).order("created_at", { ascending: false });
+    setBrandProducts(data || []);
+  };
+  const bSaveProduct = async () => {
+    if (!bProductForm.name) { bNotify("Inserisci il nome del prodotto"); return; }
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    let imageUrl = bProductForm.image_url || null;
+    if (bProductForm.image_file) {
+      const file = bProductForm.image_file;
+      const path = `products/${Date.now()}_${file.name}`;
+      const { data: uploadData } = await supabase.storage.from("documents").upload(path, file, { upsert: true });
+      if (uploadData) { const { data: urlData } = supabase.storage.from("documents").getPublicUrl(path); imageUrl = urlData.publicUrl; }
+    }
+    const payload = {
+      name: bProductForm.name, sku: bProductForm.sku, category: bProductForm.category, description: bProductForm.description,
+      unit_price: parseFloat(bProductForm.price) || 0,
+      brand_id: user.id,
+      order_multiple: bProductForm.order_multiple ? parseInt(bProductForm.order_multiple) : null,
+      min_order_qty: bProductForm.min_order_qty ? parseInt(bProductForm.min_order_qty) : null,
+      max_order_qty: bProductForm.max_order_qty ? parseInt(bProductForm.max_order_qty) : null,
+      image_url: imageUrl, is_active: true,
+    };
+    if (bEditingProduct) { await supabase.from("products").update(payload).eq("id", bEditingProduct.id); bNotify("Prodotto aggiornato"); }
+    else { await supabase.from("products").insert(payload); bNotify("Prodotto aggiunto"); }
+    setBShowAddProduct(false); setBEditingProduct(null);
+    setBProductForm({ name:"", sku:"", category:"", size:"", price:"", order_multiple:"", min_order_qty:"", max_order_qty:"", description:"", image_url:"", image_file:null });
+    reloadBrandProducts();
+  };
+  const bImportProducts = async (file) => {
+    setBImportLoading(true); setBImportResults(null);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { setBImportLoading(false); return; }
+      const text = await file.text();
+      const lines = text.split(/\r?\n/).filter(l => l.trim());
+      if (lines.length < 2) { bNotify("File vuoto o non valido"); setBImportLoading(false); return; }
+      const headers = lines[0].split(/[,;\t]/).map(h => h.trim().toLowerCase().replace(/[^a-z_]/g,''));
+      const rows = lines.slice(1);
+      let success = 0, errors = 0;
+      for (const row of rows) {
+        const vals = row.split(/[,;\t]/);
+        const obj = {};
+        headers.forEach((h, i) => { obj[h] = (vals[i] || "").trim().replace(/^"|"$/g, ""); });
+        if (!obj.name && !obj.nome && !obj.product) continue;
+        const payload = {
+          name: obj.name || obj.nome || obj.product || "",
+          sku: obj.sku || obj.cod || obj.codice || "",
+          category: obj.category || obj.categoria || "",
+          unit_price: parseFloat(obj.price || obj.prezzo || obj.unit_price || 0) || 0,
+          order_multiple: parseInt(obj.order_multiple || obj.multiplo || 0) || null,
+          min_order_qty: parseInt(obj.min_order_qty || obj.moq || obj.min || 0) || null,
+          description: obj.description || obj.descrizione || "",
+          image_url: obj.image_url || obj.immagine || obj.foto || null,
+          brand_id: user.id, is_active: true,
+        };
+        const { error } = await supabase.from("products").insert(payload);
+        if (error) errors++; else success++;
+      }
+      setBImportResults({ success, errors, total: rows.length });
+      bNotify("Importati " + success + " prodotti" + (errors > 0 ? ", " + errors + " errori" : ""));
+      reloadBrandProducts();
+    } catch(e) { bNotify("Errore durante l'importazione"); }
+    setBImportLoading(false);
+  };
   const [brandNotifs, setBrandNotifs] = useState([]);
   const [brandNotifPanel, setBrandNotifPanel] = useState(false);
   const brandUnread = brandNotifs.filter(n => !n.read).length;
@@ -2368,23 +2443,114 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
             })()}
           </div>
         )}
+        {bToast && (
+          <div style={{ position:"fixed", bottom:24, left:"50%", transform:"translateX(-50%)", zIndex:1100, background:C.surface, border:`1px solid ${C.gold}55`, color:C.text, padding:"12px 20px", borderRadius:10, fontSize:13, boxShadow:"0 8px 30px rgba(0,0,0,.4)" }}>{bToast}</div>
+        )}
+        {bShowAddProduct && (
+          <Modal title={bEditingProduct ? "Modifica Prodotto" : "Nuovo Prodotto"} onClose={() => { setBShowAddProduct(false); setBEditingProduct(null); }} onSave={bSaveProduct}>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
+              {[
+                { label:"Nome Prodotto *", key:"name", placeholder:"es. Khamrah EDP", mode:"text" },
+                { label:"SKU", key:"sku", placeholder:"es. LT-KHM-100", mode:"text" },
+                { label:"Categoria", key:"category", placeholder:"es. Premium", mode:"text" },
+                { label:"Formato", key:"size", placeholder:"es. 100ml", mode:"text" },
+                { label:"Prezzo unitario (\u20ac) *", key:"price", placeholder:"0.00", mode:"decimal" },
+                { label:"Multiplo d'ordine", key:"order_multiple", placeholder:"es. 12", mode:"numeric" },
+                { label:"Qta minima (MOQ)", key:"min_order_qty", placeholder:"es. 24", mode:"numeric" },
+                { label:"Qta massima (vuoto = illimitato)", key:"max_order_qty", placeholder:"es. 500", mode:"numeric" },
+              ].map(({label, key, placeholder, mode}) => (
+                <div key={key} style={{ marginBottom:14 }}>
+                  <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
+                  <input type="text" inputMode={mode} value={bProductForm[key]} onChange={e => setBProductForm(f => ({...f, [key]: e.target.value}))} placeholder={placeholder} style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginBottom:14 }}>
+              <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Descrizione</label>
+              <textarea value={bProductForm.description} onChange={e => setBProductForm(f => ({...f, description: e.target.value}))} rows={2} style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", resize:"vertical" }}/>
+            </div>
+            <div style={{ marginBottom:4 }}>
+              <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:8 }}>Immagine Prodotto</label>
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
+                <label style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6, padding:"16px 12px", borderRadius:10, cursor:"pointer", background: bProductForm.image_file ? `${C.green}10` : C.surface2, border:`1px dashed ${bProductForm.image_file ? C.green : C.border}`, textAlign:"center" }}>
+                  <input type="file" accept="image/*" style={{ display:"none" }} onChange={e => { const f=e.target.files?.[0]; if(f) setBProductForm(p=>({...p,image_file:f,image_url:""})); }}/>
+                  <span style={{ fontSize:22 }}>{bProductForm.image_file ? "\u2713" : "\U0001F4C1"}</span>
+                  <span style={{ fontSize:11, color: bProductForm.image_file ? C.green : C.textMuted }}>{bProductForm.image_file ? bProductForm.image_file.name : "Carica immagine"}</span>
+                </label>
+                <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+                  <span style={{ fontSize:11, color:C.textMuted }}>oppure URL esterno:</span>
+                  <input type="text" value={bProductForm.image_url} onChange={e => setBProductForm(p=>({...p,image_url:e.target.value,image_file:null}))} placeholder="https://..." style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+                </div>
+              </div>
+            </div>
+          </Modal>
+        )}
         {tab==="catalog" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("catTitle")}</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("catSub")}</p>
-            <Table minWidth={820}
-              headers={[t("colSku"),t("colProduct"),t("colSize"),t("colCategory"),t("colPrice"),t("colStock"),t("colPerPallet"),t("colMoq")]}
-              rows={CATALOG.filter(p=>p.brand==="lattafa").map(p => [
-                <span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{p.sku}</span>,
-                <span style={{ fontSize:13, color:C.text, fontWeight:500 }}>{p.name}</span>,
-                <span style={{ fontSize:12, color:C.textMuted }}>{p.size}</span>,
-                <span style={{ fontSize:12, color:C.textMuted }}>{p.category}</span>,
-                <span style={{ fontSize:13, fontWeight:700, color:C.goldLight }}>€ {p.price.toFixed(2)}</span>,
-                <span style={{ fontSize:12, color:p.stock>200?C.green:p.stock>100?C.gold:C.red, fontWeight:600 }}>{p.stock>200?"✓ ":"⚠ "}{p.stock} u.</span>,
-                <span style={{ fontSize:12, color:C.textMuted }}>{p.pallet} u.</span>,
-                <span style={{ fontSize:12, color:C.textMuted }}>{p.moq} u.</span>,
-              ])}
-            />
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
+              <div>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("catTitle")}</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{brandProducts.length} prodotti nel tuo catalogo</p>
+              </div>
+              <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
+                <label style={{ padding:"10px 16px", borderRadius:10, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13, fontWeight:600, display:"flex", alignItems:"center", gap:6 }}>
+                  \U0001F4CA {bImportLoading ? "Importando..." : "Import Excel/CSV"}
+                  <input type="file" accept=".csv,.xlsx,.xls,.tsv" style={{ display:"none" }} onChange={e => { const f = e.target.files?.[0]; if(f) bImportProducts(f); e.target.value=""; }}/>
+                </label>
+                <button onClick={() => { setBEditingProduct(null); setBProductForm({ name:"", sku:"", category:"", size:"", price:"", order_multiple:"", min_order_qty:"", max_order_qty:"", description:"", image_url:"", image_file:null }); setBShowAddProduct(true); }} style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ Nuovo Prodotto</button>
+              </div>
+            </div>
+            {bImportResults && (
+              <div style={{ padding:"12px 16px", background:`${C.green}12`, border:`1px solid ${C.green}30`, borderRadius:10, marginBottom:16, fontSize:13, color:C.green }}>
+                \u2713 Import completato: {bImportResults.success} prodotti{bImportResults.errors > 0 ? `, ${bImportResults.errors} errori` : ""}
+                <button onClick={() => setBImportResults(null)} style={{ marginLeft:12, background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:12 }}>\u00d7</button>
+                <div style={{ marginTop:6, fontSize:11, color:C.textMuted }}>Colonne CSV: name, sku, category, price, order_multiple, min_order_qty, description, image_url</div>
+              </div>
+            )}
+            {brandProducts.length === 0 ? (
+              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>
+                <div style={{ fontSize:40, marginBottom:12 }}>\U0001F4E6</div>
+                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:6 }}>Nessun prodotto nel catalogo</div>
+                <div style={{ fontSize:13, lineHeight:1.6, maxWidth:440, margin:"0 auto" }}>Aggiungi il tuo primo prodotto con "+ Nuovo Prodotto" oppure importa un file Excel/CSV.</div>
+              </div>
+            ) : (
+              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                <table style={{ width:"100%", borderCollapse:"collapse", minWidth:800 }}>
+                  <thead>
+                    <tr style={{ background:C.surface2 }}>
+                      {["SKU","Prodotto","Categoria","Prezzo","Stock","MOQ","Multiplo","Stato","Azioni"].map((h,i) => (
+                        <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {brandProducts.map((p,i) => (
+                      <tr key={p.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
+                        <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{p.sku || "\u2014"}</span></td>
+                        <td style={{ padding:"11px 14px", whiteSpace:"nowrap" }}>
+                          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+                            {p.image_url && <img src={p.image_url} alt="" style={{ width:32, height:32, objectFit:"cover", borderRadius:6, flexShrink:0 }} onError={e=>e.target.style.display="none"}/>}
+                            <span style={{ fontSize:13, fontWeight:600, color:C.text }}>{p.name}</span>
+                          </div>
+                        </td>
+                        <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{p.category || "\u2014"}</td>
+                        <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.goldLight }}>\u20ac{p.unit_price?.toFixed(2)}</td>
+                        <td style={{ padding:"11px 14px" }}><span style={{ fontSize:12, color: (p.inventory?.quantity_available||0)>50?C.green:(p.inventory?.quantity_available||0)>10?C.gold:C.red, fontWeight:600 }}>{p.inventory?.quantity_available ?? 0} u.</span></td>
+                        <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{p.min_order_qty}</td>
+                        <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>\u00d7{p.order_multiple}</td>
+                        <td style={{ padding:"11px 14px" }}><Badge status={p.is_active?"active":"rejected"}/></td>
+                        <td style={{ padding:"11px 14px" }}>
+                          <div style={{ display:"flex", gap:6 }}>
+                            <button onClick={() => { setBEditingProduct(p); setBProductForm({ name:p.name||"", sku:p.sku||"", category:p.category||"", size:"", price:p.unit_price?.toString()||"", order_multiple:p.order_multiple||"", min_order_qty:p.min_order_qty||"", max_order_qty:p.max_order_qty||"", description:p.description||"", image_url:p.image_url||"", image_file:null }); setBShowAddProduct(true); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>Modifica</button>
+                            <button onClick={async () => { await supabase.from("products").update({ is_active:!p.is_active }).eq("id",p.id); reloadBrandProducts(); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted }}>{p.is_active?"Disattiva":"Attiva"}</button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
         {tab==="ai" && (
