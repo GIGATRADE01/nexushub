@@ -2460,6 +2460,357 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   );
 };
 
+// ===== CONTRATTO DI DISTRIBUZIONE — bozza professionale (da validare con legale) =====
+const CONTRACT_LANG_BY_COUNTRY = {
+  "italia":"it","italy":"it","it":"it",
+  "france":"fr","francia":"fr","fr":"fr",
+  "spain":"es","spagna":"es","espana":"es","es":"es",
+  "germany":"de","germania":"de","deutschland":"de","de":"de",
+};
+const CONTRACT_LANG_NAME = { it:"Italiano", fr:"Francais", es:"Espanol", de:"Deutsch" };
+
+function buildContract(opts) {
+  const o = opts || {};
+  const contractNumber = o.contractNumber || "—";
+  const brandName = o.brandName || "—";
+  const distCompany = o.distCompany || "—";
+  const territory = o.territory || "—";
+  const exclusive = !!o.exclusive;
+  const validFrom = o.validFrom || "—";
+  const validUntil = o.validUntil || "—";
+  const key = (o.distCountry || "").trim().toLowerCase();
+  const sec = CONTRACT_LANG_BY_COUNTRY[key] || null;
+  const secName = sec ? CONTRACT_LANG_NAME[sec] : null;
+
+  const en = `INTERNATIONAL DISTRIBUTION AGREEMENT
+Agreement No. ${contractNumber}
+
+BETWEEN
+${brandName} (the "Principal")
+AND
+${distCompany} (the "Distributor")
+
+1. APPOINTMENT AND SCOPE
+The Principal appoints the Distributor to promote, market and resell the Principal's products (the "Products") within the Territory, and the Distributor accepts such appointment.
+
+2. TERRITORY
+The territory covered by this Agreement is: ${territory}.
+
+3. EXCLUSIVITY
+${exclusive
+  ? "The Distributor is appointed as the EXCLUSIVE distributor of the Products within the Territory. During the term, the Principal shall not appoint other distributors for the Products within the Territory."
+  : "The Distributor is appointed on a NON-EXCLUSIVE basis. The Principal may appoint other distributors for the Products within the Territory."}
+
+4. TERM
+This Agreement is effective from ${validFrom} to ${validUntil}, unless earlier terminated in accordance with its terms. It may be renewed by written agreement of the parties.
+
+5. ORDERS AND SUPPLY
+The Distributor shall purchase the Products by placing orders through the NexusHub platform. The Principal shall use reasonable efforts to fulfil accepted orders subject to availability. The commercial and economic conditions of supply are agreed separately between the parties and do not form part of this document.
+
+6. TRADEMARKS AND INTELLECTUAL PROPERTY
+The Distributor may use the Principal's trademarks and brand materials solely to market and resell the Products during the term, and acquires no ownership right therein. All goodwill arising from such use shall benefit the Principal.
+
+7. OBLIGATIONS OF THE DISTRIBUTOR
+The Distributor shall: (a) promote the Products diligently within the Territory; (b) comply with all applicable laws and regulations; (c) protect the reputation and integrity of the Products and of the Principal's brand; and (d) not actively solicit sales outside the Territory without the Principal's prior written consent.
+
+8. CONFIDENTIALITY
+Each party shall keep confidential all non-public information received from the other party and use it solely for the performance of this Agreement.
+
+9. TERMINATION
+Either party may terminate this Agreement for a material breach that is not remedied within thirty (30) days of written notice, or upon the insolvency of the other party. Expiry or termination shall not affect rights and obligations accrued before that date.
+
+10. GOVERNING LAW
+This Agreement shall be governed by the law applicable at the Principal's place of business. The parties shall endeavour to settle any dispute amicably before submitting it to the competent courts.
+
+11. LANGUAGE
+${sec
+  ? "This Agreement is provided in English and in " + secName + ". In case of any discrepancy or conflicting interpretation, the English version shall prevail."
+  : "This Agreement is provided in English, which shall be the governing language."}
+
+12. ACCEPTANCE
+By accepting electronically, the Distributor confirms that it has read, understood and agreed to this Agreement. The electronic acceptance, together with the recorded name and timestamp, evidences the Distributor's assent.
+
+— DRAFT — This document is a template provided for operational convenience and must be reviewed and validated by qualified legal counsel before use. It does not constitute legal advice.`;
+
+  let secText = null;
+  if (sec === "it") {
+    secText = `CONTRATTO DI DISTRIBUZIONE INTERNAZIONALE
+Contratto n. ${contractNumber}
+
+TRA
+${brandName} (il "Concedente")
+E
+${distCompany} (il "Distributore")
+
+1. NOMINA E OGGETTO
+Il Concedente nomina il Distributore per promuovere, commercializzare e rivendere i prodotti del Concedente (i "Prodotti") nel Territorio, e il Distributore accetta tale nomina.
+
+2. TERRITORIO
+Il territorio oggetto del presente contratto e: ${territory}.
+
+3. ESCLUSIVITA
+${exclusive
+  ? "Il Distributore e nominato distributore ESCLUSIVO dei Prodotti nel Territorio. Per la durata del contratto, il Concedente non nominera altri distributori dei Prodotti nel Territorio."
+  : "Il Distributore e nominato in via NON ESCLUSIVA. Il Concedente potra nominare altri distributori dei Prodotti nel Territorio."}
+
+4. DURATA
+Il presente contratto e efficace dal ${validFrom} al ${validUntil}, salvo risoluzione anticipata ai sensi delle presenti clausole. Potra essere rinnovato per accordo scritto tra le parti.
+
+5. ORDINI E FORNITURA
+Il Distributore acquista i Prodotti inoltrando gli ordini tramite la piattaforma NexusHub. Il Concedente si impegna a evadere con ragionevole diligenza gli ordini accettati, compatibilmente con la disponibilita. Le condizioni commerciali ed economiche della fornitura sono concordate separatamente tra le parti e non formano parte del presente documento.
+
+6. MARCHI E PROPRIETA INTELLETTUALE
+Il Distributore puo utilizzare i marchi e i materiali del Concedente esclusivamente per commercializzare e rivendere i Prodotti durante la durata del contratto, senza acquisire alcun diritto di proprieta sugli stessi. Ogni avviamento derivante da tale uso va a beneficio del Concedente.
+
+7. OBBLIGHI DEL DISTRIBUTORE
+Il Distributore si obbliga a: (a) promuovere diligentemente i Prodotti nel Territorio; (b) rispettare tutte le leggi e i regolamenti applicabili; (c) tutelare la reputazione e l'integrita dei Prodotti e del marchio del Concedente; e (d) non promuovere attivamente vendite al di fuori del Territorio senza il preventivo consenso scritto del Concedente.
+
+8. RISERVATEZZA
+Ciascuna parte mantiene riservata ogni informazione non pubblica ricevuta dall'altra parte e la utilizza esclusivamente per l'esecuzione del presente contratto.
+
+9. RISOLUZIONE
+Ciascuna parte puo risolvere il contratto per inadempimento sostanziale non sanato entro trenta (30) giorni dalla diffida scritta, ovvero in caso di insolvenza dell'altra parte. La scadenza o risoluzione non pregiudica i diritti e gli obblighi maturati prima di tale data.
+
+10. LEGGE APPLICABILE
+Il presente contratto e regolato dalla legge applicabile presso la sede del Concedente. Le parti si adoperano per comporre amichevolmente ogni controversia prima di adire il giudice competente.
+
+11. LINGUA
+Il presente contratto e redatto in inglese e in italiano. In caso di discrepanza o difformita interpretativa, prevale la versione inglese.
+
+12. ACCETTAZIONE
+Accettando per via elettronica, il Distributore conferma di aver letto, compreso e approvato il presente contratto. L'accettazione elettronica, unitamente al nominativo e alla data/ora registrati, costituisce prova del consenso del Distributore.
+
+— BOZZA — Il presente documento e un modello fornito per comodita operativa e deve essere esaminato e validato da un legale qualificato prima dell'uso. Non costituisce consulenza legale.`;
+  } else if (sec === "fr") {
+    secText = `CONTRAT DE DISTRIBUTION INTERNATIONALE
+Contrat n. ${contractNumber}
+
+ENTRE
+${brandName} (le "Concedant")
+ET
+${distCompany} (le "Distributeur")
+
+1. NOMINATION ET OBJET
+Le Concedant nomme le Distributeur afin de promouvoir, commercialiser et revendre les produits du Concedant (les "Produits") sur le Territoire, et le Distributeur accepte cette nomination.
+
+2. TERRITOIRE
+Le territoire couvert par le present contrat est: ${territory}.
+
+3. EXCLUSIVITE
+${exclusive
+  ? "Le Distributeur est nomme distributeur EXCLUSIF des Produits sur le Territoire. Pendant la duree du contrat, le Concedant ne nommera pas d'autres distributeurs des Produits sur le Territoire."
+  : "Le Distributeur est nomme sur une base NON EXCLUSIVE. Le Concedant pourra nommer d'autres distributeurs des Produits sur le Territoire."}
+
+4. DUREE
+Le present contrat prend effet du ${validFrom} au ${validUntil}, sauf resiliation anticipee conformement a ses stipulations. Il pourra etre renouvele par accord ecrit des parties.
+
+5. COMMANDES ET FOURNITURE
+Le Distributeur achete les Produits en passant ses commandes via la plateforme NexusHub. Le Concedant s'efforce raisonnablement d'executer les commandes acceptees, sous reserve de disponibilite. Les conditions commerciales et economiques de la fourniture sont convenues separement entre les parties et ne font pas partie du present document.
+
+6. MARQUES ET PROPRIETE INTELLECTUELLE
+Le Distributeur peut utiliser les marques et supports du Concedant uniquement pour commercialiser et revendre les Produits pendant la duree du contrat, sans acquerir aucun droit de propriete sur ceux-ci. Toute valeur d'achalandage resultant de cet usage profite au Concedant.
+
+7. OBLIGATIONS DU DISTRIBUTEUR
+Le Distributeur s'engage a: (a) promouvoir diligemment les Produits sur le Territoire; (b) respecter toutes les lois et reglementations applicables; (c) preserver la reputation et l'integrite des Produits et de la marque du Concedant; et (d) ne pas solliciter activement de ventes hors du Territoire sans l'accord ecrit prealable du Concedant.
+
+8. CONFIDENTIALITE
+Chaque partie conserve confidentielle toute information non publique recue de l'autre partie et ne l'utilise que pour l'execution du present contrat.
+
+9. RESILIATION
+Chaque partie peut resilier le contrat en cas de manquement substantiel non repare dans les trente (30) jours suivant une mise en demeure ecrite, ou en cas d'insolvabilite de l'autre partie. L'expiration ou la resiliation n'affecte pas les droits et obligations acquis avant cette date.
+
+10. DROIT APPLICABLE
+Le present contrat est regi par le droit applicable au lieu d'etablissement du Concedant. Les parties s'efforcent de resoudre tout litige a l'amiable avant de saisir les juridictions competentes.
+
+11. LANGUE
+Le present contrat est etabli en anglais et en francais. En cas de divergence ou de conflit d'interpretation, la version anglaise prevaut.
+
+12. ACCEPTATION
+En acceptant par voie electronique, le Distributeur confirme avoir lu, compris et approuve le present contrat. L'acceptation electronique, ainsi que le nom et l'horodatage enregistres, attestent du consentement du Distributeur.
+
+— PROJET — Le present document est un modele fourni pour des raisons pratiques et doit etre examine et valide par un conseil juridique qualifie avant utilisation. Il ne constitue pas un avis juridique.`;
+  } else if (sec === "es") {
+    secText = `CONTRATO DE DISTRIBUCION INTERNACIONAL
+Contrato n. ${contractNumber}
+
+ENTRE
+${brandName} (el "Concedente")
+Y
+${distCompany} (el "Distribuidor")
+
+1. NOMBRAMIENTO Y OBJETO
+El Concedente nombra al Distribuidor para promover, comercializar y revender los productos del Concedente (los "Productos") en el Territorio, y el Distribuidor acepta dicho nombramiento.
+
+2. TERRITORIO
+El territorio cubierto por el presente contrato es: ${territory}.
+
+3. EXCLUSIVIDAD
+${exclusive
+  ? "El Distribuidor es nombrado distribuidor EXCLUSIVO de los Productos en el Territorio. Durante la vigencia, el Concedente no nombrara a otros distribuidores de los Productos en el Territorio."
+  : "El Distribuidor es nombrado con caracter NO EXCLUSIVO. El Concedente podra nombrar a otros distribuidores de los Productos en el Territorio."}
+
+4. DURACION
+El presente contrato es eficaz desde el ${validFrom} hasta el ${validUntil}, salvo resolucion anticipada conforme a sus terminos. Podra renovarse por acuerdo escrito de las partes.
+
+5. PEDIDOS Y SUMINISTRO
+El Distribuidor adquiere los Productos cursando los pedidos a traves de la plataforma NexusHub. El Concedente realizara esfuerzos razonables para atender los pedidos aceptados, sujeto a disponibilidad. Las condiciones comerciales y economicas del suministro se acuerdan por separado entre las partes y no forman parte del presente documento.
+
+6. MARCAS Y PROPIEDAD INTELECTUAL
+El Distribuidor podra usar las marcas y materiales del Concedente unicamente para comercializar y revender los Productos durante la vigencia, sin adquirir ningun derecho de propiedad sobre los mismos. Todo fondo de comercio derivado de dicho uso beneficia al Concedente.
+
+7. OBLIGACIONES DEL DISTRIBUIDOR
+El Distribuidor se obliga a: (a) promover diligentemente los Productos en el Territorio; (b) cumplir todas las leyes y reglamentos aplicables; (c) proteger la reputacion e integridad de los Productos y de la marca del Concedente; y (d) no solicitar activamente ventas fuera del Territorio sin el consentimiento previo y escrito del Concedente.
+
+8. CONFIDENCIALIDAD
+Cada parte mantendra confidencial toda informacion no publica recibida de la otra parte y la utilizara solo para la ejecucion del presente contrato.
+
+9. RESOLUCION
+Cualquiera de las partes podra resolver el contrato por incumplimiento sustancial no subsanado en el plazo de treinta (30) dias desde el requerimiento escrito, o en caso de insolvencia de la otra parte. El vencimiento o la resolucion no afectaran a los derechos y obligaciones devengados antes de dicha fecha.
+
+10. LEY APLICABLE
+El presente contrato se rige por la ley aplicable en el domicilio del Concedente. Las partes procuraran resolver amistosamente cualquier controversia antes de acudir a los tribunales competentes.
+
+11. IDIOMA
+El presente contrato se otorga en ingles y en espanol. En caso de discrepancia o conflicto de interpretacion, prevalecera la version inglesa.
+
+12. ACEPTACION
+Al aceptar por via electronica, el Distribuidor confirma haber leido, comprendido y aprobado el presente contrato. La aceptacion electronica, junto con el nombre y la marca de tiempo registrados, acredita el consentimiento del Distribuidor.
+
+— BORRADOR — El presente documento es un modelo facilitado por comodidad operativa y debe ser revisado y validado por un asesor juridico cualificado antes de su uso. No constituye asesoramiento juridico.`;
+  } else if (sec === "de") {
+    secText = `INTERNATIONALER VERTRIEBSVERTRAG
+Vertrag Nr. ${contractNumber}
+
+ZWISCHEN
+${brandName} (der "Lizenzgeber")
+UND
+${distCompany} (der "Vertriebspartner")
+
+1. BESTELLUNG UND GEGENSTAND
+Der Lizenzgeber bestellt den Vertriebspartner, die Produkte des Lizenzgebers (die "Produkte") im Gebiet zu bewerben, zu vermarkten und weiterzuverkaufen, und der Vertriebspartner nimmt diese Bestellung an.
+
+2. GEBIET
+Das von diesem Vertrag erfasste Gebiet ist: ${territory}.
+
+3. EXKLUSIVITAT
+${exclusive
+  ? "Der Vertriebspartner wird als ALLEINIGER Vertriebspartner der Produkte im Gebiet bestellt. Wahrend der Laufzeit wird der Lizenzgeber keine weiteren Vertriebspartner fur die Produkte im Gebiet bestellen."
+  : "Der Vertriebspartner wird auf NICHT-EXKLUSIVER Basis bestellt. Der Lizenzgeber kann weitere Vertriebspartner fur die Produkte im Gebiet bestellen."}
+
+4. LAUFZEIT
+Dieser Vertrag gilt vom ${validFrom} bis zum ${validUntil}, sofern er nicht zuvor gemass seinen Bestimmungen beendet wird. Er kann durch schriftliche Vereinbarung der Parteien verlangert werden.
+
+5. BESTELLUNGEN UND LIEFERUNG
+Der Vertriebspartner erwirbt die Produkte durch Bestellungen uber die NexusHub-Plattform. Der Lizenzgeber bemuht sich in angemessener Weise, angenommene Bestellungen vorbehaltlich der Verfugbarkeit auszufuhren. Die kommerziellen und wirtschaftlichen Lieferbedingungen werden gesondert zwischen den Parteien vereinbart und sind nicht Bestandteil dieses Dokuments.
+
+6. MARKEN UND GEISTIGES EIGENTUM
+Der Vertriebspartner darf die Marken und Materialien des Lizenzgebers ausschliesslich zur Vermarktung und zum Weiterverkauf der Produkte wahrend der Laufzeit verwenden und erwirbt daran keine Eigentumsrechte. Jeder aus dieser Nutzung entstehende Geschaftswert kommt dem Lizenzgeber zugute.
+
+7. PFLICHTEN DES VERTRIEBSPARTNERS
+Der Vertriebspartner verpflichtet sich: (a) die Produkte im Gebiet sorgfaltig zu bewerben; (b) alle anwendbaren Gesetze und Vorschriften einzuhalten; (c) den Ruf und die Integritat der Produkte und der Marke des Lizenzgebers zu schutzen; und (d) ausserhalb des Gebiets ohne vorherige schriftliche Zustimmung des Lizenzgebers nicht aktiv um Verkaufe zu werben.
+
+8. VERTRAULICHKEIT
+Jede Partei behandelt alle von der anderen Partei erhaltenen nicht offentlichen Informationen vertraulich und verwendet sie ausschliesslich zur Durchfuhrung dieses Vertrags.
+
+9. KUNDIGUNG
+Jede Partei kann diesen Vertrag bei einer wesentlichen Vertragsverletzung kundigen, die nicht innerhalb von dreissig (30) Tagen nach schriftlicher Aufforderung behoben wird, oder bei Insolvenz der anderen Partei. Ablauf oder Kundigung beruhren nicht die vor diesem Zeitpunkt entstandenen Rechte und Pflichten.
+
+10. ANWENDBARES RECHT
+Dieser Vertrag unterliegt dem am Sitz des Lizenzgebers anwendbaren Recht. Die Parteien bemuhen sich, Streitigkeiten gutlich beizulegen, bevor sie die zustandigen Gerichte anrufen.
+
+11. SPRACHE
+Dieser Vertrag wird in englischer und deutscher Sprache erstellt. Bei Abweichungen oder Auslegungskonflikten ist die englische Fassung massgebend.
+
+12. ANNAHME
+Mit der elektronischen Annahme bestatigt der Vertriebspartner, diesen Vertrag gelesen, verstanden und genehmigt zu haben. Die elektronische Annahme bildet zusammen mit dem erfassten Namen und Zeitstempel den Nachweis der Zustimmung des Vertriebspartners.
+
+— ENTWURF — Dieses Dokument ist eine zur betrieblichen Vereinfachung bereitgestellte Vorlage und muss vor der Verwendung von qualifizierten Rechtsberatern gepruft und freigegeben werden. Es stellt keine Rechtsberatung dar.`;
+  }
+
+  return { en: en, sec: sec, secName: secName, secText: secText };
+}
+
+const ContractModal = ({ contract, brandName, distCompany, distName, distCountry, viewerRole, onClose, onAccepted }) => {
+  const doc = buildContract({
+    contractNumber: contract.contract_number,
+    brandName: brandName, distCompany: distCompany,
+    territory: contract.territory,
+    exclusive: !!contract.exclusivity,
+    validFrom: contract.valid_from,
+    validUntil: contract.valid_until,
+    distCountry: distCountry,
+  });
+  const [agreed, setAgreed] = useState(false);
+  const [signName, setSignName] = useState(distName || distCompany || "");
+  const [saving, setSaving] = useState(false);
+  const signed = !!contract.signed_at;
+  const canSign = viewerRole === "distributor" && !signed;
+
+  const handleAccept = async () => {
+    if (!agreed || !signName.trim()) return;
+    setSaving(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      await supabase.from("contracts").update({
+        signed_at: new Date().toISOString(),
+        acceptance_name: signName.trim(),
+        accepted_by: user ? user.id : null,
+        status: "active",
+      }).eq("id", contract.id);
+      if (onAccepted) onAccepted();
+      onClose();
+    } catch (e) { console.error(e); }
+    finally { setSaving(false); }
+  };
+
+  const preStyle = { whiteSpace:"pre-wrap", fontFamily:"Georgia,serif", fontSize:12.5, lineHeight:1.65, color:C.text, margin:0 };
+
+  return (
+    <div onClick={onClose} style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.72)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:1000, padding:16 }}>
+      <div onClick={e=>e.stopPropagation()} style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:16, width:"min(780px,100%)", maxHeight:"90vh", display:"flex", flexDirection:"column" }}>
+        <div style={{ padding:"16px 22px", borderBottom:`1px solid ${C.border}`, display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+          <div style={{ fontSize:15, fontWeight:700, color:C.text }}>📄 Distribution Agreement · {contract.contract_number}</div>
+          <button onClick={onClose} style={{ background:"transparent", border:"none", color:C.textMuted, fontSize:24, cursor:"pointer", lineHeight:1 }}>×</button>
+        </div>
+        <div style={{ padding:"20px 22px", overflowY:"auto" }}>
+          {signed && (
+            <div style={{ marginBottom:16, padding:"10px 14px", borderRadius:8, background:`${C.green}12`, border:`1px solid ${C.green}40`, color:C.green, fontSize:12.5 }}>
+              ✓ Accepted by {contract.acceptance_name || "—"} · {new Date(contract.signed_at).toLocaleString("it-IT")}
+            </div>
+          )}
+          <pre style={preStyle}>{doc.en}</pre>
+          {doc.secText && (
+            <div>
+              <div style={{ margin:"22px 0 10px", borderTop:`1px dashed ${C.border}`, paddingTop:16, fontSize:11, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase" }}>{doc.secName}</div>
+              <pre style={preStyle}>{doc.secText}</pre>
+            </div>
+          )}
+        </div>
+        {canSign && (
+          <div style={{ padding:"16px 22px", borderTop:`1px solid ${C.border}` }}>
+            <label style={{ display:"flex", gap:10, alignItems:"flex-start", fontSize:12.5, color:C.textMuted, marginBottom:12, cursor:"pointer" }}>
+              <input type="checkbox" checked={agreed} onChange={e=>setAgreed(e.target.checked)} style={{ marginTop:3 }}/>
+              <span>I have read and accept this distribution agreement on behalf of {distCompany}.</span>
+            </label>
+            <div style={{ display:"flex", gap:10, flexWrap:"wrap", alignItems:"center" }}>
+              <input value={signName} onChange={e=>setSignName(e.target.value)} placeholder="Full name of signatory"
+                style={{ flex:1, minWidth:200, padding:"10px 12px", borderRadius:8, background:C.bg, border:`1px solid ${C.border}`, color:C.text, fontSize:13 }}/>
+              <button disabled={!agreed || !signName.trim() || saving} onClick={handleAccept}
+                style={{ padding:"10px 22px", borderRadius:8, cursor:(!agreed||!signName.trim()||saving)?"not-allowed":"pointer", background:(!agreed||!signName.trim())?C.surface2:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:(!agreed||!signName.trim())?C.textDim:C.bg, fontSize:13, fontWeight:700 }}>
+                {saving?"...":"Accept & Sign"}
+              </button>
+            </div>
+          </div>
+        )}
+        {viewerRole==="admin" && !signed && (
+          <div style={{ padding:"14px 22px", borderTop:`1px solid ${C.border}`, fontSize:12, color:C.textMuted }}>In attesa di accettazione da parte del distributore.</div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+
 const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
   const [tab, setTab] = useState("brands");
@@ -2474,6 +2825,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [orderSuccess, setOrderSuccess] = useState(null);
   const [selectedPayment, setSelectedPayment] = useState("sepa"); // sepa, card, sepa_debit
   const [currentUser, setCurrentUser] = useState(null);
+  const [distContracts, setDistContracts] = useState([]);
+  const [viewContract, setViewContract] = useState(null);
   const approvedBrandIds = Object.keys(accessRequests).filter(id => accessRequests[id] === "approved");
   const visibleProducts = realProducts.filter(p => approvedBrandIds.includes(p.brand_id));
   const [distNotifs, setDistNotifs] = useState([]);
@@ -2530,6 +2883,16 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       setDistNotifs(data || []);
     };
     loadDistNotifs();
+    const loadDistContracts = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data } = await supabase.from("contracts")
+        .select("*, brand:profiles!contracts_brand_id_fkey(company_name, country)")
+        .eq("distributor_id", user.id)
+        .order("created_at", { ascending: false });
+      setDistContracts(data || []);
+    };
+    loadDistContracts();
 
     const channel = supabase.channel("dist-notifs")
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "notifications" },
@@ -2630,6 +2993,18 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
       <Navbar name="Distributor Portal" badge="distributor" onLogout={onLogout} lang={lang} onLangChange={onLangChange}
         onNotifications={() => setDistNotifPanel(p=>!p)} notifCount={distUnread}/>
+      {viewContract && (
+        <ContractModal
+          contract={viewContract}
+          brandName={(viewContract.brand && viewContract.brand.company_name) || "Brand"}
+          distCompany={(currentUser && currentUser.company_name) || ""}
+          distName={(currentUser && currentUser.full_name) || ""}
+          distCountry={(currentUser && currentUser.country) || ""}
+          viewerRole="distributor"
+          onClose={() => setViewContract(null)}
+          onAccepted={() => setDistContracts(prev => prev.map(c => c.id===viewContract.id ? { ...c, signed_at: new Date().toISOString(), status:"active" } : c))}
+        />
+      )}
       <div style={{ padding:"16px 12px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
         {tab==="brands" && (
@@ -2660,7 +3035,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                     </div>
                     <p style={{ fontSize:13, color:C.textMuted, margin:"0 0 16px", lineHeight:1.55 }}>Richiedi l'accesso per visualizzare e ordinare il catalogo di questo brand nel tuo territorio.</p>
                     {status==="approved" ? (
-                      <button onClick={() => setTab("catalog")} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:`${C.gold}20`, border:`1px solid ${C.gold}50`, color:C.goldLight, fontSize:13, fontWeight:600 }}>{t("viewCatalogBtn")}</button>
+                      <div style={{ display:"flex", flexDirection:"column", gap:8 }}><button onClick={() => setTab("catalog")} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:`${C.gold}20`, border:`1px solid ${C.gold}50`, color:C.goldLight, fontSize:13, fontWeight:600 }}>{t("viewCatalogBtn")}</button>{(() => { const ctr = distContracts.find(c => c.brand_id === brand.id); if (!ctr) return null; const sg = !!ctr.signed_at; return (<button onClick={() => setViewContract(ctr)} style={{ width:"100%", padding:"10px", borderRadius:8, cursor:"pointer", background: sg?`${C.green}12`:`${C.blue}12`, border:`1px solid ${sg?C.green:C.blue}40`, color: sg?C.green:C.blue, fontSize:12.5, fontWeight:600 }}>{sg ? "📄 View signed agreement" : "✍️ Review & sign agreement"}</button>); })()}</div>
                     ) : status==="pending" ? (
                       <div style={{ width:"100%", padding:"11px", borderRadius:8, textAlign:"center", background:`${C.blue}10`, border:`1px solid ${C.blue}30`, color:C.blue, fontSize:13 }}>{t("requestSentMsg")}</div>
                     ) : status==="blocked" ? (
@@ -3139,6 +3514,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [notification, setNotification] = useState(null);
   const [invoices, setInvoices] = useState([]);
   const [contracts, setContracts] = useState([]);
+  const [adminViewContract, setAdminViewContract] = useState(null);
   const [commissionRows, setCommissionRows] = useState([]);
   const [commissionLog, setCommissionLog] = useState([]);
   const [recalcing, setRecalcing] = useState(false);
@@ -3275,7 +3651,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const loadContracts = async () => {
     try {
       const { data } = await supabase.from("contracts")
-        .select("*, profiles!contracts_brand_id_fkey(company_name), profiles!contracts_distributor_id_fkey(company_name)")
+        .select("*, brand:profiles!contracts_brand_id_fkey(company_name), distributor:profiles!contracts_distributor_id_fkey(company_name, country, full_name)")
         .order("created_at", { ascending: false });
       setContracts(data || []);
     } catch(e) { console.error(e); }
@@ -4453,8 +4829,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                     {contracts.map((c,i) => (
                       <tr key={c.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
                         <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{c.contract_number}</span></td>
-                        <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>{c.profiles?.company_name || "—"}</td>
-                        <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>{c.profiles?.company_name || "—"}</td>
+                        <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>{c.brand?.company_name || "—"}</td>
+                        <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>{c.distributor?.company_name || "—"}</td>
                         <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{c.territory}</td>
                         <td style={{ padding:"11px 14px" }}>
                           <span style={{ fontSize:11, color:c.exclusivity?C.green:C.textMuted }}>{c.exclusivity?"✓ Esclusivo":"Non esclusivo"}</span>
@@ -4465,6 +4841,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         <td style={{ padding:"11px 14px" }}><Badge status={c.status}/></td>
                         <td style={{ padding:"11px 14px" }}>
                           <div style={{ display:"flex", gap:6 }}>
+                            <button onClick={() => setAdminViewContract(c)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}12`, border:`1px solid ${C.blue}40`, color:C.blue }}>Vedi</button>
                             <button onClick={async () => {
                               await supabase.from("contracts").update({ status:"active" }).eq("id", c.id);
                               notify("✓ Contratto attivato!");
@@ -4582,6 +4959,17 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       </div>
 
       {/* User Edit Modal */}
+      {adminViewContract && (
+        <ContractModal
+          contract={adminViewContract}
+          brandName={(adminViewContract.brand && adminViewContract.brand.company_name) || "Brand"}
+          distCompany={(adminViewContract.distributor && adminViewContract.distributor.company_name) || ""}
+          distName={(adminViewContract.distributor && adminViewContract.distributor.full_name) || ""}
+          distCountry={(adminViewContract.distributor && adminViewContract.distributor.country) || ""}
+          viewerRole="admin"
+          onClose={() => setAdminViewContract(null)}
+        />
+      )}
       {showUserModal && editingUser && (
         <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:500,
           display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
