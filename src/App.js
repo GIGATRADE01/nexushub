@@ -2454,7 +2454,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                 { label:"SKU", key:"sku", placeholder:"es. LT-KHM-100", mode:"text" },
                 { label:"Categoria", key:"category", placeholder:"es. Premium", mode:"text" },
                 { label:"Formato", key:"size", placeholder:"es. 100ml", mode:"text" },
-                { label:"Prezzo unitario (\u20ac) *", key:"price", placeholder:"0.00", mode:"decimal" },
+                { label:"Prezzo unitario (€) *", key:"price", placeholder:"0.00", mode:"decimal" },
                 { label:"Multiplo d'ordine", key:"order_multiple", placeholder:"es. 12", mode:"numeric" },
                 { label:"Qta minima (MOQ)", key:"min_order_qty", placeholder:"es. 24", mode:"numeric" },
                 { label:"Qta massima (vuoto = illimitato)", key:"max_order_qty", placeholder:"es. 500", mode:"numeric" },
@@ -2474,7 +2474,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
                 <label style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6, padding:"16px 12px", borderRadius:10, cursor:"pointer", background: bProductForm.image_file ? `${C.green}10` : C.surface2, border:`1px dashed ${bProductForm.image_file ? C.green : C.border}`, textAlign:"center" }}>
                   <input type="file" accept="image/*" style={{ display:"none" }} onChange={e => { const f=e.target.files?.[0]; if(f) setBProductForm(p=>({...p,image_file:f,image_url:""})); }}/>
-                  <span style={{ fontSize:22 }}>{bProductForm.image_file ? "\u2713" : "\U0001F4C1"}</span>
+                  <span style={{ fontSize:22 }}>{bProductForm.image_file ? "✓" : "📁"}</span>
                   <span style={{ fontSize:11, color: bProductForm.image_file ? C.green : C.textMuted }}>{bProductForm.image_file ? bProductForm.image_file.name : "Carica immagine"}</span>
                 </label>
                 <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
@@ -2494,7 +2494,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
               </div>
               <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
                 <label style={{ padding:"10px 16px", borderRadius:10, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13, fontWeight:600, display:"flex", alignItems:"center", gap:6 }}>
-                  \U0001F4CA {bImportLoading ? "Importando..." : "Import Excel/CSV"}
+                  📊 {bImportLoading ? "Importando..." : "Import Excel/CSV"}
                   <input type="file" accept=".csv,.xlsx,.xls,.tsv" style={{ display:"none" }} onChange={e => { const f = e.target.files?.[0]; if(f) bImportProducts(f); e.target.value=""; }}/>
                 </label>
                 <button onClick={() => { setBEditingProduct(null); setBProductForm({ name:"", sku:"", category:"", size:"", price:"", order_multiple:"", min_order_qty:"", max_order_qty:"", description:"", image_url:"", image_file:null }); setBShowAddProduct(true); }} style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ Nuovo Prodotto</button>
@@ -2502,14 +2502,14 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
             </div>
             {bImportResults && (
               <div style={{ padding:"12px 16px", background:`${C.green}12`, border:`1px solid ${C.green}30`, borderRadius:10, marginBottom:16, fontSize:13, color:C.green }}>
-                \u2713 Import completato: {bImportResults.success} prodotti{bImportResults.errors > 0 ? `, ${bImportResults.errors} errori` : ""}
-                <button onClick={() => setBImportResults(null)} style={{ marginLeft:12, background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:12 }}>\u00d7</button>
+                ✓ Import completato: {bImportResults.success} prodotti{bImportResults.errors > 0 ? `, ${bImportResults.errors} errori` : ""}
+                <button onClick={() => setBImportResults(null)} style={{ marginLeft:12, background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:12 }}>×</button>
                 <div style={{ marginTop:6, fontSize:11, color:C.textMuted }}>Colonne CSV: name, sku, category, price, order_multiple, min_order_qty, description, image_url</div>
               </div>
             )}
             {brandProducts.length === 0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>
-                <div style={{ fontSize:40, marginBottom:12 }}>\U0001F4E6</div>
+                <div style={{ fontSize:40, marginBottom:12 }}>📦</div>
                 <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:6 }}>Nessun prodotto nel catalogo</div>
                 <div style={{ fontSize:13, lineHeight:1.6, maxWidth:440, margin:"0 auto" }}>Aggiungi il tuo primo prodotto con "+ Nuovo Prodotto" oppure importa un file Excel/CSV.</div>
               </div>
@@ -2526,18 +2526,18 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                   <tbody>
                     {brandProducts.map((p,i) => (
                       <tr key={p.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
-                        <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{p.sku || "\u2014"}</span></td>
+                        <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{p.sku || "—"}</span></td>
                         <td style={{ padding:"11px 14px", whiteSpace:"nowrap" }}>
                           <div style={{ display:"flex", alignItems:"center", gap:10 }}>
                             {p.image_url && <img src={p.image_url} alt="" style={{ width:32, height:32, objectFit:"cover", borderRadius:6, flexShrink:0 }} onError={e=>e.target.style.display="none"}/>}
                             <span style={{ fontSize:13, fontWeight:600, color:C.text }}>{p.name}</span>
                           </div>
                         </td>
-                        <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{p.category || "\u2014"}</td>
-                        <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.goldLight }}>\u20ac{p.unit_price?.toFixed(2)}</td>
+                        <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{p.category || "—"}</td>
+                        <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.goldLight }}>€{p.unit_price?.toFixed(2)}</td>
                         <td style={{ padding:"11px 14px" }}><span style={{ fontSize:12, color: (p.inventory?.quantity_available||0)>50?C.green:(p.inventory?.quantity_available||0)>10?C.gold:C.red, fontWeight:600 }}>{p.inventory?.quantity_available ?? 0} u.</span></td>
                         <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{p.min_order_qty}</td>
-                        <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>\u00d7{p.order_multiple}</td>
+                        <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>×{p.order_multiple}</td>
                         <td style={{ padding:"11px 14px" }}><Badge status={p.is_active?"active":"rejected"}/></td>
                         <td style={{ padding:"11px 14px" }}>
                           <div style={{ display:"flex", gap:6 }}>
