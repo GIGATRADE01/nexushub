@@ -2020,6 +2020,8 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const [accessReqs, setAccessReqs] = useState([]);
   const [brandOrders, setBrandOrders] = useState([]);
   const [brandProducts, setBrandProducts] = useState([]);
+  const [brandInvoices, setBrandInvoices] = useState([]);
+  const [brandInvoiceView, setBrandInvoiceView] = useState(null);
   const [bShowAddProduct, setBShowAddProduct] = useState(false);
   const [bEditingProduct, setBEditingProduct] = useState(null);
   const [bProductForm, setBProductForm] = useState({ name:"", sku:"", category:"", size:"", price:"", order_multiple:"", min_order_qty:"", max_order_qty:"", description:"", image_url:"", image_file:null });
@@ -2134,6 +2136,16 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
       setBrandProducts(data || []);
     };
     loadBrandProducts();
+    const loadBrandInvoices = async () => {
+      const { data:{ user } } = await supabase.auth.getUser();
+      if(!user) return;
+      const { data: ords } = await supabase.from("orders").select("id").eq("brand_id", user.id);
+      const ids = (ords||[]).map(o=>o.id);
+      if(!ids.length){ setBrandInvoices([]); return; }
+      const { data } = await supabase.from("invoices").select("*").in("order_id", ids).order("created_at",{ascending:false});
+      setBrandInvoices(data||[]);
+    };
+    loadBrandInvoices();
     const channel = supabase.channel("brand-notifs")
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "notifications" },
         (payload) => { setBrandNotifs(prev => [payload.new, ...prev]); if (payload.new?.type === "access_request") loadAccessReqs(); })
@@ -2225,6 +2237,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"distributors", icon:"⬡", label:t("tabDistributors") },
     { key:"catalog", icon:"◻", label:t("tabCatalog") },
     { key:"orders", icon:"↗", label:t("tabOrders") },
+    { key:"fatture", icon:"🧾", label:"Fatture" },
     { key:"payments", icon:"€", label:t("tabPayments") },
     { key:"analytics", icon:"🤖", label:"AI Analytics" },
   ];
@@ -2585,6 +2598,40 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                 <span style={{ fontSize:12, color:o.eta==="Delivered"?C.green:C.blue, fontWeight:500 }}>{o.eta}</span>,
               ])}
             />
+          </div>
+        )}
+        {brandInvoiceView && <InvoiceModal inv={brandInvoiceView} onClose={()=>setBrandInvoiceView(null)}/>}
+        {tab==="fatture" && (
+          <div>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🧾 Fatture</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Fatture di vendita ai distributori e fatture di commissione NexusHub. Puoi anche caricare la tua fattura ufficiale in PDF.</p>
+            {brandInvoices.length===0 ? (
+              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>Nessuna fattura ancora.</div>
+            ) : (
+              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                <table style={{ width:"100%", borderCollapse:"collapse", minWidth:760 }}>
+                  <thead><tr style={{ background:C.surface2 }}>{["Numero","Tipo","Controparte","Totale","PDF","Azione"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}</tr></thead>
+                  <tbody>
+                    {brandInvoices.map((inv,i)=>{ const isComm = inv.type==="nexushub_commission"; return (
+                      <tr key={inv.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
+                        <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{inv.invoice_number}</span></td>
+                        <td style={{ padding:"11px 14px" }}><span style={{ fontSize:11, fontWeight:600, color:isComm?C.gold:C.green }}>{isComm?"Commissione":"Vendita"}</span></td>
+                        <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>{isComm?inv.from_entity:inv.to_entity}</td>
+                        <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.goldLight }}>€{Number(inv.total||0).toLocaleString("it-IT")}</td>
+                        <td style={{ padding:"11px 14px" }}>
+                          {inv.pdf_url ? (<a href={inv.pdf_url} target="_blank" rel="noreferrer" style={{ fontSize:11, color:C.blue }}>📎 PDF</a>) : (!isComm ? (
+                            <label style={{ fontSize:11, color:C.textMuted, cursor:"pointer", textDecoration:"underline" }}>Carica PDF
+                              <input type="file" accept="application/pdf" style={{ display:"none" }} onChange={async e=>{ const f=e.target.files&&e.target.files[0]; if(!f) return; const path="invoices/"+inv.id+"_"+f.name; const up=await supabase.storage.from("documents").upload(path,f,{upsert:true}); if(up&&up.data){ const u=supabase.storage.from("documents").getPublicUrl(path); const url=u.data.publicUrl; await supabase.from("invoices").update({ pdf_url:url }).eq("id",inv.id); setBrandInvoices(prev=>prev.map(x=>x.id===inv.id?{...x,pdf_url:url}:x)); } if(e.target) e.target.value=""; }}/>
+                            </label>
+                          ) : <span style={{ fontSize:11, color:C.textDim }}>—</span>)}
+                        </td>
+                        <td style={{ padding:"11px 14px" }}><button onClick={()=>setBrandInvoiceView(inv)} style={{ padding:"5px 12px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.blue}15`, border:`1px solid ${C.blue}45`, color:C.blue }}>Vedi</button></td>
+                      </tr>
+                    ); })}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
         {tab==="analytics" && (
@@ -2997,6 +3044,60 @@ const ContractModal = ({ contract, brandName, distCompany, distName, distCountry
 };
 
 
+function printInvoice(inv){
+  const w = window.open("", "_blank", "width=820,height=900");
+  if(!w) return;
+  const fmt = (n)=>"\u20ac"+Number(n||0).toLocaleString("it-IT",{minimumFractionDigits:2});
+  const html = "<html><head><title>"+(inv.invoice_number||"Fattura")+"</title>"+
+    "<style>body{font-family:Georgia,serif;color:#111;padding:40px;max-width:680px;margin:auto}h1{font-size:20px;margin:0 0 4px}table{width:100%;border-collapse:collapse;margin-top:18px}td,th{padding:8px;border-bottom:1px solid #ddd;text-align:left;font-size:13px}.r{text-align:right}.tot td{font-weight:bold;font-size:16px}.muted{color:#666;font-size:12px}</style></head><body>"+
+    "<h1>Fattura "+(inv.invoice_number||"")+"</h1>"+
+    "<div class='muted'>"+(inv.type==="nexushub_commission"?"Fattura commissione":"Fattura di vendita")+" \u00b7 "+new Date(inv.created_at).toLocaleDateString("it-IT")+"</div>"+
+    "<table><tr><th>Da</th><td>"+(inv.from_entity||"")+(inv.from_vat?(" \u00b7 P.IVA "+inv.from_vat):"")+"</td></tr>"+
+    "<tr><th>A</th><td>"+(inv.to_entity||"")+(inv.to_vat?(" \u00b7 P.IVA "+inv.to_vat):"")+"</td></tr></table>"+
+    "<table><tr><th>Imponibile</th><td class='r'>"+fmt(inv.subtotal)+"</td></tr>"+
+    "<tr><th>IVA ("+Number(inv.vat_rate||0)+"%)</th><td class='r'>"+fmt(inv.vat_amount)+"</td></tr>"+
+    "<tr class='tot'><td>Totale</td><td class='r'>"+fmt(inv.total)+"</td></tr></table>"+
+    (inv.notes?("<p class='muted'>"+inv.notes+"</p>"):"")+
+    "<p class='muted'>Documento generato da NexusHub \u2014 bozza, da validare con il commercialista.</p>"+
+    "</body></html>";
+  w.document.write(html);
+  w.document.close();
+  w.focus();
+  setTimeout(()=>{ try{ w.print(); }catch(e){} }, 300);
+}
+
+const InvoiceModal = ({ inv, onClose }) => {
+  if (!inv) return null;
+  const fmt = (n) => "\u20ac" + Number(n||0).toLocaleString("it-IT",{minimumFractionDigits:2});
+  const isComm = inv.type === "nexushub_commission";
+  const row = { display:"flex", justifyContent:"space-between", padding:"8px 0", borderTop:`1px solid ${C.border}`, fontSize:13, gap:12 };
+  return (
+    <div onClick={onClose} style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.72)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:1000, padding:16 }}>
+      <div onClick={e=>e.stopPropagation()} style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:16, width:"min(560px,100%)", maxHeight:"90vh", overflowY:"auto" }}>
+        <div style={{ padding:"16px 22px", borderBottom:`1px solid ${C.border}`, display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+          <div style={{ fontSize:15, fontWeight:700, color:C.text }}>🧾 {inv.invoice_number || "Fattura"}</div>
+          <button onClick={onClose} style={{ background:"transparent", border:"none", color:C.textMuted, fontSize:24, cursor:"pointer", lineHeight:1 }}>×</button>
+        </div>
+        <div style={{ padding:"20px 22px" }}>
+          <div style={{ display:"inline-block", padding:"4px 10px", borderRadius:20, fontSize:11, fontWeight:600, marginBottom:16, background:isComm?`${C.gold}15`:`${C.green}15`, color:isComm?C.gold:C.green, border:`1px solid ${isComm?C.gold:C.green}30` }}>{isComm?"Fattura commissione":"Fattura di vendita"}</div>
+          <div style={{ ...row, borderTop:"none" }}><span style={{ color:C.textMuted }}>Da</span><span style={{ color:C.text, textAlign:"right" }}>{inv.from_entity}{inv.from_vat?` · P.IVA ${inv.from_vat}`:""}</span></div>
+          <div style={row}><span style={{ color:C.textMuted }}>A</span><span style={{ color:C.text, textAlign:"right" }}>{inv.to_entity}{inv.to_vat?` · P.IVA ${inv.to_vat}`:""}</span></div>
+          <div style={row}><span style={{ color:C.textMuted }}>Data</span><span style={{ color:C.text }}>{new Date(inv.created_at).toLocaleDateString("it-IT")}</span></div>
+          <div style={{ height:8 }}/>
+          <div style={row}><span style={{ color:C.textMuted }}>Imponibile</span><span style={{ color:C.text }}>{fmt(inv.subtotal)}</span></div>
+          <div style={row}><span style={{ color:C.textMuted }}>IVA ({Number(inv.vat_rate||0)}%)</span><span style={{ color:C.text }}>{fmt(inv.vat_amount)}</span></div>
+          <div style={{ ...row, fontWeight:800, fontSize:16 }}><span style={{ color:C.text }}>Totale</span><span style={{ color:C.goldLight }}>{fmt(inv.total)}</span></div>
+          {inv.notes && <div style={{ marginTop:14, fontSize:11, color:C.textMuted, lineHeight:1.5 }}>{inv.notes}</div>}
+          {inv.pdf_url && <a href={inv.pdf_url} target="_blank" rel="noreferrer" style={{ display:"inline-block", marginTop:14, fontSize:12, color:C.blue }}>📎 Scarica PDF caricato</a>}
+        </div>
+        <div style={{ padding:"14px 22px", borderTop:`1px solid ${C.border}`, display:"flex", justifyContent:"flex-end" }}>
+          <button onClick={()=>printInvoice(inv)} style={{ padding:"9px 18px", borderRadius:8, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>🖨️ Stampa / Salva PDF</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
   const [tab, setTab] = useState("brands");
@@ -3013,6 +3114,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [selectedPayment, setSelectedPayment] = useState("sepa"); // sepa, card, sepa_debit
   const [currentUser, setCurrentUser] = useState(null);
   const [distContracts, setDistContracts] = useState([]);
+  const [distInvoices, setDistInvoices] = useState([]);
+  const [invoiceView, setInvoiceView] = useState(null);
   const [viewContract, setViewContract] = useState(null);
   const approvedBrandIds = Object.keys(accessRequests).filter(id => accessRequests[id] === "approved");
   const visibleProducts = realProducts.filter(p => approvedBrandIds.includes(p.brand_id));
@@ -3082,6 +3185,16 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       setDistContracts(data || []);
     };
     loadDistContracts();
+    const loadDistInvoices = async () => {
+      const { data:{ user } } = await supabase.auth.getUser();
+      if(!user) return;
+      const { data: ords } = await supabase.from("orders").select("id").eq("distributor_id", user.id);
+      const ids = (ords||[]).map(o=>o.id);
+      if(!ids.length){ setDistInvoices([]); return; }
+      const { data } = await supabase.from("invoices").select("*").in("order_id", ids).eq("type","brand_to_distributor").order("created_at",{ascending:false});
+      setDistInvoices(data||[]);
+    };
+    loadDistInvoices();
 
     const channel = supabase.channel("dist-notifs")
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "notifications" },
@@ -3176,6 +3289,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"brands", icon:"◈", label:t("tabBrandMarket") },
     { key:"catalog", icon:"◻", label:t("tabMyCatalog") },
     { key:"orders", icon:"↗", label:t("tabMyOrders") },
+    { key:"fatture", icon:"🧾", label:"Fatture" },
     { key:"ai", icon:"🤖", label:"AI Suggestions" },
   ];
   return (
@@ -3328,6 +3442,34 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                 );
               })}
             </div>
+          </div>
+        )}
+        {invoiceView && <InvoiceModal inv={invoiceView} onClose={()=>setInvoiceView(null)}/>}
+        {tab==="fatture" && (
+          <div>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🧾 Le mie fatture</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Fatture di acquisto ricevute dai brand per i tuoi ordini.</p>
+            {distInvoices.length===0 ? (
+              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>Nessuna fattura ancora.</div>
+            ) : (
+              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                <table style={{ width:"100%", borderCollapse:"collapse", minWidth:680 }}>
+                  <thead><tr style={{ background:C.surface2 }}>{["Numero","Brand","Imponibile","IVA","Totale","Azione"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}</tr></thead>
+                  <tbody>
+                    {distInvoices.map((inv,i)=>(
+                      <tr key={inv.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
+                        <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{inv.invoice_number}</span></td>
+                        <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>{inv.from_entity}</td>
+                        <td style={{ padding:"11px 14px", fontSize:13, color:C.textMuted }}>€{Number(inv.subtotal||0).toLocaleString("it-IT")}</td>
+                        <td style={{ padding:"11px 14px", fontSize:13, color:C.textMuted }}>{Number(inv.vat_rate||0)}%</td>
+                        <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.goldLight }}>€{Number(inv.total||0).toLocaleString("it-IT")}</td>
+                        <td style={{ padding:"11px 14px" }}><button onClick={()=>setInvoiceView(inv)} style={{ padding:"5px 12px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.blue}15`, border:`1px solid ${C.blue}45`, color:C.blue }}>Vedi</button></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
         {tab==="ai" && (
