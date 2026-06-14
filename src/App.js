@@ -4685,13 +4685,13 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
       <div style={{ padding:"16px 12px", maxWidth:1400, margin:"0 auto" }}>
         {/* Tab Nav */}
-        <div style={{ display:"flex", gap:4, marginBottom:16, borderBottom:`1px solid ${C.border}`, overflowX:"auto", WebkitOverflowScrolling:"touch", scrollbarWidth:"none", msOverflowStyle:"none" }}>
+        <div style={{ display:"flex", gap:2, marginBottom:16, borderBottom:`1px solid ${C.border}`, overflowX:"auto", overflowY:"hidden", WebkitOverflowScrolling:"touch", paddingBottom:2 }}>
           {tabs.map(tb => (
             <button key={tb.key} onClick={() => setTab(tb.key)} style={{
-              padding:"10px 16px", cursor:"pointer", background:"transparent",
+              padding:"7px 10px", cursor:"pointer", background:"transparent",
               border:"none", borderBottom:`2px solid ${tab===tb.key?C.gold:"transparent"}`,
               color: tab===tb.key ? C.goldLight : C.textMuted,
-              fontSize:13, fontWeight: tab===tb.key ? 600 : 400,
+              fontSize:12, fontWeight: tab===tb.key ? 600 : 400,
               display:"flex", alignItems:"center", gap:6, whiteSpace:"nowrap",
               transition:"all .15s", marginBottom:-1 }}>
               {tb.icon} {tb.label}
