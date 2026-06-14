@@ -3984,7 +3984,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const loadOrders = async () => {
     try {
       const { data } = await supabase.from("orders")
-        .select("*, order_items(*), profiles!orders_distributor_id_fkey(company_name), profiles!orders_brand_id_fkey(company_name)")
+        .select("*, order_items(*), profiles!orders_distributor_id_fkey(company_name), brand:profiles!orders_brand_id_fkey(company_name)")
         .order("created_at", { ascending: false }).limit(50);
       setOrders(data || []);
     } catch(e) { console.error(e); }
@@ -5268,7 +5268,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               const mi={}; months.forEach(m=>{mi[m.key]=m;});
               valid.forEach(o=>{ const d=new Date(o.created_at); const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"); if(mi[k]) mi[k].gmv+=Number(o.total_amount||0); });
               paySplits.forEach(x=>{ const d=new Date(x.created_at); const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"); if(mi[k]) mi[k].fee+=Number(x.nexushub_amount||0); });
-              const maxGmv = Math.max(1, ...months.map(m=>m.gmv));
+              const maxVal = Math.max(1, ...months.map(m=>m.gmv), ...months.map(m=>m.fee));
               return (
                 <div>
                   <div style={{ display:"flex", gap:14, flexWrap:"wrap", marginBottom:16 }}>
@@ -5290,8 +5290,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         <div key={m.key} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
                           <div style={{ fontSize:10, color:C.textMuted }}>{fmt(m.gmv)}</div>
                           <div style={{ width:"100%", display:"flex", alignItems:"flex-end", justifyContent:"center", gap:3, height:120 }}>
-                            <div title="GMV" style={{ width:"42%", height:Math.round(m.gmv/maxGmv*118)+"px", background:`linear-gradient(180deg,${C.blue},${C.blue}80)`, borderRadius:"4px 4px 0 0", minHeight:2 }}/>
-                            <div title="Fee" style={{ width:"42%", height:Math.round(m.fee/maxGmv*118)+"px", background:`linear-gradient(180deg,${C.gold},${C.gold}80)`, borderRadius:"4px 4px 0 0", minHeight:2 }}/>
+                            <div title="GMV" style={{ width:"42%", height:Math.round(m.gmv/maxVal*118)+"px", background:`linear-gradient(180deg,${C.blue},${C.blue}80)`, borderRadius:"4px 4px 0 0", minHeight:2 }}/>
+                            <div title="Fee" style={{ width:"42%", height:Math.round(m.fee/maxVal*118)+"px", background:`linear-gradient(180deg,${C.gold},${C.gold}80)`, borderRadius:"4px 4px 0 0", minHeight:2 }}/>
                           </div>
                           <div style={{ fontSize:11, color:C.textMuted }}>{m.label}</div>
                         </div>
