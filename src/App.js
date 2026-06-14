@@ -1808,62 +1808,78 @@ const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
     return {name:"Winter",icon:"❄️"};
   };
 
+  const flagOf = (cc) => {
+    const map = { IT:"🇮🇹", DE:"🇩🇪", FR:"🇫🇷", ES:"🇪🇸", RO:"🇷🇴", NL:"🇳🇱", BE:"🇧🇪", PT:"🇵🇹", AT:"🇦🇹", PL:"🇵🇱", GR:"🇬🇷", AE:"🇦🇪", GB:"🇬🇧", CH:"🇨🇭", AL:"🇦🇱", BG:"🇧🇬", HU:"🇭🇺", CZ:"🇨🇿", HR:"🇭🇷", SE:"🇸🇪", DK:"🇩🇰", FI:"🇫🇮", IE:"🇮🇪" };
+    return map[String(cc||"").toUpperCase()] || "🌍";
+  };
+
   const generate = async () => {
     setLoading(true);
-    await new Promise(r => setTimeout(r, 1400));
+    await new Promise(r => setTimeout(r, 800));
 
-    // Simulate top distributors from real data
-    const distStats = ACTIVE_DISTRIBUTORS.map(d => ({
-      ...d,
-      totalOrders: Math.floor(Math.random() * 40) + 5,
-      totalRevenue: Math.floor(Math.random() * 500000) + 50000,
-      growth: Math.floor(Math.random() * 40) - 10,
-      topProduct: CATALOG[Math.floor(Math.random() * CATALOG.length)]?.name || "—",
-    })).sort((a,b) => b.totalRevenue - a.totalRevenue);
+    const distMap = {};
+    distributors.forEach(d => { distMap[d.id] = d; });
+    const byDist = {};
+    orders.forEach(o => {
+      const id = o.distributor_id;
+      if (!id) return;
+      if (!byDist[id]) byDist[id] = { id, orders:0, revenue:0 };
+      byDist[id].orders += 1;
+      byDist[id].revenue += Number(o.total_amount||0);
+    });
+    const distStats = Object.values(byDist).map(v => {
+      const info = distMap[v.id] || {};
+      return { id:v.id, company:info.company||"Distributore", country:info.country||"",
+        flag:flagOf(info.country), territory:info.country||"—",
+        totalOrders:v.orders, totalRevenue:v.revenue, growth:0, topProduct:"—" };
+    }).sort((a,b) => b.totalRevenue - a.totalRevenue);
 
-    // Top products by sales
-    const prodStats = CATALOG.slice(0,6).map(p => ({
-      ...p,
-      unitsSold: Math.floor(Math.random() * 2000) + 100,
-      revenue: Math.floor(Math.random() * 150000) + 10000,
-      trend: Math.random() > 0.5 ? "up" : "down",
-      trendPct: Math.floor(Math.random() * 35) + 5,
-    })).sort((a,b) => b.revenue - a.revenue);
+    const prodMap = {};
+    products.forEach(p => { prodMap[p.id] = p; });
+    const byProd = {};
+    orders.forEach(o => (o.order_items||[]).forEach(it => {
+      const id = it.product_id;
+      if (!id) return;
+      if (!byProd[id]) byProd[id] = { id, units:0, revenue:0 };
+      byProd[id].units += Number(it.quantity||0);
+      byProd[id].revenue += Number(it.quantity||0) * Number(it.unit_price||0);
+    }));
+    const prodStats = Object.values(byProd).map(v => {
+      const info = prodMap[v.id] || {};
+      return { sku:info.sku||v.id, name:info.name||"Prodotto",
+        unitsSold:v.units, revenue:v.revenue, trend:"up", trendPct:0 };
+    }).sort((a,b) => b.revenue - a.revenue);
 
-    // AI insights
+    const hasData = distStats.length > 0 || prodStats.length > 0;
     const s = season();
-    const aiInsights = [
-      {
-        icon:"📈",
-        title:`${s.icon} Stagione ${s.name} — Strategia Consigliata`,
-        text: s.name === "Winter"
-          ? "L'inverno è il tuo picco massimo. I profumi oud e orientali raggiungono il +45% di vendite. Assicurati che i distributori abbiano stock adeguato entro novembre."
-          : s.name === "Summer"
-          ? "L'estate favorisce profumi freschi e floreali. Considera di promuovere la linea Warde EDP. Prepara promozioni per i distributori del Sud Europa."
-          : s.name === "Spring"
-          ? "La primavera è un ottimo momento per lanciare nuovi prodotti. I distributori sono più aperti a testare SKU nuovi. Considera offerte di prova."
-          : "L'autunno prepara alla stagione calda. Anticipa i riordini invernali ora per evitare stockout di dicembre.",
-        color: "#c9a84c"
-      },
-      {
-        icon:"🏆",
-        title:"Distributore Top del Mese",
-        text: `${distStats[0]?.company || "—"} (${distStats[0]?.country || "—"}) è il tuo distributore con le performance migliori. Considera di offrirgli condizioni preferenziali o nuovi SKU in esclusiva per il suo territorio.`,
-        color: "#27ae60"
-      },
-      {
-        icon:"⚠️",
-        title:"Territori Scoperti",
-        text: "Polonia, Ungheria, Repubblica Ceca non hanno distributori attivi. Questi mercati hanno un potenziale stimato di €2.3M annui per fragranze orientali di fascia media.",
-        color: "#e67e22"
-      },
-      {
-        icon:"📦",
-        title:"Prodotto da Spingere",
-        text: `${prodStats[0]?.name || "—"} è il tuo bestseller con ${prodStats[0]?.unitsSold?.toLocaleString("it-IT") || "—"} unità vendute. Considera un bundle promozionale con ${prodStats[1]?.name || "—"} per aumentare l'order value medio.`,
-        color: "#3d8ef0"
-      },
-    ];
+    const aiInsights = [];
+    aiInsights.push({
+      icon:"📈",
+      title:`${s.icon} Stagione ${s.name} — Strategia`,
+      text: s.name === "Winter"
+        ? "L'inverno è il picco per i profumi oud e orientali. Assicurati che i distributori abbiano stock adeguato."
+        : s.name === "Summer"
+        ? "L'estate favorisce profumi freschi e floreali. Prepara promozioni per i distributori del Sud Europa."
+        : s.name === "Spring"
+        ? "La primavera è ideale per lanciare nuovi prodotti: i distributori sono più aperti a testare SKU nuovi."
+        : "L'autunno prepara alla stagione calda: anticipa i riordini invernali ora.",
+      color:"#c9a84c"
+    });
+    if (distStats[0]) aiInsights.push({
+      icon:"🏆", title:"Distributore Top",
+      text:`${distStats[0].company} (${distStats[0].territory}) è il tuo distributore con il fatturato più alto: €${Number(distStats[0].totalRevenue).toLocaleString("it-IT",{maximumFractionDigits:0})} su ${distStats[0].totalOrders} ordini.`,
+      color:"#27ae60"
+    });
+    if (prodStats[0]) aiInsights.push({
+      icon:"📦", title:"Prodotto Bestseller",
+      text:`${prodStats[0].name} è il più venduto con ${Number(prodStats[0].unitsSold).toLocaleString("it-IT")} unità. Considera un bundle con ${prodStats[1]?.name || "un altro SKU"} per aumentare l'order value.`,
+      color:"#3d8ef0"
+    });
+    if (!hasData) aiInsights.push({
+      icon:"ℹ️", title:"Ancora pochi dati",
+      text:"Non ci sono ancora abbastanza ordini per un'analisi completa. I dati appariranno qui man mano che i distributori ordinano.",
+      color:"#e67e22"
+    });
 
     setTopDistributors(distStats.slice(0,5));
     setTopProducts(prodStats.slice(0,5));
@@ -2639,7 +2655,10 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🤖 AI Brand Analytics</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Performance distributori, top prodotti, stagionalità e opportunità di crescita</p>
             <InventoryForecast products={brandProducts} orders={brandOrders}/>
-            <BrandAnalytics distributors={ACTIVE_DISTRIBUTORS} orders={[]} products={CATALOG}/>
+            <BrandAnalytics
+              distributors={accessReqs.filter(r=>r.status==="approved").map(r=>({ id:r.distributor_id, company:r.distributor?.company_name||"Distributore", country:r.distributor?.country||"" }))}
+              orders={brandOrders}
+              products={brandProducts}/>
           </div>
         )}
 
@@ -4130,6 +4149,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "contracts") { loadContracts(); loadBrands(); loadUsers(); }
     if (tab === "commissions") { loadCommissions(); loadCommissionLog(); }
     if (tab === "incassi") loadPaySplits();
+    if (tab === "finanze") { loadOrders(); loadInvoices(); loadPaySplits(); }
   }, [tab]);
 
   // Approve / Reject user
@@ -4336,6 +4356,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"contracts", icon:"📝", label:"Contratti" },
     { key:"commissions", icon:"📊", label:"Provvigioni" },
     { key:"incassi", icon:"💸", label:"Incassi" },
+    { key:"finanze", icon:"💶", label:"Finanze" },
     { key:"payments", icon:"💰", label:"Payments" },
     { key:"settings", icon:"⚙️", label:"Settings" },
   ];
@@ -5222,6 +5243,68 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 </table>
               </div>
             )}
+          </div>
+        )}
+
+        {/* FINANZE / P&L TAB */}
+        {tab === "finanze" && (
+          <div>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>💶 Dashboard Finanziaria</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Ricavi, fee e margini calcolati dai dati reali della piattaforma.</p>
+            {(() => {
+              const valid = orders.filter(o => o.status !== "cancelled");
+              const gmv = valid.reduce((a,o)=>a+Number(o.total_amount||0),0);
+              const feeGross = paySplits.reduce((a,x)=>a+Number(x.nexushub_amount||0),0);
+              const feeCollected = paySplits.filter(x=>x.split_status!=="pending").reduce((a,x)=>a+Number(x.nexushub_amount||0),0);
+              const feePending = paySplits.filter(x=>x.split_status==="pending").reduce((a,x)=>a+Number(x.nexushub_amount||0),0);
+              const toBrand = paySplits.filter(x=>x.split_status==="collected").reduce((a,x)=>a+Number(x.brand_amount||0),0);
+              const ivaInvoiced = invoices.reduce((a,i)=>a+Number(i.vat_amount||0),0);
+              const nBrands = new Set(valid.map(o=>o.brand_id).filter(Boolean)).size;
+              const nDist = new Set(valid.map(o=>o.distributor_id).filter(Boolean)).size;
+              const fmt=(n)=>"€"+Number(n||0).toLocaleString("it-IT",{maximumFractionDigits:0});
+              const now = new Date();
+              const months = [];
+              for(let k=5;k>=0;k--){ const d=new Date(now.getFullYear(), now.getMonth()-k, 1); months.push({ key:d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"), label:d.toLocaleDateString("it-IT",{month:"short"}), gmv:0, fee:0 }); }
+              const mi={}; months.forEach(m=>{mi[m.key]=m;});
+              valid.forEach(o=>{ const d=new Date(o.created_at); const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"); if(mi[k]) mi[k].gmv+=Number(o.total_amount||0); });
+              paySplits.forEach(x=>{ const d=new Date(x.created_at); const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"); if(mi[k]) mi[k].fee+=Number(x.nexushub_amount||0); });
+              const maxGmv = Math.max(1, ...months.map(m=>m.gmv));
+              return (
+                <div>
+                  <div style={{ display:"flex", gap:14, flexWrap:"wrap", marginBottom:16 }}>
+                    <Stat icon="📊" label="Volume venduto (GMV)" value={fmt(gmv)} accent={C.blue}/>
+                    <Stat icon="↗" label="Fee tua (lorda)" value={fmt(feeGross)} accent={C.gold}/>
+                    <Stat icon="✓" label="Fee incassata" value={fmt(feeCollected)} accent={C.green}/>
+                    <Stat icon="⏳" label="Fee da incassare" value={fmt(feePending)}/>
+                  </div>
+                  <div style={{ display:"flex", gap:14, flexWrap:"wrap", marginBottom:22 }}>
+                    <Stat icon="💸" label="Da girare ai brand" value={fmt(toBrand)}/>
+                    <Stat icon="🧾" label="IVA fatturata" value={fmt(ivaInvoiced)}/>
+                    <Stat icon="🏛️" label="Brand attivi" value={nBrands}/>
+                    <Stat icon="⬡" label="Distributori attivi" value={nDist}/>
+                  </div>
+                  <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, padding:20 }}>
+                    <div style={{ fontSize:13, fontWeight:700, color:C.text, marginBottom:16 }}>Andamento ultimi 6 mesi</div>
+                    <div style={{ display:"flex", alignItems:"flex-end", gap:12 }}>
+                      {months.map(m=>(
+                        <div key={m.key} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
+                          <div style={{ fontSize:10, color:C.textMuted }}>{fmt(m.gmv)}</div>
+                          <div style={{ width:"100%", display:"flex", alignItems:"flex-end", justifyContent:"center", gap:3, height:120 }}>
+                            <div title="GMV" style={{ width:"42%", height:Math.round(m.gmv/maxGmv*118)+"px", background:`linear-gradient(180deg,${C.blue},${C.blue}80)`, borderRadius:"4px 4px 0 0", minHeight:2 }}/>
+                            <div title="Fee" style={{ width:"42%", height:Math.round(m.fee/maxGmv*118)+"px", background:`linear-gradient(180deg,${C.gold},${C.gold}80)`, borderRadius:"4px 4px 0 0", minHeight:2 }}/>
+                          </div>
+                          <div style={{ fontSize:11, color:C.textMuted }}>{m.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{ display:"flex", gap:16, marginTop:14, fontSize:11, color:C.textMuted }}>
+                      <span><span style={{ display:"inline-block", width:10, height:10, background:C.blue, borderRadius:2, marginRight:5 }}/>GMV</span>
+                      <span><span style={{ display:"inline-block", width:10, height:10, background:C.gold, borderRadius:2, marginRight:5 }}/>Fee tua</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
           </div>
         )}
 
