@@ -3704,6 +3704,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [invoices, setInvoices] = useState([]);
   const [contracts, setContracts] = useState([]);
   const [adminViewContract, setAdminViewContract] = useState(null);
+  const [paySplits, setPaySplits] = useState([]);
   const [commissionRows, setCommissionRows] = useState([]);
   const [commissionLog, setCommissionLog] = useState([]);
   const [recalcing, setRecalcing] = useState(false);
@@ -3894,6 +3895,34 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   };
 
   const tierRate = (rev) => (rev > 15000000 ? 9 : rev > 10000000 ? 10 : 11.4);
+  const loadPaySplits = async () => {
+    try {
+      const { data: splits } = await supabase.from("payment_splits").select("*").order("created_at", { ascending:false });
+      const sp = splits || [];
+      const orderIds = [...new Set(sp.map(s => s.order_id).filter(Boolean))];
+      let ordMap = {};
+      if (orderIds.length) {
+        const { data: ords } = await supabase.from("orders").select("id, order_number, brand_id, distributor_id").in("id", orderIds);
+        (ords||[]).forEach(o => { ordMap[o.id] = o; });
+      }
+      const pidSet = new Set();
+      Object.values(ordMap).forEach(o => { if(o.brand_id) pidSet.add(o.brand_id); if(o.distributor_id) pidSet.add(o.distributor_id); });
+      const pids = [...pidSet];
+      let proMap = {};
+      if (pids.length) {
+        const { data: pros } = await supabase.from("profiles").select("id, company_name, iban").in("id", pids);
+        (pros||[]).forEach(p => { proMap[p.id] = p; });
+      }
+      setPaySplits(sp.map(s => {
+        const o = ordMap[s.order_id] || {};
+        const b = proMap[o.brand_id] || {};
+        const d = proMap[o.distributor_id] || {};
+        return { ...s, order_number: o.order_number, brand_name: b.company_name, brand_iban: b.iban, distributor_name: d.company_name };
+      }));
+    } catch(e) { console.error(e); }
+  };
+  const markCollected = async (sp) => { await supabase.from("payment_splits").update({ split_status:"collected", nexushub_received_at:new Date().toISOString() }).eq("id", sp.id); loadPaySplits(); };
+  const markPaidBrand = async (sp) => { await supabase.from("payment_splits").update({ split_status:"paid_brand", brand_received_at:new Date().toISOString() }).eq("id", sp.id); loadPaySplits(); };
   const loadCommissions = async () => {
     const { data: bs } = await supabase.from("profiles").select("id, company_name, email, commission_rate, estimated_annual_revenue, commission_locked").eq("role", "brand");
     const { data: ords } = await supabase.from("orders").select("brand_id, total_amount, created_at, status");
@@ -3958,6 +3987,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "invoices") loadInvoices();
     if (tab === "contracts") { loadContracts(); loadBrands(); loadUsers(); }
     if (tab === "commissions") { loadCommissions(); loadCommissionLog(); }
+    if (tab === "incassi") loadPaySplits();
   }, [tab]);
 
   // Approve / Reject user
@@ -4163,6 +4193,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"invoices", icon:"🧾", label:"Fatture" },
     { key:"contracts", icon:"📝", label:"Contratti" },
     { key:"commissions", icon:"📊", label:"Provvigioni" },
+    { key:"incassi", icon:"💸", label:"Incassi" },
     { key:"payments", icon:"💰", label:"Payments" },
     { key:"settings", icon:"⚙️", label:"Settings" },
   ];
@@ -5049,6 +5080,83 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 </table>
               </div>
             )}
+          </div>
+        )}
+
+        {/* INCASSI & SPLIT TAB */}
+        {tab === "incassi" && (
+          <div>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>💸 Incassi & Split</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Per ogni ordine: quota brand + tua fee. Incassi dal distributore e bonifichi al brand. Il distributore non vede la fee.</p>
+            {(() => {
+              const pend = paySplits.filter(x => x.split_status === "pending");
+              const coll = paySplits.filter(x => x.split_status === "collected");
+              const feeTot = paySplits.filter(x => x.split_status !== "pending").reduce((a,x)=>a+Number(x.nexushub_amount||0),0);
+              const toBrand = coll.reduce((a,x)=>a+Number(x.brand_amount||0),0);
+              const toCollect = pend.reduce((a,x)=>a+Number(x.total_amount||0),0);
+              const byBrand = {};
+              coll.forEach(x => { const k = x.brand_name || "—"; if(!byBrand[k]) byBrand[k]={ amount:0, iban:x.brand_iban }; byBrand[k].amount += Number(x.brand_amount||0); });
+              return (
+                <div>
+                  <div style={{ display:"flex", gap:14, marginBottom:22, flexWrap:"wrap" }}>
+                    <Stat icon="↗" label="Fee tua (incassata)" value={"€"+feeTot.toLocaleString("it-IT",{minimumFractionDigits:2})} accent={C.gold}/>
+                    <Stat icon="💸" label="Da bonificare ai brand" value={"€"+toBrand.toLocaleString("it-IT",{minimumFractionDigits:2})} accent={C.blue}/>
+                    <Stat icon="⏳" label="Da incassare" value={"€"+toCollect.toLocaleString("it-IT",{minimumFractionDigits:2})}/>
+                  </div>
+                  {Object.keys(byBrand).length > 0 && (
+                    <div style={{ background:C.surface, border:`1px solid ${C.gold}40`, borderRadius:12, padding:16, marginBottom:20 }}>
+                      <div style={{ fontSize:13, fontWeight:700, color:C.goldLight, marginBottom:10 }}>💸 Da bonificare ai brand (ordini gia incassati)</div>
+                      {Object.entries(byBrand).map(([name, info]) => (
+                        <div key={name} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"8px 0", borderTop:`1px solid ${C.border}`, gap:10, flexWrap:"wrap" }}>
+                          <div>
+                            <div style={{ fontSize:13, color:C.text, fontWeight:600 }}>{name}</div>
+                            <div style={{ fontSize:11, color:C.textMuted, fontFamily:"monospace" }}>{info.iban || "IBAN non impostato"}</div>
+                          </div>
+                          <div style={{ fontSize:15, fontWeight:800, color:C.goldLight }}>€{info.amount.toLocaleString("it-IT",{minimumFractionDigits:2})}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {paySplits.length === 0 ? (
+                    <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>Nessun ordine da gestire.</div>
+                  ) : (
+                    <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                      <table style={{ width:"100%", borderCollapse:"collapse", minWidth:880 }}>
+                        <thead>
+                          <tr style={{ background:C.surface2 }}>
+                            {["Ordine","Distributore","Brand","Totale","Tua fee","Al brand","Stato","Azione"].map((h,i)=>(
+                              <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {paySplits.map((x,i) => (
+                            <tr key={x.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
+                              <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{x.order_number || "—"}</span></td>
+                              <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>{x.distributor_name || "—"}</td>
+                              <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>{x.brand_name || "—"}</td>
+                              <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>€{Number(x.total_amount||0).toLocaleString("it-IT")}</td>
+                              <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.gold }}>€{Number(x.nexushub_amount||0).toLocaleString("it-IT")}</td>
+                              <td style={{ padding:"11px 14px", fontSize:13, color:C.goldLight }}>€{Number(x.brand_amount||0).toLocaleString("it-IT")}</td>
+                              <td style={{ padding:"11px 14px" }}>
+                                <span style={{ fontSize:11, fontWeight:600, color: x.split_status==="paid_brand"?C.green:x.split_status==="collected"?C.blue:C.textMuted }}>
+                                  {x.split_status==="paid_brand"?"✓ Completato":x.split_status==="collected"?"Incassato":"In attesa"}
+                                </span>
+                              </td>
+                              <td style={{ padding:"11px 14px" }}>
+                                {x.split_status==="pending" && <button onClick={()=>markCollected(x)} style={{ padding:"5px 12px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.blue}15`, border:`1px solid ${C.blue}45`, color:C.blue }}>✓ Incassato</button>}
+                                {x.split_status==="collected" && <button onClick={()=>markPaidBrand(x)} style={{ padding:"5px 12px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.green}15`, border:`1px solid ${C.green}45`, color:C.green }}>💸 Bonificato</button>}
+                                {x.split_status==="paid_brand" && <span style={{ fontSize:11, color:C.green }}>✓</span>}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
           </div>
         )}
 
