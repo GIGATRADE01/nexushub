@@ -2040,11 +2040,42 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const [brandInvoiceView, setBrandInvoiceView] = useState(null);
   const [bShowAddProduct, setBShowAddProduct] = useState(false);
   const [bEditingProduct, setBEditingProduct] = useState(null);
+  const [bDocsProduct, setBDocsProduct] = useState(null);
+  const [bDocs, setBDocs] = useState([]);
+  const [bDocsBusy, setBDocsBusy] = useState(false);
   const [bProductForm, setBProductForm] = useState({ name:"", sku:"", category:"", size:"", price:"", order_multiple:"", min_order_qty:"", max_order_qty:"", description:"", image_url:"", image_file:null });
   const [bImportLoading, setBImportLoading] = useState(false);
   const [bImportResults, setBImportResults] = useState(null);
   const [bToast, setBToast] = useState("");
   const bNotify = (m) => { setBToast(m); setTimeout(() => setBToast(""), 2600); };
+  const openBDocs = async (p) => {
+    setBDocsProduct(p); setBDocs([]);
+    const { data } = await supabase.from("product_documents").select("*").eq("product_id", p.id).order("created_at", { ascending:false });
+    setBDocs(data || []);
+  };
+  const bUploadDoc = async (file) => {
+    if (!file || !bDocsProduct) return;
+    setBDocsBusy(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      const path = "product-docs/" + bDocsProduct.id + "_" + Date.now() + "_" + file.name;
+      const up = await supabase.storage.from("documents").upload(path, file, { upsert: true });
+      if (up && up.data) {
+        const u = supabase.storage.from("documents").getPublicUrl(path);
+        const { data: row } = await supabase.from("product_documents").insert({
+          product_id: bDocsProduct.id, brand_id: user.id, name: file.name,
+          file_url: u.data.publicUrl, file_type: file.type || null
+        }).select().single();
+        if (row) setBDocs(prev => [row, ...prev]);
+        bNotify("Documento caricato");
+      }
+    } catch(e) { console.error(e); bNotify("Errore nel caricamento"); }
+    setBDocsBusy(false);
+  };
+  const bDeleteDoc = async (id) => {
+    await supabase.from("product_documents").delete().eq("id", id);
+    setBDocs(prev => prev.filter(d => d.id !== id));
+  };
   const reloadBrandProducts = async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
@@ -2475,6 +2506,29 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
         {bToast && (
           <div style={{ position:"fixed", bottom:24, left:"50%", transform:"translateX(-50%)", zIndex:1100, background:C.surface, border:`1px solid ${C.gold}55`, color:C.text, padding:"12px 20px", borderRadius:10, fontSize:13, boxShadow:"0 8px 30px rgba(0,0,0,.4)" }}>{bToast}</div>
         )}
+        {bDocsProduct && (
+          <Modal title={"Documenti · " + (bDocsProduct.name || "Prodotto")} onClose={() => { setBDocsProduct(null); setBDocs([]); }} onSave={() => { setBDocsProduct(null); setBDocs([]); }} saveLabel="Fatto">
+            <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 14px" }}>Schede tecniche, certificati, ingredienti. I distributori potranno scaricarli dal catalogo.</p>
+            <label style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6, padding:"18px 12px", borderRadius:10, cursor:"pointer", background:C.surface2, border:`1px dashed ${C.gold}55`, textAlign:"center", marginBottom:16 }}>
+              <input type="file" style={{ display:"none" }} disabled={bDocsBusy} onChange={e => { const f=e.target.files&&e.target.files[0]; if(f) bUploadDoc(f); if(e.target) e.target.value=""; }}/>
+              <span style={{ fontSize:22 }}>{bDocsBusy ? "⏳" : "📎"}</span>
+              <span style={{ fontSize:12, color:C.textMuted }}>{bDocsBusy ? "Caricamento..." : "Carica un documento (PDF, immagine, ecc.)"}</span>
+            </label>
+            {bDocs.length === 0 ? (
+              <div style={{ textAlign:"center", padding:16, color:C.textMuted, fontSize:13 }}>Nessun documento ancora.</div>
+            ) : bDocs.map(d => (
+              <div key={d.id} style={{ display:"flex", alignItems:"center", gap:10, padding:"10px 12px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:8, marginBottom:8 }}>
+                <span style={{ fontSize:18 }}>📄</span>
+                <div style={{ flex:1, minWidth:0 }}>
+                  <div style={{ fontSize:13, color:C.text, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{d.name}</div>
+                  <div style={{ fontSize:10, color:C.textMuted }}>{new Date(d.created_at).toLocaleDateString("it-IT")}</div>
+                </div>
+                <a href={d.file_url} target="_blank" rel="noreferrer" style={{ fontSize:11, color:C.blue, textDecoration:"none", padding:"4px 10px", border:`1px solid ${C.blue}40`, borderRadius:6 }}>Apri</a>
+                <button onClick={() => bDeleteDoc(d.id)} style={{ fontSize:11, color:C.red, background:"transparent", border:`1px solid ${C.red}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer" }}>Elimina</button>
+              </div>
+            ))}
+          </Modal>
+        )}
         {bShowAddProduct && (
           <Modal title={bEditingProduct ? "Modifica Prodotto" : "Nuovo Prodotto"} onClose={() => { setBShowAddProduct(false); setBEditingProduct(null); }} onSave={bSaveProduct}>
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
@@ -2571,6 +2625,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                         <td style={{ padding:"11px 14px" }}>
                           <div style={{ display:"flex", gap:6 }}>
                             <button onClick={() => { setBEditingProduct(p); setBProductForm({ name:p.name||"", sku:p.sku||"", category:p.category||"", size:"", price:p.unit_price?.toString()||"", order_multiple:p.order_multiple||"", min_order_qty:p.min_order_qty||"", max_order_qty:p.max_order_qty||"", description:p.description||"", image_url:p.image_url||"", image_file:null }); setBShowAddProduct(true); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>Modifica</button>
+                            <button onClick={() => openBDocs(p)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.gold}15`, border:`1px solid ${C.gold}40`, color:C.goldLight }}>📎 Doc</button>
                             <button onClick={async () => { await supabase.from("products").update({ is_active:!p.is_active }).eq("id",p.id); reloadBrandProducts(); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted }}>{p.is_active?"Disattiva":"Attiva"}</button>
                           </div>
                         </td>
@@ -3125,8 +3180,15 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [accessRequests, setAccessRequests] = useState({});
   const [brandDiscounts, setBrandDiscounts] = useState({});
   const [realProducts, setRealProducts] = useState([]);
+  const [distDocsProduct, setDistDocsProduct] = useState(null);
+  const [distDocs, setDistDocs] = useState([]);
   const [realOrders, setRealOrders] = useState([]);
   const [showCheckout, setShowCheckout] = useState(false);
+  const openDistDocs = async (p) => {
+    setDistDocsProduct(p); setDistDocs([]);
+    const { data } = await supabase.from("product_documents").select("*").eq("product_id", p.id).order("created_at", { ascending:false });
+    setDistDocs(data || []);
+  };
   const [orderNote, setOrderNote] = useState("");
   const [orderLoading, setOrderLoading] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(null);
@@ -3391,6 +3453,22 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
               )}
             </div>
 
+            {distDocsProduct && (
+              <Modal title={"Documenti · " + (distDocsProduct.name || "Prodotto")} onClose={() => { setDistDocsProduct(null); setDistDocs([]); }} onSave={() => { setDistDocsProduct(null); setDistDocs([]); }} saveLabel="Chiudi">
+                {distDocs.length === 0 ? (
+                  <div style={{ textAlign:"center", padding:20, color:C.textMuted, fontSize:13 }}>Nessun documento disponibile per questo prodotto.</div>
+                ) : distDocs.map(d => (
+                  <div key={d.id} style={{ display:"flex", alignItems:"center", gap:10, padding:"10px 12px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:8, marginBottom:8 }}>
+                    <span style={{ fontSize:18 }}>📄</span>
+                    <div style={{ flex:1, minWidth:0 }}>
+                      <div style={{ fontSize:13, color:C.text, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{d.name}</div>
+                      <div style={{ fontSize:10, color:C.textMuted }}>{new Date(d.created_at).toLocaleDateString("it-IT")}</div>
+                    </div>
+                    <a href={d.file_url} target="_blank" rel="noreferrer" style={{ fontSize:11, color:C.blue, textDecoration:"none", padding:"5px 12px", border:`1px solid ${C.blue}40`, borderRadius:6 }}>Scarica</a>
+                  </div>
+                ))}
+              </Modal>
+            )}
             {/* Product grid with real stock */}
             <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(min(280px,100%), 1fr))", gap:14 }}>
               {visibleProducts.length === 0 ? (
@@ -3429,6 +3507,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       {moq > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.blue}10`, color:C.blue, border:`1px solid ${C.blue}25` }}>MOQ: {moq}</span>}
                       {multiple > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.purple}10`, color:"#a855f7", border:`1px solid #a855f740` }}>×{multiple}</span>}
                     </div>
+                    <button onClick={() => openDistDocs(p)} style={{ width:"100%", marginBottom:12, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.gold}10`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>📎 Documenti / schede</button>
                     {stock > 0 ? (
                       <div style={{ display:"flex", alignItems:"center", gap:8 }}>
                         <button onClick={() => {
@@ -3866,6 +3945,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [contracts, setContracts] = useState([]);
   const [adminViewContract, setAdminViewContract] = useState(null);
   const [paySplits, setPaySplits] = useState([]);
+  const [auditLog, setAuditLog] = useState([]);
   const [commissionRows, setCommissionRows] = useState([]);
   const [commissionLog, setCommissionLog] = useState([]);
   const [recalcing, setRecalcing] = useState(false);
@@ -3981,6 +4061,19 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     } catch(e) { console.error(e); }
   };
 
+  const loadAudit = async () => {
+    try {
+      const { data } = await supabase.from("audit_log").select("*").order("created_at", { ascending:false }).limit(100);
+      const rows = data || [];
+      const ids = [...new Set(rows.map(r=>r.actor).filter(Boolean))];
+      let names = {};
+      if (ids.length) {
+        const { data: ps } = await supabase.from("profiles").select("id, company_name, email, role").in("id", ids);
+        (ps||[]).forEach(p=>{ names[p.id]=p; });
+      }
+      setAuditLog(rows.map(r=>({ ...r, actor_info: names[r.actor] })));
+    } catch(e) { console.error(e); }
+  };
   const loadOrders = async () => {
     try {
       const { data } = await supabase.from("orders")
@@ -4150,6 +4243,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "commissions") { loadCommissions(); loadCommissionLog(); }
     if (tab === "incassi") loadPaySplits();
     if (tab === "finanze") { loadOrders(); loadInvoices(); loadPaySplits(); }
+    if (tab === "audit") loadAudit();
   }, [tab]);
 
   // Approve / Reject user
@@ -4357,6 +4451,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"commissions", icon:"📊", label:"Provvigioni" },
     { key:"incassi", icon:"💸", label:"Incassi" },
     { key:"finanze", icon:"💶", label:"Finanze" },
+    { key:"audit", icon:"📋", label:"Audit" },
     { key:"payments", icon:"💰", label:"Payments" },
     { key:"settings", icon:"⚙️", label:"Settings" },
   ];
@@ -5243,6 +5338,39 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 </table>
               </div>
             )}
+          </div>
+        )}
+
+        {/* AUDIT LOG TAB */}
+        {tab === "audit" && (
+          <div>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📋 Audit Log</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Registro automatico delle azioni importanti: ordini, incassi, accessi, fatture, prodotti, contratti.</p>
+            <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, overflow:"hidden" }}>
+              <table style={{ width:"100%", borderCollapse:"collapse" }}>
+                <thead>
+                  <tr style={{ background:C.surface2 }}>
+                    <th style={{ padding:"11px 14px", textAlign:"left", fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em" }}>Data e ora</th>
+                    <th style={{ padding:"11px 14px", textAlign:"left", fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em" }}>Utente</th>
+                    <th style={{ padding:"11px 14px", textAlign:"left", fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em" }}>Azione</th>
+                    <th style={{ padding:"11px 14px", textAlign:"left", fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em" }}>Dettaglio</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {auditLog.length === 0 && (
+                    <tr><td colSpan={4} style={{ padding:24, textAlign:"center", color:C.textMuted, fontSize:13 }}>Nessuna azione registrata ancora. Compariranno qui man mano che usi la piattaforma.</td></tr>
+                  )}
+                  {auditLog.map(a => (
+                    <tr key={a.id} style={{ borderTop:`1px solid ${C.border}` }}>
+                      <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted, whiteSpace:"nowrap" }}>{new Date(a.created_at).toLocaleString("it-IT")}</td>
+                      <td style={{ padding:"11px 14px", fontSize:12, color:C.text }}>{a.actor_info?.company_name || a.actor_info?.email || (a.actor ? "Utente" : "Sistema")}{a.actor_info?.role ? " · " + a.actor_info.role : ""}</td>
+                      <td style={{ padding:"11px 14px", fontSize:12, fontWeight:600, color:C.goldLight }}>{a.action}</td>
+                      <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{a.detail || "—"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
 
