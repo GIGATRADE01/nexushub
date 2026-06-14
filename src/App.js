@@ -2043,6 +2043,9 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const [bDocsProduct, setBDocsProduct] = useState(null);
   const [bDocs, setBDocs] = useState([]);
   const [bDocsBusy, setBDocsBusy] = useState(false);
+  const [bPricesProduct, setBPricesProduct] = useState(null);
+  const [bPrices, setBPrices] = useState([]);
+  const [bPriceForm, setBPriceForm] = useState({ country:"", price:"" });
   const [bProductForm, setBProductForm] = useState({ name:"", sku:"", category:"", size:"", price:"", order_multiple:"", min_order_qty:"", max_order_qty:"", description:"", image_url:"", image_file:null });
   const [bImportLoading, setBImportLoading] = useState(false);
   const [bImportResults, setBImportResults] = useState(null);
@@ -2075,6 +2078,27 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const bDeleteDoc = async (id) => {
     await supabase.from("product_documents").delete().eq("id", id);
     setBDocs(prev => prev.filter(d => d.id !== id));
+  };
+  const openBPrices = async (p) => {
+    setBPricesProduct(p); setBPriceForm({ country:"", price:"" });
+    const { data } = await supabase.from("product_country_prices").select("*").eq("product_id", p.id).order("country");
+    setBPrices(data || []);
+  };
+  const bSavePrice = async () => {
+    if (!bPricesProduct || !bPriceForm.country || !bPriceForm.price) { bNotify("Scegli paese e prezzo"); return; }
+    const { data: { user } } = await supabase.auth.getUser();
+    const { data: row } = await supabase.from("product_country_prices").upsert({
+      product_id: bPricesProduct.id, brand_id: user.id, country: bPriceForm.country, price: parseFloat(bPriceForm.price) || 0
+    }, { onConflict: "product_id,country" }).select().single();
+    if (row) {
+      setBPrices(prev => [...prev.filter(x => x.country !== row.country), row].sort((a,b)=>a.country.localeCompare(b.country)));
+      setBPriceForm({ country:"", price:"" });
+      bNotify("Listino salvato");
+    }
+  };
+  const bDeletePrice = async (id) => {
+    await supabase.from("product_country_prices").delete().eq("id", id);
+    setBPrices(prev => prev.filter(x => x.id !== id));
   };
   const reloadBrandProducts = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -2506,6 +2530,34 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
         {bToast && (
           <div style={{ position:"fixed", bottom:24, left:"50%", transform:"translateX(-50%)", zIndex:1100, background:C.surface, border:`1px solid ${C.gold}55`, color:C.text, padding:"12px 20px", borderRadius:10, fontSize:13, boxShadow:"0 8px 30px rgba(0,0,0,.4)" }}>{bToast}</div>
         )}
+        {bPricesProduct && (
+          <Modal title={"Listini per paese - " + (bPricesProduct.name || "")} onClose={() => setBPricesProduct(null)} onSave={() => setBPricesProduct(null)} saveLabel="Fatto">
+            <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 6px" }}>Prezzo base: <b style={{ color:C.goldLight }}>€{Number(bPricesProduct.unit_price||0).toFixed(2)}</b>. Imposta un prezzo diverso per i mercati che vuoi (es. Germania piu alto). Il distributore vedra automaticamente il prezzo del suo paese.</p>
+            <div style={{ display:"flex", gap:8, alignItems:"flex-end", margin:"14px 0 16px" }}>
+              <div style={{ flex:1 }}>
+                <label style={{ fontSize:11, color:C.textMuted, display:"block", marginBottom:5 }}>Paese</label>
+                <select value={bPriceForm.country} onChange={e => setBPriceForm(f => ({...f, country:e.target.value}))} style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}>
+                  <option value="">- Scegli -</option>
+                  {[["IT","Italia"],["DE","Germania"],["FR","Francia"],["ES","Spagna"],["RO","Romania"],["NL","Paesi Bassi"],["BE","Belgio"],["PT","Portogallo"],["AT","Austria"],["PL","Polonia"],["GR","Grecia"],["BG","Bulgaria"],["HU","Ungheria"],["CZ","Rep. Ceca"],["HR","Croazia"],["SE","Svezia"],["DK","Danimarca"],["FI","Finlandia"],["IE","Irlanda"],["AL","Albania"],["CH","Svizzera"],["GB","Regno Unito"]].map(([c,l]) => <option key={c} value={c}>{l} ({c})</option>)}
+                </select>
+              </div>
+              <div style={{ width:120 }}>
+                <label style={{ fontSize:11, color:C.textMuted, display:"block", marginBottom:5 }}>Prezzo €</label>
+                <input type="text" inputMode="decimal" value={bPriceForm.price} onChange={e => setBPriceForm(f => ({...f, price:e.target.value}))} placeholder="0.00" style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+              </div>
+              <button onClick={bSavePrice} style={{ padding:"10px 16px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>Salva</button>
+            </div>
+            {bPrices.length === 0 ? (
+              <div style={{ textAlign:"center", padding:12, color:C.textMuted, fontSize:13 }}>Nessun listino per paese. Vale il prezzo base ovunque.</div>
+            ) : bPrices.map(pr => (
+              <div key={pr.id} style={{ display:"flex", alignItems:"center", gap:10, padding:"9px 12px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:8, marginBottom:7 }}>
+                <span style={{ fontSize:13, fontWeight:700, color:C.text, width:60 }}>{pr.country}</span>
+                <span style={{ flex:1, fontSize:13, color:C.goldLight, fontWeight:700 }}>€{Number(pr.price).toFixed(2)}</span>
+                <button onClick={() => bDeletePrice(pr.id)} style={{ fontSize:11, color:C.red, background:"transparent", border:`1px solid ${C.red}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer" }}>Elimina</button>
+              </div>
+            ))}
+          </Modal>
+        )}
         {bDocsProduct && (
           <Modal title={"Documenti · " + (bDocsProduct.name || "Prodotto")} onClose={() => { setBDocsProduct(null); setBDocs([]); }} onSave={() => { setBDocsProduct(null); setBDocs([]); }} saveLabel="Fatto">
             <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 14px" }}>Schede tecniche, certificati, ingredienti. I distributori potranno scaricarli dal catalogo.</p>
@@ -2626,6 +2678,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                           <div style={{ display:"flex", gap:6 }}>
                             <button onClick={() => { setBEditingProduct(p); setBProductForm({ name:p.name||"", sku:p.sku||"", category:p.category||"", size:"", price:p.unit_price?.toString()||"", order_multiple:p.order_multiple||"", min_order_qty:p.min_order_qty||"", max_order_qty:p.max_order_qty||"", description:p.description||"", image_url:p.image_url||"", image_file:null }); setBShowAddProduct(true); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>Modifica</button>
                             <button onClick={() => openBDocs(p)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.gold}15`, border:`1px solid ${C.gold}40`, color:C.goldLight }}>📎 Doc</button>
+                            <button onClick={() => openBPrices(p)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>€ Prezzi</button>
                             <button onClick={async () => { await supabase.from("products").update({ is_active:!p.is_active }).eq("id",p.id); reloadBrandProducts(); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted }}>{p.is_active?"Disattiva":"Attiva"}</button>
                           </div>
                         </td>
@@ -3182,6 +3235,9 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [realProducts, setRealProducts] = useState([]);
   const [distDocsProduct, setDistDocsProduct] = useState(null);
   const [distDocs, setDistDocs] = useState([]);
+  const [issueOrder, setIssueOrder] = useState(null);
+  const [issueForm, setIssueForm] = useState({ reason:"", photo_file:null });
+  const [issueBusy, setIssueBusy] = useState(false);
   const [realOrders, setRealOrders] = useState([]);
   const [showCheckout, setShowCheckout] = useState(false);
   const openDistDocs = async (p) => {
@@ -3189,11 +3245,34 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     const { data } = await supabase.from("product_documents").select("*").eq("product_id", p.id).order("created_at", { ascending:false });
     setDistDocs(data || []);
   };
+  const openIssue = (o) => { setIssueOrder(o); setIssueForm({ reason:"", photo_file:null }); };
+  const submitIssue = async () => {
+    if (!issueOrder || !issueForm.reason.trim()) { window.alert("Descrivi il problema prima di inviare."); return; }
+    setIssueBusy(true);
+    try {
+      let photoUrl = null;
+      if (issueForm.photo_file) {
+        const f = issueForm.photo_file;
+        const path = "order-issues/" + issueOrder.id + "_" + Date.now() + "_" + f.name;
+        const up = await supabase.storage.from("documents").upload(path, f, { upsert: true });
+        if (up && up.data) photoUrl = supabase.storage.from("documents").getPublicUrl(path).data.publicUrl;
+      }
+      const { data: { user } } = await supabase.auth.getUser();
+      await supabase.from("order_issues").insert({
+        order_id: issueOrder.id, distributor_id: user.id, brand_id: issueOrder.brand_id || null,
+        reason: issueForm.reason.trim(), photo_url: photoUrl, status: "open"
+      });
+      setIssueOrder(null); setIssueForm({ reason:"", photo_file:null });
+      window.alert("Segnalazione inviata. Resta tracciata e verrai ricontattato.");
+    } catch(e) { console.error(e); window.alert("Errore nell'invio della segnalazione."); }
+    setIssueBusy(false);
+  };
   const [orderNote, setOrderNote] = useState("");
   const [orderLoading, setOrderLoading] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(null);
   const [selectedPayment, setSelectedPayment] = useState("sepa"); // sepa, card, sepa_debit
   const [currentUser, setCurrentUser] = useState(null);
+  const [countryPrices, setCountryPrices] = useState({});
   const [distContracts, setDistContracts] = useState([]);
   const [distInvoices, setDistInvoices] = useState([]);
   const [invoiceView, setInvoiceView] = useState(null);
@@ -3201,7 +3280,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const approvedBrandIds = Object.keys(accessRequests).filter(id => accessRequests[id] === "approved");
   const visibleProducts = realProducts.filter(p => approvedBrandIds.includes(p.brand_id));
   const discPct = (brandId) => Number(brandDiscounts[brandId] || 0);
-  const effPrice = (p) => { const base = Number((p && p.unit_price) || 0); const d = discPct(p && p.brand_id); return d > 0 ? Math.round(base * (1 - d/100) * 100) / 100 : base; };
+  const basePrice = (p) => { const cp = p && countryPrices[p.id]; return cp != null ? Number(cp) : Number((p && p.unit_price) || 0); };
+  const effPrice = (p) => { const base = basePrice(p); const d = discPct(p && p.brand_id); return d > 0 ? Math.round(base * (1 - d/100) * 100) / 100 : base; };
   const [distNotifs, setDistNotifs] = useState([]);
   const [distNotifPanel, setDistNotifPanel] = useState(false);
   const distUnread = distNotifs.filter(n => !n.read).length;
@@ -3217,7 +3297,13 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     supabase.auth.getUser().then(({ data }) => {
       if (data.user) {
         supabase.from("profiles").select("*").eq("id", data.user.id).single()
-          .then(({ data: profile }) => setCurrentUser(profile));
+          .then(async ({ data: profile }) => {
+            setCurrentUser(profile);
+            if (profile && profile.country) {
+              const { data: cp } = await supabase.from("product_country_prices").select("product_id, price").eq("country", profile.country);
+              const m = {}; (cp||[]).forEach(r => { m[r.product_id] = r.price; }); setCountryPrices(m);
+            }
+          });
       }
     });
     // Load real products from Supabase
@@ -3495,7 +3581,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                         <div style={{ fontSize:14, fontWeight:700, color:C.text }}>{p.name}</div>
                         <div style={{ fontSize:11, color:C.textMuted, marginTop:2 }}>{p.sku} · {p.category}</div>
                       </div>
-                      <div style={{ textAlign:"right" }}>{discPct(p.brand_id) > 0 ? (<div><div style={{ fontSize:11, color:C.textMuted, textDecoration:"line-through" }}>€{p.unit_price?.toFixed(2)}</div><div style={{ fontSize:16, fontWeight:800, color:C.green }}>€{effPrice(p).toFixed(2)}</div><div style={{ fontSize:10, color:C.green, fontWeight:700 }}>-{discPct(p.brand_id)}%</div></div>) : (<div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€{p.unit_price?.toFixed(2)}</div>)}</div>
+                      <div style={{ textAlign:"right" }}>{(() => { const lp = basePrice(p); const ep = effPrice(p); const d = discPct(p.brand_id); const hasC = countryPrices[p.id] != null && Number(countryPrices[p.id]) !== Number(p.unit_price||0); return (<div>{d > 0 && <div style={{ fontSize:11, color:C.textMuted, textDecoration:"line-through" }}>€{lp.toFixed(2)}</div>}<div style={{ fontSize:16, fontWeight:800, color:d>0?C.green:C.goldLight }}>€{ep.toFixed(2)}</div>{d > 0 && <div style={{ fontSize:10, color:C.green, fontWeight:700 }}>-{d}%</div>}{hasC && <div style={{ fontSize:9, color:C.blue, fontWeight:700 }}>listino {(currentUser?.country||"").toUpperCase()}</div>}</div>); })()}</div>
                     </div>
                     <div style={{ display:"flex", gap:8, marginBottom:12, flexWrap:"wrap" }}>
                       <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, fontWeight:600,
@@ -3623,6 +3709,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       {o.status === "delivered" && <span style={{ fontSize:12, color:C.green }}>✓ Consegnato</span>}
                       {o.status === "pending" && <span style={{ fontSize:12, color:C.gold }}>⏳ In attesa di conferma</span>}
                       {o.status === "confirmed" && <span style={{ fontSize:12, color:C.blue }}>📦 Confermato — in preparazione all'hub di Torino</span>}
+                      <button onClick={() => openIssue(o)} style={{ marginLeft:"auto", fontSize:11, color:C.red, background:"transparent", border:`1px solid ${C.red}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer" }}>🚩 Segnala problema</button>
                     </div>
                   </div>
                 ))}
@@ -3631,6 +3718,18 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           </div>
         )}
       </div>
+    {issueOrder && (
+      <Modal title={"Segnala un problema - " + (issueOrder.order_number || "")} onClose={() => setIssueOrder(null)} onSave={submitIssue} saveLabel={issueBusy ? "Invio..." : "Invia segnalazione"}>
+        <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 14px" }}>Descrivi il problema (merce danneggiata, quantita errata, prodotto sbagliato...). La segnalazione resta tracciata e verrai ricontattato.</p>
+        <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Motivo *</label>
+        <textarea value={issueForm.reason} onChange={e => setIssueForm(f => ({...f, reason:e.target.value}))} rows={4} placeholder="Descrivi cosa e successo..." style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", resize:"vertical", marginBottom:14 }}/>
+        <label style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6, padding:"16px 12px", borderRadius:10, cursor:"pointer", background: issueForm.photo_file ? `${C.green}10` : C.surface2, border:`1px dashed ${issueForm.photo_file ? C.green : C.border}`, textAlign:"center" }}>
+          <input type="file" accept="image/*" style={{ display:"none" }} onChange={e => { const f=e.target.files&&e.target.files[0]; if(f) setIssueForm(p=>({...p, photo_file:f})); }}/>
+          <span style={{ fontSize:22 }}>{issueForm.photo_file ? "✓" : "📷"}</span>
+          <span style={{ fontSize:11, color: issueForm.photo_file ? C.green : C.textMuted }}>{issueForm.photo_file ? issueForm.photo_file.name : "Allega foto (opzionale)"}</span>
+        </label>
+      </Modal>
+    )}
     {/* Distributor Notification Panel */}
     {distNotifPanel && (
       <div style={{ position:"fixed", top:56, right:0, width:360, maxWidth:"100vw",
@@ -3946,6 +4045,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [adminViewContract, setAdminViewContract] = useState(null);
   const [paySplits, setPaySplits] = useState([]);
   const [auditLog, setAuditLog] = useState([]);
+  const [orderIssues, setOrderIssues] = useState([]);
   const [commissionRows, setCommissionRows] = useState([]);
   const [commissionLog, setCommissionLog] = useState([]);
   const [recalcing, setRecalcing] = useState(false);
@@ -4061,6 +4161,25 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     } catch(e) { console.error(e); }
   };
 
+  const loadOrderIssues = async () => {
+    try {
+      const { data } = await supabase.from("order_issues")
+        .select("*, order:orders(order_number, total_amount)")
+        .order("created_at", { ascending:false });
+      const rows = data || [];
+      const ids = [...new Set(rows.map(r=>r.distributor_id).filter(Boolean))];
+      let names = {};
+      if (ids.length) {
+        const { data: ps } = await supabase.from("profiles").select("id, company_name, country").in("id", ids);
+        (ps||[]).forEach(p=>{ names[p.id]=p; });
+      }
+      setOrderIssues(rows.map(r=>({ ...r, dist_info: names[r.distributor_id] })));
+    } catch(e) { console.error(e); }
+  };
+  const closeIssue = async (id) => {
+    await supabase.from("order_issues").update({ status:"closed", closed_at:new Date().toISOString() }).eq("id", id);
+    setOrderIssues(prev => prev.map(x => x.id===id ? { ...x, status:"closed" } : x));
+  };
   const loadAudit = async () => {
     try {
       const { data } = await supabase.from("audit_log").select("*").order("created_at", { ascending:false }).limit(100);
@@ -4244,6 +4363,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "incassi") loadPaySplits();
     if (tab === "finanze") { loadOrders(); loadInvoices(); loadPaySplits(); }
     if (tab === "audit") loadAudit();
+    if (tab === "issues") loadOrderIssues();
   }, [tab]);
 
   // Approve / Reject user
@@ -4452,6 +4572,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"incassi", icon:"💸", label:"Incassi" },
     { key:"finanze", icon:"💶", label:"Finanze" },
     { key:"audit", icon:"📋", label:"Audit" },
+    { key:"issues", icon:"🚩", label:"Segnalazioni" },
     { key:"payments", icon:"💰", label:"Payments" },
     { key:"settings", icon:"⚙️", label:"Settings" },
   ];
@@ -5336,6 +5457,36 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                     ))}
                   </tbody>
                 </table>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* SEGNALAZIONI TAB */}
+        {tab === "issues" && (
+          <div>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🚩 Segnalazioni ordini</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Problemi segnalati dai distributori (merce danneggiata, errori di consegna). Tutto tracciato.</p>
+            {orderIssues.length === 0 ? (
+              <div style={{ textAlign:"center", padding:40, background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, color:C.textMuted, fontSize:13 }}>Nessuna segnalazione.</div>
+            ) : (
+              <div style={{ display:"flex", flexDirection:"column", gap:12 }}>
+                {orderIssues.map(it => (
+                  <div key={it.id} style={{ background:C.surface, border:`1px solid ${it.status==="open"?C.red+"55":C.border}`, borderRadius:12, padding:16 }}>
+                    <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:10, marginBottom:8, flexWrap:"wrap" }}>
+                      <div>
+                        <div style={{ fontFamily:"monospace", fontSize:13, color:C.gold, fontWeight:700 }}>{it.order?.order_number || "-"}</div>
+                        <div style={{ fontSize:11, color:C.textMuted, marginTop:3 }}>{it.dist_info?.company_name || "Distributore"}{it.dist_info?.country ? " - " + it.dist_info.country : ""} - {new Date(it.created_at).toLocaleString("it-IT")}</div>
+                      </div>
+                      <span style={{ padding:"3px 10px", borderRadius:6, fontSize:11, fontWeight:700, background: it.status==="open"?`${C.red}15`:`${C.green}15`, color: it.status==="open"?C.red:C.green, border:`1px solid ${it.status==="open"?C.red:C.green}40` }}>{it.status==="open"?"Aperta":"Chiusa"}</span>
+                    </div>
+                    <div style={{ fontSize:13, color:C.text, marginBottom:10, whiteSpace:"pre-wrap" }}>{it.reason}</div>
+                    <div style={{ display:"flex", gap:10, alignItems:"center" }}>
+                      {it.photo_url && <a href={it.photo_url} target="_blank" rel="noreferrer" style={{ fontSize:11, color:C.blue, textDecoration:"none", padding:"5px 12px", border:`1px solid ${C.blue}40`, borderRadius:6 }}>📷 Vedi foto</a>}
+                      {it.status==="open" && <button onClick={() => closeIssue(it.id)} style={{ fontSize:11, color:C.green, background:"transparent", border:`1px solid ${C.green}40`, borderRadius:6, padding:"5px 12px", cursor:"pointer" }}>✓ Segna come risolta</button>}
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </div>
