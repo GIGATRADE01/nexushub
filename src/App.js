@@ -3709,7 +3709,24 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       {o.status === "delivered" && <span style={{ fontSize:12, color:C.green }}>✓ Consegnato</span>}
                       {o.status === "pending" && <span style={{ fontSize:12, color:C.gold }}>⏳ In attesa di conferma</span>}
                       {o.status === "confirmed" && <span style={{ fontSize:12, color:C.blue }}>📦 Confermato — in preparazione all'hub di Torino</span>}
-                      <button onClick={() => openIssue(o)} style={{ marginLeft:"auto", fontSize:11, color:C.red, background:"transparent", border:`1px solid ${C.red}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer" }}>🚩 Segnala problema</button>
+                      <button onClick={() => {
+                        const items = o.order_items || [];
+                        const next = {};
+                        let skipped = 0;
+                        items.forEach(it => {
+                          const p = visibleProducts.find(rp => rp.id === it.product_id);
+                          if (!p) { skipped++; return; }
+                          const stk = p.inventory?.quantity_available || 0;
+                          if (stk <= 0) { skipped++; return; }
+                          next[p.id] = Math.min(Number(it.quantity)||1, stk);
+                        });
+                        if (Object.keys(next).length === 0) { window.alert("Nessun prodotto di questo ordine e ancora disponibile nel tuo catalogo."); return; }
+                        setCart(next);
+                        setTab("catalog");
+                        window.scrollTo(0,0);
+                        if (skipped > 0) window.alert(skipped + " prodotto/i non piu disponibili sono stati saltati. Gli altri sono nel carrello.");
+                      }} style={{ marginLeft:"auto", fontSize:11, color:C.goldLight, background:`${C.gold}15`, border:`1px solid ${C.gold}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer", fontWeight:600 }}>🔁 Riordina</button>
+                      <button onClick={() => openIssue(o)} style={{ fontSize:11, color:C.red, background:"transparent", border:`1px solid ${C.red}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer" }}>🚩 Segnala problema</button>
                     </div>
                   </div>
                 ))}
