@@ -4193,6 +4193,76 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       setAuditLog(rows.map(r=>({ ...r, actor_info: names[r.actor] })));
     } catch(e) { console.error(e); }
   };
+  const exportShippyPro = async () => {
+    try {
+      const { data: ords } = await supabase
+        .from("orders")
+        .select("id, order_number, total_amount, status, created_at, distributor_id, order_items(quantity, product_id)")
+        .neq("status", "cancelled")
+        .order("created_at", { ascending:false });
+      const rows = ords || [];
+      if (rows.length === 0) { window.alert("Nessun ordine da esportare."); return; }
+      const distIds = [...new Set(rows.map(r=>r.distributor_id).filter(Boolean))];
+      let profs = {};
+      if (distIds.length) {
+        const { data: ps } = await supabase
+          .from("profiles")
+          .select("id, full_name, company_name, shipping_address, shipping_city, shipping_zip, shipping_region, country, phone, email")
+          .in("id", distIds);
+        (ps||[]).forEach(p=>{ profs[p.id]=p; });
+      }
+      const prodIds = [...new Set(rows.flatMap(r=>(r.order_items||[]).map(it=>it.product_id)).filter(Boolean))];
+      let prods = {};
+      if (prodIds.length) {
+        const { data: pr } = await supabase.from("products").select("id, name").in("id", prodIds);
+        (pr||[]).forEach(p=>{ prods[p.id]=p.name; });
+      }
+      const headers = ["Name","Company","Street 1","Street 2","City","State","Zip","Country","Phone","Email","Order Number","Currency","Total","Items Count","Content Description","Amount paid for the shipment","Cash on Delivery","Parcels","Weight","Length","Width","Height","Note","Is Return","Date","Shipping Service"];
+      const esc = (v) => '"' + ((v===null||v===undefined) ? "" : String(v)).replace(/"/g,'""') + '"';
+      const lines = [headers.map(esc).join(",")];
+      rows.forEach(o => {
+        const d = profs[o.distributor_id] || {};
+        const items = o.order_items || [];
+        const itemsCount = items.reduce((a,it)=>a+Number(it.quantity||0),0) || items.length || 1;
+        const names = [...new Set(items.map(it=>prods[it.product_id]).filter(Boolean))];
+        const content = names.length ? names.slice(0,3).join(", ") : "Merce";
+        const rec = [
+          d.full_name || d.company_name || "",
+          d.company_name || "",
+          d.shipping_address || "",
+          "",
+          d.shipping_city || "",
+          d.shipping_region || "",
+          d.shipping_zip || "",
+          d.country || "",
+          d.phone || "",
+          d.email || "",
+          o.order_number || o.id,
+          "EUR",
+          Number(o.total_amount||0).toFixed(2),
+          itemsCount,
+          content,
+          "0",
+          "0",
+          "1",
+          "1",
+          "", "", "",
+          "", "", "",
+          "Standard"
+        ];
+        lines.push(rec.map(esc).join(","));
+      });
+      const csv = "\ufeff" + lines.join("\r\n");
+      const blob = new Blob([csv], { type:"text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      const today = new Date().toISOString().slice(0,10).replace(/-/g,"");
+      a.href = url; a.download = "nexushub-shippypro-" + today + ".csv";
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      window.alert("Esportati " + rows.length + " ordini. Ora importa il file in ShippyPro con \"Importa Excel/CSV/TXT\".");
+    } catch(e) { console.error(e); window.alert("Errore nell'esportazione."); }
+  };
   const loadOrders = async () => {
     try {
       const { data } = await supabase.from("orders")
@@ -5187,6 +5257,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Order Management</h2>
               <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{orders.length} orders total</p>
             </div>
+            <button onClick={exportShippyPro} style={{ marginBottom:20, padding:"10px 16px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>📦 Esporta per ShippyPro (CSV)</button>
             <div style={{ display:"flex", gap:12, marginBottom:20, flexWrap:"wrap" }}>
               {["pending","confirmed","shipped","delivered"].map(s => (
                 <div key={s} style={{ flex:"1 1 120px", padding:"14px 16px", background:C.surface, border:`1px solid ${C.border}`, borderRadius:10, textAlign:"center" }}>
