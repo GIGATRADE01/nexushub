@@ -3240,6 +3240,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [issueBusy, setIssueBusy] = useState(false);
   const [realOrders, setRealOrders] = useState([]);
   const [showCheckout, setShowCheckout] = useState(false);
+  const [wishlist, setWishlist] = useState([]);
   const openDistDocs = async (p) => {
     setDistDocsProduct(p); setDistDocs([]);
     const { data } = await supabase.from("product_documents").select("*").eq("product_id", p.id).order("created_at", { ascending:false });
@@ -3285,6 +3286,17 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [distNotifs, setDistNotifs] = useState([]);
   const [distNotifPanel, setDistNotifPanel] = useState(false);
   const distUnread = distNotifs.filter(n => !n.read).length;
+  const toggleWishlist = async (productId) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    if (wishlist.includes(productId)) {
+      await supabase.from("wishlist_items").delete().eq("distributor_id", user.id).eq("product_id", productId);
+      setWishlist(w => w.filter(id => id !== productId));
+    } else {
+      await supabase.from("wishlist_items").insert({ distributor_id: user.id, product_id: productId });
+      setWishlist(w => [...w, productId]);
+    }
+  };
 
   const cartCount = Object.values(cart).reduce((a,b)=>a+b,0);
   const cartValue = Object.entries(cart).reduce((s,[pid,qty]) => {
@@ -3317,6 +3329,13 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       .select("*, order_items(*)")
       .order("created_at", { ascending: false })
       .then(({ data }) => setRealOrders(data || []));
+    // Load wishlist
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) {
+        supabase.from("wishlist_items").select("product_id").eq("distributor_id", data.user.id)
+          .then(({ data: w }) => setWishlist((w||[]).map(r => r.product_id)));
+      }
+    });
 
     // Load notifications
     // Load real brands (approved) for the marketplace — empty until brands register
@@ -3455,6 +3474,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const tabs = [
     { key:"brands", icon:"◈", label:t("tabBrandMarket") },
     { key:"catalog", icon:"◻", label:t("tabMyCatalog") },
+    { key:"wishlist", icon:"♥", label:"Desideri" },
     { key:"orders", icon:"↗", label:t("tabMyOrders") },
     { key:"fatture", icon:"🧾", label:"Fatture" },
     { key:"ai", icon:"🤖", label:"AI Suggestions" },
@@ -3593,7 +3613,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       {moq > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.blue}10`, color:C.blue, border:`1px solid ${C.blue}25` }}>MOQ: {moq}</span>}
                       {multiple > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.purple}10`, color:"#a855f7", border:`1px solid #a855f740` }}>×{multiple}</span>}
                     </div>
-                    <button onClick={() => openDistDocs(p)} style={{ width:"100%", marginBottom:12, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.gold}10`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>📎 Documenti / schede</button>
+                    <button onClick={() => toggleWishlist(p.id)} style={{ width:"100%", marginBottom:8, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background: wishlist.includes(p.id)?`${C.red}15`:"transparent", border:`1px solid ${wishlist.includes(p.id)?C.red:C.border}`, color: wishlist.includes(p.id)?C.red:C.textMuted }}>{wishlist.includes(p.id) ? "♥ Nei desideri" : "♡ Aggiungi ai desideri"}</button><button onClick={() => openDistDocs(p)} style={{ width:"100%", marginBottom:12, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.gold}10`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>📎 Documenti / schede</button>
                     {stock > 0 ? (
                       <div style={{ display:"flex", alignItems:"center", gap:8 }}>
                         <button onClick={() => {
@@ -3664,6 +3684,43 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           </div>
         )}
 
+        {tab==="wishlist" && (
+          <div>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Lista desideri</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>I prodotti che hai salvato. Aggiungili al carrello quando vuoi.</p>
+            {(() => {
+              const wp = visibleProducts.filter(p => wishlist.includes(p.id));
+              if (wp.length === 0) return (
+                <div style={{ textAlign:"center", padding:60, background:C.surface, borderRadius:12, border:`1px solid ${C.border}` }}>
+                  <div style={{ fontSize:40, marginBottom:12 }}>♡</div>
+                  <div style={{ fontSize:16, fontWeight:600, color:C.text, marginBottom:8 }}>Nessun desiderio salvato</div>
+                  <div style={{ fontSize:13, color:C.textMuted, marginBottom:20 }}>Vai al catalogo e tocca il cuore sui prodotti che ti interessano.</div>
+                  <button onClick={() => setTab("catalog")} style={{ padding:"10px 24px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>Vai al catalogo →</button>
+                </div>
+              );
+              return (
+                <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(min(280px,100%), 1fr))", gap:14 }}>
+                  {wp.map(p => {
+                    const stock = p.inventory?.quantity_available || 0;
+                    const ep = effPrice(p);
+                    return (
+                      <div key={p.id} style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:16 }}>
+                        <div style={{ fontSize:14, fontWeight:700, color:C.text, marginBottom:2 }}>{p.name}</div>
+                        <div style={{ fontSize:11, color:C.textMuted, marginBottom:8 }}>{p.sku} · {p.category}</div>
+                        <div style={{ fontSize:16, fontWeight:800, color:C.goldLight, marginBottom:6 }}>€{ep.toFixed(2)}</div>
+                        <div style={{ fontSize:11, color: stock>0?C.green:C.red, marginBottom:10 }}>{stock>0 ? `${stock} in stock` : "Esaurito"}</div>
+                        <div style={{ display:"flex", gap:8 }}>
+                          <button disabled={stock<=0} onClick={() => { const moq=p.min_order_qty||1, mult=p.order_multiple||1; setCart(c => ({ ...c, [p.id]: Math.min(stock, Math.max(moq,mult)) })); setTab("catalog"); window.scrollTo(0,0); }} style={{ flex:1, padding:"8px 10px", borderRadius:7, cursor: stock>0?"pointer":"not-allowed", background: stock>0?`${C.gold}20`:C.surface2, border:`1px solid ${stock>0?C.gold:C.border}`, color: stock>0?C.goldLight:C.textMuted, fontSize:12, fontWeight:600 }}>Aggiungi al carrello</button>
+                          <button onClick={() => toggleWishlist(p.id)} style={{ padding:"8px 12px", borderRadius:7, cursor:"pointer", background:`${C.red}10`, border:`1px solid ${C.red}40`, color:C.red, fontSize:13 }}>♥</button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })()}
+          </div>
+        )}
         {tab==="orders" && (
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("myOrdersTitle")}</h2>
@@ -3728,6 +3785,17 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       }} style={{ marginLeft:"auto", fontSize:11, color:C.goldLight, background:`${C.gold}15`, border:`1px solid ${C.gold}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer", fontWeight:600 }}>🔁 Riordina</button>
                       <button onClick={() => openIssue(o)} style={{ fontSize:11, color:C.red, background:"transparent", border:`1px solid ${C.red}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer" }}>🚩 Segnala problema</button>
                     </div>
+                    {(o.status === "delivered" || o.rating) && (
+                      <div style={{ marginTop:10, paddingTop:10, borderTop:`1px solid ${C.border}`, display:"flex", alignItems:"center", gap:5, flexWrap:"wrap" }}>
+                        <span style={{ fontSize:11, color:C.textMuted, marginRight:4 }}>{o.rating ? "La tua valutazione:" : "Valuta questo ordine:"}</span>
+                        {[1,2,3,4,5].map(star => (
+                          <span key={star} onClick={async () => {
+                            await supabase.from("orders").update({ rating: star, rated_at: new Date().toISOString() }).eq("id", o.id);
+                            setRealOrders(prev => prev.map(x => x.id===o.id ? {...x, rating: star} : x));
+                          }} style={{ cursor:"pointer", fontSize:18, lineHeight:1, color:(o.rating||0)>=star ? C.gold : C.border }}>★</span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
