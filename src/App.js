@@ -4074,6 +4074,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [scanResult, setScanResult] = useState(null);
   const [scanQty, setScanQty] = useState("");
   const [scanType, setScanType] = useState("in"); // in = restock, out = remove
+  const [linkProductId, setLinkProductId] = useState("");
   const scanInputRef = useRef(null);
 
   const notify = (msg, type="success") => {
@@ -5062,22 +5063,24 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                     onChange={e => setScanInput(e.target.value)}
                     onKeyDown={async e => {
                       if (e.key === "Enter" && scanInput.trim()) {
-                        // Search product by SKU or barcode
+                        const q = scanInput.trim();
+                        // Cerca per codice a barre (EAN), poi per SKU
                         const { data } = await supabase.from("products")
                           .select("*, inventory(*)")
-                          .or(`sku.eq.${scanInput.trim()},name.ilike.%${scanInput.trim()}%`)
-                          .single();
+                          .or(`barcode.eq.${q},sku.eq.${q}`)
+                          .limit(1).maybeSingle();
+                        setLinkProductId("");
                         if (data) {
                           setScanResult(data);
                           setScanQty("");
                           setScanInput("");
                         } else {
-                          setScanResult({ notFound: true, query: scanInput.trim() });
+                          setScanResult({ notFound: true, query: q });
                           setScanInput("");
                         }
                       }
                     }}
-                    placeholder="🔍 Scansiona barcode o inserisci SKU + Invio..."
+                    placeholder="🔍 Spara il codice a barre (EAN) o digita SKU + Invio..."
                     autoFocus
                     style={{ flex:1, padding:"14px 18px", borderRadius:10, fontSize:15,
                       background:C.surface2, border:`2px solid ${C.purple}50`,
@@ -5107,9 +5110,29 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                     background: scanResult.notFound ? `${C.red}10` : `${C.green}08`,
                     border:`1px solid ${scanResult.notFound ? C.red : C.green}40` }}>
                     {scanResult.notFound ? (
-                      <div style={{ color:C.red, fontSize:14 }}>
-                        ❌ Prodotto non trovato: <strong>"{scanResult.query}"</strong><br/>
-                        <span style={{ fontSize:12, color:C.textMuted }}>Verifica che lo SKU sia corretto</span>
+                      <div style={{ fontSize:14 }}>
+                        <div style={{ color:C.gold, fontWeight:700, marginBottom:6 }}>🔗 Codice non collegato: <span style={{ fontFamily:"monospace" }}>{scanResult.query}</span></div>
+                        <div style={{ fontSize:12, color:C.textMuted, marginBottom:12 }}>Collega questo codice a un prodotto del catalogo. Lo fai una sola volta: dalla prossima scansione il carico sara automatico.</div>
+                        <div style={{ display:"flex", gap:10, flexWrap:"wrap", alignItems:"center" }}>
+                          <select value={linkProductId} onChange={e=>setLinkProductId(e.target.value)} style={{ flex:1, minWidth:240, padding:"12px 14px", borderRadius:9, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none" }}>
+                            <option value="">— Scegli il prodotto —</option>
+                            {products.map(p => (
+                              <option key={p.id} value={p.id}>{p.name}{p.sku?` · ${p.sku}`:""}</option>
+                            ))}
+                          </select>
+                          <button onClick={async () => {
+                            if (!linkProductId) return;
+                            await supabase.from("products").update({ barcode: scanResult.query }).eq("id", linkProductId);
+                            const { data } = await supabase.from("products").select("*, inventory(*)").eq("id", linkProductId).maybeSingle();
+                            notify(`✓ Codice collegato a ${data?.name||"prodotto"}`);
+                            setScanResult(data || null);
+                            setLinkProductId("");
+                            setScanQty("");
+                          }} style={{ padding:"12px 20px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, whiteSpace:"nowrap" }}>
+                            🔗 Collega codice
+                          </button>
+                          <button onClick={() => { setScanResult(null); setLinkProductId(""); setTimeout(()=>scanInputRef.current?.focus(),100); }} style={{ padding:"12px 16px", borderRadius:9, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>✕</button>
+                        </div>
                       </div>
                     ) : (
                       <div>
@@ -5119,7 +5142,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                           )}
                           <div style={{ flex:1 }}>
                             <div style={{ fontSize:16, fontWeight:700, color:C.text }}>{scanResult.name}</div>
-                            <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{scanResult.sku} · {scanResult.category}</div>
+                            <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{scanResult.barcode?`EAN ${scanResult.barcode} · `:""}{scanResult.sku} · {scanResult.category}</div>
                             <div style={{ fontSize:13, fontWeight:700, marginTop:4 }}>
                               Stock attuale: <span style={{ color: (scanResult.inventory?.quantity_available||0)>20?C.green:C.red }}>
                                 {scanResult.inventory?.quantity_available || 0} unità
@@ -5200,7 +5223,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                   </div>
                 )}
                 <div style={{ marginTop:12, fontSize:11, color:C.textMuted }}>
-                  💡 Tieni premuto sul campo di testo e scansiona — il barcode viene letto automaticamente. Premi Invio per cercare.
+                  💡 Spara il codice con la pistola: il campo lo legge da solo e parte con Invio. La prima volta che un codice e nuovo, lo colleghi al prodotto una volta sola — poi e automatico.
                 </div>
               </div>
             )}
