@@ -236,13 +236,6 @@ const CATALOG = [
   { sku:"AM-CLG-100", name:"Club De Nuit", brand:"armaf", size:"100ml", category:"Bestseller", price:38.00, stock:520, pallet:360, moq:72 },
 ];
 
-const ORDERS = [
-  { id:"NH-2024-1847", distributor:"GigaTrade S.R.L.", country:"Italy", flag:"🇮🇹", items:340, pallets:2, value:28400, status:"shipped", date:"Today 09:14", eta:"Tomorrow" },
-  { id:"NH-2024-1846", distributor:"Deutsche Aromas GmbH", country:"Germany", flag:"🇩🇪", items:520, pallets:3, value:43680, status:"processing", date:"Today 07:33", eta:"Jun 1" },
-  { id:"NH-2024-1845", distributor:"Marian Distribution SRL", country:"Romania", flag:"🇷🇴", items:180, pallets:1, value:15120, status:"delivered", date:"Yesterday", eta:"Delivered" },
-  { id:"NH-2024-1844", distributor:"London Luxe Trading", country:"UK", flag:"🇬🇧", items:290, pallets:2, value:32480, status:"shipped", date:"Yesterday", eta:"Jun 2" },
-  { id:"NH-2024-1843", distributor:"Maison Orient SARL", country:"France", flag:"🇫🇷", items:155, pallets:1, value:13020, status:"delivered", date:"May 27", eta:"Delivered" },
-];
 
 const PAYMENTS = [
   { id:"NH-2024-1847", distributor:"GigaTrade S.R.L.", country:"Italy", flag:"🇮🇹", gross:28400, brandShare:25160, nexusFee:3240, feePercent:"11.4%", method:"SEPA Instant", time:"Today 09:14:32", status:"settled" },
@@ -2196,7 +2189,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
       const { data } = await supabase.from("orders")
-        .select("*, order_items(*)").eq("brand_id", user.id);
+        .select("*, order_items(*), distributor:profiles!orders_distributor_id_fkey(company_name)").eq("brand_id", user.id);
       setBrandOrders(data || []);
     };
     loadBrandOrders();
@@ -2708,20 +2701,23 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
               <Stat icon="↗" label={t("statTotalValue")} value="€ 2.4M" sub={t("statTotalValueSub")}/>
               <Stat icon="⚡" label={t("statAvgDispatch")} value={t("statAvgDispatchVal")} sub={t("statAvgDispatchSub")} accent={C.green}/>
             </div>
-            <Table minWidth={900}
-              headers={[t("colOrderId"),t("colDistributor"),t("colCountry"),t("colItems"),t("colPallets"),t("colValue"),t("colStatus"),t("colDate"),t("colEta")]}
-              rows={ORDERS.map(o => [
-                <span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{o.id}</span>,
-                <span style={{ fontSize:13, color:C.text, fontWeight:500 }}>{o.distributor}</span>,
-                <span style={{ fontSize:13 }}>{o.flag} {o.country}</span>,
-                <span style={{ fontSize:13, color:C.textMuted }}>{o.items} u.</span>,
-                <span style={{ fontSize:13, color:C.textMuted }}>{o.pallets}</span>,
-                <span style={{ fontSize:13, fontWeight:700, color:C.goldLight }}>{fmt(o.value)}</span>,
-                <Badge status={o.status}/>,
-                <span style={{ fontSize:12, color:C.textMuted }}>{o.date}</span>,
-                <span style={{ fontSize:12, color:o.eta==="Delivered"?C.green:C.blue, fontWeight:500 }}>{o.eta}</span>,
-              ])}
-            />
+            {brandOrders.length === 0 ? (
+              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>Nessun ordine ancora.</div>
+            ) : (
+              <Table minWidth={900}
+                headers={["Ordine","Distributore","Articoli","Valore","Stato","Tracking","Voto","Data"]}
+                rows={brandOrders.map(o => [
+                  <span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{o.order_number}</span>,
+                  <span style={{ fontSize:13, color:C.text, fontWeight:500 }}>{o.distributor?.company_name || "—"}</span>,
+                  <span style={{ fontSize:13, color:C.textMuted }}>{(o.order_items||[]).reduce((a,it)=>a+Number(it.quantity||0),0)} u.</span>,
+                  <span style={{ fontSize:13, fontWeight:700, color:C.goldLight }}>€{Number(o.total_amount||0).toLocaleString("it-IT")}</span>,
+                  <Badge status={o.status}/>,
+                  o.tracking_number ? <span style={{ fontSize:11 }}>{o.courier||""} <span style={{ fontFamily:"monospace", color:C.blue }}>{o.tracking_number}</span></span> : <span style={{ fontSize:11, color:C.textDim }}>—</span>,
+                  o.rating ? <span style={{ fontSize:13, color:C.gold }}>{"★".repeat(o.rating)}</span> : <span style={{ fontSize:11, color:C.textDim }}>—</span>,
+                  <span style={{ fontSize:12, color:C.textMuted }}>{new Date(o.created_at).toLocaleDateString()}</span>,
+                ])}
+              />
+            )}
           </div>
         )}
         {brandInvoiceView && <InvoiceModal inv={brandInvoiceView} onClose={()=>setBrandInvoiceView(null)}/>}
@@ -3785,6 +3781,12 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       }} style={{ marginLeft:"auto", fontSize:11, color:C.goldLight, background:`${C.gold}15`, border:`1px solid ${C.gold}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer", fontWeight:600 }}>🔁 Riordina</button>
                       <button onClick={() => openIssue(o)} style={{ fontSize:11, color:C.red, background:"transparent", border:`1px solid ${C.red}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer" }}>🚩 Segnala problema</button>
                     </div>
+                    {o.tracking_number && (
+                      <div style={{ marginTop:8, fontSize:12, color:C.blue }}>
+                        🚚 {o.courier||"Corriere"} · Tracking: <span style={{ fontFamily:"monospace" }}>{o.tracking_number}</span>
+                        {o.tracking_url && <> · <a href={o.tracking_url} target="_blank" rel="noreferrer" style={{ color:C.blue, textDecoration:"underline" }}>Traccia</a></>}
+                      </div>
+                    )}
                     {(o.status === "delivered" || o.rating) && (
                       <div style={{ marginTop:10, paddingTop:10, borderTop:`1px solid ${C.border}`, display:"flex", alignItems:"center", gap:5, flexWrap:"wrap" }}>
                         <span style={{ fontSize:11, color:C.textMuted, marginRight:4 }}>{o.rating ? "La tua valutazione:" : "Valuta questo ordine:"}</span>
@@ -4666,6 +4668,27 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   };
 
   // Update order status
+  const [trackEdits, setTrackEdits] = useState({});
+  const saveTracking = async (o) => {
+    const e = trackEdits[o.id] || {};
+    const courier = (e.courier || "").trim();
+    const tracking = (e.tracking_number || "").trim();
+    if (!tracking) { notify("Inserisci il numero di tracking", "error"); return; }
+    const url = courier.toUpperCase().includes("BRT")
+      ? "https://vas.brt.it/vas/sped_numspe_par.htm?Nspediz=" + encodeURIComponent(tracking)
+      : "";
+    const newStatus = (o.status === "pending" || o.status === "confirmed") ? "shipped" : o.status;
+    await supabase.from("orders").update({
+      courier: courier || null,
+      tracking_number: tracking,
+      tracking_url: url || null,
+      shipped_at: o.shipped_at || new Date().toISOString(),
+      status: newStatus
+    }).eq("id", o.id);
+    notify("📦 Tracking salvato — distributore notificato");
+    setTrackEdits(prev => { const n = { ...prev }; delete n[o.id]; return n; });
+    loadOrders();
+  };
   const updateOrderStatus = async (orderId, status) => {
     await supabase.from("orders").update({ status }).eq("id", orderId);
     notify("Order " + status + "!");
@@ -5380,7 +5403,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:800 }}>
                 <thead>
                   <tr style={{ background:C.surface2 }}>
-                    {["Order #","Distributor","Brand","Spedire a","Amount","Status","Date","Actions"].map((h,i) => (
+                    {["Order #","Distributor","Brand","Spedire a","Amount","Status","Date","Tracking","Actions"].map((h,i) => (
                       <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
                     ))}
                   </tr>
@@ -5400,8 +5423,22 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         ) : "—"}
                       </td>
                       <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.goldLight }}>€{o.total_amount?.toLocaleString("it-IT")}</td>
-                      <td style={{ padding:"11px 14px" }}><Badge status={o.status}/></td>
+                      <td style={{ padding:"11px 14px" }}><Badge status={o.status}/>{o.rating ? <div style={{ fontSize:12, color:C.gold, marginTop:3 }}>{"★".repeat(o.rating)}<span style={{ color:C.border }}>{"★".repeat(5-o.rating)}</span></div> : null}</td>
                       <td style={{ padding:"11px 14px", fontSize:11, color:C.textDim }}>{new Date(o.created_at).toLocaleDateString()}</td>
+                      <td style={{ padding:"11px 14px" }}>
+                        {o.tracking_number ? (
+                          <div style={{ fontSize:11 }}>
+                            <div style={{ color:C.text, fontWeight:600 }}>{o.courier||"—"}</div>
+                            <div style={{ color:C.blue, fontFamily:"monospace" }}>{o.tracking_number}</div>
+                          </div>
+                        ) : (
+                          <div style={{ display:"flex", flexDirection:"column", gap:4, minWidth:140 }}>
+                            <input value={trackEdits[o.id]?.courier ?? ""} onChange={ev=>setTrackEdits(p=>({ ...p, [o.id]:{ ...p[o.id], courier:ev.target.value } }))} placeholder="Corriere (es. BRT)" style={{ padding:"4px 6px", borderRadius:5, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:11 }}/>
+                            <input value={trackEdits[o.id]?.tracking_number ?? ""} onChange={ev=>setTrackEdits(p=>({ ...p, [o.id]:{ ...p[o.id], tracking_number:ev.target.value } }))} placeholder="N. tracking" style={{ padding:"4px 6px", borderRadius:5, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:11 }}/>
+                            <button onClick={()=>saveTracking(o)} style={{ padding:"4px 8px", borderRadius:5, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.blue}20`, border:`1px solid ${C.blue}50`, color:C.blue }}>Salva + notifica</button>
+                          </div>
+                        )}
+                      </td>
                       <td style={{ padding:"11px 14px" }}>
                         <select onChange={e => updateOrderStatus(o.id, e.target.value)} value={o.status}
                           style={{ padding:"5px 8px", borderRadius:6, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:11, cursor:"pointer" }}>
