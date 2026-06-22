@@ -4161,6 +4161,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [invoices, setInvoices] = useState([]);
   const [contracts, setContracts] = useState([]);
   const [adminViewContract, setAdminViewContract] = useState(null);
+  const [contractCreate, setContractCreate] = useState(false);
+  const [contractForm, setContractForm] = useState({});
   const [paySplits, setPaySplits] = useState([]);
   const [auditLog, setAuditLog] = useState([]);
   const [orderIssues, setOrderIssues] = useState([]);
@@ -4497,6 +4499,26 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     } catch(e) { console.error(e); }
   };
 
+  const openNewContract = () => {
+    const today = new Date(); const vu = new Date(); vu.setFullYear(vu.getFullYear()+1);
+    setContractForm({ brand_id:"", distributor_id:"", territory:"", commission_rate:11.4, moq_per_order:0, payment_terms:30, exclusivity:true, valid_from:today.toISOString().slice(0,10), valid_until:vu.toISOString().slice(0,10) });
+    setContractCreate(true);
+  };
+  const saveNewContract = async () => {
+    const f = contractForm;
+    if (!f.brand_id || !f.distributor_id) { notify("Scegli brand e distributore", "error"); return; }
+    const num = "CT-" + new Date().getFullYear() + "-" + Math.random().toString(36).slice(2,7).toUpperCase();
+    const { error } = await supabase.from("contracts").insert({
+      contract_number: num, brand_id: f.brand_id, distributor_id: f.distributor_id,
+      territory: f.territory||null, commission_rate: Number(f.commission_rate)||0,
+      moq_per_order: Number(f.moq_per_order)||0, payment_terms: Number(f.payment_terms)||30,
+      exclusivity: !!f.exclusivity, status: "draft",
+      valid_from: f.valid_from||null, valid_until: f.valid_until||null
+    });
+    if (error) { notify("Errore: " + error.message, "error"); return; }
+    notify("Contratto creato in bozza");
+    setContractCreate(false); loadContracts();
+  };
   const viewInvoice = async (invoiceId) => {
     try {
       const res = await fetch(
@@ -6095,11 +6117,27 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📝 Contratti Digitali</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Contratti di distribuzione esclusiva per territorio</p>
               </div>
-              <button onClick={() => notify("Seleziona brand e distributore dalla tabella per creare un contratto")}
+              <button onClick={openNewContract}
                 style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>
                 + Nuovo Contratto
               </button>
             </div>
+
+            {(() => {
+              const today=new Date(); const soon=new Date(); soon.setDate(soon.getDate()+30);
+              const act=contracts.filter(c=>c.status==="active").length;
+              const dr=contracts.filter(c=>c.status==="draft").length;
+              const expd=contracts.filter(c=>c.valid_until && new Date(c.valid_until)<today).length;
+              const soonN=contracts.filter(c=>c.valid_until && new Date(c.valid_until)>=today && new Date(c.valid_until)<soon).length;
+              return (
+                <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:20 }}>
+                  <Stat icon="✅" label="Attivi" value={act} accent={C.green}/>
+                  <Stat icon="📝" label="Bozze" value={dr} accent={C.gold}/>
+                  <Stat icon="⏳" label="In scadenza (30gg)" value={soonN} accent={C.gold}/>
+                  <Stat icon="⚠️" label="Scaduti" value={expd} accent={C.red}/>
+                </div>
+              );
+            })()}
 
             {contracts.length === 0 ? (
               <div style={{ textAlign:"center", padding:60, background:C.surface, borderRadius:12, border:`1px solid ${C.border}` }}>
@@ -6129,6 +6167,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         </td>
                         <td style={{ padding:"11px 14px", fontSize:11, color:C.textMuted }}>
                           {c.valid_from} → {c.valid_until}
+                          {c.valid_until && new Date(c.valid_until) < new Date() && <span style={{ marginLeft:6, padding:"1px 6px", borderRadius:10, fontSize:10, fontWeight:700, background:`${C.red}18`, color:C.red, border:`1px solid ${C.red}40` }}>scaduto</span>}
                         </td>
                         <td style={{ padding:"11px 14px" }}><Badge status={c.status}/></td>
                         <td style={{ padding:"11px 14px" }}>
@@ -6152,6 +6191,40 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 </table>
               </div>
             )}
+            {contractCreate && (() => {
+              const fld = { padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, width:"100%", boxSizing:"border-box", outline:"none" };
+              const lbl = { fontSize:11, color:C.textMuted, display:"block", marginBottom:5, marginTop:12 };
+              return (
+              <Modal title="Nuovo contratto di distribuzione" onClose={()=>setContractCreate(false)} onSave={saveNewContract} saveLabel="Crea bozza">
+                <label style={lbl}>Brand *</label>
+                <select value={contractForm.brand_id||""} onChange={e=>setContractForm(f=>({...f, brand_id:e.target.value}))} style={fld}>
+                  <option value="">— Scegli brand —</option>
+                  {brands.map(b=>(<option key={b.id} value={b.id}>{b.company_name||b.email}</option>))}
+                </select>
+                <label style={lbl}>Distributore *</label>
+                <select value={contractForm.distributor_id||""} onChange={e=>setContractForm(f=>({...f, distributor_id:e.target.value}))} style={fld}>
+                  <option value="">— Scegli distributore —</option>
+                  {users.filter(u=>u.role==="distributor").map(u=>(<option key={u.id} value={u.id}>{u.company_name||u.email}</option>))}
+                </select>
+                <label style={lbl}>Territorio</label>
+                <input value={contractForm.territory||""} onChange={e=>setContractForm(f=>({...f, territory:e.target.value}))} placeholder="es. Italia, UE, Romania..." style={fld}/>
+                <div style={{ display:"flex", gap:10 }}>
+                  <div style={{ flex:1 }}><label style={lbl}>Commissione (%)</label><input type="number" step="0.1" value={contractForm.commission_rate} onChange={e=>setContractForm(f=>({...f, commission_rate:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>MOQ per ordine</label><input type="number" value={contractForm.moq_per_order} onChange={e=>setContractForm(f=>({...f, moq_per_order:e.target.value}))} style={fld}/></div>
+                </div>
+                <div style={{ display:"flex", gap:10, alignItems:"center" }}>
+                  <div style={{ flex:1 }}><label style={lbl}>Termini pagamento (giorni)</label><input type="number" value={contractForm.payment_terms} onChange={e=>setContractForm(f=>({...f, payment_terms:e.target.value}))} style={fld}/></div>
+                  <label style={{ display:"flex", alignItems:"center", gap:8, fontSize:13, color:C.text, marginTop:24, flex:1, cursor:"pointer" }}>
+                    <input type="checkbox" checked={!!contractForm.exclusivity} onChange={e=>setContractForm(f=>({...f, exclusivity:e.target.checked}))}/> Esclusiva territoriale
+                  </label>
+                </div>
+                <div style={{ display:"flex", gap:10 }}>
+                  <div style={{ flex:1 }}><label style={lbl}>Valido dal</label><input type="date" value={contractForm.valid_from||""} onChange={e=>setContractForm(f=>({...f, valid_from:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>Valido fino al</label><input type="date" value={contractForm.valid_until||""} onChange={e=>setContractForm(f=>({...f, valid_until:e.target.value}))} style={fld}/></div>
+                </div>
+              </Modal>
+              );
+            })()}
           </div>
         )}
 
