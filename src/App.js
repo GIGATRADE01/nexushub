@@ -4152,6 +4152,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [compModal, setCompModal] = useState(false);
   const [compForm, setCompForm] = useState({});
   const [compBusy, setCompBusy] = useState(false);
+  const [marginRows, setMarginRows] = useState([]);
+  const [marginBusy, setMarginBusy] = useState(false);
+  const [feeRate, setFeeRate] = useState(11.4);
+  const [opEdits, setOpEdits] = useState({});
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState(null);
   const [invoices, setInvoices] = useState([]);
@@ -4334,6 +4338,26 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (!window.confirm("Eliminare il documento " + d.name + "?")) return;
     await supabase.from("compliance_documents").delete().eq("id", d.id);
     setComplianceDocs(prev => prev.filter(x => x.id !== d.id));
+  };
+  const loadMargins = async () => {
+    setMarginBusy(true);
+    const [r1, r2, r3] = await Promise.all([
+      supabase.from("orders").select("id, order_number, total_amount, status, created_at, brand_id, brandp:profiles!orders_brand_id_fkey(company_name)").neq("status","cancelled").order("created_at",{ ascending:false }),
+      supabase.from("payment_splits").select("order_id, nexushub_amount, stripe_fee, brand_amount, total_amount"),
+      supabase.from("order_economics").select("order_id, operating_cost")
+    ]);
+    const sMap={}; (r2.data||[]).forEach(x=>{ sMap[x.order_id]=x; });
+    const eMap={}; (r3.data||[]).forEach(x=>{ eMap[x.order_id]=x; });
+    setMarginRows((r1.data||[]).map(o=>({ ...o, split:sMap[o.id]||null, econ:eMap[o.id]||null })));
+    setMarginBusy(false);
+  };
+  const saveOpCost = async (orderId, val) => {
+    const v = Math.max(0, Number(val)||0);
+    const { data: { user } } = await supabase.auth.getUser();
+    await supabase.from("order_economics").upsert({ order_id:orderId, operating_cost:v, updated_by:user?.id||null, updated_at:new Date().toISOString() }, { onConflict:"order_id" });
+    setMarginRows(prev=>prev.map(r=>r.id===orderId?{ ...r, econ:{ order_id:orderId, operating_cost:v } }:r));
+    setOpEdits(prev=>{ const n={...prev}; delete n[orderId]; return n; });
+    notify("Costo operativo salvato");
   };
   const loadProducts = async () => {
     try {
@@ -4613,6 +4637,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "logistics") { loadProducts(); loadOrders(); }
     if (tab === "retail") { loadRetail(); loadBrands(); }
     if (tab === "compliance") { loadCompliance(); loadUsers(); }
+    if (tab === "margini") loadMargins();
     if (tab === "invoices") loadInvoices();
     if (tab === "contracts") { loadContracts(); loadBrands(); loadUsers(); }
     if (tab === "commissions") { loadCommissions(); loadCommissionLog(); }
@@ -4867,6 +4892,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"logistics", icon:"🚛", label:"Logistica" },
     { key:"retail", icon:"🏬", label:"Retail" },
     { key:"compliance", icon:"🗂️", label:"Compliance" },
+    { key:"margini", icon:"📈", label:"Margini" },
     { key:"orders", icon:"📋", label:"Orders" },
     { key:"invoices", icon:"🧾", label:"Fatture" },
     { key:"contracts", icon:"📝", label:"Contratti" },
@@ -5249,6 +5275,66 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         )}
 
         {/* INVENTORY TAB */}
+        {tab === "margini" && (() => {
+          const num=(x)=>Number(x||0);
+          const rowCalc=(r)=>{ const gmv=num(r.total_amount); const fee=r.split?num(r.split.nexushub_amount):gmv*feeRate/100; const stripe=r.split?num(r.split.stripe_fee):0; const op=num(r.econ&&r.econ.operating_cost); const net=fee-stripe-op; return { gmv, fee, stripe, op, net, pct: gmv>0?net/gmv*100:0 }; };
+          const tot=marginRows.reduce((a,r)=>{ const c=rowCalc(r); a.gmv+=c.gmv;a.fee+=c.fee;a.stripe+=c.stripe;a.op+=c.op;a.net+=c.net; return a; },{gmv:0,fee:0,stripe:0,op:0,net:0});
+          const avgPct = tot.gmv>0 ? tot.net/tot.gmv*100 : 0;
+          const eur=(n)=>"€"+num(n).toLocaleString("it-IT",{minimumFractionDigits:2,maximumFractionDigits:2});
+          return (
+          <div>
+            <div style={{ marginBottom:14 }}>
+              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📈 Margini · vista interna</h2>
+              <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Economia reale di NexusHub: commissioni incassate meno costi. Margine netto e ROI per ordine.</p>
+            </div>
+            <div style={{ display:"flex", alignItems:"center", gap:10, background:`${C.red}10`, border:`1px solid ${C.red}35`, borderRadius:10, padding:"10px 14px", marginBottom:20 }}>
+              <span style={{ fontSize:18 }}>🔒</span>
+              <span style={{ fontSize:12.5, color:C.text }}>Dati interni GigaTrade. Costi e margine netto <b>non sono mai visibili</b> a brand o distributori (tabella separata, accesso solo admin).</span>
+            </div>
+            <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:20 }}>
+              <Stat icon="💶" label="GMV (transato)" value={eur(tot.gmv)}/>
+              <Stat icon="💰" label="Ricavo commissioni" value={eur(tot.fee)} accent={C.gold}/>
+              <Stat icon="💳" label="Costi (Stripe + op.)" value={eur(tot.stripe+tot.op)} accent={C.red}/>
+              <Stat icon="✅" label="Margine netto" value={eur(tot.net)} accent={C.green}/>
+              <Stat icon="📊" label="Margine medio" value={avgPct.toFixed(1)+"%"} accent={C.blue}/>
+            </div>
+            <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:16, fontSize:12, color:C.textMuted }}>
+              <span>Fee stimata su ordini senza split:</span>
+              <input type="number" step="0.1" value={feeRate} onChange={e=>setFeeRate(Number(e.target.value)||0)} style={{ width:70, padding:"5px 8px", borderRadius:6, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, outline:"none" }}/>
+              <span>%</span>
+              <span style={{ color:C.textDim }}>(gli ordini con split reale usano i valori effettivi)</span>
+            </div>
+            {marginRows.length===0 ? (
+              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted, fontSize:14 }}>{marginBusy ? "Caricamento..." : "Nessun ordine da analizzare."}</div>
+            ) : (
+              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                <table style={{ width:"100%", borderCollapse:"collapse", minWidth:880 }}>
+                  <thead><tr style={{ background:C.surface2 }}>
+                    {["Ordine","Brand","GMV","Commissione","Stripe","Costo operativo","Margine netto","%"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign: i>=2&&i<7?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
+                  </tr></thead>
+                  <tbody>
+                    {marginRows.map((r,i)=>{ const c=rowCalc(r); const edit=(r.id in opEdits)?opEdits[r.id]:(r.econ&&r.econ.operating_cost!=null?r.econ.operating_cost:""); return (
+                      <tr key={r.id} style={{ background:i%2?C.surface2+"50":"transparent", borderTop:`1px solid ${C.border}` }}>
+                        <td style={{ padding:"10px 14px", fontSize:12, fontWeight:600, color:C.text, whiteSpace:"nowrap" }}>{r.order_number||r.id.slice(0,8)}</td>
+                        <td style={{ padding:"10px 14px", fontSize:12, color:C.textMuted }}>{(r.brandp&&r.brandp.company_name)||"—"}</td>
+                        <td style={{ padding:"10px 14px", fontSize:12, color:C.text, textAlign:"right", whiteSpace:"nowrap" }}>{eur(c.gmv)}</td>
+                        <td style={{ padding:"10px 14px", fontSize:12, color:C.goldLight, textAlign:"right", whiteSpace:"nowrap" }}>{eur(c.fee)}</td>
+                        <td style={{ padding:"10px 14px", fontSize:12, color:C.textMuted, textAlign:"right", whiteSpace:"nowrap" }}>{c.stripe?("-"+eur(c.stripe)):"—"}</td>
+                        <td style={{ padding:"10px 14px", textAlign:"right", whiteSpace:"nowrap" }}>
+                          <input type="number" step="0.01" placeholder="0" value={edit} onChange={e=>setOpEdits(prev=>({...prev, [r.id]:e.target.value}))} style={{ width:84, padding:"5px 8px", borderRadius:6, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, textAlign:"right", outline:"none" }}/>
+                          <button onClick={()=>saveOpCost(r.id, edit)} style={{ marginLeft:6, padding:"5px 9px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.gold}18`, border:`1px solid ${C.gold}40`, color:C.goldLight }}>Salva</button>
+                        </td>
+                        <td style={{ padding:"10px 14px", fontSize:12.5, fontWeight:700, textAlign:"right", whiteSpace:"nowrap", color: c.net>=0?C.green:C.red }}>{eur(c.net)}</td>
+                        <td style={{ padding:"10px 14px", fontSize:12, fontWeight:600, textAlign:"right", color: c.pct>=0?C.green:C.red }}>{c.pct.toFixed(1)}%</td>
+                      </tr>
+                    );})}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+          );
+        })()}
         {tab === "compliance" && (() => {
           const CATS = [["company","Documenti aziendali"],["certificate","Certificati"],["safety_sheet","Schede sicurezza"],["import","Import / Dogana"],["authorization","Autorizzazioni"],["price_list","Listini"],["marketing","Marketing"],["quality","Report qualita"],["arrival_photo","Foto merce"],["amazon","Amazon / Retail"],["other","Altro"]];
           const catLabel = (k)=>{ const f=CATS.find(z=>z[0]===k); return f?f[1]:k; };
