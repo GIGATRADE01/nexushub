@@ -1860,6 +1860,75 @@ const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
 
 const NEXUS_STATUS_IT = { draft:"bozza", pending:"in attesa", confirmed:"confermato", shipped:"spedito", delivered:"consegnato", cancelled:"annullato" };
 
+const BrandAmazonPanel = () => {
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => { (async () => {
+    try { const { data } = await supabase.rpc("amazon_brand_performance"); setRows(data || []); }
+    catch(e){ console.error(e); }
+    setLoading(false);
+  })(); }, []);
+  const num = (x) => Number(x||0);
+  const eur = (n) => "€" + num(n).toLocaleString("it-IT", { minimumFractionDigits:2, maximumFractionDigits:2 });
+  const sold30 = rows.reduce((a,r)=>a+num(r.units_sold_30d),0);
+  const stock = rows.reduce((a,r)=>a+num(r.units_in_stock),0);
+  const rev30 = rows.reduce((a,r)=>a+num(r.sell_price)*num(r.units_sold_30d),0);
+  const mkts = Array.from(new Set(rows.map(r=>r.marketplace))).filter(Boolean);
+  return (
+    <div>
+      <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:6 }}>
+        <div style={{ width:44, height:44, borderRadius:11, background:"linear-gradient(135deg,#ff9900,#e47911)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:22 }}>🛒</div>
+        <div>
+          <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:0 }}>Le tue vendite su Amazon EU</h2>
+          <p style={{ color:C.textMuted, fontSize:12.5, margin:"2px 0 0" }}>Gestito da NexusHub · logistica + FBA · dati aggiornati</p>
+        </div>
+      </div>
+      {loading ? (
+        <div style={{ textAlign:"center", padding:48, color:C.textMuted, fontSize:14 }}>Caricamento dati Amazon…</div>
+      ) : rows.length===0 ? (
+        <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, marginTop:14 }}>
+          <div style={{ fontSize:40, marginBottom:12 }}>🛒</div>
+          <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:8 }}>Nessun prodotto ancora su Amazon</div>
+          <div style={{ fontSize:13, color:C.textMuted }}>Quando il tuo partner attiva i tuoi prodotti su Amazon EU, qui vedrai vendite, stock e andamento in tempo reale.</div>
+        </div>
+      ) : (
+        <div style={{ marginTop:16 }}>
+          <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:20 }}>
+            <Stat icon="💶" label="Fatturato Amazon (30gg)" value={eur(rev30)} accent={C.green}/>
+            <Stat icon="📦" label="Unita vendute (30gg)" value={sold30} accent={C.gold}/>
+            <Stat icon="🏦" label="Stock su Amazon" value={stock} accent={C.blue}/>
+            <Stat icon="🌍" label="Marketplace attivi" value={mkts.length}/>
+          </div>
+          {mkts.length>0 && (
+            <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginBottom:18 }}>
+              {mkts.map(m=>(<span key={m} style={{ padding:"4px 12px", borderRadius:20, fontSize:12, fontWeight:700, background:`${C.gold}12`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>Amazon.{m.toLowerCase()}</span>))}
+            </div>
+          )}
+          <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+            <table style={{ width:"100%", borderCollapse:"collapse", minWidth:640 }}>
+              <thead><tr style={{ background:C.surface2 }}>
+                {["Prodotto","Marketplace","Prezzo Amazon","Stock","Venduti (30gg)"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign: i>=2?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".07em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
+              </tr></thead>
+              <tbody>
+                {rows.map((r,i)=>(
+                  <tr key={r.id} style={{ background:i%2?C.surface2+"50":"transparent", borderTop:`1px solid ${C.border}` }}>
+                    <td style={{ padding:"10px 14px", fontSize:12.5, color:C.text }}><div style={{ fontWeight:600 }}>{r.product_name}</div>{r.asin?<div style={{ fontSize:10.5, color:C.textDim, fontFamily:"monospace" }}>{r.asin}</div>:null}</td>
+                    <td style={{ padding:"10px 14px", fontSize:11, color:C.textMuted }}>{r.marketplace}<span style={{ color:C.textDim }}> · {r.fulfillment}</span></td>
+                    <td style={{ padding:"10px 14px", fontSize:12, color:C.text, textAlign:"right", whiteSpace:"nowrap" }}>{eur(r.sell_price)}</td>
+                    <td style={{ padding:"10px 14px", fontSize:12, color:C.textMuted, textAlign:"right" }}>{num(r.units_in_stock)}</td>
+                    <td style={{ padding:"10px 14px", fontSize:12.5, fontWeight:700, color:C.green, textAlign:"right" }}>{num(r.units_sold_30d)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p style={{ fontSize:11, color:C.textDim, marginTop:12 }}>Prezzi, sponsorizzazioni e logistica sono gestiti dal tuo partner di distribuzione (NexusHub). I dati di vendita vengono aggiornati periodicamente.</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const NexusAI = ({ role }) => {
   const eur = (n) => "€" + Number(n||0).toLocaleString("it-IT", { minimumFractionDigits:2, maximumFractionDigits:2 });
   const num = (x) => Number(x||0);
@@ -2287,6 +2356,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"fatture", icon:"🧾", label:"Fatture" },
     { key:"payments", icon:"€", label:t("tabPayments") },
     { key:"analytics", icon:"🤖", label:"AI Analytics" },
+    { key:"amazon", icon:"🛒", label:"Amazon" },
   ];
   return (
     <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
@@ -2731,6 +2801,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
             )}
           </div>
         )}
+        {tab==="amazon" && <BrandAmazonPanel/>}
         {tab==="analytics" && (
           <div>
             <NexusAI role="brand"/>
@@ -4112,6 +4183,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [marginBusy, setMarginBusy] = useState(false);
   const [feeRate, setFeeRate] = useState(11.4);
   const [opEdits, setOpEdits] = useState({});
+  const [amazonRows, setAmazonRows] = useState([]);
+  const [amazonModal, setAmazonModal] = useState(false);
+  const [amazonForm, setAmazonForm] = useState({});
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState(null);
   const [invoices, setInvoices] = useState([]);
@@ -4316,6 +4390,35 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     setMarginRows(prev=>prev.map(r=>r.id===orderId?{ ...r, econ:{ order_id:orderId, operating_cost:v } }:r));
     setOpEdits(prev=>{ const n={...prev}; delete n[orderId]; return n; });
     notify("Costo operativo salvato");
+  };
+  const loadAmazon = async () => {
+    const { data } = await supabase.from("amazon_listings").select("*").order("created_at", { ascending:false });
+    setAmazonRows(data || []);
+  };
+  const openAmazon = (t) => {
+    setAmazonForm(t ? { ...t } : { product_name:"", asin:"", sku:"", brand_id:"", marketplace:"IT", fulfillment:"FBA", cost_price:0, sell_price:0, referral_fee_pct:15, fba_fee:0, units_in_stock:0, units_sold_30d:0, notes:"" });
+    setAmazonModal(t || { _new:true });
+  };
+  const saveAmazon = async () => {
+    const f = amazonForm;
+    if (!f.product_name || !f.product_name.trim()) { notify("Inserisci il nome prodotto", "error"); return; }
+    const payload = {
+      product_name: f.product_name.trim(), asin: f.asin||null, sku: f.sku||null, brand_id: f.brand_id||null,
+      marketplace: f.marketplace||"IT", fulfillment: f.fulfillment||"FBA",
+      cost_price: Number(f.cost_price)||0, sell_price: Number(f.sell_price)||0,
+      referral_fee_pct: Number(f.referral_fee_pct)||0, fba_fee: Number(f.fba_fee)||0,
+      units_in_stock: Math.max(0, parseInt(f.units_in_stock)||0), units_sold_30d: Math.max(0, parseInt(f.units_sold_30d)||0),
+      notes: f.notes||null, updated_at: new Date().toISOString()
+    };
+    if (f.id) { await supabase.from("amazon_listings").update(payload).eq("id", f.id); }
+    else { const { data: { user } } = await supabase.auth.getUser(); payload.created_by = user?.id||null; await supabase.from("amazon_listings").insert(payload); }
+    notify("Listing salvato");
+    setAmazonModal(false); loadAmazon();
+  };
+  const deleteAmazon = async (t) => {
+    if (!window.confirm("Eliminare " + t.product_name + "?")) return;
+    await supabase.from("amazon_listings").delete().eq("id", t.id);
+    setAmazonRows(prev => prev.filter(x => x.id !== t.id));
   };
   const loadProducts = async () => {
     try {
@@ -4616,6 +4719,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "retail") { loadRetail(); loadBrands(); }
     if (tab === "compliance") { loadCompliance(); loadUsers(); }
     if (tab === "margini") loadMargins();
+    if (tab === "amazon") { loadAmazon(); loadBrands(); }
     if (tab === "invoices") loadInvoices();
     if (tab === "contracts") { loadContracts(); loadBrands(); loadUsers(); }
     if (tab === "commissions") { loadCommissions(); loadCommissionLog(); }
@@ -4872,6 +4976,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"compliance", icon:"🗂️", label:"Compliance" },
     { key:"margini", icon:"📈", label:"Margini" },
     { key:"nexusai", icon:"🤖", label:"Nexus AI" },
+    { key:"amazon", icon:"🛒", label:"Amazon" },
     { key:"orders", icon:"📋", label:"Orders" },
     { key:"invoices", icon:"🧾", label:"Fatture" },
     { key:"contracts", icon:"📝", label:"Contratti" },
@@ -5254,6 +5359,111 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         )}
 
         {/* INVENTORY TAB */}
+        {tab === "amazon" && (() => {
+          const num=(x)=>Number(x||0);
+          const MKTS=["IT","DE","FR","ES","NL","SE","PL","BE","UK"];
+          const brandName=(id)=>{ const b=brands.find(z=>z.id===id); return b?(b.company_name||"\u2014"):"\u2014"; };
+          const calc=(r)=>{ const sell=num(r.sell_price); const cost=num(r.cost_price); const ref=sell*num(r.referral_fee_pct)/100; const fba=num(r.fba_fee); const net=sell-cost-fba-ref; const u=num(r.units_in_stock); return { sell, cost, ref, fba, net, u, pct: sell>0?net/sell*100:0, roi: cost>0?net/cost*100:0 }; };
+          const tot=amazonRows.reduce((a,r)=>{ const c=calc(r); a.stockCost+=c.cost*c.u; a.potential+=c.net*c.u; a.sellW+=c.sell*c.u; a.netW+=c.net*c.u; a.sold+=num(r.units_sold_30d); return a; },{stockCost:0,potential:0,sellW:0,netW:0,sold:0});
+          const avgPct = tot.sellW>0 ? tot.netW/tot.sellW*100 : 0;
+          const eur=(n)=>"\u20ac"+num(n).toLocaleString("it-IT",{minimumFractionDigits:2,maximumFractionDigits:2});
+          const fld = { padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, width:"100%", boxSizing:"border-box", outline:"none" };
+          const lbl = { fontSize:11, color:C.textMuted, display:"block", marginBottom:5, marginTop:12 };
+          return (
+          <div>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
+              <div>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🛒 Amazon Operating Partner</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Cockpit Amazon EU: listing, fee, margine netto e ROI reali per prodotto</p>
+              </div>
+              <button onClick={()=>openAmazon(null)} style={{ padding:"10px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>+ Aggiungi listing</button>
+            </div>
+            <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:24 }}>
+              <Stat icon="📦" label="Listing" value={amazonRows.length}/>
+              <Stat icon="🏦" label="Valore stock FBA (costo)" value={eur(tot.stockCost)} accent={C.blue}/>
+              <Stat icon="✅" label="Profitto potenziale su stock" value={eur(tot.potential)} accent={C.green}/>
+              <Stat icon="📊" label="Margine netto medio" value={avgPct.toFixed(1)+"%"} accent={C.gold}/>
+            </div>
+            {amazonRows.length===0 ? (
+              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14 }}>
+                <div style={{ fontSize:40, marginBottom:12 }}>🛒</div>
+                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:8 }}>Nessun listing Amazon</div>
+                <div style={{ fontSize:13, color:C.textMuted, marginBottom:18 }}>Aggiungi il primo prodotto che vendi su Amazon (es. Lattafa Khamrah).</div>
+                <button onClick={()=>openAmazon(null)} style={{ padding:"10px 22px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ Aggiungi listing</button>
+              </div>
+            ) : (
+              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                <table style={{ width:"100%", borderCollapse:"collapse", minWidth:920 }}>
+                  <thead><tr style={{ background:C.surface2 }}>
+                    {["Prodotto","Mkt","Prezzo","Costo","Fee (FBA+ref)","Margine €/u","Margine %","ROI %","Stock","Azioni"].map((h,i)=>(<th key={i} style={{ padding:"10px 12px", textAlign: (i>=2&&i<=7)?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".06em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
+                  </tr></thead>
+                  <tbody>
+                    {amazonRows.map((r,i)=>{ const c=calc(r); return (
+                      <tr key={r.id} style={{ background:i%2?C.surface2+"50":"transparent", borderTop:`1px solid ${C.border}` }}>
+                        <td style={{ padding:"10px 12px", fontSize:12.5, color:C.text }}><div style={{ fontWeight:600 }}>{r.product_name}</div><div style={{ fontSize:10.5, color:C.textDim, fontFamily:"monospace" }}>{r.asin||r.sku||""}{r.brand_id?(" · "+brandName(r.brand_id)):""}</div></td>
+                        <td style={{ padding:"10px 12px", fontSize:11, color:C.textMuted }}>{r.marketplace}<span style={{ color:C.textDim }}> · {r.fulfillment}</span></td>
+                        <td style={{ padding:"10px 12px", fontSize:12, color:C.text, textAlign:"right", whiteSpace:"nowrap" }}>{eur(c.sell)}</td>
+                        <td style={{ padding:"10px 12px", fontSize:12, color:C.textMuted, textAlign:"right", whiteSpace:"nowrap" }}>{eur(c.cost)}</td>
+                        <td style={{ padding:"10px 12px", fontSize:11.5, color:C.textMuted, textAlign:"right", whiteSpace:"nowrap" }}>{eur(c.fba+c.ref)}</td>
+                        <td style={{ padding:"10px 12px", fontSize:12.5, fontWeight:700, textAlign:"right", whiteSpace:"nowrap", color: c.net>=0?C.green:C.red }}>{eur(c.net)}</td>
+                        <td style={{ padding:"10px 12px", fontSize:12, fontWeight:600, textAlign:"right", color: c.pct>=0?C.green:C.red }}>{c.pct.toFixed(1)}%</td>
+                        <td style={{ padding:"10px 12px", fontSize:12, fontWeight:600, textAlign:"right", color: c.roi>=0?C.green:C.red }}>{c.roi.toFixed(0)}%</td>
+                        <td style={{ padding:"10px 12px", fontSize:12, color:C.text, textAlign:"right" }}>{c.u}{num(r.units_sold_30d)?<span style={{ color:C.textDim, fontSize:10 }}> ({r.units_sold_30d}/30g)</span>:null}</td>
+                        <td style={{ padding:"10px 12px", whiteSpace:"nowrap" }}>
+                          <button onClick={()=>openAmazon(r)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}12`, border:`1px solid ${C.blue}40`, color:C.blue, marginRight:6 }}>Modifica</button>
+                          <button onClick={()=>deleteAmazon(r)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>Elimina</button>
+                        </td>
+                      </tr>
+                    );})}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {amazonModal && (
+              <Modal title={amazonForm.id ? "Modifica listing Amazon" : "Nuovo listing Amazon"} onClose={()=>setAmazonModal(false)} onSave={saveAmazon} saveLabel="Salva">
+                <label style={lbl}>Nome prodotto *</label>
+                <input value={amazonForm.product_name||""} onChange={e=>setAmazonForm(f=>({...f, product_name:e.target.value}))} placeholder="es. Lattafa Khamrah EDP 100ml" style={fld}/>
+                <div style={{ display:"flex", gap:10 }}>
+                  <div style={{ flex:1 }}><label style={lbl}>ASIN</label><input value={amazonForm.asin||""} onChange={e=>setAmazonForm(f=>({...f, asin:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>SKU</label><input value={amazonForm.sku||""} onChange={e=>setAmazonForm(f=>({...f, sku:e.target.value}))} style={fld}/></div>
+                </div>
+                <label style={lbl}>Brand (opzionale)</label>
+                <select value={amazonForm.brand_id||""} onChange={e=>setAmazonForm(f=>({...f, brand_id:e.target.value}))} style={fld}>
+                  <option value="">\u2014 Nessuno \u2014</option>
+                  {brands.map(b=>(<option key={b.id} value={b.id}>{b.company_name||b.email}</option>))}
+                </select>
+                <div style={{ display:"flex", gap:10 }}>
+                  <div style={{ flex:1 }}><label style={lbl}>Marketplace</label>
+                    <select value={amazonForm.marketplace||"IT"} onChange={e=>setAmazonForm(f=>({...f, marketplace:e.target.value}))} style={fld}>
+                      {MKTS.map(m=>(<option key={m} value={m}>{m}</option>))}
+                    </select>
+                  </div>
+                  <div style={{ flex:1 }}><label style={lbl}>Fulfillment</label>
+                    <select value={amazonForm.fulfillment||"FBA"} onChange={e=>setAmazonForm(f=>({...f, fulfillment:e.target.value}))} style={fld}>
+                      <option value="FBA">FBA</option><option value="FBM">FBM</option>
+                    </select>
+                  </div>
+                </div>
+                <div style={{ display:"flex", gap:10 }}>
+                  <div style={{ flex:1 }}><label style={lbl}>Costo / unita (€)</label><input type="number" step="0.01" value={amazonForm.cost_price} onChange={e=>setAmazonForm(f=>({...f, cost_price:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>Prezzo Amazon (€)</label><input type="number" step="0.01" value={amazonForm.sell_price} onChange={e=>setAmazonForm(f=>({...f, sell_price:e.target.value}))} style={fld}/></div>
+                </div>
+                <div style={{ display:"flex", gap:10 }}>
+                  <div style={{ flex:1 }}><label style={lbl}>Referral fee (%)</label><input type="number" step="0.1" value={amazonForm.referral_fee_pct} onChange={e=>setAmazonForm(f=>({...f, referral_fee_pct:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>Fee FBA / unita (€)</label><input type="number" step="0.01" value={amazonForm.fba_fee} onChange={e=>setAmazonForm(f=>({...f, fba_fee:e.target.value}))} style={fld}/></div>
+                </div>
+                <div style={{ display:"flex", gap:10 }}>
+                  <div style={{ flex:1 }}><label style={lbl}>Stock FBA (unita)</label><input type="number" value={amazonForm.units_in_stock} onChange={e=>setAmazonForm(f=>({...f, units_in_stock:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>Venduti (30 gg)</label><input type="number" value={amazonForm.units_sold_30d} onChange={e=>setAmazonForm(f=>({...f, units_sold_30d:e.target.value}))} style={fld}/></div>
+                </div>
+                <label style={lbl}>Note</label>
+                <textarea value={amazonForm.notes||""} onChange={e=>setAmazonForm(f=>({...f, notes:e.target.value}))} rows={2} style={{...fld, resize:"vertical"}}/>
+              </Modal>
+            )}
+          </div>
+          );
+        })()}
         {tab === "nexusai" && <NexusAI role="admin"/>}
         {tab === "margini" && (() => {
           const num=(x)=>Number(x||0);
