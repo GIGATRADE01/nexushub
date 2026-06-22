@@ -266,6 +266,24 @@ const Badge = ({ status }) => {
   );
 };
 
+const TrustBadge = ({ score, state }) => {
+  const s = (score===null||score===undefined) ? 200 : score;
+  let tier, col;
+  if (s >= 1000) { tier="Platinum"; col=C.blue; }
+  else if (s >= 700) { tier="Gold"; col=C.gold; }
+  else if (s >= 400) { tier="Silver"; col=C.textMuted; }
+  else if (s >= 200) { tier="Bronze"; col=C.goldDim; }
+  else if (s >= 100) { tier="Osservato"; col=C.gold; }
+  else { tier="A rischio"; col=C.red; }
+  return (
+    <span style={{ display:"inline-flex", alignItems:"center", gap:6, flexWrap:"wrap" }}>
+      <span style={{ fontSize:11, fontWeight:700, padding:"2px 9px", borderRadius:20, background:col+"22", color:col, border:`1px solid ${col}55`, whiteSpace:"nowrap" }}>{tier} · {s}</span>
+      {state==="suspended" && <span style={{ fontSize:10, fontWeight:700, padding:"2px 6px", borderRadius:5, background:C.red+"22", color:C.red, border:`1px solid ${C.red}55` }}>SOSPESO</span>}
+      {state==="at_risk" && <span style={{ fontSize:10, fontWeight:700, padding:"2px 6px", borderRadius:5, background:C.gold+"22", color:C.gold }}>A RISCHIO</span>}
+    </span>
+  );
+};
+
 const Stat = ({ icon, label, value, sub, accent }) => (
   <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${accent||C.goldDim}`, borderRadius:12, padding:"16px 18px", minWidth:130, flex:"1 1 130px" }}>
     <div style={{ fontSize:18, marginBottom:6 }}>{icon}</div>
@@ -4689,6 +4707,28 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     setTrackEdits(prev => { const n = { ...prev }; delete n[o.id]; return n; });
     loadOrders();
   };
+  const adjustTrust = async (u, sign) => {
+    const amtStr = window.prompt((sign>0?"Quanti punti AGGIUNGERE a ":"Quanti punti TOGLIERE a ")+(u.company_name||u.email)+"?", "10");
+    if (amtStr===null) return;
+    const amt = Math.abs(parseInt(amtStr,10)); if (!amt) return;
+    const reason = window.prompt("Motivo?", sign>0?"Bonus manuale":"Penalita manuale");
+    if (reason===null) return;
+    await supabase.rpc("admin_adjust_trust", { p_profile: u.id, p_delta: sign*amt, p_reason: reason });
+    notify("Punti aggiornati");
+    loadUsers();
+  };
+  const toggleSuspend = async (u) => {
+    if (u.account_state==="suspended") {
+      if (!window.confirm("Riattivare "+(u.company_name||u.email)+"?")) return;
+      await supabase.rpc("admin_set_account_state", { p_profile:u.id, p_state:"active", p_reason:"Riattivato da admin" });
+    } else {
+      const reason = window.prompt("Motivo sospensione (violazione grave):", "");
+      if (reason===null) return;
+      await supabase.rpc("admin_set_account_state", { p_profile:u.id, p_state:"suspended", p_reason: reason||"Sospeso da admin" });
+    }
+    notify("Stato account aggiornato");
+    loadUsers();
+  };
   const updateOrderStatus = async (orderId, status) => {
     await supabase.from("orders").update({ status }).eq("id", orderId);
     notify("Order " + status + "!");
@@ -4965,7 +5005,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                   <table style={{ width:"100%", borderCollapse:"collapse", minWidth:600 }}>
                     <thead>
                       <tr style={{ background:C.surface2 }}>
-                        {["Company","Email","Role","Country","Status","Joined","Actions"].map((h,i) => (
+                        {["Company","Email","Role","Country","Status","Trust","Joined","Actions"].map((h,i) => (
                           <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
                         ))}
                       </tr>
@@ -4978,6 +5018,16 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                           <td style={{ padding:"12px 14px" }}><span style={{ padding:"2px 8px", borderRadius:5, fontSize:11, fontWeight:600, background: u.role==="brand"?`${C.gold}15`:`${C.blue}15`, color: u.role==="brand"?C.gold:C.blue, border:`1px solid ${u.role==="brand"?C.gold:C.blue}30` }}>{u.role}</span></td>
                           <td style={{ padding:"12px 14px", fontSize:12, color:C.textMuted }}>{u.country || "—"}</td>
                           <td style={{ padding:"12px 14px" }}><Badge status={u.status}/></td>
+                          <td style={{ padding:"12px 14px" }}>
+                            <div style={{ display:"flex", flexDirection:"column", gap:5, alignItems:"flex-start" }}>
+                              <TrustBadge score={u.trust_score} state={u.account_state}/>
+                              <div style={{ display:"flex", gap:4 }}>
+                                <button onClick={()=>adjustTrust(u,1)} title="Aggiungi punti" style={{ padding:"2px 7px", borderRadius:5, cursor:"pointer", fontSize:12, fontWeight:700, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green }}>+</button>
+                                <button onClick={()=>adjustTrust(u,-1)} title="Togli punti" style={{ padding:"2px 7px", borderRadius:5, cursor:"pointer", fontSize:12, fontWeight:700, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>−</button>
+                                <button onClick={()=>toggleSuspend(u)} style={{ padding:"2px 8px", borderRadius:5, cursor:"pointer", fontSize:10, fontWeight:600, background: u.account_state==="suspended"?`${C.green}15`:`${C.gold}12`, border:`1px solid ${u.account_state==="suspended"?C.green:C.gold}40`, color: u.account_state==="suspended"?C.green:C.gold }}>{u.account_state==="suspended"?"Riattiva":"Sospendi"}</button>
+                              </div>
+                            </div>
+                          </td>
                           <td style={{ padding:"12px 14px", fontSize:11, color:C.textDim, whiteSpace:"nowrap" }}>{new Date(u.created_at).toLocaleDateString()}</td>
                           <td style={{ padding:"12px 14px" }}>
                             <div style={{ display:"flex", gap:6 }}>
@@ -5423,7 +5473,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         ) : "—"}
                       </td>
                       <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.goldLight }}>€{o.total_amount?.toLocaleString("it-IT")}</td>
-                      <td style={{ padding:"11px 14px" }}><Badge status={o.status}/>{o.rating ? <div style={{ fontSize:12, color:C.gold, marginTop:3 }}>{"★".repeat(o.rating)}<span style={{ color:C.border }}>{"★".repeat(5-o.rating)}</span></div> : null}</td>
+                      <td style={{ padding:"11px 14px" }}><Badge status={o.status}/>{o.rating ? <div style={{ fontSize:12, color:C.gold, marginTop:3 }}>{"★".repeat(o.rating)}<span style={{ color:C.border }}>{"★".repeat(5-o.rating)}</span> <span title="Cancella recensione (appello brand)" onClick={async()=>{ if(!window.confirm("Cancellare la recensione e stornare i punti al brand?")) return; await supabase.rpc("admin_delete_review",{p_order:o.id}); notify("Recensione cancellata"); loadOrders(); }} style={{ cursor:"pointer", color:C.red, fontSize:11, marginLeft:6 }}>✕ togli</span></div> : null}</td>
                       <td style={{ padding:"11px 14px", fontSize:11, color:C.textDim }}>{new Date(o.created_at).toLocaleDateString()}</td>
                       <td style={{ padding:"11px 14px" }}>
                         {o.tracking_number ? (
