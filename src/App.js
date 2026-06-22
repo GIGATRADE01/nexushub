@@ -4535,6 +4535,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "brands") loadBrands();
     if (tab === "catalog") loadProducts();
     if (tab === "orders") loadOrders();
+    if (tab === "logistics") { loadProducts(); loadOrders(); }
     if (tab === "invoices") loadInvoices();
     if (tab === "contracts") { loadContracts(); loadBrands(); loadUsers(); }
     if (tab === "commissions") { loadCommissions(); loadCommissionLog(); }
@@ -4786,6 +4787,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"brands", icon:"🏛️", label:"Brands" },
     { key:"catalog", icon:"📦", label:"Catalog" },
     { key:"inventory", icon:"🏭", label:"Inventory" },
+    { key:"logistics", icon:"🚛", label:"Logistica" },
     { key:"orders", icon:"📋", label:"Orders" },
     { key:"invoices", icon:"🧾", label:"Fatture" },
     { key:"contracts", icon:"📝", label:"Contratti" },
@@ -5168,6 +5170,84 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         )}
 
         {/* INVENTORY TAB */}
+        {tab === "logistics" && (() => {
+          const invOf = (p) => Array.isArray(p.inventory) ? (p.inventory[0]||{}) : (p.inventory||{});
+          const wi = products.map(p => ({ p, inv: invOf(p) }));
+          const unitsStock = wi.reduce((a,x)=>a+Number(x.inv.quantity_available||0),0);
+          const unitsReserved = wi.reduce((a,x)=>a+Number(x.inv.quantity_reserved||0),0);
+          const low = wi.filter(x => { const q=Number(x.inv.quantity_available||0); return q>0 && q<=50; });
+          const out = wi.filter(x => Number(x.inv.quantity_available||0)===0);
+          const prep = orders.filter(o=>o.status==="confirmed");
+          const transit = orders.filter(o=>o.status==="shipped");
+          const delivered = orders.filter(o=>o.status==="delivered");
+          const pipeline = [...prep, ...transit];
+          return (
+          <div>
+            <div style={{ marginBottom:20 }}>
+              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🚛 European Logistics Control Tower</h2>
+              <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Hub Torino · stock, preparazione, spedizioni e allerte</p>
+            </div>
+            <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:24 }}>
+              <Stat icon="📦" label="Unita in stock" value={unitsStock.toLocaleString("it-IT")} sub={`${wi.length} SKU`}/>
+              <Stat icon="🔒" label="Riservate" value={unitsReserved.toLocaleString("it-IT")}/>
+              <Stat icon="🛠️" label="Da preparare" value={prep.length} accent={C.gold}/>
+              <Stat icon="🚚" label="In transito" value={transit.length} accent={C.blue}/>
+              <Stat icon="✅" label="Consegnati" value={delivered.length} accent={C.green}/>
+              <Stat icon="⚠️" label="Basso/esaurito" value={low.length+out.length} accent={C.red}/>
+            </div>
+
+            <h3 style={{ fontSize:14, color:C.gold, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>Ordini in lavorazione</h3>
+            {pipeline.length===0 ? (
+              <div style={{ padding:24, background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, color:C.textMuted, fontSize:13, marginBottom:28 }}>Nessun ordine da preparare o in transito.</div>
+            ) : (
+              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}`, marginBottom:28 }}>
+                <table style={{ width:"100%", borderCollapse:"collapse", minWidth:600 }}>
+                  <thead><tr style={{ background:C.surface2 }}>
+                    {["Ordine","Stato","Corriere","Tracking","Valore"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase" }}>{h}</th>))}
+                  </tr></thead>
+                  <tbody>
+                    {pipeline.map((o,i)=>(
+                      <tr key={o.id} style={{ background:i%2?C.surface2+"50":"transparent", borderTop:`1px solid ${C.border}` }}>
+                        <td style={{ padding:"10px 14px", fontFamily:"monospace", fontSize:11, color:C.gold }}>{o.order_number}</td>
+                        <td style={{ padding:"10px 14px" }}><Badge status={o.status}/></td>
+                        <td style={{ padding:"10px 14px", fontSize:12, color:C.text }}>{o.courier||"—"}</td>
+                        <td style={{ padding:"10px 14px", fontSize:11, fontFamily:"monospace", color:C.blue }}>{o.tracking_number||"—"}</td>
+                        <td style={{ padding:"10px 14px", fontSize:12, fontWeight:700, color:C.goldLight }}>€{Number(o.total_amount||0).toLocaleString("it-IT")}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            <h3 style={{ fontSize:14, color:C.textMuted, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>Salute magazzino</h3>
+            <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <table style={{ width:"100%", borderCollapse:"collapse", minWidth:600 }}>
+                <thead><tr style={{ background:C.surface2 }}>
+                  {["Prodotto","Brand","Disponibili","Riservate","Stato"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase" }}>{h}</th>))}
+                </tr></thead>
+                <tbody>
+                  {wi.length===0 ? (
+                    <tr><td colSpan={5} style={{ padding:24, textAlign:"center", color:C.textMuted, fontSize:13 }}>Nessun prodotto a magazzino.</td></tr>
+                  ) : wi.map((x,i)=>{
+                    const q=Number(x.inv.quantity_available||0);
+                    const stt = q===0 ? ["Esaurito",C.red] : q<=50 ? ["Basso",C.gold] : ["OK",C.green];
+                    return (
+                      <tr key={x.p.id} style={{ background:i%2?C.surface2+"50":"transparent", borderTop:`1px solid ${C.border}` }}>
+                        <td style={{ padding:"10px 14px", fontSize:13, color:C.text, fontWeight:600 }}>{x.p.name}</td>
+                        <td style={{ padding:"10px 14px", fontSize:12, color:C.textMuted }}>{x.p.profiles?.company_name||"—"}</td>
+                        <td style={{ padding:"10px 14px", fontSize:13, color:C.text }}>{q}</td>
+                        <td style={{ padding:"10px 14px", fontSize:13, color:C.textMuted }}>{Number(x.inv.quantity_reserved||0)}</td>
+                        <td style={{ padding:"10px 14px" }}><span style={{ fontSize:11, fontWeight:700, padding:"2px 8px", borderRadius:20, background:stt[1]+"18", color:stt[1], border:`1px solid ${stt[1]}40` }}>{stt[0]}</span></td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          );
+        })()}
         {tab === "inventory" && (
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:12 }}>
