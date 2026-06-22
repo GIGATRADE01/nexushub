@@ -2667,9 +2667,6 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
             )}
           </div>
         )}
-        {tab==="ai" && (
-          <NexusAI role="brand"/>
-        )}
 
         {tab==="orders" && (
           <div>
@@ -2736,6 +2733,8 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
         )}
         {tab==="analytics" && (
           <div>
+            <NexusAI role="brand"/>
+            <div style={{ height:1, background:C.border, margin:"28px 0" }}/>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🤖 AI Brand Analytics</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Performance distributori, top prodotti, stagionalità e opportunità di crescita</p>
             <InventoryForecast products={brandProducts} orders={brandOrders}/>
