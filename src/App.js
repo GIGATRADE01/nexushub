@@ -4148,6 +4148,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [retailTargets, setRetailTargets] = useState([]);
   const [retailModal, setRetailModal] = useState(null);
   const [retailForm, setRetailForm] = useState({});
+  const [complianceDocs, setComplianceDocs] = useState([]);
+  const [compModal, setCompModal] = useState(false);
+  const [compForm, setCompForm] = useState({});
+  const [compBusy, setCompBusy] = useState(false);
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState(null);
   const [invoices, setInvoices] = useState([]);
@@ -4300,6 +4304,36 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (!window.confirm("Eliminare il target " + t.retailer_name + "?")) return;
     await supabase.from("retail_targets").delete().eq("id", t.id);
     setRetailTargets(prev => prev.filter(x => x.id !== t.id));
+  };
+  const loadCompliance = async () => {
+    const { data } = await supabase.from("compliance_documents").select("*").order("created_at", { ascending:false });
+    setComplianceDocs(data || []);
+  };
+  const uploadCompliance = async () => {
+    const f = compForm;
+    if (!f.owner_id) { notify("Scegli il titolare del documento", "error"); return; }
+    if (!f.file) { notify("Scegli un file", "error"); return; }
+    setCompBusy(true);
+    try {
+      const path = "compliance/" + f.owner_id + "/" + Date.now() + "_" + f.file.name;
+      const up = await supabase.storage.from("documents").upload(path, f.file, { upsert:true });
+      if (!up || up.error) { notify("Errore nel caricamento", "error"); setCompBusy(false); return; }
+      const url = supabase.storage.from("documents").getPublicUrl(path).data.publicUrl;
+      const { data: { user } } = await supabase.auth.getUser();
+      await supabase.from("compliance_documents").insert({
+        owner_id: f.owner_id, category: f.category||"other", name: (f.name||f.file.name),
+        file_url: url, file_type: f.file.type||null, expires_at: f.expires_at||null,
+        notes: f.notes||null, uploaded_by: user?.id||null
+      });
+      notify("Documento caricato nel vault");
+      setCompModal(false); setCompForm({}); loadCompliance();
+    } catch(e) { console.error(e); notify("Errore", "error"); }
+    setCompBusy(false);
+  };
+  const deleteCompliance = async (d) => {
+    if (!window.confirm("Eliminare il documento " + d.name + "?")) return;
+    await supabase.from("compliance_documents").delete().eq("id", d.id);
+    setComplianceDocs(prev => prev.filter(x => x.id !== d.id));
   };
   const loadProducts = async () => {
     try {
@@ -4578,6 +4612,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "orders") loadOrders();
     if (tab === "logistics") { loadProducts(); loadOrders(); }
     if (tab === "retail") { loadRetail(); loadBrands(); }
+    if (tab === "compliance") { loadCompliance(); loadUsers(); }
     if (tab === "invoices") loadInvoices();
     if (tab === "contracts") { loadContracts(); loadBrands(); loadUsers(); }
     if (tab === "commissions") { loadCommissions(); loadCommissionLog(); }
@@ -4831,6 +4866,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"inventory", icon:"🏭", label:"Inventory" },
     { key:"logistics", icon:"🚛", label:"Logistica" },
     { key:"retail", icon:"🏬", label:"Retail" },
+    { key:"compliance", icon:"🗂️", label:"Compliance" },
     { key:"orders", icon:"📋", label:"Orders" },
     { key:"invoices", icon:"🧾", label:"Fatture" },
     { key:"contracts", icon:"📝", label:"Contratti" },
@@ -5213,6 +5249,86 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         )}
 
         {/* INVENTORY TAB */}
+        {tab === "compliance" && (() => {
+          const CATS = [["company","Documenti aziendali"],["certificate","Certificati"],["safety_sheet","Schede sicurezza"],["import","Import / Dogana"],["authorization","Autorizzazioni"],["price_list","Listini"],["marketing","Marketing"],["quality","Report qualita"],["arrival_photo","Foto merce"],["amazon","Amazon / Retail"],["other","Altro"]];
+          const catLabel = (k)=>{ const f=CATS.find(z=>z[0]===k); return f?f[1]:k; };
+          const ownerName = (id)=>{ const u=users.find(z=>z.id===id); return u?(u.company_name||u.email):"\u2014"; };
+          const today = new Date(); const soon = new Date(); soon.setDate(soon.getDate()+30);
+          const expState = (d)=>{ if(!d.expires_at) return null; const e=new Date(d.expires_at); if(e<today) return ["Scaduto",C.red]; if(e<soon) return ["In scadenza",C.gold]; return ["Valido",C.green]; };
+          const expired = complianceDocs.filter(d=>d.expires_at && new Date(d.expires_at)<today).length;
+          const expiring = complianceDocs.filter(d=>d.expires_at && new Date(d.expires_at)>=today && new Date(d.expires_at)<soon).length;
+          const fld = { padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, width:"100%", boxSizing:"border-box", outline:"none" };
+          const lbl = { fontSize:11, color:C.textMuted, display:"block", marginBottom:5, marginTop:12 };
+          return (
+          <div>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
+              <div>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🗂️ Compliance & Documents Vault</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Archivio centrale: documenti aziendali, certificati, autorizzazioni, dogana, qualita</p>
+              </div>
+              <button onClick={()=>{ setCompForm({ category:"company" }); setCompModal(true); }} style={{ padding:"10px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>+ Carica documento</button>
+            </div>
+            <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:24 }}>
+              <Stat icon="🗂️" label="Documenti totali" value={complianceDocs.length}/>
+              <Stat icon="⏳" label="In scadenza (30gg)" value={expiring} accent={C.gold}/>
+              <Stat icon="⚠️" label="Scaduti" value={expired} accent={C.red}/>
+            </div>
+            {complianceDocs.length===0 ? (
+              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14 }}>
+                <div style={{ fontSize:40, marginBottom:12 }}>🗂️</div>
+                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:8 }}>Vault vuoto</div>
+                <div style={{ fontSize:13, color:C.textMuted, marginBottom:18 }}>Carica il primo documento (visura, certificato, autorizzazione...).</div>
+                <button onClick={()=>{ setCompForm({ category:"company" }); setCompModal(true); }} style={{ padding:"10px 22px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ Carica documento</button>
+              </div>
+            ) : (
+              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                <table style={{ width:"100%", borderCollapse:"collapse", minWidth:760 }}>
+                  <thead><tr style={{ background:C.surface2 }}>
+                    {["Documento","Titolare","Categoria","Scadenza","Caricato","Azioni"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
+                  </tr></thead>
+                  <tbody>
+                    {complianceDocs.map((d,i)=>{ const es=expState(d); return (
+                      <tr key={d.id} style={{ background:i%2?C.surface2+"50":"transparent", borderTop:`1px solid ${C.border}` }}>
+                        <td style={{ padding:"10px 14px", fontSize:13, color:C.text, fontWeight:600 }}>{d.name}</td>
+                        <td style={{ padding:"10px 14px", fontSize:12, color:C.textMuted }}>{ownerName(d.owner_id)}</td>
+                        <td style={{ padding:"10px 14px", fontSize:12, color:C.textMuted }}>{catLabel(d.category)}</td>
+                        <td style={{ padding:"10px 14px", fontSize:12 }}>{es ? <span style={{ fontWeight:700, padding:"2px 8px", borderRadius:20, fontSize:11, background:es[1]+"18", color:es[1], border:`1px solid ${es[1]}40` }}>{new Date(d.expires_at).toLocaleDateString("it-IT")} · {es[0]}</span> : <span style={{ color:C.textDim }}>—</span>}</td>
+                        <td style={{ padding:"10px 14px", fontSize:11, color:C.textDim, whiteSpace:"nowrap" }}>{new Date(d.created_at).toLocaleDateString("it-IT")}</td>
+                        <td style={{ padding:"10px 14px", whiteSpace:"nowrap" }}>
+                          <a href={d.file_url} target="_blank" rel="noreferrer" style={{ padding:"4px 10px", borderRadius:6, fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue, textDecoration:"none", marginRight:6 }}>Scarica</a>
+                          <button onClick={()=>deleteCompliance(d)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>Elimina</button>
+                        </td>
+                      </tr>
+                    );})}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {compModal && (
+              <Modal title="Carica documento nel vault" onClose={()=>{ setCompModal(false); setCompForm({}); }} onSave={uploadCompliance} saveLabel={compBusy ? "Caricamento..." : "Carica"}>
+                <label style={lbl}>Titolare (account) *</label>
+                <select value={compForm.owner_id||""} onChange={e=>setCompForm(f=>({...f, owner_id:e.target.value}))} style={fld}>
+                  <option value="">\u2014 Scegli account \u2014</option>
+                  {users.map(u=>(<option key={u.id} value={u.id}>{(u.company_name||u.email)+" ("+u.role+")"}</option>))}
+                </select>
+                <label style={lbl}>Categoria</label>
+                <select value={compForm.category||"company"} onChange={e=>setCompForm(f=>({...f, category:e.target.value}))} style={fld}>
+                  {CATS.map(z=>(<option key={z[0]} value={z[0]}>{z[1]}</option>))}
+                </select>
+                <label style={lbl}>Nome documento (opzionale)</label>
+                <input value={compForm.name||""} onChange={e=>setCompForm(f=>({...f, name:e.target.value}))} placeholder="es. Visura camerale 2026" style={fld}/>
+                <label style={lbl}>File *</label>
+                <input type="file" onChange={e=>setCompForm(f=>({...f, file:(e.target.files&&e.target.files[0])||null}))} style={{...fld, padding:"8px 12px"}}/>
+                <label style={lbl}>Data scadenza (opzionale)</label>
+                <input type="date" value={compForm.expires_at||""} onChange={e=>setCompForm(f=>({...f, expires_at:e.target.value}))} style={fld}/>
+                <label style={lbl}>Note (opzionale)</label>
+                <textarea value={compForm.notes||""} onChange={e=>setCompForm(f=>({...f, notes:e.target.value}))} rows={2} style={{...fld, resize:"vertical"}}/>
+              </Modal>
+            )}
+          </div>
+          );
+        })()}
         {tab === "retail" && (() => {
           const STAGES = [["lead","Lead",C.textMuted],["contacted","Contattato",C.blue],["samples","Campioni",C.blue],["meeting","Meeting",C.gold],["negotiation","Trattativa",C.gold],["won","Chiuso \u2713",C.green],["lost","Perso",C.red]];
           const stColor = (k)=>{ const f=STAGES.find(z=>z[0]===k); return f?f[2]:C.textMuted; };
