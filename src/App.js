@@ -4145,6 +4145,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [brands, setBrands] = useState([]);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [retailTargets, setRetailTargets] = useState([]);
+  const [retailModal, setRetailModal] = useState(null);
+  const [retailForm, setRetailForm] = useState({});
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState(null);
   const [invoices, setInvoices] = useState([]);
@@ -4260,6 +4263,44 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     } catch(e) { console.error(e); }
   };
 
+  const loadRetail = async () => {
+    const { data } = await supabase.from("retail_targets").select("*").order("created_at", { ascending:false });
+    setRetailTargets(data || []);
+  };
+  const openRetail = (t) => {
+    setRetailForm(t ? { ...t } : { retailer_name:"", country:"", buyer_name:"", buyer_email:"", brand_id:"", candidate_products:"", stage:"lead", probability:0, next_followup:"", notes:"", samples_sent:false });
+    setRetailModal(t || { _new:true });
+  };
+  const saveRetail = async () => {
+    const f = retailForm;
+    if (!f.retailer_name || !f.retailer_name.trim()) { notify("Inserisci il nome del retailer", "error"); return; }
+    const payload = {
+      retailer_name: f.retailer_name.trim(), country: f.country||null, buyer_name: f.buyer_name||null,
+      buyer_email: f.buyer_email||null, brand_id: f.brand_id||null, candidate_products: f.candidate_products||null,
+      stage: f.stage||"lead", probability: Math.max(0, Math.min(100, Number(f.probability)||0)),
+      samples_sent: !!f.samples_sent, next_followup: f.next_followup||null, notes: f.notes||null,
+      updated_at: new Date().toISOString()
+    };
+    if (f.id) {
+      await supabase.from("retail_targets").update(payload).eq("id", f.id);
+    } else {
+      const { data: { user } } = await supabase.auth.getUser();
+      payload.created_by = user?.id || null;
+      await supabase.from("retail_targets").insert(payload);
+    }
+    notify("Target salvato");
+    setRetailModal(null);
+    loadRetail();
+  };
+  const setRetailStage = async (t, stage) => {
+    await supabase.from("retail_targets").update({ stage, updated_at:new Date().toISOString() }).eq("id", t.id);
+    setRetailTargets(prev => prev.map(x => x.id===t.id ? { ...x, stage } : x));
+  };
+  const deleteRetail = async (t) => {
+    if (!window.confirm("Eliminare il target " + t.retailer_name + "?")) return;
+    await supabase.from("retail_targets").delete().eq("id", t.id);
+    setRetailTargets(prev => prev.filter(x => x.id !== t.id));
+  };
   const loadProducts = async () => {
     try {
       const { data } = await supabase.from("products")
@@ -4536,6 +4577,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "catalog") loadProducts();
     if (tab === "orders") loadOrders();
     if (tab === "logistics") { loadProducts(); loadOrders(); }
+    if (tab === "retail") { loadRetail(); loadBrands(); }
     if (tab === "invoices") loadInvoices();
     if (tab === "contracts") { loadContracts(); loadBrands(); loadUsers(); }
     if (tab === "commissions") { loadCommissions(); loadCommissionLog(); }
@@ -4788,6 +4830,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"catalog", icon:"📦", label:"Catalog" },
     { key:"inventory", icon:"🏭", label:"Inventory" },
     { key:"logistics", icon:"🚛", label:"Logistica" },
+    { key:"retail", icon:"🏬", label:"Retail" },
     { key:"orders", icon:"📋", label:"Orders" },
     { key:"invoices", icon:"🧾", label:"Fatture" },
     { key:"contracts", icon:"📝", label:"Contratti" },
@@ -5170,6 +5213,106 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         )}
 
         {/* INVENTORY TAB */}
+        {tab === "retail" && (() => {
+          const STAGES = [["lead","Lead",C.textMuted],["contacted","Contattato",C.blue],["samples","Campioni",C.blue],["meeting","Meeting",C.gold],["negotiation","Trattativa",C.gold],["won","Chiuso \u2713",C.green],["lost","Perso",C.red]];
+          const stColor = (k)=>{ const f=STAGES.find(z=>z[0]===k); return f?f[2]:C.textMuted; };
+          const brandName = (id)=>{ const b=brands.find(z=>z.id===id); return b?(b.company_name||"\u2014"):"\u2014"; };
+          const won = retailTargets.filter(t=>t.stage==="won").length;
+          const active = retailTargets.filter(t=>!["won","lost"].includes(t.stage)).length;
+          const avgProb = retailTargets.length ? Math.round(retailTargets.reduce((a,t)=>a+Number(t.probability||0),0)/retailTargets.length) : 0;
+          const fld = { padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, width:"100%", boxSizing:"border-box", outline:"none" };
+          const lbl = { fontSize:11, color:C.textMuted, display:"block", marginBottom:5, marginTop:12 };
+          return (
+          <div>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
+              <div>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🏬 Retail Expansion Desk</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Pipeline verso Sephora, Douglas, profumerie e retail europeo</p>
+              </div>
+              <button onClick={()=>openRetail(null)} style={{ padding:"10px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>+ Aggiungi target</button>
+            </div>
+            <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:24 }}>
+              <Stat icon="🎯" label="Target totali" value={retailTargets.length}/>
+              <Stat icon="🔥" label="In trattativa" value={active} accent={C.gold}/>
+              <Stat icon="✅" label="Chiusi" value={won} accent={C.green}/>
+              <Stat icon="📊" label="Prob. media" value={avgProb+"%"} accent={C.blue}/>
+            </div>
+            {retailTargets.length===0 ? (
+              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14 }}>
+                <div style={{ fontSize:40, marginBottom:12 }}>🏬</div>
+                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:8 }}>Nessun target retail</div>
+                <div style={{ fontSize:13, color:C.textMuted, marginBottom:18 }}>Aggiungi il primo retailer da contattare (es. Sephora Italia).</div>
+                <button onClick={()=>openRetail(null)} style={{ padding:"10px 22px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ Aggiungi target</button>
+              </div>
+            ) : (
+              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                <table style={{ width:"100%", borderCollapse:"collapse", minWidth:820 }}>
+                  <thead><tr style={{ background:C.surface2 }}>
+                    {["Retailer","Paese","Buyer","Brand","Stato","Prob.","Follow-up","Azioni"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
+                  </tr></thead>
+                  <tbody>
+                    {retailTargets.map((t,i)=>(
+                      <tr key={t.id} style={{ background:i%2?C.surface2+"50":"transparent", borderTop:`1px solid ${C.border}` }}>
+                        <td style={{ padding:"10px 14px", fontSize:13, fontWeight:600, color:C.text, whiteSpace:"nowrap" }}>{t.retailer_name}</td>
+                        <td style={{ padding:"10px 14px", fontSize:12, color:C.textMuted }}>{t.country||"—"}</td>
+                        <td style={{ padding:"10px 14px", fontSize:12, color:C.textMuted }}>{t.buyer_name||"—"}</td>
+                        <td style={{ padding:"10px 14px", fontSize:12, color:C.textMuted }}>{t.brand_id?brandName(t.brand_id):"—"}</td>
+                        <td style={{ padding:"10px 14px" }}>
+                          <select value={t.stage} onChange={e=>setRetailStage(t, e.target.value)} style={{ padding:"4px 8px", borderRadius:6, background:C.surface2, border:`1px solid ${stColor(t.stage)}55`, color:stColor(t.stage), fontSize:11, fontWeight:700, outline:"none" }}>
+                            {STAGES.map(z=>(<option key={z[0]} value={z[0]}>{z[1]}</option>))}
+                          </select>
+                        </td>
+                        <td style={{ padding:"10px 14px", fontSize:12, color:C.text }}>{Number(t.probability||0)}%</td>
+                        <td style={{ padding:"10px 14px", fontSize:11, color:C.textMuted, whiteSpace:"nowrap" }}>{t.next_followup ? new Date(t.next_followup).toLocaleDateString("it-IT") : "—"}</td>
+                        <td style={{ padding:"10px 14px", whiteSpace:"nowrap" }}>
+                          <button onClick={()=>openRetail(t)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue, marginRight:6 }}>Modifica</button>
+                          <button onClick={()=>deleteRetail(t)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>Elimina</button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {retailModal && (
+              <Modal title={retailForm.id ? "Modifica target retail" : "Nuovo target retail"} onClose={()=>setRetailModal(null)} onSave={saveRetail} saveLabel="Salva">
+                <label style={lbl}>Retailer *</label>
+                <input value={retailForm.retailer_name||""} onChange={e=>setRetailForm(f=>({...f, retailer_name:e.target.value}))} placeholder="es. Sephora Italia" style={fld}/>
+                <div style={{ display:"flex", gap:10 }}>
+                  <div style={{ flex:1 }}><label style={lbl}>Paese</label><input value={retailForm.country||""} onChange={e=>setRetailForm(f=>({...f, country:e.target.value}))} placeholder="es. Italia" style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>Buyer / contatto</label><input value={retailForm.buyer_name||""} onChange={e=>setRetailForm(f=>({...f, buyer_name:e.target.value}))} style={fld}/></div>
+                </div>
+                <label style={lbl}>Email buyer</label>
+                <input value={retailForm.buyer_email||""} onChange={e=>setRetailForm(f=>({...f, buyer_email:e.target.value}))} style={fld}/>
+                <label style={lbl}>Brand candidato</label>
+                <select value={retailForm.brand_id||""} onChange={e=>setRetailForm(f=>({...f, brand_id:e.target.value}))} style={fld}>
+                  <option value="">— Nessuno —</option>
+                  {brands.map(b=>(<option key={b.id} value={b.id}>{b.company_name||b.email}</option>))}
+                </select>
+                <label style={lbl}>Prodotti candidati</label>
+                <textarea value={retailForm.candidate_products||""} onChange={e=>setRetailForm(f=>({...f, candidate_products:e.target.value}))} rows={2} style={{...fld, resize:"vertical"}}/>
+                <div style={{ display:"flex", gap:10 }}>
+                  <div style={{ flex:1 }}><label style={lbl}>Stato</label>
+                    <select value={retailForm.stage||"lead"} onChange={e=>setRetailForm(f=>({...f, stage:e.target.value}))} style={fld}>
+                      {STAGES.map(z=>(<option key={z[0]} value={z[0]}>{z[1]}</option>))}
+                    </select>
+                  </div>
+                  <div style={{ flex:1 }}><label style={lbl}>Probabilita chiusura (%)</label><input type="number" min="0" max="100" value={retailForm.probability||0} onChange={e=>setRetailForm(f=>({...f, probability:e.target.value}))} style={fld}/></div>
+                </div>
+                <div style={{ display:"flex", gap:10, alignItems:"center" }}>
+                  <div style={{ flex:1 }}><label style={lbl}>Prossimo follow-up</label><input type="date" value={retailForm.next_followup||""} onChange={e=>setRetailForm(f=>({...f, next_followup:e.target.value}))} style={fld}/></div>
+                  <label style={{ display:"flex", alignItems:"center", gap:8, fontSize:13, color:C.text, marginTop:24, flex:1, cursor:"pointer" }}>
+                    <input type="checkbox" checked={!!retailForm.samples_sent} onChange={e=>setRetailForm(f=>({...f, samples_sent:e.target.checked}))}/> Campioni inviati
+                  </label>
+                </div>
+                <label style={lbl}>Note</label>
+                <textarea value={retailForm.notes||""} onChange={e=>setRetailForm(f=>({...f, notes:e.target.value}))} rows={3} style={{...fld, resize:"vertical"}}/>
+              </Modal>
+            )}
+          </div>
+          );
+        })()}
         {tab === "logistics" && (() => {
           const invOf = (p) => Array.isArray(p.inventory) ? (p.inventory[0]||{}) : (p.inventory||{});
           const wi = products.map(p => ({ p, inv: invOf(p) }));
