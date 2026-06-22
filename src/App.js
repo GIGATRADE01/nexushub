@@ -2198,7 +2198,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
       const { data } = await supabase.from("brand_access_requests")
-        .select("*, distributor:profiles!brand_access_requests_distributor_id_fkey(company_name, email, country)")
+        .select("*, distributor:profiles!brand_access_requests_distributor_id_fkey(company_name, email, country, trust_score, account_state)")
         .eq("brand_id", user.id).order("created_at", { ascending: false });
       setAccessReqs(data || []);
     };
@@ -2442,6 +2442,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                       <div style={{ fontSize:16, fontWeight:700, color:C.text }}>{dname}</div>
                       <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{dist.email || "—"}</div>
                       <div style={{ fontSize:11, color:C.textDim, marginTop:2 }}>📍 {dist.country || "—"} · {t("submitted")}: {new Date(r.created_at).toLocaleDateString("it-IT")}</div>
+                      <div style={{ marginTop:6 }}><TrustBadge score={dist.trust_score} state={dist.account_state}/></div>
                     </div>
                   </div>
                   <Badge status={r.status==="blocked"?"rejected":r.status==="approved"?"approved":"pending"}/>
@@ -3353,7 +3354,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
 
     // Load notifications
     // Load real brands (approved) for the marketplace — empty until brands register
-    supabase.from("profiles").select("id, company_name, email, country")
+    supabase.from("profiles").select("id, company_name, email, country, trust_score, account_state")
       .eq("role", "brand").eq("status", "approved")
       .then(({ data }) => setDbBrands(data || []));
     const loadAccess = async () => {
@@ -3533,6 +3534,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       <div style={{ flex:1 }}>
                         <div style={{ fontSize:15, fontWeight:700, color:C.text }}>{bname}</div>
                         <div style={{ fontSize:12, color:C.textMuted }}>📍 {brand.country || "—"}</div>
+                        <div style={{ marginTop:6 }}><TrustBadge score={brand.trust_score} state={brand.account_state}/></div>
                       </div>
                       {status==="approved" && <Badge status="active"/>}
                       {status==="blocked" && <Badge status="rejected"/>}
