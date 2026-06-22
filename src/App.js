@@ -223,18 +223,6 @@ const ACTIVE_DISTRIBUTORS = [
   { id:"d6", company:"Hellas Beauty Ltd", country:"Greece", flag:"🇬🇷", territory:"Greece, Cyprus", brands:["lattafa"], orders:4, revenue:"€ 62K", status:"pending" },
 ];
 
-const CATALOG = [
-  { sku:"LT-KHM-100", name:"Khamrah EDP", brand:"lattafa", size:"100ml", category:"Premium", price:91.00, stock:310, pallet:240, moq:48 },
-  { sku:"LT-OOM-100", name:"Oud Mood EDP", brand:"lattafa", size:"100ml", category:"Signature", price:84.00, stock:240, pallet:240, moq:48 },
-  { sku:"LT-AAO-80", name:"Ameer Al Oud", brand:"lattafa", size:"80ml", category:"Oud Collection", price:67.50, stock:180, pallet:288, moq:48 },
-  { sku:"LT-RMS-100", name:"Ramz Silver EDP", brand:"lattafa", size:"100ml", category:"Signature", price:72.00, stock:95, pallet:240, moq:48 },
-  { sku:"LT-WRD-60", name:"Warde EDP", brand:"lattafa", size:"60ml", category:"Floral", price:54.00, stock:420, pallet:360, moq:72 },
-  { sku:"LT-BAB-100", name:"Bab Al Fazza EDP", brand:"lattafa", size:"100ml", category:"Premium", price:95.00, stock:60, pallet:200, moq:24 },
-  { sku:"RS-DAR-100", name:"Daarej EDP", brand:"rasasi", size:"100ml", category:"Heritage", price:78.00, stock:160, pallet:240, moq:48 },
-  { sku:"RS-HUM-100", name:"Humoori EDP", brand:"rasasi", size:"100ml", category:"Signature", price:65.00, stock:200, pallet:240, moq:48 },
-  { sku:"AJ-OUD-50", name:"Ajmal Oud", brand:"ajmal", size:"50ml", category:"Pure Oud", price:145.00, stock:80, pallet:180, moq:24 },
-  { sku:"AM-CLG-100", name:"Club De Nuit", brand:"armaf", size:"100ml", category:"Bestseller", price:38.00, stock:520, pallet:360, moq:72 },
-];
 
 
 const PAYMENTS = [
@@ -1633,177 +1621,6 @@ const InventoryForecast = ({ products = [], orders = [] }) => {
   );
 };
 
-const AISuggestions = ({ products = [], orders = [] }) => {
-  const [suggestions, setSuggestions] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [generated, setGenerated] = useState(false);
-
-  const getCurrentSeason = () => {
-    const month = new Date().getMonth() + 1;
-    if (month >= 3 && month <= 5) return { name: "Spring", icon: "🌸", months: "March-May" };
-    if (month >= 6 && month <= 8) return { name: "Summer", icon: "☀️", months: "June-August" };
-    if (month >= 9 && month <= 11) return { name: "Autumn", icon: "🍂", months: "September-November" };
-    return { name: "Winter", icon: "❄️", months: "December-February" };
-  };
-
-  const generateSuggestions = async () => {
-    setLoading(true);
-    await new Promise(r => setTimeout(r, 1200)); // Simulate AI thinking
-
-    const season = getCurrentSeason();
-    const month = new Date().getMonth() + 1;
-
-    // Smart suggestions based on season, stock and order history
-    const suggestions = products
-      .filter(p => (p.inventory?.quantity_available || 0) > 0)
-      .map(p => {
-        const stock = p.inventory?.quantity_available || 0;
-        const moq = p.min_order_qty || 12;
-        const multiple = p.order_multiple || 12;
-        
-        // Seasonal scoring for fragrances
-        let score = 50;
-        let reason = "";
-        let urgency = "normal";
-
-        // Season-based logic
-        if (month >= 11 || month <= 1) {
-          // Winter/Christmas — heavy oriental fragrances sell well
-          if (p.category?.toLowerCase().includes("oud") || p.category?.toLowerCase().includes("oriental") || p.category?.toLowerCase().includes("premium")) {
-            score += 35;
-            reason = `❄️ Stagione invernale — profumi orientali e oud hanno il picco massimo di vendite. Ottimo momento per stoccare.`;
-            urgency = "high";
-          } else {
-            score += 10;
-            reason = `❄️ Periodo natalizio — alta domanda generale. Consigliamo rifornimento.`;
-          }
-        } else if (month >= 6 && month <= 8) {
-          // Summer — fresh fragrances
-          if (p.category?.toLowerCase().includes("floral") || p.category?.toLowerCase().includes("fresh")) {
-            score += 30;
-            reason = `☀️ Estate — i profumi floreali e freschi raggiungono il picco. Stocca ora prima dell'esaurimento.`;
-            urgency = "high";
-          } else {
-            score += 5;
-            reason = `☀️ Periodo estivo — domanda stabile. Mantieni scorte adeguate.`;
-          }
-        } else if (month >= 3 && month <= 5) {
-          score += 20;
-          reason = `🌸 Primavera — periodo di rinnovo. Buon momento per introdurre nuovi prodotti nel tuo catalogo.`;
-        } else {
-          score += 15;
-          reason = `🍂 Autunno — inizio stagione calda, prepara lo stock per l'inverno.`;
-        }
-
-        // Low stock bonus — order before stockout
-        if (stock < 50) { score += 25; urgency = "urgent"; }
-        else if (stock < 100) { score += 10; }
-
-        // Bestseller bonus
-        if (p.category?.toLowerCase().includes("bestseller")) { score += 20; }
-        if (p.category?.toLowerCase().includes("signature")) { score += 15; }
-
-        // Calculate suggested quantity (3 months supply)
-        const suggestedQty = Math.ceil((moq * 3) / multiple) * multiple;
-
-        return { ...p, score, reason, urgency, suggestedQty, season };
-      })
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 5);
-
-    setSuggestions(suggestions);
-    setGenerated(true);
-    setLoading(false);
-  };
-
-  const season = getCurrentSeason();
-
-  return (
-    <div style={{ background:"#0d0d1a", border:"1px solid #1a1a2e", borderRadius:14, padding:24, marginBottom:20 }}>
-      <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:16, flexWrap:"wrap", gap:10 }}>
-        <div style={{ display:"flex", alignItems:"center", gap:12 }}>
-          <div style={{ width:40, height:40, borderRadius:10, background:"linear-gradient(135deg,#8e44ad,#5b2c8d)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:20 }}>🤖</div>
-          <div>
-            <div style={{ fontSize:15, fontWeight:700, color:"#f0ece4" }}>AI Product Suggestions</div>
-            <div style={{ fontSize:12, color:"#6b6b8a", marginTop:2 }}>
-              {season.icon} {season.name} · Analisi basata su stagionalità, stock e trend di mercato
-            </div>
-          </div>
-        </div>
-        <button onClick={generateSuggestions} disabled={loading} style={{
-          padding:"10px 20px", borderRadius:10, cursor:"pointer", fontSize:13, fontWeight:700,
-          background: loading ? "#2a2a3a" : "linear-gradient(135deg,#8e44ad,#5b2c8d)",
-          border:"none", color:"#fff", display:"flex", alignItems:"center", gap:8,
-          opacity: loading ? 0.7 : 1 }}>
-          {loading ? "🤖 Analisi in corso..." : generated ? "🔄 Rigenera" : "✨ Genera Suggerimenti"}
-        </button>
-      </div>
-
-      {!generated && !loading && (
-        <div style={{ textAlign:"center", padding:"28px 20px", color:"#6b6b8a" }}>
-          <div style={{ fontSize:32, marginBottom:10 }}>🤖</div>
-          <div style={{ fontSize:14, marginBottom:6, color:"#f0ece4" }}>Suggerimenti intelligenti per il tuo business</div>
-          <div style={{ fontSize:12, lineHeight:1.6 }}>
-            L'AI analizza la stagionalità, il tuo stock attuale e i trend di mercato per suggerirti quali prodotti ordinare e in che quantità.
-          </div>
-        </div>
-      )}
-
-      {loading && (
-        <div style={{ textAlign:"center", padding:"28px 20px" }}>
-          <div style={{ fontSize:32, marginBottom:10 }}>⏳</div>
-          <div style={{ fontSize:14, color:"#a855f7" }}>Analisi stagionalità e mercato in corso...</div>
-          <div style={{ fontSize:12, color:"#6b6b8a", marginTop:6 }}>Elaborazione dati stock e trend europei</div>
-        </div>
-      )}
-
-      {generated && !loading && suggestions.length > 0 && (
-        <div style={{ display:"flex", flexDirection:"column", gap:12 }}>
-          {suggestions.map((s, i) => (
-            <div key={s.id} style={{
-              display:"flex", alignItems:"flex-start", gap:14, padding:"14px 16px",
-              background: i===0 ? "rgba(142,68,173,0.1)" : "rgba(255,255,255,0.03)",
-              border:`1px solid ${i===0 ? "rgba(142,68,173,0.3)" : "rgba(255,255,255,0.07)"}`,
-              borderLeft:`3px solid ${s.urgency==="urgent"?"#c0392b":s.urgency==="high"?"#c9a84c":"#8e44ad"}`,
-              borderRadius:10 }}>
-              <div style={{ width:32, height:32, borderRadius:8, background:"rgba(142,68,173,0.2)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:14, fontWeight:800, color:"#a855f7", flexShrink:0 }}>#{i+1}</div>
-              <div style={{ flex:1 }}>
-                <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:8, marginBottom:4 }}>
-                  <div style={{ fontSize:14, fontWeight:700, color:"#f0ece4" }}>{s.name}</div>
-                  <div style={{ display:"flex", gap:8, alignItems:"center" }}>
-                    {s.urgency === "urgent" && <span style={{ padding:"2px 8px", borderRadius:5, fontSize:10, fontWeight:700, background:"rgba(192,57,43,0.2)", color:"#e74c3c", border:"1px solid rgba(192,57,43,0.4)" }}>⚠️ URGENTE</span>}
-                    {s.urgency === "high" && <span style={{ padding:"2px 8px", borderRadius:5, fontSize:10, fontWeight:700, background:"rgba(201,168,76,0.15)", color:"#c9a84c", border:"1px solid rgba(201,168,76,0.3)" }}>🔥 ALTA PRIORITÀ</span>}
-                    <span style={{ fontSize:13, fontWeight:800, color:"#e2bc6a" }}>€{s.unit_price?.toFixed(2)}</span>
-                  </div>
-                </div>
-                <div style={{ fontSize:11, color:"#6b6b8a", marginBottom:6 }}>{s.sku} · Stock attuale: <span style={{ color: s.inventory?.quantity_available < 50 ? "#e74c3c" : "#27ae60", fontWeight:600 }}>{s.inventory?.quantity_available || 0} u.</span></div>
-                <div style={{ fontSize:12, color:"#8890aa", lineHeight:1.5, marginBottom:8 }}>{s.reason}</div>
-                <div style={{ display:"flex", alignItems:"center", gap:10, flexWrap:"wrap" }}>
-                  <span style={{ fontSize:12, color:"#f0ece4" }}>Quantità consigliata: <strong style={{ color:"#a855f7" }}>{s.suggestedQty} unità</strong></span>
-                  <span style={{ fontSize:11, color:"#6b6b8a" }}>≈ €{(s.unit_price * s.suggestedQty).toLocaleString("it-IT")}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-          <div style={{ padding:"10px 14px", background:"rgba(142,68,173,0.06)", border:"1px solid rgba(142,68,173,0.15)", borderRadius:8, fontSize:11, color:"#6b6b8a", textAlign:"center" }}>
-            💡 Suggerimenti basati su stagionalità {season.icon}, livelli stock e trend mercato europeo · Aggiornati in tempo reale
-          </div>
-        </div>
-      )}
-
-      {generated && !loading && suggestions.length === 0 && (
-        <div style={{ textAlign:"center", padding:"20px", color:"#6b6b8a" }}>
-          <div style={{ fontSize:14 }}>Nessun prodotto disponibile per i suggerimenti</div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-
-// ============================================================
-// BRAND ANALYTICS AI COMPONENT
-// ============================================================
 const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
   const [loading, setLoading] = useState(false);
   const [generated, setGenerated] = useState(false);
@@ -2037,6 +1854,154 @@ const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
           </div>
         </div>
       )}
+    </div>
+  );
+};
+
+const NEXUS_STATUS_IT = { draft:"bozza", pending:"in attesa", confirmed:"confermato", shipped:"spedito", delivered:"consegnato", cancelled:"annullato" };
+
+const NexusAI = ({ role }) => {
+  const eur = (n) => "€" + Number(n||0).toLocaleString("it-IT", { minimumFractionDigits:2, maximumFractionDigits:2 });
+  const num = (x) => Number(x||0);
+  const qa = (inv) => Array.isArray(inv) ? num(inv[0] && inv[0].quantity_available) : num(inv && inv.quantity_available);
+  const countByStatus = (rows) => { const m={}; (rows||[]).forEach(r=>{ m[r.status]=(m[r.status]||0)+1; }); const ks=Object.keys(m); return ks.length ? ks.map(k=>"• "+(NEXUS_STATUS_IT[k]||k)+": "+m[k]).join("\n") : "nessun ordine"; };
+
+  const INTENTS = {
+    admin: [
+      { chip:"Fatturato del mese", keys:["fatturat","gmv","vendit","mese","incass"], run: async () => {
+        const { data:o } = await supabase.from("orders").select("total_amount,status,created_at").neq("status","cancelled");
+        const gmv=(o||[]).reduce((a,x)=>a+num(x.total_amount),0);
+        const ms=new Date(); ms.setDate(1); ms.setHours(0,0,0,0);
+        const mese=(o||[]).filter(x=>new Date(x.created_at)>=ms).reduce((a,x)=>a+num(x.total_amount),0);
+        return "GMV totale (ordini non annullati): "+eur(gmv)+"\nQuesto mese: "+eur(mese)+"\nOrdini totali: "+((o||[]).length);
+      }},
+      { chip:"Ordini per stato", keys:["ordini","stato","stati"], run: async () => {
+        const { data:o } = await supabase.from("orders").select("status");
+        return "Ordini per stato:\n" + countByStatus(o);
+      }},
+      { chip:"Prodotti sotto scorta", keys:["scort","magazzino","esaurit","stock"], run: async () => {
+        const { data:p } = await supabase.from("products").select("name, inventory(*)");
+        const low=(p||[]).filter(x=>qa(x.inventory)<50);
+        if(!low.length) return "Tutti i prodotti hanno scorte sopra le 50 unita.";
+        return "Sotto le 50 unita:\n" + low.map(x=>"• "+x.name+": "+qa(x.inventory)+" pz").join("\n");
+      }},
+      { chip:"Commissioni incassate", keys:["commission","margine","guadagn"], run: async () => {
+        const { data:sp } = await supabase.from("payment_splits").select("nexushub_amount");
+        const tot=(sp||[]).reduce((a,x)=>a+num(x.nexushub_amount),0);
+        return "Commissioni NexusHub incassate (lordo): "+eur(tot)+"\nPer il margine netto vedi la tab Margini.";
+      }},
+      { chip:"Distributori a basso trust", keys:["trust","distributor","rischio","affidab"], run: async () => {
+        const { data:d } = await supabase.from("profiles").select("company_name,trust_score,account_state").eq("role","distributor").order("trust_score",{ascending:true}).limit(5);
+        if(!d||!d.length) return "Nessun distributore registrato.";
+        return "Distributori con Trust piu basso:\n" + d.map(x=>"• "+(x.company_name||"—")+": "+x.trust_score+" pt"+(x.account_state&&x.account_state!=="active"?" ("+x.account_state+")":"")).join("\n");
+      }},
+      { chip:"Contratti in scadenza", keys:["contratt","scadenz","autorizz"], run: async () => {
+        const { data:c } = await supabase.from("contracts").select("contract_number,valid_until");
+        const today=new Date(); const soon=new Date(); soon.setDate(soon.getDate()+30);
+        const exp=(c||[]).filter(x=>x.valid_until&&new Date(x.valid_until)<today);
+        const sn=(c||[]).filter(x=>x.valid_until&&new Date(x.valid_until)>=today&&new Date(x.valid_until)<soon);
+        let out="Contratti scaduti: "+exp.length+"\nIn scadenza (30gg): "+sn.length;
+        if(sn.length) out+="\n"+sn.map(x=>"• "+x.contract_number+" → "+x.valid_until).join("\n");
+        return out;
+      }},
+      { chip:"Documenti in scadenza", keys:["document","compliance","certificat"], run: async () => {
+        const { data:dd } = await supabase.from("compliance_documents").select("name,expires_at");
+        const today=new Date(); const soon=new Date(); soon.setDate(soon.getDate()+30);
+        const exp=(dd||[]).filter(x=>x.expires_at&&new Date(x.expires_at)<today);
+        const sn=(dd||[]).filter(x=>x.expires_at&&new Date(x.expires_at)>=today&&new Date(x.expires_at)<soon);
+        return "Documenti scaduti: "+exp.length+"\nIn scadenza (30gg): "+sn.length + (sn.length?"\n"+sn.map(x=>"• "+x.name+" → "+x.expires_at).join("\n"):"");
+      }}
+    ],
+    brand: [
+      { chip:"Le mie vendite", keys:["vendit","fatturat","venduto","gmv"], run: async () => {
+        const { data:o } = await supabase.from("orders").select("total_amount,status");
+        const ok=(o||[]).filter(x=>x.status!=="cancelled");
+        const gmv=ok.reduce((a,x)=>a+num(x.total_amount),0);
+        return "Vendite totali (lordo): "+eur(gmv)+"\nOrdini: "+ok.length+"\nPayout stimato (al netto fee piattaforma): "+eur(gmv*0.886);
+      }},
+      { chip:"Ordini per stato", keys:["ordini","stato"], run: async () => {
+        const { data:o } = await supabase.from("orders").select("status");
+        return "I tuoi ordini per stato:\n" + countByStatus(o);
+      }},
+      { chip:"Rating medio", keys:["rating","recension","valutaz","stelle"], run: async () => {
+        const { data:o } = await supabase.from("orders").select("rating").not("rating","is",null);
+        if(!o||!o.length) return "Non hai ancora ricevuto valutazioni.";
+        const avg=o.reduce((a,x)=>a+num(x.rating),0)/o.length;
+        return "Rating medio: "+avg.toFixed(2)+"/5 su "+o.length+" ordini valutati.";
+      }},
+      { chip:"I miei prodotti", keys:["prodott","catalog","scort","stock"], run: async () => {
+        const { data:p } = await supabase.from("products").select("name,is_active,inventory(*)");
+        const act=(p||[]).filter(x=>x.is_active).length;
+        const low=(p||[]).filter(x=>qa(x.inventory)<50);
+        return "Prodotti attivi: "+act+" su "+((p||[]).length)+"." + (low.length?"\nSotto scorta (<50): "+low.map(x=>x.name).join(", "):"\nScorte ok.");
+      }}
+    ],
+    distributor: [
+      { chip:"I miei ordini", keys:["ordini","stato","ordine"], run: async () => {
+        const { data:o } = await supabase.from("orders").select("status,total_amount");
+        const spent=(o||[]).filter(x=>x.status!=="cancelled").reduce((a,x)=>a+num(x.total_amount),0);
+        return "I tuoi ordini per stato:\n" + countByStatus(o) + "\nSpesa totale: "+eur(spent);
+      }},
+      { chip:"Dov'e il mio ordine", keys:["tracking","spedizion","traccia","dov","corriere"], run: async () => {
+        const { data:o } = await supabase.from("orders").select("order_number,status,courier,tracking_number,tracking_url,shipped_at").in("status",["shipped","delivered"]).order("shipped_at",{ascending:false}).limit(1);
+        if(!o||!o.length) return "Nessun ordine ancora spedito.";
+        const x=o[0];
+        return "Ultimo ordine spedito: "+x.order_number+"\nStato: "+(NEXUS_STATUS_IT[x.status]||x.status)+"\nCorriere: "+(x.courier||"—")+"\nTracking: "+(x.tracking_number||"—") + (x.tracking_url?"\nLink: "+x.tracking_url:"");
+      }},
+      { chip:"La mia wishlist", keys:["wishlist","desideri","preferit"], run: async () => {
+        const { data:w } = await supabase.from("wishlist_items").select("id");
+        return "Hai "+((w||[]).length)+" prodotti nella wishlist.";
+      }},
+      { chip:"Catalogo disponibile", keys:["catalog","prodott","disponib"], run: async () => {
+        const { data:p } = await supabase.from("products").select("id").eq("is_active",true);
+        return "Hai accesso a "+((p||[]).length)+" prodotti attivi dai brand approvati.";
+      }}
+    ]
+  };
+
+  const intents = INTENTS[role] || INTENTS.distributor;
+  const [msgs, setMsgs] = useState([{ who:"ai", text:"Ciao! Sono Nexus AI. Rispondo sui tuoi dati reali: tocca una domanda qui sotto o scrivimi." }]);
+  const [input, setInput] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  const ask = async (q) => {
+    const query=(q||"").trim(); if(!query||busy) return;
+    setMsgs(m=>[...m,{ who:"user", text:query }]); setInput(""); setBusy(true);
+    const ql=query.toLowerCase();
+    const hit=intents.find(it=>it.keys.some(k=>ql.includes(k)));
+    let ans;
+    try { ans = hit ? await hit.run() : ("Non sono sicuro di aver capito. Prova una di queste:\n"+intents.map(i=>"• "+i.chip).join("\n")); }
+    catch(e){ console.error(e); ans="Ops, non sono riuscito a recuperare il dato. Riprova."; }
+    setMsgs(m=>[...m,{ who:"ai", text:ans }]); setBusy(false);
+  };
+
+  return (
+    <div>
+      <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:6 }}>
+        <div style={{ width:42, height:42, borderRadius:11, background:"linear-gradient(135deg,#8e44ad,#5b2c8d)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:22 }}>🤖</div>
+        <div>
+          <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:0 }}>Nexus AI</h2>
+          <p style={{ color:C.textMuted, fontSize:12.5, margin:"2px 0 0" }}>Assistente sui tuoi dati reali · risposte istantanee</p>
+        </div>
+      </div>
+      <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, padding:16, marginTop:14 }}>
+        <div style={{ display:"flex", flexDirection:"column", gap:10, maxHeight:340, overflowY:"auto", marginBottom:14 }}>
+          {msgs.map((m,i)=>(
+            <div key={i} style={{ alignSelf: m.who==="user"?"flex-end":"flex-start", maxWidth:"85%", padding:"10px 13px", borderRadius:12, fontSize:13, lineHeight:1.5, whiteSpace:"pre-wrap", background: m.who==="user"?`linear-gradient(135deg,${C.gold},${C.goldDim})`:C.surface2, color: m.who==="user"?C.bg:C.text, border: m.who==="user"?"none":`1px solid ${C.border}` }}>{m.text}</div>
+          ))}
+          {busy && <div style={{ alignSelf:"flex-start", fontSize:12, color:C.textMuted, padding:"6px 4px" }}>Nexus AI sta cercando…</div>}
+        </div>
+        <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:12 }}>
+          {intents.map((it,i)=>(
+            <button key={i} onClick={()=>ask(it.chip)} disabled={busy} style={{ padding:"6px 12px", borderRadius:20, cursor:busy?"default":"pointer", fontSize:12, background:`${C.gold}12`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>{it.chip}</button>
+          ))}
+        </div>
+        <div style={{ display:"flex", gap:8 }}>
+          <input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>{ if(e.key==="Enter") ask(input); }} placeholder="Scrivi una domanda…" style={{ flex:1, padding:"10px 13px", borderRadius:9, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none" }}/>
+          <button onClick={()=>ask(input)} disabled={busy} style={{ padding:"10px 18px", borderRadius:9, cursor:busy?"default":"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>Invia</button>
+        </div>
+      </div>
+      <p style={{ fontSize:11, color:C.textDim, marginTop:10 }}>Nexus AI risponde solo sui dati a cui hai accesso. Presto capira anche il linguaggio libero (upgrade AI).</p>
     </div>
   );
 };
@@ -2703,11 +2668,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           </div>
         )}
         {tab==="ai" && (
-          <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px", color:C.text }}>🤖 AI Suggestions</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Suggerimenti intelligenti basati su stagionalità, stock e trend di mercato europeo</p>
-            <AISuggestions products={CATALOG.map(p=>({...p, unit_price:p.price, inventory:{quantity_available:p.stock}}))} orders={[]}/>
-          </div>
+          <NexusAI role="brand"/>
         )}
 
         {tab==="orders" && (
@@ -3693,11 +3654,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           </div>
         )}
         {tab==="ai" && (
-          <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px", color:C.text }}>🤖 AI Suggestions</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Suggerimenti intelligenti basati su stagionalità, stock e trend di mercato europeo</p>
-            <AISuggestions products={realProducts} orders={realOrders}/>
-          </div>
+          <NexusAI role="distributor"/>
         )}
 
         {tab==="wishlist" && (
@@ -4915,6 +4872,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"retail", icon:"🏬", label:"Retail" },
     { key:"compliance", icon:"🗂️", label:"Compliance" },
     { key:"margini", icon:"📈", label:"Margini" },
+    { key:"nexusai", icon:"🤖", label:"Nexus AI" },
     { key:"orders", icon:"📋", label:"Orders" },
     { key:"invoices", icon:"🧾", label:"Fatture" },
     { key:"contracts", icon:"📝", label:"Contratti" },
@@ -5297,6 +5255,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         )}
 
         {/* INVENTORY TAB */}
+        {tab === "nexusai" && <NexusAI role="admin"/>}
         {tab === "margini" && (() => {
           const num=(x)=>Number(x||0);
           const rowCalc=(r)=>{ const gmv=num(r.total_amount); const fee=r.split?num(r.split.nexushub_amount):gmv*feeRate/100; const stripe=r.split?num(r.split.stripe_fee):0; const op=num(r.econ&&r.econ.operating_cost); const net=fee-stripe-op; return { gmv, fee, stripe, op, net, pct: gmv>0?net/gmv*100:0 }; };
