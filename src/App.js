@@ -1862,10 +1862,17 @@ const NEXUS_STATUS_IT = { draft:"bozza", pending:"in attesa", confirmed:"conferm
 
 const BrandAmazonPanel = () => {
   const [rows, setRows] = useState([]);
+  const [catalog, setCatalog] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => { (async () => {
-    try { const { data } = await supabase.rpc("amazon_brand_performance"); setRows(data || []); }
-    catch(e){ console.error(e); }
+    try {
+      const [r1, r2] = await Promise.all([
+        supabase.rpc("amazon_brand_performance"),
+        supabase.from("products").select("id,name,is_active")
+      ]);
+      setRows(r1.data || []);
+      setCatalog((r2.data || []).filter(p => p.is_active !== false));
+    } catch(e){ console.error(e); }
     setLoading(false);
   })(); }, []);
   const num = (x) => Number(x||0);
@@ -1874,55 +1881,79 @@ const BrandAmazonPanel = () => {
   const stock = rows.reduce((a,r)=>a+num(r.units_in_stock),0);
   const rev30 = rows.reduce((a,r)=>a+num(r.sell_price)*num(r.units_sold_30d),0);
   const mkts = Array.from(new Set(rows.map(r=>r.marketplace))).filter(Boolean);
+  const onIds = new Set(rows.map(r=>r.product_id).filter(Boolean));
+  const notOnAmazon = catalog.filter(p=>!onIds.has(p.id));
+  const onCatalog = catalog.filter(p=>onIds.has(p.id)).length;
+  const hasAny = rows.length>0 || catalog.length>0;
   return (
     <div>
       <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:6 }}>
         <div style={{ width:44, height:44, borderRadius:11, background:"linear-gradient(135deg,#ff9900,#e47911)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:22 }}>🛒</div>
         <div>
-          <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:0 }}>Le tue vendite su Amazon EU</h2>
-          <p style={{ color:C.textMuted, fontSize:12.5, margin:"2px 0 0" }}>Gestito da NexusHub · logistica + FBA · dati aggiornati</p>
+          <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:0 }}>I tuoi prodotti su Amazon EU</h2>
+          <p style={{ color:C.textMuted, fontSize:12.5, margin:"2px 0 0" }}>Gestito da NexusHub · logistica + FBA · vendite e copertura</p>
         </div>
       </div>
       {loading ? (
         <div style={{ textAlign:"center", padding:48, color:C.textMuted, fontSize:14 }}>Caricamento dati Amazon…</div>
-      ) : rows.length===0 ? (
+      ) : !hasAny ? (
         <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, marginTop:14 }}>
           <div style={{ fontSize:40, marginBottom:12 }}>🛒</div>
           <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:8 }}>Nessun prodotto ancora su Amazon</div>
-          <div style={{ fontSize:13, color:C.textMuted }}>Quando il tuo partner attiva i tuoi prodotti su Amazon EU, qui vedrai vendite, stock e andamento in tempo reale.</div>
+          <div style={{ fontSize:13, color:C.textMuted }}>Quando il tuo partner attiva i tuoi prodotti su Amazon EU, qui vedrai vendite, stock e copertura.</div>
         </div>
       ) : (
         <div style={{ marginTop:16 }}>
-          <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:20 }}>
-            <Stat icon="💶" label="Fatturato Amazon (30gg)" value={eur(rev30)} accent={C.green}/>
-            <Stat icon="📦" label="Unita vendute (30gg)" value={sold30} accent={C.gold}/>
-            <Stat icon="🏦" label="Stock su Amazon" value={stock} accent={C.blue}/>
-            <Stat icon="🌍" label="Marketplace attivi" value={mkts.length}/>
+          <div style={{ display:"flex", gap:10, flexWrap:"wrap", marginBottom:18 }}>
+            <span style={{ padding:"6px 13px", borderRadius:20, fontSize:12, fontWeight:700, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green }}>✓ Su Amazon: {onCatalog}</span>
+            <span style={{ padding:"6px 13px", borderRadius:20, fontSize:12, fontWeight:700, background:`${C.gold}12`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>Da lanciare: {notOnAmazon.length}</span>
+            <span style={{ padding:"6px 13px", borderRadius:20, fontSize:12, fontWeight:700, background:C.surface2, border:`1px solid ${C.border}`, color:C.textMuted }}>Catalogo: {catalog.length}</span>
           </div>
+          {rows.length>0 && (
+            <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:20 }}>
+              <Stat icon="💶" label="Fatturato Amazon (30gg)" value={eur(rev30)} accent={C.green}/>
+              <Stat icon="📦" label="Unita vendute (30gg)" value={sold30} accent={C.gold}/>
+              <Stat icon="🏦" label="Stock su Amazon" value={stock} accent={C.blue}/>
+              <Stat icon="🌍" label="Marketplace attivi" value={mkts.length}/>
+            </div>
+          )}
           {mkts.length>0 && (
             <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginBottom:18 }}>
               {mkts.map(m=>(<span key={m} style={{ padding:"4px 12px", borderRadius:20, fontSize:12, fontWeight:700, background:`${C.gold}12`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>Amazon.{m.toLowerCase()}</span>))}
             </div>
           )}
-          <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
-            <table style={{ width:"100%", borderCollapse:"collapse", minWidth:640 }}>
-              <thead><tr style={{ background:C.surface2 }}>
-                {["Prodotto","Marketplace","Prezzo Amazon","Stock","Venduti (30gg)"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign: i>=2?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".07em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
-              </tr></thead>
-              <tbody>
-                {rows.map((r,i)=>(
-                  <tr key={r.id} style={{ background:i%2?C.surface2+"50":"transparent", borderTop:`1px solid ${C.border}` }}>
-                    <td style={{ padding:"10px 14px", fontSize:12.5, color:C.text }}><div style={{ fontWeight:600 }}>{r.product_name}</div>{r.asin?<div style={{ fontSize:10.5, color:C.textDim, fontFamily:"monospace" }}>{r.asin}</div>:null}</td>
-                    <td style={{ padding:"10px 14px", fontSize:11, color:C.textMuted }}>{r.marketplace}<span style={{ color:C.textDim }}> · {r.fulfillment}</span></td>
-                    <td style={{ padding:"10px 14px", fontSize:12, color:C.text, textAlign:"right", whiteSpace:"nowrap" }}>{eur(r.sell_price)}</td>
-                    <td style={{ padding:"10px 14px", fontSize:12, color:C.textMuted, textAlign:"right" }}>{num(r.units_in_stock)}</td>
-                    <td style={{ padding:"10px 14px", fontSize:12.5, fontWeight:700, color:C.green, textAlign:"right" }}>{num(r.units_sold_30d)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p style={{ fontSize:11, color:C.textDim, marginTop:12 }}>Prezzi, sponsorizzazioni e logistica sono gestiti dal tuo partner di distribuzione (NexusHub). I dati di vendita vengono aggiornati periodicamente.</p>
+          {rows.length>0 ? (
+            <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <table style={{ width:"100%", borderCollapse:"collapse", minWidth:640 }}>
+                <thead><tr style={{ background:C.surface2 }}>
+                  {["Prodotto","Marketplace","Prezzo Amazon","Stock","Venduti (30gg)"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign: i>=2?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".07em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
+                </tr></thead>
+                <tbody>
+                  {rows.map((r,i)=>(
+                    <tr key={r.id} style={{ background:i%2?C.surface2+"50":"transparent", borderTop:`1px solid ${C.border}` }}>
+                      <td style={{ padding:"10px 14px", fontSize:12.5, color:C.text }}><div style={{ fontWeight:600 }}>{r.product_name}</div>{r.asin?<div style={{ fontSize:10.5, color:C.textDim, fontFamily:"monospace" }}>{r.asin}</div>:null}</td>
+                      <td style={{ padding:"10px 14px", fontSize:11, color:C.textMuted }}>{r.marketplace}<span style={{ color:C.textDim }}> · {r.fulfillment}</span></td>
+                      <td style={{ padding:"10px 14px", fontSize:12, color:C.text, textAlign:"right", whiteSpace:"nowrap" }}>{eur(r.sell_price)}</td>
+                      <td style={{ padding:"10px 14px", fontSize:12, color:C.textMuted, textAlign:"right" }}>{num(r.units_in_stock)}</td>
+                      <td style={{ padding:"10px 14px", fontSize:12.5, fontWeight:700, color:C.green, textAlign:"right" }}>{num(r.units_sold_30d)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div style={{ padding:"16px 18px", background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, fontSize:13, color:C.textMuted }}>Nessuno dei tuoi prodotti è ancora attivo su Amazon. Qui sotto i candidati al lancio.</div>
+          )}
+          {notOnAmazon.length>0 && (
+            <div style={{ marginTop:28 }}>
+              <h3 style={{ fontSize:15, fontWeight:700, margin:"0 0 4px", color:C.text }}>Non ancora su Amazon</h3>
+              <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 12px" }}>{notOnAmazon.length} tuoi prodotti non sono ancora a scaffale su Amazon EU — potenziali lanci da valutare col partner.</p>
+              <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
+                {notOnAmazon.map(p=>(<span key={p.id} style={{ padding:"7px 12px", borderRadius:9, fontSize:12.5, background:C.surface2, border:`1px dashed ${C.border}`, color:C.text }}>{p.name} <span style={{ color:C.gold, fontSize:10, fontWeight:700 }}>· da lanciare</span></span>))}
+              </div>
+            </div>
+          )}
+          <p style={{ fontSize:11, color:C.textDim, marginTop:18 }}>Prezzi, sponsorizzazioni e logistica sono gestiti dal tuo partner di distribuzione (NexusHub). I dati di vendita vengono aggiornati periodicamente.</p>
         </div>
       )}
     </div>
@@ -4403,7 +4434,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     const f = amazonForm;
     if (!f.product_name || !f.product_name.trim()) { notify("Inserisci il nome prodotto", "error"); return; }
     const payload = {
-      product_name: f.product_name.trim(), asin: f.asin||null, sku: f.sku||null, brand_id: f.brand_id||null,
+      product_name: f.product_name.trim(), asin: f.asin||null, sku: f.sku||null, brand_id: f.brand_id||null, product_id: f.product_id||null,
       marketplace: f.marketplace||"IT", fulfillment: f.fulfillment||"FBA",
       cost_price: Number(f.cost_price)||0, sell_price: Number(f.sell_price)||0,
       referral_fee_pct: Number(f.referral_fee_pct)||0, fba_fee: Number(f.fba_fee)||0, ad_spend_30d: Number(f.ad_spend_30d)||0,
@@ -5424,7 +5455,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             {amazonModal && (
               <Modal title={amazonForm.id ? "Modifica listing Amazon" : "Nuovo listing Amazon"} onClose={()=>setAmazonModal(false)} onSave={saveAmazon} saveLabel="Salva">
                 <label style={lbl}>Collega a prodotto del catalogo (opzionale)</label>
-                <select value={amazonForm._catalog||""} onChange={e=>{ const pid=e.target.value; const p=products.find(z=>z.id===pid); setAmazonForm(f=>({ ...f, _catalog:pid, ...(p?{ product_name:p.name||f.product_name, brand_id:p.brand_id||f.brand_id, sku:p.sku||f.sku }:{}) })); }} style={fld}>
+                <select value={amazonForm._catalog||""} onChange={e=>{ const pid=e.target.value; const p=products.find(z=>z.id===pid); setAmazonForm(f=>({ ...f, _catalog:pid, ...(p?{ product_name:p.name||f.product_name, brand_id:p.brand_id||f.brand_id, sku:p.sku||f.sku, product_id:p.id }:{ product_id:null }) })); }} style={fld}>
                   <option value="">— Manuale / nessun collegamento —</option>
                   {products.map(p=>(<option key={p.id} value={p.id}>{(p.name||"Prodotto")+(p.profiles&&p.profiles.company_name?(" · "+p.profiles.company_name):"")}</option>))}
                 </select>
