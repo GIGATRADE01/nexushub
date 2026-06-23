@@ -4396,7 +4396,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     setAmazonRows(data || []);
   };
   const openAmazon = (t) => {
-    setAmazonForm(t ? { ...t } : { product_name:"", asin:"", sku:"", brand_id:"", marketplace:"IT", fulfillment:"FBA", cost_price:0, sell_price:0, referral_fee_pct:15, fba_fee:0, units_in_stock:0, units_sold_30d:0, notes:"" });
+    setAmazonForm(t ? { ...t } : { product_name:"", asin:"", sku:"", brand_id:"", marketplace:"IT", fulfillment:"FBA", cost_price:0, sell_price:0, referral_fee_pct:15, fba_fee:0, units_in_stock:0, units_sold_30d:0, ad_spend_30d:0, notes:"", _catalog:"" });
     setAmazonModal(t || { _new:true });
   };
   const saveAmazon = async () => {
@@ -4406,7 +4406,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       product_name: f.product_name.trim(), asin: f.asin||null, sku: f.sku||null, brand_id: f.brand_id||null,
       marketplace: f.marketplace||"IT", fulfillment: f.fulfillment||"FBA",
       cost_price: Number(f.cost_price)||0, sell_price: Number(f.sell_price)||0,
-      referral_fee_pct: Number(f.referral_fee_pct)||0, fba_fee: Number(f.fba_fee)||0,
+      referral_fee_pct: Number(f.referral_fee_pct)||0, fba_fee: Number(f.fba_fee)||0, ad_spend_30d: Number(f.ad_spend_30d)||0,
       units_in_stock: Math.max(0, parseInt(f.units_in_stock)||0), units_sold_30d: Math.max(0, parseInt(f.units_sold_30d)||0),
       notes: f.notes||null, updated_at: new Date().toISOString()
     };
@@ -4719,7 +4719,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "retail") { loadRetail(); loadBrands(); }
     if (tab === "compliance") { loadCompliance(); loadUsers(); }
     if (tab === "margini") loadMargins();
-    if (tab === "amazon") { loadAmazon(); loadBrands(); }
+    if (tab === "amazon") { loadAmazon(); loadBrands(); loadProducts(); }
     if (tab === "invoices") loadInvoices();
     if (tab === "contracts") { loadContracts(); loadBrands(); loadUsers(); }
     if (tab === "commissions") { loadCommissions(); loadCommissionLog(); }
@@ -5363,8 +5363,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           const num=(x)=>Number(x||0);
           const MKTS=["IT","DE","FR","ES","NL","SE","PL","BE","UK"];
           const brandName=(id)=>{ const b=brands.find(z=>z.id===id); return b?(b.company_name||"\u2014"):"\u2014"; };
-          const calc=(r)=>{ const sell=num(r.sell_price); const cost=num(r.cost_price); const ref=sell*num(r.referral_fee_pct)/100; const fba=num(r.fba_fee); const net=sell-cost-fba-ref; const u=num(r.units_in_stock); return { sell, cost, ref, fba, net, u, pct: sell>0?net/sell*100:0, roi: cost>0?net/cost*100:0 }; };
-          const tot=amazonRows.reduce((a,r)=>{ const c=calc(r); a.stockCost+=c.cost*c.u; a.potential+=c.net*c.u; a.sellW+=c.sell*c.u; a.netW+=c.net*c.u; a.sold+=num(r.units_sold_30d); return a; },{stockCost:0,potential:0,sellW:0,netW:0,sold:0});
+          const calc=(r)=>{ const sell=num(r.sell_price); const cost=num(r.cost_price); const ref=sell*num(r.referral_fee_pct)/100; const fba=num(r.fba_fee); const sold=num(r.units_sold_30d); const adU=sold>0?num(r.ad_spend_30d)/sold:0; const net=sell-cost-fba-ref-adU; const u=num(r.units_in_stock); return { sell, cost, ref, fba, adU, net, u, pct: sell>0?net/sell*100:0, roi: cost>0?net/cost*100:0 }; };
+          const tot=amazonRows.reduce((a,r)=>{ const c=calc(r); a.stockCost+=c.cost*c.u; a.potential+=c.net*c.u; a.sellW+=c.sell*c.u; a.netW+=c.net*c.u; a.sold+=num(r.units_sold_30d); a.ads+=num(r.ad_spend_30d); return a; },{stockCost:0,potential:0,sellW:0,netW:0,sold:0,ads:0});
           const avgPct = tot.sellW>0 ? tot.netW/tot.sellW*100 : 0;
           const eur=(n)=>"\u20ac"+num(n).toLocaleString("it-IT",{minimumFractionDigits:2,maximumFractionDigits:2});
           const fld = { padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, width:"100%", boxSizing:"border-box", outline:"none" };
@@ -5383,6 +5383,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               <Stat icon="🏦" label="Valore stock FBA (costo)" value={eur(tot.stockCost)} accent={C.blue}/>
               <Stat icon="✅" label="Profitto potenziale su stock" value={eur(tot.potential)} accent={C.green}/>
               <Stat icon="📊" label="Margine netto medio" value={avgPct.toFixed(1)+"%"} accent={C.gold}/>
+              <Stat icon="📣" label="Spesa Ads (30gg)" value={eur(tot.ads)} accent={C.red}/>
             </div>
             {amazonRows.length===0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14 }}>
@@ -5395,7 +5396,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:920 }}>
                   <thead><tr style={{ background:C.surface2 }}>
-                    {["Prodotto","Mkt","Prezzo","Costo","Fee (FBA+ref)","Margine €/u","Margine %","ROI %","Stock","Azioni"].map((h,i)=>(<th key={i} style={{ padding:"10px 12px", textAlign: (i>=2&&i<=7)?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".06em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
+                    {["Prodotto","Mkt","Prezzo","Costo","Costi/u (fee+ads)","Margine €/u","Margine %","ROI %","Stock","Azioni"].map((h,i)=>(<th key={i} style={{ padding:"10px 12px", textAlign: (i>=2&&i<=7)?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".06em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
                   </tr></thead>
                   <tbody>
                     {amazonRows.map((r,i)=>{ const c=calc(r); return (
@@ -5404,7 +5405,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         <td style={{ padding:"10px 12px", fontSize:11, color:C.textMuted }}>{r.marketplace}<span style={{ color:C.textDim }}> · {r.fulfillment}</span></td>
                         <td style={{ padding:"10px 12px", fontSize:12, color:C.text, textAlign:"right", whiteSpace:"nowrap" }}>{eur(c.sell)}</td>
                         <td style={{ padding:"10px 12px", fontSize:12, color:C.textMuted, textAlign:"right", whiteSpace:"nowrap" }}>{eur(c.cost)}</td>
-                        <td style={{ padding:"10px 12px", fontSize:11.5, color:C.textMuted, textAlign:"right", whiteSpace:"nowrap" }}>{eur(c.fba+c.ref)}</td>
+                        <td style={{ padding:"10px 12px", fontSize:11.5, color:C.textMuted, textAlign:"right", whiteSpace:"nowrap" }}>{eur(c.fba+c.ref+c.adU)}</td>
                         <td style={{ padding:"10px 12px", fontSize:12.5, fontWeight:700, textAlign:"right", whiteSpace:"nowrap", color: c.net>=0?C.green:C.red }}>{eur(c.net)}</td>
                         <td style={{ padding:"10px 12px", fontSize:12, fontWeight:600, textAlign:"right", color: c.pct>=0?C.green:C.red }}>{c.pct.toFixed(1)}%</td>
                         <td style={{ padding:"10px 12px", fontSize:12, fontWeight:600, textAlign:"right", color: c.roi>=0?C.green:C.red }}>{c.roi.toFixed(0)}%</td>
@@ -5422,6 +5423,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
             {amazonModal && (
               <Modal title={amazonForm.id ? "Modifica listing Amazon" : "Nuovo listing Amazon"} onClose={()=>setAmazonModal(false)} onSave={saveAmazon} saveLabel="Salva">
+                <label style={lbl}>Collega a prodotto del catalogo (opzionale)</label>
+                <select value={amazonForm._catalog||""} onChange={e=>{ const pid=e.target.value; const p=products.find(z=>z.id===pid); setAmazonForm(f=>({ ...f, _catalog:pid, ...(p?{ product_name:p.name||f.product_name, brand_id:p.brand_id||f.brand_id, sku:p.sku||f.sku }:{}) })); }} style={fld}>
+                  <option value="">— Manuale / nessun collegamento —</option>
+                  {products.map(p=>(<option key={p.id} value={p.id}>{(p.name||"Prodotto")+(p.profiles&&p.profiles.company_name?(" · "+p.profiles.company_name):"")}</option>))}
+                </select>
                 <label style={lbl}>Nome prodotto *</label>
                 <input value={amazonForm.product_name||""} onChange={e=>setAmazonForm(f=>({...f, product_name:e.target.value}))} placeholder="es. Lattafa Khamrah EDP 100ml" style={fld}/>
                 <div style={{ display:"flex", gap:10 }}>
@@ -5453,6 +5459,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                   <div style={{ flex:1 }}><label style={lbl}>Referral fee (%)</label><input type="number" step="0.1" value={amazonForm.referral_fee_pct} onChange={e=>setAmazonForm(f=>({...f, referral_fee_pct:e.target.value}))} style={fld}/></div>
                   <div style={{ flex:1 }}><label style={lbl}>Fee FBA / unita (€)</label><input type="number" step="0.01" value={amazonForm.fba_fee} onChange={e=>setAmazonForm(f=>({...f, fba_fee:e.target.value}))} style={fld}/></div>
                 </div>
+                <label style={lbl}>Spesa Amazon Ads ultimi 30gg (€) · solo interno</label>
+                <input type="number" step="0.01" value={amazonForm.ad_spend_30d} onChange={e=>setAmazonForm(f=>({...f, ad_spend_30d:e.target.value}))} style={fld}/>
                 <div style={{ display:"flex", gap:10 }}>
                   <div style={{ flex:1 }}><label style={lbl}>Stock FBA (unita)</label><input type="number" value={amazonForm.units_in_stock} onChange={e=>setAmazonForm(f=>({...f, units_in_stock:e.target.value}))} style={fld}/></div>
                   <div style={{ flex:1 }}><label style={lbl}>Venduti (30 gg)</label><input type="number" value={amazonForm.units_sold_30d} onChange={e=>setAmazonForm(f=>({...f, units_sold_30d:e.target.value}))} style={fld}/></div>
