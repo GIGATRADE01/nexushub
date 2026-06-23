@@ -615,18 +615,19 @@ T.ar = {
   adminBrandsTitle:"العلامات النشطة على المنصة",adminRevenueTitle:"إيراد NexusHub حسب العلامة (مايو)",distributorsLabel:"موزّعون",
 };
 // Safety net: any key missing in a language falls back to EN at lookup time (see t()).
+Object.assign(T.en, { payReceivedKpi:"Total received", payFeeKpi:"Total fees", payCountKpi:"Payments", payEmptyTitle:"No payments yet", payEmptyMsg:"Settled payments for your orders will appear here." });
+Object.assign(T.it, { payReceivedKpi:"Totale ricevuto", payFeeKpi:"Totale commissioni", payCountKpi:"Pagamenti", payEmptyTitle:"Nessun pagamento ancora", payEmptyMsg:"Qui compariranno i pagamenti liquidati per i tuoi ordini." });
+Object.assign(T.fr, { payReceivedKpi:"Total reçu", payFeeKpi:"Total commissions", payCountKpi:"Paiements", payEmptyTitle:"Aucun paiement pour le moment", payEmptyMsg:"Les paiements réglés pour vos commandes apparaîtront ici." });
+Object.assign(T.es, { payReceivedKpi:"Total recibido", payFeeKpi:"Total comisiones", payCountKpi:"Pagos", payEmptyTitle:"Aún no hay pagos", payEmptyMsg:"Aquí aparecerán los pagos liquidados de tus pedidos." });
+Object.assign(T.de, { payReceivedKpi:"Erhalten gesamt", payFeeKpi:"Gebühren gesamt", payCountKpi:"Zahlungen", payEmptyTitle:"Noch keine Zahlungen", payEmptyMsg:"Abgewickelte Zahlungen für Ihre Bestellungen erscheinen hier." });
+Object.assign(T.zh, { payReceivedKpi:"已收总额", payFeeKpi:"费用总额", payCountKpi:"付款笔数", payEmptyTitle:"暂无付款", payEmptyMsg:"您订单的已结算付款将显示在此处。" });
+Object.assign(T.ar, { payReceivedKpi:"إجمالي المستلَم", payFeeKpi:"إجمالي العمولات", payCountKpi:"المدفوعات", payEmptyTitle:"لا توجد مدفوعات بعد", payEmptyMsg:"ستظهر هنا المدفوعات المسددة لطلباتك." });
 
 
 
 
 
 
-const PAYMENTS = [
-  { id:"NH-2024-1847", distributor:"GigaTrade S.R.L.", country:"Italy", flag:"🇮🇹", gross:28400, brandShare:25160, nexusFee:3240, feePercent:"11.4%", method:"SEPA Instant", time:"Today 09:14:32", status:"settled" },
-  { id:"NH-2024-1846", distributor:"Deutsche Aromas GmbH", country:"Germany", flag:"🇩🇪", gross:43680, brandShare:38692, nexusFee:4988, feePercent:"11.4%", method:"SEPA Instant", time:"Today 07:33:18", status:"settled" },
-  { id:"NH-2024-1845", distributor:"Marian Distribution SRL", country:"Romania", flag:"🇷🇴", gross:15120, brandShare:13396, nexusFee:1724, feePercent:"11.4%", method:"Wire Transfer", time:"May 28 14:22", status:"settled" },
-  { id:"NH-2024-1844", distributor:"London Luxe Trading", country:"UK", flag:"🇬🇧", gross:32480, brandShare:28777, nexusFee:3703, feePercent:"11.4%", method:"SEPA Instant", time:"May 28 11:05", status:"settled" },
-];
 
 const fmt = n => "€ " + n.toLocaleString("it-IT");
 const LangCtx = createContext({ lang:"en", t: k=>k, dir:"ltr" });
@@ -2256,6 +2257,54 @@ const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
 
 const NEXUS_STATUS_IT = { draft:"bozza", pending:"in attesa", confirmed:"confermato", shipped:"spedito", delivered:"consegnato", cancelled:"annullato" };
 
+const BrandPaymentsPanel = () => {
+  const t = useT();
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => { (async () => {
+    try { const { data } = await supabase.rpc("brand_payments"); setRows(data || []); }
+    catch(e){ console.error(e); }
+    setLoading(false);
+  })(); }, []);
+  const num=(x)=>Number(x||0);
+  const totRecv = rows.reduce((a,r)=>a+num(r.brand_amount),0);
+  const totFee = rows.reduce((a,r)=>a+num(r.fee),0);
+  return (
+    <div>
+      <h3 style={{ fontSize:14, color:C.text, margin:"0 0 14px" }}>{t("payTransLog")}</h3>
+      {loading ? (
+        <div style={{ padding:32, textAlign:"center", color:C.textMuted, fontSize:13 }}>…</div>
+      ) : rows.length===0 ? (
+        <div style={{ textAlign:"center", padding:40, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14 }}>
+          <div style={{ fontSize:36, marginBottom:10 }}>💳</div>
+          <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:6 }}>{t("payEmptyTitle")}</div>
+          <div style={{ fontSize:13, color:C.textMuted }}>{t("payEmptyMsg")}</div>
+        </div>
+      ) : (
+        <div>
+          <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:18 }}>
+            <Stat icon="💶" label={t("payReceivedKpi")} value={fmt(totRecv)} accent={C.green}/>
+            <Stat icon="🪙" label={t("payFeeKpi")} value={fmt(totFee)} accent={C.gold}/>
+            <Stat icon="🧾" label={t("payCountKpi")} value={rows.length}/>
+          </div>
+          <Table minWidth={760}
+            headers={[t("colOrderId"),t("colGross"),t("colBrandShare"),t("colNexusFee"),t("colFeePercent"),t("colDate"),t("colStatus")]}
+            rows={rows.map(r=>{ const gross=num(r.gross); const fee=num(r.fee); const pct=gross>0?fee/gross*100:0; return [
+              <span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{r.order_number}</span>,
+              <span style={{ fontSize:13, fontWeight:700, color:C.text }}>{fmt(gross)}</span>,
+              <span style={{ fontSize:13, fontWeight:700, color:C.green }}>{fmt(num(r.brand_amount))}</span>,
+              <span style={{ fontSize:13, fontWeight:700, color:C.goldLight }}>{fmt(fee)}</span>,
+              <span style={{ fontSize:12, color:C.textMuted }}>{pct.toFixed(1)}%</span>,
+              <span style={{ fontSize:11, color:C.textMuted }}>{new Date(r.created_at).toLocaleDateString("it-IT")}</span>,
+              <span style={{ fontSize:12, color:C.text }}>{r.status}</span>,
+            ];})}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
 const BrandAmazonPanel = () => {
   const [rows, setRows] = useState([]);
   const [catalog, setCatalog] = useState([]);
@@ -3265,22 +3314,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                 </div>
               </div>
             </div>
-            <h3 style={{ fontSize:14, color:C.text, margin:"0 0 14px" }}>{t("payTransLog")}</h3>
-            <Table minWidth={900}
-              headers={[t("colOrderId"),t("colDistributor"),t("colCountry"),t("colGross"),t("colBrandShare"),t("colNexusFee"),t("colFeePercent"),t("colMethod"),t("colTime"),t("colStatus")]}
-              rows={PAYMENTS.map(p => [
-                <span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{p.id}</span>,
-                <span style={{ fontSize:13, color:C.text, fontWeight:500 }}>{p.distributor}</span>,
-                <span style={{ fontSize:13 }}>{p.flag} {p.country}</span>,
-                <span style={{ fontSize:13, fontWeight:700, color:C.text }}>{fmt(p.gross)}</span>,
-                <span style={{ fontSize:13, fontWeight:700, color:C.green }}>{fmt(p.brandShare)}</span>,
-                <span style={{ fontSize:13, fontWeight:700, color:C.goldLight }}>{fmt(p.nexusFee)}</span>,
-                <span style={{ fontSize:12, color:C.textMuted }}>{p.feePercent}</span>,
-                <span style={{ fontSize:12, color:C.textMuted }}>{p.method}</span>,
-                <span style={{ fontSize:11, color:C.textMuted }}>{p.time}</span>,
-                <Badge status={p.status}/>,
-              ])}
-            />
+            <BrandPaymentsPanel/>
           </div>
         )}
       </div>
