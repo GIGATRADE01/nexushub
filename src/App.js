@@ -214,14 +214,6 @@ const T = {
 
 
 
-const ACTIVE_DISTRIBUTORS = [
-  { id:"d1", company:"GigaTrade S.R.L.", country:"Italy", flag:"🇮🇹", territory:"Italy", brands:["lattafa","rasasi"], orders:23, revenue:"€ 412K", status:"active" },
-  { id:"d2", company:"Deutsche Aromas GmbH", country:"Germany", flag:"🇩🇪", territory:"Germany, Austria", brands:["lattafa","ajmal"], orders:31, revenue:"€ 538K", status:"active" },
-  { id:"d3", company:"Marian Distribution SRL", country:"Romania", flag:"🇷🇴", territory:"Romania, Moldova", brands:["lattafa"], orders:19, revenue:"€ 187K", status:"active" },
-  { id:"d4", company:"Maison Orient SARL", country:"France", flag:"🇫🇷", territory:"France, Belgium", brands:["lattafa","armaf"], orders:18, revenue:"€ 298K", status:"active" },
-  { id:"d5", company:"London Luxe Trading", country:"UK", flag:"🇬🇧", territory:"United Kingdom", brands:["lattafa","rasasi","ajmal"], orders:12, revenue:"€ 310K", status:"active" },
-  { id:"d6", company:"Hellas Beauty Ltd", country:"Greece", flag:"🇬🇷", territory:"Greece, Cyprus", brands:["lattafa"], orders:4, revenue:"€ 62K", status:"pending" },
-];
 
 
 
@@ -2431,53 +2423,47 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
 
       <div style={{ padding:"16px 12px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
-        {tab==="overview" && (
+        {tab==="overview" && (() => {
+          const approved = accessReqs.filter(r => r.status === "approved");
+          const territories = new Set(approved.map(r => r.distributor && r.distributor.country).filter(Boolean)).size;
+          const revenue = brandOrders.filter(o=>o.status!=="cancelled").reduce((a,o)=>a+Number(o.total_amount||0),0);
+          const eur=(n)=>"\u20ac "+Number(n||0).toLocaleString("it-IT",{maximumFractionDigits:0});
+          const CC={Italy:"IT",Italia:"IT",Germany:"DE",Germania:"DE",France:"FR",Francia:"FR",Romania:"RO",Spain:"ES",Spagna:"ES","United Kingdom":"GB",UK:"GB",Greece:"GR",Grecia:"GR",Netherlands:"NL",Olanda:"NL",Belgium:"BE",Belgio:"BE",Poland:"PL",Polonia:"PL",Sweden:"SE",Svezia:"SE"};
+          const mapDist = approved.map(r=>{ const d=r.distributor||{}; const c=d.country||""; return { id:r.id, company:d.company_name||d.email||"Distributore", country:c, territory:c, country_code:CC[c]||(c?c.slice(0,2).toUpperCase():"IT"), status:"active" }; });
+          return (
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("overviewTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("overviewSub")}</p>
             <div style={{ display:"flex", gap:14, marginBottom:22, flexWrap:"wrap" }}>
-              <Stat icon="⬡" label={t("statTerritories")} value="8" sub={t("statTerritoriesSub")}/>
-              <Stat icon="◻" label={t("statDistributors")} value="34" sub={`${pending} ${t("statDistributorsSub")}`} accent={C.blue}/>
-              <Stat icon="↗" label={t("statRevenue")} value="€ 2.4M" sub={t("statRevenueSub")}/>
-              <Stat icon="📦" label={t("statPallets")} value="480" sub={t("statPalletsSub")} accent={C.green}/>
-              <Stat icon="🔔" label={t("statAlerts")} value="3" sub={t("statAlertsSub")} accent={C.red}/>
+              <Stat icon="⬡" label={t("statTerritories")} value={territories} sub={t("statTerritoriesSub")}/>
+              <Stat icon="◻" label={t("statDistributors")} value={approved.length} sub={`${pending} ${t("statDistributorsSub")}`} accent={C.blue}/>
+              <Stat icon="↗" label={t("statRevenue")} value={eur(revenue)} sub={t("statRevenueSub")}/>
+              <Stat icon="📦" label="Prodotti" value={brandProducts.length} accent={C.green}/>
+              <Stat icon="🧾" label="Ordini" value={brandOrders.length}/>
             </div>
             <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(320px, 1fr))", gap:16 }}>
               <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
-                <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>🔔 {t("priceAlertsTitle")}</h3>
-                {[
-                  { market:"Amazon.de", product:"Oud Mood EDP 100ml", issue:"Price below MAP", s:"high" },
-                  { market:"Amazon.fr", product:"Ameer Al Oud 80ml", issue:"Unauthorized seller", s:"high" },
-                  { market:"eBay.it", product:"Ramz Silver EDP", issue:"Possible counterfeit", s:"medium" },
-                ].map((a,i) => (
-                  <div key={i} style={{ display:"flex", alignItems:"center", gap:10, padding:"11px 0", borderBottom:i<2?`1px solid ${C.border}`:"none" }}>
-                    <Badge status={a.s}/>
-                    <div style={{ flex:1 }}>
-                      <div style={{ fontSize:13, color:C.text, fontWeight:500 }}>{a.product}</div>
-                      <div style={{ fontSize:11, color:C.textMuted }}>{a.market} · {a.issue}</div>
+                <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>⬡ Distributori autorizzati</h3>
+                {approved.length===0 ? (
+                  <div style={{ fontSize:13, color:C.textMuted, lineHeight:1.6 }}>Nessun distributore autorizzato ancora. Quando approvi una richiesta nella tab Richieste, il distributore compare qui e sulla mappa.</div>
+                ) : approved.slice(0,6).map((r,i)=>{ const d=r.distributor||{}; return (
+                  <div key={r.id} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", gap:10, padding:"10px 0", borderBottom:i<Math.min(approved.length,6)-1?`1px solid ${C.border}`:"none" }}>
+                    <div style={{ minWidth:0 }}>
+                      <div style={{ fontSize:13, color:C.text, fontWeight:600, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{d.company_name||d.email||"Distributore"}</div>
+                      <div style={{ fontSize:11, color:C.textMuted }}>📍 {d.country||"—"}</div>
                     </div>
-                    <button style={{ padding:"4px 12px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}15`, border:`1px solid ${C.red}40`, color:C.red }}>{t("actBtn")}</button>
+                    <TrustBadge score={d.trust_score} state={d.account_state}/>
                   </div>
-                ))}
+                );})}
               </div>
-              {/* Europe Map */}
               <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20, gridColumn:"1/-1" }}>
-                <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>🗺️ European Distribution Map</h3>
-                <EuropeMap
-                  distributors={ACTIVE_DISTRIBUTORS.map(d => ({
-                    ...d,
-                    country_code: d.country === "Italy" ? "IT" : d.country === "Germany" ? "DE" : d.country === "Romania" ? "RO" : d.country === "France" ? "FR" : d.country === "UK" ? "GB" : d.country === "Greece" ? "GR" : "IT"
-                  }))}
-                />
+                <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>🗺️ Mappa distribuzione europea</h3>
+                <EuropeMap distributors={mapDist}/>
               </div>
               <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
-                <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>📦 {t("hubStockTitle")}</h3>
-                {[
-                  [t("hubTotalSkus"),t("hubTotalSkusVal")],[t("hubTotalUnits"),t("hubTotalUnitsVal")],
-                  [t("hubPallets"),t("hubPalletsVal")],[t("hubNextContainer"),t("hubNextContainerVal")],
-                  [t("hubOrdersToday"),t("hubOrdersTodayVal")],[t("hubConsignment"),t("hubConsignmentVal")],
-                ].map(([k,v],i) => (
-                  <div key={i} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"9px 0", borderBottom:i<5?`1px solid ${C.border}`:"none" }}>
+                <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>📦 I tuoi prodotti</h3>
+                {[["Prodotti a catalogo", brandProducts.length],["Ordini totali", brandOrders.length],["Distributori attivi", approved.length],["Fatturato", eur(revenue)]].map(([k,v],i)=>(
+                  <div key={i} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"9px 0", borderBottom:i<3?`1px solid ${C.border}`:"none" }}>
                     <span style={{ fontSize:13, color:C.textMuted }}>{k}</span>
                     <span style={{ fontSize:13, color:C.goldLight, fontWeight:600 }}>{v}</span>
                   </div>
@@ -2485,7 +2471,8 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
               </div>
             </div>
           </div>
-        )}
+          );
+        })()}
         {tab==="applications" && (
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("appTitle")}</h2>
