@@ -4451,6 +4451,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     await supabase.from("amazon_listings").delete().eq("id", t.id);
     setAmazonRows(prev => prev.filter(x => x.id !== t.id));
   };
+  const quickAddAmazon = (p) => {
+    setAmazonForm({ product_name:p.name||"", asin:"", sku:p.sku||"", brand_id:p.brand_id||"", product_id:p.id, _catalog:p.id, marketplace:"IT", fulfillment:"FBA", cost_price:0, sell_price:0, referral_fee_pct:15, fba_fee:0, units_in_stock:0, units_sold_30d:0, ad_spend_30d:0, notes:"" });
+    setAmazonModal({ _new:true });
+  };
   const loadProducts = async () => {
     try {
       const { data } = await supabase.from("products")
@@ -5452,6 +5456,28 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               </div>
             )}
 
+            {(() => {
+              const onIds = new Set(amazonRows.map(r=>r.product_id).filter(Boolean));
+              const notListed = products.filter(p=>!onIds.has(p.id) && p.is_active!==false);
+              if (!notListed.length) return null;
+              return (
+                <div style={{ marginTop:28 }}>
+                  <h3 style={{ fontSize:15, fontWeight:700, margin:"0 0 4px", color:C.text }}>Aggiungi rapido dal catalogo</h3>
+                  <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 12px" }}>{notListed.length} prodotti a catalogo non ancora su Amazon. Un clic crea il listing collegato \u2014 poi completi prezzo e fee.</p>
+                  <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+                    {notListed.map(p=>(
+                      <div key={p.id} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", gap:10, padding:"10px 14px", background:C.surface, border:`1px solid ${C.border}`, borderRadius:10 }}>
+                        <div style={{ minWidth:0 }}>
+                          <div style={{ fontSize:13, fontWeight:600, color:C.text, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{p.name}</div>
+                          <div style={{ fontSize:11, color:C.textDim }}>{(p.profiles&&p.profiles.company_name)||brandName(p.brand_id)}</div>
+                        </div>
+                        <button onClick={()=>quickAddAmazon(p)} style={{ flexShrink:0, padding:"7px 14px", borderRadius:8, cursor:"pointer", fontSize:12, fontWeight:700, background:`${C.gold}15`, border:`1px solid ${C.gold}40`, color:C.goldLight }}>+ Porta su Amazon</button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
             {amazonModal && (
               <Modal title={amazonForm.id ? "Modifica listing Amazon" : "Nuovo listing Amazon"} onClose={()=>setAmazonModal(false)} onSave={saveAmazon} saveLabel="Salva">
                 <label style={lbl}>Collega a prodotto del catalogo (opzionale)</label>
