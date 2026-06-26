@@ -622,6 +622,13 @@ Object.assign(T.es, { payReceivedKpi:"Total recibido", payFeeKpi:"Total comision
 Object.assign(T.de, { payReceivedKpi:"Erhalten gesamt", payFeeKpi:"Gebühren gesamt", payCountKpi:"Zahlungen", payEmptyTitle:"Noch keine Zahlungen", payEmptyMsg:"Abgewickelte Zahlungen für Ihre Bestellungen erscheinen hier." });
 Object.assign(T.zh, { payReceivedKpi:"已收总额", payFeeKpi:"费用总额", payCountKpi:"付款笔数", payEmptyTitle:"暂无付款", payEmptyMsg:"您订单的已结算付款将显示在此处。" });
 Object.assign(T.ar, { payReceivedKpi:"إجمالي المستلَم", payFeeKpi:"إجمالي العمولات", payCountKpi:"المدفوعات", payEmptyTitle:"لا توجد مدفوعات بعد", payEmptyMsg:"ستظهر هنا المدفوعات المسددة لطلباتك." });
+Object.assign(T.en, { azTitle:"Your products on Amazon EU", azSub:"Managed by NexusHub · logistics + FBA · sales and coverage", azLoading:"Loading Amazon data…", azEmptyT:"No products on Amazon yet", azEmptyM:"When your partner activates your products on Amazon EU, you'll see sales, stock and coverage here.", azOn:"On Amazon", azLaunch:"To launch", azCat:"Catalog", azRev:"Amazon revenue (30d)", azSold:"Units sold (30d)", azStockKpi:"Stock on Amazon", azMkts:"Active marketplaces", azColMkt:"Marketplace", azColPrice:"Amazon price", azColSold:"Sold (30d)", azNoneActive:"None of your products are active on Amazon yet. Launch candidates below.", azNotYet:"Not yet on Amazon", azNotYetMsg:"of your products are not yet on the shelf on Amazon EU — potential launches to evaluate with your partner.", azBadge:"to launch", azFooter:"Prices, sponsorships and logistics are managed by your distribution partner (NexusHub). Sales data is updated periodically." });
+Object.assign(T.it, { azTitle:"I tuoi prodotti su Amazon EU", azSub:"Gestito da NexusHub · logistica + FBA · vendite e copertura", azLoading:"Caricamento dati Amazon…", azEmptyT:"Nessun prodotto ancora su Amazon", azEmptyM:"Quando il tuo partner attiva i tuoi prodotti su Amazon EU, qui vedrai vendite, stock e copertura.", azOn:"Su Amazon", azLaunch:"Da lanciare", azCat:"Catalogo", azRev:"Fatturato Amazon (30gg)", azSold:"Unità vendute (30gg)", azStockKpi:"Stock su Amazon", azMkts:"Marketplace attivi", azColMkt:"Marketplace", azColPrice:"Prezzo Amazon", azColSold:"Venduti (30gg)", azNoneActive:"Nessuno dei tuoi prodotti è ancora attivo su Amazon. Qui sotto i candidati al lancio.", azNotYet:"Non ancora su Amazon", azNotYetMsg:"tuoi prodotti non sono ancora a scaffale su Amazon EU — potenziali lanci da valutare col partner.", azBadge:"da lanciare", azFooter:"Prezzi, sponsorizzazioni e logistica sono gestiti dal tuo partner di distribuzione (NexusHub). I dati di vendita vengono aggiornati periodicamente." });
+Object.assign(T.fr, { azTitle:"Vos produits sur Amazon EU", azSub:"Géré par NexusHub · logistique + FBA · ventes et couverture", azLoading:"Chargement des données Amazon…", azEmptyT:"Aucun produit sur Amazon pour le moment", azEmptyM:"Lorsque votre partenaire activera vos produits sur Amazon EU, vous verrez ici les ventes, le stock et la couverture.", azOn:"Sur Amazon", azLaunch:"À lancer", azCat:"Catalogue", azRev:"Chiffre d'affaires Amazon (30 j)", azSold:"Unités vendues (30 j)", azStockKpi:"Stock sur Amazon", azMkts:"Places de marché actives", azColMkt:"Place de marché", azColPrice:"Prix Amazon", azColSold:"Vendus (30 j)", azNoneActive:"Aucun de vos produits n'est encore actif sur Amazon. Candidats au lancement ci-dessous.", azNotYet:"Pas encore sur Amazon", azNotYetMsg:"de vos produits ne sont pas encore en rayon sur Amazon EU — lancements potentiels à évaluer avec votre partenaire.", azBadge:"à lancer", azFooter:"Les prix, les sponsorisations et la logistique sont gérés par votre partenaire de distribution (NexusHub). Les données de vente sont mises à jour périodiquement." });
+Object.assign(T.es, { azTitle:"Tus productos en Amazon EU", azSub:"Gestionado por NexusHub · logística + FBA · ventas y cobertura", azLoading:"Cargando datos de Amazon…", azEmptyT:"Aún no hay productos en Amazon", azEmptyM:"Cuando tu socio active tus productos en Amazon EU, aquí verás ventas, stock y cobertura.", azOn:"En Amazon", azLaunch:"Por lanzar", azCat:"Catálogo", azRev:"Ingresos Amazon (30 d)", azSold:"Unidades vendidas (30 d)", azStockKpi:"Stock en Amazon", azMkts:"Mercados activos", azColMkt:"Mercado", azColPrice:"Precio Amazon", azColSold:"Vendidos (30 d)", azNoneActive:"Ninguno de tus productos está activo aún en Amazon. Candidatos al lanzamiento abajo.", azNotYet:"Aún no en Amazon", azNotYetMsg:"de tus productos aún no están en el estante en Amazon EU — posibles lanzamientos a evaluar con tu socio.", azBadge:"por lanzar", azFooter:"Los precios, las promociones y la logística los gestiona tu socio de distribución (NexusHub). Los datos de ventas se actualizan periódicamente." });
+Object.assign(T.de, { azTitle:"Ihre Produkte auf Amazon EU", azSub:"Verwaltet von NexusHub · Logistik + FBA · Verkäufe und Abdeckung", azLoading:"Amazon-Daten werden geladen…", azEmptyT:"Noch keine Produkte auf Amazon", azEmptyM:"Sobald Ihr Partner Ihre Produkte auf Amazon EU aktiviert, sehen Sie hier Verkäufe, Bestand und Abdeckung.", azOn:"Auf Amazon", azLaunch:"Zu starten", azCat:"Katalog", azRev:"Amazon-Umsatz (30 T)", azSold:"Verkaufte Einheiten (30 T)", azStockKpi:"Bestand auf Amazon", azMkts:"Aktive Marktplätze", azColMkt:"Marktplatz", azColPrice:"Amazon-Preis", azColSold:"Verkauft (30 T)", azNoneActive:"Noch keines Ihrer Produkte ist auf Amazon aktiv. Startkandidaten unten.", azNotYet:"Noch nicht auf Amazon", azNotYetMsg:"Ihrer Produkte sind noch nicht im Regal auf Amazon EU — mögliche Markteinführungen, mit Ihrem Partner zu prüfen.", azBadge:"zu starten", azFooter:"Preise, Sponsoring und Logistik werden von Ihrem Vertriebspartner (NexusHub) verwaltet. Verkaufsdaten werden regelmäßig aktualisiert." });
+Object.assign(T.zh, { azTitle:"您在 Amazon EU 上的产品", azSub:"由 NexusHub 管理 · 物流 + FBA · 销售与覆盖", azLoading:"正在加载 Amazon 数据…", azEmptyT:"暂无 Amazon 产品", azEmptyM:"当您的合作伙伴在 Amazon EU 上激活您的产品后，您将在此看到销售、库存和覆盖情况。", azOn:"已在 Amazon", azLaunch:"待上架", azCat:"目录", azRev:"Amazon 营收(30天)", azSold:"已售件数(30天)", azStockKpi:"Amazon 库存", azMkts:"活跃市场", azColMkt:"市场", azColPrice:"Amazon 价格", azColSold:"已售(30天)", azNoneActive:"您的产品尚未在 Amazon 上架。以下为上架候选。", azNotYet:"尚未在 Amazon", azNotYetMsg:"个产品尚未在 Amazon EU 上架 — 可与合作伙伴评估的潜在上架。", azBadge:"待上架", azFooter:"价格、推广和物流由您的分销合作伙伴(NexusHub)管理。销售数据定期更新。" });
+Object.assign(T.ar, { azTitle:"منتجاتك على Amazon EU", azSub:"تُدار بواسطة NexusHub · الخدمات اللوجستية + FBA · المبيعات والتغطية", azLoading:"جارٍ تحميل بيانات Amazon…", azEmptyT:"لا توجد منتجات على Amazon بعد", azEmptyM:"عندما يقوم شريكك بتفعيل منتجاتك على Amazon EU، سترى هنا المبيعات والمخزون والتغطية.", azOn:"على Amazon", azLaunch:"للإطلاق", azCat:"الكتالوج", azRev:"إيراد Amazon (30 يومًا)", azSold:"الوحدات المباعة (30 يومًا)", azStockKpi:"المخزون على Amazon", azMkts:"الأسواق النشطة", azColMkt:"السوق", azColPrice:"سعر Amazon", azColSold:"المباعة (30 يومًا)", azNoneActive:"لا يوجد أي من منتجاتك نشطًا على Amazon بعد. المرشحون للإطلاق أدناه.", azNotYet:"ليست بعد على Amazon", azNotYetMsg:"من منتجاتك ليست بعد على الرفوف في Amazon EU — عمليات إطلاق محتملة لتقييمها مع شريكك.", azBadge:"للإطلاق", azFooter:"تُدار الأسعار والرعايات والخدمات اللوجستية من قِبل شريك التوزيع (NexusHub). تُحدَّث بيانات المبيعات دوريًا." });
 
 
 
@@ -2306,6 +2313,7 @@ const BrandPaymentsPanel = () => {
 };
 
 const BrandAmazonPanel = () => {
+  const t = useT();
   const [rows, setRows] = useState([]);
   const [catalog, setCatalog] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -2335,31 +2343,31 @@ const BrandAmazonPanel = () => {
       <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:6 }}>
         <div style={{ width:44, height:44, borderRadius:11, background:"linear-gradient(135deg,#ff9900,#e47911)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:22 }}>🛒</div>
         <div>
-          <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:0 }}>I tuoi prodotti su Amazon EU</h2>
-          <p style={{ color:C.textMuted, fontSize:12.5, margin:"2px 0 0" }}>Gestito da NexusHub · logistica + FBA · vendite e copertura</p>
+          <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:0 }}>{t("azTitle")}</h2>
+          <p style={{ color:C.textMuted, fontSize:12.5, margin:"2px 0 0" }}>{t("azSub")}</p>
         </div>
       </div>
       {loading ? (
-        <div style={{ textAlign:"center", padding:48, color:C.textMuted, fontSize:14 }}>Caricamento dati Amazon…</div>
+        <div style={{ textAlign:"center", padding:48, color:C.textMuted, fontSize:14 }}>{t("azLoading")}</div>
       ) : !hasAny ? (
         <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, marginTop:14 }}>
           <div style={{ fontSize:40, marginBottom:12 }}>🛒</div>
-          <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:8 }}>Nessun prodotto ancora su Amazon</div>
-          <div style={{ fontSize:13, color:C.textMuted }}>Quando il tuo partner attiva i tuoi prodotti su Amazon EU, qui vedrai vendite, stock e copertura.</div>
+          <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:8 }}>{t("azEmptyT")}</div>
+          <div style={{ fontSize:13, color:C.textMuted }}>{t("azEmptyM")}</div>
         </div>
       ) : (
         <div style={{ marginTop:16 }}>
           <div style={{ display:"flex", gap:10, flexWrap:"wrap", marginBottom:18 }}>
-            <span style={{ padding:"6px 13px", borderRadius:20, fontSize:12, fontWeight:700, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green }}>✓ Su Amazon: {onCatalog}</span>
-            <span style={{ padding:"6px 13px", borderRadius:20, fontSize:12, fontWeight:700, background:`${C.gold}12`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>Da lanciare: {notOnAmazon.length}</span>
-            <span style={{ padding:"6px 13px", borderRadius:20, fontSize:12, fontWeight:700, background:C.surface2, border:`1px solid ${C.border}`, color:C.textMuted }}>Catalogo: {catalog.length}</span>
+            <span style={{ padding:"6px 13px", borderRadius:20, fontSize:12, fontWeight:700, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green }}>✓ {t("azOn")}: {onCatalog}</span>
+            <span style={{ padding:"6px 13px", borderRadius:20, fontSize:12, fontWeight:700, background:`${C.gold}12`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>{t("azLaunch")}: {notOnAmazon.length}</span>
+            <span style={{ padding:"6px 13px", borderRadius:20, fontSize:12, fontWeight:700, background:C.surface2, border:`1px solid ${C.border}`, color:C.textMuted }}>{t("azCat")}: {catalog.length}</span>
           </div>
           {rows.length>0 && (
             <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:20 }}>
-              <Stat icon="💶" label="Fatturato Amazon (30gg)" value={eur(rev30)} accent={C.green}/>
-              <Stat icon="📦" label="Unita vendute (30gg)" value={sold30} accent={C.gold}/>
-              <Stat icon="🏦" label="Stock su Amazon" value={stock} accent={C.blue}/>
-              <Stat icon="🌍" label="Marketplace attivi" value={mkts.length}/>
+              <Stat icon="💶" label={t("azRev")} value={eur(rev30)} accent={C.green}/>
+              <Stat icon="📦" label={t("azSold")} value={sold30} accent={C.gold}/>
+              <Stat icon="🏦" label={t("azStockKpi")} value={stock} accent={C.blue}/>
+              <Stat icon="🌍" label={t("azMkts")} value={mkts.length}/>
             </div>
           )}
           {mkts.length>0 && (
@@ -2371,7 +2379,7 @@ const BrandAmazonPanel = () => {
             <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:640 }}>
                 <thead><tr style={{ background:C.surface2 }}>
-                  {["Prodotto","Marketplace","Prezzo Amazon","Stock","Venduti (30gg)"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign: i>=2?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".07em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
+                  {[t("colProduct"),t("azColMkt"),t("azColPrice"),t("colStock"),t("azColSold")].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign: i>=2?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".07em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
                 </tr></thead>
                 <tbody>
                   {rows.map((r,i)=>(
@@ -2387,18 +2395,18 @@ const BrandAmazonPanel = () => {
               </table>
             </div>
           ) : (
-            <div style={{ padding:"16px 18px", background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, fontSize:13, color:C.textMuted }}>Nessuno dei tuoi prodotti è ancora attivo su Amazon. Qui sotto i candidati al lancio.</div>
+            <div style={{ padding:"16px 18px", background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, fontSize:13, color:C.textMuted }}>{t("azNoneActive")}</div>
           )}
           {notOnAmazon.length>0 && (
             <div style={{ marginTop:28 }}>
-              <h3 style={{ fontSize:15, fontWeight:700, margin:"0 0 4px", color:C.text }}>Non ancora su Amazon</h3>
-              <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 12px" }}>{notOnAmazon.length} tuoi prodotti non sono ancora a scaffale su Amazon EU — potenziali lanci da valutare col partner.</p>
+              <h3 style={{ fontSize:15, fontWeight:700, margin:"0 0 4px", color:C.text }}>{t("azNotYet")}</h3>
+              <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 12px" }}>{notOnAmazon.length} {t("azNotYetMsg")}</p>
               <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
-                {notOnAmazon.map(p=>(<span key={p.id} style={{ padding:"7px 12px", borderRadius:9, fontSize:12.5, background:C.surface2, border:`1px dashed ${C.border}`, color:C.text }}>{p.name} <span style={{ color:C.gold, fontSize:10, fontWeight:700 }}>· da lanciare</span></span>))}
+                {notOnAmazon.map(p=>(<span key={p.id} style={{ padding:"7px 12px", borderRadius:9, fontSize:12.5, background:C.surface2, border:`1px dashed ${C.border}`, color:C.text }}>{p.name} <span style={{ color:C.gold, fontSize:10, fontWeight:700 }}>· {t("azBadge")}</span></span>))}
               </div>
             </div>
           )}
-          <p style={{ fontSize:11, color:C.textDim, marginTop:18 }}>Prezzi, sponsorizzazioni e logistica sono gestiti dal tuo partner di distribuzione (NexusHub). I dati di vendita vengono aggiornati periodicamente.</p>
+          <p style={{ fontSize:11, color:C.textDim, marginTop:18 }}>{t("azFooter")}</p>
         </div>
       )}
     </div>
