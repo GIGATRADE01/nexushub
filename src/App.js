@@ -636,6 +636,13 @@ Object.assign(T.es, { ovProducts:"Productos", ovOrders:"Pedidos", ovDistAuth:"Di
 Object.assign(T.de, { ovProducts:"Produkte", ovOrders:"Bestellungen", ovDistAuth:"Autorisierte Händler", ovNoDist:"Noch keine autorisierten Händler. Wenn Sie eine Anfrage im Tab Bewerbungen genehmigen, erscheint der Händler hier und auf der Karte.", ovEuMap:"Europäische Vertriebskarte", ovYourProd:"Ihre Produkte", ovCatProd:"Produkte im Katalog", ovTotOrders:"Bestellungen gesamt", ovActiveDist:"Aktive Händler", ovRevenue:"Umsatz" });
 Object.assign(T.zh, { ovProducts:"产品", ovOrders:"订单", ovDistAuth:"授权分销商", ovNoDist:"暂无授权分销商。当您在「申请」标签中批准请求后，该分销商将显示在此处和地图上。", ovEuMap:"欧洲分销地图", ovYourProd:"您的产品", ovCatProd:"目录产品", ovTotOrders:"订单总数", ovActiveDist:"活跃分销商", ovRevenue:"营收" });
 Object.assign(T.ar, { ovProducts:"المنتجات", ovOrders:"الطلبات", ovDistAuth:"الموزّعون المعتمدون", ovNoDist:"لا يوجد موزّعون معتمدون بعد. عند الموافقة على طلب في تبويب الطلبات، يظهر الموزّع هنا وعلى الخريطة.", ovEuMap:"خريطة التوزيع الأوروبية", ovYourProd:"منتجاتك", ovCatProd:"منتجات الكتالوج", ovTotOrders:"إجمالي الطلبات", ovActiveDist:"الموزّعون النشطون", ovRevenue:"الإيراد" });
+Object.assign(T.en, { diNoBrands:"No brands available yet", diNoBrandsMsg:"As soon as a brand registers and is approved on the platform, it will appear here and you'll be able to request access to its products.", diReqAccess:"Request access to view and order this brand's catalog in your territory.", diNoDocs:"No documents available for this product.", diDownload:"Download", diOutStock:"Out of Stock", diAddCart:"Add to cart", diInvoicesSub:"Purchase invoices received from brands for your orders.", diNoInvoices:"No invoices yet.", diView:"View", diWishTitle:"Wishlist", diWishSub:"The products you've saved. Add them to the cart whenever you want.", diNoWish:"No saved wishes", diNoWishMsg:"Go to the catalog and tap the heart on the products you're interested in.", diGoCatalog:"Go to catalog →", diNoOrders:"No orders yet", diNoOrdersMsg:"Go to My Catalog to place your first order", diBrowse:"Browse Catalog →", diReorder:"Reorder", diReport:"Report a problem", diTrack:"Track", diRatingDone:"Your rating:", diRateOrder:"Rate this order:", diProblemAlert:"Describe the problem before sending.", diProblemDesc:"Describe the problem (damaged goods, wrong quantity, wrong product...). The report is tracked and you will be contacted back.", diReason:"Reason *" });
+Object.assign(T.it, { diNoBrands:"Nessun brand disponibile al momento", diNoBrandsMsg:"Appena un brand si registra e viene approvato sulla piattaforma comparirà qui, e potrai richiedere l'accesso ai suoi prodotti.", diReqAccess:"Richiedi l'accesso per visualizzare e ordinare il catalogo di questo brand nel tuo territorio.", diNoDocs:"Nessun documento disponibile per questo prodotto.", diDownload:"Scarica", diOutStock:"Out of Stock", diAddCart:"Aggiungi al carrello", diInvoicesSub:"Fatture di acquisto ricevute dai brand per i tuoi ordini.", diNoInvoices:"Nessuna fattura ancora.", diView:"Vedi", diWishTitle:"Lista desideri", diWishSub:"I prodotti che hai salvato. Aggiungili al carrello quando vuoi.", diNoWish:"Nessun desiderio salvato", diNoWishMsg:"Vai al catalogo e tocca il cuore sui prodotti che ti interessano.", diGoCatalog:"Vai al catalogo →", diNoOrders:"Nessun ordine ancora", diNoOrdersMsg:"Vai al tuo catalogo per fare il primo ordine", diBrowse:"Sfoglia il catalogo →", diReorder:"Riordina", diReport:"Segnala problema", diTrack:"Traccia", diRatingDone:"La tua valutazione:", diRateOrder:"Valuta questo ordine:", diProblemAlert:"Descrivi il problema prima di inviare.", diProblemDesc:"Descrivi il problema (merce danneggiata, quantità errata, prodotto sbagliato...). La segnalazione resta tracciata e verrai ricontattato.", diReason:"Motivo *" });
+Object.assign(T.fr, { diNoBrands:"Aucune marque disponible pour le moment", diNoBrandsMsg:"Dès qu'une marque s'inscrit et est approuvée sur la plateforme, elle apparaîtra ici et vous pourrez demander l'accès à ses produits.", diReqAccess:"Demandez l'accès pour consulter et commander le catalogue de cette marque sur votre territoire.", diNoDocs:"Aucun document disponible pour ce produit.", diDownload:"Télécharger", diOutStock:"Rupture de stock", diAddCart:"Ajouter au panier", diInvoicesSub:"Factures d'achat reçues des marques pour vos commandes.", diNoInvoices:"Aucune facture pour le moment.", diView:"Voir", diWishTitle:"Liste de souhaits", diWishSub:"Les produits que vous avez enregistrés. Ajoutez-les au panier quand vous voulez.", diNoWish:"Aucun souhait enregistré", diNoWishMsg:"Allez au catalogue et touchez le cœur sur les produits qui vous intéressent.", diGoCatalog:"Aller au catalogue →", diNoOrders:"Aucune commande pour le moment", diNoOrdersMsg:"Allez dans Mon catalogue pour passer votre première commande", diBrowse:"Parcourir le catalogue →", diReorder:"Recommander", diReport:"Signaler un problème", diTrack:"Suivre", diRatingDone:"Votre évaluation :", diRateOrder:"Évaluez cette commande :", diProblemAlert:"Décrivez le problème avant d'envoyer.", diProblemDesc:"Décrivez le problème (marchandise endommagée, quantité erronée, mauvais produit...). Le signalement est suivi et vous serez recontacté.", diReason:"Motif *" });
+Object.assign(T.es, { diNoBrands:"Aún no hay marcas disponibles", diNoBrandsMsg:"En cuanto una marca se registre y sea aprobada en la plataforma, aparecerá aquí y podrás solicitar acceso a sus productos.", diReqAccess:"Solicita acceso para ver y pedir el catálogo de esta marca en tu territorio.", diNoDocs:"No hay documentos disponibles para este producto.", diDownload:"Descargar", diOutStock:"Sin stock", diAddCart:"Añadir al carrito", diInvoicesSub:"Facturas de compra recibidas de las marcas por tus pedidos.", diNoInvoices:"Aún no hay facturas.", diView:"Ver", diWishTitle:"Lista de deseos", diWishSub:"Los productos que has guardado. Añádelos al carrito cuando quieras.", diNoWish:"No hay deseos guardados", diNoWishMsg:"Ve al catálogo y toca el corazón en los productos que te interesen.", diGoCatalog:"Ir al catálogo →", diNoOrders:"Aún no hay pedidos", diNoOrdersMsg:"Ve a Mi catálogo para hacer tu primer pedido", diBrowse:"Explorar catálogo →", diReorder:"Volver a pedir", diReport:"Reportar un problema", diTrack:"Rastrear", diRatingDone:"Tu valoración:", diRateOrder:"Valora este pedido:", diProblemAlert:"Describe el problema antes de enviar.", diProblemDesc:"Describe el problema (mercancía dañada, cantidad incorrecta, producto equivocado...). El reporte queda registrado y te volveremos a contactar.", diReason:"Motivo *" });
+Object.assign(T.de, { diNoBrands:"Noch keine Marken verfügbar", diNoBrandsMsg:"Sobald sich eine Marke registriert und auf der Plattform freigegeben wird, erscheint sie hier und Sie können Zugang zu ihren Produkten anfragen.", diReqAccess:"Fordern Sie Zugang an, um den Katalog dieser Marke in Ihrem Gebiet zu sehen und zu bestellen.", diNoDocs:"Keine Dokumente für dieses Produkt verfügbar.", diDownload:"Herunterladen", diOutStock:"Nicht auf Lager", diAddCart:"In den Warenkorb", diInvoicesSub:"Eingangsrechnungen der Marken für Ihre Bestellungen.", diNoInvoices:"Noch keine Rechnungen.", diView:"Ansehen", diWishTitle:"Wunschliste", diWishSub:"Die von Ihnen gespeicherten Produkte. Fügen Sie sie jederzeit dem Warenkorb hinzu.", diNoWish:"Keine gespeicherten Wünsche", diNoWishMsg:"Gehen Sie zum Katalog und tippen Sie bei den interessanten Produkten auf das Herz.", diGoCatalog:"Zum Katalog →", diNoOrders:"Noch keine Bestellungen", diNoOrdersMsg:"Gehen Sie zu Mein Katalog, um Ihre erste Bestellung aufzugeben", diBrowse:"Katalog durchsuchen →", diReorder:"Nachbestellen", diReport:"Problem melden", diTrack:"Verfolgen", diRatingDone:"Ihre Bewertung:", diRateOrder:"Bewerten Sie diese Bestellung:", diProblemAlert:"Beschreiben Sie das Problem vor dem Senden.", diProblemDesc:"Beschreiben Sie das Problem (beschädigte Ware, falsche Menge, falsches Produkt...). Die Meldung wird verfolgt und Sie werden zurückkontaktiert.", diReason:"Grund *" });
+Object.assign(T.zh, { diNoBrands:"暂无可用品牌", diNoBrandsMsg:"一旦有品牌注册并通过平台审核，它将显示在此处，您即可申请访问其产品。", diReqAccess:"申请访问以在您的区域查看并订购该品牌的目录。", diNoDocs:"该产品暂无可用文件。", diDownload:"下载", diOutStock:"缺货", diAddCart:"加入购物车", diInvoicesSub:"您订单收到的来自品牌的采购发票。", diNoInvoices:"暂无发票。", diView:"查看", diWishTitle:"心愿单", diWishSub:"您保存的产品。随时可加入购物车。", diNoWish:"暂无收藏", diNoWishMsg:"前往目录，点按您感兴趣产品上的爱心。", diGoCatalog:"前往目录 →", diNoOrders:"暂无订单", diNoOrdersMsg:"前往「我的目录」下第一笔订单", diBrowse:"浏览目录 →", diReorder:"再次订购", diReport:"报告问题", diTrack:"追踪", diRatingDone:"您的评分：", diRateOrder:"为此订单评分：", diProblemAlert:"发送前请描述问题。", diProblemDesc:"描述问题（货物损坏、数量错误、产品错误……）。该报告会被跟踪，我们将回复您。", diReason:"原因 *" });
+Object.assign(T.ar, { diNoBrands:"لا توجد علامات متاحة بعد", diNoBrandsMsg:"بمجرد أن تسجّل علامة تجارية وتُعتمد على المنصة، ستظهر هنا وسيمكنك طلب الوصول إلى منتجاتها.", diReqAccess:"اطلب الوصول لعرض وطلب كتالوج هذه العلامة في منطقتك.", diNoDocs:"لا توجد مستندات متاحة لهذا المنتج.", diDownload:"تنزيل", diOutStock:"نفد المخزون", diAddCart:"أضف إلى السلة", diInvoicesSub:"فواتير الشراء المستلمة من العلامات لطلباتك.", diNoInvoices:"لا توجد فواتير بعد.", diView:"عرض", diWishTitle:"قائمة الرغبات", diWishSub:"المنتجات التي حفظتها. أضفها إلى السلة متى شئت.", diNoWish:"لا توجد رغبات محفوظة", diNoWishMsg:"انتقل إلى الكتالوج وانقر على القلب في المنتجات التي تهمّك.", diGoCatalog:"اذهب إلى الكتالوج ←", diNoOrders:"لا توجد طلبات بعد", diNoOrdersMsg:"انتقل إلى كتالوجي لتقديم أول طلب لك", diBrowse:"تصفح الكتالوج ←", diReorder:"إعادة الطلب", diReport:"الإبلاغ عن مشكلة", diTrack:"تتبّع", diRatingDone:"تقييمك:", diRateOrder:"قيّم هذا الطلب:", diProblemAlert:"صف المشكلة قبل الإرسال.", diProblemDesc:"صف المشكلة (بضاعة تالفة، كمية خاطئة، منتج خاطئ...). يبقى البلاغ متتبَّعًا وسيتم التواصل معك.", diReason:"السبب *" });
 
 
 
@@ -3765,7 +3772,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   };
   const openIssue = (o) => { setIssueOrder(o); setIssueForm({ reason:"", photo_file:null }); };
   const submitIssue = async () => {
-    if (!issueOrder || !issueForm.reason.trim()) { window.alert("Descrivi il problema prima di inviare."); return; }
+    if (!issueOrder || !issueForm.reason.trim()) { window.alert(t("diProblemAlert")); return; }
     setIssueBusy(true);
     try {
       let photoUrl = null;
@@ -4021,8 +4028,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
             {dbBrands.length === 0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>
                 <div style={{ fontSize:40, marginBottom:12 }}>🏛️</div>
-                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:6 }}>Nessun brand disponibile al momento</div>
-                <div style={{ fontSize:13, lineHeight:1.6, maxWidth:420, margin:"0 auto" }}>Appena un brand si registra e viene approvato sulla piattaforma comparirà qui, e potrai richiedere l'accesso ai suoi prodotti.</div>
+                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:6 }}>{t("diNoBrands")}</div>
+                <div style={{ fontSize:13, lineHeight:1.6, maxWidth:420, margin:"0 auto" }}>{t("diNoBrandsMsg")}</div>
               </div>
             ) : (
             <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(min(280px,100%), 1fr))", gap:16 }}>
@@ -4041,7 +4048,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       {status==="approved" && <Badge status="active"/>}
                       {status==="blocked" && <Badge status="rejected"/>}
                     </div>
-                    <p style={{ fontSize:13, color:C.textMuted, margin:"0 0 16px", lineHeight:1.55 }}>Richiedi l'accesso per visualizzare e ordinare il catalogo di questo brand nel tuo territorio.</p>
+                    <p style={{ fontSize:13, color:C.textMuted, margin:"0 0 16px", lineHeight:1.55 }}>{t("diReqAccess")}</p>
                     {status==="approved" ? (
                       <div style={{ display:"flex", flexDirection:"column", gap:8 }}><button onClick={() => setTab("catalog")} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:`${C.gold}20`, border:`1px solid ${C.gold}50`, color:C.goldLight, fontSize:13, fontWeight:600 }}>{t("viewCatalogBtn")}</button>{(() => { const ctr = distContracts.find(c => c.brand_id === brand.id); if (!ctr) return null; const sg = !!ctr.signed_at; return (<button onClick={() => setViewContract(ctr)} style={{ width:"100%", padding:"10px", borderRadius:8, cursor:"pointer", background: sg?`${C.green}12`:`${C.blue}12`, border:`1px solid ${sg?C.green:C.blue}40`, color: sg?C.green:C.blue, fontSize:12.5, fontWeight:600 }}>{sg ? "📄 View signed agreement" : "✍️ Review & sign agreement"}</button>); })()}</div>
                     ) : status==="pending" ? (
@@ -4080,7 +4087,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
             {distDocsProduct && (
               <Modal title={"Documenti · " + (distDocsProduct.name || "Prodotto")} onClose={() => { setDistDocsProduct(null); setDistDocs([]); }} onSave={() => { setDistDocsProduct(null); setDistDocs([]); }} saveLabel="Chiudi">
                 {distDocs.length === 0 ? (
-                  <div style={{ textAlign:"center", padding:20, color:C.textMuted, fontSize:13 }}>Nessun documento disponibile per questo prodotto.</div>
+                  <div style={{ textAlign:"center", padding:20, color:C.textMuted, fontSize:13 }}>{t("diNoDocs")}</div>
                 ) : distDocs.map(d => (
                   <div key={d.id} style={{ display:"flex", alignItems:"center", gap:10, padding:"10px 12px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:8, marginBottom:8 }}>
                     <span style={{ fontSize:18 }}>📄</span>
@@ -4088,7 +4095,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       <div style={{ fontSize:13, color:C.text, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{d.name}</div>
                       <div style={{ fontSize:10, color:C.textMuted }}>{new Date(d.created_at).toLocaleDateString("it-IT")}</div>
                     </div>
-                    <a href={d.file_url} target="_blank" rel="noreferrer" style={{ fontSize:11, color:C.blue, textDecoration:"none", padding:"5px 12px", border:`1px solid ${C.blue}40`, borderRadius:6 }}>Scarica</a>
+                    <a href={d.file_url} target="_blank" rel="noreferrer" style={{ fontSize:11, color:C.blue, textDecoration:"none", padding:"5px 12px", border:`1px solid ${C.blue}40`, borderRadius:6 }}>{t("diDownload")}</a>
                   </div>
                 ))}
               </Modal>
@@ -4158,7 +4165,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                         </button>
                       </div>
                     ) : (
-                      <div style={{ padding:"8px", borderRadius:7, textAlign:"center", background:`${C.red}08`, border:`1px solid ${C.red}20`, color:C.red, fontSize:12 }}>Out of Stock</div>
+                      <div style={{ padding:"8px", borderRadius:7, textAlign:"center", background:`${C.red}08`, border:`1px solid ${C.red}20`, color:C.red, fontSize:12 }}>{t("diOutStock")}</div>
                     )}
                   </div>
                 );
@@ -4170,9 +4177,9 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         {tab==="fatture" && (
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🧾 Le mie fatture</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Fatture di acquisto ricevute dai brand per i tuoi ordini.</p>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("diInvoicesSub")}</p>
             {distInvoices.length===0 ? (
-              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>Nessuna fattura ancora.</div>
+              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>{t("diNoInvoices")}</div>
             ) : (
               <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:680 }}>
@@ -4185,7 +4192,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                         <td style={{ padding:"11px 14px", fontSize:13, color:C.textMuted }}>€{Number(inv.subtotal||0).toLocaleString("it-IT")}</td>
                         <td style={{ padding:"11px 14px", fontSize:13, color:C.textMuted }}>{Number(inv.vat_rate||0)}%</td>
                         <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.goldLight }}>€{Number(inv.total||0).toLocaleString("it-IT")}</td>
-                        <td style={{ padding:"11px 14px" }}><button onClick={()=>setInvoiceView(inv)} style={{ padding:"5px 12px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.blue}15`, border:`1px solid ${C.blue}45`, color:C.blue }}>Vedi</button></td>
+                        <td style={{ padding:"11px 14px" }}><button onClick={()=>setInvoiceView(inv)} style={{ padding:"5px 12px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.blue}15`, border:`1px solid ${C.blue}45`, color:C.blue }}>{t("diView")}</button></td>
                       </tr>
                     ))}
                   </tbody>
@@ -4200,16 +4207,16 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
 
         {tab==="wishlist" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Lista desideri</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>I prodotti che hai salvato. Aggiungili al carrello quando vuoi.</p>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("diWishTitle")}</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("diWishSub")}</p>
             {(() => {
               const wp = visibleProducts.filter(p => wishlist.includes(p.id));
               if (wp.length === 0) return (
                 <div style={{ textAlign:"center", padding:60, background:C.surface, borderRadius:12, border:`1px solid ${C.border}` }}>
                   <div style={{ fontSize:40, marginBottom:12 }}>♡</div>
-                  <div style={{ fontSize:16, fontWeight:600, color:C.text, marginBottom:8 }}>Nessun desiderio salvato</div>
-                  <div style={{ fontSize:13, color:C.textMuted, marginBottom:20 }}>Vai al catalogo e tocca il cuore sui prodotti che ti interessano.</div>
-                  <button onClick={() => setTab("catalog")} style={{ padding:"10px 24px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>Vai al catalogo →</button>
+                  <div style={{ fontSize:16, fontWeight:600, color:C.text, marginBottom:8 }}>{t("diNoWish")}</div>
+                  <div style={{ fontSize:13, color:C.textMuted, marginBottom:20 }}>{t("diNoWishMsg")}</div>
+                  <button onClick={() => setTab("catalog")} style={{ padding:"10px 24px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>{t("diGoCatalog")}</button>
                 </div>
               );
               return (
@@ -4224,7 +4231,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                         <div style={{ fontSize:16, fontWeight:800, color:C.goldLight, marginBottom:6 }}>€{ep.toFixed(2)}</div>
                         <div style={{ fontSize:11, color: stock>0?C.green:C.red, marginBottom:10 }}>{stock>0 ? `${stock} in stock` : "Esaurito"}</div>
                         <div style={{ display:"flex", gap:8 }}>
-                          <button disabled={stock<=0} onClick={() => { const moq=p.min_order_qty||1, mult=p.order_multiple||1; setCart(c => ({ ...c, [p.id]: Math.min(stock, Math.max(moq,mult)) })); setTab("catalog"); window.scrollTo(0,0); }} style={{ flex:1, padding:"8px 10px", borderRadius:7, cursor: stock>0?"pointer":"not-allowed", background: stock>0?`${C.gold}20`:C.surface2, border:`1px solid ${stock>0?C.gold:C.border}`, color: stock>0?C.goldLight:C.textMuted, fontSize:12, fontWeight:600 }}>Aggiungi al carrello</button>
+                          <button disabled={stock<=0} onClick={() => { const moq=p.min_order_qty||1, mult=p.order_multiple||1; setCart(c => ({ ...c, [p.id]: Math.min(stock, Math.max(moq,mult)) })); setTab("catalog"); window.scrollTo(0,0); }} style={{ flex:1, padding:"8px 10px", borderRadius:7, cursor: stock>0?"pointer":"not-allowed", background: stock>0?`${C.gold}20`:C.surface2, border:`1px solid ${stock>0?C.gold:C.border}`, color: stock>0?C.goldLight:C.textMuted, fontSize:12, fontWeight:600 }}>{t("diAddCart")}</button>
                           <button onClick={() => toggleWishlist(p.id)} style={{ padding:"8px 12px", borderRadius:7, cursor:"pointer", background:`${C.red}10`, border:`1px solid ${C.red}40`, color:C.red, fontSize:13 }}>♥</button>
                         </div>
                       </div>
@@ -4248,9 +4255,9 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
             {realOrders.length === 0 ? (
               <div style={{ textAlign:"center", padding:60, background:C.surface, borderRadius:12, border:`1px solid ${C.border}` }}>
                 <div style={{ fontSize:40, marginBottom:12 }}>📦</div>
-                <div style={{ fontSize:16, fontWeight:600, color:C.text, marginBottom:8 }}>No orders yet</div>
-                <div style={{ fontSize:13, color:C.textMuted, marginBottom:20 }}>Go to My Catalog to place your first order</div>
-                <button onClick={() => setTab("catalog")} style={{ padding:"10px 24px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>Browse Catalog →</button>
+                <div style={{ fontSize:16, fontWeight:600, color:C.text, marginBottom:8 }}>{t("diNoOrders")}</div>
+                <div style={{ fontSize:13, color:C.textMuted, marginBottom:20 }}>{t("diNoOrdersMsg")}</div>
+                <button onClick={() => setTab("catalog")} style={{ padding:"10px 24px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>{t("diBrowse")}</button>
               </div>
             ) : (
               <div style={{ display:"flex", flexDirection:"column", gap:12 }}>
@@ -4296,18 +4303,18 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                         setTab("catalog");
                         window.scrollTo(0,0);
                         if (skipped > 0) window.alert(skipped + " prodotto/i non piu disponibili sono stati saltati. Gli altri sono nel carrello.");
-                      }} style={{ marginLeft:"auto", fontSize:11, color:C.goldLight, background:`${C.gold}15`, border:`1px solid ${C.gold}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer", fontWeight:600 }}>🔁 Riordina</button>
-                      <button onClick={() => openIssue(o)} style={{ fontSize:11, color:C.red, background:"transparent", border:`1px solid ${C.red}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer" }}>🚩 Segnala problema</button>
+                      }} style={{ marginLeft:"auto", fontSize:11, color:C.goldLight, background:`${C.gold}15`, border:`1px solid ${C.gold}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer", fontWeight:600 }}>🔁 {t("diReorder")}</button>
+                      <button onClick={() => openIssue(o)} style={{ fontSize:11, color:C.red, background:"transparent", border:`1px solid ${C.red}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer" }}>🚩 {t("diReport")}</button>
                     </div>
                     {o.tracking_number && (
                       <div style={{ marginTop:8, fontSize:12, color:C.blue }}>
                         🚚 {o.courier||"Corriere"} · Tracking: <span style={{ fontFamily:"monospace" }}>{o.tracking_number}</span>
-                        {o.tracking_url && <> · <a href={o.tracking_url} target="_blank" rel="noreferrer" style={{ color:C.blue, textDecoration:"underline" }}>Traccia</a></>}
+                        {o.tracking_url && <> · <a href={o.tracking_url} target="_blank" rel="noreferrer" style={{ color:C.blue, textDecoration:"underline" }}>{t("diTrack")}</a></>}
                       </div>
                     )}
                     {(o.status === "delivered" || o.rating) && (
                       <div style={{ marginTop:10, paddingTop:10, borderTop:`1px solid ${C.border}`, display:"flex", alignItems:"center", gap:5, flexWrap:"wrap" }}>
-                        <span style={{ fontSize:11, color:C.textMuted, marginRight:4 }}>{o.rating ? "La tua valutazione:" : "Valuta questo ordine:"}</span>
+                        <span style={{ fontSize:11, color:C.textMuted, marginRight:4 }}>{o.rating ? t("diRatingDone") : t("diRateOrder")}</span>
                         {[1,2,3,4,5].map(star => (
                           <span key={star} onClick={async () => {
                             await supabase.from("orders").update({ rating: star, rated_at: new Date().toISOString() }).eq("id", o.id);
@@ -4325,8 +4332,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       </div>
     {issueOrder && (
       <Modal title={"Segnala un problema - " + (issueOrder.order_number || "")} onClose={() => setIssueOrder(null)} onSave={submitIssue} saveLabel={issueBusy ? "Invio..." : "Invia segnalazione"}>
-        <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 14px" }}>Descrivi il problema (merce danneggiata, quantita errata, prodotto sbagliato...). La segnalazione resta tracciata e verrai ricontattato.</p>
-        <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Motivo *</label>
+        <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 14px" }}>{t("diProblemDesc")}</p>
+        <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{t("diReason")}</label>
         <textarea value={issueForm.reason} onChange={e => setIssueForm(f => ({...f, reason:e.target.value}))} rows={4} placeholder="Descrivi cosa e successo..." style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", resize:"vertical", marginBottom:14 }}/>
         <label style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6, padding:"16px 12px", borderRadius:10, cursor:"pointer", background: issueForm.photo_file ? `${C.green}10` : C.surface2, border:`1px dashed ${issueForm.photo_file ? C.green : C.border}`, textAlign:"center" }}>
           <input type="file" accept="image/*" style={{ display:"none" }} onChange={e => { const f=e.target.files&&e.target.files[0]; if(f) setIssueForm(p=>({...p, photo_file:f})); }}/>
