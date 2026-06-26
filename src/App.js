@@ -629,6 +629,13 @@ Object.assign(T.es, { azTitle:"Tus productos en Amazon EU", azSub:"Gestionado po
 Object.assign(T.de, { azTitle:"Ihre Produkte auf Amazon EU", azSub:"Verwaltet von NexusHub · Logistik + FBA · Verkäufe und Abdeckung", azLoading:"Amazon-Daten werden geladen…", azEmptyT:"Noch keine Produkte auf Amazon", azEmptyM:"Sobald Ihr Partner Ihre Produkte auf Amazon EU aktiviert, sehen Sie hier Verkäufe, Bestand und Abdeckung.", azOn:"Auf Amazon", azLaunch:"Zu starten", azCat:"Katalog", azRev:"Amazon-Umsatz (30 T)", azSold:"Verkaufte Einheiten (30 T)", azStockKpi:"Bestand auf Amazon", azMkts:"Aktive Marktplätze", azColMkt:"Marktplatz", azColPrice:"Amazon-Preis", azColSold:"Verkauft (30 T)", azNoneActive:"Noch keines Ihrer Produkte ist auf Amazon aktiv. Startkandidaten unten.", azNotYet:"Noch nicht auf Amazon", azNotYetMsg:"Ihrer Produkte sind noch nicht im Regal auf Amazon EU — mögliche Markteinführungen, mit Ihrem Partner zu prüfen.", azBadge:"zu starten", azFooter:"Preise, Sponsoring und Logistik werden von Ihrem Vertriebspartner (NexusHub) verwaltet. Verkaufsdaten werden regelmäßig aktualisiert." });
 Object.assign(T.zh, { azTitle:"您在 Amazon EU 上的产品", azSub:"由 NexusHub 管理 · 物流 + FBA · 销售与覆盖", azLoading:"正在加载 Amazon 数据…", azEmptyT:"暂无 Amazon 产品", azEmptyM:"当您的合作伙伴在 Amazon EU 上激活您的产品后，您将在此看到销售、库存和覆盖情况。", azOn:"已在 Amazon", azLaunch:"待上架", azCat:"目录", azRev:"Amazon 营收(30天)", azSold:"已售件数(30天)", azStockKpi:"Amazon 库存", azMkts:"活跃市场", azColMkt:"市场", azColPrice:"Amazon 价格", azColSold:"已售(30天)", azNoneActive:"您的产品尚未在 Amazon 上架。以下为上架候选。", azNotYet:"尚未在 Amazon", azNotYetMsg:"个产品尚未在 Amazon EU 上架 — 可与合作伙伴评估的潜在上架。", azBadge:"待上架", azFooter:"价格、推广和物流由您的分销合作伙伴(NexusHub)管理。销售数据定期更新。" });
 Object.assign(T.ar, { azTitle:"منتجاتك على Amazon EU", azSub:"تُدار بواسطة NexusHub · الخدمات اللوجستية + FBA · المبيعات والتغطية", azLoading:"جارٍ تحميل بيانات Amazon…", azEmptyT:"لا توجد منتجات على Amazon بعد", azEmptyM:"عندما يقوم شريكك بتفعيل منتجاتك على Amazon EU، سترى هنا المبيعات والمخزون والتغطية.", azOn:"على Amazon", azLaunch:"للإطلاق", azCat:"الكتالوج", azRev:"إيراد Amazon (30 يومًا)", azSold:"الوحدات المباعة (30 يومًا)", azStockKpi:"المخزون على Amazon", azMkts:"الأسواق النشطة", azColMkt:"السوق", azColPrice:"سعر Amazon", azColSold:"المباعة (30 يومًا)", azNoneActive:"لا يوجد أي من منتجاتك نشطًا على Amazon بعد. المرشحون للإطلاق أدناه.", azNotYet:"ليست بعد على Amazon", azNotYetMsg:"من منتجاتك ليست بعد على الرفوف في Amazon EU — عمليات إطلاق محتملة لتقييمها مع شريكك.", azBadge:"للإطلاق", azFooter:"تُدار الأسعار والرعايات والخدمات اللوجستية من قِبل شريك التوزيع (NexusHub). تُحدَّث بيانات المبيعات دوريًا." });
+Object.assign(T.en, { ovProducts:"Products", ovOrders:"Orders", ovDistAuth:"Authorized distributors", ovNoDist:"No authorized distributors yet. When you approve a request in the Applications tab, the distributor appears here and on the map.", ovEuMap:"European distribution map", ovYourProd:"Your products", ovCatProd:"Catalog products", ovTotOrders:"Total orders", ovActiveDist:"Active distributors", ovRevenue:"Revenue" });
+Object.assign(T.it, { ovProducts:"Prodotti", ovOrders:"Ordini", ovDistAuth:"Distributori autorizzati", ovNoDist:"Nessun distributore autorizzato ancora. Quando approvi una richiesta nella tab Richieste, il distributore compare qui e sulla mappa.", ovEuMap:"Mappa distribuzione europea", ovYourProd:"I tuoi prodotti", ovCatProd:"Prodotti a catalogo", ovTotOrders:"Ordini totali", ovActiveDist:"Distributori attivi", ovRevenue:"Fatturato" });
+Object.assign(T.fr, { ovProducts:"Produits", ovOrders:"Commandes", ovDistAuth:"Distributeurs autorisés", ovNoDist:"Aucun distributeur autorisé pour le moment. Lorsque vous approuvez une demande dans l'onglet Candidatures, le distributeur apparaît ici et sur la carte.", ovEuMap:"Carte de distribution européenne", ovYourProd:"Vos produits", ovCatProd:"Produits au catalogue", ovTotOrders:"Commandes totales", ovActiveDist:"Distributeurs actifs", ovRevenue:"Chiffre d'affaires" });
+Object.assign(T.es, { ovProducts:"Productos", ovOrders:"Pedidos", ovDistAuth:"Distribuidores autorizados", ovNoDist:"Aún no hay distribuidores autorizados. Cuando apruebas una solicitud en la pestaña Solicitudes, el distribuidor aparece aquí y en el mapa.", ovEuMap:"Mapa de distribución europea", ovYourProd:"Tus productos", ovCatProd:"Productos en catálogo", ovTotOrders:"Pedidos totales", ovActiveDist:"Distribuidores activos", ovRevenue:"Ingresos" });
+Object.assign(T.de, { ovProducts:"Produkte", ovOrders:"Bestellungen", ovDistAuth:"Autorisierte Händler", ovNoDist:"Noch keine autorisierten Händler. Wenn Sie eine Anfrage im Tab Bewerbungen genehmigen, erscheint der Händler hier und auf der Karte.", ovEuMap:"Europäische Vertriebskarte", ovYourProd:"Ihre Produkte", ovCatProd:"Produkte im Katalog", ovTotOrders:"Bestellungen gesamt", ovActiveDist:"Aktive Händler", ovRevenue:"Umsatz" });
+Object.assign(T.zh, { ovProducts:"产品", ovOrders:"订单", ovDistAuth:"授权分销商", ovNoDist:"暂无授权分销商。当您在「申请」标签中批准请求后，该分销商将显示在此处和地图上。", ovEuMap:"欧洲分销地图", ovYourProd:"您的产品", ovCatProd:"目录产品", ovTotOrders:"订单总数", ovActiveDist:"活跃分销商", ovRevenue:"营收" });
+Object.assign(T.ar, { ovProducts:"المنتجات", ovOrders:"الطلبات", ovDistAuth:"الموزّعون المعتمدون", ovNoDist:"لا يوجد موزّعون معتمدون بعد. عند الموافقة على طلب في تبويب الطلبات، يظهر الموزّع هنا وعلى الخريطة.", ovEuMap:"خريطة التوزيع الأوروبية", ovYourProd:"منتجاتك", ovCatProd:"منتجات الكتالوج", ovTotOrders:"إجمالي الطلبات", ovActiveDist:"الموزّعون النشطون", ovRevenue:"الإيراد" });
 
 
 
@@ -2899,14 +2906,14 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
               <Stat icon="⬡" label={t("statTerritories")} value={territories} sub={t("statTerritoriesSub")}/>
               <Stat icon="◻" label={t("statDistributors")} value={approved.length} sub={`${pending} ${t("statDistributorsSub")}`} accent={C.blue}/>
               <Stat icon="↗" label={t("statRevenue")} value={eur(revenue)} sub={t("statRevenueSub")}/>
-              <Stat icon="📦" label="Prodotti" value={brandProducts.length} accent={C.green}/>
-              <Stat icon="🧾" label="Ordini" value={brandOrders.length}/>
+              <Stat icon="📦" label={t("ovProducts")} value={brandProducts.length} accent={C.green}/>
+              <Stat icon="🧾" label={t("ovOrders")} value={brandOrders.length}/>
             </div>
             <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(320px, 1fr))", gap:16 }}>
               <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
-                <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>⬡ Distributori autorizzati</h3>
+                <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>⬡ {t("ovDistAuth")}</h3>
                 {approved.length===0 ? (
-                  <div style={{ fontSize:13, color:C.textMuted, lineHeight:1.6 }}>Nessun distributore autorizzato ancora. Quando approvi una richiesta nella tab Richieste, il distributore compare qui e sulla mappa.</div>
+                  <div style={{ fontSize:13, color:C.textMuted, lineHeight:1.6 }}>{t("ovNoDist")}</div>
                 ) : approved.slice(0,6).map((r,i)=>{ const d=r.distributor||{}; return (
                   <div key={r.id} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", gap:10, padding:"10px 0", borderBottom:i<Math.min(approved.length,6)-1?`1px solid ${C.border}`:"none" }}>
                     <div style={{ minWidth:0 }}>
@@ -2918,12 +2925,12 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                 );})}
               </div>
               <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20, gridColumn:"1/-1" }}>
-                <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>🗺️ Mappa distribuzione europea</h3>
+                <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>🗺️ {t("ovEuMap")}</h3>
                 <EuropeMap distributors={mapDist}/>
               </div>
               <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
-                <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>📦 I tuoi prodotti</h3>
-                {[["Prodotti a catalogo", brandProducts.length],["Ordini totali", brandOrders.length],["Distributori attivi", approved.length],["Fatturato", eur(revenue)]].map(([k,v],i)=>(
+                <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>📦 {t("ovYourProd")}</h3>
+                {[[t("ovCatProd"), brandProducts.length],[t("ovTotOrders"), brandOrders.length],[t("ovActiveDist"), approved.length],[t("ovRevenue"), eur(revenue)]].map(([k,v],i)=>(
                   <div key={i} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"9px 0", borderBottom:i<3?`1px solid ${C.border}`:"none" }}>
                     <span style={{ fontSize:13, color:C.textMuted }}>{k}</span>
                     <span style={{ fontSize:13, color:C.goldLight, fontWeight:600 }}>{v}</span>
