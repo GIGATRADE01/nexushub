@@ -643,6 +643,13 @@ Object.assign(T.es, { diNoBrands:"Aún no hay marcas disponibles", diNoBrandsMsg
 Object.assign(T.de, { diNoBrands:"Noch keine Marken verfügbar", diNoBrandsMsg:"Sobald sich eine Marke registriert und auf der Plattform freigegeben wird, erscheint sie hier und Sie können Zugang zu ihren Produkten anfragen.", diReqAccess:"Fordern Sie Zugang an, um den Katalog dieser Marke in Ihrem Gebiet zu sehen und zu bestellen.", diNoDocs:"Keine Dokumente für dieses Produkt verfügbar.", diDownload:"Herunterladen", diOutStock:"Nicht auf Lager", diAddCart:"In den Warenkorb", diInvoicesSub:"Eingangsrechnungen der Marken für Ihre Bestellungen.", diNoInvoices:"Noch keine Rechnungen.", diView:"Ansehen", diWishTitle:"Wunschliste", diWishSub:"Die von Ihnen gespeicherten Produkte. Fügen Sie sie jederzeit dem Warenkorb hinzu.", diNoWish:"Keine gespeicherten Wünsche", diNoWishMsg:"Gehen Sie zum Katalog und tippen Sie bei den interessanten Produkten auf das Herz.", diGoCatalog:"Zum Katalog →", diNoOrders:"Noch keine Bestellungen", diNoOrdersMsg:"Gehen Sie zu Mein Katalog, um Ihre erste Bestellung aufzugeben", diBrowse:"Katalog durchsuchen →", diReorder:"Nachbestellen", diReport:"Problem melden", diTrack:"Verfolgen", diRatingDone:"Ihre Bewertung:", diRateOrder:"Bewerten Sie diese Bestellung:", diProblemAlert:"Beschreiben Sie das Problem vor dem Senden.", diProblemDesc:"Beschreiben Sie das Problem (beschädigte Ware, falsche Menge, falsches Produkt...). Die Meldung wird verfolgt und Sie werden zurückkontaktiert.", diReason:"Grund *" });
 Object.assign(T.zh, { diNoBrands:"暂无可用品牌", diNoBrandsMsg:"一旦有品牌注册并通过平台审核，它将显示在此处，您即可申请访问其产品。", diReqAccess:"申请访问以在您的区域查看并订购该品牌的目录。", diNoDocs:"该产品暂无可用文件。", diDownload:"下载", diOutStock:"缺货", diAddCart:"加入购物车", diInvoicesSub:"您订单收到的来自品牌的采购发票。", diNoInvoices:"暂无发票。", diView:"查看", diWishTitle:"心愿单", diWishSub:"您保存的产品。随时可加入购物车。", diNoWish:"暂无收藏", diNoWishMsg:"前往目录，点按您感兴趣产品上的爱心。", diGoCatalog:"前往目录 →", diNoOrders:"暂无订单", diNoOrdersMsg:"前往「我的目录」下第一笔订单", diBrowse:"浏览目录 →", diReorder:"再次订购", diReport:"报告问题", diTrack:"追踪", diRatingDone:"您的评分：", diRateOrder:"为此订单评分：", diProblemAlert:"发送前请描述问题。", diProblemDesc:"描述问题（货物损坏、数量错误、产品错误……）。该报告会被跟踪，我们将回复您。", diReason:"原因 *" });
 Object.assign(T.ar, { diNoBrands:"لا توجد علامات متاحة بعد", diNoBrandsMsg:"بمجرد أن تسجّل علامة تجارية وتُعتمد على المنصة، ستظهر هنا وسيمكنك طلب الوصول إلى منتجاتها.", diReqAccess:"اطلب الوصول لعرض وطلب كتالوج هذه العلامة في منطقتك.", diNoDocs:"لا توجد مستندات متاحة لهذا المنتج.", diDownload:"تنزيل", diOutStock:"نفد المخزون", diAddCart:"أضف إلى السلة", diInvoicesSub:"فواتير الشراء المستلمة من العلامات لطلباتك.", diNoInvoices:"لا توجد فواتير بعد.", diView:"عرض", diWishTitle:"قائمة الرغبات", diWishSub:"المنتجات التي حفظتها. أضفها إلى السلة متى شئت.", diNoWish:"لا توجد رغبات محفوظة", diNoWishMsg:"انتقل إلى الكتالوج وانقر على القلب في المنتجات التي تهمّك.", diGoCatalog:"اذهب إلى الكتالوج ←", diNoOrders:"لا توجد طلبات بعد", diNoOrdersMsg:"انتقل إلى كتالوجي لتقديم أول طلب لك", diBrowse:"تصفح الكتالوج ←", diReorder:"إعادة الطلب", diReport:"الإبلاغ عن مشكلة", diTrack:"تتبّع", diRatingDone:"تقييمك:", diRateOrder:"قيّم هذا الطلب:", diProblemAlert:"صف المشكلة قبل الإرسال.", diProblemDesc:"صف المشكلة (بضاعة تالفة، كمية خاطئة، منتج خاطئ...). يبقى البلاغ متتبَّعًا وسيتم التواصل معك.", diReason:"السبب *" });
+Object.assign(T.en, { aiIntro:"Hi! I'm Nexus AI. I answer on your real data: tap a question below or type to me.", aiSub:"Assistant on your real data · instant answers", aiSearching:"Nexus AI is searching…", aiPlaceholder:"Type a question…", aiSend:"Send", aiFooter:"Nexus AI only answers on data you have access to. Free-form language is coming soon (AI upgrade).", aiNoUnderstand:"I'm not sure I understood. Try one of these:", aiError:"Oops, I couldn't retrieve the data. Try again.", aiNoOrders:"no orders", aiStDraft:"draft", aiStPending:"pending", aiStConfirmed:"confirmed", aiStShipped:"shipped", aiStDelivered:"delivered", aiStCancelled:"cancelled", aiBChipSales:"My sales", aiBChipOrders:"Orders by status", aiBChipRating:"Average rating", aiBChipProducts:"My products", aiBSales:"Total sales (gross): {gmv}\nOrders: {n}\nEstimated payout (net of platform fee): {payout}", aiBOrdersTitle:"Your orders by status:", aiBNoRatings:"You haven't received any ratings yet.", aiBRating:"Average rating: {avg}/5 across {n} rated orders.", aiBProducts:"Active products: {act} of {tot}.", aiBLow:"Low stock (<50): {list}", aiBStockOk:"Stock ok.", aiDChipOrders:"My orders", aiDChipTrack:"Where is my order", aiDChipWish:"My wishlist", aiDChipCatalog:"Available catalog", aiDSpent:"Total spent: {spent}", aiDNoShip:"No order shipped yet.", aiDTrack:"Last shipped order: {num}\nStatus: {status}\nCourier: {courier}\nTracking: {track}", aiDTrackLink:"Link: {url}", aiDWish:"You have {n} products in your wishlist.", aiDCatalog:"You have access to {n} active products from approved brands." });
+Object.assign(T.it, { aiIntro:"Ciao! Sono Nexus AI. Rispondo sui tuoi dati reali: tocca una domanda qui sotto o scrivimi.", aiSub:"Assistente sui tuoi dati reali · risposte istantanee", aiSearching:"Nexus AI sta cercando…", aiPlaceholder:"Scrivi una domanda…", aiSend:"Invia", aiFooter:"Nexus AI risponde solo sui dati a cui hai accesso. Presto capirà anche il linguaggio libero (upgrade AI).", aiNoUnderstand:"Non sono sicuro di aver capito. Prova una di queste:", aiError:"Ops, non sono riuscito a recuperare il dato. Riprova.", aiNoOrders:"nessun ordine", aiStDraft:"bozza", aiStPending:"in attesa", aiStConfirmed:"confermato", aiStShipped:"spedito", aiStDelivered:"consegnato", aiStCancelled:"annullato", aiBChipSales:"Le mie vendite", aiBChipOrders:"Ordini per stato", aiBChipRating:"Rating medio", aiBChipProducts:"I miei prodotti", aiBSales:"Vendite totali (lordo): {gmv}\nOrdini: {n}\nPayout stimato (al netto fee piattaforma): {payout}", aiBOrdersTitle:"I tuoi ordini per stato:", aiBNoRatings:"Non hai ancora ricevuto valutazioni.", aiBRating:"Rating medio: {avg}/5 su {n} ordini valutati.", aiBProducts:"Prodotti attivi: {act} su {tot}.", aiBLow:"Sotto scorta (<50): {list}", aiBStockOk:"Scorte ok.", aiDChipOrders:"I miei ordini", aiDChipTrack:"Dov'è il mio ordine", aiDChipWish:"La mia wishlist", aiDChipCatalog:"Catalogo disponibile", aiDSpent:"Spesa totale: {spent}", aiDNoShip:"Nessun ordine ancora spedito.", aiDTrack:"Ultimo ordine spedito: {num}\nStato: {status}\nCorriere: {courier}\nTracking: {track}", aiDTrackLink:"Link: {url}", aiDWish:"Hai {n} prodotti nella wishlist.", aiDCatalog:"Hai accesso a {n} prodotti attivi dai brand approvati." });
+Object.assign(T.fr, { aiIntro:"Bonjour ! Je suis Nexus AI. Je réponds sur vos données réelles : touchez une question ci-dessous ou écrivez-moi.", aiSub:"Assistant sur vos données réelles · réponses instantanées", aiSearching:"Nexus AI recherche…", aiPlaceholder:"Écrivez une question…", aiSend:"Envoyer", aiFooter:"Nexus AI ne répond que sur les données auxquelles vous avez accès. Le langage libre arrive bientôt (mise à niveau IA).", aiNoUnderstand:"Je ne suis pas sûr d'avoir compris. Essayez l'une de celles-ci :", aiError:"Oups, je n'ai pas pu récupérer la donnée. Réessayez.", aiNoOrders:"aucune commande", aiStDraft:"brouillon", aiStPending:"en attente", aiStConfirmed:"confirmé", aiStShipped:"expédié", aiStDelivered:"livré", aiStCancelled:"annulé", aiBChipSales:"Mes ventes", aiBChipOrders:"Commandes par statut", aiBChipRating:"Note moyenne", aiBChipProducts:"Mes produits", aiBSales:"Ventes totales (brut) : {gmv}\nCommandes : {n}\nPaiement estimé (net des frais de plateforme) : {payout}", aiBOrdersTitle:"Vos commandes par statut :", aiBNoRatings:"Vous n'avez pas encore reçu d'évaluations.", aiBRating:"Note moyenne : {avg}/5 sur {n} commandes évaluées.", aiBProducts:"Produits actifs : {act} sur {tot}.", aiBLow:"Stock faible (<50) : {list}", aiBStockOk:"Stock ok.", aiDChipOrders:"Mes commandes", aiDChipTrack:"Où est ma commande", aiDChipWish:"Ma liste de souhaits", aiDChipCatalog:"Catalogue disponible", aiDSpent:"Total dépensé : {spent}", aiDNoShip:"Aucune commande encore expédiée.", aiDTrack:"Dernière commande expédiée : {num}\nStatut : {status}\nTransporteur : {courier}\nSuivi : {track}", aiDTrackLink:"Lien : {url}", aiDWish:"Vous avez {n} produits dans votre liste de souhaits.", aiDCatalog:"Vous avez accès à {n} produits actifs des marques approuvées." });
+Object.assign(T.es, { aiIntro:"¡Hola! Soy Nexus AI. Respondo sobre tus datos reales: toca una pregunta abajo o escríbeme.", aiSub:"Asistente sobre tus datos reales · respuestas instantáneas", aiSearching:"Nexus AI está buscando…", aiPlaceholder:"Escribe una pregunta…", aiSend:"Enviar", aiFooter:"Nexus AI solo responde sobre los datos a los que tienes acceso. El lenguaje libre llegará pronto (mejora de IA).", aiNoUnderstand:"No estoy seguro de haber entendido. Prueba una de estas:", aiError:"Vaya, no pude recuperar el dato. Inténtalo de nuevo.", aiNoOrders:"sin pedidos", aiStDraft:"borrador", aiStPending:"pendiente", aiStConfirmed:"confirmado", aiStShipped:"enviado", aiStDelivered:"entregado", aiStCancelled:"cancelado", aiBChipSales:"Mis ventas", aiBChipOrders:"Pedidos por estado", aiBChipRating:"Valoración media", aiBChipProducts:"Mis productos", aiBSales:"Ventas totales (bruto): {gmv}\nPedidos: {n}\nPago estimado (neto de comisión de plataforma): {payout}", aiBOrdersTitle:"Tus pedidos por estado:", aiBNoRatings:"Aún no has recibido valoraciones.", aiBRating:"Valoración media: {avg}/5 en {n} pedidos valorados.", aiBProducts:"Productos activos: {act} de {tot}.", aiBLow:"Bajo stock (<50): {list}", aiBStockOk:"Stock ok.", aiDChipOrders:"Mis pedidos", aiDChipTrack:"Dónde está mi pedido", aiDChipWish:"Mi lista de deseos", aiDChipCatalog:"Catálogo disponible", aiDSpent:"Total gastado: {spent}", aiDNoShip:"Aún no hay pedidos enviados.", aiDTrack:"Último pedido enviado: {num}\nEstado: {status}\nTransportista: {courier}\nSeguimiento: {track}", aiDTrackLink:"Enlace: {url}", aiDWish:"Tienes {n} productos en tu lista de deseos.", aiDCatalog:"Tienes acceso a {n} productos activos de marcas aprobadas." });
+Object.assign(T.de, { aiIntro:"Hallo! Ich bin Nexus AI. Ich antworte auf Basis Ihrer echten Daten: Tippen Sie unten auf eine Frage oder schreiben Sie mir.", aiSub:"Assistent für Ihre echten Daten · sofortige Antworten", aiSearching:"Nexus AI sucht…", aiPlaceholder:"Frage eingeben…", aiSend:"Senden", aiFooter:"Nexus AI antwortet nur auf Daten, auf die Sie Zugriff haben. Freie Spracheingabe folgt bald (KI-Upgrade).", aiNoUnderstand:"Ich bin nicht sicher, ob ich das verstanden habe. Versuchen Sie eine davon:", aiError:"Ups, ich konnte die Daten nicht abrufen. Versuchen Sie es erneut.", aiNoOrders:"keine Bestellungen", aiStDraft:"Entwurf", aiStPending:"ausstehend", aiStConfirmed:"bestätigt", aiStShipped:"versandt", aiStDelivered:"geliefert", aiStCancelled:"storniert", aiBChipSales:"Meine Verkäufe", aiBChipOrders:"Bestellungen nach Status", aiBChipRating:"Durchschnittsbewertung", aiBChipProducts:"Meine Produkte", aiBSales:"Gesamtverkäufe (brutto): {gmv}\nBestellungen: {n}\nGeschätzte Auszahlung (abzüglich Plattformgebühr): {payout}", aiBOrdersTitle:"Ihre Bestellungen nach Status:", aiBNoRatings:"Sie haben noch keine Bewertungen erhalten.", aiBRating:"Durchschnittsbewertung: {avg}/5 über {n} bewertete Bestellungen.", aiBProducts:"Aktive Produkte: {act} von {tot}.", aiBLow:"Geringer Bestand (<50): {list}", aiBStockOk:"Bestand ok.", aiDChipOrders:"Meine Bestellungen", aiDChipTrack:"Wo ist meine Bestellung", aiDChipWish:"Meine Wunschliste", aiDChipCatalog:"Verfügbarer Katalog", aiDSpent:"Gesamtausgaben: {spent}", aiDNoShip:"Noch keine Bestellung versandt.", aiDTrack:"Letzte versandte Bestellung: {num}\nStatus: {status}\nKurier: {courier}\nSendungsverfolgung: {track}", aiDTrackLink:"Link: {url}", aiDWish:"Sie haben {n} Produkte in Ihrer Wunschliste.", aiDCatalog:"Sie haben Zugriff auf {n} aktive Produkte von freigegebenen Marken." });
+Object.assign(T.zh, { aiIntro:"你好！我是 Nexus AI。我基于您的真实数据回答：点按下方问题或直接输入。", aiSub:"基于您真实数据的助手 · 即时回答", aiSearching:"Nexus AI 正在查找…", aiPlaceholder:"输入问题…", aiSend:"发送", aiFooter:"Nexus AI 仅回答您有权访问的数据。自由语言输入即将推出（AI 升级）。", aiNoUnderstand:"我不确定是否理解。请尝试以下之一：", aiError:"哎呀，无法获取数据。请重试。", aiNoOrders:"无订单", aiStDraft:"草稿", aiStPending:"待处理", aiStConfirmed:"已确认", aiStShipped:"已发货", aiStDelivered:"已送达", aiStCancelled:"已取消", aiBChipSales:"我的销售", aiBChipOrders:"按状态查看订单", aiBChipRating:"平均评分", aiBChipProducts:"我的产品", aiBSales:"总销售额(毛额)：{gmv}\n订单：{n}\n预计支付(扣除平台费用后)：{payout}", aiBOrdersTitle:"您的订单按状态：", aiBNoRatings:"您尚未收到评分。", aiBRating:"平均评分：{avg}/5，共 {n} 个已评订单。", aiBProducts:"活跃产品：{act} / {tot}。", aiBLow:"低库存(<50)：{list}", aiBStockOk:"库存正常。", aiDChipOrders:"我的订单", aiDChipTrack:"我的订单在哪", aiDChipWish:"我的心愿单", aiDChipCatalog:"可用目录", aiDSpent:"总支出：{spent}", aiDNoShip:"尚无已发货订单。", aiDTrack:"最近发货订单：{num}\n状态：{status}\n快递：{courier}\n物流单号：{track}", aiDTrackLink:"链接：{url}", aiDWish:"您的心愿单中有 {n} 个产品。", aiDCatalog:"您可访问 {n} 个来自已批准品牌的活跃产品。" });
+Object.assign(T.ar, { aiIntro:"مرحبًا! أنا Nexus AI. أجيب استنادًا إلى بياناتك الحقيقية: انقر سؤالًا بالأسفل أو اكتب لي.", aiSub:"مساعد قائم على بياناتك الحقيقية · إجابات فورية", aiSearching:"يبحث Nexus AI…", aiPlaceholder:"اكتب سؤالًا…", aiSend:"إرسال", aiFooter:"يجيب Nexus AI فقط على البيانات التي تملك صلاحية الوصول إليها. ستتوفر قريبًا اللغة الحرة (ترقية الذكاء الاصطناعي).", aiNoUnderstand:"لست متأكدًا أنني فهمت. جرّب إحدى هذه:", aiError:"عذرًا، تعذّر عليّ جلب البيانات. حاول مرة أخرى.", aiNoOrders:"لا توجد طلبات", aiStDraft:"مسودة", aiStPending:"قيد الانتظار", aiStConfirmed:"مؤكَّد", aiStShipped:"تم الشحن", aiStDelivered:"تم التسليم", aiStCancelled:"ملغى", aiBChipSales:"مبيعاتي", aiBChipOrders:"الطلبات حسب الحالة", aiBChipRating:"متوسط التقييم", aiBChipProducts:"منتجاتي", aiBSales:"إجمالي المبيعات (الإجمالي): {gmv}\nالطلبات: {n}\nالدفعة المقدّرة (بعد خصم رسوم المنصة): {payout}", aiBOrdersTitle:"طلباتك حسب الحالة:", aiBNoRatings:"لم تتلقَّ أي تقييمات بعد.", aiBRating:"متوسط التقييم: {avg}/5 على {n} طلبات مُقيَّمة.", aiBProducts:"المنتجات النشطة: {act} من {tot}.", aiBLow:"مخزون منخفض (<50): {list}", aiBStockOk:"المخزون جيد.", aiDChipOrders:"طلباتي", aiDChipTrack:"أين طلبي", aiDChipWish:"قائمة رغباتي", aiDChipCatalog:"الكتالوج المتاح", aiDSpent:"إجمالي الإنفاق: {spent}", aiDNoShip:"لم يتم شحن أي طلب بعد.", aiDTrack:"آخر طلب تم شحنه: {num}\nالحالة: {status}\nشركة الشحن: {courier}\nرقم التتبّع: {track}", aiDTrackLink:"الرابط: {url}", aiDWish:"لديك {n} منتجات في قائمة الرغبات.", aiDCatalog:"لديك صلاحية الوصول إلى {n} منتجات نشطة من العلامات المعتمدة." });
 
 
 
@@ -2276,7 +2283,6 @@ const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
   );
 };
 
-const NEXUS_STATUS_IT = { draft:"bozza", pending:"in attesa", confirmed:"confermato", shipped:"spedito", delivered:"consegnato", cancelled:"annullato" };
 
 const BrandPaymentsPanel = () => {
   const t = useT();
@@ -2428,10 +2434,13 @@ const BrandAmazonPanel = () => {
 };
 
 const NexusAI = ({ role }) => {
+  const t = useT();
   const eur = (n) => "€" + Number(n||0).toLocaleString("it-IT", { minimumFractionDigits:2, maximumFractionDigits:2 });
   const num = (x) => Number(x||0);
   const qa = (inv) => Array.isArray(inv) ? num(inv[0] && inv[0].quantity_available) : num(inv && inv.quantity_available);
-  const countByStatus = (rows) => { const m={}; (rows||[]).forEach(r=>{ m[r.status]=(m[r.status]||0)+1; }); const ks=Object.keys(m); return ks.length ? ks.map(k=>"• "+(NEXUS_STATUS_IT[k]||k)+": "+m[k]).join("\n") : "nessun ordine"; };
+  const ST = { draft:"aiStDraft", pending:"aiStPending", confirmed:"aiStConfirmed", shipped:"aiStShipped", delivered:"aiStDelivered", cancelled:"aiStCancelled" };
+  const stt = (k) => ST[k] ? t(ST[k]) : k;
+  const countByStatus = (rows) => { const m={}; (rows||[]).forEach(r=>{ m[r.status]=(m[r.status]||0)+1; }); const ks=Object.keys(m); return ks.length ? ks.map(k=>"• "+stt(k)+": "+m[k]).join("\n") : t("aiNoOrders"); };
 
   const INTENTS = {
     admin: [
@@ -2480,54 +2489,56 @@ const NexusAI = ({ role }) => {
       }}
     ],
     brand: [
-      { chip:"Le mie vendite", keys:["vendit","fatturat","venduto","gmv"], run: async () => {
+      { chip:t("aiBChipSales"), keys:["vendit","fatturat","venduto","gmv"], run: async () => {
         const { data:o } = await supabase.from("orders").select("total_amount,status");
         const ok=(o||[]).filter(x=>x.status!=="cancelled");
         const gmv=ok.reduce((a,x)=>a+num(x.total_amount),0);
-        return "Vendite totali (lordo): "+eur(gmv)+"\nOrdini: "+ok.length+"\nPayout stimato (al netto fee piattaforma): "+eur(gmv*0.886);
+        return t("aiBSales").replace("{gmv}",eur(gmv)).replace("{n}",ok.length).replace("{payout}",eur(gmv*0.886));
       }},
-      { chip:"Ordini per stato", keys:["ordini","stato"], run: async () => {
+      { chip:t("aiBChipOrders"), keys:["ordini","stato"], run: async () => {
         const { data:o } = await supabase.from("orders").select("status");
-        return "I tuoi ordini per stato:\n" + countByStatus(o);
+        return t("aiBOrdersTitle")+"\n" + countByStatus(o);
       }},
-      { chip:"Rating medio", keys:["rating","recension","valutaz","stelle"], run: async () => {
+      { chip:t("aiBChipRating"), keys:["rating","recension","valutaz","stelle"], run: async () => {
         const { data:o } = await supabase.from("orders").select("rating").not("rating","is",null);
-        if(!o||!o.length) return "Non hai ancora ricevuto valutazioni.";
+        if(!o||!o.length) return t("aiBNoRatings");
         const avg=o.reduce((a,x)=>a+num(x.rating),0)/o.length;
-        return "Rating medio: "+avg.toFixed(2)+"/5 su "+o.length+" ordini valutati.";
+        return t("aiBRating").replace("{avg}",avg.toFixed(2)).replace("{n}",o.length);
       }},
-      { chip:"I miei prodotti", keys:["prodott","catalog","scort","stock"], run: async () => {
+      { chip:t("aiBChipProducts"), keys:["prodott","catalog","scort","stock"], run: async () => {
         const { data:p } = await supabase.from("products").select("name,is_active,inventory(*)");
         const act=(p||[]).filter(x=>x.is_active).length;
         const low=(p||[]).filter(x=>qa(x.inventory)<50);
-        return "Prodotti attivi: "+act+" su "+((p||[]).length)+"." + (low.length?"\nSotto scorta (<50): "+low.map(x=>x.name).join(", "):"\nScorte ok.");
+        return t("aiBProducts").replace("{act}",act).replace("{tot}",(p||[]).length) + (low.length?"\n"+t("aiBLow").replace("{list}",low.map(x=>x.name).join(", ")):"\n"+t("aiBStockOk"));
       }}
     ],
     distributor: [
-      { chip:"I miei ordini", keys:["ordini","stato","ordine"], run: async () => {
+      { chip:t("aiDChipOrders"), keys:["ordini","stato","ordine"], run: async () => {
         const { data:o } = await supabase.from("orders").select("status,total_amount");
         const spent=(o||[]).filter(x=>x.status!=="cancelled").reduce((a,x)=>a+num(x.total_amount),0);
-        return "I tuoi ordini per stato:\n" + countByStatus(o) + "\nSpesa totale: "+eur(spent);
+        return t("aiBOrdersTitle")+"\n" + countByStatus(o) + "\n"+t("aiDSpent").replace("{spent}",eur(spent));
       }},
-      { chip:"Dov'e il mio ordine", keys:["tracking","spedizion","traccia","dov","corriere"], run: async () => {
+      { chip:t("aiDChipTrack"), keys:["tracking","spedizion","traccia","dov","corriere"], run: async () => {
         const { data:o } = await supabase.from("orders").select("order_number,status,courier,tracking_number,tracking_url,shipped_at").in("status",["shipped","delivered"]).order("shipped_at",{ascending:false}).limit(1);
-        if(!o||!o.length) return "Nessun ordine ancora spedito.";
+        if(!o||!o.length) return t("aiDNoShip");
         const x=o[0];
-        return "Ultimo ordine spedito: "+x.order_number+"\nStato: "+(NEXUS_STATUS_IT[x.status]||x.status)+"\nCorriere: "+(x.courier||"—")+"\nTracking: "+(x.tracking_number||"—") + (x.tracking_url?"\nLink: "+x.tracking_url:"");
+        let out=t("aiDTrack").replace("{num}",x.order_number).replace("{status}",stt(x.status)).replace("{courier}",x.courier||"—").replace("{track}",x.tracking_number||"—");
+        if(x.tracking_url) out+="\n"+t("aiDTrackLink").replace("{url}",x.tracking_url);
+        return out;
       }},
-      { chip:"La mia wishlist", keys:["wishlist","desideri","preferit"], run: async () => {
+      { chip:t("aiDChipWish"), keys:["wishlist","desideri","preferit"], run: async () => {
         const { data:w } = await supabase.from("wishlist_items").select("id");
-        return "Hai "+((w||[]).length)+" prodotti nella wishlist.";
+        return t("aiDWish").replace("{n}",(w||[]).length);
       }},
-      { chip:"Catalogo disponibile", keys:["catalog","prodott","disponib"], run: async () => {
+      { chip:t("aiDChipCatalog"), keys:["catalog","prodott","disponib"], run: async () => {
         const { data:p } = await supabase.from("products").select("id").eq("is_active",true);
-        return "Hai accesso a "+((p||[]).length)+" prodotti attivi dai brand approvati.";
+        return t("aiDCatalog").replace("{n}",(p||[]).length);
       }}
     ]
   };
 
   const intents = INTENTS[role] || INTENTS.distributor;
-  const [msgs, setMsgs] = useState([{ who:"ai", text:"Ciao! Sono Nexus AI. Rispondo sui tuoi dati reali: tocca una domanda qui sotto o scrivimi." }]);
+  const [msgs, setMsgs] = useState([{ who:"ai", text:t("aiIntro") }]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -2535,10 +2546,16 @@ const NexusAI = ({ role }) => {
     const query=(q||"").trim(); if(!query||busy) return;
     setMsgs(m=>[...m,{ who:"user", text:query }]); setInput(""); setBusy(true);
     const ql=query.toLowerCase();
-    const hit=intents.find(it=>it.keys.some(k=>ql.includes(k)));
+    const hit=intents.find(it=>it.keys.some(k=>ql.includes(k)) || ql.includes((it.chip||"").toLowerCase()));
     let ans;
-    try { ans = hit ? await hit.run() : ("Non sono sicuro di aver capito. Prova una di queste:\n"+intents.map(i=>"• "+i.chip).join("\n")); }
-    catch(e){ console.error(e); ans="Ops, non sono riuscito a recuperare il dato. Riprova."; }
+    try { ans = hit ? await hit.run() : (t("aiNoUnderstand")+"\n"+intents.map(i=>"• "+i.chip).join("\n")); }
+    catch(e){ console.error(e); ans=t("aiError"); }
+    setMsgs(m=>[...m,{ who:"ai", text:ans }]); setBusy(false);
+  };
+  const runIntent = async (it) => {
+    if(busy) return;
+    setMsgs(m=>[...m,{ who:"user", text:it.chip }]); setBusy(true);
+    let ans; try { ans = await it.run(); } catch(e){ console.error(e); ans=t("aiError"); }
     setMsgs(m=>[...m,{ who:"ai", text:ans }]); setBusy(false);
   };
 
@@ -2548,7 +2565,7 @@ const NexusAI = ({ role }) => {
         <div style={{ width:42, height:42, borderRadius:11, background:"linear-gradient(135deg,#8e44ad,#5b2c8d)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:22 }}>🤖</div>
         <div>
           <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:0 }}>Nexus AI</h2>
-          <p style={{ color:C.textMuted, fontSize:12.5, margin:"2px 0 0" }}>Assistente sui tuoi dati reali · risposte istantanee</p>
+          <p style={{ color:C.textMuted, fontSize:12.5, margin:"2px 0 0" }}>{t("aiSub")}</p>
         </div>
       </div>
       <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, padding:16, marginTop:14 }}>
@@ -2556,19 +2573,19 @@ const NexusAI = ({ role }) => {
           {msgs.map((m,i)=>(
             <div key={i} style={{ alignSelf: m.who==="user"?"flex-end":"flex-start", maxWidth:"85%", padding:"10px 13px", borderRadius:12, fontSize:13, lineHeight:1.5, whiteSpace:"pre-wrap", background: m.who==="user"?`linear-gradient(135deg,${C.gold},${C.goldDim})`:C.surface2, color: m.who==="user"?C.bg:C.text, border: m.who==="user"?"none":`1px solid ${C.border}` }}>{m.text}</div>
           ))}
-          {busy && <div style={{ alignSelf:"flex-start", fontSize:12, color:C.textMuted, padding:"6px 4px" }}>Nexus AI sta cercando…</div>}
+          {busy && <div style={{ alignSelf:"flex-start", fontSize:12, color:C.textMuted, padding:"6px 4px" }}>{t("aiSearching")}</div>}
         </div>
         <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:12 }}>
           {intents.map((it,i)=>(
-            <button key={i} onClick={()=>ask(it.chip)} disabled={busy} style={{ padding:"6px 12px", borderRadius:20, cursor:busy?"default":"pointer", fontSize:12, background:`${C.gold}12`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>{it.chip}</button>
+            <button key={i} onClick={()=>runIntent(it)} disabled={busy} style={{ padding:"6px 12px", borderRadius:20, cursor:busy?"default":"pointer", fontSize:12, background:`${C.gold}12`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>{it.chip}</button>
           ))}
         </div>
         <div style={{ display:"flex", gap:8 }}>
-          <input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>{ if(e.key==="Enter") ask(input); }} placeholder="Scrivi una domanda…" style={{ flex:1, padding:"10px 13px", borderRadius:9, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none" }}/>
-          <button onClick={()=>ask(input)} disabled={busy} style={{ padding:"10px 18px", borderRadius:9, cursor:busy?"default":"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>Invia</button>
+          <input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>{ if(e.key==="Enter") ask(input); }} placeholder={t("aiPlaceholder")} style={{ flex:1, padding:"10px 13px", borderRadius:9, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none" }}/>
+          <button onClick={()=>ask(input)} disabled={busy} style={{ padding:"10px 18px", borderRadius:9, cursor:busy?"default":"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>{t("aiSend")}</button>
         </div>
       </div>
-      <p style={{ fontSize:11, color:C.textDim, marginTop:10 }}>Nexus AI risponde solo sui dati a cui hai accesso. Presto capira anche il linguaggio libero (upgrade AI).</p>
+      <p style={{ fontSize:11, color:C.textDim, marginTop:10 }}>{t("aiFooter")}</p>
     </div>
   );
 };
