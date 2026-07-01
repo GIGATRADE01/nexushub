@@ -790,6 +790,20 @@ Object.assign(T.es,{ amrgTitle:"Márgenes · vista interna", amrgSub:"La econom�
 Object.assign(T.de,{ amrgTitle:"Margen · interne Ansicht", amrgSub:"Die echte Wirtschaftlichkeit von NexusHub: vereinnahmte Provisionen minus Kosten. Nettomarge und ROI pro Bestellung.", amrgLockPre:"GigaTrade-interne Daten. Kosten und Nettomarge ", amrgLockBold:"sind niemals sichtbar", amrgLockPost:" für Marken oder Händler (separate Tabelle, nur Admin-Zugriff).", amrgGmv:"GMV (Umsatz)", amrgFee:"Provisionsumsatz", amrgCosts:"Kosten (Stripe + Betr.)", amrgNet:"Nettomarge", amrgAvg:"Durchschnittsmarge", amrgFeeEst:"Geschätzte Gebühr bei Bestellungen ohne Split:", amrgFeeEstNote:"(Bestellungen mit echtem Split verwenden die tatsächlichen Werte)", amrgLoading:"Wird geladen...", amrgEmpty:"Keine Bestellungen zu analysieren.", amrghOrder:"Bestellung", amrghBrand:"Marke", amrghComm:"Provision", amrghOpCost:"Betriebskosten", amrgSave:"Speichern", alogTitle:"Europäischer Logistik-Kontrollturm", alogSub:"Hub Turin · Bestand, Vorbereitung, Versand und Warnungen", alogStock:"Einheiten auf Lager", alogReserved:"Reserviert", alogToPrep:"Vorzubereiten", alogTransit:"Unterwegs", alogDelivered:"Zugestellt", alogLowOut:"Niedrig/leer", alogPipeline:"Bestellungen in Bearbeitung", alogNoPipeline:"Keine Bestellungen vorzubereiten oder unterwegs.", alogh1Order:"Bestellung", alogh1Status:"Status", alogh1Courier:"Kurier", alogh1Value:"Wert", alogWhHealth:"Lager-Zustand", alogh2Product:"Produkt", alogh2Brand:"Marke", alogh2Avail:"Verfügbar", alogh2Reserved:"Reserviert", alogh2Status:"Status", alogNoProducts:"Keine Produkte im Lager.", alogStOut:"Ausverkauft", alogStLow:"Niedrig" });
 Object.assign(T.zh,{ amrgTitle:"利润 · 内部视图", amrgSub:"NexusHub 的真实经济：已收佣金减去成本。每单净利润和 ROI。", amrgLockPre:"GigaTrade 内部数据。成本和净利润 ", amrgLockBold:"永远不可见", amrgLockPost:" 给品牌或分销商（独立表，仅管理员访问）。", amrgGmv:"GMV（交易额）", amrgFee:"佣金收入", amrgCosts:"成本（Stripe + 运营）", amrgNet:"净利润", amrgAvg:"平均利润率", amrgFeeEst:"无分账订单的预估费用：", amrgFeeEstNote:"（有真实分账的订单使用实际值）", amrgLoading:"加载中...", amrgEmpty:"没有可分析的订单。", amrghOrder:"订单", amrghBrand:"品牌", amrghComm:"佣金", amrghOpCost:"运营成本", amrgSave:"保存", alogTitle:"欧洲物流控制塔", alogSub:"都灵枢纽 · 库存、备货、发货和警报", alogStock:"库存单位", alogReserved:"已预留", alogToPrep:"待备货", alogTransit:"运输中", alogDelivered:"已送达", alogLowOut:"低/缺货", alogPipeline:"处理中的订单", alogNoPipeline:"没有待备货或运输中的订单。", alogh1Order:"订单", alogh1Status:"状态", alogh1Courier:"快递", alogh1Value:"价值", alogWhHealth:"仓库健康度", alogh2Product:"产品", alogh2Brand:"品牌", alogh2Avail:"可用", alogh2Reserved:"已预留", alogh2Status:"状态", alogNoProducts:"仓库中没有产品。", alogStOut:"缺货", alogStLow:"低" });
 Object.assign(T.ar,{ amrgTitle:"الهوامش · عرض داخلي", amrgSub:"الاقتصاد الحقيقي لـ NexusHub: العمولات المحصّلة ناقص التكاليف. صافي الهامش والعائد لكل طلب.", amrgLockPre:"بيانات GigaTrade الداخلية. التكاليف وصافي الهامش ", amrgLockBold:"غير مرئية أبدًا", amrgLockPost:" للعلامات أو الموزّعين (جدول منفصل، وصول للمسؤول فقط).", amrgGmv:"GMV (المتداول)", amrgFee:"إيراد العمولات", amrgCosts:"التكاليف (Stripe + تشغيلية)", amrgNet:"صافي الهامش", amrgAvg:"متوسط الهامش", amrgFeeEst:"الرسوم المقدّرة على الطلبات دون تقسيم:", amrgFeeEstNote:"(الطلبات ذات التقسيم الحقيقي تستخدم القيم الفعلية)", amrgLoading:"جارٍ التحميل...", amrgEmpty:"لا توجد طلبات لتحليلها.", amrghOrder:"الطلب", amrghBrand:"العلامة", amrghComm:"العمولة", amrghOpCost:"التكلفة التشغيلية", amrgSave:"حفظ", alogTitle:"برج التحكم اللوجستي الأوروبي", alogSub:"مركز تورينو · المخزون، التحضير، الشحنات والتنبيهات", alogStock:"الوحدات في المخزون", alogReserved:"محجوزة", alogToPrep:"قيد التحضير", alogTransit:"قيد النقل", alogDelivered:"تم التسليم", alogLowOut:"منخفض/نفد", alogPipeline:"الطلبات قيد المعالجة", alogNoPipeline:"لا توجد طلبات للتحضير أو قيد النقل.", alogh1Order:"الطلب", alogh1Status:"الحالة", alogh1Courier:"شركة الشحن", alogh1Value:"القيمة", alogWhHealth:"حالة المستودع", alogh2Product:"المنتج", alogh2Brand:"العلامة", alogh2Avail:"المتاح", alogh2Reserved:"محجوزة", alogh2Status:"الحالة", alogNoProducts:"لا توجد منتجات في المستودع.", alogStOut:"نفد", alogStLow:"منخفض" });
+Object.assign(T.en,{ acmpTitle:"Compliance & Documents Vault", acmpSub:"Central archive: company documents, certificates, authorizations, customs, quality", acmpUpload:"Upload document", acmpTotal:"Total documents", acmpExpiring:"Expiring (30d)", acmpExpired:"Expired", acmpEmptyTitle:"Empty vault", acmpEmptyMsg:"Upload the first document (registration, certificate, authorization...).", acmphDoc:"Document", acmphOwner:"Owner", acmphCat:"Category", acmphExpiry:"Expiry", acmphUploaded:"Uploaded", acmphActions:"Actions", acmpDownload:"Download", acmpDelete:"Delete", acmpStExpired:"Expired", acmpStExpiring:"Expiring", acmpStValid:"Valid", acmpCatCompany:"Company documents", acmpCatCert:"Certificates", acmpCatSafety:"Safety sheets", acmpCatImport:"Import / Customs", acmpCatAuth:"Authorizations", acmpCatPrice:"Price lists", acmpCatMkt:"Marketing", acmpCatQuality:"Quality reports", acmpCatArrival:"Goods photos", acmpCatAmazon:"Amazon / Retail", acmpCatOther:"Other", acmpModalTitle:"Upload document to vault", acmpLoading:"Loading...", acmpSave:"Upload", acmpFOwner:"Owner (account) *", acmpFChooseAccount:"— Choose account —", acmpFCategory:"Category", acmpFName:"Document name (optional)", acmpFNamePh:"e.g. Company registration 2026", acmpFFile:"File *", acmpFExpiry:"Expiry date (optional)", acmpFNotes:"Notes (optional)" });
+Object.assign(T.it,{ acmpTitle:"Compliance & Archivio documenti", acmpSub:"Archivio centrale: documenti aziendali, certificati, autorizzazioni, dogana, qualità", acmpUpload:"Carica documento", acmpTotal:"Documenti totali", acmpExpiring:"In scadenza (30gg)", acmpExpired:"Scaduti", acmpEmptyTitle:"Vault vuoto", acmpEmptyMsg:"Carica il primo documento (visura, certificato, autorizzazione...).", acmphDoc:"Documento", acmphOwner:"Titolare", acmphCat:"Categoria", acmphExpiry:"Scadenza", acmphUploaded:"Caricato", acmphActions:"Azioni", acmpDownload:"Scarica", acmpDelete:"Elimina", acmpStExpired:"Scaduto", acmpStExpiring:"In scadenza", acmpStValid:"Valido", acmpCatCompany:"Documenti aziendali", acmpCatCert:"Certificati", acmpCatSafety:"Schede sicurezza", acmpCatImport:"Import / Dogana", acmpCatAuth:"Autorizzazioni", acmpCatPrice:"Listini", acmpCatMkt:"Marketing", acmpCatQuality:"Report qualità", acmpCatArrival:"Foto merce", acmpCatAmazon:"Amazon / Retail", acmpCatOther:"Altro", acmpModalTitle:"Carica documento nel vault", acmpLoading:"Caricamento...", acmpSave:"Carica", acmpFOwner:"Titolare (account) *", acmpFChooseAccount:"— Scegli account —", acmpFCategory:"Categoria", acmpFName:"Nome documento (opzionale)", acmpFNamePh:"es. Visura camerale 2026", acmpFFile:"File *", acmpFExpiry:"Data scadenza (opzionale)", acmpFNotes:"Note (opzionale)" });
+Object.assign(T.fr,{ acmpTitle:"Conformité & Coffre de documents", acmpSub:"Archive centrale : documents d'entreprise, certificats, autorisations, douane, qualité", acmpUpload:"Téléverser un document", acmpTotal:"Documents au total", acmpExpiring:"Expirant (30j)", acmpExpired:"Expirés", acmpEmptyTitle:"Coffre vide", acmpEmptyMsg:"Téléversez le premier document (extrait, certificat, autorisation...).", acmphDoc:"Document", acmphOwner:"Titulaire", acmphCat:"Catégorie", acmphExpiry:"Expiration", acmphUploaded:"Téléversé", acmphActions:"Actions", acmpDownload:"Télécharger", acmpDelete:"Supprimer", acmpStExpired:"Expiré", acmpStExpiring:"Expire bientôt", acmpStValid:"Valide", acmpCatCompany:"Documents d'entreprise", acmpCatCert:"Certificats", acmpCatSafety:"Fiches de sécurité", acmpCatImport:"Import / Douane", acmpCatAuth:"Autorisations", acmpCatPrice:"Tarifs", acmpCatMkt:"Marketing", acmpCatQuality:"Rapports qualité", acmpCatArrival:"Photos marchandise", acmpCatAmazon:"Amazon / Retail", acmpCatOther:"Autre", acmpModalTitle:"Téléverser un document dans le coffre", acmpLoading:"Chargement...", acmpSave:"Téléverser", acmpFOwner:"Titulaire (compte) *", acmpFChooseAccount:"— Choisir un compte —", acmpFCategory:"Catégorie", acmpFName:"Nom du document (facultatif)", acmpFNamePh:"ex. Extrait Kbis 2026", acmpFFile:"Fichier *", acmpFExpiry:"Date d'expiration (facultatif)", acmpFNotes:"Notes (facultatif)" });
+Object.assign(T.es,{ acmpTitle:"Cumplimiento y bóveda de documentos", acmpSub:"Archivo central: documentos de empresa, certificados, autorizaciones, aduana, calidad", acmpUpload:"Subir documento", acmpTotal:"Documentos totales", acmpExpiring:"Por vencer (30d)", acmpExpired:"Vencidos", acmpEmptyTitle:"Bóveda vacía", acmpEmptyMsg:"Sube el primer documento (registro, certificado, autorización...).", acmphDoc:"Documento", acmphOwner:"Titular", acmphCat:"Categoría", acmphExpiry:"Vencimiento", acmphUploaded:"Subido", acmphActions:"Acciones", acmpDownload:"Descargar", acmpDelete:"Eliminar", acmpStExpired:"Vencido", acmpStExpiring:"Por vencer", acmpStValid:"Válido", acmpCatCompany:"Documentos de empresa", acmpCatCert:"Certificados", acmpCatSafety:"Fichas de seguridad", acmpCatImport:"Importación / Aduana", acmpCatAuth:"Autorizaciones", acmpCatPrice:"Listas de precios", acmpCatMkt:"Marketing", acmpCatQuality:"Informes de calidad", acmpCatArrival:"Fotos de mercancía", acmpCatAmazon:"Amazon / Retail", acmpCatOther:"Otro", acmpModalTitle:"Subir documento a la bóveda", acmpLoading:"Cargando...", acmpSave:"Subir", acmpFOwner:"Titular (cuenta) *", acmpFChooseAccount:"— Elegir cuenta —", acmpFCategory:"Categoría", acmpFName:"Nombre del documento (opcional)", acmpFNamePh:"ej. Registro mercantil 2026", acmpFFile:"Archivo *", acmpFExpiry:"Fecha de vencimiento (opcional)", acmpFNotes:"Notas (opcional)" });
+Object.assign(T.de,{ acmpTitle:"Compliance & Dokumententresor", acmpSub:"Zentrales Archiv: Firmendokumente, Zertifikate, Genehmigungen, Zoll, Qualität", acmpUpload:"Dokument hochladen", acmpTotal:"Dokumente gesamt", acmpExpiring:"Läuft ab (30 Tg.)", acmpExpired:"Abgelaufen", acmpEmptyTitle:"Tresor leer", acmpEmptyMsg:"Lade das erste Dokument hoch (Auszug, Zertifikat, Genehmigung...).", acmphDoc:"Dokument", acmphOwner:"Inhaber", acmphCat:"Kategorie", acmphExpiry:"Ablauf", acmphUploaded:"Hochgeladen", acmphActions:"Aktionen", acmpDownload:"Herunterladen", acmpDelete:"Löschen", acmpStExpired:"Abgelaufen", acmpStExpiring:"Läuft ab", acmpStValid:"Gültig", acmpCatCompany:"Firmendokumente", acmpCatCert:"Zertifikate", acmpCatSafety:"Sicherheitsdatenblätter", acmpCatImport:"Import / Zoll", acmpCatAuth:"Genehmigungen", acmpCatPrice:"Preislisten", acmpCatMkt:"Marketing", acmpCatQuality:"Qualitätsberichte", acmpCatArrival:"Warenfotos", acmpCatAmazon:"Amazon / Retail", acmpCatOther:"Sonstiges", acmpModalTitle:"Dokument in den Tresor hochladen", acmpLoading:"Wird geladen...", acmpSave:"Hochladen", acmpFOwner:"Inhaber (Konto) *", acmpFChooseAccount:"— Konto wählen —", acmpFCategory:"Kategorie", acmpFName:"Dokumentname (optional)", acmpFNamePh:"z.B. Handelsregisterauszug 2026", acmpFFile:"Datei *", acmpFExpiry:"Ablaufdatum (optional)", acmpFNotes:"Notizen (optional)" });
+Object.assign(T.zh,{ acmpTitle:"合规与文档库", acmpSub:"中央档案库：公司文档、证书、授权、海关、质量", acmpUpload:"上传文档", acmpTotal:"文档总数", acmpExpiring:"即将到期（30天）", acmpExpired:"已过期", acmpEmptyTitle:"库为空", acmpEmptyMsg:"上传第一个文档（登记、证书、授权……）。", acmphDoc:"文档", acmphOwner:"持有人", acmphCat:"类别", acmphExpiry:"到期", acmphUploaded:"上传时间", acmphActions:"操作", acmpDownload:"下载", acmpDelete:"删除", acmpStExpired:"已过期", acmpStExpiring:"即将到期", acmpStValid:"有效", acmpCatCompany:"公司文档", acmpCatCert:"证书", acmpCatSafety:"安全表", acmpCatImport:"进口/海关", acmpCatAuth:"授权", acmpCatPrice:"价目表", acmpCatMkt:"营销", acmpCatQuality:"质量报告", acmpCatArrival:"货品照片", acmpCatAmazon:"Amazon / 零售", acmpCatOther:"其他", acmpModalTitle:"上传文档到库", acmpLoading:"加载中...", acmpSave:"上传", acmpFOwner:"持有人（账户）*", acmpFChooseAccount:"— 选择账户 —", acmpFCategory:"类别", acmpFName:"文档名称（可选）", acmpFNamePh:"例如 2026 公司登记", acmpFFile:"文件 *", acmpFExpiry:"到期日期（可选）", acmpFNotes:"备注（可选）" });
+Object.assign(T.ar,{ acmpTitle:"الامتثال وخزنة المستندات", acmpSub:"الأرشيف المركزي: مستندات الشركة، الشهادات، التصاريح، الجمارك، الجودة", acmpUpload:"رفع مستند", acmpTotal:"إجمالي المستندات", acmpExpiring:"تنتهي قريبًا (30 يومًا)", acmpExpired:"منتهية", acmpEmptyTitle:"الخزنة فارغة", acmpEmptyMsg:"ارفع أول مستند (سجل، شهادة، تصريح...).", acmphDoc:"المستند", acmphOwner:"المالك", acmphCat:"الفئة", acmphExpiry:"تاريخ الانتهاء", acmphUploaded:"تاريخ الرفع", acmphActions:"إجراءات", acmpDownload:"تنزيل", acmpDelete:"حذف", acmpStExpired:"منتهٍ", acmpStExpiring:"تنتهي قريبًا", acmpStValid:"صالح", acmpCatCompany:"مستندات الشركة", acmpCatCert:"الشهادات", acmpCatSafety:"صحائف السلامة", acmpCatImport:"الاستيراد / الجمارك", acmpCatAuth:"التصاريح", acmpCatPrice:"قوائم الأسعار", acmpCatMkt:"التسويق", acmpCatQuality:"تقارير الجودة", acmpCatArrival:"صور البضائع", acmpCatAmazon:"Amazon / التجزئة", acmpCatOther:"أخرى", acmpModalTitle:"رفع مستند إلى الخزنة", acmpLoading:"جارٍ التحميل...", acmpSave:"رفع", acmpFOwner:"المالك (الحساب) *", acmpFChooseAccount:"— اختر حسابًا —", acmpFCategory:"الفئة", acmpFName:"اسم المستند (اختياري)", acmpFNamePh:"مثال: سجل تجاري 2026", acmpFFile:"ملف *", acmpFExpiry:"تاريخ الانتهاء (اختياري)", acmpFNotes:"ملاحظات (اختياري)" });
+Object.assign(T.en,{ aretTitle:"Retail Expansion Desk", aretSub:"Pipeline toward Sephora, Douglas, perfumeries and European retail", aretAdd:"Add target", aretTotal:"Total targets", aretActive:"In negotiation", aretWon:"Closed", aretAvgProb:"Avg prob.", aretEmptyTitle:"No retail targets", aretEmptyMsg:"Add the first retailer to contact (e.g. Sephora Italy).", arethRetailer:"Retailer", arethCountry:"Country", arethBuyer:"Buyer", arethBrand:"Brand", arethStatus:"Status", arethProb:"Prob.", arethFollowup:"Follow-up", arethActions:"Actions", aretEdit:"Edit", aretDelete:"Delete", aretStLead:"Lead", aretStContacted:"Contacted", aretStSamples:"Samples", aretStMeeting:"Meeting", aretStNego:"Negotiation", aretStWon:"Won ✓", aretStLost:"Lost", aretModalEdit:"Edit retail target", aretModalNew:"New retail target", aretSave:"Save", aretFRetailer:"Retailer *", aretFRetailerPh:"e.g. Sephora Italy", aretFCountry:"Country", aretFCountryPh:"e.g. Italy", aretFBuyer:"Buyer / contact", aretFBuyerEmail:"Buyer email", aretFBrand:"Candidate brand", aretFNone:"— None —", aretFProducts:"Candidate products", aretFStage:"Status", aretFProb:"Closing probability (%)", aretFFollowup:"Next follow-up", aretFSamples:"Samples sent", aretFNotes:"Notes" });
+Object.assign(T.it,{ aretTitle:"Desk espansione retail", aretSub:"Pipeline verso Sephora, Douglas, profumerie e retail europeo", aretAdd:"Aggiungi target", aretTotal:"Target totali", aretActive:"In trattativa", aretWon:"Chiusi", aretAvgProb:"Prob. media", aretEmptyTitle:"Nessun target retail", aretEmptyMsg:"Aggiungi il primo retailer da contattare (es. Sephora Italia).", arethRetailer:"Retailer", arethCountry:"Paese", arethBuyer:"Buyer", arethBrand:"Brand", arethStatus:"Stato", arethProb:"Prob.", arethFollowup:"Follow-up", arethActions:"Azioni", aretEdit:"Modifica", aretDelete:"Elimina", aretStLead:"Lead", aretStContacted:"Contattato", aretStSamples:"Campioni", aretStMeeting:"Meeting", aretStNego:"Trattativa", aretStWon:"Chiuso ✓", aretStLost:"Perso", aretModalEdit:"Modifica target retail", aretModalNew:"Nuovo target retail", aretSave:"Salva", aretFRetailer:"Retailer *", aretFRetailerPh:"es. Sephora Italia", aretFCountry:"Paese", aretFCountryPh:"es. Italia", aretFBuyer:"Buyer / contatto", aretFBuyerEmail:"Email buyer", aretFBrand:"Brand candidato", aretFNone:"— Nessuno —", aretFProducts:"Prodotti candidati", aretFStage:"Stato", aretFProb:"Probabilità chiusura (%)", aretFFollowup:"Prossimo follow-up", aretFSamples:"Campioni inviati", aretFNotes:"Note" });
+Object.assign(T.fr,{ aretTitle:"Bureau d'expansion retail", aretSub:"Pipeline vers Sephora, Douglas, parfumeries et retail européen", aretAdd:"Ajouter une cible", aretTotal:"Cibles totales", aretActive:"En négociation", aretWon:"Conclus", aretAvgProb:"Prob. moy.", aretEmptyTitle:"Aucune cible retail", aretEmptyMsg:"Ajoutez le premier détaillant à contacter (ex. Sephora Italie).", arethRetailer:"Détaillant", arethCountry:"Pays", arethBuyer:"Acheteur", arethBrand:"Marque", arethStatus:"Statut", arethProb:"Prob.", arethFollowup:"Relance", arethActions:"Actions", aretEdit:"Modifier", aretDelete:"Supprimer", aretStLead:"Piste", aretStContacted:"Contacté", aretStSamples:"Échantillons", aretStMeeting:"Réunion", aretStNego:"Négociation", aretStWon:"Conclu ✓", aretStLost:"Perdu", aretModalEdit:"Modifier la cible retail", aretModalNew:"Nouvelle cible retail", aretSave:"Enregistrer", aretFRetailer:"Détaillant *", aretFRetailerPh:"ex. Sephora Italie", aretFCountry:"Pays", aretFCountryPh:"ex. Italie", aretFBuyer:"Acheteur / contact", aretFBuyerEmail:"E-mail acheteur", aretFBrand:"Marque candidate", aretFNone:"— Aucun —", aretFProducts:"Produits candidats", aretFStage:"Statut", aretFProb:"Probabilité de conclusion (%)", aretFFollowup:"Prochaine relance", aretFSamples:"Échantillons envoyés", aretFNotes:"Notes" });
+Object.assign(T.es,{ aretTitle:"Mesa de expansión retail", aretSub:"Pipeline hacia Sephora, Douglas, perfumerías y retail europeo", aretAdd:"Añadir objetivo", aretTotal:"Objetivos totales", aretActive:"En negociación", aretWon:"Cerrados", aretAvgProb:"Prob. media", aretEmptyTitle:"Sin objetivos retail", aretEmptyMsg:"Añade el primer retailer a contactar (ej. Sephora Italia).", arethRetailer:"Retailer", arethCountry:"País", arethBuyer:"Comprador", arethBrand:"Marca", arethStatus:"Estado", arethProb:"Prob.", arethFollowup:"Seguimiento", arethActions:"Acciones", aretEdit:"Editar", aretDelete:"Eliminar", aretStLead:"Lead", aretStContacted:"Contactado", aretStSamples:"Muestras", aretStMeeting:"Reunión", aretStNego:"Negociación", aretStWon:"Cerrado ✓", aretStLost:"Perdido", aretModalEdit:"Editar objetivo retail", aretModalNew:"Nuevo objetivo retail", aretSave:"Guardar", aretFRetailer:"Retailer *", aretFRetailerPh:"ej. Sephora Italia", aretFCountry:"País", aretFCountryPh:"ej. Italia", aretFBuyer:"Comprador / contacto", aretFBuyerEmail:"Email comprador", aretFBrand:"Marca candidata", aretFNone:"— Ninguno —", aretFProducts:"Productos candidatos", aretFStage:"Estado", aretFProb:"Probabilidad de cierre (%)", aretFFollowup:"Próximo seguimiento", aretFSamples:"Muestras enviadas", aretFNotes:"Notas" });
+Object.assign(T.de,{ aretTitle:"Retail-Expansion-Desk", aretSub:"Pipeline zu Sephora, Douglas, Parfümerien und europäischem Retail", aretAdd:"Ziel hinzufügen", aretTotal:"Ziele gesamt", aretActive:"In Verhandlung", aretWon:"Abgeschlossen", aretAvgProb:"Ø Wahrsch.", aretEmptyTitle:"Keine Retail-Ziele", aretEmptyMsg:"Füge den ersten zu kontaktierenden Händler hinzu (z.B. Sephora Italien).", arethRetailer:"Händler", arethCountry:"Land", arethBuyer:"Einkäufer", arethBrand:"Marke", arethStatus:"Status", arethProb:"Wahrsch.", arethFollowup:"Nachfassen", arethActions:"Aktionen", aretEdit:"Bearbeiten", aretDelete:"Löschen", aretStLead:"Lead", aretStContacted:"Kontaktiert", aretStSamples:"Muster", aretStMeeting:"Meeting", aretStNego:"Verhandlung", aretStWon:"Gewonnen ✓", aretStLost:"Verloren", aretModalEdit:"Retail-Ziel bearbeiten", aretModalNew:"Neues Retail-Ziel", aretSave:"Speichern", aretFRetailer:"Händler *", aretFRetailerPh:"z.B. Sephora Italien", aretFCountry:"Land", aretFCountryPh:"z.B. Italien", aretFBuyer:"Einkäufer / Kontakt", aretFBuyerEmail:"Einkäufer-E-Mail", aretFBrand:"Kandidaten-Marke", aretFNone:"— Keiner —", aretFProducts:"Kandidaten-Produkte", aretFStage:"Status", aretFProb:"Abschlusswahrscheinlichkeit (%)", aretFFollowup:"Nächstes Nachfassen", aretFSamples:"Muster gesendet", aretFNotes:"Notizen" });
+Object.assign(T.zh,{ aretTitle:"零售拓展台", aretSub:"面向 Sephora、Douglas、香水店及欧洲零售的管道", aretAdd:"添加目标", aretTotal:"目标总数", aretActive:"谈判中", aretWon:"已成交", aretAvgProb:"平均概率", aretEmptyTitle:"没有零售目标", aretEmptyMsg:"添加第一个要联系的零售商（例如 Sephora 意大利）。", arethRetailer:"零售商", arethCountry:"国家", arethBuyer:"采购", arethBrand:"品牌", arethStatus:"状态", arethProb:"概率", arethFollowup:"跟进", arethActions:"操作", aretEdit:"编辑", aretDelete:"删除", aretStLead:"线索", aretStContacted:"已联系", aretStSamples:"样品", aretStMeeting:"会议", aretStNego:"谈判", aretStWon:"成交 ✓", aretStLost:"失去", aretModalEdit:"编辑零售目标", aretModalNew:"新建零售目标", aretSave:"保存", aretFRetailer:"零售商 *", aretFRetailerPh:"例如 Sephora 意大利", aretFCountry:"国家", aretFCountryPh:"例如 意大利", aretFBuyer:"采购/联系人", aretFBuyerEmail:"采购邮箱", aretFBrand:"候选品牌", aretFNone:"— 无 —", aretFProducts:"候选产品", aretFStage:"状态", aretFProb:"成交概率 (%)", aretFFollowup:"下次跟进", aretFSamples:"已寄送样品", aretFNotes:"备注" });
+Object.assign(T.ar,{ aretTitle:"مكتب التوسّع في التجزئة", aretSub:"خط الأعمال نحو Sephora وDouglas ومتاجر العطور والتجزئة الأوروبية", aretAdd:"إضافة هدف", aretTotal:"إجمالي الأهداف", aretActive:"قيد التفاوض", aretWon:"مغلقة", aretAvgProb:"احتمال متوسط", aretEmptyTitle:"لا توجد أهداف تجزئة", aretEmptyMsg:"أضف أول بائع تجزئة للتواصل معه (مثال: Sephora إيطاليا).", arethRetailer:"بائع التجزئة", arethCountry:"الدولة", arethBuyer:"المشتري", arethBrand:"العلامة", arethStatus:"الحالة", arethProb:"الاحتمال", arethFollowup:"متابعة", arethActions:"إجراءات", aretEdit:"تعديل", aretDelete:"حذف", aretStLead:"عميل محتمل", aretStContacted:"تم التواصل", aretStSamples:"عينات", aretStMeeting:"اجتماع", aretStNego:"تفاوض", aretStWon:"مغلق ✓", aretStLost:"خسر", aretModalEdit:"تعديل هدف التجزئة", aretModalNew:"هدف تجزئة جديد", aretSave:"حفظ", aretFRetailer:"بائع التجزئة *", aretFRetailerPh:"مثال: Sephora إيطاليا", aretFCountry:"الدولة", aretFCountryPh:"مثال: إيطاليا", aretFBuyer:"المشتري / جهة الاتصال", aretFBuyerEmail:"بريد المشتري", aretFBrand:"العلامة المرشّحة", aretFNone:"— لا شيء —", aretFProducts:"المنتجات المرشّحة", aretFStage:"الحالة", aretFProb:"احتمال الإغلاق (%)", aretFFollowup:"المتابعة التالية", aretFSamples:"تم إرسال العينات", aretFNotes:"ملاحظات" });
 
 
 
@@ -6201,11 +6215,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           );
         })()}
         {tab === "compliance" && (() => {
-          const CATS = [["company","Documenti aziendali"],["certificate","Certificati"],["safety_sheet","Schede sicurezza"],["import","Import / Dogana"],["authorization","Autorizzazioni"],["price_list","Listini"],["marketing","Marketing"],["quality","Report qualita"],["arrival_photo","Foto merce"],["amazon","Amazon / Retail"],["other","Altro"]];
+          const CATS = [["company",t("acmpCatCompany")],["certificate",t("acmpCatCert")],["safety_sheet",t("acmpCatSafety")],["import",t("acmpCatImport")],["authorization",t("acmpCatAuth")],["price_list",t("acmpCatPrice")],["marketing",t("acmpCatMkt")],["quality",t("acmpCatQuality")],["arrival_photo",t("acmpCatArrival")],["amazon",t("acmpCatAmazon")],["other",t("acmpCatOther")]];
           const catLabel = (k)=>{ const f=CATS.find(z=>z[0]===k); return f?f[1]:k; };
           const ownerName = (id)=>{ const u=users.find(z=>z.id===id); return u?(u.company_name||u.email):"\u2014"; };
           const today = new Date(); const soon = new Date(); soon.setDate(soon.getDate()+30);
-          const expState = (d)=>{ if(!d.expires_at) return null; const e=new Date(d.expires_at); if(e<today) return ["Scaduto",C.red]; if(e<soon) return ["In scadenza",C.gold]; return ["Valido",C.green]; };
+          const expState = (d)=>{ if(!d.expires_at) return null; const e=new Date(d.expires_at); if(e<today) return [t("acmpStExpired"),C.red]; if(e<soon) return [t("acmpStExpiring"),C.gold]; return [t("acmpStValid"),C.green]; };
           const expired = complianceDocs.filter(d=>d.expires_at && new Date(d.expires_at)<today).length;
           const expiring = complianceDocs.filter(d=>d.expires_at && new Date(d.expires_at)>=today && new Date(d.expires_at)<soon).length;
           const fld = { padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, width:"100%", boxSizing:"border-box", outline:"none" };
@@ -6214,28 +6228,28 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🗂️ Compliance & Documents Vault</h2>
-                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Archivio centrale: documenti aziendali, certificati, autorizzazioni, dogana, qualita</p>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🗂️ {t("acmpTitle")}</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("acmpSub")}</p>
               </div>
-              <button onClick={()=>{ setCompForm({ category:"company" }); setCompModal(true); }} style={{ padding:"10px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>+ Carica documento</button>
+              <button onClick={()=>{ setCompForm({ category:"company" }); setCompModal(true); }} style={{ padding:"10px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>+ {t("acmpUpload")}</button>
             </div>
             <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:24 }}>
-              <Stat icon="🗂️" label="Documenti totali" value={complianceDocs.length}/>
-              <Stat icon="⏳" label="In scadenza (30gg)" value={expiring} accent={C.gold}/>
-              <Stat icon="⚠️" label="Scaduti" value={expired} accent={C.red}/>
+              <Stat icon="🗂️" label={t("acmpTotal")} value={complianceDocs.length}/>
+              <Stat icon="⏳" label={t("acmpExpiring")} value={expiring} accent={C.gold}/>
+              <Stat icon="⚠️" label={t("acmpExpired")} value={expired} accent={C.red}/>
             </div>
             {complianceDocs.length===0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14 }}>
                 <div style={{ fontSize:40, marginBottom:12 }}>🗂️</div>
-                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:8 }}>Vault vuoto</div>
-                <div style={{ fontSize:13, color:C.textMuted, marginBottom:18 }}>Carica il primo documento (visura, certificato, autorizzazione...).</div>
-                <button onClick={()=>{ setCompForm({ category:"company" }); setCompModal(true); }} style={{ padding:"10px 22px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ Carica documento</button>
+                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:8 }}>{t("acmpEmptyTitle")}</div>
+                <div style={{ fontSize:13, color:C.textMuted, marginBottom:18 }}>{t("acmpEmptyMsg")}</div>
+                <button onClick={()=>{ setCompForm({ category:"company" }); setCompModal(true); }} style={{ padding:"10px 22px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ {t("acmpUpload")}</button>
               </div>
             ) : (
               <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:760 }}>
                   <thead><tr style={{ background:C.surface2 }}>
-                    {["Documento","Titolare","Categoria","Scadenza","Caricato","Azioni"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
+                    {[t("acmphDoc"),t("acmphOwner"),t("acmphCat"),t("acmphExpiry"),t("acmphUploaded"),t("acmphActions")].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
                   </tr></thead>
                   <tbody>
                     {complianceDocs.map((d,i)=>{ const es=expState(d); return (
@@ -6246,8 +6260,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         <td style={{ padding:"10px 14px", fontSize:12 }}>{es ? <span style={{ fontWeight:700, padding:"2px 8px", borderRadius:20, fontSize:11, background:es[1]+"18", color:es[1], border:`1px solid ${es[1]}40` }}>{new Date(d.expires_at).toLocaleDateString("it-IT")} · {es[0]}</span> : <span style={{ color:C.textDim }}>—</span>}</td>
                         <td style={{ padding:"10px 14px", fontSize:11, color:C.textDim, whiteSpace:"nowrap" }}>{new Date(d.created_at).toLocaleDateString("it-IT")}</td>
                         <td style={{ padding:"10px 14px", whiteSpace:"nowrap" }}>
-                          <a href={d.file_url} target="_blank" rel="noreferrer" style={{ padding:"4px 10px", borderRadius:6, fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue, textDecoration:"none", marginRight:6 }}>Scarica</a>
-                          <button onClick={()=>deleteCompliance(d)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>Elimina</button>
+                          <a href={d.file_url} target="_blank" rel="noreferrer" style={{ padding:"4px 10px", borderRadius:6, fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue, textDecoration:"none", marginRight:6 }}>{t("acmpDownload")}</a>
+                          <button onClick={()=>deleteCompliance(d)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>{t("acmpDelete")}</button>
                         </td>
                       </tr>
                     );})}
@@ -6257,23 +6271,23 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             )}
 
             {compModal && (
-              <Modal title="Carica documento nel vault" onClose={()=>{ setCompModal(false); setCompForm({}); }} onSave={uploadCompliance} saveLabel={compBusy ? "Caricamento..." : "Carica"}>
-                <label style={lbl}>Titolare (account) *</label>
+              <Modal title={t("acmpModalTitle")} onClose={()=>{ setCompModal(false); setCompForm({}); }} onSave={uploadCompliance} saveLabel={compBusy ? t("acmpLoading") : t("acmpSave")}>
+                <label style={lbl}>{t("acmpFOwner")}</label>
                 <select value={compForm.owner_id||""} onChange={e=>setCompForm(f=>({...f, owner_id:e.target.value}))} style={fld}>
-                  <option value="">\u2014 Scegli account \u2014</option>
+                  <option value="">{t("acmpFChooseAccount")}</option>
                   {users.map(u=>(<option key={u.id} value={u.id}>{(u.company_name||u.email)+" ("+u.role+")"}</option>))}
                 </select>
-                <label style={lbl}>Categoria</label>
+                <label style={lbl}>{t("acmpFCategory")}</label>
                 <select value={compForm.category||"company"} onChange={e=>setCompForm(f=>({...f, category:e.target.value}))} style={fld}>
                   {CATS.map(z=>(<option key={z[0]} value={z[0]}>{z[1]}</option>))}
                 </select>
-                <label style={lbl}>Nome documento (opzionale)</label>
-                <input value={compForm.name||""} onChange={e=>setCompForm(f=>({...f, name:e.target.value}))} placeholder="es. Visura camerale 2026" style={fld}/>
-                <label style={lbl}>File *</label>
+                <label style={lbl}>{t("acmpFName")}</label>
+                <input value={compForm.name||""} onChange={e=>setCompForm(f=>({...f, name:e.target.value}))} placeholder={t("acmpFNamePh")} style={fld}/>
+                <label style={lbl}>{t("acmpFFile")}</label>
                 <input type="file" onChange={e=>setCompForm(f=>({...f, file:(e.target.files&&e.target.files[0])||null}))} style={{...fld, padding:"8px 12px"}}/>
-                <label style={lbl}>Data scadenza (opzionale)</label>
+                <label style={lbl}>{t("acmpFExpiry")}</label>
                 <input type="date" value={compForm.expires_at||""} onChange={e=>setCompForm(f=>({...f, expires_at:e.target.value}))} style={fld}/>
-                <label style={lbl}>Note (opzionale)</label>
+                <label style={lbl}>{t("acmpFNotes")}</label>
                 <textarea value={compForm.notes||""} onChange={e=>setCompForm(f=>({...f, notes:e.target.value}))} rows={2} style={{...fld, resize:"vertical"}}/>
               </Modal>
             )}
@@ -6281,7 +6295,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           );
         })()}
         {tab === "retail" && (() => {
-          const STAGES = [["lead","Lead",C.textMuted],["contacted","Contattato",C.blue],["samples","Campioni",C.blue],["meeting","Meeting",C.gold],["negotiation","Trattativa",C.gold],["won","Chiuso \u2713",C.green],["lost","Perso",C.red]];
+          const STAGES = [["lead",t("aretStLead"),C.textMuted],["contacted",t("aretStContacted"),C.blue],["samples",t("aretStSamples"),C.blue],["meeting",t("aretStMeeting"),C.gold],["negotiation",t("aretStNego"),C.gold],["won",t("aretStWon"),C.green],["lost",t("aretStLost"),C.red]];
           const stColor = (k)=>{ const f=STAGES.find(z=>z[0]===k); return f?f[2]:C.textMuted; };
           const brandName = (id)=>{ const b=brands.find(z=>z.id===id); return b?(b.company_name||"\u2014"):"\u2014"; };
           const won = retailTargets.filter(t=>t.stage==="won").length;
@@ -6293,29 +6307,29 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🏬 Retail Expansion Desk</h2>
-                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Pipeline verso Sephora, Douglas, profumerie e retail europeo</p>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🏬 {t("aretTitle")}</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("aretSub")}</p>
               </div>
-              <button onClick={()=>openRetail(null)} style={{ padding:"10px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>+ Aggiungi target</button>
+              <button onClick={()=>openRetail(null)} style={{ padding:"10px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>+ {t("aretAdd")}</button>
             </div>
             <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:24 }}>
-              <Stat icon="🎯" label="Target totali" value={retailTargets.length}/>
-              <Stat icon="🔥" label="In trattativa" value={active} accent={C.gold}/>
-              <Stat icon="✅" label="Chiusi" value={won} accent={C.green}/>
-              <Stat icon="📊" label="Prob. media" value={avgProb+"%"} accent={C.blue}/>
+              <Stat icon="🎯" label={t("aretTotal")} value={retailTargets.length}/>
+              <Stat icon="🔥" label={t("aretActive")} value={active} accent={C.gold}/>
+              <Stat icon="✅" label={t("aretWon")} value={won} accent={C.green}/>
+              <Stat icon="📊" label={t("aretAvgProb")} value={avgProb+"%"} accent={C.blue}/>
             </div>
             {retailTargets.length===0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14 }}>
                 <div style={{ fontSize:40, marginBottom:12 }}>🏬</div>
-                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:8 }}>Nessun target retail</div>
-                <div style={{ fontSize:13, color:C.textMuted, marginBottom:18 }}>Aggiungi il primo retailer da contattare (es. Sephora Italia).</div>
-                <button onClick={()=>openRetail(null)} style={{ padding:"10px 22px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ Aggiungi target</button>
+                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:8 }}>{t("aretEmptyTitle")}</div>
+                <div style={{ fontSize:13, color:C.textMuted, marginBottom:18 }}>{t("aretEmptyMsg")}</div>
+                <button onClick={()=>openRetail(null)} style={{ padding:"10px 22px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ {t("aretAdd")}</button>
               </div>
             ) : (
               <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:820 }}>
                   <thead><tr style={{ background:C.surface2 }}>
-                    {["Retailer","Paese","Buyer","Brand","Stato","Prob.","Follow-up","Azioni"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
+                    {[t("arethRetailer"),t("arethCountry"),t("arethBuyer"),t("arethBrand"),t("arethStatus"),t("arethProb"),t("arethFollowup"),t("arethActions")].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
                   </tr></thead>
                   <tbody>
                     {retailTargets.map((t,i)=>(
@@ -6332,8 +6346,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         <td style={{ padding:"10px 14px", fontSize:12, color:C.text }}>{Number(t.probability||0)}%</td>
                         <td style={{ padding:"10px 14px", fontSize:11, color:C.textMuted, whiteSpace:"nowrap" }}>{t.next_followup ? new Date(t.next_followup).toLocaleDateString("it-IT") : "—"}</td>
                         <td style={{ padding:"10px 14px", whiteSpace:"nowrap" }}>
-                          <button onClick={()=>openRetail(t)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue, marginRight:6 }}>Modifica</button>
-                          <button onClick={()=>deleteRetail(t)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>Elimina</button>
+                          <button onClick={()=>openRetail(t)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue, marginRight:6 }}>{t("aretEdit")}</button>
+                          <button onClick={()=>deleteRetail(t)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>{t("aretDelete")}</button>
                         </td>
                       </tr>
                     ))}
@@ -6343,37 +6357,37 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             )}
 
             {retailModal && (
-              <Modal title={retailForm.id ? "Modifica target retail" : "Nuovo target retail"} onClose={()=>setRetailModal(null)} onSave={saveRetail} saveLabel="Salva">
-                <label style={lbl}>Retailer *</label>
-                <input value={retailForm.retailer_name||""} onChange={e=>setRetailForm(f=>({...f, retailer_name:e.target.value}))} placeholder="es. Sephora Italia" style={fld}/>
+              <Modal title={retailForm.id ? t("aretModalEdit") : t("aretModalNew")} onClose={()=>setRetailModal(null)} onSave={saveRetail} saveLabel={t("aretSave")}>
+                <label style={lbl}>{t("aretFRetailer")}</label>
+                <input value={retailForm.retailer_name||""} onChange={e=>setRetailForm(f=>({...f, retailer_name:e.target.value}))} placeholder={t("aretFRetailerPh")} style={fld}/>
                 <div style={{ display:"flex", gap:10 }}>
-                  <div style={{ flex:1 }}><label style={lbl}>Paese</label><input value={retailForm.country||""} onChange={e=>setRetailForm(f=>({...f, country:e.target.value}))} placeholder="es. Italia" style={fld}/></div>
-                  <div style={{ flex:1 }}><label style={lbl}>Buyer / contatto</label><input value={retailForm.buyer_name||""} onChange={e=>setRetailForm(f=>({...f, buyer_name:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aretFCountry")}</label><input value={retailForm.country||""} onChange={e=>setRetailForm(f=>({...f, country:e.target.value}))} placeholder={t("aretFCountryPh")} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aretFBuyer")}</label><input value={retailForm.buyer_name||""} onChange={e=>setRetailForm(f=>({...f, buyer_name:e.target.value}))} style={fld}/></div>
                 </div>
-                <label style={lbl}>Email buyer</label>
+                <label style={lbl}>{t("aretFBuyerEmail")}</label>
                 <input value={retailForm.buyer_email||""} onChange={e=>setRetailForm(f=>({...f, buyer_email:e.target.value}))} style={fld}/>
-                <label style={lbl}>Brand candidato</label>
+                <label style={lbl}>{t("aretFBrand")}</label>
                 <select value={retailForm.brand_id||""} onChange={e=>setRetailForm(f=>({...f, brand_id:e.target.value}))} style={fld}>
-                  <option value="">— Nessuno —</option>
+                  <option value="">{t("aretFNone")}</option>
                   {brands.map(b=>(<option key={b.id} value={b.id}>{b.company_name||b.email}</option>))}
                 </select>
-                <label style={lbl}>Prodotti candidati</label>
+                <label style={lbl}>{t("aretFProducts")}</label>
                 <textarea value={retailForm.candidate_products||""} onChange={e=>setRetailForm(f=>({...f, candidate_products:e.target.value}))} rows={2} style={{...fld, resize:"vertical"}}/>
                 <div style={{ display:"flex", gap:10 }}>
-                  <div style={{ flex:1 }}><label style={lbl}>Stato</label>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aretFStage")}</label>
                     <select value={retailForm.stage||"lead"} onChange={e=>setRetailForm(f=>({...f, stage:e.target.value}))} style={fld}>
                       {STAGES.map(z=>(<option key={z[0]} value={z[0]}>{z[1]}</option>))}
                     </select>
                   </div>
-                  <div style={{ flex:1 }}><label style={lbl}>Probabilita chiusura (%)</label><input type="number" min="0" max="100" value={retailForm.probability||0} onChange={e=>setRetailForm(f=>({...f, probability:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aretFProb")}</label><input type="number" min="0" max="100" value={retailForm.probability||0} onChange={e=>setRetailForm(f=>({...f, probability:e.target.value}))} style={fld}/></div>
                 </div>
                 <div style={{ display:"flex", gap:10, alignItems:"center" }}>
-                  <div style={{ flex:1 }}><label style={lbl}>Prossimo follow-up</label><input type="date" value={retailForm.next_followup||""} onChange={e=>setRetailForm(f=>({...f, next_followup:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aretFFollowup")}</label><input type="date" value={retailForm.next_followup||""} onChange={e=>setRetailForm(f=>({...f, next_followup:e.target.value}))} style={fld}/></div>
                   <label style={{ display:"flex", alignItems:"center", gap:8, fontSize:13, color:C.text, marginTop:24, flex:1, cursor:"pointer" }}>
-                    <input type="checkbox" checked={!!retailForm.samples_sent} onChange={e=>setRetailForm(f=>({...f, samples_sent:e.target.checked}))}/> Campioni inviati
+                    <input type="checkbox" checked={!!retailForm.samples_sent} onChange={e=>setRetailForm(f=>({...f, samples_sent:e.target.checked}))}/> {t("aretFSamples")}
                   </label>
                 </div>
-                <label style={lbl}>Note</label>
+                <label style={lbl}>{t("aretFNotes")}</label>
                 <textarea value={retailForm.notes||""} onChange={e=>setRetailForm(f=>({...f, notes:e.target.value}))} rows={3} style={{...fld, resize:"vertical"}}/>
               </Modal>
             )}
