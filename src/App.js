@@ -811,6 +811,27 @@ Object.assign(T.es,{ aamzTitle:"Socio operativo de Amazon", aamzSub:"Cockpit Ama
 Object.assign(T.de,{ aamzTitle:"Amazon Operating Partner", aamzSub:"Amazon-EU-Cockpit: Listings, Gebühren, Nettomarge und echter ROI pro Produkt", aamzAdd:"Listing hinzufügen", aamzStListing:"Listings", aamzStStockVal:"FBA-Bestandswert (Kosten)", aamzStPotential:"Potenzieller Gewinn auf Bestand", aamzStAvgMargin:"Ø Nettomarge", aamzStAds:"Ad-Ausgaben (30 Tg.)", aamzEmptyTitle:"Keine Amazon-Listings", aamzEmptyMsg:"Füge das erste Produkt hinzu, das du auf Amazon verkaufst (z.B. Lattafa Khamrah).", aamzhProduct:"Produkt", aamzhMkt:"Mkt", aamzhPrice:"Preis", aamzhCost:"Kosten", aamzhCostU:"Kosten/E (Geb.+Ads)", aamzhMarginU:"Marge €/E", aamzhMarginPct:"Marge %", aamzhRoi:"ROI %", aamzhStock:"Bestand", aamzhActions:"Aktionen", aamzEdit:"Bearbeiten", aamzDelete:"Löschen", aamzQuickAddTitle:"Schnell aus dem Katalog hinzufügen", aamzQuickAddMsg:"Katalogprodukte noch nicht auf Amazon. Ein Klick erstellt das verknüpfte Listing — dann ergänzt du Preis und Gebühren.", aamzQuickAddBtn:"Zu Amazon bringen", aamzModalEdit:"Amazon-Listing bearbeiten", aamzModalNew:"Neues Amazon-Listing", aamzSave:"Speichern", aamzFLinkCatalog:"Mit Katalogprodukt verknüpfen (optional)", aamzFManual:"— Manuell / keine Verknüpfung —", aamzFName:"Produktname *", aamzFNamePh:"z.B. Lattafa Khamrah EDP 100ml", aamzFBrand:"Marke (optional)", aamzFNone:"— Keiner —", aamzFMarketplace:"Marktplatz", aamzFFulfillment:"Fulfillment", aamzFCost:"Kosten / Einheit (€)", aamzFPrice:"Amazon-Preis (€)", aamzFReferral:"Referral-Gebühr (%)", aamzFFba:"FBA-Gebühr / Einheit (€)", aamzFAds:"Amazon-Ads-Ausgaben letzte 30 Tg. (€) · nur intern", aamzFStock:"FBA-Bestand (Einheiten)", aamzFSold:"Verkauft (30 Tg.)", aamzFNotes:"Notizen" });
 Object.assign(T.zh,{ aamzTitle:"亚马逊运营伙伴", aamzSub:"亚马逊欧洲驾驶舱：每个产品的listing、费用、净利润和真实ROI", aamzAdd:"添加listing", aamzStListing:"Listing 数", aamzStStockVal:"FBA库存价值（成本）", aamzStPotential:"库存潜在利润", aamzStAvgMargin:"平均净利润率", aamzStAds:"广告花费（30天）", aamzEmptyTitle:"没有亚马逊listing", aamzEmptyMsg:"添加你在亚马逊上销售的第一个产品（例如 Lattafa Khamrah）。", aamzhProduct:"产品", aamzhMkt:"市场", aamzhPrice:"价格", aamzhCost:"成本", aamzhCostU:"成本/件（费用+广告）", aamzhMarginU:"利润 €/件", aamzhMarginPct:"利润 %", aamzhRoi:"ROI %", aamzhStock:"库存", aamzhActions:"操作", aamzEdit:"编辑", aamzDelete:"删除", aamzQuickAddTitle:"从目录快速添加", aamzQuickAddMsg:"目录中尚未上架亚马逊的产品。一键创建关联listing —— 然后你填写价格和费用。", aamzQuickAddBtn:"上架到亚马逊", aamzModalEdit:"编辑亚马逊listing", aamzModalNew:"新建亚马逊listing", aamzSave:"保存", aamzFLinkCatalog:"关联到目录产品（可选）", aamzFManual:"— 手动 / 无关联 —", aamzFName:"产品名称 *", aamzFNamePh:"例如 Lattafa Khamrah EDP 100ml", aamzFBrand:"品牌（可选）", aamzFNone:"— 无 —", aamzFMarketplace:"市场", aamzFFulfillment:"配送方式", aamzFCost:"成本/件 (€)", aamzFPrice:"亚马逊价格 (€)", aamzFReferral:"推荐费 (%)", aamzFFba:"FBA费用/件 (€)", aamzFAds:"亚马逊广告最近30天花费 (€) · 仅内部", aamzFStock:"FBA库存（件）", aamzFSold:"已售（30天）", aamzFNotes:"备注" });
 Object.assign(T.ar,{ aamzTitle:"شريك تشغيل أمازون", aamzSub:"قمرة أمازون الأوروبية: القوائم والرسوم وصافي الهامش والعائد الحقيقي لكل منتج", aamzAdd:"إضافة قائمة", aamzStListing:"القوائم", aamzStStockVal:"قيمة مخزون FBA (التكلفة)", aamzStPotential:"الربح المحتمل على المخزون", aamzStAvgMargin:"متوسط صافي الهامش", aamzStAds:"إنفاق الإعلانات (30 يومًا)", aamzEmptyTitle:"لا توجد قوائم أمازون", aamzEmptyMsg:"أضف أول منتج تبيعه على أمازون (مثال: Lattafa Khamrah).", aamzhProduct:"المنتج", aamzhMkt:"السوق", aamzhPrice:"السعر", aamzhCost:"التكلفة", aamzhCostU:"التكاليف/وحدة (رسوم+إعلانات)", aamzhMarginU:"الهامش €/وحدة", aamzhMarginPct:"الهامش %", aamzhRoi:"ROI %", aamzhStock:"المخزون", aamzhActions:"إجراءات", aamzEdit:"تعديل", aamzDelete:"حذف", aamzQuickAddTitle:"إضافة سريعة من الكتالوج", aamzQuickAddMsg:"منتجات في الكتالوج ليست بعد على أمازون. نقرة واحدة تُنشئ القائمة المرتبطة — ثم تكمل السعر والرسوم.", aamzQuickAddBtn:"نقل إلى أمازون", aamzModalEdit:"تعديل قائمة أمازون", aamzModalNew:"قائمة أمازون جديدة", aamzSave:"حفظ", aamzFLinkCatalog:"الربط بمنتج من الكتالوج (اختياري)", aamzFManual:"— يدوي / بلا ربط —", aamzFName:"اسم المنتج *", aamzFNamePh:"مثال: Lattafa Khamrah EDP 100ml", aamzFBrand:"العلامة (اختياري)", aamzFNone:"— لا شيء —", aamzFMarketplace:"السوق", aamzFFulfillment:"التنفيذ", aamzFCost:"التكلفة / وحدة (€)", aamzFPrice:"سعر أمازون (€)", aamzFReferral:"رسوم الإحالة (%)", aamzFFba:"رسوم FBA / وحدة (€)", aamzFAds:"إنفاق إعلانات أمازون آخر 30 يومًا (€) · داخلي فقط", aamzFStock:"مخزون FBA (وحدات)", aamzFSold:"المُباع (30 يومًا)", aamzFNotes:"ملاحظات" });
+Object.assign(T.en,{ astkTitle:"Inventory Management", astkSub:"Update stock levels — changes reflect immediately for all users", astkScannerOn:"✓ Scanner Mode ON", astkScannerOff:"Scanner Mode", astkTotalProducts:"Total Products", astkInStock:"In Stock", astkLowStock:"Low Stock (<20)", astkOutStock:"Out of Stock", astkScannerActive:"Scanner Mode active", astkScannerDesc:"Connect your USB/Bluetooth scanner or enter the barcode/SKU manually", astkScanPh:"🔍 Scan the barcode (EAN) or type SKU + Enter...", astkLoad:"Stock in", astkUnload:"Stock out", astkNotLinked:"Unlinked code:", astkLinkDesc:"Link this code to a catalog product. You do it once: from the next scan, stock-in is automatic.", astkChooseProduct:"— Choose the product —", astkLinkedNotify:"✓ Code linked to {name}", astkProductFallback:"product", astkLinkBtn:"Link code", astkCurrentStock:"Current stock:", astkUnits:"units", astkQtyAddPh:"Quantity to add...", astkQtyRemovePh:"Quantity to remove...", astkAddedNotify:"✓ +{qty} units added to {name}", astkRemovedNotify:"✓ -{qty} units removed from {name}", astkAddBtn:"+ Add", astkRemoveBtn:"- Remove", astkScanInfo:"💡 Scan with the gun: the field reads it on its own and fires on Enter. The first time a code is new, you link it to the product once — then it's automatic.", astkhProduct:"Product", astkhBrand:"Brand", astkhCurrent:"Current Stock", astkhReserved:"Reserved", astkhUpdate:"Update Stock", astkhLastRestock:"Last Restock", astkUpdateBtn:"Update", astkNever:"Never" });
+Object.assign(T.it,{ astkTitle:"Gestione inventario", astkSub:"Aggiorna le giacenze — le modifiche sono immediate per tutti gli utenti", astkScannerOn:"✓ Modalità scanner ON", astkScannerOff:"Modalità scanner", astkTotalProducts:"Prodotti totali", astkInStock:"Disponibili", astkLowStock:"Scorta bassa (<20)", astkOutStock:"Esauriti", astkScannerActive:"Modalità scanner attiva", astkScannerDesc:"Connetti il tuo scanner USB/Bluetooth oppure inserisci il barcode/SKU manualmente", astkScanPh:"🔍 Spara il codice a barre (EAN) o digita SKU + Invio...", astkLoad:"Carico", astkUnload:"Scarico", astkNotLinked:"Codice non collegato:", astkLinkDesc:"Collega questo codice a un prodotto del catalogo. Lo fai una sola volta: dalla prossima scansione il carico sarà automatico.", astkChooseProduct:"— Scegli il prodotto —", astkLinkedNotify:"✓ Codice collegato a {name}", astkProductFallback:"prodotto", astkLinkBtn:"Collega codice", astkCurrentStock:"Stock attuale:", astkUnits:"unità", astkQtyAddPh:"Quantità da aggiungere...", astkQtyRemovePh:"Quantità da rimuovere...", astkAddedNotify:"✓ +{qty} unità aggiunte a {name}", astkRemovedNotify:"✓ -{qty} unità rimosse da {name}", astkAddBtn:"+ Aggiungi", astkRemoveBtn:"- Rimuovi", astkScanInfo:"💡 Spara il codice con la pistola: il campo lo legge da solo e parte con Invio. La prima volta che un codice è nuovo, lo colleghi al prodotto una volta sola — poi è automatico.", astkhProduct:"Prodotto", astkhBrand:"Brand", astkhCurrent:"Stock attuale", astkhReserved:"Riservate", astkhUpdate:"Aggiorna stock", astkhLastRestock:"Ultimo carico", astkUpdateBtn:"Aggiorna", astkNever:"Mai" });
+Object.assign(T.fr,{ astkTitle:"Gestion de l'inventaire", astkSub:"Mettez à jour les stocks — les changements sont immédiats pour tous les utilisateurs", astkScannerOn:"✓ Mode scanner activé", astkScannerOff:"Mode scanner", astkTotalProducts:"Produits au total", astkInStock:"En stock", astkLowStock:"Stock faible (<20)", astkOutStock:"En rupture", astkScannerActive:"Mode scanner actif", astkScannerDesc:"Connectez votre scanner USB/Bluetooth ou saisissez le code-barres/SKU manuellement", astkScanPh:"🔍 Scannez le code-barres (EAN) ou tapez le SKU + Entrée...", astkLoad:"Entrée", astkUnload:"Sortie", astkNotLinked:"Code non lié :", astkLinkDesc:"Liez ce code à un produit du catalogue. Vous le faites une seule fois : dès la prochaine lecture, l'entrée est automatique.", astkChooseProduct:"— Choisir le produit —", astkLinkedNotify:"✓ Code lié à {name}", astkProductFallback:"produit", astkLinkBtn:"Lier le code", astkCurrentStock:"Stock actuel :", astkUnits:"unités", astkQtyAddPh:"Quantité à ajouter...", astkQtyRemovePh:"Quantité à retirer...", astkAddedNotify:"✓ +{qty} unités ajoutées à {name}", astkRemovedNotify:"✓ -{qty} unités retirées de {name}", astkAddBtn:"+ Ajouter", astkRemoveBtn:"- Retirer", astkScanInfo:"💡 Scannez avec la douchette : le champ le lit tout seul et valide avec Entrée. La première fois qu'un code est nouveau, vous le liez au produit une seule fois — ensuite c'est automatique.", astkhProduct:"Produit", astkhBrand:"Marque", astkhCurrent:"Stock actuel", astkhReserved:"Réservé", astkhUpdate:"Mettre à jour", astkhLastRestock:"Dernier réappro", astkUpdateBtn:"Mettre à jour", astkNever:"Jamais" });
+Object.assign(T.es,{ astkTitle:"Gestión de inventario", astkSub:"Actualiza las existencias — los cambios se reflejan de inmediato para todos los usuarios", astkScannerOn:"✓ Modo escáner ON", astkScannerOff:"Modo escáner", astkTotalProducts:"Productos totales", astkInStock:"En stock", astkLowStock:"Stock bajo (<20)", astkOutStock:"Agotados", astkScannerActive:"Modo escáner activo", astkScannerDesc:"Conecta tu escáner USB/Bluetooth o introduce el código de barras/SKU manualmente", astkScanPh:"🔍 Escanea el código de barras (EAN) o escribe el SKU + Intro...", astkLoad:"Entrada", astkUnload:"Salida", astkNotLinked:"Código no vinculado:", astkLinkDesc:"Vincula este código a un producto del catálogo. Lo haces una sola vez: desde el próximo escaneo, la entrada es automática.", astkChooseProduct:"— Elegir el producto —", astkLinkedNotify:"✓ Código vinculado a {name}", astkProductFallback:"producto", astkLinkBtn:"Vincular código", astkCurrentStock:"Stock actual:", astkUnits:"unidades", astkQtyAddPh:"Cantidad a añadir...", astkQtyRemovePh:"Cantidad a quitar...", astkAddedNotify:"✓ +{qty} unidades añadidas a {name}", astkRemovedNotify:"✓ -{qty} unidades quitadas de {name}", astkAddBtn:"+ Añadir", astkRemoveBtn:"- Quitar", astkScanInfo:"💡 Escanea con la pistola: el campo lo lee solo y se activa con Intro. La primera vez que un código es nuevo, lo vinculas al producto una sola vez — luego es automático.", astkhProduct:"Producto", astkhBrand:"Marca", astkhCurrent:"Stock actual", astkhReserved:"Reservado", astkhUpdate:"Actualizar stock", astkhLastRestock:"Última reposición", astkUpdateBtn:"Actualizar", astkNever:"Nunca" });
+Object.assign(T.de,{ astkTitle:"Bestandsverwaltung", astkSub:"Bestände aktualisieren — Änderungen gelten sofort für alle Nutzer", astkScannerOn:"✓ Scanner-Modus AN", astkScannerOff:"Scanner-Modus", astkTotalProducts:"Produkte gesamt", astkInStock:"Auf Lager", astkLowStock:"Niedriger Bestand (<20)", astkOutStock:"Nicht auf Lager", astkScannerActive:"Scanner-Modus aktiv", astkScannerDesc:"Verbinde deinen USB-/Bluetooth-Scanner oder gib den Barcode/SKU manuell ein", astkScanPh:"🔍 Barcode (EAN) scannen oder SKU eingeben + Enter...", astkLoad:"Zugang", astkUnload:"Abgang", astkNotLinked:"Code nicht verknüpft:", astkLinkDesc:"Verknüpfe diesen Code mit einem Katalogprodukt. Du machst das einmal: ab dem nächsten Scan ist der Zugang automatisch.", astkChooseProduct:"— Produkt wählen —", astkLinkedNotify:"✓ Code verknüpft mit {name}", astkProductFallback:"Produkt", astkLinkBtn:"Code verknüpfen", astkCurrentStock:"Aktueller Bestand:", astkUnits:"Einheiten", astkQtyAddPh:"Hinzuzufügende Menge...", astkQtyRemovePh:"Zu entfernende Menge...", astkAddedNotify:"✓ +{qty} Einheiten zu {name} hinzugefügt", astkRemovedNotify:"✓ -{qty} Einheiten von {name} entfernt", astkAddBtn:"+ Hinzufügen", astkRemoveBtn:"- Entfernen", astkScanInfo:"💡 Mit der Scanner-Pistole scannen: Das Feld liest ihn selbst und löst mit Enter aus. Wenn ein Code neu ist, verknüpfst du ihn einmal mit dem Produkt — danach ist es automatisch.", astkhProduct:"Produkt", astkhBrand:"Marke", astkhCurrent:"Aktueller Bestand", astkhReserved:"Reserviert", astkhUpdate:"Bestand aktualisieren", astkhLastRestock:"Letzte Auffüllung", astkUpdateBtn:"Aktualisieren", astkNever:"Nie" });
+Object.assign(T.zh,{ astkTitle:"库存管理", astkSub:"更新库存水平 —— 更改立即对所有用户生效", astkScannerOn:"✓ 扫描模式开启", astkScannerOff:"扫描模式", astkTotalProducts:"产品总数", astkInStock:"有货", astkLowStock:"低库存 (<20)", astkOutStock:"缺货", astkScannerActive:"扫描模式已激活", astkScannerDesc:"连接你的 USB/蓝牙扫描仪，或手动输入条形码/SKU", astkScanPh:"🔍 扫描条形码 (EAN) 或输入 SKU + 回车...", astkLoad:"入库", astkUnload:"出库", astkNotLinked:"未关联的代码：", astkLinkDesc:"将此代码关联到目录产品。只需一次：从下次扫描起，入库将自动完成。", astkChooseProduct:"— 选择产品 —", astkLinkedNotify:"✓ 代码已关联到 {name}", astkProductFallback:"产品", astkLinkBtn:"关联代码", astkCurrentStock:"当前库存：", astkUnits:"件", astkQtyAddPh:"要添加的数量...", astkQtyRemovePh:"要移除的数量...", astkAddedNotify:"✓ 已向 {name} 添加 +{qty} 件", astkRemovedNotify:"✓ 已从 {name} 移除 -{qty} 件", astkAddBtn:"+ 添加", astkRemoveBtn:"- 移除", astkScanInfo:"💡 用扫描枪扫描：字段会自动读取并按回车触发。当代码是新的时，只需将其与产品关联一次 —— 之后就是自动的。", astkhProduct:"产品", astkhBrand:"品牌", astkhCurrent:"当前库存", astkhReserved:"已预留", astkhUpdate:"更新库存", astkhLastRestock:"上次补货", astkUpdateBtn:"更新", astkNever:"从不" });
+Object.assign(T.ar,{ astkTitle:"إدارة المخزون", astkSub:"حدّث مستويات المخزون — تنعكس التغييرات فورًا لجميع المستخدمين", astkScannerOn:"✓ وضع الماسح مُفعّل", astkScannerOff:"وضع الماسح", astkTotalProducts:"إجمالي المنتجات", astkInStock:"متوفر", astkLowStock:"مخزون منخفض (<20)", astkOutStock:"نفد المخزون", astkScannerActive:"وضع الماسح نشط", astkScannerDesc:"وصّل ماسح USB/Bluetooth أو أدخل الباركود/SKU يدويًا", astkScanPh:"🔍 امسح الباركود (EAN) أو اكتب SKU + إدخال...", astkLoad:"إدخال", astkUnload:"إخراج", astkNotLinked:"رمز غير مرتبط:", astkLinkDesc:"اربط هذا الرمز بمنتج من الكتالوج. تفعلها مرة واحدة: من المسح التالي يصبح الإدخال تلقائيًا.", astkChooseProduct:"— اختر المنتج —", astkLinkedNotify:"✓ تم ربط الرمز بـ {name}", astkProductFallback:"منتج", astkLinkBtn:"ربط الرمز", astkCurrentStock:"المخزون الحالي:", astkUnits:"وحدة", astkQtyAddPh:"الكمية المراد إضافتها...", astkQtyRemovePh:"الكمية المراد إزالتها...", astkAddedNotify:"✓ تمت إضافة +{qty} وحدة إلى {name}", astkRemovedNotify:"✓ تمت إزالة -{qty} وحدة من {name}", astkAddBtn:"+ إضافة", astkRemoveBtn:"- إزالة", astkScanInfo:"💡 امسح بالمسدس: يقرأه الحقل تلقائيًا ويُفعّل بالضغط على إدخال. أول مرة يكون الرمز جديدًا تربطه بالمنتج مرة واحدة — ثم يصبح تلقائيًا.", astkhProduct:"المنتج", astkhBrand:"العلامة", astkhCurrent:"المخزون الحالي", astkhReserved:"محجوز", astkhUpdate:"تحديث المخزون", astkhLastRestock:"آخر تعبئة", astkUpdateBtn:"تحديث", astkNever:"أبدًا" });
+Object.assign(T.en,{ abrmTitle:"Add New Brand", abrmName:"Brand Name", abrmNamePh:"e.g. Lattafa Perfumes", abrmOrigin:"Origin Country", abrmOriginPh:"e.g. Dubai, UAE", abrmCategory:"Category", abrmCategoryPh:"e.g. Fine Fragrance", aprmTitleEdit:"Edit Product", aprmTitleNew:"Add New Product", aprmName:"Product Name *", aprmNamePh:"e.g. Khamrah EDP", aprmSkuPh:"e.g. LT-KHM-100", aprmCategory:"Category", aprmCategoryPh:"e.g. Premium", aprmSize:"Size", aprmSizePh:"e.g. 100ml", aprmPrice:"Unit Price (€) *", aprmBrand:"Brand", aprmSelectBrand:"Select brand...", aprmOrderMult:"Order Multiple", aprmOrderMultPh:"e.g. 12", aprmMoq:"Min Order Qty (MOQ)", aprmMoqPh:"e.g. 24", aprmMaxQty:"Max Order Qty (empty = unlimited)", aprmMaxQtyPh:"e.g. 500", aprmImage:"Product Image", aprmUploadImg:"Upload image", aprmOrUrl:"or external URL:", amodDesc:"Description", aprmImportPre:"To import many products use the button", aprmImportPost:"in the catalog.", aprmImportCols:"Supported columns" });
+Object.assign(T.it,{ abrmTitle:"Aggiungi nuovo brand", abrmName:"Nome brand", abrmNamePh:"es. Lattafa Perfumes", abrmOrigin:"Paese d'origine", abrmOriginPh:"es. Dubai, EAU", abrmCategory:"Categoria", abrmCategoryPh:"es. Fine Fragrance", aprmTitleEdit:"Modifica prodotto", aprmTitleNew:"Aggiungi nuovo prodotto", aprmName:"Nome prodotto *", aprmNamePh:"es. Khamrah EDP", aprmSkuPh:"es. LT-KHM-100", aprmCategory:"Categoria", aprmCategoryPh:"es. Premium", aprmSize:"Formato", aprmSizePh:"es. 100ml", aprmPrice:"Prezzo unitario (€) *", aprmBrand:"Brand", aprmSelectBrand:"Seleziona brand...", aprmOrderMult:"Multiplo d'ordine", aprmOrderMultPh:"es. 12", aprmMoq:"Qtà minima ordine (MOQ)", aprmMoqPh:"es. 24", aprmMaxQty:"Qtà massima ordine (vuoto = illimitato)", aprmMaxQtyPh:"es. 500", aprmImage:"Immagine Prodotto", aprmUploadImg:"Carica immagine", aprmOrUrl:"oppure URL esterno:", amodDesc:"Descrizione", aprmImportPre:"Per importare molti prodotti usa il pulsante", aprmImportPost:"nel catalogo.", aprmImportCols:"Colonne supportate" });
+Object.assign(T.fr,{ abrmTitle:"Ajouter une marque", abrmName:"Nom de la marque", abrmNamePh:"ex. Lattafa Perfumes", abrmOrigin:"Pays d'origine", abrmOriginPh:"ex. Dubaï, EAU", abrmCategory:"Catégorie", abrmCategoryPh:"ex. Parfum fin", aprmTitleEdit:"Modifier le produit", aprmTitleNew:"Ajouter un produit", aprmName:"Nom du produit *", aprmNamePh:"ex. Khamrah EDP", aprmSkuPh:"ex. LT-KHM-100", aprmCategory:"Catégorie", aprmCategoryPh:"ex. Premium", aprmSize:"Taille", aprmSizePh:"ex. 100ml", aprmPrice:"Prix unitaire (€) *", aprmBrand:"Marque", aprmSelectBrand:"Sélectionner une marque...", aprmOrderMult:"Multiple de commande", aprmOrderMultPh:"ex. 12", aprmMoq:"Qté min. commande (MOQ)", aprmMoqPh:"ex. 24", aprmMaxQty:"Qté max. commande (vide = illimité)", aprmMaxQtyPh:"ex. 500", aprmImage:"Image du produit", aprmUploadImg:"Téléverser une image", aprmOrUrl:"ou URL externe :", amodDesc:"Description", aprmImportPre:"Pour importer de nombreux produits, utilisez le bouton", aprmImportPost:"dans le catalogue.", aprmImportCols:"Colonnes prises en charge" });
+Object.assign(T.es,{ abrmTitle:"Añadir marca", abrmName:"Nombre de marca", abrmNamePh:"ej. Lattafa Perfumes", abrmOrigin:"País de origen", abrmOriginPh:"ej. Dubái, EAU", abrmCategory:"Categoría", abrmCategoryPh:"ej. Alta perfumería", aprmTitleEdit:"Editar producto", aprmTitleNew:"Añadir producto", aprmName:"Nombre del producto *", aprmNamePh:"ej. Khamrah EDP", aprmSkuPh:"ej. LT-KHM-100", aprmCategory:"Categoría", aprmCategoryPh:"ej. Premium", aprmSize:"Tamaño", aprmSizePh:"ej. 100ml", aprmPrice:"Precio unitario (€) *", aprmBrand:"Marca", aprmSelectBrand:"Seleccionar marca...", aprmOrderMult:"Múltiplo de pedido", aprmOrderMultPh:"ej. 12", aprmMoq:"Cant. mín. pedido (MOQ)", aprmMoqPh:"ej. 24", aprmMaxQty:"Cant. máx. pedido (vacío = ilimitado)", aprmMaxQtyPh:"ej. 500", aprmImage:"Imagen del producto", aprmUploadImg:"Subir imagen", aprmOrUrl:"o URL externa:", amodDesc:"Descripción", aprmImportPre:"Para importar muchos productos usa el botón", aprmImportPost:"en el catálogo.", aprmImportCols:"Columnas admitidas" });
+Object.assign(T.de,{ abrmTitle:"Neue Marke hinzufügen", abrmName:"Markenname", abrmNamePh:"z.B. Lattafa Perfumes", abrmOrigin:"Herkunftsland", abrmOriginPh:"z.B. Dubai, VAE", abrmCategory:"Kategorie", abrmCategoryPh:"z.B. Feine Düfte", aprmTitleEdit:"Produkt bearbeiten", aprmTitleNew:"Neues Produkt hinzufügen", aprmName:"Produktname *", aprmNamePh:"z.B. Khamrah EDP", aprmSkuPh:"z.B. LT-KHM-100", aprmCategory:"Kategorie", aprmCategoryPh:"z.B. Premium", aprmSize:"Größe", aprmSizePh:"z.B. 100ml", aprmPrice:"Stückpreis (€) *", aprmBrand:"Marke", aprmSelectBrand:"Marke auswählen...", aprmOrderMult:"Bestellvielfaches", aprmOrderMultPh:"z.B. 12", aprmMoq:"Mindestbestellmenge (MOQ)", aprmMoqPh:"z.B. 24", aprmMaxQty:"Max. Bestellmenge (leer = unbegrenzt)", aprmMaxQtyPh:"z.B. 500", aprmImage:"Produktbild", aprmUploadImg:"Bild hochladen", aprmOrUrl:"oder externe URL:", amodDesc:"Beschreibung", aprmImportPre:"Um viele Produkte zu importieren, nutze die Schaltfläche", aprmImportPost:"im Katalog.", aprmImportCols:"Unterstützte Spalten" });
+Object.assign(T.zh,{ abrmTitle:"添加新品牌", abrmName:"品牌名称", abrmNamePh:"例如 Lattafa Perfumes", abrmOrigin:"原产国", abrmOriginPh:"例如 迪拜，阿联酋", abrmCategory:"类别", abrmCategoryPh:"例如 高级香水", aprmTitleEdit:"编辑产品", aprmTitleNew:"添加新产品", aprmName:"产品名称 *", aprmNamePh:"例如 Khamrah EDP", aprmSkuPh:"例如 LT-KHM-100", aprmCategory:"类别", aprmCategoryPh:"例如 高端", aprmSize:"规格", aprmSizePh:"例如 100ml", aprmPrice:"单价 (€) *", aprmBrand:"品牌", aprmSelectBrand:"选择品牌...", aprmOrderMult:"订购倍数", aprmOrderMultPh:"例如 12", aprmMoq:"最小起订量 (MOQ)", aprmMoqPh:"例如 24", aprmMaxQty:"最大订购量（空 = 不限）", aprmMaxQtyPh:"例如 500", aprmImage:"产品图片", aprmUploadImg:"上传图片", aprmOrUrl:"或外部 URL：", amodDesc:"描述", aprmImportPre:"要批量导入产品，请使用按钮", aprmImportPost:"（在目录中）。", aprmImportCols:"支持的列" });
+Object.assign(T.ar,{ abrmTitle:"إضافة علامة جديدة", abrmName:"اسم العلامة", abrmNamePh:"مثال: Lattafa Perfumes", abrmOrigin:"بلد المنشأ", abrmOriginPh:"مثال: دبي، الإمارات", abrmCategory:"الفئة", abrmCategoryPh:"مثال: عطور فاخرة", aprmTitleEdit:"تعديل المنتج", aprmTitleNew:"إضافة منتج جديد", aprmName:"اسم المنتج *", aprmNamePh:"مثال: Khamrah EDP", aprmSkuPh:"مثال: LT-KHM-100", aprmCategory:"الفئة", aprmCategoryPh:"مثال: Premium", aprmSize:"الحجم", aprmSizePh:"مثال: 100 مل", aprmPrice:"سعر الوحدة (€) *", aprmBrand:"العلامة", aprmSelectBrand:"اختر العلامة...", aprmOrderMult:"مضاعف الطلب", aprmOrderMultPh:"مثال: 12", aprmMoq:"الحد الأدنى للطلب (MOQ)", aprmMoqPh:"مثال: 24", aprmMaxQty:"الحد الأقصى للطلب (فارغ = غير محدود)", aprmMaxQtyPh:"مثال: 500", aprmImage:"صورة المنتج", aprmUploadImg:"رفع صورة", aprmOrUrl:"أو رابط خارجي:", amodDesc:"الوصف", aprmImportPre:"لاستيراد العديد من المنتجات استخدم الزر", aprmImportPost:"في الكتالوج.", aprmImportCols:"الأعمدة المدعومة" });
+Object.assign(T.en,{ aconCreateDraft:"Create draft" });
+Object.assign(T.it,{ aconCreateDraft:"Crea bozza" });
+Object.assign(T.fr,{ aconCreateDraft:"Créer un brouillon" });
+Object.assign(T.es,{ aconCreateDraft:"Crear borrador" });
+Object.assign(T.de,{ aconCreateDraft:"Entwurf erstellen" });
+Object.assign(T.zh,{ aconCreateDraft:"创建草稿" });
+Object.assign(T.ar,{ aconCreateDraft:"إنشاء مسودة" });
 
 
 
@@ -6483,8 +6504,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:12 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Inventory Management</h2>
-                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Update stock levels — changes reflect immediately for all users</p>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("astkTitle")}</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("astkSub")}</p>
               </div>
               <button onClick={() => setScannerMode(m => !m)} style={{
                 padding:"12px 18px", borderRadius:10, cursor:"pointer",
@@ -6492,7 +6513,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 border:`1px solid ${C.purple}40`,
                 color: scannerMode ? "#fff" : "#a855f7",
                 fontSize:13, fontWeight:700, display:"flex", alignItems:"center", gap:8 }}>
-                📱 {scannerMode ? "✓ Scanner Mode ON" : "Scanner Mode"}
+                📱 {scannerMode ? t("astkScannerOn") : t("astkScannerOff")}
               </button>
             </div>
 
@@ -6501,10 +6522,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             {/* Stock summary */}
             <div style={{ display:"flex", gap:12, marginBottom:20, flexWrap:"wrap" }}>
               {[
-                { label:"Total Products", value:products.length, color:C.gold },
-                { label:"In Stock", value:products.filter(p=>(p.inventory?.quantity_available||0)>0).length, color:C.green },
-                { label:"Low Stock (<20)", value:products.filter(p=>(p.inventory?.quantity_available||0)<20&&(p.inventory?.quantity_available||0)>0).length, color:C.gold },
-                { label:"Out of Stock", value:products.filter(p=>(p.inventory?.quantity_available||0)===0).length, color:C.red },
+                { label:t("astkTotalProducts"), value:products.length, color:C.gold },
+                { label:t("astkInStock"), value:products.filter(p=>(p.inventory?.quantity_available||0)>0).length, color:C.green },
+                { label:t("astkLowStock"), value:products.filter(p=>(p.inventory?.quantity_available||0)<20&&(p.inventory?.quantity_available||0)>0).length, color:C.gold },
+                { label:t("astkOutStock"), value:products.filter(p=>(p.inventory?.quantity_available||0)===0).length, color:C.red },
               ].map((s,i) => (
                 <div key={i} style={{ flex:"1 1 140px", padding:"16px 18px", background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${s.color}`, borderRadius:12 }}>
                   <div style={{ fontSize:24, fontWeight:900, color:s.color, fontFamily:"Georgia,serif" }}>{s.value}</div>
@@ -6520,8 +6541,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:16 }}>
                   <span style={{ fontSize:24 }}>📱</span>
                   <div>
-                    <div style={{ fontSize:15, fontWeight:700, color:"#a855f7" }}>Scanner Mode Attivo</div>
-                    <div style={{ fontSize:12, color:C.textMuted }}>Connetti il tuo scanner USB/Bluetooth oppure inserisci il barcode/SKU manualmente</div>
+                    <div style={{ fontSize:15, fontWeight:700, color:"#a855f7" }}>{t("astkScannerActive")}</div>
+                    <div style={{ fontSize:12, color:C.textMuted }}>{t("astkScannerDesc")}</div>
                   </div>
                 </div>
 
@@ -6551,7 +6572,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         }
                       }
                     }}
-                    placeholder="🔍 Spara il codice a barre (EAN) o digita SKU + Invio..."
+                    placeholder={t("astkScanPh")}
                     autoFocus
                     style={{ flex:1, padding:"14px 18px", borderRadius:10, fontSize:15,
                       background:C.surface2, border:`2px solid ${C.purple}50`,
@@ -6563,14 +6584,14 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                       background: scanType==="in" ? `${C.green}25` : "transparent",
                       border:`2px solid ${scanType==="in" ? C.green : C.border}`,
                       color: scanType==="in" ? C.green : C.textMuted }}>
-                      ↑ Carico
+                      ↑ {t("astkLoad")}
                     </button>
                     <button onClick={() => setScanType("out")} style={{
                       padding:"12px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700,
                       background: scanType==="out" ? `${C.red}20` : "transparent",
                       border:`2px solid ${scanType==="out" ? C.red : C.border}`,
                       color: scanType==="out" ? C.red : C.textMuted }}>
-                      ↓ Scarico
+                      ↓ {t("astkUnload")}
                     </button>
                   </div>
                 </div>
@@ -6582,11 +6603,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                     border:`1px solid ${scanResult.notFound ? C.red : C.green}40` }}>
                     {scanResult.notFound ? (
                       <div style={{ fontSize:14 }}>
-                        <div style={{ color:C.gold, fontWeight:700, marginBottom:6 }}>🔗 Codice non collegato: <span style={{ fontFamily:"monospace" }}>{scanResult.query}</span></div>
-                        <div style={{ fontSize:12, color:C.textMuted, marginBottom:12 }}>Collega questo codice a un prodotto del catalogo. Lo fai una sola volta: dalla prossima scansione il carico sara automatico.</div>
+                        <div style={{ color:C.gold, fontWeight:700, marginBottom:6 }}>🔗 {t("astkNotLinked")} <span style={{ fontFamily:"monospace" }}>{scanResult.query}</span></div>
+                        <div style={{ fontSize:12, color:C.textMuted, marginBottom:12 }}>{t("astkLinkDesc")}</div>
                         <div style={{ display:"flex", gap:10, flexWrap:"wrap", alignItems:"center" }}>
                           <select value={linkProductId} onChange={e=>setLinkProductId(e.target.value)} style={{ flex:1, minWidth:240, padding:"12px 14px", borderRadius:9, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none" }}>
-                            <option value="">— Scegli il prodotto —</option>
+                            <option value="">{t("astkChooseProduct")}</option>
                             {products.map(p => (
                               <option key={p.id} value={p.id}>{p.name}{p.sku?` · ${p.sku}`:""}</option>
                             ))}
@@ -6595,12 +6616,12 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                             if (!linkProductId) return;
                             await supabase.from("products").update({ barcode: scanResult.query }).eq("id", linkProductId);
                             const { data } = await supabase.from("products").select("*, inventory(*)").eq("id", linkProductId).maybeSingle();
-                            notify(`✓ Codice collegato a ${data?.name||"prodotto"}`);
+                            notify(t("astkLinkedNotify").replace("{name}", (data?.name||t("astkProductFallback"))));
                             setScanResult(data || null);
                             setLinkProductId("");
                             setScanQty("");
                           }} style={{ padding:"12px 20px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, whiteSpace:"nowrap" }}>
-                            🔗 Collega codice
+                            🔗 {t("astkLinkBtn")}
                           </button>
                           <button onClick={() => { setScanResult(null); setLinkProductId(""); setTimeout(()=>scanInputRef.current?.focus(),100); }} style={{ padding:"12px 16px", borderRadius:9, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>✕</button>
                         </div>
@@ -6615,8 +6636,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                             <div style={{ fontSize:16, fontWeight:700, color:C.text }}>{scanResult.name}</div>
                             <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{scanResult.barcode?`EAN ${scanResult.barcode} · `:""}{scanResult.sku} · {scanResult.category}</div>
                             <div style={{ fontSize:13, fontWeight:700, marginTop:4 }}>
-                              Stock attuale: <span style={{ color: (scanResult.inventory?.quantity_available||0)>20?C.green:C.red }}>
-                                {scanResult.inventory?.quantity_available || 0} unità
+                              {t("astkCurrentStock")} <span style={{ color: (scanResult.inventory?.quantity_available||0)>20?C.green:C.red }}>
+                                {scanResult.inventory?.quantity_available || 0} {t("astkUnits")}
                               </span>
                             </div>
                           </div>
@@ -6628,7 +6649,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                             inputMode="numeric"
                             value={scanQty}
                             onChange={e => setScanQty(e.target.value)}
-                            placeholder={scanType==="in" ? "Quantità da aggiungere..." : "Quantità da rimuovere..."}
+                            placeholder={scanType==="in" ? t("astkQtyAddPh") : t("astkQtyRemovePh")}
                             style={{ flex:1, padding:"12px 14px", borderRadius:9,
                               background:C.surface2, border:`1px solid ${C.border}`,
                               color:C.text, fontSize:14, outline:"none" }}/>
@@ -6661,8 +6682,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                             });
 
                             notify(scanType==="in"
-                              ? `✓ +${qty} unità aggiunte a ${scanResult.name}`
-                              : `✓ -${qty} unità rimosse da ${scanResult.name}`);
+                              ? t("astkAddedNotify").replace("{qty}", qty).replace("{name}", scanResult.name)
+                              : t("astkRemovedNotify").replace("{qty}", qty).replace("{name}", scanResult.name));
 
                             // Update local state
                             setScanResult(prev => ({
@@ -6680,7 +6701,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                               ? `linear-gradient(135deg,${C.green},#1e8449)`
                               : `linear-gradient(135deg,${C.red},#922b21)`,
                             border:"none", color:"#fff", fontSize:14, fontWeight:700, whiteSpace:"nowrap" }}>
-                            {scanType==="in" ? `+ Aggiungi` : `- Rimuovi`}
+                            {scanType==="in" ? t("astkAddBtn") : t("astkRemoveBtn")}
                           </button>
                           <button onClick={() => setScanResult(null)} style={{
                             padding:"12px 16px", borderRadius:9, cursor:"pointer",
@@ -6694,7 +6715,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                   </div>
                 )}
                 <div style={{ marginTop:12, fontSize:11, color:C.textMuted }}>
-                  💡 Spara il codice con la pistola: il campo lo legge da solo e parte con Invio. La prima volta che un codice e nuovo, lo colleghi al prodotto una volta sola — poi e automatico.
+                  💡 {t("astkScanInfo")}
                 </div>
               </div>
             )}
@@ -6703,7 +6724,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:700 }}>
                 <thead>
                   <tr style={{ background:C.surface2 }}>
-                    {["Product","SKU","Brand","Current Stock","Reserved","Update Stock","Last Restock"].map((h,i) => (
+                    {[t("astkhProduct"),"SKU",t("astkhBrand"),t("astkhCurrent"),t("astkhReserved"),t("astkhUpdate"),t("astkhLastRestock")].map((h,i) => (
                       <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
                     ))}
                   </tr>
@@ -6727,13 +6748,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                             <input type="number" defaultValue={stock} id={`stock-${p.id}`}
                               style={{ width:80, padding:"6px 8px", borderRadius:7, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none" }}/>
                             <button onClick={() => updateStock(p.id, document.getElementById(`stock-${p.id}`).value)}
-                              style={{ padding:"6px 12px", borderRadius:7, cursor:"pointer", background:`${C.gold}20`, border:`1px solid ${C.gold}50`, color:C.goldLight, fontSize:11, fontWeight:600, whiteSpace:"nowrap" }}>
-                              Update
-                            </button>
+                              style={{ padding:"6px 12px", borderRadius:7, cursor:"pointer", background:`${C.gold}20`, border:`1px solid ${C.gold}50`, color:C.goldLight, fontSize:11, fontWeight:600, whiteSpace:"nowrap" }}>{t("astkUpdateBtn")}</button>
                           </div>
                         </td>
                         <td style={{ padding:"11px 14px", fontSize:11, color:C.textDim }}>
-                          {p.inventory?.last_restock_at ? new Date(p.inventory.last_restock_at).toLocaleDateString() : "Never"}
+                          {p.inventory?.last_restock_at ? new Date(p.inventory.last_restock_at).toLocaleDateString() : t("astkNever")}
                         </td>
                       </tr>
                     );
@@ -7059,7 +7078,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               const fld = { padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, width:"100%", boxSizing:"border-box", outline:"none" };
               const lbl = { fontSize:11, color:C.textMuted, display:"block", marginBottom:5, marginTop:12 };
               return (
-              <Modal title={t("aconNewTitle")} onClose={()=>setContractCreate(false)} onSave={saveNewContract} saveLabel="Crea bozza">
+              <Modal title={t("aconNewTitle")} onClose={()=>setContractCreate(false)} onSave={saveNewContract} saveLabel={t("aconCreateDraft")}>
                 <label style={lbl}>{t("aconBrandLbl")}</label>
                 <select value={contractForm.brand_id||""} onChange={e=>setContractForm(f=>({...f, brand_id:e.target.value}))} style={fld}>
                   <option value="">{t("aconChooseBrand")}</option>
@@ -7660,12 +7679,12 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
       {/* Add Brand Modal */}
       {showAddBrand && (
-        <Modal title="Add New Brand" onClose={() => setShowAddBrand(false)} onSave={addBrand}>
-          <FormInput label="Brand Name" value={brandForm.name} onChange={v=>setBrandForm(f=>({...f,name:v}))} placeholder="e.g. Lattafa Perfumes"/>
-          <FormInput label="Origin Country" value={brandForm.origin} onChange={v=>setBrandForm(f=>({...f,origin:v}))} placeholder="e.g. Dubai, UAE"/>
-          <FormInput label="Category" value={brandForm.category} onChange={v=>setBrandForm(f=>({...f,category:v}))} placeholder="e.g. Fine Fragrance"/>
+        <Modal title={t("abrmTitle")} onClose={() => setShowAddBrand(false)} onSave={addBrand}>
+          <FormInput label={t("abrmName")} value={brandForm.name} onChange={v=>setBrandForm(f=>({...f,name:v}))} placeholder={t("abrmNamePh")}/>
+          <FormInput label={t("abrmOrigin")} value={brandForm.origin} onChange={v=>setBrandForm(f=>({...f,origin:v}))} placeholder={t("abrmOriginPh")}/>
+          <FormInput label={t("abrmCategory")} value={brandForm.category} onChange={v=>setBrandForm(f=>({...f,category:v}))} placeholder={t("abrmCategoryPh")}/>
           <div style={{ marginBottom:14 }}>
-            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Description</label>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{t("amodDesc")}</label>
             <textarea value={brandForm.description} onChange={e=>setBrandForm(f=>({...f,description:e.target.value}))}
               style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", minHeight:80, resize:"vertical" }}/>
           </div>
@@ -7674,14 +7693,14 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
       {/* Add/Edit Product Modal */}
       {showAddProduct && (
-        <Modal title={editingProduct ? "Edit Product" : "Add New Product"} onClose={() => { setShowAddProduct(false); setEditingProduct(null); }} onSave={saveProduct}>
+        <Modal title={editingProduct ? t("aprmTitleEdit") : t("aprmTitleNew")} onClose={() => { setShowAddProduct(false); setEditingProduct(null); }} onSave={saveProduct}>
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
             {[
-              { label:"Product Name *", key:"name", placeholder:"es. Khamrah EDP", mode:"text" },
-              { label:"SKU", key:"sku", placeholder:"es. LT-KHM-100", mode:"text" },
-              { label:"Category", key:"category", placeholder:"es. Premium", mode:"text" },
-              { label:"Size", key:"size", placeholder:"es. 100ml", mode:"text" },
-              { label:"Unit Price (€) *", key:"price", placeholder:"0.00", mode:"decimal" },
+              { label:t("aprmName"), key:"name", placeholder:t("aprmNamePh"), mode:"text" },
+              { label:"SKU", key:"sku", placeholder:t("aprmSkuPh"), mode:"text" },
+              { label:t("aprmCategory"), key:"category", placeholder:t("aprmCategoryPh"), mode:"text" },
+              { label:t("aprmSize"), key:"size", placeholder:t("aprmSizePh"), mode:"text" },
+              { label:t("aprmPrice"), key:"price", placeholder:"0.00", mode:"decimal" },
             ].map(({label, key, placeholder, mode}) => (
               <div key={key} style={{ marginBottom:14 }}>
                 <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
@@ -7695,16 +7714,16 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               </div>
             ))}
             <div style={{ marginBottom:14 }}>
-              <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Brand</label>
+              <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{t("aprmBrand")}</label>
               <select value={productForm.brand_id} onChange={e=>setProductForm(f=>({...f,brand_id:e.target.value}))}
                 style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}>
-                <option value="">Seleziona brand...</option>
+                <option value="">{t("aprmSelectBrand")}</option>
                 {brands.map(b => <option key={b.id} value={b.id}>{b.company_name||b.email}</option>)}
               </select>
             </div>
             {[
-              { label:"Order Multiple", key:"order_multiple", placeholder:"es. 12" },
-              { label:"Min Order Qty (MOQ)", key:"min_order_qty", placeholder:"es. 24" },
+              { label:t("aprmOrderMult"), key:"order_multiple", placeholder:t("aprmOrderMultPh") },
+              { label:t("aprmMoq"), key:"min_order_qty", placeholder:t("aprmMoqPh") },
             ].map(({label, key, placeholder}) => (
               <div key={key} style={{ marginBottom:14 }}>
                 <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
@@ -7719,19 +7738,19 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             ))}
           </div>
           <div style={{ marginBottom:14 }}>
-            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Max Order Qty (vuoto = illimitato)</label>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{t("aprmMaxQty")}</label>
             <input
               type="text"
               inputMode="numeric"
               value={productForm.max_order_qty}
               onChange={e => setProductForm(f => ({...f, max_order_qty: e.target.value}))}
-              placeholder="es. 500"
+              placeholder={t("aprmMaxQtyPh")}
               style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
           </div>
           
           {/* Image section */}
           <div style={{ marginBottom:14 }}>
-            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:8 }}>Immagine Prodotto</label>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:8 }}>{t("aprmImage")}</label>
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
               {/* Upload file */}
               <label style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6,
@@ -7743,12 +7762,12 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                   onChange={e => { const f=e.target.files?.[0]; if(f) setProductForm(p=>({...p,image_file:f,image_url:""})); }}/>
                 <span style={{ fontSize:22 }}>{productForm.image_file ? "✓" : "📁"}</span>
                 <span style={{ fontSize:11, color: productForm.image_file ? C.green : C.textMuted }}>
-                  {productForm.image_file ? productForm.image_file.name : "Carica immagine"}
+                  {productForm.image_file ? productForm.image_file.name : t("aprmUploadImg")}
                 </span>
               </label>
               {/* URL esterno */}
               <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
-                <span style={{ fontSize:11, color:C.textMuted }}>oppure URL esterno:</span>
+                <span style={{ fontSize:11, color:C.textMuted }}>{t("aprmOrUrl")}</span>
                 <input type="text" value={productForm.image_url} 
                   onChange={e => setProductForm(p=>({...p,image_url:e.target.value, image_file:null}))}
                   placeholder="https://..."
@@ -7762,14 +7781,14 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           </div>
 
           <div>
-            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Description</label>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{t("amodDesc")}</label>
             <textarea value={productForm.description} onChange={e=>setProductForm(f=>({...f,description:e.target.value}))}
               style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", minHeight:70, resize:"vertical" }}/>
           </div>
 
           <div style={{ padding:"10px 14px", background:`${C.blue}08`, border:`1px solid ${C.blue}15`, borderRadius:8, fontSize:11, color:C.textMuted }}>
-            💡 Per importare molti prodotti usa il pulsante <strong style={{color:C.text}}>Import Excel/CSV</strong> nel catalogo.<br/>
-            Colonne supportate: name, sku, category, price, brand, order_multiple, min_order_qty, description, image_url
+            💡 {t("aprmImportPre")} <strong style={{color:C.text}}>Import Excel/CSV</strong> {t("aprmImportPost")}<br/>
+            {t("aprmImportCols")}: name, sku, category, price, brand, order_multiple, min_order_qty, description, image_url
           </div>
         </Modal>
       )}
