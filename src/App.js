@@ -671,6 +671,13 @@ Object.assign(T.es, { rgFiscalHint:"Número de IVA obligatorio para todos · Có
 Object.assign(T.de, { rgFiscalHint:"USt-IdNr. für alle erforderlich · SDI-Code und PEC nur für italienische Unternehmen" });
 Object.assign(T.zh, { rgFiscalHint:"所有人均需增值税号 · SDI 代码和 PEC 仅适用于意大利公司" });
 Object.assign(T.ar, { rgFiscalHint:"رقم ضريبة القيمة المضافة مطلوب من الجميع · رمز SDI وPEC للشركات الإيطالية فقط" });
+Object.assign(T.en, { bNoReq:"No requests at the moment", bNoReqMsg:"When a distributor requests access to your products, it will appear here for approval or blocking.", bApproveExcl:"Approve exclusively", bApproveShared:"Approve (shared)", bBlock:"Block", bBlockAccess:"Block access", bUnblock:"Unblock", bDistSub:"Your authorized distributors · orders and revenue in real time", bNoDist:"No active distributors", bNoDistMsg:"When you approve a request in the Applications tab, the distributor will appear here with their real orders and revenue.", bSave:"Save", bpPricePre:"Base price:", bpPricePost:". Set a different price for the markets you want (e.g. Germany higher). The distributor will automatically see the price for their country.", bChooseCountry:"- Choose -", bPriceEur:"Price €", bNoPriceList:"No per-country price list. The base price applies everywhere.", bDelete:"Delete", bDocsMsg:"Data sheets, certificates, ingredients. Distributors can download them from the catalog.", bNoDocs:"No documents yet.", bOpen:"Open", bDesc:"Description", bProdImg:"Product Image", bOrExtUrl:"or external URL:", bNewProduct:"+ New Product", bCsvCols:"CSV columns: name, sku, category, price, order_multiple, min_order_qty, description, image_url", bNoProducts:"No products in the catalog", bNoProductsMsg:"Add your first product with + New Product, or import an Excel/CSV file.", bEdit:"Edit", bDoc:"Doc", bPrices:"Prices", bNoOrders:"No orders yet.", bInvoices:"Invoices", bInvoicesMsg:"Sales invoices to distributors and NexusHub commission invoices. You can also upload your official invoice as PDF.", bAiTitle:"AI Brand Analytics", bAiSub:"Distributor performance, top products, seasonality and growth opportunities" });
+Object.assign(T.it, { bNoReq:"Nessuna richiesta al momento", bNoReqMsg:"Quando un distributore richiederà l'accesso ai tuoi prodotti, comparirà qui per l'approvazione o il blocco.", bApproveExcl:"Approva in esclusiva", bApproveShared:"Approva (condiviso)", bBlock:"Blocca", bBlockAccess:"Blocca accesso", bUnblock:"Sblocca", bDistSub:"I tuoi distributori autorizzati · ordini e fatturato in tempo reale", bNoDist:"Nessun distributore attivo", bNoDistMsg:"Quando approvi una richiesta nella tab Candidature, il distributore comparirà qui con i suoi ordini e il fatturato reali.", bSave:"Salva", bpPricePre:"Prezzo base:", bpPricePost:". Imposta un prezzo diverso per i mercati che vuoi (es. Germania più alto). Il distributore vedrà automaticamente il prezzo del suo paese.", bChooseCountry:"- Scegli -", bPriceEur:"Prezzo €", bNoPriceList:"Nessun listino per paese. Vale il prezzo base ovunque.", bDelete:"Elimina", bDocsMsg:"Schede tecniche, certificati, ingredienti. I distributori potranno scaricarli dal catalogo.", bNoDocs:"Nessun documento ancora.", bOpen:"Apri", bDesc:"Descrizione", bProdImg:"Immagine Prodotto", bOrExtUrl:"oppure URL esterno:", bNewProduct:"+ Nuovo Prodotto", bCsvCols:"Colonne CSV: name, sku, category, price, order_multiple, min_order_qty, description, image_url", bNoProducts:"Nessun prodotto nel catalogo", bNoProductsMsg:"Aggiungi il tuo primo prodotto con + Nuovo Prodotto, oppure importa un file Excel/CSV.", bEdit:"Modifica", bDoc:"Doc", bPrices:"Prezzi", bNoOrders:"Nessun ordine ancora.", bInvoices:"Fatture", bInvoicesMsg:"Fatture di vendita ai distributori e fatture di commissione NexusHub. Puoi anche caricare la tua fattura ufficiale in PDF.", bAiTitle:"AI Brand Analytics", bAiSub:"Performance distributori, top prodotti, stagionalità e opportunità di crescita" });
+Object.assign(T.fr, { bNoReq:"Aucune demande pour le moment", bNoReqMsg:"Lorsqu'un distributeur demande l'accès à vos produits, cela apparaît ici pour approbation ou blocage.", bApproveExcl:"Approuver en exclusivité", bApproveShared:"Approuver (partagé)", bBlock:"Bloquer", bBlockAccess:"Bloquer l'accès", bUnblock:"Débloquer", bDistSub:"Vos distributeurs autorisés · commandes et chiffre d'affaires en temps réel", bNoDist:"Aucun distributeur actif", bNoDistMsg:"Lorsque vous approuvez une demande dans l'onglet Candidatures, le distributeur apparaît ici avec ses commandes et son chiffre d'affaires réels.", bSave:"Enregistrer", bpPricePre:"Prix de base :", bpPricePost:". Définissez un prix différent pour les marchés souhaités (ex. Allemagne plus élevé). Le distributeur verra automatiquement le prix de son pays.", bChooseCountry:"- Choisir -", bPriceEur:"Prix €", bNoPriceList:"Aucune liste de prix par pays. Le prix de base s'applique partout.", bDelete:"Supprimer", bDocsMsg:"Fiches techniques, certificats, ingrédients. Les distributeurs peuvent les télécharger depuis le catalogue.", bNoDocs:"Aucun document pour le moment.", bOpen:"Ouvrir", bDesc:"Description", bProdImg:"Image du produit", bOrExtUrl:"ou URL externe :", bNewProduct:"+ Nouveau produit", bCsvCols:"Colonnes CSV : name, sku, category, price, order_multiple, min_order_qty, description, image_url", bNoProducts:"Aucun produit dans le catalogue", bNoProductsMsg:"Ajoutez votre premier produit avec + Nouveau produit, ou importez un fichier Excel/CSV.", bEdit:"Modifier", bDoc:"Doc", bPrices:"Prix", bNoOrders:"Aucune commande pour le moment.", bInvoices:"Factures", bInvoicesMsg:"Factures de vente aux distributeurs et factures de commission NexusHub. Vous pouvez aussi téléverser votre facture officielle en PDF.", bAiTitle:"AI Brand Analytics", bAiSub:"Performance des distributeurs, meilleurs produits, saisonnalité et opportunités de croissance" });
+Object.assign(T.es, { bNoReq:"No hay solicitudes por el momento", bNoReqMsg:"Cuando un distribuidor solicite acceso a tus productos, aparecerá aquí para aprobación o bloqueo.", bApproveExcl:"Aprobar en exclusiva", bApproveShared:"Aprobar (compartido)", bBlock:"Bloquear", bBlockAccess:"Bloquear acceso", bUnblock:"Desbloquear", bDistSub:"Tus distribuidores autorizados · pedidos e ingresos en tiempo real", bNoDist:"No hay distribuidores activos", bNoDistMsg:"Cuando apruebas una solicitud en la pestaña Solicitudes, el distribuidor aparece aquí con sus pedidos e ingresos reales.", bSave:"Guardar", bpPricePre:"Precio base:", bpPricePost:". Establece un precio diferente para los mercados que quieras (p. ej. Alemania más alto). El distribuidor verá automáticamente el precio de su país.", bChooseCountry:"- Elegir -", bPriceEur:"Precio €", bNoPriceList:"No hay lista de precios por país. El precio base se aplica en todas partes.", bDelete:"Eliminar", bDocsMsg:"Fichas técnicas, certificados, ingredientes. Los distribuidores pueden descargarlos del catálogo.", bNoDocs:"Aún no hay documentos.", bOpen:"Abrir", bDesc:"Descripción", bProdImg:"Imagen del producto", bOrExtUrl:"o URL externa:", bNewProduct:"+ Nuevo producto", bCsvCols:"Columnas CSV: name, sku, category, price, order_multiple, min_order_qty, description, image_url", bNoProducts:"No hay productos en el catálogo", bNoProductsMsg:"Añade tu primer producto con + Nuevo producto, o importa un archivo Excel/CSV.", bEdit:"Editar", bDoc:"Doc", bPrices:"Precios", bNoOrders:"Aún no hay pedidos.", bInvoices:"Facturas", bInvoicesMsg:"Facturas de venta a distribuidores y facturas de comisión NexusHub. También puedes subir tu factura oficial en PDF.", bAiTitle:"AI Brand Analytics", bAiSub:"Rendimiento de distribuidores, productos top, estacionalidad y oportunidades de crecimiento" });
+Object.assign(T.de, { bNoReq:"Derzeit keine Anfragen", bNoReqMsg:"Wenn ein Händler Zugang zu Ihren Produkten anfragt, erscheint dies hier zur Genehmigung oder Sperrung.", bApproveExcl:"Exklusiv genehmigen", bApproveShared:"Genehmigen (geteilt)", bBlock:"Sperren", bBlockAccess:"Zugang sperren", bUnblock:"Entsperren", bDistSub:"Ihre autorisierten Händler · Bestellungen und Umsatz in Echtzeit", bNoDist:"Keine aktiven Händler", bNoDistMsg:"Wenn Sie eine Anfrage im Tab Bewerbungen genehmigen, erscheint der Händler hier mit seinen echten Bestellungen und Umsätzen.", bSave:"Speichern", bpPricePre:"Basispreis:", bpPricePost:". Legen Sie für gewünschte Märkte einen anderen Preis fest (z. B. Deutschland höher). Der Händler sieht automatisch den Preis für sein Land.", bChooseCountry:"- Wählen -", bPriceEur:"Preis €", bNoPriceList:"Keine länderspezifische Preisliste. Der Basispreis gilt überall.", bDelete:"Löschen", bDocsMsg:"Datenblätter, Zertifikate, Inhaltsstoffe. Händler können sie aus dem Katalog herunterladen.", bNoDocs:"Noch keine Dokumente.", bOpen:"Öffnen", bDesc:"Beschreibung", bProdImg:"Produktbild", bOrExtUrl:"oder externe URL:", bNewProduct:"+ Neues Produkt", bCsvCols:"CSV-Spalten: name, sku, category, price, order_multiple, min_order_qty, description, image_url", bNoProducts:"Keine Produkte im Katalog", bNoProductsMsg:"Fügen Sie Ihr erstes Produkt mit + Neues Produkt hinzu oder importieren Sie eine Excel/CSV-Datei.", bEdit:"Bearbeiten", bDoc:"Doc", bPrices:"Preise", bNoOrders:"Noch keine Bestellungen.", bInvoices:"Rechnungen", bInvoicesMsg:"Verkaufsrechnungen an Händler und NexusHub-Provisionsrechnungen. Sie können auch Ihre offizielle Rechnung als PDF hochladen.", bAiTitle:"AI Brand Analytics", bAiSub:"Händler-Performance, Top-Produkte, Saisonalität und Wachstumschancen" });
+Object.assign(T.zh, { bNoReq:"目前没有请求", bNoReqMsg:"当分销商请求访问您的产品时，将在此显示以供批准或屏蔽。", bApproveExcl:"独家批准", bApproveShared:"批准（共享）", bBlock:"屏蔽", bBlockAccess:"屏蔽访问", bUnblock:"取消屏蔽", bDistSub:"您的授权分销商 · 实时订单与营收", bNoDist:"暂无活跃分销商", bNoDistMsg:"当您在「申请」标签中批准请求后，分销商将连同其真实订单和营收显示在此处。", bSave:"保存", bpPricePre:"基础价格：", bpPricePost:"。为您想要的市场设置不同价格（例如德国更高）。分销商将自动看到其所在国家/地区的价格。", bChooseCountry:"- 选择 -", bPriceEur:"价格 €", bNoPriceList:"没有按国家/地区的价目表。基础价格适用于所有地区。", bDelete:"删除", bDocsMsg:"技术规格、证书、成分。分销商可从目录下载。", bNoDocs:"暂无文件。", bOpen:"打开", bDesc:"描述", bProdImg:"产品图片", bOrExtUrl:"或外部 URL：", bNewProduct:"+ 新产品", bCsvCols:"CSV 列：name, sku, category, price, order_multiple, min_order_qty, description, image_url", bNoProducts:"目录中暂无产品", bNoProductsMsg:"使用 + 新产品 添加您的第一个产品，或导入 Excel/CSV 文件。", bEdit:"编辑", bDoc:"文件", bPrices:"价格", bNoOrders:"暂无订单。", bInvoices:"发票", bInvoicesMsg:"向分销商开具的销售发票和 NexusHub 佣金发票。您也可以上传 PDF 格式的正式发票。", bAiTitle:"AI 品牌分析", bAiSub:"分销商业绩、热销产品、季节性与增长机会" });
+Object.assign(T.ar, { bNoReq:"لا توجد طلبات حاليًا", bNoReqMsg:"عندما يطلب موزّع الوصول إلى منتجاتك، سيظهر هنا للموافقة أو الحظر.", bApproveExcl:"موافقة حصرية", bApproveShared:"موافقة (مشتركة)", bBlock:"حظر", bBlockAccess:"حظر الوصول", bUnblock:"إلغاء الحظر", bDistSub:"موزّعوك المعتمدون · الطلبات والإيرادات في الوقت الفعلي", bNoDist:"لا يوجد موزّعون نشطون", bNoDistMsg:"عند الموافقة على طلب في تبويب الطلبات، يظهر الموزّع هنا مع طلباته وإيراداته الحقيقية.", bSave:"حفظ", bpPricePre:"السعر الأساسي:", bpPricePost:". حدّد سعرًا مختلفًا للأسواق التي تريدها (مثل ألمانيا أعلى). سيرى الموزّع تلقائيًا سعر بلده.", bChooseCountry:"- اختر -", bPriceEur:"السعر €", bNoPriceList:"لا توجد قائمة أسعار حسب البلد. يُطبَّق السعر الأساسي في كل مكان.", bDelete:"حذف", bDocsMsg:"أوراق البيانات والشهادات والمكونات. يمكن للموزّعين تنزيلها من الكتالوج.", bNoDocs:"لا توجد مستندات بعد.", bOpen:"فتح", bDesc:"الوصف", bProdImg:"صورة المنتج", bOrExtUrl:"أو رابط خارجي:", bNewProduct:"+ منتج جديد", bCsvCols:"أعمدة CSV: name, sku, category, price, order_multiple, min_order_qty, description, image_url", bNoProducts:"لا توجد منتجات في الكتالوج", bNoProductsMsg:"أضف أول منتج لك عبر + منتج جديد، أو استورد ملف Excel/CSV.", bEdit:"تعديل", bDoc:"مستند", bPrices:"الأسعار", bNoOrders:"لا توجد طلبات بعد.", bInvoices:"الفواتير", bInvoicesMsg:"فواتير البيع للموزّعين وفواتير عمولة NexusHub. يمكنك أيضًا رفع فاتورتك الرسمية بصيغة PDF.", bAiTitle:"تحليلات العلامة بالذكاء الاصطناعي", bAiSub:"أداء الموزّعين، أفضل المنتجات، الموسمية وفرص النمو" });
 
 
 
@@ -2993,8 +3000,8 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
             {accessReqs.length === 0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>
                 <div style={{ fontSize:40, marginBottom:12 }}>📭</div>
-                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:6 }}>Nessuna richiesta al momento</div>
-                <div style={{ fontSize:13, lineHeight:1.6, maxWidth:440, margin:"0 auto" }}>Quando un distributore richiederà l'accesso ai tuoi prodotti, comparirà qui per l'approvazione o il blocco.</div>
+                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:6 }}>{t("bNoReq")}</div>
+                <div style={{ fontSize:13, lineHeight:1.6, maxWidth:440, margin:"0 auto" }}>{t("bNoReqMsg")}</div>
               </div>
             ) : accessReqs.map(r => {
               const dist = r.distributor || {};
@@ -3015,17 +3022,17 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                 </div>
                 {r.status==="pending" ? (
                   <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
-                    <button onClick={() => handleAccess(r, "approved", true)} style={{ padding:"10px 18px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.gold}20`, border:`1px solid ${C.gold}55`, color:C.gold }}>🔒 Approva in esclusiva</button>
-                    <button onClick={() => handleAccess(r, "approved", false)} style={{ padding:"10px 18px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.green}18`, border:`1px solid ${C.green}50`, color:C.green }}>✓ Approva (condiviso)</button>
-                    <button onClick={() => handleAccess(r, "blocked")} style={{ padding:"10px 22px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.red}12`, border:`1px solid ${C.red}40`, color:C.red }}>✗ Blocca</button>
+                    <button onClick={() => handleAccess(r, "approved", true)} style={{ padding:"10px 18px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.gold}20`, border:`1px solid ${C.gold}55`, color:C.gold }}>🔒 {t("bApproveExcl")}</button>
+                    <button onClick={() => handleAccess(r, "approved", false)} style={{ padding:"10px 18px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.green}18`, border:`1px solid ${C.green}50`, color:C.green }}>✓ {t("bApproveShared")}</button>
+                    <button onClick={() => handleAccess(r, "blocked")} style={{ padding:"10px 22px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.red}12`, border:`1px solid ${C.red}40`, color:C.red }}>✗ {t("bBlock")}</button>
                   </div>
                 ) : (
                   <div style={{ display:"flex", alignItems:"center", gap:10, flexWrap:"wrap" }}>
                     <div style={{ padding:"11px 16px", borderRadius:8, background:r.status==="approved"?`${C.green}12`:`${C.red}12`, border:`1px solid ${r.status==="approved"?C.green:C.red}30`, fontSize:13, color:r.status==="approved"?C.green:C.red, fontWeight:600 }}>
                       {r.status==="approved"?"✓ Accesso approvato — può ordinare i tuoi prodotti":"🚫 Accesso bloccato"}
                     </div>
-                    {r.status==="approved" && <button onClick={() => handleAccess(r, "blocked")} style={{ padding:"9px 18px", borderRadius:8, cursor:"pointer", fontSize:12, background:"transparent", border:`1px solid ${C.red}40`, color:C.red }}>Blocca accesso</button>}
-                    {r.status==="blocked" && <button onClick={() => handleAccess(r, "approved")} style={{ padding:"9px 18px", borderRadius:8, cursor:"pointer", fontSize:12, background:"transparent", border:`1px solid ${C.green}40`, color:C.green }}>Sblocca</button>}
+                    {r.status==="approved" && <button onClick={() => handleAccess(r, "blocked")} style={{ padding:"9px 18px", borderRadius:8, cursor:"pointer", fontSize:12, background:"transparent", border:`1px solid ${C.red}40`, color:C.red }}>{t("bBlockAccess")}</button>}
+                    {r.status==="blocked" && <button onClick={() => handleAccess(r, "approved")} style={{ padding:"9px 18px", borderRadius:8, cursor:"pointer", fontSize:12, background:"transparent", border:`1px solid ${C.green}40`, color:C.green }}>{t("bUnblock")}</button>}
                   </div>
                 )}
               </div>
@@ -3036,7 +3043,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
         {tab==="distributors" && (
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("distTitle")}</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>I tuoi distributori autorizzati · ordini e fatturato in tempo reale</p>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("bDistSub")}</p>
             {(() => {
               const active = accessReqs.filter(r => r.status === "approved");
               const stats = {};
@@ -3049,8 +3056,8 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
               if (active.length === 0) return (
                 <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>
                   <div style={{ fontSize:40, marginBottom:12 }}>⬡</div>
-                  <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:6 }}>Nessun distributore attivo</div>
-                  <div style={{ fontSize:13, lineHeight:1.6, maxWidth:440, margin:"0 auto" }}>Quando approvi una richiesta nella tab Candidature, il distributore comparirà qui con i suoi ordini e il fatturato reali.</div>
+                  <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:6 }}>{t("bNoDist")}</div>
+                  <div style={{ fontSize:13, lineHeight:1.6, maxWidth:440, margin:"0 auto" }}>{t("bNoDistMsg")}</div>
                 </div>
               );
               return (
@@ -3089,11 +3096,11 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                                   onChange={e => { const v = e.target.value; setAccessReqs(prev => prev.map(x => x.id===r.id ? { ...x, discount_pct: v } : x)); }}
                                   style={{ width:60, padding:"6px 8px", borderRadius:7, background:C.bg, border:`1px solid ${C.border}`, color:C.text, fontSize:13 }}/>
                                 <span style={{ fontSize:12, color:C.textMuted }}>%</span>
-                                <button onClick={() => saveDiscount(r, r.discount_pct)} style={{ padding:"6px 12px", borderRadius:7, cursor:"pointer", fontSize:12, fontWeight:600, background:`${C.green}15`, border:`1px solid ${C.green}45`, color:C.green }}>Salva</button>
+                                <button onClick={() => saveDiscount(r, r.discount_pct)} style={{ padding:"6px 12px", borderRadius:7, cursor:"pointer", fontSize:12, fontWeight:600, background:`${C.green}15`, border:`1px solid ${C.green}45`, color:C.green }}>{t("bSave")}</button>
                               </div>
                             </td>
                             <td style={{ padding:"13px 16px" }}>
-                              <button onClick={() => handleAccess(r, "blocked")} style={{ padding:"6px 14px", borderRadius:7, cursor:"pointer", fontSize:12, background:"transparent", border:`1px solid ${C.red}40`, color:C.red, whiteSpace:"nowrap" }}>Blocca</button>
+                              <button onClick={() => handleAccess(r, "blocked")} style={{ padding:"6px 14px", borderRadius:7, cursor:"pointer", fontSize:12, background:"transparent", border:`1px solid ${C.red}40`, color:C.red, whiteSpace:"nowrap" }}>{t("bBlock")}</button>
                             </td>
                           </tr>
                         );
@@ -3110,42 +3117,42 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
         )}
         {bPricesProduct && (
           <Modal title={"Listini per paese - " + (bPricesProduct.name || "")} onClose={() => setBPricesProduct(null)} onSave={() => setBPricesProduct(null)} saveLabel="Fatto">
-            <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 6px" }}>Prezzo base: <b style={{ color:C.goldLight }}>€{Number(bPricesProduct.unit_price||0).toFixed(2)}</b>. Imposta un prezzo diverso per i mercati che vuoi (es. Germania piu alto). Il distributore vedra automaticamente il prezzo del suo paese.</p>
+            <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 6px" }}>{t("bpPricePre")} <b style={{ color:C.goldLight }}>€{Number(bPricesProduct.unit_price||0).toFixed(2)}</b>{t("bpPricePost")}</p>
             <div style={{ display:"flex", gap:8, alignItems:"flex-end", margin:"14px 0 16px" }}>
               <div style={{ flex:1 }}>
-                <label style={{ fontSize:11, color:C.textMuted, display:"block", marginBottom:5 }}>Paese</label>
+                <label style={{ fontSize:11, color:C.textMuted, display:"block", marginBottom:5 }}>{t("country")}</label>
                 <select value={bPriceForm.country} onChange={e => setBPriceForm(f => ({...f, country:e.target.value}))} style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}>
-                  <option value="">- Scegli -</option>
+                  <option value="">{t("bChooseCountry")}</option>
                   {[["IT","Italia"],["DE","Germania"],["FR","Francia"],["ES","Spagna"],["RO","Romania"],["NL","Paesi Bassi"],["BE","Belgio"],["PT","Portogallo"],["AT","Austria"],["PL","Polonia"],["GR","Grecia"],["BG","Bulgaria"],["HU","Ungheria"],["CZ","Rep. Ceca"],["HR","Croazia"],["SE","Svezia"],["DK","Danimarca"],["FI","Finlandia"],["IE","Irlanda"],["AL","Albania"],["CH","Svizzera"],["GB","Regno Unito"]].map(([c,l]) => <option key={c} value={c}>{l} ({c})</option>)}
                 </select>
               </div>
               <div style={{ width:120 }}>
-                <label style={{ fontSize:11, color:C.textMuted, display:"block", marginBottom:5 }}>Prezzo €</label>
+                <label style={{ fontSize:11, color:C.textMuted, display:"block", marginBottom:5 }}>{t("bPriceEur")}</label>
                 <input type="text" inputMode="decimal" value={bPriceForm.price} onChange={e => setBPriceForm(f => ({...f, price:e.target.value}))} placeholder="0.00" style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
               </div>
-              <button onClick={bSavePrice} style={{ padding:"10px 16px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>Salva</button>
+              <button onClick={bSavePrice} style={{ padding:"10px 16px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>{t("bSave")}</button>
             </div>
             {bPrices.length === 0 ? (
-              <div style={{ textAlign:"center", padding:12, color:C.textMuted, fontSize:13 }}>Nessun listino per paese. Vale il prezzo base ovunque.</div>
+              <div style={{ textAlign:"center", padding:12, color:C.textMuted, fontSize:13 }}>{t("bNoPriceList")}</div>
             ) : bPrices.map(pr => (
               <div key={pr.id} style={{ display:"flex", alignItems:"center", gap:10, padding:"9px 12px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:8, marginBottom:7 }}>
                 <span style={{ fontSize:13, fontWeight:700, color:C.text, width:60 }}>{pr.country}</span>
                 <span style={{ flex:1, fontSize:13, color:C.goldLight, fontWeight:700 }}>€{Number(pr.price).toFixed(2)}</span>
-                <button onClick={() => bDeletePrice(pr.id)} style={{ fontSize:11, color:C.red, background:"transparent", border:`1px solid ${C.red}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer" }}>Elimina</button>
+                <button onClick={() => bDeletePrice(pr.id)} style={{ fontSize:11, color:C.red, background:"transparent", border:`1px solid ${C.red}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer" }}>{t("bDelete")}</button>
               </div>
             ))}
           </Modal>
         )}
         {bDocsProduct && (
           <Modal title={"Documenti · " + (bDocsProduct.name || "Prodotto")} onClose={() => { setBDocsProduct(null); setBDocs([]); }} onSave={() => { setBDocsProduct(null); setBDocs([]); }} saveLabel="Fatto">
-            <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 14px" }}>Schede tecniche, certificati, ingredienti. I distributori potranno scaricarli dal catalogo.</p>
+            <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 14px" }}>{t("bDocsMsg")}</p>
             <label style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6, padding:"18px 12px", borderRadius:10, cursor:"pointer", background:C.surface2, border:`1px dashed ${C.gold}55`, textAlign:"center", marginBottom:16 }}>
               <input type="file" style={{ display:"none" }} disabled={bDocsBusy} onChange={e => { const f=e.target.files&&e.target.files[0]; if(f) bUploadDoc(f); if(e.target) e.target.value=""; }}/>
               <span style={{ fontSize:22 }}>{bDocsBusy ? "⏳" : "📎"}</span>
               <span style={{ fontSize:12, color:C.textMuted }}>{bDocsBusy ? "Caricamento..." : "Carica un documento (PDF, immagine, ecc.)"}</span>
             </label>
             {bDocs.length === 0 ? (
-              <div style={{ textAlign:"center", padding:16, color:C.textMuted, fontSize:13 }}>Nessun documento ancora.</div>
+              <div style={{ textAlign:"center", padding:16, color:C.textMuted, fontSize:13 }}>{t("bNoDocs")}</div>
             ) : bDocs.map(d => (
               <div key={d.id} style={{ display:"flex", alignItems:"center", gap:10, padding:"10px 12px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:8, marginBottom:8 }}>
                 <span style={{ fontSize:18 }}>📄</span>
@@ -3153,8 +3160,8 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                   <div style={{ fontSize:13, color:C.text, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{d.name}</div>
                   <div style={{ fontSize:10, color:C.textMuted }}>{new Date(d.created_at).toLocaleDateString("it-IT")}</div>
                 </div>
-                <a href={d.file_url} target="_blank" rel="noreferrer" style={{ fontSize:11, color:C.blue, textDecoration:"none", padding:"4px 10px", border:`1px solid ${C.blue}40`, borderRadius:6 }}>Apri</a>
-                <button onClick={() => bDeleteDoc(d.id)} style={{ fontSize:11, color:C.red, background:"transparent", border:`1px solid ${C.red}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer" }}>Elimina</button>
+                <a href={d.file_url} target="_blank" rel="noreferrer" style={{ fontSize:11, color:C.blue, textDecoration:"none", padding:"4px 10px", border:`1px solid ${C.blue}40`, borderRadius:6 }}>{t("bOpen")}</a>
+                <button onClick={() => bDeleteDoc(d.id)} style={{ fontSize:11, color:C.red, background:"transparent", border:`1px solid ${C.red}40`, borderRadius:6, padding:"4px 10px", cursor:"pointer" }}>{t("bDelete")}</button>
               </div>
             ))}
           </Modal>
@@ -3179,11 +3186,11 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
               ))}
             </div>
             <div style={{ marginBottom:14 }}>
-              <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Descrizione</label>
+              <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{t("bDesc")}</label>
               <textarea value={bProductForm.description} onChange={e => setBProductForm(f => ({...f, description: e.target.value}))} rows={2} style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", resize:"vertical" }}/>
             </div>
             <div style={{ marginBottom:4 }}>
-              <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:8 }}>Immagine Prodotto</label>
+              <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:8 }}>{t("bProdImg")}</label>
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
                 <label style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6, padding:"16px 12px", borderRadius:10, cursor:"pointer", background: bProductForm.image_file ? `${C.green}10` : C.surface2, border:`1px dashed ${bProductForm.image_file ? C.green : C.border}`, textAlign:"center" }}>
                   <input type="file" accept="image/*" style={{ display:"none" }} onChange={e => { const f=e.target.files?.[0]; if(f) setBProductForm(p=>({...p,image_file:f,image_url:""})); }}/>
@@ -3191,7 +3198,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                   <span style={{ fontSize:11, color: bProductForm.image_file ? C.green : C.textMuted }}>{bProductForm.image_file ? bProductForm.image_file.name : "Carica immagine"}</span>
                 </label>
                 <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
-                  <span style={{ fontSize:11, color:C.textMuted }}>oppure URL esterno:</span>
+                  <span style={{ fontSize:11, color:C.textMuted }}>{t("bOrExtUrl")}</span>
                   <input type="text" value={bProductForm.image_url} onChange={e => setBProductForm(p=>({...p,image_url:e.target.value,image_file:null}))} placeholder="https://..." style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
                 </div>
               </div>
@@ -3210,21 +3217,21 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                   📊 {bImportLoading ? "Importando..." : "Import Excel/CSV"}
                   <input type="file" accept=".csv,.xlsx,.xls,.tsv" style={{ display:"none" }} onChange={e => { const f = e.target.files?.[0]; if(f) bImportProducts(f); e.target.value=""; }}/>
                 </label>
-                <button onClick={() => { setBEditingProduct(null); setBProductForm({ name:"", sku:"", category:"", size:"", price:"", order_multiple:"", min_order_qty:"", max_order_qty:"", description:"", image_url:"", image_file:null }); setBShowAddProduct(true); }} style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ Nuovo Prodotto</button>
+                <button onClick={() => { setBEditingProduct(null); setBProductForm({ name:"", sku:"", category:"", size:"", price:"", order_multiple:"", min_order_qty:"", max_order_qty:"", description:"", image_url:"", image_file:null }); setBShowAddProduct(true); }} style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>{t("bNewProduct")}</button>
               </div>
             </div>
             {bImportResults && (
               <div style={{ padding:"12px 16px", background:`${C.green}12`, border:`1px solid ${C.green}30`, borderRadius:10, marginBottom:16, fontSize:13, color:C.green }}>
                 ✓ Import completato: {bImportResults.success} prodotti{bImportResults.errors > 0 ? `, ${bImportResults.errors} errori` : ""}
                 <button onClick={() => setBImportResults(null)} style={{ marginLeft:12, background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:12 }}>×</button>
-                <div style={{ marginTop:6, fontSize:11, color:C.textMuted }}>Colonne CSV: name, sku, category, price, order_multiple, min_order_qty, description, image_url</div>
+                <div style={{ marginTop:6, fontSize:11, color:C.textMuted }}>{t("bCsvCols")}</div>
               </div>
             )}
             {brandProducts.length === 0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>
                 <div style={{ fontSize:40, marginBottom:12 }}>📦</div>
-                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:6 }}>Nessun prodotto nel catalogo</div>
-                <div style={{ fontSize:13, lineHeight:1.6, maxWidth:440, margin:"0 auto" }}>Aggiungi il tuo primo prodotto con "+ Nuovo Prodotto" oppure importa un file Excel/CSV.</div>
+                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:6 }}>{t("bNoProducts")}</div>
+                <div style={{ fontSize:13, lineHeight:1.6, maxWidth:440, margin:"0 auto" }}>{t("bNoProductsMsg")}</div>
               </div>
             ) : (
               <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
@@ -3254,9 +3261,9 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                         <td style={{ padding:"11px 14px" }}><Badge status={p.is_active?"active":"rejected"}/></td>
                         <td style={{ padding:"11px 14px" }}>
                           <div style={{ display:"flex", gap:6 }}>
-                            <button onClick={() => { setBEditingProduct(p); setBProductForm({ name:p.name||"", sku:p.sku||"", category:p.category||"", size:"", price:p.unit_price?.toString()||"", order_multiple:p.order_multiple||"", min_order_qty:p.min_order_qty||"", max_order_qty:p.max_order_qty||"", description:p.description||"", image_url:p.image_url||"", image_file:null }); setBShowAddProduct(true); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>Modifica</button>
-                            <button onClick={() => openBDocs(p)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.gold}15`, border:`1px solid ${C.gold}40`, color:C.goldLight }}>📎 Doc</button>
-                            <button onClick={() => openBPrices(p)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>€ Prezzi</button>
+                            <button onClick={() => { setBEditingProduct(p); setBProductForm({ name:p.name||"", sku:p.sku||"", category:p.category||"", size:"", price:p.unit_price?.toString()||"", order_multiple:p.order_multiple||"", min_order_qty:p.min_order_qty||"", max_order_qty:p.max_order_qty||"", description:p.description||"", image_url:p.image_url||"", image_file:null }); setBShowAddProduct(true); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>{t("bEdit")}</button>
+                            <button onClick={() => openBDocs(p)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.gold}15`, border:`1px solid ${C.gold}40`, color:C.goldLight }}>📎 {t("bDoc")}</button>
+                            <button onClick={() => openBPrices(p)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>€ {t("bPrices")}</button>
                             <button onClick={async () => { await supabase.from("products").update({ is_active:!p.is_active }).eq("id",p.id); reloadBrandProducts(); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted }}>{p.is_active?"Disattiva":"Attiva"}</button>
                           </div>
                         </td>
@@ -3280,7 +3287,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
               <Stat icon="⚡" label={t("statAvgDispatch")} value={t("statAvgDispatchVal")} sub={t("statAvgDispatchSub")} accent={C.green}/>
             </div>
             {brandOrders.length === 0 ? (
-              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>Nessun ordine ancora.</div>
+              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>{t("bNoOrders")}</div>
             ) : (
               <Table minWidth={900}
                 headers={["Ordine","Distributore","Articoli","Valore","Stato","Tracking","Voto","Data"]}
@@ -3301,10 +3308,10 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
         {brandInvoiceView && <InvoiceModal inv={brandInvoiceView} onClose={()=>setBrandInvoiceView(null)}/>}
         {tab==="fatture" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🧾 Fatture</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Fatture di vendita ai distributori e fatture di commissione NexusHub. Puoi anche caricare la tua fattura ufficiale in PDF.</p>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🧾 {t("bInvoices")}</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("bInvoicesMsg")}</p>
             {brandInvoices.length===0 ? (
-              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>Nessuna fattura ancora.</div>
+              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>{t("diNoInvoices")}</div>
             ) : (
               <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:760 }}>
@@ -3323,7 +3330,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                             </label>
                           ) : <span style={{ fontSize:11, color:C.textDim }}>—</span>)}
                         </td>
-                        <td style={{ padding:"11px 14px" }}><button onClick={()=>setBrandInvoiceView(inv)} style={{ padding:"5px 12px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.blue}15`, border:`1px solid ${C.blue}45`, color:C.blue }}>Vedi</button></td>
+                        <td style={{ padding:"11px 14px" }}><button onClick={()=>setBrandInvoiceView(inv)} style={{ padding:"5px 12px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.blue}15`, border:`1px solid ${C.blue}45`, color:C.blue }}>{t("diView")}</button></td>
                       </tr>
                     ); })}
                   </tbody>
@@ -3337,8 +3344,8 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <NexusAI role="brand"/>
             <div style={{ height:1, background:C.border, margin:"28px 0" }}/>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🤖 AI Brand Analytics</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Performance distributori, top prodotti, stagionalità e opportunità di crescita</p>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🤖 {t("bAiTitle")}</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("bAiSub")}</p>
             <InventoryForecast products={brandProducts} orders={brandOrders}/>
             <BrandAnalytics
               distributors={accessReqs.filter(r=>r.status==="approved").map(r=>({ id:r.distributor_id, company:r.distributor?.company_name||"Distributore", country:r.distributor?.country||"" }))}
