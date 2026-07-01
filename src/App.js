@@ -678,6 +678,13 @@ Object.assign(T.es, { bNoReq:"No hay solicitudes por el momento", bNoReqMsg:"Cua
 Object.assign(T.de, { bNoReq:"Derzeit keine Anfragen", bNoReqMsg:"Wenn ein Händler Zugang zu Ihren Produkten anfragt, erscheint dies hier zur Genehmigung oder Sperrung.", bApproveExcl:"Exklusiv genehmigen", bApproveShared:"Genehmigen (geteilt)", bBlock:"Sperren", bBlockAccess:"Zugang sperren", bUnblock:"Entsperren", bDistSub:"Ihre autorisierten Händler · Bestellungen und Umsatz in Echtzeit", bNoDist:"Keine aktiven Händler", bNoDistMsg:"Wenn Sie eine Anfrage im Tab Bewerbungen genehmigen, erscheint der Händler hier mit seinen echten Bestellungen und Umsätzen.", bSave:"Speichern", bpPricePre:"Basispreis:", bpPricePost:". Legen Sie für gewünschte Märkte einen anderen Preis fest (z. B. Deutschland höher). Der Händler sieht automatisch den Preis für sein Land.", bChooseCountry:"- Wählen -", bPriceEur:"Preis €", bNoPriceList:"Keine länderspezifische Preisliste. Der Basispreis gilt überall.", bDelete:"Löschen", bDocsMsg:"Datenblätter, Zertifikate, Inhaltsstoffe. Händler können sie aus dem Katalog herunterladen.", bNoDocs:"Noch keine Dokumente.", bOpen:"Öffnen", bDesc:"Beschreibung", bProdImg:"Produktbild", bOrExtUrl:"oder externe URL:", bNewProduct:"+ Neues Produkt", bCsvCols:"CSV-Spalten: name, sku, category, price, order_multiple, min_order_qty, description, image_url", bNoProducts:"Keine Produkte im Katalog", bNoProductsMsg:"Fügen Sie Ihr erstes Produkt mit + Neues Produkt hinzu oder importieren Sie eine Excel/CSV-Datei.", bEdit:"Bearbeiten", bDoc:"Doc", bPrices:"Preise", bNoOrders:"Noch keine Bestellungen.", bInvoices:"Rechnungen", bInvoicesMsg:"Verkaufsrechnungen an Händler und NexusHub-Provisionsrechnungen. Sie können auch Ihre offizielle Rechnung als PDF hochladen.", bAiTitle:"AI Brand Analytics", bAiSub:"Händler-Performance, Top-Produkte, Saisonalität und Wachstumschancen" });
 Object.assign(T.zh, { bNoReq:"目前没有请求", bNoReqMsg:"当分销商请求访问您的产品时，将在此显示以供批准或屏蔽。", bApproveExcl:"独家批准", bApproveShared:"批准（共享）", bBlock:"屏蔽", bBlockAccess:"屏蔽访问", bUnblock:"取消屏蔽", bDistSub:"您的授权分销商 · 实时订单与营收", bNoDist:"暂无活跃分销商", bNoDistMsg:"当您在「申请」标签中批准请求后，分销商将连同其真实订单和营收显示在此处。", bSave:"保存", bpPricePre:"基础价格：", bpPricePost:"。为您想要的市场设置不同价格（例如德国更高）。分销商将自动看到其所在国家/地区的价格。", bChooseCountry:"- 选择 -", bPriceEur:"价格 €", bNoPriceList:"没有按国家/地区的价目表。基础价格适用于所有地区。", bDelete:"删除", bDocsMsg:"技术规格、证书、成分。分销商可从目录下载。", bNoDocs:"暂无文件。", bOpen:"打开", bDesc:"描述", bProdImg:"产品图片", bOrExtUrl:"或外部 URL：", bNewProduct:"+ 新产品", bCsvCols:"CSV 列：name, sku, category, price, order_multiple, min_order_qty, description, image_url", bNoProducts:"目录中暂无产品", bNoProductsMsg:"使用 + 新产品 添加您的第一个产品，或导入 Excel/CSV 文件。", bEdit:"编辑", bDoc:"文件", bPrices:"价格", bNoOrders:"暂无订单。", bInvoices:"发票", bInvoicesMsg:"向分销商开具的销售发票和 NexusHub 佣金发票。您也可以上传 PDF 格式的正式发票。", bAiTitle:"AI 品牌分析", bAiSub:"分销商业绩、热销产品、季节性与增长机会" });
 Object.assign(T.ar, { bNoReq:"لا توجد طلبات حاليًا", bNoReqMsg:"عندما يطلب موزّع الوصول إلى منتجاتك، سيظهر هنا للموافقة أو الحظر.", bApproveExcl:"موافقة حصرية", bApproveShared:"موافقة (مشتركة)", bBlock:"حظر", bBlockAccess:"حظر الوصول", bUnblock:"إلغاء الحظر", bDistSub:"موزّعوك المعتمدون · الطلبات والإيرادات في الوقت الفعلي", bNoDist:"لا يوجد موزّعون نشطون", bNoDistMsg:"عند الموافقة على طلب في تبويب الطلبات، يظهر الموزّع هنا مع طلباته وإيراداته الحقيقية.", bSave:"حفظ", bpPricePre:"السعر الأساسي:", bpPricePost:". حدّد سعرًا مختلفًا للأسواق التي تريدها (مثل ألمانيا أعلى). سيرى الموزّع تلقائيًا سعر بلده.", bChooseCountry:"- اختر -", bPriceEur:"السعر €", bNoPriceList:"لا توجد قائمة أسعار حسب البلد. يُطبَّق السعر الأساسي في كل مكان.", bDelete:"حذف", bDocsMsg:"أوراق البيانات والشهادات والمكونات. يمكن للموزّعين تنزيلها من الكتالوج.", bNoDocs:"لا توجد مستندات بعد.", bOpen:"فتح", bDesc:"الوصف", bProdImg:"صورة المنتج", bOrExtUrl:"أو رابط خارجي:", bNewProduct:"+ منتج جديد", bCsvCols:"أعمدة CSV: name, sku, category, price, order_multiple, min_order_qty, description, image_url", bNoProducts:"لا توجد منتجات في الكتالوج", bNoProductsMsg:"أضف أول منتج لك عبر + منتج جديد، أو استورد ملف Excel/CSV.", bEdit:"تعديل", bDoc:"مستند", bPrices:"الأسعار", bNoOrders:"لا توجد طلبات بعد.", bInvoices:"الفواتير", bInvoicesMsg:"فواتير البيع للموزّعين وفواتير عمولة NexusHub. يمكنك أيضًا رفع فاتورتك الرسمية بصيغة PDF.", bAiTitle:"تحليلات العلامة بالذكاء الاصطناعي", bAiSub:"أداء الموزّعين، أفضل المنتجات، الموسمية وفرص النمو" });
+Object.assign(T.en, { ckBlocked:"Access blocked by the brand", ckDocsTab:"Documents / sheets", ckInvoicesTab:"My invoices", ckTotalOrders:"Total Orders", ckTotalSpent:"Total Spent", ckPending:"Pending", ckDelivered:"Delivered", ckAllTime:"All time", ckAllOrders:"All orders", ckStShipped:"Shipped — delivery 48h", ckStDelivered:"Delivered", ckStWaiting:"Awaiting confirmation", ckStConfirmed:"Confirmed — preparing at the Turin hub", ckDisputePh:"Describe what happened...", ckConfirmOrder:"Confirm Order", ckTotal:"Total", ckChoosePayment:"Choose Payment Method", ckSepaName:"SEPA Bank Transfer", ckFree12:"Free · 1-2 business days", ckUnits:"units", ckPaySepaTo:"Make the transfer directly to the brand:", ckAccountHolder:"Account holder", ckBank:"Bank", ckCausale:"Reference:", ckReserveInfo:"Stock reserved instantly · Automatic invoice via email · Delivery:", ck48Torino:"48h from Turin", ckCardName:"Credit / Debit Card", ckInstant:"Instant · Powered by Stripe", ckSddDesc:"Automatic debit · Free", ckNoteOpt:"Note (optional)", ckNotePh:"Special delivery instructions...", ckOrderSent:"Order Sent!", ckOrderSentPre:"Your order has been ", ckOrderSentStrong:"confirmed automatically", ckOrderSentPost:". Your stock has been reserved for you. You'll receive an email with the order details and the bank details for payment via SEPA transfer.", ckDeliveryEst:"Estimated delivery: 48h from the Turin hub" });
+Object.assign(T.it, { ckBlocked:"Accesso bloccato dal brand", ckDocsTab:"Documenti / schede", ckInvoicesTab:"Le mie fatture", ckTotalOrders:"Ordini totali", ckTotalSpent:"Totale speso", ckPending:"In attesa", ckDelivered:"Consegnati", ckAllTime:"Da sempre", ckAllOrders:"Tutti gli ordini", ckStShipped:"Spedito — consegna 48h", ckStDelivered:"Consegnato", ckStWaiting:"In attesa di conferma", ckStConfirmed:"Confermato — in preparazione all'hub di Torino", ckDisputePh:"Descrivi cosa e successo...", ckConfirmOrder:"Conferma Ordine", ckTotal:"Totale", ckChoosePayment:"Scegli Metodo di Pagamento", ckSepaName:"Bonifico SEPA", ckFree12:"Gratuito · 1-2 giorni lavorativi", ckUnits:"unità", ckPaySepaTo:"Effettua il bonifico direttamente al brand:", ckAccountHolder:"Intestatario", ckBank:"Banca", ckCausale:"Causale:", ckReserveInfo:"Stock riservato subito · Fattura automatica via email · Consegna:", ck48Torino:"48h da Torino", ckCardName:"Carta di Credito / Debito", ckInstant:"Istantaneo · Powered by Stripe", ckSddDesc:"Addebito automatico · Gratuito", ckNoteOpt:"Note (opzionale)", ckNotePh:"Istruzioni speciali per la consegna...", ckOrderSent:"Ordine Inviato!", ckOrderSentPre:"Il tuo ordine è stato ", ckOrderSentStrong:"confermato automaticamente", ckOrderSentPost:". Lo stock è stato riservato per te. Riceverai una email con i dettagli dell'ordine e le coordinate bancarie per il pagamento via bonifico SEPA.", ckDeliveryEst:"Consegna stimata: 48h dall'hub di Torino" });
+Object.assign(T.fr, { ckBlocked:"Accès bloqué par la marque", ckDocsTab:"Documents / fiches", ckInvoicesTab:"Mes factures", ckTotalOrders:"Commandes totales", ckTotalSpent:"Total dépensé", ckPending:"En attente", ckDelivered:"Livrées", ckAllTime:"Depuis toujours", ckAllOrders:"Toutes les commandes", ckStShipped:"Expédié — livraison 48h", ckStDelivered:"Livré", ckStWaiting:"En attente de confirmation", ckStConfirmed:"Confirmé — en préparation au hub de Turin", ckDisputePh:"Décrivez ce qui s'est passé...", ckConfirmOrder:"Confirmer la commande", ckTotal:"Total", ckChoosePayment:"Choisissez le mode de paiement", ckSepaName:"Virement SEPA", ckFree12:"Gratuit · 1-2 jours ouvrés", ckUnits:"unités", ckPaySepaTo:"Effectuez le virement directement à la marque :", ckAccountHolder:"Titulaire", ckBank:"Banque", ckCausale:"Référence :", ckReserveInfo:"Stock réservé immédiatement · Facture automatique par e-mail · Livraison :", ck48Torino:"48h depuis Turin", ckCardName:"Carte de crédit / débit", ckInstant:"Instantané · Powered by Stripe", ckSddDesc:"Prélèvement automatique · Gratuit", ckNoteOpt:"Note (facultatif)", ckNotePh:"Instructions de livraison spéciales...", ckOrderSent:"Commande envoyée !", ckOrderSentPre:"Votre commande a été ", ckOrderSentStrong:"confirmée automatiquement", ckOrderSentPost:". Votre stock a été réservé pour vous. Vous recevrez un e-mail avec les détails de la commande et les coordonnées bancaires pour le paiement par virement SEPA.", ckDeliveryEst:"Livraison estimée : 48h depuis le hub de Turin" });
+Object.assign(T.es, { ckBlocked:"Acceso bloqueado por la marca", ckDocsTab:"Documentos / fichas", ckInvoicesTab:"Mis facturas", ckTotalOrders:"Pedidos totales", ckTotalSpent:"Total gastado", ckPending:"Pendiente", ckDelivered:"Entregados", ckAllTime:"Histórico", ckAllOrders:"Todos los pedidos", ckStShipped:"Enviado — entrega 48h", ckStDelivered:"Entregado", ckStWaiting:"Esperando confirmación", ckStConfirmed:"Confirmado — en preparación en el hub de Turín", ckDisputePh:"Describe qué ha pasado...", ckConfirmOrder:"Confirmar pedido", ckTotal:"Total", ckChoosePayment:"Elige método de pago", ckSepaName:"Transferencia SEPA", ckFree12:"Gratis · 1-2 días hábiles", ckUnits:"unidades", ckPaySepaTo:"Realiza la transferencia directamente a la marca:", ckAccountHolder:"Titular", ckBank:"Banco", ckCausale:"Concepto:", ckReserveInfo:"Stock reservado al instante · Factura automática por correo · Entrega:", ck48Torino:"48h desde Turín", ckCardName:"Tarjeta de crédito / débito", ckInstant:"Instantáneo · Powered by Stripe", ckSddDesc:"Adeudo automático · Gratis", ckNoteOpt:"Nota (opcional)", ckNotePh:"Instrucciones especiales de entrega...", ckOrderSent:"¡Pedido enviado!", ckOrderSentPre:"Tu pedido ha sido ", ckOrderSentStrong:"confirmado automáticamente", ckOrderSentPost:". Tu stock ha sido reservado. Recibirás un correo con los detalles del pedido y los datos bancarios para el pago por transferencia SEPA.", ckDeliveryEst:"Entrega estimada: 48h desde el hub de Turín" });
+Object.assign(T.de, { ckBlocked:"Zugang von der Marke gesperrt", ckDocsTab:"Dokumente / Datenblätter", ckInvoicesTab:"Meine Rechnungen", ckTotalOrders:"Bestellungen gesamt", ckTotalSpent:"Gesamtausgaben", ckPending:"Ausstehend", ckDelivered:"Geliefert", ckAllTime:"Gesamt", ckAllOrders:"Alle Bestellungen", ckStShipped:"Versandt — Lieferung 48h", ckStDelivered:"Geliefert", ckStWaiting:"Warten auf Bestätigung", ckStConfirmed:"Bestätigt — Vorbereitung im Turin-Hub", ckDisputePh:"Beschreiben Sie, was passiert ist...", ckConfirmOrder:"Bestellung bestätigen", ckTotal:"Gesamt", ckChoosePayment:"Zahlungsmethode wählen", ckSepaName:"SEPA-Überweisung", ckFree12:"Kostenlos · 1-2 Werktage", ckUnits:"Einheiten", ckPaySepaTo:"Überweisen Sie direkt an die Marke:", ckAccountHolder:"Kontoinhaber", ckBank:"Bank", ckCausale:"Verwendungszweck:", ckReserveInfo:"Bestand sofort reserviert · Automatische Rechnung per E-Mail · Lieferung:", ck48Torino:"48h ab Turin", ckCardName:"Kredit-/Debitkarte", ckInstant:"Sofort · Powered by Stripe", ckSddDesc:"Automatische Abbuchung · Kostenlos", ckNoteOpt:"Notiz (optional)", ckNotePh:"Besondere Lieferhinweise...", ckOrderSent:"Bestellung gesendet!", ckOrderSentPre:"Ihre Bestellung wurde ", ckOrderSentStrong:"automatisch bestätigt", ckOrderSentPost:". Ihr Bestand wurde für Sie reserviert. Sie erhalten eine E-Mail mit den Bestelldetails und den Bankdaten für die Zahlung per SEPA-Überweisung.", ckDeliveryEst:"Voraussichtliche Lieferung: 48h ab dem Turin-Hub" });
+Object.assign(T.zh, { ckBlocked:"已被品牌屏蔽访问", ckDocsTab:"文件 / 规格", ckInvoicesTab:"我的发票", ckTotalOrders:"总订单数", ckTotalSpent:"总支出", ckPending:"待处理", ckDelivered:"已送达", ckAllTime:"全部时间", ckAllOrders:"所有订单", ckStShipped:"已发货 — 48小时送达", ckStDelivered:"已送达", ckStWaiting:"等待确认", ckStConfirmed:"已确认 — 正在都灵中心备货", ckDisputePh:"描述发生了什么...", ckConfirmOrder:"确认订单", ckTotal:"合计", ckChoosePayment:"选择支付方式", ckSepaName:"SEPA 银行转账", ckFree12:"免费 · 1-2 个工作日", ckUnits:"件", ckPaySepaTo:"直接向品牌转账：", ckAccountHolder:"账户持有人", ckBank:"银行", ckCausale:"汇款附言：", ckReserveInfo:"库存即时预留 · 邮件自动开票 · 交付：", ck48Torino:"都灵发货48小时", ckCardName:"信用卡 / 借记卡", ckInstant:"即时 · 由 Stripe 提供", ckSddDesc:"自动扣款 · 免费", ckNoteOpt:"备注（可选）", ckNotePh:"特殊配送说明...", ckOrderSent:"订单已提交！", ckOrderSentPre:"您的订单已", ckOrderSentStrong:"自动确认", ckOrderSentPost:"。库存已为您预留。您将收到一封包含订单详情和 SEPA 转账付款银行信息的邮件。", ckDeliveryEst:"预计交付：都灵中心发货48小时" });
+Object.assign(T.ar, { ckBlocked:"الوصول محظور من قِبل العلامة", ckDocsTab:"المستندات / البطاقات", ckInvoicesTab:"فواتيري", ckTotalOrders:"إجمالي الطلبات", ckTotalSpent:"إجمالي الإنفاق", ckPending:"قيد الانتظار", ckDelivered:"تم التسليم", ckAllTime:"كل الأوقات", ckAllOrders:"كل الطلبات", ckStShipped:"تم الشحن — التسليم خلال 48 ساعة", ckStDelivered:"تم التسليم", ckStWaiting:"بانتظار التأكيد", ckStConfirmed:"تم التأكيد — قيد التجهيز في مركز تورينو", ckDisputePh:"صف ما حدث...", ckConfirmOrder:"تأكيد الطلب", ckTotal:"الإجمالي", ckChoosePayment:"اختر طريقة الدفع", ckSepaName:"تحويل بنكي SEPA", ckFree12:"مجاني · 1-2 يوم عمل", ckUnits:"وحدة", ckPaySepaTo:"قم بالتحويل مباشرةً إلى العلامة:", ckAccountHolder:"صاحب الحساب", ckBank:"البنك", ckCausale:"البيان:", ckReserveInfo:"المخزون محجوز فورًا · فاتورة تلقائية عبر البريد · التسليم:", ck48Torino:"48 ساعة من تورينو", ckCardName:"بطاقة ائتمان / خصم", ckInstant:"فوري · مدعوم من Stripe", ckSddDesc:"خصم تلقائي · مجاني", ckNoteOpt:"ملاحظة (اختياري)", ckNotePh:"تعليمات تسليم خاصة...", ckOrderSent:"تم إرسال الطلب!", ckOrderSentPre:"لقد تم ", ckOrderSentStrong:"تأكيد طلبك تلقائيًا", ckOrderSentPost:". تم حجز المخزون لك. ستتلقى بريدًا إلكترونيًا بتفاصيل الطلب والبيانات المصرفية للدفع عبر تحويل SEPA.", ckDeliveryEst:"التسليم المتوقع: 48 ساعة من مركز تورينو" });
 
 
 
@@ -4101,7 +4108,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                     ) : status==="pending" ? (
                       <div style={{ width:"100%", padding:"11px", borderRadius:8, textAlign:"center", background:`${C.blue}10`, border:`1px solid ${C.blue}30`, color:C.blue, fontSize:13 }}>{t("requestSentMsg")}</div>
                     ) : status==="blocked" ? (
-                      <div style={{ width:"100%", padding:"11px", borderRadius:8, textAlign:"center", background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red, fontSize:13 }}>🚫 Accesso bloccato dal brand</div>
+                      <div style={{ width:"100%", padding:"11px", borderRadius:8, textAlign:"center", background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red, fontSize:13 }}>🚫 {t("ckBlocked")}</div>
                     ) : (
                       <button onClick={() => requestAccess(brand)} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>{t("requestAccessBtn")}</button>
                     )}
@@ -4185,7 +4192,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       {moq > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.blue}10`, color:C.blue, border:`1px solid ${C.blue}25` }}>MOQ: {moq}</span>}
                       {multiple > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.purple}10`, color:"#a855f7", border:`1px solid #a855f740` }}>×{multiple}</span>}
                     </div>
-                    <button onClick={() => toggleWishlist(p.id)} style={{ width:"100%", marginBottom:8, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background: wishlist.includes(p.id)?`${C.red}15`:"transparent", border:`1px solid ${wishlist.includes(p.id)?C.red:C.border}`, color: wishlist.includes(p.id)?C.red:C.textMuted }}>{wishlist.includes(p.id) ? "♥ Nei desideri" : "♡ Aggiungi ai desideri"}</button><button onClick={() => openDistDocs(p)} style={{ width:"100%", marginBottom:12, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.gold}10`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>📎 Documenti / schede</button>
+                    <button onClick={() => toggleWishlist(p.id)} style={{ width:"100%", marginBottom:8, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background: wishlist.includes(p.id)?`${C.red}15`:"transparent", border:`1px solid ${wishlist.includes(p.id)?C.red:C.border}`, color: wishlist.includes(p.id)?C.red:C.textMuted }}>{wishlist.includes(p.id) ? "♥ Nei desideri" : "♡ Aggiungi ai desideri"}</button><button onClick={() => openDistDocs(p)} style={{ width:"100%", marginBottom:12, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.gold}10`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>📎 {t("ckDocsTab")}</button>
                     {stock > 0 ? (
                       <div style={{ display:"flex", alignItems:"center", gap:8 }}>
                         <button onClick={() => {
@@ -4223,7 +4230,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         {invoiceView && <InvoiceModal inv={invoiceView} onClose={()=>setInvoiceView(null)}/>}
         {tab==="fatture" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🧾 Le mie fatture</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🧾 {t("ckInvoicesTab")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("diInvoicesSub")}</p>
             {distInvoices.length===0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>{t("diNoInvoices")}</div>
@@ -4294,10 +4301,10 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("myOrdersTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("myOrdersSub")}</p>
             <div style={{ display:"flex", gap:14, marginBottom:22, flexWrap:"wrap" }}>
-              <Stat icon="◻" label="Total Orders" value={realOrders.length} sub="All time"/>
-              <Stat icon="↗" label="Total Spent" value={`€${realOrders.reduce((s,o)=>s+(o.total_amount||0),0).toLocaleString("it-IT")}`} sub="All orders"/>
-              <Stat icon="⚡" label="Pending" value={realOrders.filter(o=>o.status==="pending").length} accent={C.gold}/>
-              <Stat icon="📦" label="Delivered" value={realOrders.filter(o=>o.status==="delivered").length} accent={C.green}/>
+              <Stat icon="◻" label={t("ckTotalOrders")} value={realOrders.length} sub={t("ckAllTime")}/>
+              <Stat icon="↗" label={t("ckTotalSpent")} value={`€${realOrders.reduce((s,o)=>s+(o.total_amount||0),0).toLocaleString("it-IT")}`} sub={t("ckAllOrders")}/>
+              <Stat icon="⚡" label={t("ckPending")} value={realOrders.filter(o=>o.status==="pending").length} accent={C.gold}/>
+              <Stat icon="📦" label={t("ckDelivered")} value={realOrders.filter(o=>o.status==="delivered").length} accent={C.green}/>
             </div>
             {realOrders.length === 0 ? (
               <div style={{ textAlign:"center", padding:60, background:C.surface, borderRadius:12, border:`1px solid ${C.border}` }}>
@@ -4330,10 +4337,10 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       </div>
                     )}
                     <div style={{ display:"flex", gap:8, alignItems:"center" }}>
-                      {o.status === "shipped" && <span style={{ fontSize:12, color:C.blue }}>🚚 Spedito — consegna 48h</span>}
-                      {o.status === "delivered" && <span style={{ fontSize:12, color:C.green }}>✓ Consegnato</span>}
-                      {o.status === "pending" && <span style={{ fontSize:12, color:C.gold }}>⏳ In attesa di conferma</span>}
-                      {o.status === "confirmed" && <span style={{ fontSize:12, color:C.blue }}>📦 Confermato — in preparazione all'hub di Torino</span>}
+                      {o.status === "shipped" && <span style={{ fontSize:12, color:C.blue }}>🚚 {t("ckStShipped")}</span>}
+                      {o.status === "delivered" && <span style={{ fontSize:12, color:C.green }}>✓ {t("ckStDelivered")}</span>}
+                      {o.status === "pending" && <span style={{ fontSize:12, color:C.gold }}>⏳ {t("ckStWaiting")}</span>}
+                      {o.status === "confirmed" && <span style={{ fontSize:12, color:C.blue }}>📦 {t("ckStConfirmed")}</span>}
                       <button onClick={() => {
                         const items = o.order_items || [];
                         const next = {};
@@ -4381,7 +4388,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       <Modal title={"Segnala un problema - " + (issueOrder.order_number || "")} onClose={() => setIssueOrder(null)} onSave={submitIssue} saveLabel={issueBusy ? "Invio..." : "Invia segnalazione"}>
         <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 14px" }}>{t("diProblemDesc")}</p>
         <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{t("diReason")}</label>
-        <textarea value={issueForm.reason} onChange={e => setIssueForm(f => ({...f, reason:e.target.value}))} rows={4} placeholder="Descrivi cosa e successo..." style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", resize:"vertical", marginBottom:14 }}/>
+        <textarea value={issueForm.reason} onChange={e => setIssueForm(f => ({...f, reason:e.target.value}))} rows={4} placeholder={t("ckDisputePh")} style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", resize:"vertical", marginBottom:14 }}/>
         <label style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6, padding:"16px 12px", borderRadius:10, cursor:"pointer", background: issueForm.photo_file ? `${C.green}10` : C.surface2, border:`1px dashed ${issueForm.photo_file ? C.green : C.border}`, textAlign:"center" }}>
           <input type="file" accept="image/*" style={{ display:"none" }} onChange={e => { const f=e.target.files&&e.target.files[0]; if(f) setIssueForm(p=>({...p, photo_file:f})); }}/>
           <span style={{ fontSize:22 }}>{issueForm.photo_file ? "✓" : "📷"}</span>
@@ -4433,7 +4440,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:16,
           padding:"20px 16px", width:"100%", maxWidth:520, maxHeight:"92vh", overflowY:"auto", WebkitOverflowScrolling:"touch" }}>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
-            <h3 style={{ color:C.text, fontFamily:"Georgia,serif", fontSize:18, margin:0 }}>🛒 Confirm Order</h3>
+            <h3 style={{ color:C.text, fontFamily:"Georgia,serif", fontSize:18, margin:0 }}>🛒 {t("ckConfirmOrder")}</h3>
             <button onClick={() => setShowCheckout(false)} style={{ background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:22 }}>×</button>
           </div>
 
@@ -4447,7 +4454,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                   padding:"10px 0", borderBottom:`1px solid ${C.border}` }}>
                   <div>
                     <div style={{ fontSize:13, fontWeight:600, color:C.text }}>{p.name}</div>
-                    <div style={{ fontSize:11, color:C.textMuted }}>{p.sku} · {qty} units</div>
+                    <div style={{ fontSize:11, color:C.textMuted }}>{p.sku} · {qty} {t("ckUnits")}</div>
                   </div>
                   <div style={{ fontSize:13, fontWeight:700, color:C.goldLight }}>
                     €{(effPrice(p) * qty).toLocaleString("it-IT")}
@@ -4460,13 +4467,13 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           {/* Total */}
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center",
             padding:"14px 0", borderTop:`2px solid ${C.gold}30`, marginBottom:16 }}>
-            <span style={{ fontSize:15, fontWeight:700, color:C.text }}>Total</span>
+            <span style={{ fontSize:15, fontWeight:700, color:C.text }}>{t("ckTotal")}</span>
             <span style={{ fontSize:20, fontWeight:900, color:C.goldLight }}>€{cartValue.toLocaleString("it-IT", {minimumFractionDigits:2})}</span>
           </div>
 
           {/* Payment method selection */}
           <div style={{ marginBottom:16 }}>
-            <div style={{ fontSize:12, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em", marginBottom:8 }}>Scegli Metodo di Pagamento</div>
+            <div style={{ fontSize:12, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em", marginBottom:8 }}>{t("ckChoosePayment")}</div>
             <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
 
               {/* SEPA Bonifico */}
@@ -4477,8 +4484,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                 <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom: selectedPayment==="sepa" ? 12 : 0 }}>
                   <span style={{ fontSize:22 }}>🏦</span>
                   <div style={{ flex:1 }}>
-                    <div style={{ fontSize:14, fontWeight:700, color:C.text }}>Bonifico SEPA</div>
-                    <div style={{ fontSize:11, color:C.textMuted }}>Gratuito · 1-2 giorni lavorativi</div>
+                    <div style={{ fontSize:14, fontWeight:700, color:C.text }}>{t("ckSepaName")}</div>
+                    <div style={{ fontSize:11, color:C.textMuted }}>{t("ckFree12")}</div>
                   </div>
                   <div style={{ width:20, height:20, borderRadius:"50%", border:`2px solid ${selectedPayment==="sepa"?C.gold:C.border}`,
                     background: selectedPayment==="sepa" ? C.gold : "transparent",
@@ -4490,12 +4497,12 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                 {selectedPayment==="sepa" && (
                   <div style={{ padding:"12px 14px", background:C.surface, border:`1px solid ${C.border}`, borderRadius:8 }}>
                     <div style={{ fontSize:11, color:C.textMuted, marginBottom:8, fontWeight:600 }}>
-                      💳 Effettua il bonifico direttamente al brand:
+                      💳 {t("ckPaySepaTo")}
                     </div>
                     <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:6 }}>
                       {currentUser?.iban ? [
-                        ["Intestatario", currentUser.account_holder || currentUser.company_name],
-                        ["Banca", currentUser.bank_name || "—"],
+                        [t("ckAccountHolder"), currentUser.account_holder || currentUser.company_name],
+                        [t("ckBank"), currentUser.bank_name || "—"],
                         ["IBAN", currentUser.iban],
                         ["BIC/SWIFT", currentUser.swift_bic || "—"],
                       ].map(([k,v]) => (
@@ -4510,10 +4517,10 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       )}
                     </div>
                     <div style={{ marginTop:10, padding:"8px 10px", background:`${C.gold}10`, border:`1px solid ${C.gold}25`, borderRadius:6, fontSize:11, color:C.gold }}>
-                      📋 Causale: <strong style={{ fontFamily:"monospace" }}>NEXUSHUB · €{cartValue.toLocaleString("it-IT",{minimumFractionDigits:2})}</strong>
+                      📋 {t("ckCausale")} <strong style={{ fontFamily:"monospace" }}>NEXUSHUB · €{cartValue.toLocaleString("it-IT",{minimumFractionDigits:2})}</strong>
                     </div>
                     <div style={{ marginTop:6, fontSize:11, color:C.textMuted }}>
-                      ✅ Stock riservato subito · Fattura automatica via email · Consegna: <strong style={{ color:C.green }}>48h da Torino</strong>
+                      ✅ {t("ckReserveInfo")} <strong style={{ color:C.green }}>{t("ck48Torino")}</strong>
                     </div>
                   </div>
                 )}
@@ -4527,8 +4534,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                 <div style={{ display:"flex", alignItems:"center", gap:12 }}>
                   <span style={{ fontSize:22 }}>💳</span>
                   <div style={{ flex:1 }}>
-                    <div style={{ fontSize:14, fontWeight:700, color:C.text }}>Carta di Credito / Debito</div>
-                    <div style={{ fontSize:11, color:C.textMuted }}>Istantaneo · Powered by Stripe</div>
+                    <div style={{ fontSize:14, fontWeight:700, color:C.text }}>{t("ckCardName")}</div>
+                    <div style={{ fontSize:11, color:C.textMuted }}>{t("ckInstant")}</div>
                   </div>
                   <div style={{ width:20, height:20, borderRadius:"50%", border:`2px solid ${selectedPayment==="card"?"#635bff":C.border}`,
                     background: selectedPayment==="card" ? "#635bff" : "transparent",
@@ -4547,7 +4554,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                   <span style={{ fontSize:22 }}>⚡</span>
                   <div style={{ flex:1 }}>
                     <div style={{ fontSize:14, fontWeight:700, color:C.text }}>SEPA Direct Debit</div>
-                    <div style={{ fontSize:11, color:C.textMuted }}>Addebito automatico · Gratuito</div>
+                    <div style={{ fontSize:11, color:C.textMuted }}>{t("ckSddDesc")}</div>
                   </div>
                   <div style={{ width:20, height:20, borderRadius:"50%", border:`2px solid ${selectedPayment==="sepa_debit"?C.blue:C.border}`,
                     background: selectedPayment==="sepa_debit" ? C.blue : "transparent",
@@ -4562,9 +4569,9 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
 
           {/* Note */}
           <div style={{ marginBottom:20 }}>
-            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:6 }}>Note (opzionale)</label>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:6 }}>{t("ckNoteOpt")}</label>
             <textarea value={orderNote} onChange={e=>setOrderNote(e.target.value)}
-              placeholder="Istruzioni speciali per la consegna..."
+              placeholder={t("ckNotePh")}
               style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2,
                 border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none",
                 boxSizing:"border-box", minHeight:70, resize:"vertical" }}/>
@@ -4653,11 +4660,11 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         <div style={{ background:C.surface, border:`1px solid ${C.green}40`, borderRadius:16,
           padding:"28px 16px", width:"100%", maxWidth:440, textAlign:"center" }}>
           <div style={{ fontSize:56, marginBottom:16 }}>🎉</div>
-          <h3 style={{ color:C.green, fontFamily:"Georgia,serif", fontSize:22, marginBottom:8 }}>Ordine Inviato!</h3>
+          <h3 style={{ color:C.green, fontFamily:"Georgia,serif", fontSize:22, marginBottom:8 }}>{t("ckOrderSent")}</h3>
           <div style={{ fontFamily:"monospace", fontSize:16, color:C.goldLight, fontWeight:700, marginBottom:12 }}>{orderSuccess.order_number}</div>
           <p style={{ color:C.textMuted, fontSize:14, lineHeight:1.6, marginBottom:24 }}>
-            Il tuo ordine è stato <strong style={{ color:C.green }}>confermato automaticamente</strong>. Lo stock è stato riservato per te. Riceverai una email con i dettagli dell'ordine e le coordinate bancarie per il pagamento via bonifico SEPA.
-            <br/><br/><strong style={{ color:C.text }}>📦 Consegna stimata: 48h dall'hub di Torino</strong>
+            {t("ckOrderSentPre")}<strong style={{ color:C.green }}>{t("ckOrderSentStrong")}</strong>{t("ckOrderSentPost")}
+            <br/><br/><strong style={{ color:C.text }}>📦 {t("ckDeliveryEst")}</strong>
           </p>
           <button onClick={() => { setOrderSuccess(null); setTab("orders"); }}
             style={{ padding:"12px 28px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700 }}>
