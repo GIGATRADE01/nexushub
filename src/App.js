@@ -832,6 +832,13 @@ Object.assign(T.es,{ aconCreateDraft:"Crear borrador" });
 Object.assign(T.de,{ aconCreateDraft:"Entwurf erstellen" });
 Object.assign(T.zh,{ aconCreateDraft:"创建草稿" });
 Object.assign(T.ar,{ aconCreateDraft:"إنشاء مسودة" });
+Object.assign(T.en,{ dmoIntroTag:"Global B2B Distribution Platform", dmoIntroSub:"Connecting brands & distributors across Europe — automated, instant, scalable", dmoProbTitle:"The Old Way Is Broken", dmoProb1:"Endless emails & calls to manage distributors", dmoProb2:"No real-time visibility on stock", dmoProb3:"Manual invoices and payment chasing", dmoProb4:"Zero market intelligence or territory data", dmoSolTitle:"One Platform. Everything.", dmoSolSub:"NexusHub automates the entire distribution chain — from catalog to payment — across Europe", dmoSolCountries:"Countries", dmoSolDelivery:"Delivery", dmoSolAutomated:"Automated", dmoSecTitle:"Every Sector. One Hub.", dmoSecSub:"NexusHub works across all B2B product categories", dmoSecBeauty:"Beauty", dmoSecBeautyS:"Cosmetics & Fragrance", dmoSecFashion:"Fashion", dmoSecFashionS:"Apparel & Accessories", dmoSecFood:"Food & Beverage", dmoSecFoodS:"Premium & Specialty", dmoSecElec:"Electronics", dmoSecElecS:"Consumer & Pro Tech", dmoSecHome:"Home & Living", dmoSecHomeS:"Design & Furniture", dmoSecHealth:"Health", dmoSecHealthS:"OTC & Wellness", dmoMapTitle:"One Hub. Limitless Connections.", dmoMapSub:"From Turin, we reach every European market — fast, direct, exclusive", dmoBrTitle:"For Brands", dmoBrSub:"Full control. Full visibility. Zero manual work.", dmoBr1:"Territory management — one distributor per country", dmoBr2:"Real-time stock with order rules (MOQ, multiples)", dmoBr3:"Approve distributors & documents in one click", dmoBr4:"Automatic SEPA payments — receive funds instantly", dmoDiTitle:"For Distributors", dmoDiSub:"Access premium brands. Grow your territory.", dmoDi1:"Browse & apply to top global brands", dmoDi2:"Order from live catalog with real-time stock", dmoDi3:"48h delivery from Turin European Hub", dmoDi4:"Revenue analytics & territory performance dashboard", dmoValTitle:"More Flow. More Revenue.", dmoValSub:"NexusHub removes friction — faster stock rotation means more revenue for everyone", dmoValStock:"Stock Arrives", dmoValStockS:"Real-time catalog update", dmoValOrders:"Distributor Orders", dmoValOrdersS:"Instant SEPA payment", dmoValRev:"Revenue Flows", dmoValRevS:"Brand + Distributor win", dmoValM1:"Faster Rotation", dmoValM2:"Manual Work", dmoValM3:"Revenue for All", dmoNumTitle:"Built for Scale", dmoNum1:"Platform GMV", dmoNum2:"Active Distributors", dmoNum3:"Pallets / Month", dmoNum4:"Hub to Door", dmoAmzService:"Exclusive Management Service", dmoAmzSub:"We handle everything — you collect the revenue", dmoAmzC1:"FBA Logistics", dmoAmzC1S:"Full Amazon FBA management across all EU marketplaces", dmoAmzC2:"PPC Advertising", dmoAmzC2S:"Sponsored ads, DSP campaigns, brand store management", dmoAmzC3:"Price Control", dmoAmzC3S:"MAP enforcement, Buy Box optimization, competitor monitoring", dmoAmzC4:"Exclusive Rights", dmoAmzC4S:"One brand, one partner — full market protection guaranteed", dmoAmzActiveOn:"Active on", dmoCtaTitle:"Ready to Join?", dmoCtaSub:"Choose your role — it's free to register and get started today", dmoCtaBrand:"I'm a Brand", dmoCtaDist:"I'm a Distributor", dmoCtaBack:"Back to login" });
+Object.assign(T.it,{ dmoIntroTag:"Piattaforma globale di distribuzione B2B", dmoIntroSub:"Colleghiamo brand e distributori in tutta Europa — automatico, istantaneo, scalabile", dmoProbTitle:"Il vecchio metodo non funziona", dmoProb1:"Email e telefonate infinite per gestire i distributori", dmoProb2:"Nessuna visibilità in tempo reale sulle giacenze", dmoProb3:"Fatture manuali e solleciti di pagamento", dmoProb4:"Zero market intelligence o dati sui territori", dmoSolTitle:"Una piattaforma. Tutto.", dmoSolSub:"NexusHub automatizza l'intera catena distributiva — dal catalogo al pagamento — in tutta Europa", dmoSolCountries:"Paesi", dmoSolDelivery:"Consegna", dmoSolAutomated:"Automatizzato", dmoSecTitle:"Ogni settore. Un solo hub.", dmoSecSub:"NexusHub funziona in tutte le categorie di prodotti B2B", dmoSecBeauty:"Beauty", dmoSecBeautyS:"Cosmetici e profumi", dmoSecFashion:"Moda", dmoSecFashionS:"Abbigliamento e accessori", dmoSecFood:"Food & Beverage", dmoSecFoodS:"Premium e specialità", dmoSecElec:"Elettronica", dmoSecElecS:"Tech consumer e pro", dmoSecHome:"Casa e living", dmoSecHomeS:"Design e arredamento", dmoSecHealth:"Salute", dmoSecHealthS:"OTC e benessere", dmoMapTitle:"Un hub. Connessioni illimitate.", dmoMapSub:"Da Torino raggiungiamo ogni mercato europeo — veloce, diretto, esclusivo", dmoBrTitle:"Per i brand", dmoBrSub:"Controllo totale. Visibilità totale. Zero lavoro manuale.", dmoBr1:"Gestione dei territori — un distributore per paese", dmoBr2:"Stock in tempo reale con regole d'ordine (MOQ, multipli)", dmoBr3:"Approva distributori e documenti con un clic", dmoBr4:"Pagamenti SEPA automatici — ricevi i fondi all'istante", dmoDiTitle:"Per i distributori", dmoDiSub:"Accedi a brand premium. Fai crescere il tuo territorio.", dmoDi1:"Sfoglia e candidati ai migliori brand globali", dmoDi2:"Ordina dal catalogo live con stock in tempo reale", dmoDi3:"Consegna in 48h dall'hub europeo di Torino", dmoDi4:"Analytics dei ricavi e dashboard performance territorio", dmoValTitle:"Più flusso. Più ricavi.", dmoValSub:"NexusHub elimina gli attriti — una rotazione più veloce dello stock significa più ricavi per tutti", dmoValStock:"Arriva lo stock", dmoValStockS:"Aggiornamento catalogo in tempo reale", dmoValOrders:"Il distributore ordina", dmoValOrdersS:"Pagamento SEPA istantaneo", dmoValRev:"I ricavi scorrono", dmoValRevS:"Vincono brand + distributore", dmoValM1:"Rotazione più veloce", dmoValM2:"Lavoro manuale", dmoValM3:"Ricavi per tutti", dmoNumTitle:"Costruito per scalare", dmoNum1:"GMV della piattaforma", dmoNum2:"Distributori attivi", dmoNum3:"Pallet / mese", dmoNum4:"Dall'hub alla porta", dmoAmzService:"Servizio di gestione esclusivo", dmoAmzSub:"Gestiamo tutto noi — tu incassi i ricavi", dmoAmzC1:"Logistica FBA", dmoAmzC1S:"Gestione FBA Amazon completa su tutti i marketplace UE", dmoAmzC2:"Advertising PPC", dmoAmzC2S:"Sponsored ads, campagne DSP, gestione brand store", dmoAmzC3:"Controllo prezzi", dmoAmzC3S:"Applicazione MAP, ottimizzazione Buy Box, monitoraggio concorrenza", dmoAmzC4:"Diritti esclusivi", dmoAmzC4S:"Un brand, un partner — protezione totale del mercato garantita", dmoAmzActiveOn:"Attivi su", dmoCtaTitle:"Pronto a entrare?", dmoCtaSub:"Scegli il tuo ruolo — registrarsi è gratis, inizia oggi", dmoCtaBrand:"Sono un brand", dmoCtaDist:"Sono un distributore", dmoCtaBack:"Torna al login" });
+Object.assign(T.fr,{ dmoIntroTag:"Plateforme mondiale de distribution B2B", dmoIntroSub:"Nous connectons marques et distributeurs dans toute l'Europe — automatisé, instantané, évolutif", dmoProbTitle:"L'ancienne méthode est dépassée", dmoProb1:"E-mails et appels sans fin pour gérer les distributeurs", dmoProb2:"Aucune visibilité en temps réel sur les stocks", dmoProb3:"Factures manuelles et relances de paiement", dmoProb4:"Aucune intelligence de marché ni données territoriales", dmoSolTitle:"Une plateforme. Tout.", dmoSolSub:"NexusHub automatise toute la chaîne de distribution — du catalogue au paiement — dans toute l'Europe", dmoSolCountries:"Pays", dmoSolDelivery:"Livraison", dmoSolAutomated:"Automatisé", dmoSecTitle:"Chaque secteur. Un seul hub.", dmoSecSub:"NexusHub fonctionne dans toutes les catégories de produits B2B", dmoSecBeauty:"Beauté", dmoSecBeautyS:"Cosmétiques et parfums", dmoSecFashion:"Mode", dmoSecFashionS:"Vêtements et accessoires", dmoSecFood:"Alimentation et boissons", dmoSecFoodS:"Premium et spécialités", dmoSecElec:"Électronique", dmoSecElecS:"Tech grand public et pro", dmoSecHome:"Maison et décoration", dmoSecHomeS:"Design et mobilier", dmoSecHealth:"Santé", dmoSecHealthS:"OTC et bien-être", dmoMapTitle:"Un hub. Des connexions illimitées.", dmoMapSub:"Depuis Turin, nous atteignons chaque marché européen — rapide, direct, exclusif", dmoBrTitle:"Pour les marques", dmoBrSub:"Contrôle total. Visibilité totale. Zéro travail manuel.", dmoBr1:"Gestion des territoires — un distributeur par pays", dmoBr2:"Stock en temps réel avec règles de commande (MOQ, multiples)", dmoBr3:"Approuvez distributeurs et documents en un clic", dmoBr4:"Paiements SEPA automatiques — recevez les fonds instantanément", dmoDiTitle:"Pour les distributeurs", dmoDiSub:"Accédez à des marques premium. Développez votre territoire.", dmoDi1:"Parcourez et postulez auprès des meilleures marques mondiales", dmoDi2:"Commandez depuis le catalogue en direct avec stock en temps réel", dmoDi3:"Livraison en 48h depuis le hub européen de Turin", dmoDi4:"Analytique des revenus et tableau de bord de performance territoriale", dmoValTitle:"Plus de flux. Plus de revenus.", dmoValSub:"NexusHub supprime les frictions — une rotation des stocks plus rapide, c'est plus de revenus pour tous", dmoValStock:"Le stock arrive", dmoValStockS:"Mise à jour du catalogue en temps réel", dmoValOrders:"Le distributeur commande", dmoValOrdersS:"Paiement SEPA instantané", dmoValRev:"Les revenus circulent", dmoValRevS:"Marque + distributeur gagnent", dmoValM1:"Rotation plus rapide", dmoValM2:"Travail manuel", dmoValM3:"Des revenus pour tous", dmoNumTitle:"Conçu pour l'échelle", dmoNum1:"GMV de la plateforme", dmoNum2:"Distributeurs actifs", dmoNum3:"Palettes / mois", dmoNum4:"Du hub à la porte", dmoAmzService:"Service de gestion exclusif", dmoAmzSub:"Nous gérons tout — vous encaissez les revenus", dmoAmzC1:"Logistique FBA", dmoAmzC1S:"Gestion complète Amazon FBA sur toutes les places de marché UE", dmoAmzC2:"Publicité PPC", dmoAmzC2S:"Publicités sponsorisées, campagnes DSP, gestion de la boutique de marque", dmoAmzC3:"Contrôle des prix", dmoAmzC3S:"Application MAP, optimisation de la Buy Box, surveillance des concurrents", dmoAmzC4:"Droits exclusifs", dmoAmzC4S:"Une marque, un partenaire — protection totale du marché garantie", dmoAmzActiveOn:"Actifs sur", dmoCtaTitle:"Prêt à nous rejoindre ?", dmoCtaSub:"Choisissez votre rôle — l'inscription est gratuite, commencez aujourd'hui", dmoCtaBrand:"Je suis une marque", dmoCtaDist:"Je suis un distributeur", dmoCtaBack:"Retour à la connexion" });
+Object.assign(T.es,{ dmoIntroTag:"Plataforma global de distribución B2B", dmoIntroSub:"Conectamos marcas y distribuidores en toda Europa — automático, instantáneo, escalable", dmoProbTitle:"La vieja forma está rota", dmoProb1:"Correos y llamadas interminables para gestionar distribuidores", dmoProb2:"Sin visibilidad en tiempo real del stock", dmoProb3:"Facturas manuales y persecución de pagos", dmoProb4:"Cero inteligencia de mercado o datos de territorio", dmoSolTitle:"Una plataforma. Todo.", dmoSolSub:"NexusHub automatiza toda la cadena de distribución — del catálogo al pago — en toda Europa", dmoSolCountries:"Países", dmoSolDelivery:"Entrega", dmoSolAutomated:"Automatizado", dmoSecTitle:"Cada sector. Un solo hub.", dmoSecSub:"NexusHub funciona en todas las categorías de productos B2B", dmoSecBeauty:"Belleza", dmoSecBeautyS:"Cosmética y perfumería", dmoSecFashion:"Moda", dmoSecFashionS:"Ropa y accesorios", dmoSecFood:"Alimentos y bebidas", dmoSecFoodS:"Premium y especialidades", dmoSecElec:"Electrónica", dmoSecElecS:"Tecnología de consumo y pro", dmoSecHome:"Hogar y decoración", dmoSecHomeS:"Diseño y mobiliario", dmoSecHealth:"Salud", dmoSecHealthS:"OTC y bienestar", dmoMapTitle:"Un hub. Conexiones ilimitadas.", dmoMapSub:"Desde Turín llegamos a cada mercado europeo — rápido, directo, exclusivo", dmoBrTitle:"Para marcas", dmoBrSub:"Control total. Visibilidad total. Cero trabajo manual.", dmoBr1:"Gestión de territorios — un distribuidor por país", dmoBr2:"Stock en tiempo real con reglas de pedido (MOQ, múltiplos)", dmoBr3:"Aprueba distribuidores y documentos con un clic", dmoBr4:"Pagos SEPA automáticos — recibe los fondos al instante", dmoDiTitle:"Para distribuidores", dmoDiSub:"Accede a marcas premium. Haz crecer tu territorio.", dmoDi1:"Explora y postúlate a las mejores marcas globales", dmoDi2:"Pide desde el catálogo en vivo con stock en tiempo real", dmoDi3:"Entrega en 48h desde el hub europeo de Turín", dmoDi4:"Analítica de ingresos y panel de rendimiento del territorio", dmoValTitle:"Más flujo. Más ingresos.", dmoValSub:"NexusHub elimina la fricción — una rotación de stock más rápida significa más ingresos para todos", dmoValStock:"Llega el stock", dmoValStockS:"Actualización del catálogo en tiempo real", dmoValOrders:"El distribuidor pide", dmoValOrdersS:"Pago SEPA instantáneo", dmoValRev:"Fluyen los ingresos", dmoValRevS:"Ganan marca + distribuidor", dmoValM1:"Rotación más rápida", dmoValM2:"Trabajo manual", dmoValM3:"Ingresos para todos", dmoNumTitle:"Diseñado para escalar", dmoNum1:"GMV de la plataforma", dmoNum2:"Distribuidores activos", dmoNum3:"Palés / mes", dmoNum4:"Del hub a la puerta", dmoAmzService:"Servicio de gestión exclusivo", dmoAmzSub:"Nos encargamos de todo — tú cobras los ingresos", dmoAmzC1:"Logística FBA", dmoAmzC1S:"Gestión completa de Amazon FBA en todos los marketplaces de la UE", dmoAmzC2:"Publicidad PPC", dmoAmzC2S:"Anuncios patrocinados, campañas DSP, gestión de la tienda de marca", dmoAmzC3:"Control de precios", dmoAmzC3S:"Aplicación de MAP, optimización de Buy Box, monitoreo de competidores", dmoAmzC4:"Derechos exclusivos", dmoAmzC4S:"Una marca, un socio — protección total del mercado garantizada", dmoAmzActiveOn:"Activos en", dmoCtaTitle:"¿Listo para unirte?", dmoCtaSub:"Elige tu rol — registrarse es gratis, empieza hoy", dmoCtaBrand:"Soy una marca", dmoCtaDist:"Soy un distribuidor", dmoCtaBack:"Volver al inicio de sesión" });
+Object.assign(T.de,{ dmoIntroTag:"Globale B2B-Distributionsplattform", dmoIntroSub:"Wir verbinden Marken und Händler in ganz Europa — automatisiert, sofort, skalierbar", dmoProbTitle:"Der alte Weg funktioniert nicht mehr", dmoProb1:"Endlose E-Mails und Anrufe zur Händlerverwaltung", dmoProb2:"Keine Echtzeit-Sicht auf den Bestand", dmoProb3:"Manuelle Rechnungen und Zahlungsverfolgung", dmoProb4:"Keine Marktdaten oder Gebietsdaten", dmoSolTitle:"Eine Plattform. Alles.", dmoSolSub:"NexusHub automatisiert die gesamte Vertriebskette — vom Katalog bis zur Zahlung — in ganz Europa", dmoSolCountries:"Länder", dmoSolDelivery:"Lieferung", dmoSolAutomated:"Automatisiert", dmoSecTitle:"Jede Branche. Ein Hub.", dmoSecSub:"NexusHub funktioniert in allen B2B-Produktkategorien", dmoSecBeauty:"Beauty", dmoSecBeautyS:"Kosmetik & Düfte", dmoSecFashion:"Mode", dmoSecFashionS:"Bekleidung & Accessoires", dmoSecFood:"Food & Beverage", dmoSecFoodS:"Premium & Spezialitäten", dmoSecElec:"Elektronik", dmoSecElecS:"Consumer- & Pro-Technik", dmoSecHome:"Wohnen & Living", dmoSecHomeS:"Design & Möbel", dmoSecHealth:"Gesundheit", dmoSecHealthS:"OTC & Wellness", dmoMapTitle:"Ein Hub. Grenzenlose Verbindungen.", dmoMapSub:"Von Turin aus erreichen wir jeden europäischen Markt — schnell, direkt, exklusiv", dmoBrTitle:"Für Marken", dmoBrSub:"Volle Kontrolle. Volle Transparenz. Null Handarbeit.", dmoBr1:"Gebietsverwaltung — ein Händler pro Land", dmoBr2:"Echtzeit-Bestand mit Bestellregeln (MOQ, Vielfache)", dmoBr3:"Händler & Dokumente mit einem Klick freigeben", dmoBr4:"Automatische SEPA-Zahlungen — Gelder sofort erhalten", dmoDiTitle:"Für Händler", dmoDiSub:"Zugang zu Premium-Marken. Erweitere dein Gebiet.", dmoDi1:"Top-Weltmarken durchsuchen & bewerben", dmoDi2:"Aus Live-Katalog mit Echtzeit-Bestand bestellen", dmoDi3:"48h-Lieferung vom europäischen Hub in Turin", dmoDi4:"Umsatzanalysen & Gebiets-Performance-Dashboard", dmoValTitle:"Mehr Fluss. Mehr Umsatz.", dmoValSub:"NexusHub beseitigt Reibung — schnellere Lagerrotation bedeutet mehr Umsatz für alle", dmoValStock:"Bestand kommt an", dmoValStockS:"Echtzeit-Katalogaktualisierung", dmoValOrders:"Händler bestellt", dmoValOrdersS:"Sofortige SEPA-Zahlung", dmoValRev:"Umsatz fließt", dmoValRevS:"Marke + Händler gewinnen", dmoValM1:"Schnellere Rotation", dmoValM2:"Handarbeit", dmoValM3:"Umsatz für alle", dmoNumTitle:"Für Skalierung gebaut", dmoNum1:"Plattform-GMV", dmoNum2:"Aktive Händler", dmoNum3:"Paletten / Monat", dmoNum4:"Vom Hub zur Tür", dmoAmzService:"Exklusiver Management-Service", dmoAmzSub:"Wir kümmern uns um alles — du kassierst den Umsatz", dmoAmzC1:"FBA-Logistik", dmoAmzC1S:"Vollständiges Amazon-FBA-Management auf allen EU-Marktplätzen", dmoAmzC2:"PPC-Werbung", dmoAmzC2S:"Sponsored Ads, DSP-Kampagnen, Brand-Store-Verwaltung", dmoAmzC3:"Preiskontrolle", dmoAmzC3S:"MAP-Durchsetzung, Buy-Box-Optimierung, Wettbewerbsbeobachtung", dmoAmzC4:"Exklusivrechte", dmoAmzC4S:"Eine Marke, ein Partner — voller Marktschutz garantiert", dmoAmzActiveOn:"Aktiv auf", dmoCtaTitle:"Bereit mitzumachen?", dmoCtaSub:"Wähle deine Rolle — die Registrierung ist kostenlos, starte noch heute", dmoCtaBrand:"Ich bin eine Marke", dmoCtaDist:"Ich bin ein Händler", dmoCtaBack:"Zurück zum Login" });
+Object.assign(T.zh,{ dmoIntroTag:"全球 B2B 分销平台", dmoIntroSub:"连接全欧洲的品牌与经销商 —— 自动化、即时、可扩展", dmoProbTitle:"旧模式已经失灵", dmoProb1:"为管理经销商而无休止地发邮件、打电话", dmoProb2:"无法实时掌握库存", dmoProb3:"手动开票、追讨付款", dmoProb4:"毫无市场情报或区域数据", dmoSolTitle:"一个平台，包揽一切。", dmoSolSub:"NexusHub 自动化整个分销链 —— 从目录到付款 —— 覆盖全欧洲", dmoSolCountries:"国家", dmoSolDelivery:"交付", dmoSolAutomated:"自动化", dmoSecTitle:"每个行业，一个枢纽。", dmoSecSub:"NexusHub 适用于所有 B2B 产品类别", dmoSecBeauty:"美妆", dmoSecBeautyS:"化妆品与香水", dmoSecFashion:"时尚", dmoSecFashionS:"服装与配饰", dmoSecFood:"食品与饮料", dmoSecFoodS:"高端与特色", dmoSecElec:"电子产品", dmoSecElecS:"消费与专业科技", dmoSecHome:"家居生活", dmoSecHomeS:"设计与家具", dmoSecHealth:"健康", dmoSecHealthS:"非处方药与健康", dmoMapTitle:"一个枢纽，无限连接。", dmoMapSub:"从都灵出发，直达每一个欧洲市场 —— 快速、直接、专属", dmoBrTitle:"面向品牌", dmoBrSub:"完全掌控。完全可见。零手动操作。", dmoBr1:"区域管理 —— 每个国家一个经销商", dmoBr2:"实时库存与订购规则（MOQ、倍数）", dmoBr3:"一键批准经销商与文件", dmoBr4:"自动 SEPA 付款 —— 即时到账", dmoDiTitle:"面向经销商", dmoDiSub:"接触高端品牌。拓展你的区域。", dmoDi1:"浏览并申请全球顶级品牌", dmoDi2:"从实时目录下单，库存实时更新", dmoDi3:"从都灵欧洲枢纽 48 小时送达", dmoDi4:"营收分析与区域业绩仪表盘", dmoValTitle:"更多流动，更多营收。", dmoValSub:"NexusHub 消除摩擦 —— 库存周转更快，人人营收更高", dmoValStock:"库存到货", dmoValStockS:"实时更新目录", dmoValOrders:"经销商下单", dmoValOrdersS:"即时 SEPA 付款", dmoValRev:"营收流动", dmoValRevS:"品牌与经销商双赢", dmoValM1:"更快周转", dmoValM2:"手动工作", dmoValM3:"人人营收", dmoNumTitle:"为规模而生", dmoNum1:"平台 GMV", dmoNum2:"活跃经销商", dmoNum3:"托盘 / 月", dmoNum4:"从枢纽到家门", dmoAmzService:"独家管理服务", dmoAmzSub:"一切由我们打理 —— 营收归你", dmoAmzC1:"FBA 物流", dmoAmzC1S:"在所有欧盟站点全面管理亚马逊 FBA", dmoAmzC2:"PPC 广告", dmoAmzC2S:"赞助广告、DSP 活动、品牌旗舰店管理", dmoAmzC3:"价格管控", dmoAmzC3S:"执行 MAP、优化 Buy Box、竞品监控", dmoAmzC4:"独家权益", dmoAmzC4S:"一个品牌，一个伙伴 —— 保障全面的市场保护", dmoAmzActiveOn:"已上线", dmoCtaTitle:"准备好加入了吗？", dmoCtaSub:"选择你的角色 —— 注册免费，今天就开始", dmoCtaBrand:"我是品牌方", dmoCtaDist:"我是经销商", dmoCtaBack:"返回登录" });
+Object.assign(T.ar,{ dmoIntroTag:"منصة توزيع B2B عالمية", dmoIntroSub:"نربط العلامات والموزّعين في جميع أنحاء أوروبا — آلي وفوري وقابل للتوسّع", dmoProbTitle:"الطريقة القديمة لم تعد تعمل", dmoProb1:"رسائل ومكالمات لا تنتهي لإدارة الموزّعين", dmoProb2:"لا رؤية آنية للمخزون", dmoProb3:"فواتير يدوية ومطاردة للمدفوعات", dmoProb4:"صفر معلومات سوقية أو بيانات عن المناطق", dmoSolTitle:"منصة واحدة. كل شيء.", dmoSolSub:"يُؤتمت NexusHub سلسلة التوزيع بالكامل — من الكتالوج إلى الدفع — في أنحاء أوروبا", dmoSolCountries:"دولة", dmoSolDelivery:"توصيل", dmoSolAutomated:"آلي", dmoSecTitle:"كل قطاع. مركز واحد.", dmoSecSub:"يعمل NexusHub في جميع فئات منتجات B2B", dmoSecBeauty:"الجمال", dmoSecBeautyS:"مستحضرات التجميل والعطور", dmoSecFashion:"الموضة", dmoSecFashionS:"الملابس والإكسسوارات", dmoSecFood:"الأغذية والمشروبات", dmoSecFoodS:"بريميوم وتخصصية", dmoSecElec:"الإلكترونيات", dmoSecElecS:"تقنية استهلاكية واحترافية", dmoSecHome:"المنزل والمعيشة", dmoSecHomeS:"التصميم والأثاث", dmoSecHealth:"الصحة", dmoSecHealthS:"الأدوية دون وصفة والعافية", dmoMapTitle:"مركز واحد. اتصالات لا حدود لها.", dmoMapSub:"من تورينو نصل إلى كل سوق أوروبي — سريع ومباشر وحصري", dmoBrTitle:"للعلامات التجارية", dmoBrSub:"تحكّم كامل. رؤية كاملة. صفر عمل يدوي.", dmoBr1:"إدارة المناطق — موزّع واحد لكل دولة", dmoBr2:"مخزون آني مع قواعد الطلب (MOQ، مضاعفات)", dmoBr3:"اعتمد الموزّعين والمستندات بنقرة واحدة", dmoBr4:"مدفوعات SEPA تلقائية — استلم الأموال فورًا", dmoDiTitle:"للموزّعين", dmoDiSub:"احصل على علامات بريميوم. وسّع منطقتك.", dmoDi1:"تصفّح وقدّم لأفضل العلامات العالمية", dmoDi2:"اطلب من كتالوج حيّ بمخزون آني", dmoDi3:"توصيل خلال 48 ساعة من مركز تورينو الأوروبي", dmoDi4:"تحليلات الإيرادات ولوحة أداء المنطقة", dmoValTitle:"تدفّق أكثر. إيرادات أكثر.", dmoValSub:"يزيل NexusHub الاحتكاك — دوران أسرع للمخزون يعني إيرادات أكثر للجميع", dmoValStock:"يصل المخزون", dmoValStockS:"تحديث الكتالوج آنيًا", dmoValOrders:"يطلب الموزّع", dmoValOrdersS:"دفع SEPA فوري", dmoValRev:"تتدفّق الإيرادات", dmoValRevS:"تفوز العلامة + الموزّع", dmoValM1:"دوران أسرع", dmoValM2:"عمل يدوي", dmoValM3:"إيرادات للجميع", dmoNumTitle:"مبني للتوسّع", dmoNum1:"إجمالي مبيعات المنصة (GMV)", dmoNum2:"موزّعون نشطون", dmoNum3:"منصات نقالة / شهر", dmoNum4:"من المركز إلى الباب", dmoAmzService:"خدمة إدارة حصرية", dmoAmzSub:"نتولّى كل شيء — وأنت تحصّل الإيرادات", dmoAmzC1:"لوجستيات FBA", dmoAmzC1S:"إدارة كاملة لـ Amazon FBA في جميع أسواق الاتحاد الأوروبي", dmoAmzC2:"إعلانات PPC", dmoAmzC2S:"إعلانات ممولة، حملات DSP، إدارة متجر العلامة", dmoAmzC3:"التحكّم بالأسعار", dmoAmzC3S:"فرض MAP، تحسين Buy Box، مراقبة المنافسين", dmoAmzC4:"حقوق حصرية", dmoAmzC4S:"علامة واحدة، شريك واحد — حماية كاملة للسوق مضمونة", dmoAmzActiveOn:"نشط على", dmoCtaTitle:"جاهز للانضمام؟", dmoCtaSub:"اختر دورك — التسجيل مجاني، ابدأ اليوم", dmoCtaBrand:"أنا علامة تجارية", dmoCtaDist:"أنا موزّع", dmoCtaBack:"العودة لتسجيل الدخول" });
 
 
 
@@ -1037,6 +1044,7 @@ function DemoProgressBar({ total, current, elapsed, duration }) {
 }
 
 function DemoSlideContent({ slide, visible }) {
+  const t = useT();
   const anim = (delay=0) => ({
     opacity: visible ? 1 : 0,
     transform: visible ? "translateY(0)" : "translateY(20px)",
@@ -1085,22 +1093,22 @@ function DemoSlideContent({ slide, visible }) {
         ...anim(0.1) }}>NEXUSHUB</div>
       <div style={{ fontSize:"clamp(12px,2vw,16px)", color:DC.text, letterSpacing:".2em",
         textTransform:"uppercase", marginTop:10, fontFamily:"'DM Sans',sans-serif", ...anim(0.3) }}>
-        Global B2B Distribution Platform
+        {t("dmoIntroTag")}
       </div>
       <div style={{ fontSize:"clamp(11px,1.5vw,13px)", color:DC.muted, marginTop:8,
         fontFamily:"'DM Sans',sans-serif", ...anim(0.5) }}>
-        Connecting brands & distributors across Europe — automated, instant, scalable
+        {t("dmoIntroSub")}
       </div>
     </div>
   );
 
   if (slide.type === "problem") return (
     <div style={{ maxWidth:580, width:"100%", textAlign:"left" }}>
-      <HL>The Old Way Is Broken</HL>
-      {["❌ Endless emails & calls to manage distributors",
-        "❌ No real-time visibility on stock",
-        "❌ Manual invoices and payment chasing",
-        "❌ Zero market intelligence or territory data"
+      <HL>{t("dmoProbTitle")}</HL>
+      {["❌ "+t("dmoProb1"),
+        "❌ "+t("dmoProb2"),
+        "❌ "+t("dmoProb3"),
+        "❌ "+t("dmoProb4")
       ].map((p,i) => (
         <div key={i} style={{ padding:"13px 18px", marginBottom:9,
           background:"rgba(220,50,50,.08)", border:"1px solid rgba(220,50,50,.2)",
@@ -1112,10 +1120,10 @@ function DemoSlideContent({ slide, visible }) {
 
   if (slide.type === "solution") return (
     <div style={{ textAlign:"center", maxWidth:660, width:"100%" }}>
-      <HL color={DC.goldL}>One Platform. Everything.</HL>
-      <Sub>NexusHub automates the entire distribution chain — from catalog to payment — across Europe</Sub>
+      <HL color={DC.goldL}>{t("dmoSolTitle")}</HL>
+      <Sub>{t("dmoSolSub")}</Sub>
       <div style={{ display:"flex", gap:14, justifyContent:"center", flexWrap:"wrap", marginTop:20 }}>
-        {[{v:"30+",l:"Countries"},{v:"48h",l:"Delivery"},{v:"100%",l:"Automated"}].map((s,i) => (
+        {[{v:"30+",l:t("dmoSolCountries")},{v:"48h",l:t("dmoSolDelivery")},{v:"100%",l:t("dmoSolAutomated")}].map((s,i) => (
           <div key={i} style={{ flex:"1 1 130px", maxWidth:170, padding:"22px 14px", textAlign:"center",
             background:"rgba(201,168,76,.05)", border:"1px solid rgba(201,168,76,.2)",
             borderTop:`3px solid ${DC.gold}`, borderRadius:14, ...animScale(0.3+i*0.12) }}>
@@ -1131,16 +1139,16 @@ function DemoSlideContent({ slide, visible }) {
 
   if (slide.type === "sectors") return (
     <div style={{ textAlign:"center", maxWidth:680, width:"100%" }}>
-      <HL>Every Sector. One Hub.</HL>
-      <Sub>NexusHub works across all B2B product categories</Sub>
+      <HL>{t("dmoSecTitle")}</HL>
+      <Sub>{t("dmoSecSub")}</Sub>
       <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:10, marginTop:16 }}>
         {[
-          {icon:"💄",name:"Beauty",sub:"Cosmetics & Fragrance"},
-          {icon:"👗",name:"Fashion",sub:"Apparel & Accessories"},
-          {icon:"🍷",name:"Food & Beverage",sub:"Premium & Specialty"},
-          {icon:"📱",name:"Electronics",sub:"Consumer & Pro Tech"},
-          {icon:"🏠",name:"Home & Living",sub:"Design & Furniture"},
-          {icon:"💊",name:"Health",sub:"OTC & Wellness"},
+          {icon:"💄",name:t("dmoSecBeauty"),sub:t("dmoSecBeautyS")},
+          {icon:"👗",name:t("dmoSecFashion"),sub:t("dmoSecFashionS")},
+          {icon:"🍷",name:t("dmoSecFood"),sub:t("dmoSecFoodS")},
+          {icon:"📱",name:t("dmoSecElec"),sub:t("dmoSecElecS")},
+          {icon:"🏠",name:t("dmoSecHome"),sub:t("dmoSecHomeS")},
+          {icon:"💊",name:t("dmoSecHealth"),sub:t("dmoSecHealthS")},
         ].map((s,i) => (
           <div key={i} style={{ padding:"16px 10px", background:"rgba(255,255,255,.03)",
             border:"1px solid rgba(255,255,255,.07)", borderRadius:12, ...animScale(0.2+i*0.08) }}>
@@ -1158,11 +1166,11 @@ function DemoSlideContent({ slide, visible }) {
       <div style={{ fontSize:"clamp(22px,4vw,40px)", fontWeight:800,
         fontFamily:"'Bebas Neue','Impact',sans-serif", letterSpacing:".05em",
         color:DC.text, textAlign:"center", marginBottom:6, ...anim(0.1) }}>
-        One Hub. Limitless Connections.
+        {t("dmoMapTitle")}
       </div>
       <div style={{ fontSize:"clamp(11px,1.6vw,14px)", color:DC.muted, textAlign:"center",
         marginBottom:12, fontFamily:"'DM Sans',sans-serif", ...anim(0.2) }}>
-        From Turin, we reach every European market — fast, direct, exclusive
+        {t("dmoMapSub")}
       </div>
       <div style={{ ...anim(0.3), display:"flex", justifyContent:"center" }}>
         <svg viewBox="0 0 900 420" style={{ width:"100%", maxWidth:"100%", height:"auto", borderRadius:8 }} xmlns="http://www.w3.org/2000/svg">
@@ -1258,35 +1266,35 @@ function DemoSlideContent({ slide, visible }) {
 
   if (slide.type === "brands") return (
     <div style={{ maxWidth:580, width:"100%", textAlign:"left" }}>
-      <HL color={DC.goldL}>For Brands</HL>
-      <Sub>Full control. Full visibility. Zero manual work.</Sub>
-      <FRow icon="🗺️" text="Territory management — one distributor per country" color={DC.gold} delay={0.25}/>
-      <FRow icon="📦" text="Real-time stock with order rules (MOQ, multiples)" color={DC.gold} delay={0.37}/>
-      <FRow icon="✅" text="Approve distributors & documents in one click" color={DC.gold} delay={0.49}/>
-      <FRow icon="💰" text="Automatic SEPA payments — receive funds instantly" color={DC.gold} delay={0.61}/>
+      <HL color={DC.goldL}>{t("dmoBrTitle")}</HL>
+      <Sub>{t("dmoBrSub")}</Sub>
+      <FRow icon="🗺️" text={t("dmoBr1")} color={DC.gold} delay={0.25}/>
+      <FRow icon="📦" text={t("dmoBr2")} color={DC.gold} delay={0.37}/>
+      <FRow icon="✅" text={t("dmoBr3")} color={DC.gold} delay={0.49}/>
+      <FRow icon="💰" text={t("dmoBr4")} color={DC.gold} delay={0.61}/>
     </div>
   );
 
   if (slide.type === "distributors") return (
     <div style={{ maxWidth:580, width:"100%", textAlign:"left" }}>
-      <HL color={DC.blue}>For Distributors</HL>
-      <Sub>Access premium brands. Grow your territory.</Sub>
-      <FRow icon="🏛️" text="Browse & apply to top global brands" color={DC.blue} delay={0.25}/>
-      <FRow icon="📋" text="Order from live catalog with real-time stock" color={DC.blue} delay={0.37}/>
-      <FRow icon="🚚" text="48h delivery from Turin European Hub" color={DC.blue} delay={0.49}/>
-      <FRow icon="📊" text="Revenue analytics & territory performance dashboard" color={DC.blue} delay={0.61}/>
+      <HL color={DC.blue}>{t("dmoDiTitle")}</HL>
+      <Sub>{t("dmoDiSub")}</Sub>
+      <FRow icon="🏛️" text={t("dmoDi1")} color={DC.blue} delay={0.25}/>
+      <FRow icon="📋" text={t("dmoDi2")} color={DC.blue} delay={0.37}/>
+      <FRow icon="🚚" text={t("dmoDi3")} color={DC.blue} delay={0.49}/>
+      <FRow icon="📊" text={t("dmoDi4")} color={DC.blue} delay={0.61}/>
     </div>
   );
 
   if (slide.type === "value") return (
     <div style={{ textAlign:"center", maxWidth:680, width:"100%" }}>
-      <HL>More Flow. More Revenue.</HL>
-      <Sub>NexusHub removes friction — faster stock rotation means more revenue for everyone</Sub>
+      <HL>{t("dmoValTitle")}</HL>
+      <Sub>{t("dmoValSub")}</Sub>
       <div style={{ display:"flex", alignItems:"stretch", gap:0, margin:"16px 0", ...anim(0.3) }}>
         {[
-          {icon:"📦",title:"Stock Arrives",sub:"Real-time catalog update",col:"rgba(201,168,76,.2)"},
-          {icon:"🛒",title:"Distributor Orders",sub:"Instant SEPA payment",col:"rgba(61,142,240,.2)"},
-          {icon:"💶",title:"Revenue Flows",sub:"Brand + Distributor win",col:"rgba(39,174,96,.2)"},
+          {icon:"📦",title:t("dmoValStock"),sub:t("dmoValStockS"),col:"rgba(201,168,76,.2)"},
+          {icon:"🛒",title:t("dmoValOrders"),sub:t("dmoValOrdersS"),col:"rgba(61,142,240,.2)"},
+          {icon:"💶",title:t("dmoValRev"),sub:t("dmoValRevS"),col:"rgba(39,174,96,.2)"},
         ].map((s,i)=>(
           <div key={i} style={{ display:"flex", alignItems:"center" }}>
             <div style={{ flex:1, padding:"14px 10px", background:s.col,
@@ -1302,7 +1310,7 @@ function DemoSlideContent({ slide, visible }) {
         ))}
       </div>
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10 }}>
-        {[{v:"3x",l:"Faster Rotation",c:DC.goldL},{v:"0",l:"Manual Work",c:DC.blue},{v:"↑↑",l:"Revenue for All",c:DC.green}].map((m,i)=>(
+        {[{v:"3x",l:t("dmoValM1"),c:DC.goldL},{v:"0",l:t("dmoValM2"),c:DC.blue},{v:"↑↑",l:t("dmoValM3"),c:DC.green}].map((m,i)=>(
           <div key={i} style={{ padding:"16px 10px", background:"rgba(255,255,255,.03)",
             border:"1px solid rgba(255,255,255,.07)", borderRadius:11, textAlign:"center",
             ...animScale(0.35+i*0.12) }}>
@@ -1316,13 +1324,13 @@ function DemoSlideContent({ slide, visible }) {
 
   if (slide.type === "numbers") return (
     <div style={{ textAlign:"center", maxWidth:660, width:"100%" }}>
-      <HL>Built for Scale</HL>
+      <HL>{t("dmoNumTitle")}</HL>
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginTop:20 }}>
         {[
-          {v:"€8.9M",l:"Platform GMV",c:DC.goldL,b:DC.gold},
-          {v:"103",l:"Active Distributors",c:DC.blue,b:DC.blue},
-          {v:"480",l:"Pallets / Month",c:DC.green,b:DC.green},
-          {v:"48h",l:"Hub to Door",c:DC.purple,b:DC.purple},
+          {v:"€8.9M",l:t("dmoNum1"),c:DC.goldL,b:DC.gold},
+          {v:"103",l:t("dmoNum2"),c:DC.blue,b:DC.blue},
+          {v:"480",l:t("dmoNum3"),c:DC.green,b:DC.green},
+          {v:"48h",l:t("dmoNum4"),c:DC.purple,b:DC.purple},
         ].map((m,i)=>(
           <div key={i} style={{ padding:"22px 14px", textAlign:"center",
             background:"rgba(255,255,255,.03)", border:"1px solid rgba(255,255,255,.07)",
@@ -1344,16 +1352,16 @@ function DemoSlideContent({ slide, visible }) {
           fontSize:22, fontWeight:900, color:"#fff", fontFamily:"'Bebas Neue',sans-serif" }}>a</div>
         <div style={{textAlign:"left"}}>
           <div style={{fontSize:"clamp(18px,3.5vw,32px)",fontWeight:900,fontFamily:"'Bebas Neue',sans-serif",color:"#FF9900",letterSpacing:".05em"}}>Amazon Europe</div>
-          <div style={{fontSize:11,color:DC.muted,letterSpacing:".1em",textTransform:"uppercase"}}>Exclusive Management Service</div>
+          <div style={{fontSize:11,color:DC.muted,letterSpacing:".1em",textTransform:"uppercase"}}>{t("dmoAmzService")}</div>
         </div>
       </div>
-      <Sub delay={0.2}>We handle everything — you collect the revenue</Sub>
+      <Sub delay={0.2}>{t("dmoAmzSub")}</Sub>
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginBottom:14 }}>
         {[
-          {icon:"🚚",title:"FBA Logistics",sub:"Full Amazon FBA management across all EU marketplaces"},
-          {icon:"📢",title:"PPC Advertising",sub:"Sponsored ads, DSP campaigns, brand store management"},
-          {icon:"💹",title:"Price Control",sub:"MAP enforcement, Buy Box optimization, competitor monitoring"},
-          {icon:"🔒",title:"Exclusive Rights",sub:"One brand, one partner — full market protection guaranteed"},
+          {icon:"🚚",title:t("dmoAmzC1"),sub:t("dmoAmzC1S")},
+          {icon:"📢",title:t("dmoAmzC2"),sub:t("dmoAmzC2S")},
+          {icon:"💹",title:t("dmoAmzC3"),sub:t("dmoAmzC3S")},
+          {icon:"🔒",title:t("dmoAmzC4"),sub:t("dmoAmzC4S")},
         ].map((s,i)=>(
           <div key={i} style={{ padding:"14px 12px", background:"rgba(255,153,0,.06)",
             border:"1px solid rgba(255,153,0,.2)", borderLeft:"3px solid #FF9900",
@@ -1368,7 +1376,7 @@ function DemoSlideContent({ slide, visible }) {
         border:"1px solid rgba(255,153,0,.2)", borderRadius:10,
         fontSize:12, color:"#FF9900", fontWeight:600,
         fontFamily:"'DM Sans',sans-serif", ...anim(0.65) }}>
-        🌍 Active on Amazon.it · Amazon.de · Amazon.fr · Amazon.es · Amazon.co.uk
+        🌍 {t("dmoAmzActiveOn")} Amazon.it · Amazon.de · Amazon.fr · Amazon.es · Amazon.co.uk
       </div>
     </div>
   );
@@ -1379,8 +1387,8 @@ function DemoSlideContent({ slide, visible }) {
         fontFamily:"'Bebas Neue','Impact',sans-serif", letterSpacing:".1em",
         background:`linear-gradient(135deg,${DC.goldL},${DC.gold})`,
         WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent",
-        ...anim(0.1) }}>Ready to Join?</div>
-      <Sub delay={0.2}>Choose your role — it's free to register and get started today</Sub>
+        ...anim(0.1) }}>{t("dmoCtaTitle")}</div>
+      <Sub delay={0.2}>{t("dmoCtaSub")}</Sub>
       <div style={{ display:"flex", gap:14, justifyContent:"center", flexWrap:"wrap",
         marginTop:28, ...anim(0.35) }}>
         <button onClick={() => slide.onBrand?.()} style={{
@@ -1389,20 +1397,20 @@ function DemoSlideContent({ slide, visible }) {
           border:"none", color:DC.bg, fontSize:14, fontWeight:800,
           fontFamily:"'DM Sans',sans-serif", letterSpacing:".05em", textTransform:"uppercase",
           boxShadow:`0 8px 32px rgba(201,168,76,.35)` }}>
-          🏛️ I'm a Brand
+          🏛️ {t("dmoCtaBrand")}
         </button>
         <button onClick={() => slide.onDist?.()} style={{
           padding:"15px 30px", borderRadius:11, cursor:"pointer",
           background:"transparent", border:`2px solid rgba(61,142,240,.5)`,
           color:DC.blue, fontSize:14, fontWeight:800,
           fontFamily:"'DM Sans',sans-serif", letterSpacing:".05em", textTransform:"uppercase" }}>
-          📦 I'm a Distributor
+          📦 {t("dmoCtaDist")}
         </button>
       </div>
       <div style={{ marginTop:18, fontSize:12, color:DC.dim, ...anim(0.5) }}>
         <button onClick={() => slide.onBack?.()} style={{
           background:"none", border:"none", color:DC.muted, cursor:"pointer",
-          fontSize:12, textDecoration:"underline" }}>Back to login</button>
+          fontSize:12, textDecoration:"underline" }}>{t("dmoCtaBack")}</button>
       </div>
     </div>
   );
