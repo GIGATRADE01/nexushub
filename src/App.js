@@ -727,6 +727,20 @@ Object.assign(T.es, { abTitle:"Gestión de marcas", abAddBrand:"+ Añadir marca"
 Object.assign(T.de, { abTitle:"Markenverwaltung", abAddBrand:"+ Marke hinzufügen", abCode:"Code", abNoBrands:"Noch keine Marken. Fügen Sie die erste hinzu!", acTitle:"Produktkatalog", acAddProduct:"+ Produkt hinzufügen", achBrand:"Marke", achProduct:"Produkt", achCategory:"Kategorie", achPrice:"Preis", achStock:"Bestand", achMultiple:"Vielfaches", acEdit:"Bearbeiten", acActivate:"Aktivieren", acDeactivate:"Deaktivieren" });
 Object.assign(T.zh, { abTitle:"品牌管理", abAddBrand:"+ 添加品牌", abCode:"代码", abNoBrands:"还没有品牌。添加第一个吧！", acTitle:"产品目录", acAddProduct:"+ 添加产品", achBrand:"品牌", achProduct:"产品", achCategory:"类别", achPrice:"价格", achStock:"库存", achMultiple:"倍数", acEdit:"编辑", acActivate:"启用", acDeactivate:"停用" });
 Object.assign(T.ar, { abTitle:"إدارة العلامات", abAddBrand:"+ إضافة علامة", abCode:"الرمز", abNoBrands:"لا توجد علامات بعد. أضِف الأولى!", acTitle:"كتالوج المنتجات", acAddProduct:"+ إضافة منتج", achBrand:"العلامة", achProduct:"المنتج", achCategory:"الفئة", achPrice:"السعر", achStock:"المخزون", achMultiple:"المضاعف", acEdit:"تعديل", acActivate:"تفعيل", acDeactivate:"إلغاء التفعيل" });
+Object.assign(T.en, { aordTitle:"Order Management", aordExport:"Export for ShippyPro (CSV)", aordDelReview:"Delete review (brand appeal)", aordDelReviewConfirm:"Delete the review and reverse the brand's points?", aordReviewDeleted:"Review deleted", aordRemove:"remove", aordCourierPh:"Courier (e.g. BRT)", aordTrackingPh:"Tracking no.", aordSaveNotify:"Save + notify", aordNoOrders:"No orders yet", ainvTitle:"Automatic Invoicing", ainvSub:"Invoices generated automatically when orders are completed", ainvNoInvoices:"No invoices yet", ainvNoInvoicesMsg:"Invoices are generated automatically when an order is delivered", ainvView:"View", ainvSend:"Send", ainvCardTotal:"Total Invoices", ainvCardComm:"NH Commissions", ainvCardToday:"Issued today", ainvhNumber:"Number", ainvhType:"Type", ainvhFrom:"From", ainvhTo:"To", ainvhTaxable:"Taxable", ainvhVat:"VAT", ainvhTotal:"Total", ainvhCommNH:"NH Commission", ainvhDate:"Date", ainvtypeComm:"NH Commission", ainvtypeToDist:"NH → Dist.", ainvtypeBrandNH:"Brand → NH" });
+Object.assign(T.it, { aordTitle:"Gestione Ordini", aordExport:"Esporta per ShippyPro (CSV)", aordDelReview:"Cancella recensione (appello brand)", aordDelReviewConfirm:"Cancellare la recensione e stornare i punti al brand?", aordReviewDeleted:"Recensione cancellata", aordRemove:"togli", aordCourierPh:"Corriere (es. BRT)", aordTrackingPh:"N. tracking", aordSaveNotify:"Salva + notifica", aordNoOrders:"Nessun ordine ancora", ainvTitle:"Fatturazione Automatica", ainvSub:"Fatture generate automaticamente al completamento degli ordini", ainvNoInvoices:"Nessuna fattura ancora", ainvNoInvoicesMsg:"Le fatture vengono generate automaticamente quando un ordine viene consegnato", ainvView:"Vedi", ainvSend:"Invia", ainvCardTotal:"Totale Fatture", ainvCardComm:"Commissioni NH", ainvCardToday:"Emesse oggi", ainvhNumber:"Numero", ainvhType:"Tipo", ainvhFrom:"Da", ainvhTo:"A", ainvhTaxable:"Imponibile", ainvhVat:"IVA", ainvhTotal:"Totale", ainvhCommNH:"Commissione NH", ainvhDate:"Data", ainvtypeComm:"NH Commission", ainvtypeToDist:"NH → Dist.", ainvtypeBrandNH:"Brand → NH" });
+Object.assign(T.fr, { aordTitle:"Gestion des commandes", aordExport:"Exporter pour ShippyPro (CSV)", aordDelReview:"Supprimer l'avis (recours marque)", aordDelReviewConfirm:"Supprimer l'avis et annuler les points de la marque ?", aordReviewDeleted:"Avis supprimé", aordRemove:"retirer", aordCourierPh:"Transporteur (ex. BRT)", aordTrackingPh:"N° de suivi", aordSaveNotify:"Enregistrer + notifier", aordNoOrders:"Aucune commande pour l'instant", ainvTitle:"Facturation automatique", ainvSub:"Factures générées automatiquement à la finalisation des commandes", ainvNoInvoices:"Aucune facture pour l'instant", ainvNoInvoicesMsg:"Les factures sont générées automatiquement lorsqu'une commande est livrée", ainvView:"Voir", ainvSend:"Envoyer", ainvCardTotal:"Total factures", ainvCardComm:"Commissions NH", ainvCardToday:"Émises aujourd'hui", ainvhNumber:"Numéro", ainvhType:"Type", ainvhFrom:"De", ainvhTo:"À", ainvhTaxable:"Base imposable", ainvhVat:"TVA", ainvhTotal:"Total", ainvhCommNH:"Commission NH", ainvhDate:"Date", ainvtypeComm:"Commission NH", ainvtypeToDist:"NH → Dist.", ainvtypeBrandNH:"Brand → NH" });
+Object.assign(T.es, { aordTitle:"Gestión de pedidos", aordExport:"Exportar para ShippyPro (CSV)", aordDelReview:"Eliminar reseña (apelación marca)", aordDelReviewConfirm:"¿Eliminar la reseña y revertir los puntos de la marca?", aordReviewDeleted:"Reseña eliminada", aordRemove:"quitar", aordCourierPh:"Transportista (p. ej. BRT)", aordTrackingPh:"N.º de seguimiento", aordSaveNotify:"Guardar + notificar", aordNoOrders:"Aún no hay pedidos", ainvTitle:"Facturación automática", ainvSub:"Facturas generadas automáticamente al completar los pedidos", ainvNoInvoices:"Aún no hay facturas", ainvNoInvoicesMsg:"Las facturas se generan automáticamente cuando se entrega un pedido", ainvView:"Ver", ainvSend:"Enviar", ainvCardTotal:"Total facturas", ainvCardComm:"Comisiones NH", ainvCardToday:"Emitidas hoy", ainvhNumber:"Número", ainvhType:"Tipo", ainvhFrom:"De", ainvhTo:"A", ainvhTaxable:"Base imponible", ainvhVat:"IVA", ainvhTotal:"Total", ainvhCommNH:"Comisión NH", ainvhDate:"Fecha", ainvtypeComm:"Comisión NH", ainvtypeToDist:"NH → Dist.", ainvtypeBrandNH:"Brand → NH" });
+Object.assign(T.de, { aordTitle:"Bestellverwaltung", aordExport:"Für ShippyPro exportieren (CSV)", aordDelReview:"Bewertung löschen (Marken-Einspruch)", aordDelReviewConfirm:"Bewertung löschen und die Punkte der Marke zurückbuchen?", aordReviewDeleted:"Bewertung gelöscht", aordRemove:"entfernen", aordCourierPh:"Kurier (z. B. BRT)", aordTrackingPh:"Sendungsnr.", aordSaveNotify:"Speichern + benachrichtigen", aordNoOrders:"Noch keine Bestellungen", ainvTitle:"Automatische Rechnungsstellung", ainvSub:"Rechnungen werden bei Abschluss der Bestellungen automatisch erstellt", ainvNoInvoices:"Noch keine Rechnungen", ainvNoInvoicesMsg:"Rechnungen werden automatisch erstellt, wenn eine Bestellung geliefert wird", ainvView:"Ansehen", ainvSend:"Senden", ainvCardTotal:"Rechnungen gesamt", ainvCardComm:"NH-Provisionen", ainvCardToday:"Heute ausgestellt", ainvhNumber:"Nummer", ainvhType:"Typ", ainvhFrom:"Von", ainvhTo:"An", ainvhTaxable:"Nettobetrag", ainvhVat:"USt.", ainvhTotal:"Gesamt", ainvhCommNH:"NH-Provision", ainvhDate:"Datum", ainvtypeComm:"NH-Provision", ainvtypeToDist:"NH → Dist.", ainvtypeBrandNH:"Brand → NH" });
+Object.assign(T.zh, { aordTitle:"订单管理", aordExport:"导出到 ShippyPro (CSV)", aordDelReview:"删除评价（品牌申诉）", aordDelReviewConfirm:"删除评价并撤销该品牌的积分？", aordReviewDeleted:"评价已删除", aordRemove:"移除", aordCourierPh:"快递（例如 BRT）", aordTrackingPh:"追踪号", aordSaveNotify:"保存并通知", aordNoOrders:"还没有订单", ainvTitle:"自动开票", ainvSub:"订单完成时自动生成发票", ainvNoInvoices:"还没有发票", ainvNoInvoicesMsg:"订单送达时会自动生成发票", ainvView:"查看", ainvSend:"发送", ainvCardTotal:"发票总数", ainvCardComm:"NH 佣金", ainvCardToday:"今日开具", ainvhNumber:"编号", ainvhType:"类型", ainvhFrom:"来自", ainvhTo:"至", ainvhTaxable:"应税额", ainvhVat:"增值税", ainvhTotal:"合计", ainvhCommNH:"NH 佣金", ainvhDate:"日期", ainvtypeComm:"NH 佣金", ainvtypeToDist:"NH → Dist.", ainvtypeBrandNH:"Brand → NH" });
+Object.assign(T.ar, { aordTitle:"إدارة الطلبات", aordExport:"تصدير إلى ShippyPro (CSV)", aordDelReview:"حذف المراجعة (استئناف العلامة)", aordDelReviewConfirm:"حذف المراجعة وعكس نقاط العلامة؟", aordReviewDeleted:"تم حذف المراجعة", aordRemove:"إزالة", aordCourierPh:"شركة الشحن (مثل BRT)", aordTrackingPh:"رقم التتبع", aordSaveNotify:"حفظ + إشعار", aordNoOrders:"لا توجد طلبات بعد", ainvTitle:"الفوترة التلقائية", ainvSub:"تُنشأ الفواتير تلقائيًا عند اكتمال الطلبات", ainvNoInvoices:"لا توجد فواتير بعد", ainvNoInvoicesMsg:"تُنشأ الفواتير تلقائيًا عند تسليم الطلب", ainvView:"عرض", ainvSend:"إرسال", ainvCardTotal:"إجمالي الفواتير", ainvCardComm:"عمولات NH", ainvCardToday:"الصادرة اليوم", ainvhNumber:"الرقم", ainvhType:"النوع", ainvhFrom:"من", ainvhTo:"إلى", ainvhTaxable:"الخاضع للضريبة", ainvhVat:"ض.ق.م", ainvhTotal:"الإجمالي", ainvhCommNH:"عمولة NH", ainvhDate:"التاريخ", ainvtypeComm:"عمولة NH", ainvtypeToDist:"NH → Dist.", ainvtypeBrandNH:"Brand → NH" });
+Object.assign(T.en, { acomTitle:"Automatic Commissions", acomSub:"Tiers on real annual revenue · up to €10M = 11.4% · €10–15M = 10% · over €15M = 9%", acomNoBrands:"No brands registered.", acomLocked:"locked", acomUpdated:"updated", acomHistory:"Change history", acomNoHistory:"No changes recorded so far.", aconTitle:"Digital Contracts", aconSub:"Exclusive distribution contracts by territory", aconFilterActive:"Active", aconFilterDrafts:"Drafts", aconFilterExpiring:"Expiring (30d)", aconFilterExpired:"Expired", aconNoContracts:"No contracts yet", aconNoContractsMsg:"Contracts are created when you approve a distributor for a brand", aconExpired:"expired", aconView:"View", aconActivate:"Activate", aconTerminate:"Terminate", aconNewTitle:"New distribution contract", aconBrandLbl:"Brand *", aconChooseBrand:"— Choose brand —", aconDistLbl:"Distributor *", aconChooseDist:"— Choose distributor —", aconTerritory:"Territory", aconTerritoryPh:"e.g. Italy, EU, Romania...", aconCommission:"Commission (%)", aconMOQ:"MOQ per order", aconPayTerms:"Payment terms (days)", aconValidFrom:"Valid from", aconValidUntil:"Valid until" });
+Object.assign(T.it, { acomTitle:"Provvigioni automatiche", acomSub:"Scaglioni sul fatturato annuo reale · fino a 10M€ = 11,4% · 10–15M€ = 10% · oltre 15M€ = 9%", acomNoBrands:"Nessun brand registrato.", acomLocked:"bloccata", acomUpdated:"aggiornato", acomHistory:"Storico modifiche", acomNoHistory:"Nessuna modifica registrata finora.", aconTitle:"Contratti Digitali", aconSub:"Contratti di distribuzione esclusiva per territorio", aconFilterActive:"Attivi", aconFilterDrafts:"Bozze", aconFilterExpiring:"In scadenza (30gg)", aconFilterExpired:"Scaduti", aconNoContracts:"Nessun contratto ancora", aconNoContractsMsg:"I contratti vengono creati quando approvi un distributore per un brand", aconExpired:"scaduto", aconView:"Vedi", aconActivate:"Attiva", aconTerminate:"Termina", aconNewTitle:"Nuovo contratto di distribuzione", aconBrandLbl:"Brand *", aconChooseBrand:"— Scegli brand —", aconDistLbl:"Distributore *", aconChooseDist:"— Scegli distributore —", aconTerritory:"Territorio", aconTerritoryPh:"es. Italia, UE, Romania...", aconCommission:"Commissione (%)", aconMOQ:"MOQ per ordine", aconPayTerms:"Termini pagamento (giorni)", aconValidFrom:"Valido dal", aconValidUntil:"Valido fino al" });
+Object.assign(T.fr, { acomTitle:"Commissions automatiques", acomSub:"Paliers sur le chiffre d'affaires annuel réel · jusqu'à 10M€ = 11,4% · 10–15M€ = 10% · au-delà de 15M€ = 9%", acomNoBrands:"Aucune marque enregistrée.", acomLocked:"verrouillée", acomUpdated:"mis à jour", acomHistory:"Historique des modifications", acomNoHistory:"Aucune modification enregistrée jusqu'à présent.", aconTitle:"Contrats numériques", aconSub:"Contrats de distribution exclusive par territoire", aconFilterActive:"Actifs", aconFilterDrafts:"Brouillons", aconFilterExpiring:"Expirent (30j)", aconFilterExpired:"Expirés", aconNoContracts:"Aucun contrat pour l'instant", aconNoContractsMsg:"Les contrats sont créés lorsque vous approuvez un distributeur pour une marque", aconExpired:"expiré", aconView:"Voir", aconActivate:"Activer", aconTerminate:"Résilier", aconNewTitle:"Nouveau contrat de distribution", aconBrandLbl:"Marque *", aconChooseBrand:"— Choisir une marque —", aconDistLbl:"Distributeur *", aconChooseDist:"— Choisir un distributeur —", aconTerritory:"Territoire", aconTerritoryPh:"ex. Italie, UE, Roumanie...", aconCommission:"Commission (%)", aconMOQ:"MOQ par commande", aconPayTerms:"Délais de paiement (jours)", aconValidFrom:"Valable du", aconValidUntil:"Valable jusqu'au" });
+Object.assign(T.es, { acomTitle:"Comisiones automáticas", acomSub:"Tramos sobre la facturación anual real · hasta 10M€ = 11,4% · 10–15M€ = 10% · más de 15M€ = 9%", acomNoBrands:"No hay marcas registradas.", acomLocked:"bloqueada", acomUpdated:"actualizado", acomHistory:"Historial de cambios", acomNoHistory:"No hay cambios registrados hasta ahora.", aconTitle:"Contratos digitales", aconSub:"Contratos de distribución exclusiva por territorio", aconFilterActive:"Activos", aconFilterDrafts:"Borradores", aconFilterExpiring:"Por vencer (30d)", aconFilterExpired:"Vencidos", aconNoContracts:"Aún no hay contratos", aconNoContractsMsg:"Los contratos se crean cuando apruebas un distribuidor para una marca", aconExpired:"vencido", aconView:"Ver", aconActivate:"Activar", aconTerminate:"Terminar", aconNewTitle:"Nuevo contrato de distribución", aconBrandLbl:"Marca *", aconChooseBrand:"— Elegir marca —", aconDistLbl:"Distribuidor *", aconChooseDist:"— Elegir distribuidor —", aconTerritory:"Territorio", aconTerritoryPh:"p. ej. Italia, UE, Rumanía...", aconCommission:"Comisión (%)", aconMOQ:"MOQ por pedido", aconPayTerms:"Plazos de pago (días)", aconValidFrom:"Válido desde", aconValidUntil:"Válido hasta" });
+Object.assign(T.de, { acomTitle:"Automatische Provisionen", acomSub:"Staffeln auf den echten Jahresumsatz · bis 10 Mio.€ = 11,4% · 10–15 Mio.€ = 10% · über 15 Mio.€ = 9%", acomNoBrands:"Keine Marken registriert.", acomLocked:"gesperrt", acomUpdated:"aktualisiert", acomHistory:"Änderungsverlauf", acomNoHistory:"Bisher keine Änderungen erfasst.", aconTitle:"Digitale Verträge", aconSub:"Exklusive Vertriebsverträge nach Gebiet", aconFilterActive:"Aktiv", aconFilterDrafts:"Entwürfe", aconFilterExpiring:"Läuft ab (30T)", aconFilterExpired:"Abgelaufen", aconNoContracts:"Noch keine Verträge", aconNoContractsMsg:"Verträge werden erstellt, wenn Sie einen Händler für eine Marke genehmigen", aconExpired:"abgelaufen", aconView:"Ansehen", aconActivate:"Aktivieren", aconTerminate:"Beenden", aconNewTitle:"Neuer Vertriebsvertrag", aconBrandLbl:"Marke *", aconChooseBrand:"— Marke wählen —", aconDistLbl:"Händler *", aconChooseDist:"— Händler wählen —", aconTerritory:"Gebiet", aconTerritoryPh:"z. B. Italien, EU, Rumänien...", aconCommission:"Provision (%)", aconMOQ:"MOQ pro Bestellung", aconPayTerms:"Zahlungsziel (Tage)", aconValidFrom:"Gültig ab", aconValidUntil:"Gültig bis" });
+Object.assign(T.zh, { acomTitle:"自动佣金", acomSub:"基于真实年营收的分级 · 最高 1000万€ = 11.4% · 1000–1500万€ = 10% · 超过 1500万€ = 9%", acomNoBrands:"没有已注册的品牌。", acomLocked:"已锁定", acomUpdated:"已更新", acomHistory:"变更历史", acomNoHistory:"目前尚无变更记录。", aconTitle:"数字合同", aconSub:"按区域划分的独家分销合同", aconFilterActive:"生效中", aconFilterDrafts:"草稿", aconFilterExpiring:"即将到期（30天）", aconFilterExpired:"已过期", aconNoContracts:"还没有合同", aconNoContractsMsg:"当您为某品牌批准分销商时会创建合同", aconExpired:"已过期", aconView:"查看", aconActivate:"激活", aconTerminate:"终止", aconNewTitle:"新分销合同", aconBrandLbl:"品牌 *", aconChooseBrand:"— 选择品牌 —", aconDistLbl:"分销商 *", aconChooseDist:"— 选择分销商 —", aconTerritory:"区域", aconTerritoryPh:"例如 意大利、欧盟、罗马尼亚...", aconCommission:"佣金 (%)", aconMOQ:"每单最小起订量", aconPayTerms:"付款期限（天）", aconValidFrom:"生效日期", aconValidUntil:"有效至" });
+Object.assign(T.ar, { acomTitle:"العمولات التلقائية", acomSub:"شرائح على الإيرادات السنوية الفعلية · حتى 10 مليون€ = 11.4% · 10–15 مليون€ = 10% · أكثر من 15 مليون€ = 9%", acomNoBrands:"لا توجد علامات مسجّلة.", acomLocked:"مقفلة", acomUpdated:"محدّث", acomHistory:"سجل التغييرات", acomNoHistory:"لا توجد تغييرات مسجّلة حتى الآن.", aconTitle:"العقود الرقمية", aconSub:"عقود التوزيع الحصري حسب المنطقة", aconFilterActive:"نشطة", aconFilterDrafts:"مسودات", aconFilterExpiring:"تنتهي قريبًا (30 يومًا)", aconFilterExpired:"منتهية", aconNoContracts:"لا توجد عقود بعد", aconNoContractsMsg:"تُنشأ العقود عند الموافقة على موزّع لعلامة ما", aconExpired:"منتهٍ", aconView:"عرض", aconActivate:"تفعيل", aconTerminate:"إنهاء", aconNewTitle:"عقد توزيع جديد", aconBrandLbl:"العلامة *", aconChooseBrand:"— اختر علامة —", aconDistLbl:"الموزّع *", aconChooseDist:"— اختر موزّعًا —", aconTerritory:"المنطقة", aconTerritoryPh:"مثل إيطاليا، الاتحاد الأوروبي، رومانيا...", aconCommission:"العمولة (%)", aconMOQ:"الحد الأدنى للطلب", aconPayTerms:"شروط الدفع (أيام)", aconValidFrom:"صالح من", aconValidUntil:"صالح حتى" });
 
 
 
@@ -6663,10 +6677,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {tab === "orders" && (
           <div>
             <div style={{ marginBottom:20 }}>
-              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Order Management</h2>
+              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("aordTitle")}</h2>
               <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{orders.length} orders total</p>
             </div>
-            <button onClick={exportShippyPro} style={{ marginBottom:20, padding:"10px 16px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>📦 Esporta per ShippyPro (CSV)</button>
+            <button onClick={exportShippyPro} style={{ marginBottom:20, padding:"10px 16px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>📦 {t("aordExport")}</button>
             <div style={{ display:"flex", gap:12, marginBottom:20, flexWrap:"wrap" }}>
               {["pending","confirmed","shipped","delivered"].map(s => (
                 <div key={s} style={{ flex:"1 1 120px", padding:"14px 16px", background:C.surface, border:`1px solid ${C.border}`, borderRadius:10, textAlign:"center" }}>
@@ -6701,7 +6715,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         ) : "—"}
                       </td>
                       <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.goldLight }}>€{o.total_amount?.toLocaleString("it-IT")}</td>
-                      <td style={{ padding:"11px 14px" }}><Badge status={o.status}/>{o.rating ? <div style={{ fontSize:12, color:C.gold, marginTop:3 }}>{"★".repeat(o.rating)}<span style={{ color:C.border }}>{"★".repeat(5-o.rating)}</span> <span title="Cancella recensione (appello brand)" onClick={async()=>{ if(!window.confirm("Cancellare la recensione e stornare i punti al brand?")) return; await supabase.rpc("admin_delete_review",{p_order:o.id}); notify("Recensione cancellata"); loadOrders(); }} style={{ cursor:"pointer", color:C.red, fontSize:11, marginLeft:6 }}>✕ togli</span></div> : null}</td>
+                      <td style={{ padding:"11px 14px" }}><Badge status={o.status}/>{o.rating ? <div style={{ fontSize:12, color:C.gold, marginTop:3 }}>{"★".repeat(o.rating)}<span style={{ color:C.border }}>{"★".repeat(5-o.rating)}</span> <span title={t("aordDelReview")} onClick={async()=>{ if(!window.confirm(t("aordDelReviewConfirm"))) return; await supabase.rpc("admin_delete_review",{p_order:o.id}); notify(t("aordReviewDeleted")); loadOrders(); }} style={{ cursor:"pointer", color:C.red, fontSize:11, marginLeft:6 }}>✕ {t("aordRemove")}</span></div> : null}</td>
                       <td style={{ padding:"11px 14px", fontSize:11, color:C.textDim }}>{new Date(o.created_at).toLocaleDateString()}</td>
                       <td style={{ padding:"11px 14px" }}>
                         {o.tracking_number ? (
@@ -6711,9 +6725,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                           </div>
                         ) : (
                           <div style={{ display:"flex", flexDirection:"column", gap:4, minWidth:140 }}>
-                            <input value={trackEdits[o.id]?.courier ?? ""} onChange={ev=>setTrackEdits(p=>({ ...p, [o.id]:{ ...p[o.id], courier:ev.target.value } }))} placeholder="Corriere (es. BRT)" style={{ padding:"4px 6px", borderRadius:5, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:11 }}/>
-                            <input value={trackEdits[o.id]?.tracking_number ?? ""} onChange={ev=>setTrackEdits(p=>({ ...p, [o.id]:{ ...p[o.id], tracking_number:ev.target.value } }))} placeholder="N. tracking" style={{ padding:"4px 6px", borderRadius:5, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:11 }}/>
-                            <button onClick={()=>saveTracking(o)} style={{ padding:"4px 8px", borderRadius:5, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.blue}20`, border:`1px solid ${C.blue}50`, color:C.blue }}>Salva + notifica</button>
+                            <input value={trackEdits[o.id]?.courier ?? ""} onChange={ev=>setTrackEdits(p=>({ ...p, [o.id]:{ ...p[o.id], courier:ev.target.value } }))} placeholder={t("aordCourierPh")} style={{ padding:"4px 6px", borderRadius:5, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:11 }}/>
+                            <input value={trackEdits[o.id]?.tracking_number ?? ""} onChange={ev=>setTrackEdits(p=>({ ...p, [o.id]:{ ...p[o.id], tracking_number:ev.target.value } }))} placeholder={t("aordTrackingPh")} style={{ padding:"4px 6px", borderRadius:5, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:11 }}/>
+                            <button onClick={()=>saveTracking(o)} style={{ padding:"4px 8px", borderRadius:5, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.blue}20`, border:`1px solid ${C.blue}50`, color:C.blue }}>{t("aordSaveNotify")}</button>
                           </div>
                         )}
                       </td>
@@ -6728,7 +6742,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                     </tr>
                   ))}
                   {orders.length === 0 && (
-                    <tr><td colSpan={7} style={{ padding:40, textAlign:"center", color:C.textMuted }}>No orders yet</td></tr>
+                    <tr><td colSpan={7} style={{ padding:40, textAlign:"center", color:C.textMuted }}>{t("aordNoOrders")}</td></tr>
                   )}
                 </tbody>
               </table>
@@ -6741,14 +6755,14 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🧾 Fatturazione Automatica</h2>
-                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Fatture generate automaticamente al completamento degli ordini</p>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🧾 {t("ainvTitle")}</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("ainvSub")}</p>
               </div>
               <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
                 {[
-                  { label:"Totale Fatture", value:invoices.length, color:C.gold },
-                  { label:"Commissioni NH", value:`€${invoices.filter(i=>i.type==="nexushub_commission").reduce((s,i)=>s+(i.commission_amount||0),0).toFixed(0)}`, color:C.green },
-                  { label:"Emesse oggi", value:invoices.filter(i=>new Date(i.created_at).toDateString()===new Date().toDateString()).length, color:C.blue },
+                  { label:t("ainvCardTotal"), value:invoices.length, color:C.gold },
+                  { label:t("ainvCardComm"), value:`€${invoices.filter(i=>i.type==="nexushub_commission").reduce((s,i)=>s+(i.commission_amount||0),0).toFixed(0)}`, color:C.green },
+                  { label:t("ainvCardToday"), value:invoices.filter(i=>new Date(i.created_at).toDateString()===new Date().toDateString()).length, color:C.blue },
                 ].map((s,i) => (
                   <div key={i} style={{ padding:"10px 16px", background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${s.color}`, borderRadius:10, textAlign:"center" }}>
                     <div style={{ fontSize:16, fontWeight:900, color:s.color }}>{s.value}</div>
@@ -6761,15 +6775,15 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             {invoices.length === 0 ? (
               <div style={{ textAlign:"center", padding:60, background:C.surface, borderRadius:12, border:`1px solid ${C.border}` }}>
                 <div style={{ fontSize:40, marginBottom:12 }}>🧾</div>
-                <div style={{ fontSize:15, color:C.text, marginBottom:8 }}>Nessuna fattura ancora</div>
-                <div style={{ fontSize:13, color:C.textMuted }}>Le fatture vengono generate automaticamente quando un ordine viene consegnato</div>
+                <div style={{ fontSize:15, color:C.text, marginBottom:8 }}>{t("ainvNoInvoices")}</div>
+                <div style={{ fontSize:13, color:C.textMuted }}>{t("ainvNoInvoicesMsg")}</div>
               </div>
             ) : (
               <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:900 }}>
                   <thead>
                     <tr style={{ background:C.surface2 }}>
-                      {["Numero","Tipo","Da","A","Imponibile","IVA","Totale","Commissione NH","Data","Azioni"].map((h,i) => (
+                      {[t("ainvhNumber"),t("ainvhType"),t("ainvhFrom"),t("ainvhTo"),t("ainvhTaxable"),t("ainvhVat"),t("ainvhTotal"),t("ainvhCommNH"),t("ainvhDate"),t("auhActions")].map((h,i) => (
                         <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
                       ))}
                     </tr>
@@ -6785,7 +6799,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                             background: inv.type==="nexushub_commission"?`${C.gold}15`:inv.type==="nexushub_to_distributor"?`${C.blue}15`:`${C.green}15`,
                             color: inv.type==="nexushub_commission"?C.gold:inv.type==="nexushub_to_distributor"?C.blue:C.green,
                             border: `1px solid ${inv.type==="nexushub_commission"?C.gold:inv.type==="nexushub_to_distributor"?C.blue:C.green}30` }}>
-                            {inv.type==="nexushub_commission"?"NH Commission":inv.type==="nexushub_to_distributor"?"NH → Dist.":"Brand → NH"}
+                            {inv.type==="nexushub_commission"?t("ainvtypeComm"):inv.type==="nexushub_to_distributor"?t("ainvtypeToDist"):t("ainvtypeBrandNH")}
                           </span>
                         </td>
                         <td style={{ padding:"11px 14px", fontSize:12, color:C.text, maxWidth:150, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{inv.from_entity}</td>
@@ -6801,8 +6815,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         </td>
                         <td style={{ padding:"11px 14px" }}>
                           <div style={{ display:"flex", gap:6 }}>
-                            <button onClick={() => viewInvoice(inv.id)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>👁 Vedi</button>
-                            <button onClick={() => sendInvoiceEmail(inv.id)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.green}10`, border:`1px solid ${C.green}30`, color:C.green }}>✉ Invia</button>
+                            <button onClick={() => viewInvoice(inv.id)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>👁 {t("ainvView")}</button>
+                            <button onClick={() => sendInvoiceEmail(inv.id)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.green}10`, border:`1px solid ${C.green}30`, color:C.green }}>✉ {t("ainvSend")}</button>
                           </div>
                         </td>
                       </tr>
@@ -6817,8 +6831,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* CONTRACTS TAB */}
         {tab === "commissions" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📊 Provvigioni automatiche</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 16px" }}>Scaglioni sul fatturato annuo reale · fino a 10M€ = 11,4% · 10–15M€ = 10% · oltre 15M€ = 9%</p>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📊 {t("acomTitle")}</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 16px" }}>{t("acomSub")}</p>
             <div style={{ display:"flex", justifyContent:"flex-end", marginBottom:12 }}>
               <button onClick={recalcNow} disabled={recalcing} style={{ padding:"9px 18px", borderRadius:9, cursor: recalcing?"default":"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, opacity: recalcing?0.6:1 }}>{recalcing ? "Ricalcolo..." : "🔄 Ricalcola ora"}</button>
             </div>
@@ -6833,7 +6847,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 </thead>
                 <tbody>
                   {commissionRows.length === 0 && (
-                    <tr><td colSpan={7} style={{ padding:28, textAlign:"center", color:C.textMuted, fontSize:13 }}>Nessun brand registrato.</td></tr>
+                    <tr><td colSpan={7} style={{ padding:28, textAlign:"center", color:C.textMuted, fontSize:13 }}>{t("acomNoBrands")}</td></tr>
                   )}
                   {commissionRows.map((row,i) => {
                     const due = tierRate(row.actual);
@@ -6850,10 +6864,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         </td>
                         <td style={{ padding:"12px 16px" }}>
                           {row.locked
-                            ? <span style={{ fontSize:12, color:C.textDim }}>bloccata</span>
+                            ? <span style={{ fontSize:12, color:C.textDim }}>{t("acomLocked")}</span>
                             : changed
                             ? <button onClick={() => applyCommission(row, due)} style={{ padding:"7px 16px", borderRadius:7, cursor:"pointer", fontSize:12, fontWeight:600, background:`${C.green}18`, border:`1px solid ${C.green}50`, color:C.green, whiteSpace:"nowrap" }}>Applica {due}%</button>
-                            : <span style={{ fontSize:12, color:C.textDim }}>aggiornato</span>}
+                            : <span style={{ fontSize:12, color:C.textDim }}>{t("acomUpdated")}</span>}
                         </td>
                       </tr>
                     );
@@ -6864,9 +6878,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             <div style={{ marginTop:12, padding:"10px 14px", background:`${C.blue}08`, border:`1px solid ${C.blue}15`, borderRadius:8, fontSize:12, color:C.textMuted, lineHeight:1.6 }}>
               💡 Automatico: ogni giorno la provvigione scende da sola al superamento di una soglia; il 1° gennaio si ricalcola sul fatturato dell'anno precedente. Le tariffe bloccate non vengono toccate. Notifica in-app al brand a ogni cambio (email in arrivo).
             </div>
-            <h3 style={{ fontSize:15, fontWeight:700, fontFamily:"Georgia,serif", margin:"24px 0 10px" }}>Storico modifiche</h3>
+            <h3 style={{ fontSize:15, fontWeight:700, fontFamily:"Georgia,serif", margin:"24px 0 10px" }}>{t("acomHistory")}</h3>
             {commissionLog.length === 0 ? (
-              <div style={{ color:C.textMuted, fontSize:13 }}>Nessuna modifica registrata finora.</div>
+              <div style={{ color:C.textMuted, fontSize:13 }}>{t("acomNoHistory")}</div>
             ) : (
               <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:680 }}>
@@ -6893,8 +6907,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📝 Contratti Digitali</h2>
-                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Contratti di distribuzione esclusiva per territorio</p>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📝 {t("aconTitle")}</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("aconSub")}</p>
               </div>
               <button onClick={openNewContract}
                 style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>
@@ -6910,10 +6924,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               const soonN=contracts.filter(c=>c.valid_until && new Date(c.valid_until)>=today && new Date(c.valid_until)<soon).length;
               return (
                 <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:20 }}>
-                  <Stat icon="✅" label="Attivi" value={act} accent={C.green}/>
-                  <Stat icon="📝" label="Bozze" value={dr} accent={C.gold}/>
-                  <Stat icon="⏳" label="In scadenza (30gg)" value={soonN} accent={C.gold}/>
-                  <Stat icon="⚠️" label="Scaduti" value={expd} accent={C.red}/>
+                  <Stat icon="✅" label={t("aconFilterActive")} value={act} accent={C.green}/>
+                  <Stat icon="📝" label={t("aconFilterDrafts")} value={dr} accent={C.gold}/>
+                  <Stat icon="⏳" label={t("aconFilterExpiring")} value={soonN} accent={C.gold}/>
+                  <Stat icon="⚠️" label={t("aconFilterExpired")} value={expd} accent={C.red}/>
                 </div>
               );
             })()}
@@ -6921,8 +6935,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             {contracts.length === 0 ? (
               <div style={{ textAlign:"center", padding:60, background:C.surface, borderRadius:12, border:`1px solid ${C.border}` }}>
                 <div style={{ fontSize:40, marginBottom:12 }}>📝</div>
-                <div style={{ fontSize:15, color:C.text, marginBottom:8 }}>Nessun contratto ancora</div>
-                <div style={{ fontSize:13, color:C.textMuted }}>I contratti vengono creati quando approvi un distributore per un brand</div>
+                <div style={{ fontSize:15, color:C.text, marginBottom:8 }}>{t("aconNoContracts")}</div>
+                <div style={{ fontSize:13, color:C.textMuted }}>{t("aconNoContractsMsg")}</div>
               </div>
             ) : (
               <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
@@ -6946,22 +6960,22 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         </td>
                         <td style={{ padding:"11px 14px", fontSize:11, color:C.textMuted }}>
                           {c.valid_from} → {c.valid_until}
-                          {c.valid_until && new Date(c.valid_until) < new Date() && <span style={{ marginLeft:6, padding:"1px 6px", borderRadius:10, fontSize:10, fontWeight:700, background:`${C.red}18`, color:C.red, border:`1px solid ${C.red}40` }}>scaduto</span>}
+                          {c.valid_until && new Date(c.valid_until) < new Date() && <span style={{ marginLeft:6, padding:"1px 6px", borderRadius:10, fontSize:10, fontWeight:700, background:`${C.red}18`, color:C.red, border:`1px solid ${C.red}40` }}>{t("aconExpired")}</span>}
                         </td>
                         <td style={{ padding:"11px 14px" }}><Badge status={c.status}/></td>
                         <td style={{ padding:"11px 14px" }}>
                           <div style={{ display:"flex", gap:6 }}>
-                            <button onClick={() => setAdminViewContract(c)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}12`, border:`1px solid ${C.blue}40`, color:C.blue }}>Vedi</button>
+                            <button onClick={() => setAdminViewContract(c)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}12`, border:`1px solid ${C.blue}40`, color:C.blue }}>{t("aconView")}</button>
                             <button onClick={async () => {
                               await supabase.from("contracts").update({ status:"active" }).eq("id", c.id);
                               notify("✓ Contratto attivato!");
                               loadContracts();
-                            }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green }}>Attiva</button>
+                            }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green }}>{t("aconActivate")}</button>
                             <button onClick={async () => {
                               await supabase.from("contracts").update({ status:"terminated" }).eq("id", c.id);
                               notify("Contratto terminato");
                               loadContracts();
-                            }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>Termina</button>
+                            }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>{t("aconTerminate")}</button>
                           </div>
                         </td>
                       </tr>
@@ -6974,32 +6988,32 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               const fld = { padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, width:"100%", boxSizing:"border-box", outline:"none" };
               const lbl = { fontSize:11, color:C.textMuted, display:"block", marginBottom:5, marginTop:12 };
               return (
-              <Modal title="Nuovo contratto di distribuzione" onClose={()=>setContractCreate(false)} onSave={saveNewContract} saveLabel="Crea bozza">
-                <label style={lbl}>Brand *</label>
+              <Modal title={t("aconNewTitle")} onClose={()=>setContractCreate(false)} onSave={saveNewContract} saveLabel="Crea bozza">
+                <label style={lbl}>{t("aconBrandLbl")}</label>
                 <select value={contractForm.brand_id||""} onChange={e=>setContractForm(f=>({...f, brand_id:e.target.value}))} style={fld}>
-                  <option value="">— Scegli brand —</option>
+                  <option value="">{t("aconChooseBrand")}</option>
                   {brands.map(b=>(<option key={b.id} value={b.id}>{b.company_name||b.email}</option>))}
                 </select>
-                <label style={lbl}>Distributore *</label>
+                <label style={lbl}>{t("aconDistLbl")}</label>
                 <select value={contractForm.distributor_id||""} onChange={e=>setContractForm(f=>({...f, distributor_id:e.target.value}))} style={fld}>
-                  <option value="">— Scegli distributore —</option>
+                  <option value="">{t("aconChooseDist")}</option>
                   {users.filter(u=>u.role==="distributor").map(u=>(<option key={u.id} value={u.id}>{u.company_name||u.email}</option>))}
                 </select>
-                <label style={lbl}>Territorio</label>
-                <input value={contractForm.territory||""} onChange={e=>setContractForm(f=>({...f, territory:e.target.value}))} placeholder="es. Italia, UE, Romania..." style={fld}/>
+                <label style={lbl}>{t("aconTerritory")}</label>
+                <input value={contractForm.territory||""} onChange={e=>setContractForm(f=>({...f, territory:e.target.value}))} placeholder={t("aconTerritoryPh")} style={fld}/>
                 <div style={{ display:"flex", gap:10 }}>
-                  <div style={{ flex:1 }}><label style={lbl}>Commissione (%)</label><input type="number" step="0.1" value={contractForm.commission_rate} onChange={e=>setContractForm(f=>({...f, commission_rate:e.target.value}))} style={fld}/></div>
-                  <div style={{ flex:1 }}><label style={lbl}>MOQ per ordine</label><input type="number" value={contractForm.moq_per_order} onChange={e=>setContractForm(f=>({...f, moq_per_order:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aconCommission")}</label><input type="number" step="0.1" value={contractForm.commission_rate} onChange={e=>setContractForm(f=>({...f, commission_rate:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aconMOQ")}</label><input type="number" value={contractForm.moq_per_order} onChange={e=>setContractForm(f=>({...f, moq_per_order:e.target.value}))} style={fld}/></div>
                 </div>
                 <div style={{ display:"flex", gap:10, alignItems:"center" }}>
-                  <div style={{ flex:1 }}><label style={lbl}>Termini pagamento (giorni)</label><input type="number" value={contractForm.payment_terms} onChange={e=>setContractForm(f=>({...f, payment_terms:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aconPayTerms")}</label><input type="number" value={contractForm.payment_terms} onChange={e=>setContractForm(f=>({...f, payment_terms:e.target.value}))} style={fld}/></div>
                   <label style={{ display:"flex", alignItems:"center", gap:8, fontSize:13, color:C.text, marginTop:24, flex:1, cursor:"pointer" }}>
                     <input type="checkbox" checked={!!contractForm.exclusivity} onChange={e=>setContractForm(f=>({...f, exclusivity:e.target.checked}))}/> Esclusiva territoriale
                   </label>
                 </div>
                 <div style={{ display:"flex", gap:10 }}>
-                  <div style={{ flex:1 }}><label style={lbl}>Valido dal</label><input type="date" value={contractForm.valid_from||""} onChange={e=>setContractForm(f=>({...f, valid_from:e.target.value}))} style={fld}/></div>
-                  <div style={{ flex:1 }}><label style={lbl}>Valido fino al</label><input type="date" value={contractForm.valid_until||""} onChange={e=>setContractForm(f=>({...f, valid_until:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aconValidFrom")}</label><input type="date" value={contractForm.valid_from||""} onChange={e=>setContractForm(f=>({...f, valid_from:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aconValidUntil")}</label><input type="date" value={contractForm.valid_until||""} onChange={e=>setContractForm(f=>({...f, valid_until:e.target.value}))} style={fld}/></div>
                 </div>
               </Modal>
               );
