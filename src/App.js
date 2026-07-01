@@ -699,6 +699,13 @@ Object.assign(T.es, { insStrategy:"Estrategia", insWinter:"El invierno es el pic
 Object.assign(T.de, { insStrategy:"Strategie", insWinter:"Der Winter ist der Höhepunkt für Oud- und orientalische Düfte. Sorgen Sie dafür, dass Händler ausreichend Bestand haben.", insSummer:"Der Sommer begünstigt frische und blumige Düfte. Bereiten Sie Aktionen für südeuropäische Händler vor.", insSpring:"Der Frühling ist ideal für Produkteinführungen: Händler sind offener für neue SKUs.", insAutumn:"Der Herbst bereitet auf die warme Saison vor: Planen Sie Winter-Nachbestellungen jetzt.", insDistTitle:"Top-Händler", insDistText:"{company} ({territory}) ist Ihr umsatzstärkster Händler: €{rev} bei {orders} Bestellungen.", insProdTitle:"Bestseller-Produkt", insProdText:"{name} ist der Bestseller mit {units} Einheiten. Erwägen Sie ein Bundle mit {name2}, um den Bestellwert zu steigern.", insAnotherSku:"eine andere SKU", insNoDataTitle:"Noch zu wenige Daten", insNoDataText:"Es gibt noch nicht genügend Bestellungen für eine vollständige Analyse. Die Daten erscheinen hier, sobald Händler bestellen." });
 Object.assign(T.zh, { insStrategy:"策略", insWinter:"冬季是沉香和东方香水的高峰期。请确保分销商备货充足。", insSummer:"夏季适合清新和花香型香水。为南欧分销商准备促销活动。", insSpring:"春季适合推出新产品：分销商更愿意试销新的 SKU。", insAutumn:"秋季为暖季做准备：现在就提前安排冬季补货。", insDistTitle:"顶级分销商", insDistText:"{company}（{territory}）是您营收最高的分销商：€{rev}，共 {orders} 笔订单。", insProdTitle:"畅销产品", insProdText:"{name} 是销量最高的产品，共 {units} 件。可考虑与 {name2} 组合销售以提升订单价值。", insAnotherSku:"另一个 SKU", insNoDataTitle:"数据仍不足", insNoDataText:"目前订单数量不足以进行完整分析。随着分销商下单，数据将显示在此处。" });
 Object.assign(T.ar, { insStrategy:"الاستراتيجية", insWinter:"الشتاء هو ذروة عطور العود والعطور الشرقية. تأكد من توفر مخزون كافٍ لدى الموزّعين.", insSummer:"الصيف يفضّل العطور المنعشة والزهرية. جهّز عروضًا لموزّعي جنوب أوروبا.", insSpring:"الربيع مثالي لإطلاق منتجات جديدة: الموزّعون أكثر انفتاحًا لتجربة أصناف جديدة.", insAutumn:"الخريف يهيّئ للموسم الدافئ: قدّم طلبات إعادة التوريد الشتوية الآن.", insDistTitle:"أفضل موزّع", insDistText:"{company} ({territory}) هو موزّعك الأعلى إيرادًا: €{rev} عبر {orders} طلبًا.", insProdTitle:"المنتج الأكثر مبيعًا", insProdText:"{name} هو الأكثر مبيعًا بـ {units} وحدة. فكّر في حزمة مع {name2} لزيادة قيمة الطلب.", insAnotherSku:"صنف آخر", insNoDataTitle:"البيانات غير كافية بعد", insNoDataText:"لا توجد طلبات كافية بعد لإجراء تحليل كامل. ستظهر البيانات هنا مع قيام الموزّعين بالطلب." });
+Object.assign(T.en, { atabOverview:"Overview", atabUsers:"Users", atabBrands:"Brands", atabCatalog:"Catalog", atabInventory:"Inventory", atabLogistics:"Logistics", atabRetail:"Retail", atabCompliance:"Compliance", atabMargins:"Margins", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"Orders", atabInvoices:"Invoices", atabContracts:"Contracts", atabCommissions:"Commissions", atabIncassi:"Collections", atabFinance:"Finance", atabAudit:"Audit", atabIssues:"Issues", atabPayments:"Payments", atabSettings:"Settings" });
+Object.assign(T.it, { atabOverview:"Panoramica", atabUsers:"Utenti", atabBrands:"Brand", atabCatalog:"Catalogo", atabInventory:"Inventario", atabLogistics:"Logistica", atabRetail:"Retail", atabCompliance:"Compliance", atabMargins:"Margini", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"Ordini", atabInvoices:"Fatture", atabContracts:"Contratti", atabCommissions:"Provvigioni", atabIncassi:"Incassi", atabFinance:"Finanze", atabAudit:"Audit", atabIssues:"Segnalazioni", atabPayments:"Pagamenti", atabSettings:"Impostazioni" });
+Object.assign(T.fr, { atabOverview:"Aperçu", atabUsers:"Utilisateurs", atabBrands:"Marques", atabCatalog:"Catalogue", atabInventory:"Inventaire", atabLogistics:"Logistique", atabRetail:"Vente au détail", atabCompliance:"Conformité", atabMargins:"Marges", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"Commandes", atabInvoices:"Factures", atabContracts:"Contrats", atabCommissions:"Commissions", atabIncassi:"Encaissements", atabFinance:"Finances", atabAudit:"Audit", atabIssues:"Signalements", atabPayments:"Paiements", atabSettings:"Paramètres" });
+Object.assign(T.es, { atabOverview:"Resumen", atabUsers:"Usuarios", atabBrands:"Marcas", atabCatalog:"Catálogo", atabInventory:"Inventario", atabLogistics:"Logística", atabRetail:"Retail", atabCompliance:"Cumplimiento", atabMargins:"Márgenes", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"Pedidos", atabInvoices:"Facturas", atabContracts:"Contratos", atabCommissions:"Comisiones", atabIncassi:"Cobros", atabFinance:"Finanzas", atabAudit:"Auditoría", atabIssues:"Incidencias", atabPayments:"Pagos", atabSettings:"Ajustes" });
+Object.assign(T.de, { atabOverview:"Übersicht", atabUsers:"Benutzer", atabBrands:"Marken", atabCatalog:"Katalog", atabInventory:"Bestand", atabLogistics:"Logistik", atabRetail:"Einzelhandel", atabCompliance:"Compliance", atabMargins:"Margen", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"Bestellungen", atabInvoices:"Rechnungen", atabContracts:"Verträge", atabCommissions:"Provisionen", atabIncassi:"Zahlungseingänge", atabFinance:"Finanzen", atabAudit:"Audit", atabIssues:"Meldungen", atabPayments:"Zahlungen", atabSettings:"Einstellungen" });
+Object.assign(T.zh, { atabOverview:"概览", atabUsers:"用户", atabBrands:"品牌", atabCatalog:"目录", atabInventory:"库存", atabLogistics:"物流", atabRetail:"零售", atabCompliance:"合规", atabMargins:"利润", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"订单", atabInvoices:"发票", atabContracts:"合同", atabCommissions:"佣金", atabIncassi:"收款", atabFinance:"财务", atabAudit:"审计", atabIssues:"问题反馈", atabPayments:"支付", atabSettings:"设置" });
+Object.assign(T.ar, { atabOverview:"نظرة عامة", atabUsers:"المستخدمون", atabBrands:"العلامات", atabCatalog:"الكتالوج", atabInventory:"المخزون", atabLogistics:"اللوجستيات", atabRetail:"التجزئة", atabCompliance:"الامتثال", atabMargins:"الهوامش", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"الطلبات", atabInvoices:"الفواتير", atabContracts:"العقود", atabCommissions:"العمولات", atabIncassi:"التحصيلات", atabFinance:"المالية", atabAudit:"التدقيق", atabIssues:"البلاغات", atabPayments:"المدفوعات", atabSettings:"الإعدادات" });
 
 
 
@@ -5519,27 +5526,27 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const approvedUsers = users.filter(u => u.status === "approved");
 
   const tabs = [
-    { key:"overview", icon:"◈", label:"Overview" },
-    { key:"users", icon:"👥", label:"Users", badge: pendingUsers.length },
-    { key:"brands", icon:"🏛️", label:"Brands" },
-    { key:"catalog", icon:"📦", label:"Catalog" },
-    { key:"inventory", icon:"🏭", label:"Inventory" },
-    { key:"logistics", icon:"🚛", label:"Logistica" },
-    { key:"retail", icon:"🏬", label:"Retail" },
-    { key:"compliance", icon:"🗂️", label:"Compliance" },
-    { key:"margini", icon:"📈", label:"Margini" },
-    { key:"nexusai", icon:"🤖", label:"Nexus AI" },
-    { key:"amazon", icon:"🛒", label:"Amazon" },
-    { key:"orders", icon:"📋", label:"Orders" },
-    { key:"invoices", icon:"🧾", label:"Fatture" },
-    { key:"contracts", icon:"📝", label:"Contratti" },
-    { key:"commissions", icon:"📊", label:"Provvigioni" },
-    { key:"incassi", icon:"💸", label:"Incassi" },
-    { key:"finanze", icon:"💶", label:"Finanze" },
-    { key:"audit", icon:"📋", label:"Audit" },
-    { key:"issues", icon:"🚩", label:"Segnalazioni" },
-    { key:"payments", icon:"💰", label:"Payments" },
-    { key:"settings", icon:"⚙️", label:"Settings" },
+    { key:"overview", icon:"◈", label:t("atabOverview") },
+    { key:"users", icon:"👥", label:t("atabUsers"), badge: pendingUsers.length },
+    { key:"brands", icon:"🏛️", label:t("atabBrands") },
+    { key:"catalog", icon:"📦", label:t("atabCatalog") },
+    { key:"inventory", icon:"🏭", label:t("atabInventory") },
+    { key:"logistics", icon:"🚛", label:t("atabLogistics") },
+    { key:"retail", icon:"🏬", label:t("atabRetail") },
+    { key:"compliance", icon:"🗂️", label:t("atabCompliance") },
+    { key:"margini", icon:"📈", label:t("atabMargins") },
+    { key:"nexusai", icon:"🤖", label:t("atabNexusAI") },
+    { key:"amazon", icon:"🛒", label:t("atabAmazon") },
+    { key:"orders", icon:"📋", label:t("atabOrders") },
+    { key:"invoices", icon:"🧾", label:t("atabInvoices") },
+    { key:"contracts", icon:"📝", label:t("atabContracts") },
+    { key:"commissions", icon:"📊", label:t("atabCommissions") },
+    { key:"incassi", icon:"💸", label:t("atabIncassi") },
+    { key:"finanze", icon:"💶", label:t("atabFinance") },
+    { key:"audit", icon:"📋", label:t("atabAudit") },
+    { key:"issues", icon:"🚩", label:t("atabIssues") },
+    { key:"payments", icon:"💰", label:t("atabPayments") },
+    { key:"settings", icon:"⚙️", label:t("atabSettings") },
   ];
 
 
