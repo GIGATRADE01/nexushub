@@ -804,6 +804,13 @@ Object.assign(T.es,{ aretTitle:"Mesa de expansión retail", aretSub:"Pipeline ha
 Object.assign(T.de,{ aretTitle:"Retail-Expansion-Desk", aretSub:"Pipeline zu Sephora, Douglas, Parfümerien und europäischem Retail", aretAdd:"Ziel hinzufügen", aretTotal:"Ziele gesamt", aretActive:"In Verhandlung", aretWon:"Abgeschlossen", aretAvgProb:"Ø Wahrsch.", aretEmptyTitle:"Keine Retail-Ziele", aretEmptyMsg:"Füge den ersten zu kontaktierenden Händler hinzu (z.B. Sephora Italien).", arethRetailer:"Händler", arethCountry:"Land", arethBuyer:"Einkäufer", arethBrand:"Marke", arethStatus:"Status", arethProb:"Wahrsch.", arethFollowup:"Nachfassen", arethActions:"Aktionen", aretEdit:"Bearbeiten", aretDelete:"Löschen", aretStLead:"Lead", aretStContacted:"Kontaktiert", aretStSamples:"Muster", aretStMeeting:"Meeting", aretStNego:"Verhandlung", aretStWon:"Gewonnen ✓", aretStLost:"Verloren", aretModalEdit:"Retail-Ziel bearbeiten", aretModalNew:"Neues Retail-Ziel", aretSave:"Speichern", aretFRetailer:"Händler *", aretFRetailerPh:"z.B. Sephora Italien", aretFCountry:"Land", aretFCountryPh:"z.B. Italien", aretFBuyer:"Einkäufer / Kontakt", aretFBuyerEmail:"Einkäufer-E-Mail", aretFBrand:"Kandidaten-Marke", aretFNone:"— Keiner —", aretFProducts:"Kandidaten-Produkte", aretFStage:"Status", aretFProb:"Abschlusswahrscheinlichkeit (%)", aretFFollowup:"Nächstes Nachfassen", aretFSamples:"Muster gesendet", aretFNotes:"Notizen" });
 Object.assign(T.zh,{ aretTitle:"零售拓展台", aretSub:"面向 Sephora、Douglas、香水店及欧洲零售的管道", aretAdd:"添加目标", aretTotal:"目标总数", aretActive:"谈判中", aretWon:"已成交", aretAvgProb:"平均概率", aretEmptyTitle:"没有零售目标", aretEmptyMsg:"添加第一个要联系的零售商（例如 Sephora 意大利）。", arethRetailer:"零售商", arethCountry:"国家", arethBuyer:"采购", arethBrand:"品牌", arethStatus:"状态", arethProb:"概率", arethFollowup:"跟进", arethActions:"操作", aretEdit:"编辑", aretDelete:"删除", aretStLead:"线索", aretStContacted:"已联系", aretStSamples:"样品", aretStMeeting:"会议", aretStNego:"谈判", aretStWon:"成交 ✓", aretStLost:"失去", aretModalEdit:"编辑零售目标", aretModalNew:"新建零售目标", aretSave:"保存", aretFRetailer:"零售商 *", aretFRetailerPh:"例如 Sephora 意大利", aretFCountry:"国家", aretFCountryPh:"例如 意大利", aretFBuyer:"采购/联系人", aretFBuyerEmail:"采购邮箱", aretFBrand:"候选品牌", aretFNone:"— 无 —", aretFProducts:"候选产品", aretFStage:"状态", aretFProb:"成交概率 (%)", aretFFollowup:"下次跟进", aretFSamples:"已寄送样品", aretFNotes:"备注" });
 Object.assign(T.ar,{ aretTitle:"مكتب التوسّع في التجزئة", aretSub:"خط الأعمال نحو Sephora وDouglas ومتاجر العطور والتجزئة الأوروبية", aretAdd:"إضافة هدف", aretTotal:"إجمالي الأهداف", aretActive:"قيد التفاوض", aretWon:"مغلقة", aretAvgProb:"احتمال متوسط", aretEmptyTitle:"لا توجد أهداف تجزئة", aretEmptyMsg:"أضف أول بائع تجزئة للتواصل معه (مثال: Sephora إيطاليا).", arethRetailer:"بائع التجزئة", arethCountry:"الدولة", arethBuyer:"المشتري", arethBrand:"العلامة", arethStatus:"الحالة", arethProb:"الاحتمال", arethFollowup:"متابعة", arethActions:"إجراءات", aretEdit:"تعديل", aretDelete:"حذف", aretStLead:"عميل محتمل", aretStContacted:"تم التواصل", aretStSamples:"عينات", aretStMeeting:"اجتماع", aretStNego:"تفاوض", aretStWon:"مغلق ✓", aretStLost:"خسر", aretModalEdit:"تعديل هدف التجزئة", aretModalNew:"هدف تجزئة جديد", aretSave:"حفظ", aretFRetailer:"بائع التجزئة *", aretFRetailerPh:"مثال: Sephora إيطاليا", aretFCountry:"الدولة", aretFCountryPh:"مثال: إيطاليا", aretFBuyer:"المشتري / جهة الاتصال", aretFBuyerEmail:"بريد المشتري", aretFBrand:"العلامة المرشّحة", aretFNone:"— لا شيء —", aretFProducts:"المنتجات المرشّحة", aretFStage:"الحالة", aretFProb:"احتمال الإغلاق (%)", aretFFollowup:"المتابعة التالية", aretFSamples:"تم إرسال العينات", aretFNotes:"ملاحظات" });
+Object.assign(T.en,{ aamzTitle:"Amazon Operating Partner", aamzSub:"Amazon EU cockpit: listings, fees, net margin and real ROI per product", aamzAdd:"Add listing", aamzStListing:"Listings", aamzStStockVal:"FBA stock value (cost)", aamzStPotential:"Potential profit on stock", aamzStAvgMargin:"Avg net margin", aamzStAds:"Ad spend (30d)", aamzEmptyTitle:"No Amazon listings", aamzEmptyMsg:"Add the first product you sell on Amazon (e.g. Lattafa Khamrah).", aamzhProduct:"Product", aamzhMkt:"Mkt", aamzhPrice:"Price", aamzhCost:"Cost", aamzhCostU:"Costs/u (fee+ads)", aamzhMarginU:"Margin €/u", aamzhMarginPct:"Margin %", aamzhRoi:"ROI %", aamzhStock:"Stock", aamzhActions:"Actions", aamzEdit:"Edit", aamzDelete:"Delete", aamzQuickAddTitle:"Quick add from catalog", aamzQuickAddMsg:"catalog products not yet on Amazon. One click creates the linked listing — then you fill in price and fees.", aamzQuickAddBtn:"Push to Amazon", aamzModalEdit:"Edit Amazon listing", aamzModalNew:"New Amazon listing", aamzSave:"Save", aamzFLinkCatalog:"Link to catalog product (optional)", aamzFManual:"— Manual / no link —", aamzFName:"Product name *", aamzFNamePh:"e.g. Lattafa Khamrah EDP 100ml", aamzFBrand:"Brand (optional)", aamzFNone:"— None —", aamzFMarketplace:"Marketplace", aamzFFulfillment:"Fulfillment", aamzFCost:"Cost / unit (€)", aamzFPrice:"Amazon price (€)", aamzFReferral:"Referral fee (%)", aamzFFba:"FBA fee / unit (€)", aamzFAds:"Amazon Ads spend last 30d (€) · internal only", aamzFStock:"FBA stock (units)", aamzFSold:"Sold (30d)", aamzFNotes:"Notes" });
+Object.assign(T.it,{ aamzTitle:"Amazon Operating Partner", aamzSub:"Cockpit Amazon EU: listing, fee, margine netto e ROI reali per prodotto", aamzAdd:"Aggiungi listing", aamzStListing:"Listing", aamzStStockVal:"Valore stock FBA (costo)", aamzStPotential:"Profitto potenziale su stock", aamzStAvgMargin:"Margine netto medio", aamzStAds:"Spesa Ads (30gg)", aamzEmptyTitle:"Nessun listing Amazon", aamzEmptyMsg:"Aggiungi il primo prodotto che vendi su Amazon (es. Lattafa Khamrah).", aamzhProduct:"Prodotto", aamzhMkt:"Mkt", aamzhPrice:"Prezzo", aamzhCost:"Costo", aamzhCostU:"Costi/u (fee+ads)", aamzhMarginU:"Margine €/u", aamzhMarginPct:"Margine %", aamzhRoi:"ROI %", aamzhStock:"Stock", aamzhActions:"Azioni", aamzEdit:"Modifica", aamzDelete:"Elimina", aamzQuickAddTitle:"Aggiungi rapido dal catalogo", aamzQuickAddMsg:"prodotti a catalogo non ancora su Amazon. Un clic crea il listing collegato — poi completi prezzo e fee.", aamzQuickAddBtn:"Porta su Amazon", aamzModalEdit:"Modifica listing Amazon", aamzModalNew:"Nuovo listing Amazon", aamzSave:"Salva", aamzFLinkCatalog:"Collega a prodotto del catalogo (opzionale)", aamzFManual:"— Manuale / nessun collegamento —", aamzFName:"Nome prodotto *", aamzFNamePh:"es. Lattafa Khamrah EDP 100ml", aamzFBrand:"Brand (opzionale)", aamzFNone:"— Nessuno —", aamzFMarketplace:"Marketplace", aamzFFulfillment:"Fulfillment", aamzFCost:"Costo / unità (€)", aamzFPrice:"Prezzo Amazon (€)", aamzFReferral:"Referral fee (%)", aamzFFba:"Fee FBA / unità (€)", aamzFAds:"Spesa Amazon Ads ultimi 30gg (€) · solo interno", aamzFStock:"Stock FBA (unità)", aamzFSold:"Venduti (30 gg)", aamzFNotes:"Note" });
+Object.assign(T.fr,{ aamzTitle:"Partenaire opérationnel Amazon", aamzSub:"Cockpit Amazon EU : listings, frais, marge nette et ROI réels par produit", aamzAdd:"Ajouter un listing", aamzStListing:"Listings", aamzStStockVal:"Valeur stock FBA (coût)", aamzStPotential:"Profit potentiel sur stock", aamzStAvgMargin:"Marge nette moyenne", aamzStAds:"Dépense Ads (30j)", aamzEmptyTitle:"Aucun listing Amazon", aamzEmptyMsg:"Ajoutez le premier produit que vous vendez sur Amazon (ex. Lattafa Khamrah).", aamzhProduct:"Produit", aamzhMkt:"Mkt", aamzhPrice:"Prix", aamzhCost:"Coût", aamzhCostU:"Coûts/u (frais+ads)", aamzhMarginU:"Marge €/u", aamzhMarginPct:"Marge %", aamzhRoi:"ROI %", aamzhStock:"Stock", aamzhActions:"Actions", aamzEdit:"Modifier", aamzDelete:"Supprimer", aamzQuickAddTitle:"Ajout rapide depuis le catalogue", aamzQuickAddMsg:"produits du catalogue pas encore sur Amazon. Un clic crée le listing lié — vous complétez ensuite prix et frais.", aamzQuickAddBtn:"Envoyer sur Amazon", aamzModalEdit:"Modifier le listing Amazon", aamzModalNew:"Nouveau listing Amazon", aamzSave:"Enregistrer", aamzFLinkCatalog:"Lier à un produit du catalogue (facultatif)", aamzFManual:"— Manuel / aucun lien —", aamzFName:"Nom du produit *", aamzFNamePh:"ex. Lattafa Khamrah EDP 100ml", aamzFBrand:"Marque (facultatif)", aamzFNone:"— Aucun —", aamzFMarketplace:"Marketplace", aamzFFulfillment:"Fulfillment", aamzFCost:"Coût / unité (€)", aamzFPrice:"Prix Amazon (€)", aamzFReferral:"Frais de référence (%)", aamzFFba:"Frais FBA / unité (€)", aamzFAds:"Dépense Amazon Ads 30 derniers jours (€) · interne", aamzFStock:"Stock FBA (unités)", aamzFSold:"Vendus (30 j)", aamzFNotes:"Notes" });
+Object.assign(T.es,{ aamzTitle:"Socio operativo de Amazon", aamzSub:"Cockpit Amazon EU: listings, comisiones, margen neto y ROI reales por producto", aamzAdd:"Añadir listing", aamzStListing:"Listings", aamzStStockVal:"Valor stock FBA (coste)", aamzStPotential:"Beneficio potencial sobre stock", aamzStAvgMargin:"Margen neto medio", aamzStAds:"Gasto Ads (30d)", aamzEmptyTitle:"Sin listings de Amazon", aamzEmptyMsg:"Añade el primer producto que vendes en Amazon (ej. Lattafa Khamrah).", aamzhProduct:"Producto", aamzhMkt:"Mkt", aamzhPrice:"Precio", aamzhCost:"Coste", aamzhCostU:"Costes/u (fee+ads)", aamzhMarginU:"Margen €/u", aamzhMarginPct:"Margen %", aamzhRoi:"ROI %", aamzhStock:"Stock", aamzhActions:"Acciones", aamzEdit:"Editar", aamzDelete:"Eliminar", aamzQuickAddTitle:"Añadir rápido desde el catálogo", aamzQuickAddMsg:"productos del catálogo aún no en Amazon. Un clic crea el listing vinculado — luego completas precio y comisiones.", aamzQuickAddBtn:"Llevar a Amazon", aamzModalEdit:"Editar listing de Amazon", aamzModalNew:"Nuevo listing de Amazon", aamzSave:"Guardar", aamzFLinkCatalog:"Vincular a producto del catálogo (opcional)", aamzFManual:"— Manual / sin vínculo —", aamzFName:"Nombre del producto *", aamzFNamePh:"ej. Lattafa Khamrah EDP 100ml", aamzFBrand:"Marca (opcional)", aamzFNone:"— Ninguno —", aamzFMarketplace:"Marketplace", aamzFFulfillment:"Fulfillment", aamzFCost:"Coste / unidad (€)", aamzFPrice:"Precio Amazon (€)", aamzFReferral:"Referral fee (%)", aamzFFba:"Fee FBA / unidad (€)", aamzFAds:"Gasto Amazon Ads últimos 30d (€) · solo interno", aamzFStock:"Stock FBA (unidades)", aamzFSold:"Vendidos (30 d)", aamzFNotes:"Notas" });
+Object.assign(T.de,{ aamzTitle:"Amazon Operating Partner", aamzSub:"Amazon-EU-Cockpit: Listings, Gebühren, Nettomarge und echter ROI pro Produkt", aamzAdd:"Listing hinzufügen", aamzStListing:"Listings", aamzStStockVal:"FBA-Bestandswert (Kosten)", aamzStPotential:"Potenzieller Gewinn auf Bestand", aamzStAvgMargin:"Ø Nettomarge", aamzStAds:"Ad-Ausgaben (30 Tg.)", aamzEmptyTitle:"Keine Amazon-Listings", aamzEmptyMsg:"Füge das erste Produkt hinzu, das du auf Amazon verkaufst (z.B. Lattafa Khamrah).", aamzhProduct:"Produkt", aamzhMkt:"Mkt", aamzhPrice:"Preis", aamzhCost:"Kosten", aamzhCostU:"Kosten/E (Geb.+Ads)", aamzhMarginU:"Marge €/E", aamzhMarginPct:"Marge %", aamzhRoi:"ROI %", aamzhStock:"Bestand", aamzhActions:"Aktionen", aamzEdit:"Bearbeiten", aamzDelete:"Löschen", aamzQuickAddTitle:"Schnell aus dem Katalog hinzufügen", aamzQuickAddMsg:"Katalogprodukte noch nicht auf Amazon. Ein Klick erstellt das verknüpfte Listing — dann ergänzt du Preis und Gebühren.", aamzQuickAddBtn:"Zu Amazon bringen", aamzModalEdit:"Amazon-Listing bearbeiten", aamzModalNew:"Neues Amazon-Listing", aamzSave:"Speichern", aamzFLinkCatalog:"Mit Katalogprodukt verknüpfen (optional)", aamzFManual:"— Manuell / keine Verknüpfung —", aamzFName:"Produktname *", aamzFNamePh:"z.B. Lattafa Khamrah EDP 100ml", aamzFBrand:"Marke (optional)", aamzFNone:"— Keiner —", aamzFMarketplace:"Marktplatz", aamzFFulfillment:"Fulfillment", aamzFCost:"Kosten / Einheit (€)", aamzFPrice:"Amazon-Preis (€)", aamzFReferral:"Referral-Gebühr (%)", aamzFFba:"FBA-Gebühr / Einheit (€)", aamzFAds:"Amazon-Ads-Ausgaben letzte 30 Tg. (€) · nur intern", aamzFStock:"FBA-Bestand (Einheiten)", aamzFSold:"Verkauft (30 Tg.)", aamzFNotes:"Notizen" });
+Object.assign(T.zh,{ aamzTitle:"亚马逊运营伙伴", aamzSub:"亚马逊欧洲驾驶舱：每个产品的listing、费用、净利润和真实ROI", aamzAdd:"添加listing", aamzStListing:"Listing 数", aamzStStockVal:"FBA库存价值（成本）", aamzStPotential:"库存潜在利润", aamzStAvgMargin:"平均净利润率", aamzStAds:"广告花费（30天）", aamzEmptyTitle:"没有亚马逊listing", aamzEmptyMsg:"添加你在亚马逊上销售的第一个产品（例如 Lattafa Khamrah）。", aamzhProduct:"产品", aamzhMkt:"市场", aamzhPrice:"价格", aamzhCost:"成本", aamzhCostU:"成本/件（费用+广告）", aamzhMarginU:"利润 €/件", aamzhMarginPct:"利润 %", aamzhRoi:"ROI %", aamzhStock:"库存", aamzhActions:"操作", aamzEdit:"编辑", aamzDelete:"删除", aamzQuickAddTitle:"从目录快速添加", aamzQuickAddMsg:"目录中尚未上架亚马逊的产品。一键创建关联listing —— 然后你填写价格和费用。", aamzQuickAddBtn:"上架到亚马逊", aamzModalEdit:"编辑亚马逊listing", aamzModalNew:"新建亚马逊listing", aamzSave:"保存", aamzFLinkCatalog:"关联到目录产品（可选）", aamzFManual:"— 手动 / 无关联 —", aamzFName:"产品名称 *", aamzFNamePh:"例如 Lattafa Khamrah EDP 100ml", aamzFBrand:"品牌（可选）", aamzFNone:"— 无 —", aamzFMarketplace:"市场", aamzFFulfillment:"配送方式", aamzFCost:"成本/件 (€)", aamzFPrice:"亚马逊价格 (€)", aamzFReferral:"推荐费 (%)", aamzFFba:"FBA费用/件 (€)", aamzFAds:"亚马逊广告最近30天花费 (€) · 仅内部", aamzFStock:"FBA库存（件）", aamzFSold:"已售（30天）", aamzFNotes:"备注" });
+Object.assign(T.ar,{ aamzTitle:"شريك تشغيل أمازون", aamzSub:"قمرة أمازون الأوروبية: القوائم والرسوم وصافي الهامش والعائد الحقيقي لكل منتج", aamzAdd:"إضافة قائمة", aamzStListing:"القوائم", aamzStStockVal:"قيمة مخزون FBA (التكلفة)", aamzStPotential:"الربح المحتمل على المخزون", aamzStAvgMargin:"متوسط صافي الهامش", aamzStAds:"إنفاق الإعلانات (30 يومًا)", aamzEmptyTitle:"لا توجد قوائم أمازون", aamzEmptyMsg:"أضف أول منتج تبيعه على أمازون (مثال: Lattafa Khamrah).", aamzhProduct:"المنتج", aamzhMkt:"السوق", aamzhPrice:"السعر", aamzhCost:"التكلفة", aamzhCostU:"التكاليف/وحدة (رسوم+إعلانات)", aamzhMarginU:"الهامش €/وحدة", aamzhMarginPct:"الهامش %", aamzhRoi:"ROI %", aamzhStock:"المخزون", aamzhActions:"إجراءات", aamzEdit:"تعديل", aamzDelete:"حذف", aamzQuickAddTitle:"إضافة سريعة من الكتالوج", aamzQuickAddMsg:"منتجات في الكتالوج ليست بعد على أمازون. نقرة واحدة تُنشئ القائمة المرتبطة — ثم تكمل السعر والرسوم.", aamzQuickAddBtn:"نقل إلى أمازون", aamzModalEdit:"تعديل قائمة أمازون", aamzModalNew:"قائمة أمازون جديدة", aamzSave:"حفظ", aamzFLinkCatalog:"الربط بمنتج من الكتالوج (اختياري)", aamzFManual:"— يدوي / بلا ربط —", aamzFName:"اسم المنتج *", aamzFNamePh:"مثال: Lattafa Khamrah EDP 100ml", aamzFBrand:"العلامة (اختياري)", aamzFNone:"— لا شيء —", aamzFMarketplace:"السوق", aamzFFulfillment:"التنفيذ", aamzFCost:"التكلفة / وحدة (€)", aamzFPrice:"سعر أمازون (€)", aamzFReferral:"رسوم الإحالة (%)", aamzFFba:"رسوم FBA / وحدة (€)", aamzFAds:"إنفاق إعلانات أمازون آخر 30 يومًا (€) · داخلي فقط", aamzFStock:"مخزون FBA (وحدات)", aamzFSold:"المُباع (30 يومًا)", aamzFNotes:"ملاحظات" });
 
 
 
@@ -6032,30 +6039,30 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🛒 Amazon Operating Partner</h2>
-                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Cockpit Amazon EU: listing, fee, margine netto e ROI reali per prodotto</p>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🛒 {t("aamzTitle")}</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("aamzSub")}</p>
               </div>
-              <button onClick={()=>openAmazon(null)} style={{ padding:"10px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>+ Aggiungi listing</button>
+              <button onClick={()=>openAmazon(null)} style={{ padding:"10px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>+ {t("aamzAdd")}</button>
             </div>
             <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:24 }}>
-              <Stat icon="📦" label="Listing" value={amazonRows.length}/>
-              <Stat icon="🏦" label="Valore stock FBA (costo)" value={eur(tot.stockCost)} accent={C.blue}/>
-              <Stat icon="✅" label="Profitto potenziale su stock" value={eur(tot.potential)} accent={C.green}/>
-              <Stat icon="📊" label="Margine netto medio" value={avgPct.toFixed(1)+"%"} accent={C.gold}/>
-              <Stat icon="📣" label="Spesa Ads (30gg)" value={eur(tot.ads)} accent={C.red}/>
+              <Stat icon="📦" label={t("aamzStListing")} value={amazonRows.length}/>
+              <Stat icon="🏦" label={t("aamzStStockVal")} value={eur(tot.stockCost)} accent={C.blue}/>
+              <Stat icon="✅" label={t("aamzStPotential")} value={eur(tot.potential)} accent={C.green}/>
+              <Stat icon="📊" label={t("aamzStAvgMargin")} value={avgPct.toFixed(1)+"%"} accent={C.gold}/>
+              <Stat icon="📣" label={t("aamzStAds")} value={eur(tot.ads)} accent={C.red}/>
             </div>
             {amazonRows.length===0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14 }}>
                 <div style={{ fontSize:40, marginBottom:12 }}>🛒</div>
-                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:8 }}>Nessun listing Amazon</div>
-                <div style={{ fontSize:13, color:C.textMuted, marginBottom:18 }}>Aggiungi il primo prodotto che vendi su Amazon (es. Lattafa Khamrah).</div>
-                <button onClick={()=>openAmazon(null)} style={{ padding:"10px 22px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ Aggiungi listing</button>
+                <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:8 }}>{t("aamzEmptyTitle")}</div>
+                <div style={{ fontSize:13, color:C.textMuted, marginBottom:18 }}>{t("aamzEmptyMsg")}</div>
+                <button onClick={()=>openAmazon(null)} style={{ padding:"10px 22px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ {t("aamzAdd")}</button>
               </div>
             ) : (
               <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:920 }}>
                   <thead><tr style={{ background:C.surface2 }}>
-                    {["Prodotto","Mkt","Prezzo","Costo","Costi/u (fee+ads)","Margine €/u","Margine %","ROI %","Stock","Azioni"].map((h,i)=>(<th key={i} style={{ padding:"10px 12px", textAlign: (i>=2&&i<=7)?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".06em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
+                    {[t("aamzhProduct"),t("aamzhMkt"),t("aamzhPrice"),t("aamzhCost"),t("aamzhCostU"),t("aamzhMarginU"),t("aamzhMarginPct"),t("aamzhRoi"),t("aamzhStock"),t("aamzhActions")].map((h,i)=>(<th key={i} style={{ padding:"10px 12px", textAlign: (i>=2&&i<=7)?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".06em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
                   </tr></thead>
                   <tbody>
                     {amazonRows.map((r,i)=>{ const c=calc(r); return (
@@ -6070,8 +6077,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         <td style={{ padding:"10px 12px", fontSize:12, fontWeight:600, textAlign:"right", color: c.roi>=0?C.green:C.red }}>{c.roi.toFixed(0)}%</td>
                         <td style={{ padding:"10px 12px", fontSize:12, color:C.text, textAlign:"right" }}>{c.u}{num(r.units_sold_30d)?<span style={{ color:C.textDim, fontSize:10 }}> ({r.units_sold_30d}/30g)</span>:null}</td>
                         <td style={{ padding:"10px 12px", whiteSpace:"nowrap" }}>
-                          <button onClick={()=>openAmazon(r)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}12`, border:`1px solid ${C.blue}40`, color:C.blue, marginRight:6 }}>Modifica</button>
-                          <button onClick={()=>deleteAmazon(r)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>Elimina</button>
+                          <button onClick={()=>openAmazon(r)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}12`, border:`1px solid ${C.blue}40`, color:C.blue, marginRight:6 }}>{t("aamzEdit")}</button>
+                          <button onClick={()=>deleteAmazon(r)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>{t("aamzDelete")}</button>
                         </td>
                       </tr>
                     );})}
@@ -6086,8 +6093,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               if (!notListed.length) return null;
               return (
                 <div style={{ marginTop:28 }}>
-                  <h3 style={{ fontSize:15, fontWeight:700, margin:"0 0 4px", color:C.text }}>Aggiungi rapido dal catalogo</h3>
-                  <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 12px" }}>{notListed.length} prodotti a catalogo non ancora su Amazon. Un clic crea il listing collegato \u2014 poi completi prezzo e fee.</p>
+                  <h3 style={{ fontSize:15, fontWeight:700, margin:"0 0 4px", color:C.text }}>{t("aamzQuickAddTitle")}</h3>
+                  <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 12px" }}>{notListed.length} {t("aamzQuickAddMsg")}</p>
                   <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
                     {notListed.map(p=>(
                       <div key={p.id} style={{ display:"flex", alignItems:"center", justifyContent:"space-between", gap:10, padding:"10px 14px", background:C.surface, border:`1px solid ${C.border}`, borderRadius:10 }}>
@@ -6095,7 +6102,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                           <div style={{ fontSize:13, fontWeight:600, color:C.text, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{p.name}</div>
                           <div style={{ fontSize:11, color:C.textDim }}>{(p.profiles&&p.profiles.company_name)||brandName(p.brand_id)}</div>
                         </div>
-                        <button onClick={()=>quickAddAmazon(p)} style={{ flexShrink:0, padding:"7px 14px", borderRadius:8, cursor:"pointer", fontSize:12, fontWeight:700, background:`${C.gold}15`, border:`1px solid ${C.gold}40`, color:C.goldLight }}>+ Porta su Amazon</button>
+                        <button onClick={()=>quickAddAmazon(p)} style={{ flexShrink:0, padding:"7px 14px", borderRadius:8, cursor:"pointer", fontSize:12, fontWeight:700, background:`${C.gold}15`, border:`1px solid ${C.gold}40`, color:C.goldLight }}>+ {t("aamzQuickAddBtn")}</button>
                       </div>
                     ))}
                   </div>
@@ -6103,50 +6110,50 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               );
             })()}
             {amazonModal && (
-              <Modal title={amazonForm.id ? "Modifica listing Amazon" : "Nuovo listing Amazon"} onClose={()=>setAmazonModal(false)} onSave={saveAmazon} saveLabel="Salva">
-                <label style={lbl}>Collega a prodotto del catalogo (opzionale)</label>
+              <Modal title={amazonForm.id ? t("aamzModalEdit") : t("aamzModalNew")} onClose={()=>setAmazonModal(false)} onSave={saveAmazon} saveLabel={t("aamzSave")}>
+                <label style={lbl}>{t("aamzFLinkCatalog")}</label>
                 <select value={amazonForm._catalog||""} onChange={e=>{ const pid=e.target.value; const p=products.find(z=>z.id===pid); setAmazonForm(f=>({ ...f, _catalog:pid, ...(p?{ product_name:p.name||f.product_name, brand_id:p.brand_id||f.brand_id, sku:p.sku||f.sku, product_id:p.id }:{ product_id:null }) })); }} style={fld}>
-                  <option value="">— Manuale / nessun collegamento —</option>
+                  <option value="">{t("aamzFManual")}</option>
                   {products.map(p=>(<option key={p.id} value={p.id}>{(p.name||"Prodotto")+(p.profiles&&p.profiles.company_name?(" · "+p.profiles.company_name):"")}</option>))}
                 </select>
-                <label style={lbl}>Nome prodotto *</label>
-                <input value={amazonForm.product_name||""} onChange={e=>setAmazonForm(f=>({...f, product_name:e.target.value}))} placeholder="es. Lattafa Khamrah EDP 100ml" style={fld}/>
+                <label style={lbl}>{t("aamzFName")}</label>
+                <input value={amazonForm.product_name||""} onChange={e=>setAmazonForm(f=>({...f, product_name:e.target.value}))} placeholder={t("aamzFNamePh")} style={fld}/>
                 <div style={{ display:"flex", gap:10 }}>
                   <div style={{ flex:1 }}><label style={lbl}>ASIN</label><input value={amazonForm.asin||""} onChange={e=>setAmazonForm(f=>({...f, asin:e.target.value}))} style={fld}/></div>
                   <div style={{ flex:1 }}><label style={lbl}>SKU</label><input value={amazonForm.sku||""} onChange={e=>setAmazonForm(f=>({...f, sku:e.target.value}))} style={fld}/></div>
                 </div>
-                <label style={lbl}>Brand (opzionale)</label>
+                <label style={lbl}>{t("aamzFBrand")}</label>
                 <select value={amazonForm.brand_id||""} onChange={e=>setAmazonForm(f=>({...f, brand_id:e.target.value}))} style={fld}>
-                  <option value="">\u2014 Nessuno \u2014</option>
+                  <option value="">{t("aamzFNone")}</option>
                   {brands.map(b=>(<option key={b.id} value={b.id}>{b.company_name||b.email}</option>))}
                 </select>
                 <div style={{ display:"flex", gap:10 }}>
-                  <div style={{ flex:1 }}><label style={lbl}>Marketplace</label>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aamzFMarketplace")}</label>
                     <select value={amazonForm.marketplace||"IT"} onChange={e=>setAmazonForm(f=>({...f, marketplace:e.target.value}))} style={fld}>
                       {MKTS.map(m=>(<option key={m} value={m}>{m}</option>))}
                     </select>
                   </div>
-                  <div style={{ flex:1 }}><label style={lbl}>Fulfillment</label>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aamzFFulfillment")}</label>
                     <select value={amazonForm.fulfillment||"FBA"} onChange={e=>setAmazonForm(f=>({...f, fulfillment:e.target.value}))} style={fld}>
                       <option value="FBA">FBA</option><option value="FBM">FBM</option>
                     </select>
                   </div>
                 </div>
                 <div style={{ display:"flex", gap:10 }}>
-                  <div style={{ flex:1 }}><label style={lbl}>Costo / unita (€)</label><input type="number" step="0.01" value={amazonForm.cost_price} onChange={e=>setAmazonForm(f=>({...f, cost_price:e.target.value}))} style={fld}/></div>
-                  <div style={{ flex:1 }}><label style={lbl}>Prezzo Amazon (€)</label><input type="number" step="0.01" value={amazonForm.sell_price} onChange={e=>setAmazonForm(f=>({...f, sell_price:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aamzFCost")}</label><input type="number" step="0.01" value={amazonForm.cost_price} onChange={e=>setAmazonForm(f=>({...f, cost_price:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aamzFPrice")}</label><input type="number" step="0.01" value={amazonForm.sell_price} onChange={e=>setAmazonForm(f=>({...f, sell_price:e.target.value}))} style={fld}/></div>
                 </div>
                 <div style={{ display:"flex", gap:10 }}>
-                  <div style={{ flex:1 }}><label style={lbl}>Referral fee (%)</label><input type="number" step="0.1" value={amazonForm.referral_fee_pct} onChange={e=>setAmazonForm(f=>({...f, referral_fee_pct:e.target.value}))} style={fld}/></div>
-                  <div style={{ flex:1 }}><label style={lbl}>Fee FBA / unita (€)</label><input type="number" step="0.01" value={amazonForm.fba_fee} onChange={e=>setAmazonForm(f=>({...f, fba_fee:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aamzFReferral")}</label><input type="number" step="0.1" value={amazonForm.referral_fee_pct} onChange={e=>setAmazonForm(f=>({...f, referral_fee_pct:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aamzFFba")}</label><input type="number" step="0.01" value={amazonForm.fba_fee} onChange={e=>setAmazonForm(f=>({...f, fba_fee:e.target.value}))} style={fld}/></div>
                 </div>
-                <label style={lbl}>Spesa Amazon Ads ultimi 30gg (€) · solo interno</label>
+                <label style={lbl}>{t("aamzFAds")}</label>
                 <input type="number" step="0.01" value={amazonForm.ad_spend_30d} onChange={e=>setAmazonForm(f=>({...f, ad_spend_30d:e.target.value}))} style={fld}/>
                 <div style={{ display:"flex", gap:10 }}>
-                  <div style={{ flex:1 }}><label style={lbl}>Stock FBA (unita)</label><input type="number" value={amazonForm.units_in_stock} onChange={e=>setAmazonForm(f=>({...f, units_in_stock:e.target.value}))} style={fld}/></div>
-                  <div style={{ flex:1 }}><label style={lbl}>Venduti (30 gg)</label><input type="number" value={amazonForm.units_sold_30d} onChange={e=>setAmazonForm(f=>({...f, units_sold_30d:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aamzFStock")}</label><input type="number" value={amazonForm.units_in_stock} onChange={e=>setAmazonForm(f=>({...f, units_in_stock:e.target.value}))} style={fld}/></div>
+                  <div style={{ flex:1 }}><label style={lbl}>{t("aamzFSold")}</label><input type="number" value={amazonForm.units_sold_30d} onChange={e=>setAmazonForm(f=>({...f, units_sold_30d:e.target.value}))} style={fld}/></div>
                 </div>
-                <label style={lbl}>Note</label>
+                <label style={lbl}>{t("aamzFNotes")}</label>
                 <textarea value={amazonForm.notes||""} onChange={e=>setAmazonForm(f=>({...f, notes:e.target.value}))} rows={2} style={{...fld, resize:"vertical"}}/>
               </Modal>
             )}
