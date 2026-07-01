@@ -762,6 +762,20 @@ Object.assign(T.es,{ apayTitle:"Resumen de pagos", apaySub:"Ingresos globales de
 Object.assign(T.de,{ apayTitle:"Zahlungsübersicht", apaySub:"Gesamtumsatz über alle Marken und Händler", apayGmv:"Plattform-GMV", apayRevenue:"NexusHub-Umsatz (11,4 %)", apayTotalOrders:"Bestellungen gesamt", apayAov:"Ø Bestellwert", apayTxLog:"Transaktionsprotokoll", apayNoTx:"Noch keine Transaktionen", apayhOrder:"Bestellung", apayhAmount:"Betrag", apayhFee:"NexusHub-Gebühr", apayhBrandShare:"Markenanteil", apayhDate:"Datum", apayhStatus:"Status" });
 Object.assign(T.zh,{ apayTitle:"支付概览", apaySub:"所有品牌和分销商的总收入", apayGmv:"平台 GMV", apayRevenue:"NexusHub 收入 (11.4%)", apayTotalOrders:"订单总数", apayAov:"平均订单价值", apayTxLog:"交易记录", apayNoTx:"暂无交易", apayhOrder:"订单", apayhAmount:"金额", apayhFee:"NexusHub 费用", apayhBrandShare:"品牌份额", apayhDate:"日期", apayhStatus:"状态" });
 Object.assign(T.ar,{ apayTitle:"نظرة عامة على المدفوعات", apaySub:"الإيرادات الإجمالية عبر جميع العلامات والموزّعين", apayGmv:"إجمالي مبيعات المنصة (GMV)", apayRevenue:"إيرادات NexusHub (11.4%)", apayTotalOrders:"إجمالي الطلبات", apayAov:"متوسط قيمة الطلب", apayTxLog:"سجل المعاملات", apayNoTx:"لا توجد معاملات بعد", apayhOrder:"الطلب", apayhAmount:"المبلغ", apayhFee:"رسوم NexusHub", apayhBrandShare:"حصة العلامة", apayhDate:"التاريخ", apayhStatus:"الحالة" });
+Object.assign(T.en,{ aissTitle:"Order issues", aissSub:"Issues reported by distributors (damaged goods, delivery errors). All tracked.", aissEmpty:"No issues.", aissDistFallback:"Distributor", aissOpen:"Open", aissClosed:"Closed", aissViewPhoto:"View photo", aissResolve:"Mark as resolved", aaudTitle:"Audit Log", aaudSub:"Automatic log of important actions: orders, collections, logins, invoices, products, contracts.", aaudhDateTime:"Date & time", aaudhUser:"User", aaudhAction:"Action", aaudhDetail:"Detail", aaudEmpty:"No actions recorded yet. They'll appear here as you use the platform.", aaudActorSystem:"System" });
+Object.assign(T.it,{ aissTitle:"Segnalazioni ordini", aissSub:"Problemi segnalati dai distributori (merce danneggiata, errori di consegna). Tutto tracciato.", aissEmpty:"Nessuna segnalazione.", aissDistFallback:"Distributore", aissOpen:"Aperta", aissClosed:"Chiusa", aissViewPhoto:"Vedi foto", aissResolve:"Segna come risolta", aaudTitle:"Log attività", aaudSub:"Registro automatico delle azioni importanti: ordini, incassi, accessi, fatture, prodotti, contratti.", aaudhDateTime:"Data e ora", aaudhUser:"Utente", aaudhAction:"Azione", aaudhDetail:"Dettaglio", aaudEmpty:"Nessuna azione registrata ancora. Compariranno qui man mano che usi la piattaforma.", aaudActorSystem:"Sistema" });
+Object.assign(T.fr,{ aissTitle:"Signalements de commandes", aissSub:"Problèmes signalés par les distributeurs (marchandises endommagées, erreurs de livraison). Tout est tracé.", aissEmpty:"Aucun signalement.", aissDistFallback:"Distributeur", aissOpen:"Ouverte", aissClosed:"Fermée", aissViewPhoto:"Voir la photo", aissResolve:"Marquer comme résolue", aaudTitle:"Journal d'audit", aaudSub:"Journal automatique des actions importantes : commandes, encaissements, connexions, factures, produits, contrats.", aaudhDateTime:"Date et heure", aaudhUser:"Utilisateur", aaudhAction:"Action", aaudhDetail:"Détail", aaudEmpty:"Aucune action enregistrée pour l'instant. Elles apparaîtront ici au fur et à mesure que vous utilisez la plateforme.", aaudActorSystem:"Système" });
+Object.assign(T.es,{ aissTitle:"Incidencias de pedidos", aissSub:"Problemas reportados por los distribuidores (mercancía dañada, errores de entrega). Todo registrado.", aissEmpty:"Sin incidencias.", aissDistFallback:"Distribuidor", aissOpen:"Abierta", aissClosed:"Cerrada", aissViewPhoto:"Ver foto", aissResolve:"Marcar como resuelta", aaudTitle:"Registro de auditoría", aaudSub:"Registro automático de acciones importantes: pedidos, cobros, accesos, facturas, productos, contratos.", aaudhDateTime:"Fecha y hora", aaudhUser:"Usuario", aaudhAction:"Acción", aaudhDetail:"Detalle", aaudEmpty:"Aún no hay acciones registradas. Aparecerán aquí a medida que uses la plataforma.", aaudActorSystem:"Sistema" });
+Object.assign(T.de,{ aissTitle:"Bestellmeldungen", aissSub:"Von Händlern gemeldete Probleme (beschädigte Ware, Lieferfehler). Alles nachverfolgt.", aissEmpty:"Keine Meldungen.", aissDistFallback:"Händler", aissOpen:"Offen", aissClosed:"Geschlossen", aissViewPhoto:"Foto ansehen", aissResolve:"Als gelöst markieren", aaudTitle:"Audit-Protokoll", aaudSub:"Automatisches Protokoll wichtiger Aktionen: Bestellungen, Inkasso, Anmeldungen, Rechnungen, Produkte, Verträge.", aaudhDateTime:"Datum & Uhrzeit", aaudhUser:"Benutzer", aaudhAction:"Aktion", aaudhDetail:"Detail", aaudEmpty:"Noch keine Aktionen erfasst. Sie erscheinen hier, während du die Plattform nutzt.", aaudActorSystem:"System" });
+Object.assign(T.zh,{ aissTitle:"订单问题", aissSub:"分销商报告的问题（货物损坏、配送错误）。全部有记录。", aissEmpty:"没有问题。", aissDistFallback:"分销商", aissOpen:"未解决", aissClosed:"已关闭", aissViewPhoto:"查看照片", aissResolve:"标记为已解决", aaudTitle:"审计日志", aaudSub:"重要操作的自动日志：订单、收款、登录、发票、产品、合同。", aaudhDateTime:"日期和时间", aaudhUser:"用户", aaudhAction:"操作", aaudhDetail:"详情", aaudEmpty:"尚未记录任何操作。使用平台时会显示在此处。", aaudActorSystem:"系统" });
+Object.assign(T.ar,{ aissTitle:"بلاغات الطلبات", aissSub:"مشكلات أبلغ عنها الموزّعون (بضائع تالفة، أخطاء تسليم). كل شيء مُتتبَّع.", aissEmpty:"لا توجد بلاغات.", aissDistFallback:"موزّع", aissOpen:"مفتوح", aissClosed:"مغلق", aissViewPhoto:"عرض الصورة", aissResolve:"وضع كمحلول", aaudTitle:"سجل التدقيق", aaudSub:"سجل تلقائي للإجراءات المهمة: الطلبات، التحصيلات، تسجيلات الدخول، الفواتير، المنتجات، العقود.", aaudhDateTime:"التاريخ والوقت", aaudhUser:"المستخدم", aaudhAction:"الإجراء", aaudhDetail:"التفاصيل", aaudEmpty:"لم يتم تسجيل أي إجراءات بعد. ستظهر هنا أثناء استخدامك للمنصة.", aaudActorSystem:"النظام" });
+Object.assign(T.en,{ asetTitle:"Platform Settings", asetSub:"Configure NexusHub platform behaviour", asetDemoT:"Demo Mode", asetDemoD:"Show 'Watch Demo' button on login page — disable when platform is live", asetRegT:"Public Registration", asetRegD:"Allow brands and distributors to self-register", asetSepaT:"SEPA Payments", asetSepaD:"Enable automatic payment processing via SEPA Instant", asetEmailT:"Email Notifications", asetEmailD:"Send automatic emails on approval/rejection", asetScanT:"Scanner Integration", asetScanD:"Enable barcode scanner for inventory updates (mobile app)", asetUpdated:'Setting "{name}" updated', asetDanger:"Danger Zone", asetDangerD:"These actions are irreversible", asetReset:"Reset Demo Data", asetComingSoon:"Feature coming soon" });
+Object.assign(T.it,{ asetTitle:"Impostazioni piattaforma", asetSub:"Configura il comportamento della piattaforma NexusHub", asetDemoT:"Modalità demo", asetDemoD:"Mostra il pulsante 'Guarda demo' nella pagina di login — disattiva quando la piattaforma è live", asetRegT:"Registrazione pubblica", asetRegD:"Permetti a brand e distributori di registrarsi da soli", asetSepaT:"Pagamenti SEPA", asetSepaD:"Abilita l'elaborazione automatica dei pagamenti tramite SEPA Instant", asetEmailT:"Notifiche email", asetEmailD:"Invia email automatiche in caso di approvazione/rifiuto", asetScanT:"Integrazione scanner", asetScanD:"Abilita lo scanner di codici a barre per aggiornare l'inventario (app mobile)", asetUpdated:'Impostazione "{name}" aggiornata', asetDanger:"Zona pericolosa", asetDangerD:"Queste azioni sono irreversibili", asetReset:"Reimposta dati demo", asetComingSoon:"Funzione in arrivo" });
+Object.assign(T.fr,{ asetTitle:"Paramètres de la plateforme", asetSub:"Configurez le comportement de la plateforme NexusHub", asetDemoT:"Mode démo", asetDemoD:"Afficher le bouton « Voir la démo » sur la page de connexion — désactivez lorsque la plateforme est en ligne", asetRegT:"Inscription publique", asetRegD:"Permettre aux marques et distributeurs de s'inscrire eux-mêmes", asetSepaT:"Paiements SEPA", asetSepaD:"Activer le traitement automatique des paiements via SEPA Instant", asetEmailT:"Notifications par e-mail", asetEmailD:"Envoyer des e-mails automatiques lors de l'approbation/du rejet", asetScanT:"Intégration du scanner", asetScanD:"Activer le scanner de codes-barres pour les mises à jour d'inventaire (application mobile)", asetUpdated:'Paramètre « {name} » mis à jour', asetDanger:"Zone sensible", asetDangerD:"Ces actions sont irréversibles", asetReset:"Réinitialiser les données démo", asetComingSoon:"Fonctionnalité à venir" });
+Object.assign(T.es,{ asetTitle:"Ajustes de la plataforma", asetSub:"Configura el comportamiento de la plataforma NexusHub", asetDemoT:"Modo demo", asetDemoD:"Mostrar el botón 'Ver demo' en la página de inicio de sesión — desactívalo cuando la plataforma esté en producción", asetRegT:"Registro público", asetRegD:"Permitir que marcas y distribuidores se registren por sí mismos", asetSepaT:"Pagos SEPA", asetSepaD:"Habilitar el procesamiento automático de pagos mediante SEPA Instant", asetEmailT:"Notificaciones por correo", asetEmailD:"Enviar correos automáticos en aprobación/rechazo", asetScanT:"Integración de escáner", asetScanD:"Habilitar el escáner de códigos de barras para actualizar el inventario (app móvil)", asetUpdated:'Ajuste "{name}" actualizado', asetDanger:"Zona peligrosa", asetDangerD:"Estas acciones son irreversibles", asetReset:"Restablecer datos demo", asetComingSoon:"Función próximamente" });
+Object.assign(T.de,{ asetTitle:"Plattform-Einstellungen", asetSub:"Konfiguriere das Verhalten der NexusHub-Plattform", asetDemoT:"Demo-Modus", asetDemoD:"'Demo ansehen'-Button auf der Login-Seite anzeigen — deaktivieren, wenn die Plattform live ist", asetRegT:"Öffentliche Registrierung", asetRegD:"Marken und Händlern die Selbstregistrierung erlauben", asetSepaT:"SEPA-Zahlungen", asetSepaD:"Automatische Zahlungsabwicklung über SEPA Instant aktivieren", asetEmailT:"E-Mail-Benachrichtigungen", asetEmailD:"Automatische E-Mails bei Genehmigung/Ablehnung senden", asetScanT:"Scanner-Integration", asetScanD:"Barcode-Scanner für Bestandsaktualisierungen aktivieren (mobile App)", asetUpdated:'Einstellung "{name}" aktualisiert', asetDanger:"Gefahrenzone", asetDangerD:"Diese Aktionen sind unumkehrbar", asetReset:"Demo-Daten zurücksetzen", asetComingSoon:"Funktion folgt in Kürze" });
+Object.assign(T.zh,{ asetTitle:"平台设置", asetSub:"配置 NexusHub 平台行为", asetDemoT:"演示模式", asetDemoD:"在登录页显示'观看演示'按钮 — 平台上线后请关闭", asetRegT:"公开注册", asetRegD:"允许品牌和分销商自行注册", asetSepaT:"SEPA 支付", asetSepaD:"启用通过 SEPA Instant 的自动支付处理", asetEmailT:"电子邮件通知", asetEmailD:"在批准/拒绝时发送自动电子邮件", asetScanT:"扫描仪集成", asetScanD:"启用条形码扫描仪以更新库存（移动应用）", asetUpdated:'设置"{name}"已更新', asetDanger:"危险区域", asetDangerD:"这些操作不可逆。", asetReset:"重置演示数据", asetComingSoon:"功能即将推出" });
+Object.assign(T.ar,{ asetTitle:"إعدادات المنصة", asetSub:"اضبط سلوك منصة NexusHub", asetDemoT:"وضع العرض التجريبي", asetDemoD:"إظهار زر 'مشاهدة العرض' في صفحة تسجيل الدخول — عطّله عندما تصبح المنصة مباشرة", asetRegT:"التسجيل العام", asetRegD:"السماح للعلامات والموزّعين بالتسجيل الذاتي", asetSepaT:"مدفوعات SEPA", asetSepaD:"تفعيل معالجة المدفوعات تلقائيًا عبر SEPA Instant", asetEmailT:"إشعارات البريد الإلكتروني", asetEmailD:"إرسال رسائل بريد تلقائية عند الموافقة/الرفض", asetScanT:"تكامل الماسح", asetScanD:"تفعيل ماسح الباركود لتحديث المخزون (تطبيق الجوال)", asetUpdated:'تم تحديث الإعداد "{name}"', asetDanger:"منطقة خطرة", asetDangerD:"هذه الإجراءات لا رجعة فيها", asetReset:"إعادة تعيين بيانات العرض", asetComingSoon:"الميزة قادمة قريبًا" });
 
 
 
@@ -7046,10 +7060,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* SEGNALAZIONI TAB */}
         {tab === "issues" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🚩 Segnalazioni ordini</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Problemi segnalati dai distributori (merce danneggiata, errori di consegna). Tutto tracciato.</p>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🚩 {t("aissTitle")}</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("aissSub")}</p>
             {orderIssues.length === 0 ? (
-              <div style={{ textAlign:"center", padding:40, background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, color:C.textMuted, fontSize:13 }}>Nessuna segnalazione.</div>
+              <div style={{ textAlign:"center", padding:40, background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, color:C.textMuted, fontSize:13 }}>{t("aissEmpty")}</div>
             ) : (
               <div style={{ display:"flex", flexDirection:"column", gap:12 }}>
                 {orderIssues.map(it => (
@@ -7057,14 +7071,14 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                     <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:10, marginBottom:8, flexWrap:"wrap" }}>
                       <div>
                         <div style={{ fontFamily:"monospace", fontSize:13, color:C.gold, fontWeight:700 }}>{it.order?.order_number || "-"}</div>
-                        <div style={{ fontSize:11, color:C.textMuted, marginTop:3 }}>{it.dist_info?.company_name || "Distributore"}{it.dist_info?.country ? " - " + it.dist_info.country : ""} - {new Date(it.created_at).toLocaleString("it-IT")}</div>
+                        <div style={{ fontSize:11, color:C.textMuted, marginTop:3 }}>{it.dist_info?.company_name || t("aissDistFallback")}{it.dist_info?.country ? " - " + it.dist_info.country : ""} - {new Date(it.created_at).toLocaleString("it-IT")}</div>
                       </div>
-                      <span style={{ padding:"3px 10px", borderRadius:6, fontSize:11, fontWeight:700, background: it.status==="open"?`${C.red}15`:`${C.green}15`, color: it.status==="open"?C.red:C.green, border:`1px solid ${it.status==="open"?C.red:C.green}40` }}>{it.status==="open"?"Aperta":"Chiusa"}</span>
+                      <span style={{ padding:"3px 10px", borderRadius:6, fontSize:11, fontWeight:700, background: it.status==="open"?`${C.red}15`:`${C.green}15`, color: it.status==="open"?C.red:C.green, border:`1px solid ${it.status==="open"?C.red:C.green}40` }}>{it.status==="open"?t("aissOpen"):t("aissClosed")}</span>
                     </div>
                     <div style={{ fontSize:13, color:C.text, marginBottom:10, whiteSpace:"pre-wrap" }}>{it.reason}</div>
                     <div style={{ display:"flex", gap:10, alignItems:"center" }}>
-                      {it.photo_url && <a href={it.photo_url} target="_blank" rel="noreferrer" style={{ fontSize:11, color:C.blue, textDecoration:"none", padding:"5px 12px", border:`1px solid ${C.blue}40`, borderRadius:6 }}>📷 Vedi foto</a>}
-                      {it.status==="open" && <button onClick={() => closeIssue(it.id)} style={{ fontSize:11, color:C.green, background:"transparent", border:`1px solid ${C.green}40`, borderRadius:6, padding:"5px 12px", cursor:"pointer" }}>✓ Segna come risolta</button>}
+                      {it.photo_url && <a href={it.photo_url} target="_blank" rel="noreferrer" style={{ fontSize:11, color:C.blue, textDecoration:"none", padding:"5px 12px", border:`1px solid ${C.blue}40`, borderRadius:6 }}>📷 {t("aissViewPhoto")}</a>}
+                      {it.status==="open" && <button onClick={() => closeIssue(it.id)} style={{ fontSize:11, color:C.green, background:"transparent", border:`1px solid ${C.green}40`, borderRadius:6, padding:"5px 12px", cursor:"pointer" }}>✓ {t("aissResolve")}</button>}
                     </div>
                   </div>
                 ))}
@@ -7076,26 +7090,26 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* AUDIT LOG TAB */}
         {tab === "audit" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📋 Audit Log</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Registro automatico delle azioni importanti: ordini, incassi, accessi, fatture, prodotti, contratti.</p>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📋 {t("aaudTitle")}</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("aaudSub")}</p>
             <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, overflow:"hidden" }}>
               <table style={{ width:"100%", borderCollapse:"collapse" }}>
                 <thead>
                   <tr style={{ background:C.surface2 }}>
-                    <th style={{ padding:"11px 14px", textAlign:"left", fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em" }}>Data e ora</th>
-                    <th style={{ padding:"11px 14px", textAlign:"left", fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em" }}>Utente</th>
-                    <th style={{ padding:"11px 14px", textAlign:"left", fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em" }}>Azione</th>
-                    <th style={{ padding:"11px 14px", textAlign:"left", fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em" }}>Dettaglio</th>
+                    <th style={{ padding:"11px 14px", textAlign:"left", fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em" }}>{t("aaudhDateTime")}</th>
+                    <th style={{ padding:"11px 14px", textAlign:"left", fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em" }}>{t("aaudhUser")}</th>
+                    <th style={{ padding:"11px 14px", textAlign:"left", fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em" }}>{t("aaudhAction")}</th>
+                    <th style={{ padding:"11px 14px", textAlign:"left", fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em" }}>{t("aaudhDetail")}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {auditLog.length === 0 && (
-                    <tr><td colSpan={4} style={{ padding:24, textAlign:"center", color:C.textMuted, fontSize:13 }}>Nessuna azione registrata ancora. Compariranno qui man mano che usi la piattaforma.</td></tr>
+                    <tr><td colSpan={4} style={{ padding:24, textAlign:"center", color:C.textMuted, fontSize:13 }}>{t("aaudEmpty")}</td></tr>
                   )}
                   {auditLog.map(a => (
                     <tr key={a.id} style={{ borderTop:`1px solid ${C.border}` }}>
                       <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted, whiteSpace:"nowrap" }}>{new Date(a.created_at).toLocaleString("it-IT")}</td>
-                      <td style={{ padding:"11px 14px", fontSize:12, color:C.text }}>{a.actor_info?.company_name || a.actor_info?.email || (a.actor ? "Utente" : "Sistema")}{a.actor_info?.role ? " · " + a.actor_info.role : ""}</td>
+                      <td style={{ padding:"11px 14px", fontSize:12, color:C.text }}>{a.actor_info?.company_name || a.actor_info?.email || (a.actor ? t("aaudhUser") : t("aaudActorSystem"))}{a.actor_info?.role ? " · " + a.actor_info.role : ""}</td>
                       <td style={{ padding:"11px 14px", fontSize:12, fontWeight:600, color:C.goldLight }}>{a.action}</td>
                       <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{a.detail || "—"}</td>
                     </tr>
@@ -7300,15 +7314,15 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* SETTINGS TAB */}
         {tab === "settings" && (
           <div style={{ maxWidth:600 }}>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Platform Settings</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 24px" }}>Configure NexusHub platform behaviour</p>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("asetTitle")}</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 24px" }}>{t("asetSub")}</p>
 
             {[
-              { title:"Demo Mode", desc:"Show 'Watch Demo' button on login page — disable when platform is live", key:"demo" },
-              { title:"Public Registration", desc:"Allow brands and distributors to self-register", key:"registration" },
-              { title:"SEPA Payments", desc:"Enable automatic payment processing via SEPA Instant", key:"payments" },
-              { title:"Email Notifications", desc:"Send automatic emails on approval/rejection", key:"emails" },
-              { title:"Scanner Integration", desc:"Enable barcode scanner for inventory updates (mobile app)", key:"scanner" },
+              { title:t("asetDemoT"), desc:t("asetDemoD"), key:"demo" },
+              { title:t("asetRegT"), desc:t("asetRegD"), key:"registration" },
+              { title:t("asetSepaT"), desc:t("asetSepaD"), key:"payments" },
+              { title:t("asetEmailT"), desc:t("asetEmailD"), key:"emails" },
+              { title:t("asetScanT"), desc:t("asetScanD"), key:"scanner" },
             ].map((s,i) => (
               <div key={i} style={{ display:"flex", alignItems:"center", justifyContent:"space-between",
                 padding:"18px 20px", background:C.surface, border:`1px solid ${C.border}`,
@@ -7321,7 +7335,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                   background: i===0||i===1 ? C.gold : C.surface3,
                   border:`1px solid ${i===0||i===1?C.gold:C.border}`,
                   cursor:"pointer", position:"relative", flexShrink:0, marginLeft:16 }}
-                  onClick={() => notify(`Setting "${s.title}" updated`)}>
+                  onClick={() => notify(t("asetUpdated").replace("{name}", s.title))}>
                   <div style={{ position:"absolute", top:3, width:18, height:18, borderRadius:"50%",
                     background:"#fff", transition:"left .2s",
                     left: i===0||i===1 ? 23 : 3 }}/>
@@ -7330,11 +7344,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             ))}
 
             <div style={{ marginTop:24, padding:"18px 20px", background:`${C.red}08`, border:`1px solid ${C.red}20`, borderRadius:12 }}>
-              <div style={{ fontSize:14, fontWeight:600, color:C.red, marginBottom:6 }}>⚠️ Danger Zone</div>
-              <div style={{ fontSize:12, color:C.textMuted, marginBottom:14 }}>These actions are irreversible</div>
+              <div style={{ fontSize:14, fontWeight:600, color:C.red, marginBottom:6 }}>⚠️ {t("asetDanger")}</div>
+              <div style={{ fontSize:12, color:C.textMuted, marginBottom:14 }}>{t("asetDangerD")}</div>
               <button style={{ padding:"9px 18px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.red}50`, color:C.red, fontSize:12 }}
-                onClick={() => notify("Feature coming soon", "error")}>
-                Reset Demo Data
+                onClick={() => notify(t("asetComingSoon"), "error")}>
+                {t("asetReset")}
               </button>
             </div>
           </div>
