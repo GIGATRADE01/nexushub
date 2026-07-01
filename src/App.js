@@ -776,6 +776,20 @@ Object.assign(T.es,{ asetTitle:"Ajustes de la plataforma", asetSub:"Configura el
 Object.assign(T.de,{ asetTitle:"Plattform-Einstellungen", asetSub:"Konfiguriere das Verhalten der NexusHub-Plattform", asetDemoT:"Demo-Modus", asetDemoD:"'Demo ansehen'-Button auf der Login-Seite anzeigen — deaktivieren, wenn die Plattform live ist", asetRegT:"Öffentliche Registrierung", asetRegD:"Marken und Händlern die Selbstregistrierung erlauben", asetSepaT:"SEPA-Zahlungen", asetSepaD:"Automatische Zahlungsabwicklung über SEPA Instant aktivieren", asetEmailT:"E-Mail-Benachrichtigungen", asetEmailD:"Automatische E-Mails bei Genehmigung/Ablehnung senden", asetScanT:"Scanner-Integration", asetScanD:"Barcode-Scanner für Bestandsaktualisierungen aktivieren (mobile App)", asetUpdated:'Einstellung "{name}" aktualisiert', asetDanger:"Gefahrenzone", asetDangerD:"Diese Aktionen sind unumkehrbar", asetReset:"Demo-Daten zurücksetzen", asetComingSoon:"Funktion folgt in Kürze" });
 Object.assign(T.zh,{ asetTitle:"平台设置", asetSub:"配置 NexusHub 平台行为", asetDemoT:"演示模式", asetDemoD:"在登录页显示'观看演示'按钮 — 平台上线后请关闭", asetRegT:"公开注册", asetRegD:"允许品牌和分销商自行注册", asetSepaT:"SEPA 支付", asetSepaD:"启用通过 SEPA Instant 的自动支付处理", asetEmailT:"电子邮件通知", asetEmailD:"在批准/拒绝时发送自动电子邮件", asetScanT:"扫描仪集成", asetScanD:"启用条形码扫描仪以更新库存（移动应用）", asetUpdated:'设置"{name}"已更新', asetDanger:"危险区域", asetDangerD:"这些操作不可逆。", asetReset:"重置演示数据", asetComingSoon:"功能即将推出" });
 Object.assign(T.ar,{ asetTitle:"إعدادات المنصة", asetSub:"اضبط سلوك منصة NexusHub", asetDemoT:"وضع العرض التجريبي", asetDemoD:"إظهار زر 'مشاهدة العرض' في صفحة تسجيل الدخول — عطّله عندما تصبح المنصة مباشرة", asetRegT:"التسجيل العام", asetRegD:"السماح للعلامات والموزّعين بالتسجيل الذاتي", asetSepaT:"مدفوعات SEPA", asetSepaD:"تفعيل معالجة المدفوعات تلقائيًا عبر SEPA Instant", asetEmailT:"إشعارات البريد الإلكتروني", asetEmailD:"إرسال رسائل بريد تلقائية عند الموافقة/الرفض", asetScanT:"تكامل الماسح", asetScanD:"تفعيل ماسح الباركود لتحديث المخزون (تطبيق الجوال)", asetUpdated:'تم تحديث الإعداد "{name}"', asetDanger:"منطقة خطرة", asetDangerD:"هذه الإجراءات لا رجعة فيها", asetReset:"إعادة تعيين بيانات العرض", asetComingSoon:"الميزة قادمة قريبًا" });
+Object.assign(T.en,{ aumFullName:"Full Name", aumPhFullName:"Contact name", aumCompany:"Company Name", aumPhCompany:"Company name", aumPhone:"Phone", aumCountry:"Country", aumPhCountry:"Country", aumBankTitle:"Banking Details", aumHolder:"Account Holder", aumBank:"Bank", aumFiscalTitle:"Tax Details", aumVat:"VAT Number", aumSdi:"SDI Code", aumPayTitle:"Accepted Payment Methods", aumPaySepa:"SEPA Transfer", aumPaySepaD:"Free · 1-2 business days", aumPayCard:"Credit Card", aumPayCardD:"Fee ~1.4% · Instant", aumPaySdd:"SEPA Direct Debit", aumPaySddD:"Automatic debit · Free", aumPayUpdated:"✓ Payment method updated!", aumPayInfo:"Distributors will only see the methods the brand accepts. Click to toggle.", aumCommTitle:"Platform commission (paid by brand)", aumCommRate:"Commission % (9–11.4)", aumCommUpdated:"✓ Commission updated!", aumRevenue:"Estimated annual revenue (€)", aumRevUpdated:"✓ Estimated revenue updated!", aumCommInfo:"You set it (admin). The brand pays it, doesn't choose it. Used in contracts generated when distributors are approved.", aumBrandCode:"Brand Code", aumBrandCodeDesc:"Unique code for invoices and transfers", aumRole:"Role", aumRoleBrand:"Brand", aumRoleDist:"Distributor", aumRoleAdmin:"Admin", aumStatus:"Status", aumStPending:"Pending", aumStApproved:"Approved", aumStRejected:"Rejected", aumDocs:"Documents", aumNoDocs:"No documents uploaded yet", aumVerified:"Verified", aumUnverify:"Unverify", aumVerify:"Verify", aumDocUnverified:"Document unverified", aumDocVerified:"✓ Document verified!", aumCancel:"Cancel", aumSave:"Save Changes", aumView:"View" });
+Object.assign(T.it,{ aumFullName:"Nome completo", aumPhFullName:"Nome referente", aumCompany:"Ragione sociale", aumPhCompany:"Ragione sociale", aumPhone:"Telefono", aumCountry:"Paese", aumPhCountry:"Italia", aumBankTitle:"Dati Bancari", aumHolder:"Intestatario", aumBank:"Banca", aumFiscalTitle:"Dati Fiscali", aumVat:"Partita IVA", aumSdi:"Codice SDI", aumPayTitle:"Metodi di Pagamento Accettati", aumPaySepa:"Bonifico SEPA", aumPaySepaD:"Gratuito · 1-2 giorni lavorativi", aumPayCard:"Carta di Credito", aumPayCardD:"Commissione ~1.4% · Istantaneo", aumPaySdd:"SEPA Direct Debit", aumPaySddD:"Addebito automatico · Gratuito", aumPayUpdated:"✓ Metodo pagamento aggiornato!", aumPayInfo:"I distributori vedranno solo i metodi che il brand accetta. Clicca per attivare/disattivare.", aumCommTitle:"Commissione piattaforma (a carico del brand)", aumCommRate:"Commissione % (9–11,4)", aumCommUpdated:"✓ Commissione aggiornata!", aumRevenue:"Fatturato annuo stimato (€)", aumRevUpdated:"✓ Fatturato stimato aggiornato!", aumCommInfo:"La imposti tu (admin). Il brand la paga, non la sceglie. Usata nei contratti generati all'approvazione dei distributori.", aumBrandCode:"Codice Brand", aumBrandCodeDesc:"Codice univoco per fatture e bonifici", aumRole:"Ruolo", aumRoleBrand:"Brand", aumRoleDist:"Distributore", aumRoleAdmin:"Admin", aumStatus:"Stato", aumStPending:"In attesa", aumStApproved:"Approvato", aumStRejected:"Rifiutato", aumDocs:"Documenti", aumNoDocs:"Nessun documento caricato", aumVerified:"Verificato", aumUnverify:"Annulla verifica", aumVerify:"Verifica", aumDocUnverified:"Documento non verificato", aumDocVerified:"✓ Documento verificato!", aumCancel:"Annulla", aumSave:"Salva modifiche", aumView:"Vedi" });
+Object.assign(T.fr,{ aumFullName:"Nom complet", aumPhFullName:"Nom du contact", aumCompany:"Raison sociale", aumPhCompany:"Raison sociale", aumPhone:"Téléphone", aumCountry:"Pays", aumPhCountry:"Pays", aumBankTitle:"Coordonnées bancaires", aumHolder:"Titulaire", aumBank:"Banque", aumFiscalTitle:"Données fiscales", aumVat:"N° TVA", aumSdi:"Code SDI", aumPayTitle:"Moyens de paiement acceptés", aumPaySepa:"Virement SEPA", aumPaySepaD:"Gratuit · 1-2 jours ouvrés", aumPayCard:"Carte de crédit", aumPayCardD:"Frais ~1,4 % · Instantané", aumPaySdd:"Prélèvement SEPA", aumPaySddD:"Débit automatique · Gratuit", aumPayUpdated:"✓ Moyen de paiement mis à jour !", aumPayInfo:"Les distributeurs ne verront que les moyens acceptés par la marque. Cliquez pour activer/désactiver.", aumCommTitle:"Commission de la plateforme (à la charge de la marque)", aumCommRate:"Commission % (9–11,4)", aumCommUpdated:"✓ Commission mise à jour !", aumRevenue:"Chiffre d'affaires annuel estimé (€)", aumRevUpdated:"✓ Chiffre d'affaires estimé mis à jour !", aumCommInfo:"C'est vous (admin) qui la définissez. La marque la paie, ne la choisit pas. Utilisée dans les contrats générés à l'approbation des distributeurs.", aumBrandCode:"Code marque", aumBrandCodeDesc:"Code unique pour factures et virements", aumRole:"Rôle", aumRoleBrand:"Marque", aumRoleDist:"Distributeur", aumRoleAdmin:"Admin", aumStatus:"Statut", aumStPending:"En attente", aumStApproved:"Approuvé", aumStRejected:"Rejeté", aumDocs:"Documents", aumNoDocs:"Aucun document téléversé", aumVerified:"Vérifié", aumUnverify:"Annuler", aumVerify:"Vérifier", aumDocUnverified:"Document non vérifié", aumDocVerified:"✓ Document vérifié !", aumCancel:"Annuler", aumSave:"Enregistrer", aumView:"Voir" });
+Object.assign(T.es,{ aumFullName:"Nombre completo", aumPhFullName:"Nombre de contacto", aumCompany:"Razón social", aumPhCompany:"Razón social", aumPhone:"Teléfono", aumCountry:"País", aumPhCountry:"País", aumBankTitle:"Datos bancarios", aumHolder:"Titular", aumBank:"Banco", aumFiscalTitle:"Datos fiscales", aumVat:"N.º de IVA", aumSdi:"Código SDI", aumPayTitle:"Métodos de pago aceptados", aumPaySepa:"Transferencia SEPA", aumPaySepaD:"Gratis · 1-2 días hábiles", aumPayCard:"Tarjeta de crédito", aumPayCardD:"Comisión ~1,4 % · Instantáneo", aumPaySdd:"Adeudo directo SEPA", aumPaySddD:"Adeudo automático · Gratis", aumPayUpdated:"✓ ¡Método de pago actualizado!", aumPayInfo:"Los distribuidores solo verán los métodos que acepta la marca. Haz clic para activar/desactivar.", aumCommTitle:"Comisión de la plataforma (a cargo de la marca)", aumCommRate:"Comisión % (9–11,4)", aumCommUpdated:"✓ ¡Comisión actualizada!", aumRevenue:"Facturación anual estimada (€)", aumRevUpdated:"✓ ¡Facturación estimada actualizada!", aumCommInfo:"La estableces tú (admin). La marca la paga, no la elige. Se usa en los contratos generados al aprobar distribuidores.", aumBrandCode:"Código de marca", aumBrandCodeDesc:"Código único para facturas y transferencias", aumRole:"Rol", aumRoleBrand:"Marca", aumRoleDist:"Distribuidor", aumRoleAdmin:"Admin", aumStatus:"Estado", aumStPending:"Pendiente", aumStApproved:"Aprobado", aumStRejected:"Rechazado", aumDocs:"Documentos", aumNoDocs:"Ningún documento subido aún", aumVerified:"Verificado", aumUnverify:"Quitar verificación", aumVerify:"Verificar", aumDocUnverified:"Documento no verificado", aumDocVerified:"✓ ¡Documento verificado!", aumCancel:"Cancelar", aumSave:"Guardar cambios", aumView:"Ver" });
+Object.assign(T.de,{ aumFullName:"Vollständiger Name", aumPhFullName:"Ansprechpartner", aumCompany:"Firmenname", aumPhCompany:"Firmenname", aumPhone:"Telefon", aumCountry:"Land", aumPhCountry:"Land", aumBankTitle:"Bankdaten", aumHolder:"Kontoinhaber", aumBank:"Bank", aumFiscalTitle:"Steuerdaten", aumVat:"USt-IdNr.", aumSdi:"SDI-Code", aumPayTitle:"Akzeptierte Zahlungsmethoden", aumPaySepa:"SEPA-Überweisung", aumPaySepaD:"Kostenlos · 1-2 Werktage", aumPayCard:"Kreditkarte", aumPayCardD:"Gebühr ~1,4 % · Sofort", aumPaySdd:"SEPA-Lastschrift", aumPaySddD:"Automatischer Einzug · Kostenlos", aumPayUpdated:"✓ Zahlungsmethode aktualisiert!", aumPayInfo:"Händler sehen nur die vom Brand akzeptierten Methoden. Zum Umschalten klicken.", aumCommTitle:"Plattformprovision (zu Lasten des Brands)", aumCommRate:"Provision % (9–11,4)", aumCommUpdated:"✓ Provision aktualisiert!", aumRevenue:"Geschätzter Jahresumsatz (€)", aumRevUpdated:"✓ Geschätzter Umsatz aktualisiert!", aumCommInfo:"Du (Admin) legst sie fest. Der Brand zahlt sie, wählt sie nicht. Wird in Verträgen verwendet, die bei der Genehmigung von Händlern erstellt werden.", aumBrandCode:"Marken-Code", aumBrandCodeDesc:"Eindeutiger Code für Rechnungen und Überweisungen", aumRole:"Rolle", aumRoleBrand:"Marke", aumRoleDist:"Händler", aumRoleAdmin:"Admin", aumStatus:"Status", aumStPending:"Ausstehend", aumStApproved:"Genehmigt", aumStRejected:"Abgelehnt", aumDocs:"Dokumente", aumNoDocs:"Noch keine Dokumente hochgeladen", aumVerified:"Verifiziert", aumUnverify:"Verifizierung aufheben", aumVerify:"Verifizieren", aumDocUnverified:"Dokument nicht verifiziert", aumDocVerified:"✓ Dokument verifiziert!", aumCancel:"Abbrechen", aumSave:"Änderungen speichern", aumView:"Ansehen" });
+Object.assign(T.zh,{ aumFullName:"全名", aumPhFullName:"联系人", aumCompany:"公司名称", aumPhCompany:"公司名称", aumPhone:"电话", aumCountry:"国家", aumPhCountry:"国家", aumBankTitle:"银行信息", aumHolder:"账户持有人", aumBank:"银行", aumFiscalTitle:"税务信息", aumVat:"增值税号", aumSdi:"SDI 代码", aumPayTitle:"接受的支付方式", aumPaySepa:"SEPA 转账", aumPaySepaD:"免费 · 1-2 个工作日", aumPayCard:"信用卡", aumPayCardD:"手续费 ~1.4% · 即时", aumPaySdd:"SEPA 直接借记", aumPaySddD:"自动扣款 · 免费", aumPayUpdated:"✓ 支付方式已更新！", aumPayInfo:"分销商只会看到品牌接受的方式。点击以启用/禁用。", aumCommTitle:"平台佣金（由品牌承担）", aumCommRate:"佣金 % (9–11.4)", aumCommUpdated:"✓ 佣金已更新！", aumRevenue:"预计年营收 (€)", aumRevUpdated:"✓ 预计营收已更新！", aumCommInfo:"由你（管理员）设定。品牌支付，不由其选择。用于批准分销商时生成的合同。", aumBrandCode:"品牌代码", aumBrandCodeDesc:"用于发票和转账的唯一代码", aumRole:"角色", aumRoleBrand:"品牌", aumRoleDist:"分销商", aumRoleAdmin:"管理员", aumStatus:"状态", aumStPending:"待处理", aumStApproved:"已批准", aumStRejected:"已拒绝", aumDocs:"文件", aumNoDocs:"尚未上传任何文件", aumVerified:"已验证", aumUnverify:"取消验证", aumVerify:"验证", aumDocUnverified:"文件未验证", aumDocVerified:"✓ 文件已验证！", aumCancel:"取消", aumSave:"保存更改", aumView:"查看" });
+Object.assign(T.ar,{ aumFullName:"الاسم الكامل", aumPhFullName:"اسم جهة الاتصال", aumCompany:"اسم الشركة", aumPhCompany:"اسم الشركة", aumPhone:"الهاتف", aumCountry:"الدولة", aumPhCountry:"الدولة", aumBankTitle:"البيانات المصرفية", aumHolder:"صاحب الحساب", aumBank:"البنك", aumFiscalTitle:"البيانات الضريبية", aumVat:"الرقم الضريبي", aumSdi:"رمز SDI", aumPayTitle:"طرق الدفع المقبولة", aumPaySepa:"تحويل SEPA", aumPaySepaD:"مجاني · 1-2 يوم عمل", aumPayCard:"بطاقة ائتمان", aumPayCardD:"رسوم ~1.4% · فوري", aumPaySdd:"خصم مباشر SEPA", aumPaySddD:"خصم تلقائي · مجاني", aumPayUpdated:"✓ تم تحديث طريقة الدفع!", aumPayInfo:"سيرى الموزّعون فقط الطرق التي تقبلها العلامة. انقر للتفعيل/الإلغاء.", aumCommTitle:"عمولة المنصة (على حساب العلامة)", aumCommRate:"العمولة % (9–11.4)", aumCommUpdated:"✓ تم تحديث العمولة!", aumRevenue:"الإيراد السنوي المقدّر (€)", aumRevUpdated:"✓ تم تحديث الإيراد المقدّر!", aumCommInfo:"أنت (المسؤول) من يحدّدها. العلامة تدفعها ولا تختارها. تُستخدم في العقود المُنشأة عند الموافقة على الموزّعين.", aumBrandCode:"رمز العلامة", aumBrandCodeDesc:"رمز فريد للفواتير والتحويلات", aumRole:"الدور", aumRoleBrand:"علامة", aumRoleDist:"موزّع", aumRoleAdmin:"مسؤول", aumStatus:"الحالة", aumStPending:"قيد الانتظار", aumStApproved:"موافق عليه", aumStRejected:"مرفوض", aumDocs:"المستندات", aumNoDocs:"لم يتم رفع أي مستندات بعد", aumVerified:"موثّق", aumUnverify:"إلغاء التوثيق", aumVerify:"توثيق", aumDocUnverified:"المستند غير موثّق", aumDocVerified:"✓ تم توثيق المستند!", aumCancel:"إلغاء", aumSave:"حفظ التغييرات", aumView:"عرض" });
+Object.assign(T.en,{ amrgTitle:"Margins · internal view", amrgSub:"NexusHub's real economics: commissions collected minus costs. Net margin and ROI per order.", amrgLockPre:"GigaTrade internal data. Costs and net margin ", amrgLockBold:"are never visible", amrgLockPost:" to brands or distributors (separate table, admin-only access).", amrgGmv:"GMV (transacted)", amrgFee:"Commission revenue", amrgCosts:"Costs (Stripe + op.)", amrgNet:"Net margin", amrgAvg:"Average margin", amrgFeeEst:"Estimated fee on orders without split:", amrgFeeEstNote:"(orders with a real split use the actual values)", amrgLoading:"Loading...", amrgEmpty:"No orders to analyze.", amrghOrder:"Order", amrghBrand:"Brand", amrghComm:"Commission", amrghOpCost:"Operating cost", amrgSave:"Save", alogTitle:"European Logistics Control Tower", alogSub:"Turin Hub · stock, preparation, shipments and alerts", alogStock:"Units in stock", alogReserved:"Reserved", alogToPrep:"To prepare", alogTransit:"In transit", alogDelivered:"Delivered", alogLowOut:"Low/out", alogPipeline:"Orders in progress", alogNoPipeline:"No orders to prepare or in transit.", alogh1Order:"Order", alogh1Status:"Status", alogh1Courier:"Courier", alogh1Value:"Value", alogWhHealth:"Warehouse health", alogh2Product:"Product", alogh2Brand:"Brand", alogh2Avail:"Available", alogh2Reserved:"Reserved", alogh2Status:"Status", alogNoProducts:"No products in the warehouse.", alogStOut:"Out of stock", alogStLow:"Low" });
+Object.assign(T.it,{ amrgTitle:"Margini · vista interna", amrgSub:"Economia reale di NexusHub: commissioni incassate meno costi. Margine netto e ROI per ordine.", amrgLockPre:"Dati interni GigaTrade. Costi e margine netto ", amrgLockBold:"non sono mai visibili", amrgLockPost:" a brand o distributori (tabella separata, accesso solo admin).", amrgGmv:"GMV (transato)", amrgFee:"Ricavo commissioni", amrgCosts:"Costi (Stripe + op.)", amrgNet:"Margine netto", amrgAvg:"Margine medio", amrgFeeEst:"Fee stimata su ordini senza split:", amrgFeeEstNote:"(gli ordini con split reale usano i valori effettivi)", amrgLoading:"Caricamento...", amrgEmpty:"Nessun ordine da analizzare.", amrghOrder:"Ordine", amrghBrand:"Brand", amrghComm:"Commissione", amrghOpCost:"Costo operativo", amrgSave:"Salva", alogTitle:"Torre di controllo logistica europea", alogSub:"Hub Torino · stock, preparazione, spedizioni e allerte", alogStock:"Unità in stock", alogReserved:"Riservate", alogToPrep:"Da preparare", alogTransit:"In transito", alogDelivered:"Consegnati", alogLowOut:"Basso/esaurito", alogPipeline:"Ordini in lavorazione", alogNoPipeline:"Nessun ordine da preparare o in transito.", alogh1Order:"Ordine", alogh1Status:"Stato", alogh1Courier:"Corriere", alogh1Value:"Valore", alogWhHealth:"Salute magazzino", alogh2Product:"Prodotto", alogh2Brand:"Brand", alogh2Avail:"Disponibili", alogh2Reserved:"Riservate", alogh2Status:"Stato", alogNoProducts:"Nessun prodotto a magazzino.", alogStOut:"Esaurito", alogStLow:"Basso" });
+Object.assign(T.fr,{ amrgTitle:"Marges · vue interne", amrgSub:"L'économie réelle de NexusHub : commissions encaissées moins les coûts. Marge nette et ROI par commande.", amrgLockPre:"Données internes GigaTrade. Les coûts et la marge nette ", amrgLockBold:"ne sont jamais visibles", amrgLockPost:" pour les marques ou distributeurs (table séparée, accès admin uniquement).", amrgGmv:"GMV (transigé)", amrgFee:"Revenus de commissions", amrgCosts:"Coûts (Stripe + op.)", amrgNet:"Marge nette", amrgAvg:"Marge moyenne", amrgFeeEst:"Commission estimée sur les commandes sans répartition :", amrgFeeEstNote:"(les commandes avec répartition réelle utilisent les valeurs effectives)", amrgLoading:"Chargement...", amrgEmpty:"Aucune commande à analyser.", amrghOrder:"Commande", amrghBrand:"Marque", amrghComm:"Commission", amrghOpCost:"Coût opérationnel", amrgSave:"Enregistrer", alogTitle:"Tour de contrôle logistique européenne", alogSub:"Hub de Turin · stock, préparation, expéditions et alertes", alogStock:"Unités en stock", alogReserved:"Réservées", alogToPrep:"À préparer", alogTransit:"En transit", alogDelivered:"Livrés", alogLowOut:"Bas/épuisé", alogPipeline:"Commandes en cours", alogNoPipeline:"Aucune commande à préparer ou en transit.", alogh1Order:"Commande", alogh1Status:"Statut", alogh1Courier:"Transporteur", alogh1Value:"Valeur", alogWhHealth:"Santé de l'entrepôt", alogh2Product:"Produit", alogh2Brand:"Marque", alogh2Avail:"Disponibles", alogh2Reserved:"Réservées", alogh2Status:"Statut", alogNoProducts:"Aucun produit en entrepôt.", alogStOut:"Épuisé", alogStLow:"Bas" });
+Object.assign(T.es,{ amrgTitle:"Márgenes · vista interna", amrgSub:"La economía real de NexusHub: comisiones cobradas menos costes. Margen neto y ROI por pedido.", amrgLockPre:"Datos internos de GigaTrade. Los costes y el margen neto ", amrgLockBold:"nunca son visibles", amrgLockPost:" para marcas o distribuidores (tabla separada, acceso solo admin).", amrgGmv:"GMV (transaccionado)", amrgFee:"Ingresos por comisiones", amrgCosts:"Costes (Stripe + op.)", amrgNet:"Margen neto", amrgAvg:"Margen medio", amrgFeeEst:"Comisión estimada en pedidos sin reparto:", amrgFeeEstNote:"(los pedidos con reparto real usan los valores efectivos)", amrgLoading:"Cargando...", amrgEmpty:"Ningún pedido que analizar.", amrghOrder:"Pedido", amrghBrand:"Marca", amrghComm:"Comisión", amrghOpCost:"Coste operativo", amrgSave:"Guardar", alogTitle:"Torre de control logística europea", alogSub:"Hub de Turín · stock, preparación, envíos y alertas", alogStock:"Unidades en stock", alogReserved:"Reservadas", alogToPrep:"Por preparar", alogTransit:"En tránsito", alogDelivered:"Entregados", alogLowOut:"Bajo/agotado", alogPipeline:"Pedidos en curso", alogNoPipeline:"Ningún pedido por preparar o en tránsito.", alogh1Order:"Pedido", alogh1Status:"Estado", alogh1Courier:"Transportista", alogh1Value:"Valor", alogWhHealth:"Salud del almacén", alogh2Product:"Producto", alogh2Brand:"Marca", alogh2Avail:"Disponibles", alogh2Reserved:"Reservadas", alogh2Status:"Estado", alogNoProducts:"Ningún producto en el almacén.", alogStOut:"Agotado", alogStLow:"Bajo" });
+Object.assign(T.de,{ amrgTitle:"Margen · interne Ansicht", amrgSub:"Die echte Wirtschaftlichkeit von NexusHub: vereinnahmte Provisionen minus Kosten. Nettomarge und ROI pro Bestellung.", amrgLockPre:"GigaTrade-interne Daten. Kosten und Nettomarge ", amrgLockBold:"sind niemals sichtbar", amrgLockPost:" für Marken oder Händler (separate Tabelle, nur Admin-Zugriff).", amrgGmv:"GMV (Umsatz)", amrgFee:"Provisionsumsatz", amrgCosts:"Kosten (Stripe + Betr.)", amrgNet:"Nettomarge", amrgAvg:"Durchschnittsmarge", amrgFeeEst:"Geschätzte Gebühr bei Bestellungen ohne Split:", amrgFeeEstNote:"(Bestellungen mit echtem Split verwenden die tatsächlichen Werte)", amrgLoading:"Wird geladen...", amrgEmpty:"Keine Bestellungen zu analysieren.", amrghOrder:"Bestellung", amrghBrand:"Marke", amrghComm:"Provision", amrghOpCost:"Betriebskosten", amrgSave:"Speichern", alogTitle:"Europäischer Logistik-Kontrollturm", alogSub:"Hub Turin · Bestand, Vorbereitung, Versand und Warnungen", alogStock:"Einheiten auf Lager", alogReserved:"Reserviert", alogToPrep:"Vorzubereiten", alogTransit:"Unterwegs", alogDelivered:"Zugestellt", alogLowOut:"Niedrig/leer", alogPipeline:"Bestellungen in Bearbeitung", alogNoPipeline:"Keine Bestellungen vorzubereiten oder unterwegs.", alogh1Order:"Bestellung", alogh1Status:"Status", alogh1Courier:"Kurier", alogh1Value:"Wert", alogWhHealth:"Lager-Zustand", alogh2Product:"Produkt", alogh2Brand:"Marke", alogh2Avail:"Verfügbar", alogh2Reserved:"Reserviert", alogh2Status:"Status", alogNoProducts:"Keine Produkte im Lager.", alogStOut:"Ausverkauft", alogStLow:"Niedrig" });
+Object.assign(T.zh,{ amrgTitle:"利润 · 内部视图", amrgSub:"NexusHub 的真实经济：已收佣金减去成本。每单净利润和 ROI。", amrgLockPre:"GigaTrade 内部数据。成本和净利润 ", amrgLockBold:"永远不可见", amrgLockPost:" 给品牌或分销商（独立表，仅管理员访问）。", amrgGmv:"GMV（交易额）", amrgFee:"佣金收入", amrgCosts:"成本（Stripe + 运营）", amrgNet:"净利润", amrgAvg:"平均利润率", amrgFeeEst:"无分账订单的预估费用：", amrgFeeEstNote:"（有真实分账的订单使用实际值）", amrgLoading:"加载中...", amrgEmpty:"没有可分析的订单。", amrghOrder:"订单", amrghBrand:"品牌", amrghComm:"佣金", amrghOpCost:"运营成本", amrgSave:"保存", alogTitle:"欧洲物流控制塔", alogSub:"都灵枢纽 · 库存、备货、发货和警报", alogStock:"库存单位", alogReserved:"已预留", alogToPrep:"待备货", alogTransit:"运输中", alogDelivered:"已送达", alogLowOut:"低/缺货", alogPipeline:"处理中的订单", alogNoPipeline:"没有待备货或运输中的订单。", alogh1Order:"订单", alogh1Status:"状态", alogh1Courier:"快递", alogh1Value:"价值", alogWhHealth:"仓库健康度", alogh2Product:"产品", alogh2Brand:"品牌", alogh2Avail:"可用", alogh2Reserved:"已预留", alogh2Status:"状态", alogNoProducts:"仓库中没有产品。", alogStOut:"缺货", alogStLow:"低" });
+Object.assign(T.ar,{ amrgTitle:"الهوامش · عرض داخلي", amrgSub:"الاقتصاد الحقيقي لـ NexusHub: العمولات المحصّلة ناقص التكاليف. صافي الهامش والعائد لكل طلب.", amrgLockPre:"بيانات GigaTrade الداخلية. التكاليف وصافي الهامش ", amrgLockBold:"غير مرئية أبدًا", amrgLockPost:" للعلامات أو الموزّعين (جدول منفصل، وصول للمسؤول فقط).", amrgGmv:"GMV (المتداول)", amrgFee:"إيراد العمولات", amrgCosts:"التكاليف (Stripe + تشغيلية)", amrgNet:"صافي الهامش", amrgAvg:"متوسط الهامش", amrgFeeEst:"الرسوم المقدّرة على الطلبات دون تقسيم:", amrgFeeEstNote:"(الطلبات ذات التقسيم الحقيقي تستخدم القيم الفعلية)", amrgLoading:"جارٍ التحميل...", amrgEmpty:"لا توجد طلبات لتحليلها.", amrghOrder:"الطلب", amrghBrand:"العلامة", amrghComm:"العمولة", amrghOpCost:"التكلفة التشغيلية", amrgSave:"حفظ", alogTitle:"برج التحكم اللوجستي الأوروبي", alogSub:"مركز تورينو · المخزون، التحضير، الشحنات والتنبيهات", alogStock:"الوحدات في المخزون", alogReserved:"محجوزة", alogToPrep:"قيد التحضير", alogTransit:"قيد النقل", alogDelivered:"تم التسليم", alogLowOut:"منخفض/نفد", alogPipeline:"الطلبات قيد المعالجة", alogNoPipeline:"لا توجد طلبات للتحضير أو قيد النقل.", alogh1Order:"الطلب", alogh1Status:"الحالة", alogh1Courier:"شركة الشحن", alogh1Value:"القيمة", alogWhHealth:"حالة المستودع", alogh2Product:"المنتج", alogh2Brand:"العلامة", alogh2Avail:"المتاح", alogh2Reserved:"محجوزة", alogh2Status:"الحالة", alogNoProducts:"لا توجد منتجات في المستودع.", alogStOut:"نفد", alogStLow:"منخفض" });
 
 
 
@@ -6135,33 +6149,33 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           return (
           <div>
             <div style={{ marginBottom:14 }}>
-              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📈 Margini · vista interna</h2>
-              <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Economia reale di NexusHub: commissioni incassate meno costi. Margine netto e ROI per ordine.</p>
+              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📈 {t("amrgTitle")}</h2>
+              <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("amrgSub")}</p>
             </div>
             <div style={{ display:"flex", alignItems:"center", gap:10, background:`${C.red}10`, border:`1px solid ${C.red}35`, borderRadius:10, padding:"10px 14px", marginBottom:20 }}>
               <span style={{ fontSize:18 }}>🔒</span>
-              <span style={{ fontSize:12.5, color:C.text }}>Dati interni GigaTrade. Costi e margine netto <b>non sono mai visibili</b> a brand o distributori (tabella separata, accesso solo admin).</span>
+              <span style={{ fontSize:12.5, color:C.text }}>{t("amrgLockPre")}<b>{t("amrgLockBold")}</b>{t("amrgLockPost")}</span>
             </div>
             <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:20 }}>
-              <Stat icon="💶" label="GMV (transato)" value={eur(tot.gmv)}/>
-              <Stat icon="💰" label="Ricavo commissioni" value={eur(tot.fee)} accent={C.gold}/>
-              <Stat icon="💳" label="Costi (Stripe + op.)" value={eur(tot.stripe+tot.op)} accent={C.red}/>
-              <Stat icon="✅" label="Margine netto" value={eur(tot.net)} accent={C.green}/>
-              <Stat icon="📊" label="Margine medio" value={avgPct.toFixed(1)+"%"} accent={C.blue}/>
+              <Stat icon="💶" label={t("amrgGmv")} value={eur(tot.gmv)}/>
+              <Stat icon="💰" label={t("amrgFee")} value={eur(tot.fee)} accent={C.gold}/>
+              <Stat icon="💳" label={t("amrgCosts")} value={eur(tot.stripe+tot.op)} accent={C.red}/>
+              <Stat icon="✅" label={t("amrgNet")} value={eur(tot.net)} accent={C.green}/>
+              <Stat icon="📊" label={t("amrgAvg")} value={avgPct.toFixed(1)+"%"} accent={C.blue}/>
             </div>
             <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:16, fontSize:12, color:C.textMuted }}>
-              <span>Fee stimata su ordini senza split:</span>
+              <span>{t("amrgFeeEst")}</span>
               <input type="number" step="0.1" value={feeRate} onChange={e=>setFeeRate(Number(e.target.value)||0)} style={{ width:70, padding:"5px 8px", borderRadius:6, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, outline:"none" }}/>
               <span>%</span>
-              <span style={{ color:C.textDim }}>(gli ordini con split reale usano i valori effettivi)</span>
+              <span style={{ color:C.textDim }}>{t("amrgFeeEstNote")}</span>
             </div>
             {marginRows.length===0 ? (
-              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted, fontSize:14 }}>{marginBusy ? "Caricamento..." : "Nessun ordine da analizzare."}</div>
+              <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted, fontSize:14 }}>{marginBusy ? t("amrgLoading") : t("amrgEmpty")}</div>
             ) : (
               <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:880 }}>
                   <thead><tr style={{ background:C.surface2 }}>
-                    {["Ordine","Brand","GMV","Commissione","Stripe","Costo operativo","Margine netto","%"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign: i>=2&&i<7?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
+                    {[t("amrghOrder"),t("amrghBrand"),"GMV",t("amrghComm"),"Stripe",t("amrghOpCost"),t("amrgNet"),"%"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign: i>=2&&i<7?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
                   </tr></thead>
                   <tbody>
                     {marginRows.map((r,i)=>{ const c=rowCalc(r); const edit=(r.id in opEdits)?opEdits[r.id]:(r.econ&&r.econ.operating_cost!=null?r.econ.operating_cost:""); return (
@@ -6173,7 +6187,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         <td style={{ padding:"10px 14px", fontSize:12, color:C.textMuted, textAlign:"right", whiteSpace:"nowrap" }}>{c.stripe?("-"+eur(c.stripe)):"—"}</td>
                         <td style={{ padding:"10px 14px", textAlign:"right", whiteSpace:"nowrap" }}>
                           <input type="number" step="0.01" placeholder="0" value={edit} onChange={e=>setOpEdits(prev=>({...prev, [r.id]:e.target.value}))} style={{ width:84, padding:"5px 8px", borderRadius:6, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, textAlign:"right", outline:"none" }}/>
-                          <button onClick={()=>saveOpCost(r.id, edit)} style={{ marginLeft:6, padding:"5px 9px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.gold}18`, border:`1px solid ${C.gold}40`, color:C.goldLight }}>Salva</button>
+                          <button onClick={()=>saveOpCost(r.id, edit)} style={{ marginLeft:6, padding:"5px 9px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.gold}18`, border:`1px solid ${C.gold}40`, color:C.goldLight }}>{t("amrgSave")}</button>
                         </td>
                         <td style={{ padding:"10px 14px", fontSize:12.5, fontWeight:700, textAlign:"right", whiteSpace:"nowrap", color: c.net>=0?C.green:C.red }}>{eur(c.net)}</td>
                         <td style={{ padding:"10px 14px", fontSize:12, fontWeight:600, textAlign:"right", color: c.pct>=0?C.green:C.red }}>{c.pct.toFixed(1)}%</td>
@@ -6380,26 +6394,26 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           return (
           <div>
             <div style={{ marginBottom:20 }}>
-              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🚛 European Logistics Control Tower</h2>
-              <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Hub Torino · stock, preparazione, spedizioni e allerte</p>
+              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🚛 {t("alogTitle")}</h2>
+              <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("alogSub")}</p>
             </div>
             <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:24 }}>
-              <Stat icon="📦" label="Unita in stock" value={unitsStock.toLocaleString("it-IT")} sub={`${wi.length} SKU`}/>
-              <Stat icon="🔒" label="Riservate" value={unitsReserved.toLocaleString("it-IT")}/>
-              <Stat icon="🛠️" label="Da preparare" value={prep.length} accent={C.gold}/>
-              <Stat icon="🚚" label="In transito" value={transit.length} accent={C.blue}/>
-              <Stat icon="✅" label="Consegnati" value={delivered.length} accent={C.green}/>
-              <Stat icon="⚠️" label="Basso/esaurito" value={low.length+out.length} accent={C.red}/>
+              <Stat icon="📦" label={t("alogStock")} value={unitsStock.toLocaleString("it-IT")} sub={`${wi.length} SKU`}/>
+              <Stat icon="🔒" label={t("alogReserved")} value={unitsReserved.toLocaleString("it-IT")}/>
+              <Stat icon="🛠️" label={t("alogToPrep")} value={prep.length} accent={C.gold}/>
+              <Stat icon="🚚" label={t("alogTransit")} value={transit.length} accent={C.blue}/>
+              <Stat icon="✅" label={t("alogDelivered")} value={delivered.length} accent={C.green}/>
+              <Stat icon="⚠️" label={t("alogLowOut")} value={low.length+out.length} accent={C.red}/>
             </div>
 
-            <h3 style={{ fontSize:14, color:C.gold, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>Ordini in lavorazione</h3>
+            <h3 style={{ fontSize:14, color:C.gold, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>{t("alogPipeline")}</h3>
             {pipeline.length===0 ? (
-              <div style={{ padding:24, background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, color:C.textMuted, fontSize:13, marginBottom:28 }}>Nessun ordine da preparare o in transito.</div>
+              <div style={{ padding:24, background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, color:C.textMuted, fontSize:13, marginBottom:28 }}>{t("alogNoPipeline")}</div>
             ) : (
               <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}`, marginBottom:28 }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:600 }}>
                   <thead><tr style={{ background:C.surface2 }}>
-                    {["Ordine","Stato","Corriere","Tracking","Valore"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase" }}>{h}</th>))}
+                    {[t("alogh1Order"),t("alogh1Status"),t("alogh1Courier"),"Tracking",t("alogh1Value")].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase" }}>{h}</th>))}
                   </tr></thead>
                   <tbody>
                     {pipeline.map((o,i)=>(
@@ -6416,18 +6430,18 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               </div>
             )}
 
-            <h3 style={{ fontSize:14, color:C.textMuted, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>Salute magazzino</h3>
+            <h3 style={{ fontSize:14, color:C.textMuted, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>{t("alogWhHealth")}</h3>
             <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:600 }}>
                 <thead><tr style={{ background:C.surface2 }}>
-                  {["Prodotto","Brand","Disponibili","Riservate","Stato"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase" }}>{h}</th>))}
+                  {[t("alogh2Product"),t("alogh2Brand"),t("alogh2Avail"),t("alogh2Reserved"),t("alogh2Status")].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase" }}>{h}</th>))}
                 </tr></thead>
                 <tbody>
                   {wi.length===0 ? (
-                    <tr><td colSpan={5} style={{ padding:24, textAlign:"center", color:C.textMuted, fontSize:13 }}>Nessun prodotto a magazzino.</td></tr>
+                    <tr><td colSpan={5} style={{ padding:24, textAlign:"center", color:C.textMuted, fontSize:13 }}>{t("alogNoProducts")}</td></tr>
                   ) : wi.map((x,i)=>{
                     const q=Number(x.inv.quantity_available||0);
-                    const stt = q===0 ? ["Esaurito",C.red] : q<=50 ? ["Basso",C.gold] : ["OK",C.green];
+                    const stt = q===0 ? [t("alogStOut"),C.red] : q<=50 ? [t("alogStLow"),C.gold] : ["OK",C.green];
                     return (
                       <tr key={x.p.id} style={{ background:i%2?C.surface2+"50":"transparent", borderTop:`1px solid ${C.border}` }}>
                         <td style={{ padding:"10px 14px", fontSize:13, color:C.text, fontWeight:600 }}>{x.p.name}</td>
@@ -7387,10 +7401,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             {/* Edit fields */}
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:16 }}>
               {[
-                { label:"Full Name", key:"full_name", placeholder:"Nome referente" },
-                { label:"Company Name", key:"company_name", placeholder:"Ragione sociale" },
-                { label:"Phone", key:"phone", placeholder:"+39..." },
-                { label:"Country", key:"country", placeholder:"Italia" },
+                { label:t("aumFullName"), key:"full_name", placeholder:t("aumPhFullName") },
+                { label:t("aumCompany"), key:"company_name", placeholder:t("aumPhCompany") },
+                { label:t("aumPhone"), key:"phone", placeholder:"+39..." },
+                { label:t("aumCountry"), key:"country", placeholder:t("aumPhCountry") },
               ].map(({label,key,placeholder}) => (
                 <div key={key}>
                   <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
@@ -7404,11 +7418,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             {/* Banking info (read-only display) */}
             {(editingUser.iban || editingUser.bank_name) && (
               <div style={{ marginBottom:16, padding:"14px 16px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:10 }}>
-                <div style={{ fontSize:12, color:C.gold, fontWeight:600, marginBottom:10, textTransform:"uppercase", letterSpacing:".06em" }}>💳 Dati Bancari</div>
+                <div style={{ fontSize:12, color:C.gold, fontWeight:600, marginBottom:10, textTransform:"uppercase", letterSpacing:".06em" }}>💳 {t("aumBankTitle")}</div>
                 <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8 }}>
                   {[
-                    ["Intestatario", editingUser.account_holder],
-                    ["Banca", editingUser.bank_name],
+                    [t("aumHolder"), editingUser.account_holder],
+                    [t("aumBank"), editingUser.bank_name],
                     ["IBAN", editingUser.iban],
                     ["SWIFT/BIC", editingUser.swift_bic],
                   ].map(([k,v]) => v ? (
@@ -7424,11 +7438,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             {/* VAT/SDI/PEC display */}
             {(editingUser.vat_number || editingUser.sdi_code) && (
               <div style={{ marginBottom:16, padding:"14px 16px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:10 }}>
-                <div style={{ fontSize:12, color:C.blue, fontWeight:600, marginBottom:10, textTransform:"uppercase", letterSpacing:".06em" }}>🧾 Dati Fiscali</div>
+                <div style={{ fontSize:12, color:C.blue, fontWeight:600, marginBottom:10, textTransform:"uppercase", letterSpacing:".06em" }}>🧾 {t("aumFiscalTitle")}</div>
                 <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8 }}>
                   {[
-                    ["VAT Number", editingUser.vat_number],
-                    ["Codice SDI", editingUser.sdi_code],
+                    [t("aumVat"), editingUser.vat_number],
+                    [t("aumSdi"), editingUser.sdi_code],
                     ["PEC", editingUser.pec_email],
                   ].map(([k,v]) => v ? (
                     <div key={k}>
@@ -7443,12 +7457,12 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             {/* Payment Methods - only for brands */}
             {editingUser.role === "brand" && (
               <div style={{ marginBottom:16, padding:"14px 16px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:10 }}>
-                <div style={{ fontSize:12, color:C.green, fontWeight:600, marginBottom:12, textTransform:"uppercase", letterSpacing:".06em" }}>💳 Metodi di Pagamento Accettati</div>
+                <div style={{ fontSize:12, color:C.green, fontWeight:600, marginBottom:12, textTransform:"uppercase", letterSpacing:".06em" }}>💳 {t("aumPayTitle")}</div>
                 <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
                   {[
-                    { key:"sepa", label:"Bonifico SEPA", desc:"Gratuito · 1-2 giorni lavorativi", icon:"🏦" },
-                    { key:"card", label:"Carta di Credito", desc:"Commissione ~1.4% · Istantaneo", icon:"💳" },
-                    { key:"sepa_debit", label:"SEPA Direct Debit", desc:"Addebito automatico · Gratuito", icon:"⚡" },
+                    { key:"sepa", label:t("aumPaySepa"), desc:t("aumPaySepaD"), icon:"🏦" },
+                    { key:"card", label:t("aumPayCard"), desc:t("aumPayCardD"), icon:"💳" },
+                    { key:"sepa_debit", label:t("aumPaySdd"), desc:t("aumPaySddD"), icon:"⚡" },
                   ].map(m => {
                     const methods = editingUser.payment_methods || { sepa: true, card: false, sepa_debit: false };
                     return (
@@ -7459,7 +7473,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                           const updated = { ...(editingUser.payment_methods || {}), [m.key]: !methods[m.key] };
                           await supabase.from("profiles").update({ payment_methods: updated }).eq("id", editingUser.id);
                           setEditingUser(u => ({ ...u, payment_methods: updated }));
-                          notify("✓ Metodo pagamento aggiornato!");
+                          notify(t("aumPayUpdated"));
                         }}>
                         <div style={{ display:"flex", alignItems:"center", gap:10 }}>
                           <span style={{ fontSize:18 }}>{m.icon}</span>
@@ -7481,40 +7495,40 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                   })}
                 </div>
                 <div style={{ marginTop:10, padding:"8px 12px", background:`${C.blue}08`, border:`1px solid ${C.blue}15`, borderRadius:8, fontSize:11, color:C.textMuted }}>
-                  💡 I distributori vedranno solo i metodi che il brand accetta. Clicca per attivare/disattivare.
+                  💡 {t("aumPayInfo")}
                 </div>
               </div>
             )}
 
             {editingUser.role === "brand" && (
               <div style={{ marginBottom:16, padding:"14px 16px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:10 }}>
-                <div style={{ fontSize:12, color:C.gold, fontWeight:600, marginBottom:12, textTransform:"uppercase", letterSpacing:".06em" }}>📊 Commissione piattaforma (a carico del brand)</div>
+                <div style={{ fontSize:12, color:C.gold, fontWeight:600, marginBottom:12, textTransform:"uppercase", letterSpacing:".06em" }}>📊 {t("aumCommTitle")}</div>
                 <div style={{ display:"flex", gap:18, flexWrap:"wrap" }}>
                   <div>
-                    <label style={{ fontSize:11, color:C.textMuted, display:"block", marginBottom:6 }}>Commissione % (9–11,4)</label>
+                    <label style={{ fontSize:11, color:C.textMuted, display:"block", marginBottom:6 }}>{t("aumCommRate")}</label>
                     <input type="number" min={9} max={11.4} step={0.1} defaultValue={editingUser.commission_rate ?? 11.4}
                       onBlur={async (e) => {
                         const v = Math.min(11.4, Math.max(9, Number(e.target.value) || 11.4));
                         await supabase.from("profiles").update({ commission_rate: v }).eq("id", editingUser.id);
                         setEditingUser(u => ({ ...u, commission_rate: v }));
-                        notify("✓ Commissione aggiornata!");
+                        notify(t("aumCommUpdated"));
                       }}
                       style={{ width:110, padding:"10px 12px", borderRadius:8, background:C.surface, border:`1px solid ${C.border}`, color:C.text, fontSize:14 }} />
                   </div>
                   <div>
-                    <label style={{ fontSize:11, color:C.textMuted, display:"block", marginBottom:6 }}>Fatturato annuo stimato (€)</label>
+                    <label style={{ fontSize:11, color:C.textMuted, display:"block", marginBottom:6 }}>{t("aumRevenue")}</label>
                     <input type="number" min={0} step={10000} defaultValue={editingUser.estimated_annual_revenue ?? 0}
                       onBlur={async (e) => {
                         const v = Math.max(0, Number(e.target.value) || 0);
                         await supabase.from("profiles").update({ estimated_annual_revenue: v }).eq("id", editingUser.id);
                         setEditingUser(u => ({ ...u, estimated_annual_revenue: v }));
-                        notify("✓ Fatturato stimato aggiornato!");
+                        notify(t("aumRevUpdated"));
                       }}
                       style={{ width:180, padding:"10px 12px", borderRadius:8, background:C.surface, border:`1px solid ${C.border}`, color:C.text, fontSize:14 }} />
                   </div>
                 </div>
                 <div style={{ marginTop:10, padding:"8px 12px", background:`${C.gold}08`, border:`1px solid ${C.gold}15`, borderRadius:8, fontSize:11, color:C.textMuted }}>
-                  💡 La imposti tu (admin). Il brand la paga, non la sceglie. Usata nei contratti generati all'approvazione dei distributori.
+                  💡 {t("aumCommInfo")}
                 </div>
               </div>
             )}
@@ -7524,11 +7538,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 background:`${C.gold}08`, border:`1px solid ${C.gold}25`, borderRadius:10,
                 display:"flex", alignItems:"center", justifyContent:"space-between" }}>
                 <div>
-                  <div style={{ fontSize:10, color:C.textDim, textTransform:"uppercase", letterSpacing:".08em" }}>Brand Code</div>
+                  <div style={{ fontSize:10, color:C.textDim, textTransform:"uppercase", letterSpacing:".08em" }}>{t("aumBrandCode")}</div>
                   <div style={{ fontSize:16, fontWeight:800, color:C.goldLight, fontFamily:"monospace", marginTop:3 }}>{editingUser.brand_code}</div>
                 </div>
                 <div style={{ fontSize:10, color:C.textMuted, maxWidth:200, textAlign:"right", lineHeight:1.5 }}>
-                  Codice univoco per fatture e bonifici
+                  {t("aumBrandCodeDesc")}
                 </div>
               </div>
             )}
@@ -7536,21 +7550,21 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             {/* Role + Status */}
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:20 }}>
               <div>
-                <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Role</label>
+                <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{t("aumRole")}</label>
                 <select value={userEditForm.role||""} onChange={e=>setUserEditForm(f=>({...f,role:e.target.value}))}
                   style={{ width:"100%", padding:"9px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}>
-                  <option value="brand">Brand</option>
-                  <option value="distributor">Distributor</option>
-                  <option value="admin">Admin</option>
+                  <option value="brand">{t("aumRoleBrand")}</option>
+                  <option value="distributor">{t("aumRoleDist")}</option>
+                  <option value="admin">{t("aumRoleAdmin")}</option>
                 </select>
               </div>
               <div>
-                <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>Status</label>
+                <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{t("aumStatus")}</label>
                 <select value={userEditForm.status||""} onChange={e=>setUserEditForm(f=>({...f,status:e.target.value}))}
                   style={{ width:"100%", padding:"9px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}>
-                  <option value="pending">Pending</option>
-                  <option value="approved">Approved</option>
-                  <option value="rejected">Rejected</option>
+                  <option value="pending">{t("aumStPending")}</option>
+                  <option value="approved">{t("aumStApproved")}</option>
+                  <option value="rejected">{t("aumStRejected")}</option>
                 </select>
               </div>
             </div>
@@ -7558,11 +7572,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             {/* Documents section */}
             <div style={{ marginBottom:20 }}>
               <h4 style={{ fontSize:13, color:C.text, marginBottom:12, textTransform:"uppercase", letterSpacing:".06em" }}>
-                📄 Documents ({userDocs.length})
+                📄 {t("aumDocs")} ({userDocs.length})
               </h4>
               {userDocs.length === 0 ? (
                 <div style={{ padding:"16px", background:C.surface2, borderRadius:10, fontSize:13, color:C.textMuted, textAlign:"center" }}>
-                  No documents uploaded yet
+                  {t("aumNoDocs")}
                 </div>
               ) : (
                 <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
@@ -7587,22 +7601,20 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                           background: doc.verified ? `${C.green}15` : `${C.gold}15`,
                           color: doc.verified ? C.green : C.gold,
                           border: `1px solid ${doc.verified ? C.green : C.gold}40` }}>
-                          {doc.verified ? "✓ Verified" : "Pending"}
+                          {doc.verified ? "✓ "+t("aumVerified") : t("aumStPending")}
                         </span>
                         <a href={doc.file_url} target="_blank" rel="noreferrer"
                           style={{ padding:"5px 12px", borderRadius:6, fontSize:11, fontWeight:600,
                             background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue,
-                            textDecoration:"none", cursor:"pointer" }}>
-                          View
-                        </a>
+                            textDecoration:"none", cursor:"pointer" }}>{t("aumView")}</a>
                         <button onClick={async () => {
                           await supabase.from("documents").update({ verified: !doc.verified }).eq("id", doc.id);
                           const docs = await loadDocuments(editingUser.id);
                           setUserDocs(docs);
-                          notify(doc.verified ? "Document unverified" : "✓ Document verified!");
+                          notify(doc.verified ? t("aumDocUnverified") : t("aumDocVerified"));
                         }} style={{ padding:"5px 12px", borderRadius:6, fontSize:11,
                           background:`${C.green}10`, border:`1px solid ${C.green}30`, color:C.green, cursor:"pointer" }}>
-                          {doc.verified ? "Unverify" : "Verify"}
+                          {doc.verified ? t("aumUnverify") : t("aumVerify")}
                         </button>
                       </div>
                     </div>
@@ -7613,12 +7625,12 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
             {/* Action buttons */}
             <div style={{ display:"flex", gap:10 }}>
-              <button onClick={() => setShowUserModal(false)} style={{ flex:1, padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>Cancel</button>
+              <button onClick={() => setShowUserModal(false)} style={{ flex:1, padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>{t("aumCancel")}</button>
               <button onClick={async () => {
                 await updateUserProfile(editingUser.id, userEditForm);
                 setShowUserModal(false);
               }} style={{ flex:2, padding:"11px", borderRadius:8, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>
-                Save Changes
+                {t("aumSave")}
               </button>
             </div>
           </div>
