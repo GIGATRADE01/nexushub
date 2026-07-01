@@ -741,6 +741,27 @@ Object.assign(T.es, { acomTitle:"Comisiones automáticas", acomSub:"Tramos sobre
 Object.assign(T.de, { acomTitle:"Automatische Provisionen", acomSub:"Staffeln auf den echten Jahresumsatz · bis 10 Mio.€ = 11,4% · 10–15 Mio.€ = 10% · über 15 Mio.€ = 9%", acomNoBrands:"Keine Marken registriert.", acomLocked:"gesperrt", acomUpdated:"aktualisiert", acomHistory:"Änderungsverlauf", acomNoHistory:"Bisher keine Änderungen erfasst.", aconTitle:"Digitale Verträge", aconSub:"Exklusive Vertriebsverträge nach Gebiet", aconFilterActive:"Aktiv", aconFilterDrafts:"Entwürfe", aconFilterExpiring:"Läuft ab (30T)", aconFilterExpired:"Abgelaufen", aconNoContracts:"Noch keine Verträge", aconNoContractsMsg:"Verträge werden erstellt, wenn Sie einen Händler für eine Marke genehmigen", aconExpired:"abgelaufen", aconView:"Ansehen", aconActivate:"Aktivieren", aconTerminate:"Beenden", aconNewTitle:"Neuer Vertriebsvertrag", aconBrandLbl:"Marke *", aconChooseBrand:"— Marke wählen —", aconDistLbl:"Händler *", aconChooseDist:"— Händler wählen —", aconTerritory:"Gebiet", aconTerritoryPh:"z. B. Italien, EU, Rumänien...", aconCommission:"Provision (%)", aconMOQ:"MOQ pro Bestellung", aconPayTerms:"Zahlungsziel (Tage)", aconValidFrom:"Gültig ab", aconValidUntil:"Gültig bis" });
 Object.assign(T.zh, { acomTitle:"自动佣金", acomSub:"基于真实年营收的分级 · 最高 1000万€ = 11.4% · 1000–1500万€ = 10% · 超过 1500万€ = 9%", acomNoBrands:"没有已注册的品牌。", acomLocked:"已锁定", acomUpdated:"已更新", acomHistory:"变更历史", acomNoHistory:"目前尚无变更记录。", aconTitle:"数字合同", aconSub:"按区域划分的独家分销合同", aconFilterActive:"生效中", aconFilterDrafts:"草稿", aconFilterExpiring:"即将到期（30天）", aconFilterExpired:"已过期", aconNoContracts:"还没有合同", aconNoContractsMsg:"当您为某品牌批准分销商时会创建合同", aconExpired:"已过期", aconView:"查看", aconActivate:"激活", aconTerminate:"终止", aconNewTitle:"新分销合同", aconBrandLbl:"品牌 *", aconChooseBrand:"— 选择品牌 —", aconDistLbl:"分销商 *", aconChooseDist:"— 选择分销商 —", aconTerritory:"区域", aconTerritoryPh:"例如 意大利、欧盟、罗马尼亚...", aconCommission:"佣金 (%)", aconMOQ:"每单最小起订量", aconPayTerms:"付款期限（天）", aconValidFrom:"生效日期", aconValidUntil:"有效至" });
 Object.assign(T.ar, { acomTitle:"العمولات التلقائية", acomSub:"شرائح على الإيرادات السنوية الفعلية · حتى 10 مليون€ = 11.4% · 10–15 مليون€ = 10% · أكثر من 15 مليون€ = 9%", acomNoBrands:"لا توجد علامات مسجّلة.", acomLocked:"مقفلة", acomUpdated:"محدّث", acomHistory:"سجل التغييرات", acomNoHistory:"لا توجد تغييرات مسجّلة حتى الآن.", aconTitle:"العقود الرقمية", aconSub:"عقود التوزيع الحصري حسب المنطقة", aconFilterActive:"نشطة", aconFilterDrafts:"مسودات", aconFilterExpiring:"تنتهي قريبًا (30 يومًا)", aconFilterExpired:"منتهية", aconNoContracts:"لا توجد عقود بعد", aconNoContractsMsg:"تُنشأ العقود عند الموافقة على موزّع لعلامة ما", aconExpired:"منتهٍ", aconView:"عرض", aconActivate:"تفعيل", aconTerminate:"إنهاء", aconNewTitle:"عقد توزيع جديد", aconBrandLbl:"العلامة *", aconChooseBrand:"— اختر علامة —", aconDistLbl:"الموزّع *", aconChooseDist:"— اختر موزّعًا —", aconTerritory:"المنطقة", aconTerritoryPh:"مثل إيطاليا، الاتحاد الأوروبي، رومانيا...", aconCommission:"العمولة (%)", aconMOQ:"الحد الأدنى للطلب", aconPayTerms:"شروط الدفع (أيام)", aconValidFrom:"صالح من", aconValidUntil:"صالح حتى" });
+Object.assign(T.en,{ afinTitle:"Financial Dashboard", afinSub:"Revenue, fees and margins calculated from the platform's real data.", afinGmv:"Sales volume (GMV)", afinFeeGross:"Your fee (gross)", afinFeeColl:"Fee collected", afinFeePend:"Fee to collect", afinToBrand:"To remit to brands", afinIva:"VAT invoiced", afinBrands:"Active brands", afinDist:"Active distributors", afinTrend:"Last 6 months trend", afinLegFee:"Your fee" });
+Object.assign(T.it,{ afinTitle:"Dashboard Finanziaria", afinSub:"Ricavi, fee e margini calcolati dai dati reali della piattaforma.", afinGmv:"Volume venduto (GMV)", afinFeeGross:"Fee tua (lorda)", afinFeeColl:"Fee incassata", afinFeePend:"Fee da incassare", afinToBrand:"Da girare ai brand", afinIva:"IVA fatturata", afinBrands:"Brand attivi", afinDist:"Distributori attivi", afinTrend:"Andamento ultimi 6 mesi", afinLegFee:"Fee tua" });
+Object.assign(T.fr,{ afinTitle:"Tableau de bord financier", afinSub:"Revenus, commissions et marges calculés à partir des données réelles de la plateforme.", afinGmv:"Volume des ventes (GMV)", afinFeeGross:"Votre commission (brute)", afinFeeColl:"Commission encaissée", afinFeePend:"Commission à encaisser", afinToBrand:"À reverser aux marques", afinIva:"TVA facturée", afinBrands:"Marques actives", afinDist:"Distributeurs actifs", afinTrend:"Tendance des 6 derniers mois", afinLegFee:"Votre commission" });
+Object.assign(T.es,{ afinTitle:"Panel financiero", afinSub:"Ingresos, comisiones y márgenes calculados a partir de los datos reales de la plataforma.", afinGmv:"Volumen vendido (GMV)", afinFeeGross:"Tu comisión (bruta)", afinFeeColl:"Comisión cobrada", afinFeePend:"Comisión por cobrar", afinToBrand:"A transferir a las marcas", afinIva:"IVA facturado", afinBrands:"Marcas activas", afinDist:"Distribuidores activos", afinTrend:"Tendencia últimos 6 meses", afinLegFee:"Tu comisión" });
+Object.assign(T.de,{ afinTitle:"Finanz-Dashboard", afinSub:"Umsätze, Gebühren und Margen, berechnet aus den realen Plattformdaten.", afinGmv:"Verkaufsvolumen (GMV)", afinFeeGross:"Deine Gebühr (brutto)", afinFeeColl:"Vereinnahmte Gebühr", afinFeePend:"Ausstehende Gebühr", afinToBrand:"An Marken weiterzuleiten", afinIva:"Fakturierte MwSt.", afinBrands:"Aktive Marken", afinDist:"Aktive Händler", afinTrend:"Trend der letzten 6 Monate", afinLegFee:"Deine Gebühr" });
+Object.assign(T.zh,{ afinTitle:"财务仪表板", afinSub:"根据平台真实数据计算的收入、费用和利润。", afinGmv:"销售额 (GMV)", afinFeeGross:"你的费用（毛）", afinFeeColl:"已收取费用", afinFeePend:"待收费用", afinToBrand:"应转付给品牌", afinIva:"已开票增值税", afinBrands:"活跃品牌", afinDist:"活跃分销商", afinTrend:"近6个月趋势", afinLegFee:"你的费用" });
+Object.assign(T.ar,{ afinTitle:"لوحة المعلومات المالية", afinSub:"الإيرادات والرسوم والهوامش محسوبة من بيانات المنصة الحقيقية.", afinGmv:"حجم المبيعات (GMV)", afinFeeGross:"رسومك (إجمالي)", afinFeeColl:"الرسوم المحصّلة", afinFeePend:"رسوم مستحقة التحصيل", afinToBrand:"لتحويلها إلى العلامات", afinIva:"ضريبة القيمة المضافة المفوترة", afinBrands:"العلامات النشطة", afinDist:"الموزّعون النشطون", afinTrend:"اتجاه آخر 6 أشهر", afinLegFee:"رسومك" });
+Object.assign(T.en,{ aincTitle:"Collections & Split", aincSub:"For each order: brand share + your fee. You collect from the distributor and remit to the brand. The distributor doesn't see the fee.", aincFeeColl:"Your fee (collected)", aincToBrand:"To remit to brands", aincToCollect:"To collect", aincRemitTitle:"To remit to brands (orders already collected)", aincNoIban:"IBAN not set", ainchOrder:"Order", ainchDist:"Distributor", ainchBrand:"Brand", ainchTotal:"Total", ainchYourFee:"Your fee", ainchToBrand:"To brand", ainchStatus:"Status", ainchAction:"Action", aincStDone:"Completed", aincStColl:"Collected", aincStPending:"Pending", aincEmpty:"No orders to manage.", aincBtnPaid:"Remitted" });
+Object.assign(T.it,{ aincTitle:"Incassi & Split", aincSub:"Per ogni ordine: quota brand + tua fee. Incassi dal distributore e bonifichi al brand. Il distributore non vede la fee.", aincFeeColl:"Fee tua (incassata)", aincToBrand:"Da bonificare ai brand", aincToCollect:"Da incassare", aincRemitTitle:"Da bonificare ai brand (ordini già incassati)", aincNoIban:"IBAN non impostato", ainchOrder:"Ordine", ainchDist:"Distributore", ainchBrand:"Brand", ainchTotal:"Totale", ainchYourFee:"Tua fee", ainchToBrand:"Al brand", ainchStatus:"Stato", ainchAction:"Azione", aincStDone:"Completato", aincStColl:"Incassato", aincStPending:"In attesa", aincEmpty:"Nessun ordine da gestire.", aincBtnPaid:"Bonificato" });
+Object.assign(T.fr,{ aincTitle:"Encaissements & Répartition", aincSub:"Pour chaque commande : part de la marque + votre commission. Vous encaissez auprès du distributeur et reversez à la marque. Le distributeur ne voit pas la commission.", aincFeeColl:"Votre commission (encaissée)", aincToBrand:"À reverser aux marques", aincToCollect:"À encaisser", aincRemitTitle:"À reverser aux marques (commandes déjà encaissées)", aincNoIban:"IBAN non défini", ainchOrder:"Commande", ainchDist:"Distributeur", ainchBrand:"Marque", ainchTotal:"Total", ainchYourFee:"Votre comm.", ainchToBrand:"À la marque", ainchStatus:"Statut", ainchAction:"Action", aincStDone:"Terminé", aincStColl:"Encaissé", aincStPending:"En attente", aincEmpty:"Aucune commande à gérer.", aincBtnPaid:"Reversé" });
+Object.assign(T.es,{ aincTitle:"Cobros y reparto", aincSub:"Por cada pedido: parte de la marca + tu comisión. Cobras al distribuidor y transfieres a la marca. El distribuidor no ve la comisión.", aincFeeColl:"Tu comisión (cobrada)", aincToBrand:"A transferir a las marcas", aincToCollect:"Por cobrar", aincRemitTitle:"A transferir a las marcas (pedidos ya cobrados)", aincNoIban:"IBAN no configurado", ainchOrder:"Pedido", ainchDist:"Distribuidor", ainchBrand:"Marca", ainchTotal:"Total", ainchYourFee:"Tu comisión", ainchToBrand:"A la marca", ainchStatus:"Estado", ainchAction:"Acción", aincStDone:"Completado", aincStColl:"Cobrado", aincStPending:"Pendiente", aincEmpty:"Ningún pedido que gestionar.", aincBtnPaid:"Transferido" });
+Object.assign(T.de,{ aincTitle:"Inkasso & Aufteilung", aincSub:"Für jede Bestellung: Markenanteil + deine Gebühr. Du kassierst beim Händler und überweist an die Marke. Der Händler sieht die Gebühr nicht.", aincFeeColl:"Deine Gebühr (vereinnahmt)", aincToBrand:"An Marken zu überweisen", aincToCollect:"Zu kassieren", aincRemitTitle:"An Marken zu überweisen (bereits kassierte Bestellungen)", aincNoIban:"IBAN nicht festgelegt", ainchOrder:"Bestellung", ainchDist:"Händler", ainchBrand:"Marke", ainchTotal:"Gesamt", ainchYourFee:"Deine Gebühr", ainchToBrand:"An Marke", ainchStatus:"Status", ainchAction:"Aktion", aincStDone:"Abgeschlossen", aincStColl:"Kassiert", aincStPending:"Ausstehend", aincEmpty:"Keine Bestellungen zu verwalten.", aincBtnPaid:"Überwiesen" });
+Object.assign(T.zh,{ aincTitle:"收款与分账", aincSub:"每笔订单：品牌份额 + 你的费用。你向分销商收款并转付给品牌。分销商看不到费用。", aincFeeColl:"你的费用（已收）", aincToBrand:"应转付给品牌", aincToCollect:"待收款", aincRemitTitle:"应转付给品牌（已收款订单）", aincNoIban:"未设置 IBAN", ainchOrder:"订单", ainchDist:"分销商", ainchBrand:"品牌", ainchTotal:"总计", ainchYourFee:"你的费用", ainchToBrand:"给品牌", ainchStatus:"状态", ainchAction:"操作", aincStDone:"已完成", aincStColl:"已收款", aincStPending:"待处理", aincEmpty:"没有需要管理的订单。", aincBtnPaid:"已转付" });
+Object.assign(T.ar,{ aincTitle:"التحصيلات والتقسيم", aincSub:"لكل طلب: حصة العلامة + رسومك. تُحصّل من الموزّع وتحوّل إلى العلامة. الموزّع لا يرى الرسوم.", aincFeeColl:"رسومك (محصّلة)", aincToBrand:"لتحويلها إلى العلامات", aincToCollect:"مستحق التحصيل", aincRemitTitle:"لتحويلها إلى العلامات (طلبات محصّلة بالفعل)", aincNoIban:"لم يتم تعيين IBAN", ainchOrder:"الطلب", ainchDist:"الموزّع", ainchBrand:"العلامة", ainchTotal:"الإجمالي", ainchYourFee:"رسومك", ainchToBrand:"للعلامة", ainchStatus:"الحالة", ainchAction:"إجراء", aincStDone:"مكتمل", aincStColl:"محصّل", aincStPending:"قيد الانتظار", aincEmpty:"لا توجد طلبات لإدارتها.", aincBtnPaid:"تم التحويل" });
+Object.assign(T.en,{ apayTitle:"Payment Overview", apaySub:"Global revenue across all brands and distributors", apayGmv:"Platform GMV", apayRevenue:"NexusHub Revenue (11.4%)", apayTotalOrders:"Total Orders", apayAov:"Avg Order Value", apayTxLog:"Transaction Log", apayNoTx:"No transactions yet", apayhOrder:"Order", apayhAmount:"Amount", apayhFee:"NexusHub Fee", apayhBrandShare:"Brand Share", apayhDate:"Date", apayhStatus:"Status" });
+Object.assign(T.it,{ apayTitle:"Panoramica pagamenti", apaySub:"Ricavi globali su tutti i brand e distributori", apayGmv:"GMV piattaforma", apayRevenue:"Ricavi NexusHub (11,4%)", apayTotalOrders:"Ordini totali", apayAov:"Valore medio ordine", apayTxLog:"Registro transazioni", apayNoTx:"Nessuna transazione ancora", apayhOrder:"Ordine", apayhAmount:"Importo", apayhFee:"Fee NexusHub", apayhBrandShare:"Quota brand", apayhDate:"Data", apayhStatus:"Stato" });
+Object.assign(T.fr,{ apayTitle:"Aperçu des paiements", apaySub:"Revenus globaux sur toutes les marques et distributeurs", apayGmv:"GMV plateforme", apayRevenue:"Revenus NexusHub (11,4 %)", apayTotalOrders:"Commandes totales", apayAov:"Valeur moy. commande", apayTxLog:"Journal des transactions", apayNoTx:"Aucune transaction pour l'instant", apayhOrder:"Commande", apayhAmount:"Montant", apayhFee:"Commission NexusHub", apayhBrandShare:"Part marque", apayhDate:"Date", apayhStatus:"Statut" });
+Object.assign(T.es,{ apayTitle:"Resumen de pagos", apaySub:"Ingresos globales de todas las marcas y distribuidores", apayGmv:"GMV plataforma", apayRevenue:"Ingresos NexusHub (11,4 %)", apayTotalOrders:"Pedidos totales", apayAov:"Valor medio pedido", apayTxLog:"Registro de transacciones", apayNoTx:"Aún no hay transacciones", apayhOrder:"Pedido", apayhAmount:"Importe", apayhFee:"Comisión NexusHub", apayhBrandShare:"Parte marca", apayhDate:"Fecha", apayhStatus:"Estado" });
+Object.assign(T.de,{ apayTitle:"Zahlungsübersicht", apaySub:"Gesamtumsatz über alle Marken und Händler", apayGmv:"Plattform-GMV", apayRevenue:"NexusHub-Umsatz (11,4 %)", apayTotalOrders:"Bestellungen gesamt", apayAov:"Ø Bestellwert", apayTxLog:"Transaktionsprotokoll", apayNoTx:"Noch keine Transaktionen", apayhOrder:"Bestellung", apayhAmount:"Betrag", apayhFee:"NexusHub-Gebühr", apayhBrandShare:"Markenanteil", apayhDate:"Datum", apayhStatus:"Status" });
+Object.assign(T.zh,{ apayTitle:"支付概览", apaySub:"所有品牌和分销商的总收入", apayGmv:"平台 GMV", apayRevenue:"NexusHub 收入 (11.4%)", apayTotalOrders:"订单总数", apayAov:"平均订单价值", apayTxLog:"交易记录", apayNoTx:"暂无交易", apayhOrder:"订单", apayhAmount:"金额", apayhFee:"NexusHub 费用", apayhBrandShare:"品牌份额", apayhDate:"日期", apayhStatus:"状态" });
+Object.assign(T.ar,{ apayTitle:"نظرة عامة على المدفوعات", apaySub:"الإيرادات الإجمالية عبر جميع العلامات والموزّعين", apayGmv:"إجمالي مبيعات المنصة (GMV)", apayRevenue:"إيرادات NexusHub (11.4%)", apayTotalOrders:"إجمالي الطلبات", apayAov:"متوسط قيمة الطلب", apayTxLog:"سجل المعاملات", apayNoTx:"لا توجد معاملات بعد", apayhOrder:"الطلب", apayhAmount:"المبلغ", apayhFee:"رسوم NexusHub", apayhBrandShare:"حصة العلامة", apayhDate:"التاريخ", apayhStatus:"الحالة" });
 
 
 
@@ -7088,8 +7109,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* FINANZE / P&L TAB */}
         {tab === "finanze" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>💶 Dashboard Finanziaria</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Ricavi, fee e margini calcolati dai dati reali della piattaforma.</p>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>💶 {t("afinTitle")}</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("afinSub")}</p>
             {(() => {
               const valid = orders.filter(o => o.status !== "cancelled");
               const gmv = valid.reduce((a,o)=>a+Number(o.total_amount||0),0);
@@ -7102,8 +7123,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               const nDist = new Set(valid.map(o=>o.distributor_id).filter(Boolean)).size;
               const fmt=(n)=>"€"+Number(n||0).toLocaleString("it-IT",{maximumFractionDigits:0});
               const now = new Date();
+              const loc={en:"en-US",it:"it-IT",fr:"fr-FR",es:"es-ES",de:"de-DE",zh:"zh-CN",ar:"ar"}[lang]||"en-US";
               const months = [];
-              for(let k=5;k>=0;k--){ const d=new Date(now.getFullYear(), now.getMonth()-k, 1); months.push({ key:d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"), label:d.toLocaleDateString("it-IT",{month:"short"}), gmv:0, fee:0 }); }
+              for(let k=5;k>=0;k--){ const d=new Date(now.getFullYear(), now.getMonth()-k, 1); months.push({ key:d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"), label:d.toLocaleDateString(loc,{month:"short"}), gmv:0, fee:0 }); }
               const mi={}; months.forEach(m=>{mi[m.key]=m;});
               valid.forEach(o=>{ const d=new Date(o.created_at); const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"); if(mi[k]) mi[k].gmv+=Number(o.total_amount||0); });
               paySplits.forEach(x=>{ const d=new Date(x.created_at); const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"); if(mi[k]) mi[k].fee+=Number(x.nexushub_amount||0); });
@@ -7111,19 +7133,19 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               return (
                 <div>
                   <div style={{ display:"flex", gap:14, flexWrap:"wrap", marginBottom:16 }}>
-                    <Stat icon="📊" label="Volume venduto (GMV)" value={fmt(gmv)} accent={C.blue}/>
-                    <Stat icon="↗" label="Fee tua (lorda)" value={fmt(feeGross)} accent={C.gold}/>
-                    <Stat icon="✓" label="Fee incassata" value={fmt(feeCollected)} accent={C.green}/>
-                    <Stat icon="⏳" label="Fee da incassare" value={fmt(feePending)}/>
+                    <Stat icon="📊" label={t("afinGmv")} value={fmt(gmv)} accent={C.blue}/>
+                    <Stat icon="↗" label={t("afinFeeGross")} value={fmt(feeGross)} accent={C.gold}/>
+                    <Stat icon="✓" label={t("afinFeeColl")} value={fmt(feeCollected)} accent={C.green}/>
+                    <Stat icon="⏳" label={t("afinFeePend")} value={fmt(feePending)}/>
                   </div>
                   <div style={{ display:"flex", gap:14, flexWrap:"wrap", marginBottom:22 }}>
-                    <Stat icon="💸" label="Da girare ai brand" value={fmt(toBrand)}/>
-                    <Stat icon="🧾" label="IVA fatturata" value={fmt(ivaInvoiced)}/>
-                    <Stat icon="🏛️" label="Brand attivi" value={nBrands}/>
-                    <Stat icon="⬡" label="Distributori attivi" value={nDist}/>
+                    <Stat icon="💸" label={t("afinToBrand")} value={fmt(toBrand)}/>
+                    <Stat icon="🧾" label={t("afinIva")} value={fmt(ivaInvoiced)}/>
+                    <Stat icon="🏛️" label={t("afinBrands")} value={nBrands}/>
+                    <Stat icon="⬡" label={t("afinDist")} value={nDist}/>
                   </div>
                   <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, padding:20 }}>
-                    <div style={{ fontSize:13, fontWeight:700, color:C.text, marginBottom:16 }}>Andamento ultimi 6 mesi</div>
+                    <div style={{ fontSize:13, fontWeight:700, color:C.text, marginBottom:16 }}>{t("afinTrend")}</div>
                     <div style={{ display:"flex", alignItems:"flex-end", gap:12 }}>
                       {months.map(m=>(
                         <div key={m.key} style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
@@ -7138,7 +7160,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                     </div>
                     <div style={{ display:"flex", gap:16, marginTop:14, fontSize:11, color:C.textMuted }}>
                       <span><span style={{ display:"inline-block", width:10, height:10, background:C.blue, borderRadius:2, marginRight:5 }}/>GMV</span>
-                      <span><span style={{ display:"inline-block", width:10, height:10, background:C.gold, borderRadius:2, marginRight:5 }}/>Fee tua</span>
+                      <span><span style={{ display:"inline-block", width:10, height:10, background:C.gold, borderRadius:2, marginRight:5 }}/>{t("afinLegFee")}</span>
                     </div>
                   </div>
                 </div>
@@ -7150,8 +7172,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* INCASSI & SPLIT TAB */}
         {tab === "incassi" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>💸 Incassi & Split</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Per ogni ordine: quota brand + tua fee. Incassi dal distributore e bonifichi al brand. Il distributore non vede la fee.</p>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>💸 {t("aincTitle")}</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("aincSub")}</p>
             {(() => {
               const pend = paySplits.filter(x => x.split_status === "pending");
               const coll = paySplits.filter(x => x.split_status === "collected");
@@ -7163,18 +7185,18 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               return (
                 <div>
                   <div style={{ display:"flex", gap:14, marginBottom:22, flexWrap:"wrap" }}>
-                    <Stat icon="↗" label="Fee tua (incassata)" value={"€"+feeTot.toLocaleString("it-IT",{minimumFractionDigits:2})} accent={C.gold}/>
-                    <Stat icon="💸" label="Da bonificare ai brand" value={"€"+toBrand.toLocaleString("it-IT",{minimumFractionDigits:2})} accent={C.blue}/>
-                    <Stat icon="⏳" label="Da incassare" value={"€"+toCollect.toLocaleString("it-IT",{minimumFractionDigits:2})}/>
+                    <Stat icon="↗" label={t("aincFeeColl")} value={"€"+feeTot.toLocaleString("it-IT",{minimumFractionDigits:2})} accent={C.gold}/>
+                    <Stat icon="💸" label={t("aincToBrand")} value={"€"+toBrand.toLocaleString("it-IT",{minimumFractionDigits:2})} accent={C.blue}/>
+                    <Stat icon="⏳" label={t("aincToCollect")} value={"€"+toCollect.toLocaleString("it-IT",{minimumFractionDigits:2})}/>
                   </div>
                   {Object.keys(byBrand).length > 0 && (
                     <div style={{ background:C.surface, border:`1px solid ${C.gold}40`, borderRadius:12, padding:16, marginBottom:20 }}>
-                      <div style={{ fontSize:13, fontWeight:700, color:C.goldLight, marginBottom:10 }}>💸 Da bonificare ai brand (ordini gia incassati)</div>
+                      <div style={{ fontSize:13, fontWeight:700, color:C.goldLight, marginBottom:10 }}>💸 {t("aincRemitTitle")}</div>
                       {Object.entries(byBrand).map(([name, info]) => (
                         <div key={name} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"8px 0", borderTop:`1px solid ${C.border}`, gap:10, flexWrap:"wrap" }}>
                           <div>
                             <div style={{ fontSize:13, color:C.text, fontWeight:600 }}>{name}</div>
-                            <div style={{ fontSize:11, color:C.textMuted, fontFamily:"monospace" }}>{info.iban || "IBAN non impostato"}</div>
+                            <div style={{ fontSize:11, color:C.textMuted, fontFamily:"monospace" }}>{info.iban || t("aincNoIban")}</div>
                           </div>
                           <div style={{ fontSize:15, fontWeight:800, color:C.goldLight }}>€{info.amount.toLocaleString("it-IT",{minimumFractionDigits:2})}</div>
                         </div>
@@ -7182,13 +7204,13 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                     </div>
                   )}
                   {paySplits.length === 0 ? (
-                    <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>Nessun ordine da gestire.</div>
+                    <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>{t("aincEmpty")}</div>
                   ) : (
                     <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                       <table style={{ width:"100%", borderCollapse:"collapse", minWidth:880 }}>
                         <thead>
                           <tr style={{ background:C.surface2 }}>
-                            {["Ordine","Distributore","Brand","Totale","Tua fee","Al brand","Stato","Azione"].map((h,i)=>(
+                            {[t("ainchOrder"),t("ainchDist"),t("ainchBrand"),t("ainchTotal"),t("ainchYourFee"),t("ainchToBrand"),t("ainchStatus"),t("ainchAction")].map((h,i)=>(
                               <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
                             ))}
                           </tr>
@@ -7204,12 +7226,12 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                               <td style={{ padding:"11px 14px", fontSize:13, color:C.goldLight }}>€{Number(x.brand_amount||0).toLocaleString("it-IT")}</td>
                               <td style={{ padding:"11px 14px" }}>
                                 <span style={{ fontSize:11, fontWeight:600, color: x.split_status==="paid_brand"?C.green:x.split_status==="collected"?C.blue:C.textMuted }}>
-                                  {x.split_status==="paid_brand"?"✓ Completato":x.split_status==="collected"?"Incassato":"In attesa"}
+                                  {x.split_status==="paid_brand"?"✓ "+t("aincStDone"):x.split_status==="collected"?t("aincStColl"):t("aincStPending")}
                                 </span>
                               </td>
                               <td style={{ padding:"11px 14px" }}>
-                                {x.split_status==="pending" && <button onClick={()=>markCollected(x)} style={{ padding:"5px 12px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.blue}15`, border:`1px solid ${C.blue}45`, color:C.blue }}>✓ Incassato</button>}
-                                {x.split_status==="collected" && <button onClick={()=>markPaidBrand(x)} style={{ padding:"5px 12px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.green}15`, border:`1px solid ${C.green}45`, color:C.green }}>💸 Bonificato</button>}
+                                {x.split_status==="pending" && <button onClick={()=>markCollected(x)} style={{ padding:"5px 12px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.blue}15`, border:`1px solid ${C.blue}45`, color:C.blue }}>✓ {t("aincStColl")}</button>}
+                                {x.split_status==="collected" && <button onClick={()=>markPaidBrand(x)} style={{ padding:"5px 12px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.green}15`, border:`1px solid ${C.green}45`, color:C.green }}>💸 {t("aincBtnPaid")}</button>}
                                 {x.split_status==="paid_brand" && <span style={{ fontSize:11, color:C.green }}>✓</span>}
                               </td>
                             </tr>
@@ -7227,14 +7249,14 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* PAYMENTS TAB */}
         {tab === "payments" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Payment Overview</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Global revenue across all brands and distributors</p>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("apayTitle")}</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("apaySub")}</p>
             <div style={{ display:"flex", gap:12, marginBottom:24, flexWrap:"wrap" }}>
               {[
-                { label:"Platform GMV", value:`€${orders.reduce((s,o)=>s+(o.total_amount||0),0).toLocaleString("it-IT")}`, color:C.gold },
-                { label:"NexusHub Revenue (11.4%)", value:`€${(orders.reduce((s,o)=>s+(o.total_amount||0),0)*0.114).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,",")}`, color:C.green },
-                { label:"Total Orders", value:orders.length, color:C.blue },
-                { label:"Avg Order Value", value:orders.length>0?`€${(orders.reduce((s,o)=>s+(o.total_amount||0),0)/orders.length).toFixed(0)}`:"—", color:C.purple },
+                { label:t("apayGmv"), value:`€${orders.reduce((s,o)=>s+(o.total_amount||0),0).toLocaleString("it-IT")}`, color:C.gold },
+                { label:t("apayRevenue"), value:`€${(orders.reduce((s,o)=>s+(o.total_amount||0),0)*0.114).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,",")}`, color:C.green },
+                { label:t("apayTotalOrders"), value:orders.length, color:C.blue },
+                { label:t("apayAov"), value:orders.length>0?`€${(orders.reduce((s,o)=>s+(o.total_amount||0),0)/orders.length).toFixed(0)}`:"—", color:C.purple },
               ].map((s,i) => (
                 <div key={i} style={{ flex:"1 1 160px", padding:"18px 20px", background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${s.color}`, borderRadius:12 }}>
                   <div style={{ fontSize:24, fontWeight:900, color:s.color, fontFamily:"Georgia,serif" }}>{s.value}</div>
@@ -7243,15 +7265,15 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               ))}
             </div>
             <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
-              <h3 style={{ fontSize:14, color:C.text, marginBottom:16 }}>Transaction Log</h3>
+              <h3 style={{ fontSize:14, color:C.text, marginBottom:16 }}>{t("apayTxLog")}</h3>
               {orders.length === 0 ? (
-                <div style={{ color:C.textMuted, textAlign:"center", padding:30 }}>No transactions yet</div>
+                <div style={{ color:C.textMuted, textAlign:"center", padding:30 }}>{t("apayNoTx")}</div>
               ) : (
                 <div style={{ overflowX:"auto" }}>
                   <table style={{ width:"100%", borderCollapse:"collapse", minWidth:600 }}>
                     <thead>
                       <tr style={{ background:C.surface2 }}>
-                        {["Order","Amount","NexusHub Fee","Brand Share","Date","Status"].map((h,i) => (
+                        {[t("apayhOrder"),t("apayhAmount"),t("apayhFee"),t("apayhBrandShare"),t("apayhDate"),t("apayhStatus")].map((h,i) => (
                           <th key={i} style={{ padding:"9px 12px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase" }}>{h}</th>
                         ))}
                       </tr>
