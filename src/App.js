@@ -4758,6 +4758,7 @@ const Modal = ({ title, onClose, onSave, children, saveLabel="Save" }) => (
 
 
 const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
+  const t = useT();
   const [tab, setTab] = useState("overview");
   const [users, setUsers] = useState([]);
   const [brands, setBrands] = useState([]);
