@@ -706,6 +706,27 @@ Object.assign(T.es, { atabOverview:"Resumen", atabUsers:"Usuarios", atabBrands:"
 Object.assign(T.de, { atabOverview:"Übersicht", atabUsers:"Benutzer", atabBrands:"Marken", atabCatalog:"Katalog", atabInventory:"Bestand", atabLogistics:"Logistik", atabRetail:"Einzelhandel", atabCompliance:"Compliance", atabMargins:"Margen", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"Bestellungen", atabInvoices:"Rechnungen", atabContracts:"Verträge", atabCommissions:"Provisionen", atabIncassi:"Zahlungseingänge", atabFinance:"Finanzen", atabAudit:"Audit", atabIssues:"Meldungen", atabPayments:"Zahlungen", atabSettings:"Einstellungen" });
 Object.assign(T.zh, { atabOverview:"概览", atabUsers:"用户", atabBrands:"品牌", atabCatalog:"目录", atabInventory:"库存", atabLogistics:"物流", atabRetail:"零售", atabCompliance:"合规", atabMargins:"利润", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"订单", atabInvoices:"发票", atabContracts:"合同", atabCommissions:"佣金", atabIncassi:"收款", atabFinance:"财务", atabAudit:"审计", atabIssues:"问题反馈", atabPayments:"支付", atabSettings:"设置" });
 Object.assign(T.ar, { atabOverview:"نظرة عامة", atabUsers:"المستخدمون", atabBrands:"العلامات", atabCatalog:"الكتالوج", atabInventory:"المخزون", atabLogistics:"اللوجستيات", atabRetail:"التجزئة", atabCompliance:"الامتثال", atabMargins:"الهوامش", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"الطلبات", atabInvoices:"الفواتير", atabContracts:"العقود", atabCommissions:"العمولات", atabIncassi:"التحصيلات", atabFinance:"المالية", atabAudit:"التدقيق", atabIssues:"البلاغات", atabPayments:"المدفوعات", atabSettings:"الإعدادات" });
+Object.assign(T.en, { aoTitle:"Platform Overview", aoSub:"Real-time view across all brands, distributors and inventory", aoActiveBrands:"Active Brands", aoTotalUsers:"Total Users", aoPendingApproval:"Pending Approval", aoTotalProducts:"Total Products", aoTotalOrders:"Total Orders", aoEuroNetwork:"European Distribution Network" });
+Object.assign(T.it, { aoTitle:"Panoramica Piattaforma", aoSub:"Vista in tempo reale su tutti i brand, distributori e inventario", aoActiveBrands:"Brand Attivi", aoTotalUsers:"Utenti Totali", aoPendingApproval:"In Attesa di Approvazione", aoTotalProducts:"Prodotti Totali", aoTotalOrders:"Ordini Totali", aoEuroNetwork:"Rete di Distribuzione Europea" });
+Object.assign(T.fr, { aoTitle:"Aperçu de la plateforme", aoSub:"Vue en temps réel sur toutes les marques, distributeurs et l'inventaire", aoActiveBrands:"Marques actives", aoTotalUsers:"Utilisateurs totaux", aoPendingApproval:"En attente d'approbation", aoTotalProducts:"Produits totaux", aoTotalOrders:"Commandes totales", aoEuroNetwork:"Réseau de distribution européen" });
+Object.assign(T.es, { aoTitle:"Resumen de la plataforma", aoSub:"Vista en tiempo real de todas las marcas, distribuidores e inventario", aoActiveBrands:"Marcas activas", aoTotalUsers:"Usuarios totales", aoPendingApproval:"Pendiente de aprobación", aoTotalProducts:"Productos totales", aoTotalOrders:"Pedidos totales", aoEuroNetwork:"Red de distribución europea" });
+Object.assign(T.de, { aoTitle:"Plattform-Übersicht", aoSub:"Echtzeit-Ansicht über alle Marken, Händler und den Bestand", aoActiveBrands:"Aktive Marken", aoTotalUsers:"Benutzer gesamt", aoPendingApproval:"Genehmigung ausstehend", aoTotalProducts:"Produkte gesamt", aoTotalOrders:"Bestellungen gesamt", aoEuroNetwork:"Europäisches Vertriebsnetz" });
+Object.assign(T.zh, { aoTitle:"平台概览", aoSub:"实时查看所有品牌、分销商和库存", aoActiveBrands:"活跃品牌", aoTotalUsers:"用户总数", aoPendingApproval:"待审批", aoTotalProducts:"产品总数", aoTotalOrders:"订单总数", aoEuroNetwork:"欧洲分销网络" });
+Object.assign(T.ar, { aoTitle:"نظرة عامة على المنصة", aoSub:"عرض فوري لجميع العلامات والموزّعين والمخزون", aoActiveBrands:"العلامات النشطة", aoTotalUsers:"إجمالي المستخدمين", aoPendingApproval:"بانتظار الموافقة", aoTotalProducts:"إجمالي المنتجات", aoTotalOrders:"إجمالي الطلبات", aoEuroNetwork:"شبكة التوزيع الأوروبية" });
+Object.assign(T.en, { auTitle:"User Management", auSub:"Approve or reject brand and distributor registrations", auLoading:"Loading...", auAllUsers:"All Users", auhCompany:"Company", auhEmail:"Email", auhRole:"Role", auhCountry:"Country", auhStatus:"Status", auhTrust:"Trust", auhJoined:"Joined", auhActions:"Actions", auApprove:"Approve", auReject:"Reject", auContact:"Contact", auAddPoints:"Add points", auRemovePoints:"Remove points", auReactivate:"Reactivate", auSuspend:"Suspend", auImpersonate:"Enter as this user" });
+Object.assign(T.it, { auTitle:"Gestione Utenti", auSub:"Approva o rifiuta le registrazioni di brand e distributori", auLoading:"Caricamento...", auAllUsers:"Tutti gli Utenti", auhCompany:"Azienda", auhEmail:"Email", auhRole:"Ruolo", auhCountry:"Paese", auhStatus:"Stato", auhTrust:"Fiducia", auhJoined:"Iscritto", auhActions:"Azioni", auApprove:"Approva", auReject:"Rifiuta", auContact:"Contatta", auAddPoints:"Aggiungi punti", auRemovePoints:"Togli punti", auReactivate:"Riattiva", auSuspend:"Sospendi", auImpersonate:"Entra come questo utente" });
+Object.assign(T.fr, { auTitle:"Gestion des utilisateurs", auSub:"Approuvez ou rejetez les inscriptions de marques et distributeurs", auLoading:"Chargement...", auAllUsers:"Tous les utilisateurs", auhCompany:"Entreprise", auhEmail:"E-mail", auhRole:"Rôle", auhCountry:"Pays", auhStatus:"Statut", auhTrust:"Confiance", auhJoined:"Inscrit", auhActions:"Actions", auApprove:"Approuver", auReject:"Rejeter", auContact:"Contacter", auAddPoints:"Ajouter des points", auRemovePoints:"Retirer des points", auReactivate:"Réactiver", auSuspend:"Suspendre", auImpersonate:"Entrer en tant que cet utilisateur" });
+Object.assign(T.es, { auTitle:"Gestión de usuarios", auSub:"Aprueba o rechaza los registros de marcas y distribuidores", auLoading:"Cargando...", auAllUsers:"Todos los usuarios", auhCompany:"Empresa", auhEmail:"Correo", auhRole:"Rol", auhCountry:"País", auhStatus:"Estado", auhTrust:"Confianza", auhJoined:"Registrado", auhActions:"Acciones", auApprove:"Aprobar", auReject:"Rechazar", auContact:"Contactar", auAddPoints:"Añadir puntos", auRemovePoints:"Quitar puntos", auReactivate:"Reactivar", auSuspend:"Suspender", auImpersonate:"Entrar como este usuario" });
+Object.assign(T.de, { auTitle:"Benutzerverwaltung", auSub:"Registrierungen von Marken und Händlern genehmigen oder ablehnen", auLoading:"Wird geladen...", auAllUsers:"Alle Benutzer", auhCompany:"Unternehmen", auhEmail:"E-Mail", auhRole:"Rolle", auhCountry:"Land", auhStatus:"Status", auhTrust:"Vertrauen", auhJoined:"Beigetreten", auhActions:"Aktionen", auApprove:"Genehmigen", auReject:"Ablehnen", auContact:"Kontaktieren", auAddPoints:"Punkte hinzufügen", auRemovePoints:"Punkte entfernen", auReactivate:"Reaktivieren", auSuspend:"Sperren", auImpersonate:"Als dieser Benutzer anmelden" });
+Object.assign(T.zh, { auTitle:"用户管理", auSub:"批准或拒绝品牌和分销商的注册", auLoading:"加载中...", auAllUsers:"所有用户", auhCompany:"公司", auhEmail:"邮箱", auhRole:"角色", auhCountry:"国家", auhStatus:"状态", auhTrust:"信任", auhJoined:"加入时间", auhActions:"操作", auApprove:"批准", auReject:"拒绝", auContact:"联系", auAddPoints:"增加积分", auRemovePoints:"减少积分", auReactivate:"重新激活", auSuspend:"暂停", auImpersonate:"以该用户身份进入" });
+Object.assign(T.ar, { auTitle:"إدارة المستخدمين", auSub:"الموافقة على تسجيلات العلامات والموزّعين أو رفضها", auLoading:"جارٍ التحميل...", auAllUsers:"جميع المستخدمين", auhCompany:"الشركة", auhEmail:"البريد", auhRole:"الدور", auhCountry:"الدولة", auhStatus:"الحالة", auhTrust:"الثقة", auhJoined:"تاريخ الانضمام", auhActions:"الإجراءات", auApprove:"موافقة", auReject:"رفض", auContact:"تواصل", auAddPoints:"إضافة نقاط", auRemovePoints:"خصم نقاط", auReactivate:"إعادة التفعيل", auSuspend:"تعليق", auImpersonate:"الدخول بصفة هذا المستخدم" });
+Object.assign(T.en, { abTitle:"Brand Management", abAddBrand:"+ Add Brand", abCode:"Code", abNoBrands:"No brands yet. Add the first one!", acTitle:"Product Catalog", acAddProduct:"+ Add Product", achBrand:"Brand", achProduct:"Product", achCategory:"Category", achPrice:"Price", achStock:"Stock", achMultiple:"Multiple", acEdit:"Edit", acActivate:"Activate", acDeactivate:"Deactivate" });
+Object.assign(T.it, { abTitle:"Gestione Brand", abAddBrand:"+ Aggiungi Brand", abCode:"Codice", abNoBrands:"Nessun brand ancora. Aggiungi il primo!", acTitle:"Catalogo Prodotti", acAddProduct:"+ Aggiungi Prodotto", achBrand:"Brand", achProduct:"Prodotto", achCategory:"Categoria", achPrice:"Prezzo", achStock:"Stock", achMultiple:"Multiplo", acEdit:"Modifica", acActivate:"Attiva", acDeactivate:"Disattiva" });
+Object.assign(T.fr, { abTitle:"Gestion des marques", abAddBrand:"+ Ajouter une marque", abCode:"Code", abNoBrands:"Aucune marque pour l'instant. Ajoutez la première !", acTitle:"Catalogue de produits", acAddProduct:"+ Ajouter un produit", achBrand:"Marque", achProduct:"Produit", achCategory:"Catégorie", achPrice:"Prix", achStock:"Stock", achMultiple:"Multiple", acEdit:"Modifier", acActivate:"Activer", acDeactivate:"Désactiver" });
+Object.assign(T.es, { abTitle:"Gestión de marcas", abAddBrand:"+ Añadir marca", abCode:"Código", abNoBrands:"Aún no hay marcas. ¡Añade la primera!", acTitle:"Catálogo de productos", acAddProduct:"+ Añadir producto", achBrand:"Marca", achProduct:"Producto", achCategory:"Categoría", achPrice:"Precio", achStock:"Stock", achMultiple:"Múltiplo", acEdit:"Editar", acActivate:"Activar", acDeactivate:"Desactivar" });
+Object.assign(T.de, { abTitle:"Markenverwaltung", abAddBrand:"+ Marke hinzufügen", abCode:"Code", abNoBrands:"Noch keine Marken. Fügen Sie die erste hinzu!", acTitle:"Produktkatalog", acAddProduct:"+ Produkt hinzufügen", achBrand:"Marke", achProduct:"Produkt", achCategory:"Kategorie", achPrice:"Preis", achStock:"Bestand", achMultiple:"Vielfaches", acEdit:"Bearbeiten", acActivate:"Aktivieren", acDeactivate:"Deaktivieren" });
+Object.assign(T.zh, { abTitle:"品牌管理", abAddBrand:"+ 添加品牌", abCode:"代码", abNoBrands:"还没有品牌。添加第一个吧！", acTitle:"产品目录", acAddProduct:"+ 添加产品", achBrand:"品牌", achProduct:"产品", achCategory:"类别", achPrice:"价格", achStock:"库存", achMultiple:"倍数", acEdit:"编辑", acActivate:"启用", acDeactivate:"停用" });
+Object.assign(T.ar, { abTitle:"إدارة العلامات", abAddBrand:"+ إضافة علامة", abCode:"الرمز", abNoBrands:"لا توجد علامات بعد. أضِف الأولى!", acTitle:"كتالوج المنتجات", acAddProduct:"+ إضافة منتج", achBrand:"العلامة", achProduct:"المنتج", achCategory:"الفئة", achPrice:"السعر", achStock:"المخزون", achMultiple:"المضاعف", acEdit:"تعديل", acActivate:"تفعيل", acDeactivate:"إلغاء التفعيل" });
 
 
 
@@ -5675,15 +5696,15 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* OVERVIEW TAB - shown when no tab selected, or add as first tab */}
         {tab === "overview" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Platform Overview</h2>
-            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>Real-time view across all brands, distributors and inventory</p>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("aoTitle")}</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("aoSub")}</p>
             <div style={{ display:"flex", gap:12, marginBottom:20, flexWrap:"wrap" }}>
               {[
-                { label:"Active Brands", value:brands.length, color:C.gold },
-                { label:"Total Users", value:users.length, color:C.blue },
-                { label:"Pending Approval", value:pendingUsers.length, color:C.red },
-                { label:"Total Products", value:products.length, color:C.green },
-                { label:"Total Orders", value:orders.length, color:C.purple },
+                { label:t("aoActiveBrands"), value:brands.length, color:C.gold },
+                { label:t("aoTotalUsers"), value:users.length, color:C.blue },
+                { label:t("aoPendingApproval"), value:pendingUsers.length, color:C.red },
+                { label:t("aoTotalProducts"), value:products.length, color:C.green },
+                { label:t("aoTotalOrders"), value:orders.length, color:C.purple },
               ].map((s,i) => (
                 <div key={i} style={{ flex:"1 1 140px", padding:"16px 18px", background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${s.color}`, borderRadius:12 }}>
                   <div style={{ fontSize:24, fontWeight:900, color:s.color, fontFamily:"Georgia,serif" }}>{s.value}</div>
@@ -5692,7 +5713,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               ))}
             </div>
             <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
-              <h3 style={{ fontSize:14, color:C.text, marginBottom:14 }}>🗺️ European Distribution Network</h3>
+              <h3 style={{ fontSize:14, color:C.text, marginBottom:14 }}>🗺️ {t("aoEuroNetwork")}</h3>
               <EuropeMap
                 distributors={users.filter(u=>u.role==="distributor"&&u.status==="approved").map(u=>({
                   ...u,
@@ -5708,8 +5729,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>User Management</h2>
-                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>Approve or reject brand and distributor registrations</p>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("auTitle")}</h2>
+                <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("auSub")}</p>
               </div>
               <div style={{ display:"flex", gap:10 }}>
                 <div style={{ padding:"10px 16px", background:`${C.red}15`, border:`1px solid ${C.red}30`, borderRadius:10, fontSize:13, color:C.red, fontWeight:600 }}>
@@ -5721,11 +5742,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               </div>
             </div>
 
-            {loading ? <div style={{ color:C.textMuted, padding:40, textAlign:"center" }}>Loading...</div> : (
+            {loading ? <div style={{ color:C.textMuted, padding:40, textAlign:"center" }}>{t("auLoading")}</div> : (
               <>
                 {pendingUsers.length > 0 && (
                   <div style={{ marginBottom:28 }}>
-                    <h3 style={{ fontSize:14, color:C.gold, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>⏳ Pending Approval</h3>
+                    <h3 style={{ fontSize:14, color:C.gold, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>⏳ {t("aoPendingApproval")}</h3>
                     {pendingUsers.map(u => (
                       <div key={u.id} style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20, marginBottom:12 }}>
                         <div style={{ display:"flex", alignItems:"flex-start", justifyContent:"space-between", flexWrap:"wrap", gap:10 }}>
@@ -5744,21 +5765,21 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                           <Badge status="pending"/>
                         </div>
                         <div style={{ display:"flex", gap:10, marginTop:14, flexWrap:"wrap" }}>
-                          <button onClick={() => approveUser(u.id)} style={{ padding:"9px 20px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.green}18`, border:`1px solid ${C.green}50`, color:C.green }}>✓ Approve</button>
-                          <button onClick={() => rejectUser(u.id)} style={{ padding:"9px 20px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.red}12`, border:`1px solid ${C.red}40`, color:C.red }}>✗ Reject</button>
-                          <a href={`mailto:${u.email}`} style={{ padding:"9px 20px", borderRadius:8, cursor:"pointer", fontSize:13, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, textDecoration:"none", display:"inline-flex", alignItems:"center" }}>✉ Contact</a>
+                          <button onClick={() => approveUser(u.id)} style={{ padding:"9px 20px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.green}18`, border:`1px solid ${C.green}50`, color:C.green }}>✓ {t("auApprove")}</button>
+                          <button onClick={() => rejectUser(u.id)} style={{ padding:"9px 20px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.red}12`, border:`1px solid ${C.red}40`, color:C.red }}>✗ {t("auReject")}</button>
+                          <a href={`mailto:${u.email}`} style={{ padding:"9px 20px", borderRadius:8, cursor:"pointer", fontSize:13, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, textDecoration:"none", display:"inline-flex", alignItems:"center" }}>✉ {t("auContact")}</a>
                         </div>
                       </div>
                     ))}
                   </div>
                 )}
 
-                <h3 style={{ fontSize:14, color:C.textMuted, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>All Users ({users.length})</h3>
+                <h3 style={{ fontSize:14, color:C.textMuted, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>{t("auAllUsers")} ({users.length})</h3>
                 <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                   <table style={{ width:"100%", borderCollapse:"collapse", minWidth:600 }}>
                     <thead>
                       <tr style={{ background:C.surface2 }}>
-                        {["Company","Email","Role","Country","Status","Trust","Joined","Actions"].map((h,i) => (
+                        {[t("auhCompany"),t("auhEmail"),t("auhRole"),t("auhCountry"),t("auhStatus"),t("auhTrust"),t("auhJoined"),t("auhActions")].map((h,i) => (
                           <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
                         ))}
                       </tr>
@@ -5775,9 +5796,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                             <div style={{ display:"flex", flexDirection:"column", gap:5, alignItems:"flex-start" }}>
                               <TrustBadge score={u.trust_score} state={u.account_state}/>
                               <div style={{ display:"flex", gap:4 }}>
-                                <button onClick={()=>adjustTrust(u,1)} title="Aggiungi punti" style={{ padding:"2px 7px", borderRadius:5, cursor:"pointer", fontSize:12, fontWeight:700, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green }}>+</button>
-                                <button onClick={()=>adjustTrust(u,-1)} title="Togli punti" style={{ padding:"2px 7px", borderRadius:5, cursor:"pointer", fontSize:12, fontWeight:700, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>−</button>
-                                <button onClick={()=>toggleSuspend(u)} style={{ padding:"2px 8px", borderRadius:5, cursor:"pointer", fontSize:10, fontWeight:600, background: u.account_state==="suspended"?`${C.green}15`:`${C.gold}12`, border:`1px solid ${u.account_state==="suspended"?C.green:C.gold}40`, color: u.account_state==="suspended"?C.green:C.gold }}>{u.account_state==="suspended"?"Riattiva":"Sospendi"}</button>
+                                <button onClick={()=>adjustTrust(u,1)} title={t("auAddPoints")} style={{ padding:"2px 7px", borderRadius:5, cursor:"pointer", fontSize:12, fontWeight:700, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green }}>+</button>
+                                <button onClick={()=>adjustTrust(u,-1)} title={t("auRemovePoints")} style={{ padding:"2px 7px", borderRadius:5, cursor:"pointer", fontSize:12, fontWeight:700, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>−</button>
+                                <button onClick={()=>toggleSuspend(u)} style={{ padding:"2px 8px", borderRadius:5, cursor:"pointer", fontSize:10, fontWeight:600, background: u.account_state==="suspended"?`${C.green}15`:`${C.gold}12`, border:`1px solid ${u.account_state==="suspended"?C.green:C.gold}40`, color: u.account_state==="suspended"?C.green:C.gold }}>{u.account_state==="suspended"?t("auReactivate"):t("auSuspend")}</button>
                               </div>
                             </div>
                           </td>
@@ -5793,7 +5814,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                                 setUserDocs(docs);
                                 setShowUserModal(true);
                               }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}10`, border:`1px solid ${C.blue}30`, color:C.blue }}>✏️</button>
-                              <button onClick={() => setImpersonating(u)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.purple}10`, border:`1px solid ${C.purple}30`, color:"#a855f7", whiteSpace:"nowrap" }} title="Entra come questo utente">👁️</button>
+                              <button onClick={() => setImpersonating(u)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.purple}10`, border:`1px solid ${C.purple}30`, color:"#a855f7", whiteSpace:"nowrap" }} title={t("auImpersonate")}>👁️</button>
                             </div>
                           </td>
                         </tr>
@@ -5811,10 +5832,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Brand Management</h2>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("abTitle")}</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{brands.length} brands on platform</p>
               </div>
-              <button onClick={() => setShowAddBrand(true)} style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ Add Brand</button>
+              <button onClick={() => setShowAddBrand(true)} style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>{t("abAddBrand")}</button>
             </div>
             <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(280px,1fr))", gap:14 }}>
               {brands.map(b => (
@@ -5831,17 +5852,17 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                   </div>
                   {b.brand_code && (
                     <div style={{ marginBottom:8, padding:"6px 10px", background:`${C.gold}08`, border:`1px solid ${C.gold}20`, borderRadius:7, display:"flex", alignItems:"center", gap:8 }}>
-                      <span style={{ fontSize:10, color:C.textDim, textTransform:"uppercase", letterSpacing:".06em" }}>Code</span>
+                      <span style={{ fontSize:10, color:C.textDim, textTransform:"uppercase", letterSpacing:".06em" }}>{t("abCode")}</span>
                       <span style={{ fontSize:13, fontWeight:700, color:C.goldLight, fontFamily:"monospace" }}>{b.brand_code}</span>
                     </div>
                   )}
                   <div style={{ display:"flex", gap:8 }}>
-                    {b.status !== "approved" && <button onClick={() => approveUser(b.id)} style={{ flex:1, padding:"7px", borderRadius:7, cursor:"pointer", fontSize:11, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green, fontWeight:600 }}>✓ Approve</button>}
-                    {b.status !== "rejected" && <button onClick={() => rejectUser(b.id)} style={{ flex:1, padding:"7px", borderRadius:7, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>✗ Reject</button>}
+                    {b.status !== "approved" && <button onClick={() => approveUser(b.id)} style={{ flex:1, padding:"7px", borderRadius:7, cursor:"pointer", fontSize:11, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green, fontWeight:600 }}>✓ {t("auApprove")}</button>}
+                    {b.status !== "rejected" && <button onClick={() => rejectUser(b.id)} style={{ flex:1, padding:"7px", borderRadius:7, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>✗ {t("auReject")}</button>}
                   </div>
                 </div>
               ))}
-              {brands.length === 0 && <div style={{ color:C.textMuted, padding:40, textAlign:"center", gridColumn:"1/-1" }}>No brands yet. Add the first one!</div>}
+              {brands.length === 0 && <div style={{ color:C.textMuted, padding:40, textAlign:"center", gridColumn:"1/-1" }}>{t("abNoBrands")}</div>}
             </div>
           </div>
         )}
@@ -5851,7 +5872,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>Product Catalog</h2>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("acTitle")}</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{products.length} products</p>
               </div>
               <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
@@ -5860,7 +5881,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                   <input type="file" accept=".csv,.xlsx,.xls,.tsv" style={{ display:"none" }}
                     onChange={e => { const f = e.target.files?.[0]; if(f) importProducts(f); e.target.value=""; }}/>
                 </label>
-                <button onClick={() => setShowAddProduct(true)} style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ Add Product</button>
+                <button onClick={() => setShowAddProduct(true)} style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>{t("acAddProduct")}</button>
               </div>
             </div>
             {importResults && (
@@ -5876,7 +5897,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:800 }}>
                 <thead>
                   <tr style={{ background:C.surface2 }}>
-                    {["Brand","SKU","Product","Category","Price","Stock","MOQ","Multiple","Status","Actions"].map((h,i) => (
+                    {[t("achBrand"),"SKU",t("achProduct"),t("achCategory"),t("achPrice"),t("achStock"),"MOQ",t("achMultiple"),t("auhStatus"),t("auhActions")].map((h,i) => (
                       <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
                     ))}
                   </tr>
@@ -5904,9 +5925,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                       <td style={{ padding:"11px 14px" }}><Badge status={p.is_active?"active":"rejected"}/></td>
                       <td style={{ padding:"11px 14px" }}>
                         <div style={{ display:"flex", gap:6 }}>
-                          <button onClick={() => { setEditingProduct(p); setProductForm({ name:p.name, sku:p.sku||"", category:p.category||"", size:"", price:p.unit_price?.toString()||"", brand_id:p.brand_id, order_multiple:p.order_multiple, min_order_qty:p.min_order_qty, max_order_qty:p.max_order_qty||"", description:p.description||"" }); setShowAddProduct(true); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>Edit</button>
+                          <button onClick={() => { setEditingProduct(p); setProductForm({ name:p.name, sku:p.sku||"", category:p.category||"", size:"", price:p.unit_price?.toString()||"", brand_id:p.brand_id, order_multiple:p.order_multiple, min_order_qty:p.min_order_qty, max_order_qty:p.max_order_qty||"", description:p.description||"" }); setShowAddProduct(true); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>{t("acEdit")}</button>
                           <button onClick={async () => { await supabase.from("products").update({ is_active:!p.is_active }).eq("id",p.id); loadProducts(); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted }}>
-                            {p.is_active?"Deactivate":"Activate"}
+                            {p.is_active?t("acDeactivate"):t("acActivate")}
                           </button>
                         </div>
                       </td>
