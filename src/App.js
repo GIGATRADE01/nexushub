@@ -685,6 +685,13 @@ Object.assign(T.es, { ckBlocked:"Acceso bloqueado por la marca", ckDocsTab:"Docu
 Object.assign(T.de, { ckBlocked:"Zugang von der Marke gesperrt", ckDocsTab:"Dokumente / Datenblätter", ckInvoicesTab:"Meine Rechnungen", ckTotalOrders:"Bestellungen gesamt", ckTotalSpent:"Gesamtausgaben", ckPending:"Ausstehend", ckDelivered:"Geliefert", ckAllTime:"Gesamt", ckAllOrders:"Alle Bestellungen", ckStShipped:"Versandt — Lieferung 48h", ckStDelivered:"Geliefert", ckStWaiting:"Warten auf Bestätigung", ckStConfirmed:"Bestätigt — Vorbereitung im Turin-Hub", ckDisputePh:"Beschreiben Sie, was passiert ist...", ckConfirmOrder:"Bestellung bestätigen", ckTotal:"Gesamt", ckChoosePayment:"Zahlungsmethode wählen", ckSepaName:"SEPA-Überweisung", ckFree12:"Kostenlos · 1-2 Werktage", ckUnits:"Einheiten", ckPaySepaTo:"Überweisen Sie direkt an die Marke:", ckAccountHolder:"Kontoinhaber", ckBank:"Bank", ckCausale:"Verwendungszweck:", ckReserveInfo:"Bestand sofort reserviert · Automatische Rechnung per E-Mail · Lieferung:", ck48Torino:"48h ab Turin", ckCardName:"Kredit-/Debitkarte", ckInstant:"Sofort · Powered by Stripe", ckSddDesc:"Automatische Abbuchung · Kostenlos", ckNoteOpt:"Notiz (optional)", ckNotePh:"Besondere Lieferhinweise...", ckOrderSent:"Bestellung gesendet!", ckOrderSentPre:"Ihre Bestellung wurde ", ckOrderSentStrong:"automatisch bestätigt", ckOrderSentPost:". Ihr Bestand wurde für Sie reserviert. Sie erhalten eine E-Mail mit den Bestelldetails und den Bankdaten für die Zahlung per SEPA-Überweisung.", ckDeliveryEst:"Voraussichtliche Lieferung: 48h ab dem Turin-Hub" });
 Object.assign(T.zh, { ckBlocked:"已被品牌屏蔽访问", ckDocsTab:"文件 / 规格", ckInvoicesTab:"我的发票", ckTotalOrders:"总订单数", ckTotalSpent:"总支出", ckPending:"待处理", ckDelivered:"已送达", ckAllTime:"全部时间", ckAllOrders:"所有订单", ckStShipped:"已发货 — 48小时送达", ckStDelivered:"已送达", ckStWaiting:"等待确认", ckStConfirmed:"已确认 — 正在都灵中心备货", ckDisputePh:"描述发生了什么...", ckConfirmOrder:"确认订单", ckTotal:"合计", ckChoosePayment:"选择支付方式", ckSepaName:"SEPA 银行转账", ckFree12:"免费 · 1-2 个工作日", ckUnits:"件", ckPaySepaTo:"直接向品牌转账：", ckAccountHolder:"账户持有人", ckBank:"银行", ckCausale:"汇款附言：", ckReserveInfo:"库存即时预留 · 邮件自动开票 · 交付：", ck48Torino:"都灵发货48小时", ckCardName:"信用卡 / 借记卡", ckInstant:"即时 · 由 Stripe 提供", ckSddDesc:"自动扣款 · 免费", ckNoteOpt:"备注（可选）", ckNotePh:"特殊配送说明...", ckOrderSent:"订单已提交！", ckOrderSentPre:"您的订单已", ckOrderSentStrong:"自动确认", ckOrderSentPost:"。库存已为您预留。您将收到一封包含订单详情和 SEPA 转账付款银行信息的邮件。", ckDeliveryEst:"预计交付：都灵中心发货48小时" });
 Object.assign(T.ar, { ckBlocked:"الوصول محظور من قِبل العلامة", ckDocsTab:"المستندات / البطاقات", ckInvoicesTab:"فواتيري", ckTotalOrders:"إجمالي الطلبات", ckTotalSpent:"إجمالي الإنفاق", ckPending:"قيد الانتظار", ckDelivered:"تم التسليم", ckAllTime:"كل الأوقات", ckAllOrders:"كل الطلبات", ckStShipped:"تم الشحن — التسليم خلال 48 ساعة", ckStDelivered:"تم التسليم", ckStWaiting:"بانتظار التأكيد", ckStConfirmed:"تم التأكيد — قيد التجهيز في مركز تورينو", ckDisputePh:"صف ما حدث...", ckConfirmOrder:"تأكيد الطلب", ckTotal:"الإجمالي", ckChoosePayment:"اختر طريقة الدفع", ckSepaName:"تحويل بنكي SEPA", ckFree12:"مجاني · 1-2 يوم عمل", ckUnits:"وحدة", ckPaySepaTo:"قم بالتحويل مباشرةً إلى العلامة:", ckAccountHolder:"صاحب الحساب", ckBank:"البنك", ckCausale:"البيان:", ckReserveInfo:"المخزون محجوز فورًا · فاتورة تلقائية عبر البريد · التسليم:", ck48Torino:"48 ساعة من تورينو", ckCardName:"بطاقة ائتمان / خصم", ckInstant:"فوري · مدعوم من Stripe", ckSddDesc:"خصم تلقائي · مجاني", ckNoteOpt:"ملاحظة (اختياري)", ckNotePh:"تعليمات تسليم خاصة...", ckOrderSent:"تم إرسال الطلب!", ckOrderSentPre:"لقد تم ", ckOrderSentStrong:"تأكيد طلبك تلقائيًا", ckOrderSentPost:". تم حجز المخزون لك. ستتلقى بريدًا إلكترونيًا بتفاصيل الطلب والبيانات المصرفية للدفع عبر تحويل SEPA.", ckDeliveryEst:"التسليم المتوقع: 48 ساعة من مركز تورينو" });
+Object.assign(T.en, { ifTitle:"AI Inventory Forecast", ifSub:"Forecast based on last 90 days of sales · real orders", ifLeadTime:"Lead time", ifDays:"days", ifReorderMsg:"products to reorder within 30 days", ifAllOk:"All under control — no imminent stockouts", ifNoProducts:"No products to analyze.", ifhProduct:"Product", ifhStock:"Stock", ifhSalesWk:"Sales/wk", ifhDaysLeft:"Days left", ifhStockout:"Stockout", ifhReorderBy:"Reorder by", ifhStatus:"Status", ifhReorder:"Reorder", baTitle:"Brand Intelligence", baSub:"Distributor, product and European market analysis", baBtnLoading:"🤖 Analyzing...", baBtnRefresh:"🔄 Refresh", baBtnGenerate:"✨ Generate Report", baReportTitle:"Brand Intelligence Report", baReportDesc:"Complete analysis of your distributors' performance, bestselling products, seasonality and growth opportunities in the European market.", baLoadingData:"Analyzing data...", baProcessing:"Processing distributor performance, product sales and European trends", baTopDist:"Top Distributors by Revenue", baTopProd:"Top Products by Sales", baUnitsSold:"units sold", baSeasonality:"Sales Seasonality — Annual Projection", mAbbr:"Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec", seasonWinter:"Winter", seasonSpring:"Spring", seasonSummer:"Summer", seasonAutumn:"Autumn" });
+Object.assign(T.it, { ifTitle:"Forecast Inventario AI", ifSub:"Previsione su vendite ultimi 90 giorni · ordini reali", ifLeadTime:"Tempi di rifornimento", ifDays:"giorni", ifReorderMsg:"prodotti da riordinare entro 30 giorni", ifAllOk:"Tutto sotto controllo — nessun esaurimento imminente", ifNoProducts:"Nessun prodotto da analizzare.", ifhProduct:"Prodotto", ifhStock:"Stock", ifhSalesWk:"Vendite/sett.", ifhDaysLeft:"Giorni residui", ifhStockout:"Esaurimento", ifhReorderBy:"Riordina entro", ifhStatus:"Stato", ifhReorder:"Riordino", baTitle:"Brand Intelligence", baSub:"Analisi distributor, prodotti e mercato europeo", baBtnLoading:"🤖 Analisi...", baBtnRefresh:"🔄 Aggiorna", baBtnGenerate:"✨ Genera Report", baReportTitle:"Brand Intelligence Report", baReportDesc:"Analisi completa delle performance dei tuoi distributori, prodotti bestseller, stagionalità e opportunità di crescita nel mercato europeo.", baLoadingData:"Analisi dati in corso...", baProcessing:"Elaborazione performance distributori, vendite prodotti e trend europei", baTopDist:"Top Distributori per Fatturato", baTopProd:"Top Prodotti per Vendite", baUnitsSold:"u. vendute", baSeasonality:"Stagionalità Vendite — Proiezione Annuale", mAbbr:"Gen,Feb,Mar,Apr,Mag,Giu,Lug,Ago,Set,Ott,Nov,Dic", seasonWinter:"Inverno", seasonSpring:"Primavera", seasonSummer:"Estate", seasonAutumn:"Autunno" });
+Object.assign(T.fr, { ifTitle:"Prévision d'inventaire IA", ifSub:"Prévision sur les ventes des 90 derniers jours · commandes réelles", ifLeadTime:"Délai de réapprovisionnement", ifDays:"jours", ifReorderMsg:"produits à recommander sous 30 jours", ifAllOk:"Tout est sous contrôle — aucune rupture imminente", ifNoProducts:"Aucun produit à analyser.", ifhProduct:"Produit", ifhStock:"Stock", ifhSalesWk:"Ventes/sem.", ifhDaysLeft:"Jours restants", ifhStockout:"Rupture", ifhReorderBy:"Recommander avant", ifhStatus:"Statut", ifhReorder:"Réappro", baTitle:"Brand Intelligence", baSub:"Analyse des distributeurs, produits et marché européen", baBtnLoading:"🤖 Analyse...", baBtnRefresh:"🔄 Actualiser", baBtnGenerate:"✨ Générer le rapport", baReportTitle:"Rapport Brand Intelligence", baReportDesc:"Analyse complète des performances de vos distributeurs, produits phares, saisonnalité et opportunités de croissance sur le marché européen.", baLoadingData:"Analyse des données...", baProcessing:"Traitement des performances des distributeurs, ventes de produits et tendances européennes", baTopDist:"Meilleurs distributeurs par chiffre d'affaires", baTopProd:"Meilleurs produits par ventes", baUnitsSold:"u. vendues", baSeasonality:"Saisonnalité des ventes — projection annuelle", mAbbr:"Jan,Fév,Mar,Avr,Mai,Jui,Jul,Aoû,Sep,Oct,Nov,Déc", seasonWinter:"Hiver", seasonSpring:"Printemps", seasonSummer:"Été", seasonAutumn:"Automne" });
+Object.assign(T.es, { ifTitle:"Pronóstico de inventario IA", ifSub:"Previsión sobre ventas de los últimos 90 días · pedidos reales", ifLeadTime:"Plazo de reabastecimiento", ifDays:"días", ifReorderMsg:"productos para reordenar en 30 días", ifAllOk:"Todo bajo control — sin agotamientos inminentes", ifNoProducts:"No hay productos para analizar.", ifhProduct:"Producto", ifhStock:"Stock", ifhSalesWk:"Ventas/sem.", ifhDaysLeft:"Días restantes", ifhStockout:"Agotamiento", ifhReorderBy:"Reordenar antes", ifhStatus:"Estado", ifhReorder:"Reorden", baTitle:"Brand Intelligence", baSub:"Análisis de distribuidores, productos y mercado europeo", baBtnLoading:"🤖 Analizando...", baBtnRefresh:"🔄 Actualizar", baBtnGenerate:"✨ Generar informe", baReportTitle:"Informe Brand Intelligence", baReportDesc:"Análisis completo del rendimiento de tus distribuidores, productos más vendidos, estacionalidad y oportunidades de crecimiento en el mercado europeo.", baLoadingData:"Analizando datos...", baProcessing:"Procesando rendimiento de distribuidores, ventas de productos y tendencias europeas", baTopDist:"Top distribuidores por facturación", baTopProd:"Top productos por ventas", baUnitsSold:"u. vendidas", baSeasonality:"Estacionalidad de ventas — proyección anual", mAbbr:"Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dic", seasonWinter:"Invierno", seasonSpring:"Primavera", seasonSummer:"Verano", seasonAutumn:"Otoño" });
+Object.assign(T.de, { ifTitle:"KI-Bestandsprognose", ifSub:"Prognose auf Basis der letzten 90 Verkaufstage · echte Bestellungen", ifLeadTime:"Wiederbeschaffungszeit", ifDays:"Tage", ifReorderMsg:"Produkte in 30 Tagen nachzubestellen", ifAllOk:"Alles unter Kontrolle — keine baldigen Engpässe", ifNoProducts:"Keine Produkte zu analysieren.", ifhProduct:"Produkt", ifhStock:"Bestand", ifhSalesWk:"Verkäufe/Wo.", ifhDaysLeft:"Verbleibende Tage", ifhStockout:"Ausverkauf", ifhReorderBy:"Nachbestellen bis", ifhStatus:"Status", ifhReorder:"Nachbestellung", baTitle:"Brand Intelligence", baSub:"Analyse von Händlern, Produkten und europäischem Markt", baBtnLoading:"🤖 Analyse...", baBtnRefresh:"🔄 Aktualisieren", baBtnGenerate:"✨ Bericht erstellen", baReportTitle:"Brand-Intelligence-Bericht", baReportDesc:"Vollständige Analyse der Leistung Ihrer Händler, Bestseller-Produkte, Saisonalität und Wachstumschancen im europäischen Markt.", baLoadingData:"Daten werden analysiert...", baProcessing:"Verarbeitung von Händlerleistung, Produktverkäufen und europäischen Trends", baTopDist:"Top-Händler nach Umsatz", baTopProd:"Top-Produkte nach Verkäufen", baUnitsSold:"Einh. verkauft", baSeasonality:"Verkaufssaisonalität — Jahresprognose", mAbbr:"Jan,Feb,Mär,Apr,Mai,Jun,Jul,Aug,Sep,Okt,Nov,Dez", seasonWinter:"Winter", seasonSpring:"Frühling", seasonSummer:"Sommer", seasonAutumn:"Herbst" });
+Object.assign(T.zh, { ifTitle:"AI 库存预测", ifSub:"基于过去90天销售的预测 · 真实订单", ifLeadTime:"补货周期", ifDays:"天", ifReorderMsg:"个产品需在30天内补货", ifAllOk:"一切正常 — 近期无缺货风险", ifNoProducts:"没有可分析的产品。", ifhProduct:"产品", ifhStock:"库存", ifhSalesWk:"销量/周", ifhDaysLeft:"剩余天数", ifhStockout:"缺货日", ifhReorderBy:"补货截止", ifhStatus:"状态", ifhReorder:"补货", baTitle:"品牌智能", baSub:"分销商、产品与欧洲市场分析", baBtnLoading:"🤖 分析中...", baBtnRefresh:"🔄 刷新", baBtnGenerate:"✨ 生成报告", baReportTitle:"品牌智能报告", baReportDesc:"全面分析您的分销商业绩、畅销产品、季节性以及欧洲市场的增长机会。", baLoadingData:"正在分析数据...", baProcessing:"正在处理分销商业绩、产品销售和欧洲趋势", baTopDist:"按营收排名的顶级分销商", baTopProd:"按销量排名的顶级产品", baUnitsSold:"件已售", baSeasonality:"销售季节性 — 年度预测", mAbbr:"1月,2月,3月,4月,5月,6月,7月,8月,9月,10月,11月,12月", seasonWinter:"冬季", seasonSpring:"春季", seasonSummer:"夏季", seasonAutumn:"秋季" });
+Object.assign(T.ar, { ifTitle:"توقّع المخزون بالذكاء الاصطناعي", ifSub:"توقّع بناءً على مبيعات آخر 90 يومًا · طلبات حقيقية", ifLeadTime:"مدة إعادة التوريد", ifDays:"أيام", ifReorderMsg:"منتجات يجب إعادة طلبها خلال 30 يومًا", ifAllOk:"كل شيء تحت السيطرة — لا نفاد وشيك", ifNoProducts:"لا توجد منتجات للتحليل.", ifhProduct:"المنتج", ifhStock:"المخزون", ifhSalesWk:"مبيعات/أسبوع", ifhDaysLeft:"الأيام المتبقية", ifhStockout:"نفاد المخزون", ifhReorderBy:"إعادة الطلب قبل", ifhStatus:"الحالة", ifhReorder:"إعادة الطلب", baTitle:"ذكاء العلامة التجارية", baSub:"تحليل الموزّعين والمنتجات والسوق الأوروبية", baBtnLoading:"🤖 جارٍ التحليل...", baBtnRefresh:"🔄 تحديث", baBtnGenerate:"✨ إنشاء التقرير", baReportTitle:"تقرير ذكاء العلامة", baReportDesc:"تحليل كامل لأداء موزّعيك، والمنتجات الأكثر مبيعًا، والموسمية وفرص النمو في السوق الأوروبية.", baLoadingData:"جارٍ تحليل البيانات...", baProcessing:"معالجة أداء الموزّعين ومبيعات المنتجات والاتجاهات الأوروبية", baTopDist:"أفضل الموزّعين حسب الإيرادات", baTopProd:"أفضل المنتجات حسب المبيعات", baUnitsSold:"وحدة مُباعة", baSeasonality:"موسمية المبيعات — التوقّع السنوي", mAbbr:"ينا,فبر,مار,أبر,ماي,يون,يول,أغس,سبت,أكت,نوف,ديس", seasonWinter:"الشتاء", seasonSpring:"الربيع", seasonSummer:"الصيف", seasonAutumn:"الخريف" });
 
 
 
@@ -1999,6 +2006,7 @@ const EuropeMap = ({ distributors = [], highlightCountries = [], hubCity = "Turi
 // AI SUGGESTIONS COMPONENT
 // ============================================================
 const InventoryForecast = ({ products = [], orders = [] }) => {
+  const t = useT();
   const [leadDays, setLeadDays] = useState(14);
   const today = new Date();
   const cutoff = new Date(today.getTime() - 90 * 86400000);
@@ -2034,28 +2042,28 @@ const InventoryForecast = ({ products = [], orders = [] }) => {
     return { id:p.id, name:(p.name || p.sku || "Prodotto"), stock, velocity, daysLeft, suggested, status, color, rank, soDate, reorderBy };
   }).sort((a,b) => a.rank - b.rank || ((a.daysLeft ?? 99999) - (b.daysLeft ?? 99999)));
   const needReorder = rows.filter(r => r.rank <= 2).length;
-  const head = ["Prodotto","Stock","Vendite/sett.","Giorni residui","Esaurimento","Riordina entro","Stato","Riordino"];
+  const head = [t("ifhProduct"),t("ifhStock"),t("ifhSalesWk"),t("ifhDaysLeft"),t("ifhStockout"),t("ifhReorderBy"),t("ifhStatus"),t("ifhReorder")];
   return (
     <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, padding:24, marginBottom:20 }}>
       <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:6, flexWrap:"wrap", gap:12 }}>
         <div style={{ display:"flex", alignItems:"center", gap:12 }}>
           <div style={{ width:40, height:40, borderRadius:10, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20 }}>📦</div>
           <div>
-            <div style={{ fontSize:15, fontWeight:700, color:C.text }}>Forecast Inventario AI</div>
-            <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>Previsione su vendite ultimi 90 giorni · ordini reali</div>
+            <div style={{ fontSize:15, fontWeight:700, color:C.text }}>{t("ifTitle")}</div>
+            <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{t("ifSub")}</div>
           </div>
         </div>
         <div style={{ display:"flex", alignItems:"center", gap:8 }}>
-          <span style={{ fontSize:12, color:C.textMuted }}>Tempi di rifornimento</span>
+          <span style={{ fontSize:12, color:C.textMuted }}>{t("ifLeadTime")}</span>
           <input type="number" min="0" max="120" value={leadDays} onChange={e => setLeadDays(Math.max(0, parseInt(e.target.value) || 0))} style={{ width:64, padding:"6px 8px", borderRadius:8, background:C.bg, border:`1px solid ${C.border}`, color:C.text, fontSize:13 }}/>
-          <span style={{ fontSize:12, color:C.textMuted }}>giorni</span>
+          <span style={{ fontSize:12, color:C.textMuted }}>{t("ifDays")}</span>
         </div>
       </div>
       <div style={{ margin:"10px 0 16px", fontSize:13, color: needReorder>0 ? C.gold : C.green }}>
-        {needReorder>0 ? ("⚠ " + needReorder + " prodotti da riordinare entro 30 giorni") : "✓ Tutto sotto controllo — nessun esaurimento imminente"}
+        {needReorder>0 ? ("⚠ " + needReorder + " " + t("ifReorderMsg")) : ("✓ " + t("ifAllOk"))}
       </div>
       {rows.length === 0 ? (
-        <div style={{ color:C.textMuted, fontSize:13, padding:"12px 0" }}>Nessun prodotto da analizzare.</div>
+        <div style={{ color:C.textMuted, fontSize:13, padding:"12px 0" }}>{t("ifNoProducts")}</div>
       ) : (
         <div style={{ overflowX:"auto" }}>
           <table style={{ width:"100%", borderCollapse:"collapse", minWidth:780 }}>
@@ -2082,6 +2090,7 @@ const InventoryForecast = ({ products = [], orders = [] }) => {
 };
 
 const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
+  const t = useT();
   const [loading, setLoading] = useState(false);
   const [generated, setGenerated] = useState(false);
   const [topDistributors, setTopDistributors] = useState([]);
@@ -2185,24 +2194,24 @@ const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
         <div style={{ display:"flex", alignItems:"center", gap:12 }}>
           <div style={{ width:44, height:44, borderRadius:11, background:"linear-gradient(135deg,#8e44ad,#5b2c8d)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:22 }}>🤖</div>
           <div>
-            <div style={{ fontSize:16, fontWeight:700, color:C.text }}>Brand Intelligence</div>
-            <div style={{ fontSize:12, color:C.textMuted }}>{s.icon} {s.name} · Analisi distributor, prodotti e mercato europeo</div>
+            <div style={{ fontSize:16, fontWeight:700, color:C.text }}>{t("baTitle")}</div>
+            <div style={{ fontSize:12, color:C.textMuted }}>{s.icon} {s.name} · {t("baSub")}</div>
           </div>
         </div>
         <button onClick={generate} disabled={loading} style={{
           padding:"10px 20px", borderRadius:10, cursor:"pointer", fontSize:13, fontWeight:700,
           background: loading ? C.surface2 : "linear-gradient(135deg,#8e44ad,#5b2c8d)",
           border:"none", color:"#fff", opacity: loading ? 0.7 : 1 }}>
-          {loading ? "🤖 Analisi..." : generated ? "🔄 Aggiorna" : "✨ Genera Report"}
+          {loading ? t("baBtnLoading") : generated ? t("baBtnRefresh") : t("baBtnGenerate")}
         </button>
       </div>
 
       {!generated && !loading && (
         <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14 }}>
           <div style={{ fontSize:40, marginBottom:12 }}>🤖</div>
-          <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:8 }}>Brand Intelligence Report</div>
+          <div style={{ fontSize:15, fontWeight:600, color:C.text, marginBottom:8 }}>{t("baReportTitle")}</div>
           <div style={{ fontSize:13, color:C.textMuted, lineHeight:1.7, maxWidth:480, margin:"0 auto" }}>
-            Analisi completa delle performance dei tuoi distributori, prodotti bestseller, stagionalità e opportunità di crescita nel mercato europeo.
+            {t("baReportDesc")}
           </div>
         </div>
       )}
@@ -2210,8 +2219,8 @@ const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
       {loading && (
         <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14 }}>
           <div style={{ fontSize:40, marginBottom:12 }}>⏳</div>
-          <div style={{ fontSize:15, color:"#a855f7" }}>Analisi dati in corso...</div>
-          <div style={{ fontSize:12, color:C.textMuted, marginTop:6 }}>Elaborazione performance distributori, vendite prodotti e trend europei</div>
+          <div style={{ fontSize:15, color:"#a855f7" }}>{t("baLoadingData")}</div>
+          <div style={{ fontSize:12, color:C.textMuted, marginTop:6 }}>{t("baProcessing")}</div>
         </div>
       )}
 
@@ -2231,7 +2240,7 @@ const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
           {/* Top Distributors */}
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:16, marginBottom:16 }}>
             <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:18 }}>
-              <h3 style={{ fontSize:14, color:C.text, marginBottom:14 }}>🏆 Top Distributori per Fatturato</h3>
+              <h3 style={{ fontSize:14, color:C.text, marginBottom:14 }}>🏆 {t("baTopDist")}</h3>
               {topDistributors.map((d,i) => (
                 <div key={d.id} style={{ display:"flex", alignItems:"center", gap:12, padding:"10px 0",
                   borderBottom: i<topDistributors.length-1 ? `1px solid ${C.border}` : "none" }}>
@@ -2257,7 +2266,7 @@ const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
 
             {/* Top Products */}
             <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:18 }}>
-              <h3 style={{ fontSize:14, color:C.text, marginBottom:14 }}>📦 Top Prodotti per Vendite</h3>
+              <h3 style={{ fontSize:14, color:C.text, marginBottom:14 }}>📦 {t("baTopProd")}</h3>
               {topProducts.map((p,i) => (
                 <div key={p.sku} style={{ display:"flex", alignItems:"center", gap:12, padding:"10px 0",
                   borderBottom: i<topProducts.length-1 ? `1px solid ${C.border}` : "none" }}>
@@ -2269,7 +2278,7 @@ const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
                   </div>
                   <div style={{ flex:1 }}>
                     <div style={{ fontSize:13, fontWeight:600, color:C.text }}>{p.name}</div>
-                    <div style={{ fontSize:11, color:C.textMuted, marginTop:1 }}>{p.unitsSold?.toLocaleString("it-IT")} u. vendute</div>
+                    <div style={{ fontSize:11, color:C.textMuted, marginTop:1 }}>{p.unitsSold?.toLocaleString("it-IT")} {t("baUnitsSold")}</div>
                   </div>
                   <div style={{ textAlign:"right" }}>
                     <div style={{ fontSize:13, fontWeight:700, color:C.goldLight }}>€{(p.revenue/1000).toFixed(0)}K</div>
@@ -2284,7 +2293,7 @@ const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
 
           {/* Seasonal Chart */}
           <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:18 }}>
-            <h3 style={{ fontSize:14, color:C.text, marginBottom:14 }}>📅 Stagionalità Vendite — Proiezione Annuale</h3>
+            <h3 style={{ fontSize:14, color:C.text, marginBottom:14 }}>📅 {t("baSeasonality")}</h3>
             <div style={{ display:"flex", gap:6, alignItems:"flex-end", height:100 }}>
               {[
                 {m:"Gen",v:65,season:"winter"},{m:"Feb",v:55,season:"winter"},{m:"Mar",v:70,season:"spring"},
@@ -2299,13 +2308,13 @@ const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
                     <div style={{ width:"100%", background: isCurrentMonth?color:`${color}60`, borderRadius:"4px 4px 0 0",
                       height:`${item.v}%`, transition:"height .3s",
                       border: isCurrentMonth?`2px solid ${color}`:"none" }}/>
-                    <div style={{ fontSize:9, color: isCurrentMonth?color:C.textDim, fontWeight:isCurrentMonth?700:400 }}>{item.m}</div>
+                    <div style={{ fontSize:9, color: isCurrentMonth?color:C.textDim, fontWeight:isCurrentMonth?700:400 }}>{t("mAbbr").split(",")[i]}</div>
                   </div>
                 );
               })}
             </div>
             <div style={{ display:"flex", gap:16, marginTop:10, justifyContent:"center", flexWrap:"wrap" }}>
-              {[{c:"#3d8ef0",l:"Inverno"},{"c":"#27ae60",l:"Primavera"},{"c":"#e67e22",l:"Estate"},{"c":"#c9a84c",l:"Autunno"}].map(({c,l}) => (
+              {[{c:"#3d8ef0",l:t("seasonWinter")},{"c":"#27ae60",l:t("seasonSpring")},{"c":"#e67e22",l:t("seasonSummer")},{"c":"#c9a84c",l:t("seasonAutumn")}].map(({c,l}) => (
                 <div key={l} style={{ display:"flex", alignItems:"center", gap:5, fontSize:10, color:C.textMuted }}>
                   <div style={{ width:8, height:8, borderRadius:2, background:c }}/>{l}
                 </div>
