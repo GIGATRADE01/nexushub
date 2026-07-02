@@ -902,6 +902,13 @@ Object.assign(T.es,{ kaPrices:"Precios", kaHidePrices:"Cerrar precios", kaNoProd
 Object.assign(T.de,{ kaPrices:"Preise", kaHidePrices:"Preise schließen", kaNoProducts:"Keine Produkte für diese Marke.", kaBrandPrice:"Markenpreis", kaResaleHint:"Lege den Preis fest, den dieses Konto sieht und an NexusHub zahlt. Ohne Preis ist das Produkt nicht bestellbar.", kaSavePrice:"Speichern", kaPriceSaved:"Preis gespeichert", kaPriceCleared:"Preis entfernt" });
 Object.assign(T.zh,{ kaPrices:"价格", kaHidePrices:"关闭价格", kaNoProducts:"该品牌没有产品。", kaBrandPrice:"品牌价格", kaResaleHint:"设置此客户看到并支付给 NexusHub 的价格。没有价格则无法下单。", kaSavePrice:"保存", kaPriceSaved:"价格已保存", kaPriceCleared:"价格已删除" });
 Object.assign(T.ar,{ kaPrices:"الأسعار", kaHidePrices:"إغلاق الأسعار", kaNoProducts:"لا توجد منتجات لهذه العلامة.", kaBrandPrice:"سعر العلامة", kaResaleHint:"حدد السعر الذي يراه هذا الحساب ويدفعه إلى NexusHub. بدون سعر لا يمكن طلب المنتج.", kaSavePrice:"حفظ", kaPriceSaved:"تم حفظ السعر", kaPriceCleared:"تم حذف السعر" });
+Object.assign(T.en,{ diNoPrice:"Price not available" });
+Object.assign(T.it,{ diNoPrice:"Prezzo non disponibile" });
+Object.assign(T.fr,{ diNoPrice:"Prix non disponible" });
+Object.assign(T.es,{ diNoPrice:"Precio no disponible" });
+Object.assign(T.de,{ diNoPrice:"Preis nicht verfügbar" });
+Object.assign(T.zh,{ diNoPrice:"价格不可用" });
+Object.assign(T.ar,{ diNoPrice:"السعر غير متوفر" });
 
 
 
@@ -4170,6 +4177,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [selectedPayment, setSelectedPayment] = useState("sepa"); // sepa, card, sepa_debit
   const [currentUser, setCurrentUser] = useState(null);
   const [countryPrices, setCountryPrices] = useState({});
+  const [resalePrices, setResalePrices] = useState({});
   const [distContracts, setDistContracts] = useState([]);
   const [distInvoices, setDistInvoices] = useState([]);
   const [invoiceView, setInvoiceView] = useState(null);
@@ -4178,7 +4186,9 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const visibleProducts = realProducts.filter(p => approvedBrandIds.includes(p.brand_id));
   const discPct = (brandId) => Number(brandDiscounts[brandId] || 0);
   const basePrice = (p) => { const cp = p && countryPrices[p.id]; return cp != null ? Number(cp) : Number((p && p.unit_price) || 0); };
-  const effPrice = (p) => { const base = basePrice(p); const d = discPct(p && p.brand_id); return d > 0 ? Math.round(base * (1 - d/100) * 100) / 100 : base; };
+  const isManaged = currentUser?.account_type === "chain" || currentUser?.account_type === "ecommerce";
+  const resalePrice = (p) => { const rp = p && resalePrices[p.id]; return rp != null ? Number(rp) : null; };
+  const effPrice = (p) => { if (isManaged) { const rp = resalePrice(p); return rp != null ? rp : 0; } const base = basePrice(p); const d = discPct(p && p.brand_id); return d > 0 ? Math.round(base * (1 - d/100) * 100) / 100 : base; };
   const [distNotifs, setDistNotifs] = useState([]);
   const [distNotifPanel, setDistNotifPanel] = useState(false);
   const distUnread = distNotifs.filter(n => !n.read).length;
@@ -4211,6 +4221,9 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
               const { data: cp } = await supabase.from("product_country_prices").select("product_id, price").eq("country", profile.country);
               const m = {}; (cp||[]).forEach(r => { m[r.product_id] = r.price; }); setCountryPrices(m);
             }
+            const { data: rp } = await supabase.from("nexus_resale_prices").select("product_id, price, customer_id");
+            const rDef = {}, rCust = {}; (rp||[]).forEach(r => { if (r.customer_id) rCust[r.product_id] = r.price; else rDef[r.product_id] = r.price; });
+            setResalePrices({ ...rDef, ...rCust });
           });
       }
     });
@@ -4498,7 +4511,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                         <div style={{ fontSize:14, fontWeight:700, color:C.text }}>{p.name}</div>
                         <div style={{ fontSize:11, color:C.textMuted, marginTop:2 }}>{p.sku} · {p.category}</div>
                       </div>
-                      <div style={{ textAlign:"right" }}>{(() => { const lp = basePrice(p); const ep = effPrice(p); const d = discPct(p.brand_id); const hasC = countryPrices[p.id] != null && Number(countryPrices[p.id]) !== Number(p.unit_price||0); return (<div>{d > 0 && <div style={{ fontSize:11, color:C.textMuted, textDecoration:"line-through" }}>€{lp.toFixed(2)}</div>}<div style={{ fontSize:16, fontWeight:800, color:d>0?C.green:C.goldLight }}>€{ep.toFixed(2)}</div>{d > 0 && <div style={{ fontSize:10, color:C.green, fontWeight:700 }}>-{d}%</div>}{hasC && <div style={{ fontSize:9, color:C.blue, fontWeight:700 }}>listino {(currentUser?.country||"").toUpperCase()}</div>}</div>); })()}</div>
+                      <div style={{ textAlign:"right" }}>{(() => { if (isManaged) { const rp = resalePrice(p); return rp != null ? (<div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€{rp.toFixed(2)}</div>) : (<div style={{ fontSize:12, color:C.textDim }}>{t("diNoPrice")}</div>); } const lp = basePrice(p); const ep = effPrice(p); const d = discPct(p.brand_id); const hasC = countryPrices[p.id] != null && Number(countryPrices[p.id]) !== Number(p.unit_price||0); return (<div>{d > 0 && <div style={{ fontSize:11, color:C.textMuted, textDecoration:"line-through" }}>€{lp.toFixed(2)}</div>}<div style={{ fontSize:16, fontWeight:800, color:d>0?C.green:C.goldLight }}>€{ep.toFixed(2)}</div>{d > 0 && <div style={{ fontSize:10, color:C.green, fontWeight:700 }}>-{d}%</div>}{hasC && <div style={{ fontSize:9, color:C.blue, fontWeight:700 }}>listino {(currentUser?.country||"").toUpperCase()}</div>}</div>); })()}</div>
                     </div>
                     <div style={{ display:"flex", gap:8, marginBottom:12, flexWrap:"wrap" }}>
                       <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, fontWeight:600,
@@ -4511,7 +4524,9 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       {multiple > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.purple}10`, color:"#a855f7", border:`1px solid #a855f740` }}>×{multiple}</span>}
                     </div>
                     <button onClick={() => toggleWishlist(p.id)} style={{ width:"100%", marginBottom:8, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background: wishlist.includes(p.id)?`${C.red}15`:"transparent", border:`1px solid ${wishlist.includes(p.id)?C.red:C.border}`, color: wishlist.includes(p.id)?C.red:C.textMuted }}>{wishlist.includes(p.id) ? t("ddInWishlist") : t("ddAddWishlist")}</button><button onClick={() => openDistDocs(p)} style={{ width:"100%", marginBottom:12, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.gold}10`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>📎 {t("ckDocsTab")}</button>
-                    {stock > 0 ? (
+                    {(isManaged && resalePrice(p) == null) ? (
+                      <div style={{ padding:"8px", borderRadius:7, textAlign:"center", background:`${C.blue}08`, border:`1px solid ${C.blue}25`, color:C.textMuted, fontSize:12 }}>{t("diNoPrice")}</div>
+                    ) : stock > 0 ? (
                       <div style={{ display:"flex", alignItems:"center", gap:8 }}>
                         <button onClick={() => {
                           const newQty = Math.max(0, (cart[p.id]||0) - multiple);
@@ -4916,7 +4931,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                 const { data: { user } } = await supabase.auth.getUser();
                 const items = Object.entries(cart).filter(([,qty])=>qty>0).map(([pid,qty]) => {
                   const product = realProducts.find(p=>p.id===pid);
-                  return { product_id:pid, quantity:qty, product_name:product?.name||"", sku:product?.sku||"", unit_price:product?.unit_price||0 };
+                  return { product_id:pid, quantity:qty, product_name:product?.name||"", sku:product?.sku||"", unit_price:effPrice(product) };
                 });
                 const total = items.reduce((s,i)=>s+(i.unit_price*i.quantity),0);
                 const { data: order } = await supabase.from("orders").insert({
