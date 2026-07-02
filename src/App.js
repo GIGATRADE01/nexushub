@@ -860,6 +860,27 @@ Object.assign(T.es,{ bdPriceLists:"Listas de precios por país", bdDone:"Hecho",
 Object.assign(T.de,{ bdPriceLists:"Preislisten pro Land", bdDone:"Fertig", bdTerrNA:"Gebiet nicht verfügbar", bdAIAnalytics:"KI-Analytik", bdAccessApproved:"Zugang genehmigt ✓", bdAccessBlocked:"Zugang gesperrt", bdAccessExclMsg:"Eine Marke hat dich EXKLUSIV für dein Gebiet freigegeben: Du bist der einzige Händler deines Landes für diese Marke.", bdAccessSharedMsg:"Eine Marke hat deine Anfrage genehmigt: Du kannst jetzt ihre Produkte sehen und bestellen.", bdAccessOkOrder:"✓ Zugang genehmigt — kann deine Produkte bestellen", bdAccessBlockedIcon:"🚫 Zugang gesperrt", bdExclusive:"🔒 Exklusiv", bdShared:"Geteilt", bdLoading:"Laden...", bdImporting:"Importieren...", bdDeactivate:"Deaktivieren", bdActivate:"Aktivieren", bdCommission:"Provision", bdSale:"Verkauf", bdUploadPdf:"PDF hochladen", hdrProduct:"Produkt", hdrPrice:"Preis", hdrStock:"Bestand", hdrMultiple:"Vielfaches", hdrStatus:"Status", hdrActions:"Aktionen", hdrAction:"Aktion", hdrDistributor:"Händler", hdrCountry:"Land", hdrOrders:"Bestellungen", hdrRevenue:"Umsatz", hdrDiscount:"Rabatt", hdrOrder:"Bestellung", hdrItems:"Artikel", hdrValue:"Wert", hdrTracking:"Sendungsverfolgung", hdrRating:"Bewertung", hdrDate:"Datum", hdrNumber:"Nummer", hdrType:"Typ", hdrCounterparty:"Gegenpartei", hdrTotal:"Gesamt" });
 Object.assign(T.zh,{ bdPriceLists:"各国价目表", bdDone:"完成", bdTerrNA:"区域不可用", bdAIAnalytics:"AI 分析", bdAccessApproved:"访问已批准 ✓", bdAccessBlocked:"访问已阻止", bdAccessExclMsg:"某品牌已为你的区域授予独家授权：你是本国该品牌的唯一经销商。", bdAccessSharedMsg:"某品牌已批准你的请求：现在你可以查看并订购其产品。", bdAccessOkOrder:"✓ 访问已批准 —— 可订购你的产品", bdAccessBlockedIcon:"🚫 访问已阻止", bdExclusive:"🔒 独家", bdShared:"共享", bdLoading:"加载中...", bdImporting:"导入中...", bdDeactivate:"停用", bdActivate:"启用", bdCommission:"佣金", bdSale:"销售", bdUploadPdf:"上传 PDF", hdrProduct:"产品", hdrPrice:"价格", hdrStock:"库存", hdrMultiple:"倍数", hdrStatus:"状态", hdrActions:"操作", hdrAction:"操作", hdrDistributor:"经销商", hdrCountry:"国家", hdrOrders:"订单", hdrRevenue:"营收", hdrDiscount:"折扣", hdrOrder:"订单", hdrItems:"商品", hdrValue:"金额", hdrTracking:"物流跟踪", hdrRating:"评分", hdrDate:"日期", hdrNumber:"编号", hdrType:"类型", hdrCounterparty:"对方", hdrTotal:"合计" });
 Object.assign(T.ar,{ bdPriceLists:"قوائم الأسعار حسب الدولة", bdDone:"تم", bdTerrNA:"المنطقة غير متاحة", bdAIAnalytics:"تحليلات الذكاء الاصطناعي", bdAccessApproved:"تمت الموافقة على الوصول ✓", bdAccessBlocked:"الوصول محظور", bdAccessExclMsg:"اعتمدتك إحدى العلامات بشكل حصري لمنطقتك: أنت الموزّع الوحيد في بلدك لهذه العلامة.", bdAccessSharedMsg:"وافقت إحدى العلامات على طلبك: يمكنك الآن عرض منتجاتها وطلبها.", bdAccessOkOrder:"✓ تمت الموافقة على الوصول — يمكنه طلب منتجاتك", bdAccessBlockedIcon:"🚫 الوصول محظور", bdExclusive:"🔒 حصري", bdShared:"مشترك", bdLoading:"جارٍ التحميل...", bdImporting:"جارٍ الاستيراد...", bdDeactivate:"إلغاء التفعيل", bdActivate:"تفعيل", bdCommission:"العمولة", bdSale:"بيع", bdUploadPdf:"رفع PDF", hdrProduct:"المنتج", hdrPrice:"السعر", hdrStock:"المخزون", hdrMultiple:"المضاعف", hdrStatus:"الحالة", hdrActions:"الإجراءات", hdrAction:"إجراء", hdrDistributor:"الموزّع", hdrCountry:"الدولة", hdrOrders:"الطلبات", hdrRevenue:"الإيرادات", hdrDiscount:"الخصم", hdrOrder:"الطلب", hdrItems:"العناصر", hdrValue:"القيمة", hdrTracking:"التتبّع", hdrRating:"التقييم", hdrDate:"التاريخ", hdrNumber:"الرقم", hdrType:"النوع", hdrCounterparty:"الطرف المقابل", hdrTotal:"الإجمالي" });
+Object.assign(T.en,{ auiEnterRetailer:"Enter the retailer name", auiTargetSaved:"Target saved", auiChooseDocOwner:"Choose the document owner", auiChooseFile:"Choose a file", auiUploadErr:"Upload error", auiDocUploaded:"Document uploaded to vault", auiErr:"Error", auiOpCostSaved:"Operating cost saved", auiEnterProdName:"Enter the product name", auiListingSaved:"Listing saved", auiNoOrdersExport:"No orders to export.", auiExportErr:"Export error.", auiChooseBrandDist:"Choose brand and distributor", auiContractDraft:"Contract created as draft", auiInvoiceGenErr:"Invoice generation error", auiInvoiceSent:"✓ Invoice sent by email!", auiEmailErr:"Email sending error", auiProfileUpdated:"✓ Profile updated!", auiRecalcErr:"Recalculation error:", auiRecalcDone:"✓ Recalculation done", auiUserApproved:"✓ User approved!", auiUserRejected:"User rejected", auiBrandAdded:"Brand added!", auiProductUpdated:"Product updated!", auiProductAdded:"Product added!", auiFileEmpty:"Empty or invalid file", auiImportErr:"Error during import", auiStockUpdated:"Stock updated!", auiEnterTracking:"Enter the tracking number", auiTrackingSaved:"📦 Tracking saved — distributor notified", auiPointsUpdated:"Points updated", auiAccountUpdated:"Account status updated", auiContractActivated:"✓ Contract activated!", auiContractTerminated:"Contract terminated", auiCommissionUpdated:"Commission updated", auiExported:"Exported", auiImported:"✓ Imported", auiError:"Error:", auiDelTarget:"Delete the target", auiDelDoc:"Delete the document", auiDelete:"Delete", auiReactivate:"Reactivate", auiPtsAdd:"How many points to ADD to", auiPtsRemove:"How many points to REMOVE from", auiOrder:"Order", auiBonusManual:"Manual bonus", auiPenaltyManual:"Manual penalty", auiRecalcing:"Recalculating...", auiRecalcNow:"🔄 Recalculate now", auiUnlockFee:"Unlock fee", auiLockFeeHint:"Lock fee: the automation won't change it", auiLocked:"🔒 Locked", auiFree:"🔓 Free", auiExclusive:"✓ Exclusive", auiNonExclusive:"Non-exclusive", auiBackAdmin:"Back to Admin", auiMarkAllRead:"Mark all as read", auiNewContract:"New Contract", auiTerrExclusivity:"Territorial exclusivity", hdrOrderNum:"Order #", hdrBrand:"Brand", hdrShipTo:"Ship to", hdrAmount:"Amount", hdrEstRevenue:"Estimated revenue", hdrRealRevenue:"Yearly revenue (actual)", hdrCurrentPct:"Current %", hdrTierPct:"Actual tier %", hdrLocked:"Locked", hdrFromTo:"From → To", hdrReason:"Reason", hdrTerritory:"Territory", hdrExclusivity:"Exclusivity", hdrValidity:"Validity" });
+Object.assign(T.it,{ auiEnterRetailer:"Inserisci il nome del retailer", auiTargetSaved:"Target salvato", auiChooseDocOwner:"Scegli il titolare del documento", auiChooseFile:"Scegli un file", auiUploadErr:"Errore nel caricamento", auiDocUploaded:"Documento caricato nel vault", auiErr:"Errore", auiOpCostSaved:"Costo operativo salvato", auiEnterProdName:"Inserisci il nome prodotto", auiListingSaved:"Listing salvato", auiNoOrdersExport:"Nessun ordine da esportare.", auiExportErr:"Errore nell'esportazione.", auiChooseBrandDist:"Scegli brand e distributore", auiContractDraft:"Contratto creato in bozza", auiInvoiceGenErr:"Errore generazione fattura", auiInvoiceSent:"✓ Fattura inviata via email!", auiEmailErr:"Errore invio email", auiProfileUpdated:"✓ Profilo aggiornato!", auiRecalcErr:"Errore ricalcolo:", auiRecalcDone:"✓ Ricalcolo eseguito", auiUserApproved:"✓ Utente approvato!", auiUserRejected:"Utente rifiutato", auiBrandAdded:"Brand aggiunto!", auiProductUpdated:"Prodotto aggiornato!", auiProductAdded:"Prodotto aggiunto!", auiFileEmpty:"File vuoto o non valido", auiImportErr:"Errore durante l'importazione", auiStockUpdated:"Stock aggiornato!", auiEnterTracking:"Inserisci il numero di tracking", auiTrackingSaved:"📦 Tracking salvato — distributore notificato", auiPointsUpdated:"Punti aggiornati", auiAccountUpdated:"Stato account aggiornato", auiContractActivated:"✓ Contratto attivato!", auiContractTerminated:"Contratto terminato", auiCommissionUpdated:"Provvigione aggiornata", auiExported:"Esportati", auiImported:"✓ Importati", auiError:"Errore:", auiDelTarget:"Eliminare il target", auiDelDoc:"Eliminare il documento", auiDelete:"Eliminare", auiReactivate:"Riattivare", auiPtsAdd:"Quanti punti AGGIUNGERE a", auiPtsRemove:"Quanti punti TOGLIERE a", auiOrder:"Ordine", auiBonusManual:"Bonus manuale", auiPenaltyManual:"Penalità manuale", auiRecalcing:"Ricalcolo...", auiRecalcNow:"🔄 Ricalcola ora", auiUnlockFee:"Sblocca tariffa", auiLockFeeHint:"Blocca tariffa: l'automatismo non la modificherà", auiLocked:"🔒 Bloccata", auiFree:"🔓 Libera", auiExclusive:"✓ Esclusivo", auiNonExclusive:"Non esclusivo", auiBackAdmin:"Torna ad Admin", auiMarkAllRead:"Segna tutte lette", auiNewContract:"Nuovo Contratto", auiTerrExclusivity:"Esclusiva territoriale", hdrOrderNum:"Ordine #", hdrBrand:"Brand", hdrShipTo:"Spedire a", hdrAmount:"Importo", hdrEstRevenue:"Fatturato stimato", hdrRealRevenue:"Fatturato anno (reale)", hdrCurrentPct:"% attuale", hdrTierPct:"% scaglione reale", hdrLocked:"Bloccata", hdrFromTo:"Da → A", hdrReason:"Motivo", hdrTerritory:"Territorio", hdrExclusivity:"Esclusiva", hdrValidity:"Validità" });
+Object.assign(T.fr,{ auiEnterRetailer:"Saisissez le nom du revendeur", auiTargetSaved:"Objectif enregistré", auiChooseDocOwner:"Choisissez le titulaire du document", auiChooseFile:"Choisissez un fichier", auiUploadErr:"Erreur de téléversement", auiDocUploaded:"Document téléversé dans le coffre", auiErr:"Erreur", auiOpCostSaved:"Coût opérationnel enregistré", auiEnterProdName:"Saisissez le nom du produit", auiListingSaved:"Listing enregistré", auiNoOrdersExport:"Aucune commande à exporter.", auiExportErr:"Erreur d'exportation.", auiChooseBrandDist:"Choisissez la marque et le distributeur", auiContractDraft:"Contrat créé en brouillon", auiInvoiceGenErr:"Erreur de génération de facture", auiInvoiceSent:"✓ Facture envoyée par e-mail !", auiEmailErr:"Erreur d'envoi de l'e-mail", auiProfileUpdated:"✓ Profil mis à jour !", auiRecalcErr:"Erreur de recalcul :", auiRecalcDone:"✓ Recalcul effectué", auiUserApproved:"✓ Utilisateur approuvé !", auiUserRejected:"Utilisateur rejeté", auiBrandAdded:"Marque ajoutée !", auiProductUpdated:"Produit mis à jour !", auiProductAdded:"Produit ajouté !", auiFileEmpty:"Fichier vide ou invalide", auiImportErr:"Erreur lors de l'importation", auiStockUpdated:"Stock mis à jour !", auiEnterTracking:"Saisissez le numéro de suivi", auiTrackingSaved:"📦 Suivi enregistré — distributeur notifié", auiPointsUpdated:"Points mis à jour", auiAccountUpdated:"Statut du compte mis à jour", auiContractActivated:"✓ Contrat activé !", auiContractTerminated:"Contrat résilié", auiCommissionUpdated:"Commission mise à jour", auiExported:"Exportés", auiImported:"✓ Importés", auiError:"Erreur :", auiDelTarget:"Supprimer l'objectif", auiDelDoc:"Supprimer le document", auiDelete:"Supprimer", auiReactivate:"Réactiver", auiPtsAdd:"Combien de points AJOUTER à", auiPtsRemove:"Combien de points RETIRER à", auiOrder:"Commande", auiBonusManual:"Bonus manuel", auiPenaltyManual:"Pénalité manuelle", auiRecalcing:"Recalcul...", auiRecalcNow:"🔄 Recalculer maintenant", auiUnlockFee:"Débloquer le tarif", auiLockFeeHint:"Verrouiller le tarif : l'automatisme ne le modifiera pas", auiLocked:"🔒 Verrouillé", auiFree:"🔓 Libre", auiExclusive:"✓ Exclusif", auiNonExclusive:"Non exclusif", auiBackAdmin:"Retour à l'admin", auiMarkAllRead:"Tout marquer comme lu", auiNewContract:"Nouveau contrat", auiTerrExclusivity:"Exclusivité territoriale", hdrOrderNum:"Commande n°", hdrBrand:"Marque", hdrShipTo:"Livrer à", hdrAmount:"Montant", hdrEstRevenue:"CA estimé", hdrRealRevenue:"CA annuel (réel)", hdrCurrentPct:"% actuel", hdrTierPct:"% palier réel", hdrLocked:"Verrouillé", hdrFromTo:"De → À", hdrReason:"Motif", hdrTerritory:"Territoire", hdrExclusivity:"Exclusivité", hdrValidity:"Validité" });
+Object.assign(T.es,{ auiEnterRetailer:"Introduce el nombre del retailer", auiTargetSaved:"Objetivo guardado", auiChooseDocOwner:"Elige el titular del documento", auiChooseFile:"Elige un archivo", auiUploadErr:"Error de carga", auiDocUploaded:"Documento subido a la bóveda", auiErr:"Error", auiOpCostSaved:"Costo operativo guardado", auiEnterProdName:"Introduce el nombre del producto", auiListingSaved:"Listing guardado", auiNoOrdersExport:"Sin pedidos para exportar.", auiExportErr:"Error de exportación.", auiChooseBrandDist:"Elige marca y distribuidor", auiContractDraft:"Contrato creado como borrador", auiInvoiceGenErr:"Error al generar la factura", auiInvoiceSent:"✓ ¡Factura enviada por correo!", auiEmailErr:"Error al enviar el correo", auiProfileUpdated:"✓ ¡Perfil actualizado!", auiRecalcErr:"Error de recálculo:", auiRecalcDone:"✓ Recálculo realizado", auiUserApproved:"✓ ¡Usuario aprobado!", auiUserRejected:"Usuario rechazado", auiBrandAdded:"¡Marca añadida!", auiProductUpdated:"¡Producto actualizado!", auiProductAdded:"¡Producto añadido!", auiFileEmpty:"Archivo vacío o no válido", auiImportErr:"Error durante la importación", auiStockUpdated:"¡Stock actualizado!", auiEnterTracking:"Introduce el número de seguimiento", auiTrackingSaved:"📦 Seguimiento guardado — distribuidor notificado", auiPointsUpdated:"Puntos actualizados", auiAccountUpdated:"Estado de la cuenta actualizado", auiContractActivated:"✓ ¡Contrato activado!", auiContractTerminated:"Contrato terminado", auiCommissionUpdated:"Comisión actualizada", auiExported:"Exportados", auiImported:"✓ Importados", auiError:"Error:", auiDelTarget:"Eliminar el objetivo", auiDelDoc:"Eliminar el documento", auiDelete:"Eliminar", auiReactivate:"Reactivar", auiPtsAdd:"Cuántos puntos AÑADIR a", auiPtsRemove:"Cuántos puntos QUITAR a", auiOrder:"Pedido", auiBonusManual:"Bono manual", auiPenaltyManual:"Penalización manual", auiRecalcing:"Recalculando...", auiRecalcNow:"🔄 Recalcular ahora", auiUnlockFee:"Desbloquear tarifa", auiLockFeeHint:"Bloquear tarifa: la automatización no la modificará", auiLocked:"🔒 Bloqueada", auiFree:"🔓 Libre", auiExclusive:"✓ Exclusivo", auiNonExclusive:"No exclusivo", auiBackAdmin:"Volver a Admin", auiMarkAllRead:"Marcar todas como leídas", auiNewContract:"Nuevo contrato", auiTerrExclusivity:"Exclusividad territorial", hdrOrderNum:"Pedido n.º", hdrBrand:"Marca", hdrShipTo:"Enviar a", hdrAmount:"Importe", hdrEstRevenue:"Facturación estimada", hdrRealRevenue:"Facturación anual (real)", hdrCurrentPct:"% actual", hdrTierPct:"% de tramo real", hdrLocked:"Bloqueada", hdrFromTo:"De → A", hdrReason:"Motivo", hdrTerritory:"Territorio", hdrExclusivity:"Exclusiva", hdrValidity:"Validez" });
+Object.assign(T.de,{ auiEnterRetailer:"Namen des Händlers eingeben", auiTargetSaved:"Ziel gespeichert", auiChooseDocOwner:"Dokumentinhaber auswählen", auiChooseFile:"Datei auswählen", auiUploadErr:"Fehler beim Hochladen", auiDocUploaded:"Dokument in den Tresor hochgeladen", auiErr:"Fehler", auiOpCostSaved:"Betriebskosten gespeichert", auiEnterProdName:"Produktnamen eingeben", auiListingSaved:"Listing gespeichert", auiNoOrdersExport:"Keine Bestellungen zum Exportieren.", auiExportErr:"Exportfehler.", auiChooseBrandDist:"Marke und Händler auswählen", auiContractDraft:"Vertrag als Entwurf erstellt", auiInvoiceGenErr:"Fehler bei der Rechnungserstellung", auiInvoiceSent:"✓ Rechnung per E-Mail gesendet!", auiEmailErr:"Fehler beim E-Mail-Versand", auiProfileUpdated:"✓ Profil aktualisiert!", auiRecalcErr:"Neuberechnungsfehler:", auiRecalcDone:"✓ Neuberechnung ausgeführt", auiUserApproved:"✓ Benutzer genehmigt!", auiUserRejected:"Benutzer abgelehnt", auiBrandAdded:"Marke hinzugefügt!", auiProductUpdated:"Produkt aktualisiert!", auiProductAdded:"Produkt hinzugefügt!", auiFileEmpty:"Leere oder ungültige Datei", auiImportErr:"Fehler beim Import", auiStockUpdated:"Bestand aktualisiert!", auiEnterTracking:"Tracking-Nummer eingeben", auiTrackingSaved:"📦 Tracking gespeichert — Händler benachrichtigt", auiPointsUpdated:"Punkte aktualisiert", auiAccountUpdated:"Kontostatus aktualisiert", auiContractActivated:"✓ Vertrag aktiviert!", auiContractTerminated:"Vertrag beendet", auiCommissionUpdated:"Provision aktualisiert", auiExported:"Exportiert", auiImported:"✓ Importiert", auiError:"Fehler:", auiDelTarget:"Ziel löschen", auiDelDoc:"Dokument löschen", auiDelete:"Löschen", auiReactivate:"Reaktivieren", auiPtsAdd:"Wie viele Punkte HINZUFÜGEN zu", auiPtsRemove:"Wie viele Punkte ENTFERNEN von", auiOrder:"Bestellung", auiBonusManual:"Manueller Bonus", auiPenaltyManual:"Manuelle Strafe", auiRecalcing:"Neuberechnung...", auiRecalcNow:"🔄 Jetzt neu berechnen", auiUnlockFee:"Gebühr entsperren", auiLockFeeHint:"Gebühr sperren: die Automatik ändert sie nicht", auiLocked:"🔒 Gesperrt", auiFree:"🔓 Frei", auiExclusive:"✓ Exklusiv", auiNonExclusive:"Nicht exklusiv", auiBackAdmin:"Zurück zu Admin", auiMarkAllRead:"Alle als gelesen markieren", auiNewContract:"Neuer Vertrag", auiTerrExclusivity:"Gebietsexklusivität", hdrOrderNum:"Bestellung Nr.", hdrBrand:"Marke", hdrShipTo:"Versand an", hdrAmount:"Betrag", hdrEstRevenue:"Geschätzter Umsatz", hdrRealRevenue:"Jahresumsatz (real)", hdrCurrentPct:"Aktueller %", hdrTierPct:"Tatsächlicher Staffel-%", hdrLocked:"Gesperrt", hdrFromTo:"Von → An", hdrReason:"Grund", hdrTerritory:"Gebiet", hdrExclusivity:"Exklusivität", hdrValidity:"Gültigkeit" });
+Object.assign(T.zh,{ auiEnterRetailer:"请输入零售商名称", auiTargetSaved:"目标已保存", auiChooseDocOwner:"选择文件归属人", auiChooseFile:"选择文件", auiUploadErr:"上传出错", auiDocUploaded:"文件已上传到保险库", auiErr:"错误", auiOpCostSaved:"运营成本已保存", auiEnterProdName:"请输入产品名称", auiListingSaved:"商品信息已保存", auiNoOrdersExport:"没有可导出的订单。", auiExportErr:"导出出错。", auiChooseBrandDist:"选择品牌和经销商", auiContractDraft:"合同已创建为草稿", auiInvoiceGenErr:"发票生成出错", auiInvoiceSent:"✓ 发票已通过邮件发送！", auiEmailErr:"邮件发送出错", auiProfileUpdated:"✓ 资料已更新！", auiRecalcErr:"重新计算出错：", auiRecalcDone:"✓ 已重新计算", auiUserApproved:"✓ 用户已批准！", auiUserRejected:"用户已拒绝", auiBrandAdded:"品牌已添加！", auiProductUpdated:"产品已更新！", auiProductAdded:"产品已添加！", auiFileEmpty:"文件为空或无效", auiImportErr:"导入时出错", auiStockUpdated:"库存已更新！", auiEnterTracking:"请输入物流单号", auiTrackingSaved:"📦 物流单号已保存 —— 已通知经销商", auiPointsUpdated:"积分已更新", auiAccountUpdated:"账户状态已更新", auiContractActivated:"✓ 合同已激活！", auiContractTerminated:"合同已终止", auiCommissionUpdated:"佣金已更新", auiExported:"已导出", auiImported:"✓ 已导入", auiError:"错误：", auiDelTarget:"删除该目标", auiDelDoc:"删除该文件", auiDelete:"删除", auiReactivate:"重新激活", auiPtsAdd:"为其增加多少积分", auiPtsRemove:"从其扣除多少积分", auiOrder:"订单", auiBonusManual:"手动奖励", auiPenaltyManual:"手动扣分", auiRecalcing:"重新计算中...", auiRecalcNow:"🔄 立即重新计算", auiUnlockFee:"解锁费率", auiLockFeeHint:"锁定费率：自动机制将不再修改它", auiLocked:"🔒 已锁定", auiFree:"🔓 未锁定", auiExclusive:"✓ 独家", auiNonExclusive:"非独家", auiBackAdmin:"返回管理后台", auiMarkAllRead:"全部标为已读", auiNewContract:"新建合同", auiTerrExclusivity:"区域独家", hdrOrderNum:"订单号", hdrBrand:"品牌", hdrShipTo:"收货至", hdrAmount:"金额", hdrEstRevenue:"预计营收", hdrRealRevenue:"年度营收（实际）", hdrCurrentPct:"当前 %", hdrTierPct:"实际档位 %", hdrLocked:"已锁定", hdrFromTo:"从 → 到", hdrReason:"原因", hdrTerritory:"区域", hdrExclusivity:"独家", hdrValidity:"有效期" });
+Object.assign(T.ar,{ auiEnterRetailer:"أدخل اسم المتجر", auiTargetSaved:"تم حفظ الهدف", auiChooseDocOwner:"اختر صاحب المستند", auiChooseFile:"اختر ملفًا", auiUploadErr:"خطأ في الرفع", auiDocUploaded:"تم رفع المستند إلى الخزنة", auiErr:"خطأ", auiOpCostSaved:"تم حفظ التكلفة التشغيلية", auiEnterProdName:"أدخل اسم المنتج", auiListingSaved:"تم حفظ القائمة", auiNoOrdersExport:"لا طلبات للتصدير.", auiExportErr:"خطأ في التصدير.", auiChooseBrandDist:"اختر العلامة والموزّع", auiContractDraft:"تم إنشاء العقد كمسودة", auiInvoiceGenErr:"خطأ في إنشاء الفاتورة", auiInvoiceSent:"✓ تم إرسال الفاتورة عبر البريد!", auiEmailErr:"خطأ في إرسال البريد", auiProfileUpdated:"✓ تم تحديث الملف!", auiRecalcErr:"خطأ في إعادة الحساب:", auiRecalcDone:"✓ تمت إعادة الحساب", auiUserApproved:"✓ تمت الموافقة على المستخدم!", auiUserRejected:"تم رفض المستخدم", auiBrandAdded:"تمت إضافة العلامة!", auiProductUpdated:"تم تحديث المنتج!", auiProductAdded:"تمت إضافة المنتج!", auiFileEmpty:"ملف فارغ أو غير صالح", auiImportErr:"خطأ أثناء الاستيراد", auiStockUpdated:"تم تحديث المخزون!", auiEnterTracking:"أدخل رقم التتبّع", auiTrackingSaved:"📦 تم حفظ التتبّع — تم إخطار الموزّع", auiPointsUpdated:"تم تحديث النقاط", auiAccountUpdated:"تم تحديث حالة الحساب", auiContractActivated:"✓ تم تفعيل العقد!", auiContractTerminated:"تم إنهاء العقد", auiCommissionUpdated:"تم تحديث العمولة", auiExported:"تم تصدير", auiImported:"✓ تم استيراد", auiError:"خطأ:", auiDelTarget:"حذف الهدف", auiDelDoc:"حذف المستند", auiDelete:"حذف", auiReactivate:"إعادة التفعيل", auiPtsAdd:"كم نقطة تُضاف إلى", auiPtsRemove:"كم نقطة تُخصم من", auiOrder:"الطلب", auiBonusManual:"مكافأة يدوية", auiPenaltyManual:"عقوبة يدوية", auiRecalcing:"جارٍ إعادة الحساب...", auiRecalcNow:"🔄 أعد الحساب الآن", auiUnlockFee:"فتح التعرفة", auiLockFeeHint:"قفل التعرفة: لن يغيّرها النظام الآلي", auiLocked:"🔒 مقفلة", auiFree:"🔓 حرة", auiExclusive:"✓ حصري", auiNonExclusive:"غير حصري", auiBackAdmin:"العودة إلى الإدارة", auiMarkAllRead:"تعليم الكل كمقروء", auiNewContract:"عقد جديد", auiTerrExclusivity:"الحصرية الإقليمية", hdrOrderNum:"رقم الطلب", hdrBrand:"العلامة", hdrShipTo:"الشحن إلى", hdrAmount:"المبلغ", hdrEstRevenue:"الإيرادات المقدّرة", hdrRealRevenue:"الإيراد السنوي (الفعلي)", hdrCurrentPct:"النسبة الحالية %", hdrTierPct:"نسبة الشريحة الفعلية %", hdrLocked:"مقفلة", hdrFromTo:"من → إلى", hdrReason:"السبب", hdrTerritory:"المنطقة", hdrExclusivity:"الحصرية", hdrValidity:"الصلاحية" });
+Object.assign(T.en,{ tmTurinHub:"Turin Hub", tmActiveDist:"Active Distributors", tmCovered:"Covered Territory", seaSpring:"Spring", seaSummer:"Summer", seaAutumn:"Autumn", seaWinter:"Winter" });
+Object.assign(T.it,{ tmTurinHub:"Hub di Torino", tmActiveDist:"Distributori attivi", tmCovered:"Territorio coperto", seaSpring:"Primavera", seaSummer:"Estate", seaAutumn:"Autunno", seaWinter:"Inverno" });
+Object.assign(T.fr,{ tmTurinHub:"Hub de Turin", tmActiveDist:"Distributeurs actifs", tmCovered:"Territoire couvert", seaSpring:"Printemps", seaSummer:"Été", seaAutumn:"Automne", seaWinter:"Hiver" });
+Object.assign(T.es,{ tmTurinHub:"Hub de Turín", tmActiveDist:"Distribuidores activos", tmCovered:"Territorio cubierto", seaSpring:"Primavera", seaSummer:"Verano", seaAutumn:"Otoño", seaWinter:"Invierno" });
+Object.assign(T.de,{ tmTurinHub:"Turin-Hub", tmActiveDist:"Aktive Händler", tmCovered:"Abgedecktes Gebiet", seaSpring:"Frühling", seaSummer:"Sommer", seaAutumn:"Herbst", seaWinter:"Winter" });
+Object.assign(T.zh,{ tmTurinHub:"都灵枢纽", tmActiveDist:"活跃经销商", tmCovered:"覆盖区域", seaSpring:"春季", seaSummer:"夏季", seaAutumn:"秋季", seaWinter:"冬季" });
+Object.assign(T.ar,{ tmTurinHub:"مركز تورينو", tmActiveDist:"الموزّعون النشطون", tmCovered:"المنطقة المغطاة", seaSpring:"الربيع", seaSummer:"الصيف", seaAutumn:"الخريف", seaWinter:"الشتاء" });
+Object.assign(T.en,{ tbPlatinum:"Platinum", tbGold:"Gold", tbSilver:"Silver", tbBronze:"Bronze", tbWatched:"Watched", tbAtRisk:"At risk", tbSuspended:"SUSPENDED", tbAtRiskBadge:"AT RISK", ddBankMissing:"Brand banking details not entered yet. Contact NexusHub." });
+Object.assign(T.it,{ tbPlatinum:"Platino", tbGold:"Oro", tbSilver:"Argento", tbBronze:"Bronzo", tbWatched:"Osservato", tbAtRisk:"A rischio", tbSuspended:"SOSPESO", tbAtRiskBadge:"A RISCHIO", ddBankMissing:"Dati bancari del brand non ancora inseriti. Contatta NexusHub." });
+Object.assign(T.fr,{ tbPlatinum:"Platine", tbGold:"Or", tbSilver:"Argent", tbBronze:"Bronze", tbWatched:"Surveillé", tbAtRisk:"À risque", tbSuspended:"SUSPENDU", tbAtRiskBadge:"À RISQUE", ddBankMissing:"Coordonnées bancaires de la marque pas encore renseignées. Contactez NexusHub." });
+Object.assign(T.es,{ tbPlatinum:"Platino", tbGold:"Oro", tbSilver:"Plata", tbBronze:"Bronce", tbWatched:"Observado", tbAtRisk:"En riesgo", tbSuspended:"SUSPENDIDO", tbAtRiskBadge:"EN RIESGO", ddBankMissing:"Datos bancarios de la marca aún no introducidos. Contacta a NexusHub." });
+Object.assign(T.de,{ tbPlatinum:"Platin", tbGold:"Gold", tbSilver:"Silber", tbBronze:"Bronze", tbWatched:"Beobachtet", tbAtRisk:"Gefährdet", tbSuspended:"GESPERRT", tbAtRiskBadge:"GEFÄHRDET", ddBankMissing:"Bankdaten der Marke noch nicht hinterlegt. Kontaktiere NexusHub." });
+Object.assign(T.zh,{ tbPlatinum:"白金", tbGold:"黄金", tbSilver:"白银", tbBronze:"青铜", tbWatched:"观察中", tbAtRisk:"有风险", tbSuspended:"已暂停", tbAtRiskBadge:"有风险", ddBankMissing:"该品牌的银行信息尚未填写。请联系 NexusHub。" });
+Object.assign(T.ar,{ tbPlatinum:"بلاتيني", tbGold:"ذهبي", tbSilver:"فضي", tbBronze:"برونزي", tbWatched:"تحت المراقبة", tbAtRisk:"في خطر", tbSuspended:"موقوف", tbAtRiskBadge:"في خطر", ddBankMissing:"لم تُدخل بيانات البنك للعلامة بعد. تواصل مع NexusHub." });
 
 
 
@@ -890,19 +911,20 @@ const Badge = ({ status }) => {
 };
 
 const TrustBadge = ({ score, state }) => {
+  const t = useT();
   const s = (score===null||score===undefined) ? 200 : score;
   let tier, col;
-  if (s >= 1000) { tier="Platinum"; col=C.blue; }
-  else if (s >= 700) { tier="Gold"; col=C.gold; }
-  else if (s >= 400) { tier="Silver"; col=C.textMuted; }
-  else if (s >= 200) { tier="Bronze"; col=C.goldDim; }
-  else if (s >= 100) { tier="Osservato"; col=C.gold; }
-  else { tier="A rischio"; col=C.red; }
+  if (s >= 1000) { tier=t("tbPlatinum"); col=C.blue; }
+  else if (s >= 700) { tier=t("tbGold"); col=C.gold; }
+  else if (s >= 400) { tier=t("tbSilver"); col=C.textMuted; }
+  else if (s >= 200) { tier=t("tbBronze"); col=C.goldDim; }
+  else if (s >= 100) { tier=t("tbWatched"); col=C.gold; }
+  else { tier=t("tbAtRisk"); col=C.red; }
   return (
     <span style={{ display:"inline-flex", alignItems:"center", gap:6, flexWrap:"wrap" }}>
       <span style={{ fontSize:11, fontWeight:700, padding:"2px 9px", borderRadius:20, background:col+"22", color:col, border:`1px solid ${col}55`, whiteSpace:"nowrap" }}>{tier} · {s}</span>
-      {state==="suspended" && <span style={{ fontSize:10, fontWeight:700, padding:"2px 6px", borderRadius:5, background:C.red+"22", color:C.red, border:`1px solid ${C.red}55` }}>SOSPESO</span>}
-      {state==="at_risk" && <span style={{ fontSize:10, fontWeight:700, padding:"2px 6px", borderRadius:5, background:C.gold+"22", color:C.gold }}>A RISCHIO</span>}
+      {state==="suspended" && <span style={{ fontSize:10, fontWeight:700, padding:"2px 6px", borderRadius:5, background:C.red+"22", color:C.red, border:`1px solid ${C.red}55` }}>{t("tbSuspended")}</span>}
+      {state==="at_risk" && <span style={{ fontSize:10, fontWeight:700, padding:"2px 6px", borderRadius:5, background:C.gold+"22", color:C.gold }}>{t("tbAtRiskBadge")}</span>}
     </span>
   );
 };
@@ -2003,6 +2025,7 @@ const PendingScreen = ({ status, profile, onLogout, lang, onLangChange }) => {
 // EUROPE MAP COMPONENT
 // ============================================================
 const EuropeMap = ({ distributors = [], highlightCountries = [], hubCity = "Turin", compact = false }) => {
+  const t = useT();
   const [tooltip, setTooltip] = useState(null);
   
   const countries = [
@@ -2155,15 +2178,15 @@ const EuropeMap = ({ distributors = [], highlightCountries = [], hubCity = "Turi
       {/* Legend */}
       <div style={{ display:"flex", gap:16, justifyContent:"center", marginTop:10, flexWrap:"wrap" }}>
         <div style={{ display:"flex", alignItems:"center", gap:6, fontSize:11, color:"#6b6b8a" }}>
-          <div style={{ width:8, height:8, borderRadius:"50%", background:"#c9a84c" }}/>Turin Hub
+          <div style={{ width:8, height:8, borderRadius:"50%", background:"#c9a84c" }}/>{t("tmTurinHub")}
         </div>
         {distributors.length > 0 && (
           <div style={{ display:"flex", alignItems:"center", gap:6, fontSize:11, color:"#6b6b8a" }}>
-            <div style={{ width:8, height:8, borderRadius:"50%", background:"rgba(201,168,76,0.7)" }}/>Active Distributors ({distributors.length})
+            <div style={{ width:8, height:8, borderRadius:"50%", background:"rgba(201,168,76,0.7)" }}/>{t("tmActiveDist")} ({distributors.length})
           </div>
         )}
         <div style={{ display:"flex", alignItems:"center", gap:6, fontSize:11, color:"#6b6b8a" }}>
-          <div style={{ width:12, height:8, borderRadius:2, background:"rgba(201,168,76,0.15)", border:"1px solid rgba(201,168,76,0.4)" }}/>Covered Territory
+          <div style={{ width:12, height:8, borderRadius:2, background:"rgba(201,168,76,0.15)", border:"1px solid rgba(201,168,76,0.4)" }}/>{t("tmCovered")}
         </div>
       </div>
     </div>
@@ -2268,10 +2291,10 @@ const BrandAnalytics = ({ distributors = [], orders = [], products = [] }) => {
 
   const season = () => {
     const m = new Date().getMonth() + 1;
-    if (m>=3&&m<=5) return {name:"Spring",icon:"🌸"};
-    if (m>=6&&m<=8) return {name:"Summer",icon:"☀️"};
-    if (m>=9&&m<=11) return {name:"Autumn",icon:"🍂"};
-    return {name:"Winter",icon:"❄️"};
+    if (m>=3&&m<=5) return {name:t("seaSpring"),icon:"🌸"};
+    if (m>=6&&m<=8) return {name:t("seaSummer"),icon:"☀️"};
+    if (m>=9&&m<=11) return {name:t("seaAutumn"),icon:"🍂"};
+    return {name:t("seaWinter"),icon:"❄️"};
   };
 
   const flagOf = (cc) => {
@@ -4691,7 +4714,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                         </div>
                       )) : (
                         <div style={{ gridColumn:"1/-1", fontSize:12, color:C.red }}>
-                          ⚠️ Dati bancari del brand non ancora inseriti. Contatta NexusHub.
+                          ⚠️ {t("ddBankMissing")}
                         </div>
                       )}
                     </div>
@@ -5028,7 +5051,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   };
   const saveRetail = async () => {
     const f = retailForm;
-    if (!f.retailer_name || !f.retailer_name.trim()) { notify("Inserisci il nome del retailer", "error"); return; }
+    if (!f.retailer_name || !f.retailer_name.trim()) { notify(t("auiEnterRetailer"), "error"); return; }
     const payload = {
       retailer_name: f.retailer_name.trim(), country: f.country||null, buyer_name: f.buyer_name||null,
       buyer_email: f.buyer_email||null, brand_id: f.brand_id||null, candidate_products: f.candidate_products||null,
@@ -5043,7 +5066,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       payload.created_by = user?.id || null;
       await supabase.from("retail_targets").insert(payload);
     }
-    notify("Target salvato");
+    notify(t("auiTargetSaved"));
     setRetailModal(null);
     loadRetail();
   };
@@ -5052,7 +5075,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     setRetailTargets(prev => prev.map(x => x.id===t.id ? { ...x, stage } : x));
   };
   const deleteRetail = async (t) => {
-    if (!window.confirm("Eliminare il target " + t.retailer_name + "?")) return;
+    if (!window.confirm((t("auiDelTarget")+" ") + t.retailer_name + "?")) return;
     await supabase.from("retail_targets").delete().eq("id", t.id);
     setRetailTargets(prev => prev.filter(x => x.id !== t.id));
   };
@@ -5062,13 +5085,13 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   };
   const uploadCompliance = async () => {
     const f = compForm;
-    if (!f.owner_id) { notify("Scegli il titolare del documento", "error"); return; }
-    if (!f.file) { notify("Scegli un file", "error"); return; }
+    if (!f.owner_id) { notify(t("auiChooseDocOwner"), "error"); return; }
+    if (!f.file) { notify(t("auiChooseFile"), "error"); return; }
     setCompBusy(true);
     try {
       const path = "compliance/" + f.owner_id + "/" + Date.now() + "_" + f.file.name;
       const up = await supabase.storage.from("documents").upload(path, f.file, { upsert:true });
-      if (!up || up.error) { notify("Errore nel caricamento", "error"); setCompBusy(false); return; }
+      if (!up || up.error) { notify(t("auiUploadErr"), "error"); setCompBusy(false); return; }
       const url = supabase.storage.from("documents").getPublicUrl(path).data.publicUrl;
       const { data: { user } } = await supabase.auth.getUser();
       await supabase.from("compliance_documents").insert({
@@ -5076,13 +5099,13 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         file_url: url, file_type: f.file.type||null, expires_at: f.expires_at||null,
         notes: f.notes||null, uploaded_by: user?.id||null
       });
-      notify("Documento caricato nel vault");
+      notify(t("auiDocUploaded"));
       setCompModal(false); setCompForm({}); loadCompliance();
-    } catch(e) { console.error(e); notify("Errore", "error"); }
+    } catch(e) { console.error(e); notify(t("auiErr"), "error"); }
     setCompBusy(false);
   };
   const deleteCompliance = async (d) => {
-    if (!window.confirm("Eliminare il documento " + d.name + "?")) return;
+    if (!window.confirm((t("auiDelDoc")+" ") + d.name + "?")) return;
     await supabase.from("compliance_documents").delete().eq("id", d.id);
     setComplianceDocs(prev => prev.filter(x => x.id !== d.id));
   };
@@ -5104,7 +5127,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     await supabase.from("order_economics").upsert({ order_id:orderId, operating_cost:v, updated_by:user?.id||null, updated_at:new Date().toISOString() }, { onConflict:"order_id" });
     setMarginRows(prev=>prev.map(r=>r.id===orderId?{ ...r, econ:{ order_id:orderId, operating_cost:v } }:r));
     setOpEdits(prev=>{ const n={...prev}; delete n[orderId]; return n; });
-    notify("Costo operativo salvato");
+    notify(t("auiOpCostSaved"));
   };
   const loadAmazon = async () => {
     const { data } = await supabase.from("amazon_listings").select("*").order("created_at", { ascending:false });
@@ -5116,7 +5139,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   };
   const saveAmazon = async () => {
     const f = amazonForm;
-    if (!f.product_name || !f.product_name.trim()) { notify("Inserisci il nome prodotto", "error"); return; }
+    if (!f.product_name || !f.product_name.trim()) { notify(t("auiEnterProdName"), "error"); return; }
     const payload = {
       product_name: f.product_name.trim(), asin: f.asin||null, sku: f.sku||null, brand_id: f.brand_id||null, product_id: f.product_id||null,
       marketplace: f.marketplace||"IT", fulfillment: f.fulfillment||"FBA",
@@ -5127,11 +5150,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     };
     if (f.id) { await supabase.from("amazon_listings").update(payload).eq("id", f.id); }
     else { const { data: { user } } = await supabase.auth.getUser(); payload.created_by = user?.id||null; await supabase.from("amazon_listings").insert(payload); }
-    notify("Listing salvato");
+    notify(t("auiListingSaved"));
     setAmazonModal(false); loadAmazon();
   };
   const deleteAmazon = async (t) => {
-    if (!window.confirm("Eliminare " + t.product_name + "?")) return;
+    if (!window.confirm((t("auiDelete")+" ") + t.product_name + "?")) return;
     await supabase.from("amazon_listings").delete().eq("id", t.id);
     setAmazonRows(prev => prev.filter(x => x.id !== t.id));
   };
@@ -5188,7 +5211,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         .neq("status", "cancelled")
         .order("created_at", { ascending:false });
       const rows = ords || [];
-      if (rows.length === 0) { window.alert("Nessun ordine da esportare."); return; }
+      if (rows.length === 0) { window.alert(t("auiNoOrdersExport")); return; }
       const distIds = [...new Set(rows.map(r=>r.distributor_id).filter(Boolean))];
       let profs = {};
       if (distIds.length) {
@@ -5247,8 +5270,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       a.href = url; a.download = "nexushub-shippypro-" + today + ".csv";
       document.body.appendChild(a); a.click(); document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      window.alert("Esportati " + rows.length + " ordini. Ora importa il file in ShippyPro con \"Importa Excel/CSV/TXT\".");
-    } catch(e) { console.error(e); window.alert("Errore nell'esportazione."); }
+      window.alert((t("auiExported")+" ") + rows.length + " ordini. Ora importa il file in ShippyPro con \"Importa Excel/CSV/TXT\".");
+    } catch(e) { console.error(e); window.alert(t("auiExportErr")); }
   };
   const loadOrders = async () => {
     try {
@@ -5284,7 +5307,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   };
   const saveNewContract = async () => {
     const f = contractForm;
-    if (!f.brand_id || !f.distributor_id) { notify("Scegli brand e distributore", "error"); return; }
+    if (!f.brand_id || !f.distributor_id) { notify(t("auiChooseBrandDist"), "error"); return; }
     const num = "CT-" + new Date().getFullYear() + "-" + Math.random().toString(36).slice(2,7).toUpperCase();
     const { error } = await supabase.from("contracts").insert({
       contract_number: num, brand_id: f.brand_id, distributor_id: f.distributor_id,
@@ -5293,8 +5316,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       exclusivity: !!f.exclusivity, status: "draft",
       valid_from: f.valid_from||null, valid_until: f.valid_until||null
     });
-    if (error) { notify("Errore: " + error.message, "error"); return; }
-    notify("Contratto creato in bozza");
+    if (error) { notify((t("auiError")+" ") + error.message, "error"); return; }
+    notify(t("auiContractDraft"));
     setContractCreate(false); loadContracts();
   };
   const viewInvoice = async (invoiceId) => {
@@ -5313,7 +5336,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         w.document.write(data.html);
         w.document.close();
       }
-    } catch(e) { notify("Errore generazione fattura", "error"); }
+    } catch(e) { notify(t("auiInvoiceGenErr"), "error"); }
   };
 
   const sendInvoiceEmail = async (invoiceId) => {
@@ -5326,8 +5349,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           body: JSON.stringify({ invoice_id: invoiceId, send_email: true })
         }
       );
-      notify("✓ Fattura inviata via email!");
-    } catch(e) { notify("Errore invio email", "error"); }
+      notify(t("auiInvoiceSent"));
+    } catch(e) { notify(t("auiEmailErr"), "error"); }
   };
 
   const loadDocuments = async (userId) => {
@@ -5340,7 +5363,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
   const updateUserProfile = async (userId, updates) => {
     await supabase.from("profiles").update(updates).eq("id", userId);
-    notify("✓ Profile updated!");
+    notify(t("auiProfileUpdated"));
     loadUsers();
   };
 
@@ -5398,7 +5421,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     await supabase.from("contracts").update({ commission_rate: newRate }).eq("brand_id", row.id);
     await supabase.from("notifications").insert({
       user_id: row.id,
-      title: "Provvigione aggiornata",
+      title: t("auiCommissionUpdated"),
       message: `La tua provvigione piattaforma è stata aggiornata al ${newRate}% in base al fatturato raggiunto.`,
       type: "commission_update",
     });
@@ -5421,8 +5444,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const recalcNow = async () => {
     setRecalcing(true);
     const { error } = await supabase.rpc("commission_recalc_now");
-    if (error) { notify("Errore ricalcolo: " + error.message); }
-    else { notify("✓ Ricalcolo eseguito"); await loadCommissions(); await loadCommissionLog(); }
+    if (error) { notify((t("auiRecalcErr")+" ") + error.message); }
+    else { notify(t("auiRecalcDone")); await loadCommissions(); await loadCommissionLog(); }
     setRecalcing(false);
   };
   useEffect(() => {
@@ -5451,7 +5474,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   // Approve / Reject user
   const approveUser = async (id) => {
     await supabase.from("profiles").update({ status:"approved" }).eq("id", id);
-    notify("✓ User approved!");
+    notify(t("auiUserApproved"));
     // Send approval email
     const user = users.find(u => u.id === id);
     if (user) await sendEmail("approved", user.email, user.company_name || user.email, user.role);
@@ -5460,7 +5483,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
   const rejectUser = async (id, reason="Application declined") => {
     await supabase.from("profiles").update({ status:"rejected", rejection_reason: reason }).eq("id", id);
-    notify("User rejected", "error");
+    notify(t("auiUserRejected"), "error");
     // Send rejection email
     const user = users.find(u => u.id === id);
     if (user) await sendEmail("rejected", user.email, user.company_name || user.email, user.role, reason);
@@ -5482,7 +5505,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         full_name: brandForm.name,
       });
     }
-    notify("Brand added!");
+    notify(t("auiBrandAdded"));
     setShowAddBrand(false);
     setBrandForm({ name:"", origin:"", category:"", description:"" });
     loadBrands();
@@ -5518,10 +5541,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     };
     if (editingProduct) {
       await supabase.from("products").update(payload).eq("id", editingProduct.id);
-      notify("Product updated!");
+      notify(t("auiProductUpdated"));
     } else {
       await supabase.from("products").insert(payload);
-      notify("Product added!");
+      notify(t("auiProductAdded"));
     }
     setShowAddProduct(false);
     setEditingProduct(null);
@@ -5536,7 +5559,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     try {
       const text = await file.text();
       const lines = text.split(/\r?\n/).filter(l => l.trim());
-      if (lines.length < 2) { notify("File vuoto o non valido", "error"); setImportLoading(false); return; }
+      if (lines.length < 2) { notify(t("auiFileEmpty"), "error"); setImportLoading(false); return; }
       
       const headers = lines[0].split(/[,;\t]/).map(h => h.trim().toLowerCase().replace(/[^a-z_]/g,''));
       const rows = lines.slice(1);
@@ -5574,10 +5597,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       }
       
       setImportResults({ success, errors, total: rows.length });
-      notify("✓ Importati " + success + " prodotti" + (errors > 0 ? ", " + errors + " errori" : ""));
+      notify((t("auiImported")+" ") + success + " prodotti" + (errors > 0 ? ", " + errors + " errori" : ""));
       loadProducts();
     } catch(e) {
-      notify("Errore durante l'importazione", "error");
+      notify(t("auiImportErr"), "error");
     }
     setImportLoading(false);
   };
@@ -5587,7 +5610,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     await supabase.from("inventory")
       .update({ quantity_available: parseInt(qty), last_restock_at: new Date().toISOString(), last_restock_qty: parseInt(qty) })
       .eq("product_id", productId);
-    notify("Stock updated!");
+    notify(t("auiStockUpdated"));
     loadProducts();
   };
 
@@ -5597,7 +5620,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     const e = trackEdits[o.id] || {};
     const courier = (e.courier || "").trim();
     const tracking = (e.tracking_number || "").trim();
-    if (!tracking) { notify("Inserisci il numero di tracking", "error"); return; }
+    if (!tracking) { notify(t("auiEnterTracking"), "error"); return; }
     const url = courier.toUpperCase().includes("BRT")
       ? "https://vas.brt.it/vas/sped_numspe_par.htm?Nspediz=" + encodeURIComponent(tracking)
       : "";
@@ -5609,35 +5632,35 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       shipped_at: o.shipped_at || new Date().toISOString(),
       status: newStatus
     }).eq("id", o.id);
-    notify("📦 Tracking salvato — distributore notificato");
+    notify(t("auiTrackingSaved"));
     setTrackEdits(prev => { const n = { ...prev }; delete n[o.id]; return n; });
     loadOrders();
   };
   const adjustTrust = async (u, sign) => {
-    const amtStr = window.prompt((sign>0?"Quanti punti AGGIUNGERE a ":"Quanti punti TOGLIERE a ")+(u.company_name||u.email)+"?", "10");
+    const amtStr = window.prompt((sign>0?(t("auiPtsAdd")+" "):(t("auiPtsRemove")+" "))+(u.company_name||u.email)+"?", "10");
     if (amtStr===null) return;
     const amt = Math.abs(parseInt(amtStr,10)); if (!amt) return;
-    const reason = window.prompt("Motivo?", sign>0?"Bonus manuale":"Penalita manuale");
+    const reason = window.prompt("Motivo?", sign>0?t("auiBonusManual"):t("auiPenaltyManual"));
     if (reason===null) return;
     await supabase.rpc("admin_adjust_trust", { p_profile: u.id, p_delta: sign*amt, p_reason: reason });
-    notify("Punti aggiornati");
+    notify(t("auiPointsUpdated"));
     loadUsers();
   };
   const toggleSuspend = async (u) => {
     if (u.account_state==="suspended") {
-      if (!window.confirm("Riattivare "+(u.company_name||u.email)+"?")) return;
+      if (!window.confirm((t("auiReactivate")+" ")+(u.company_name||u.email)+"?")) return;
       await supabase.rpc("admin_set_account_state", { p_profile:u.id, p_state:"active", p_reason:"Riattivato da admin" });
     } else {
       const reason = window.prompt("Motivo sospensione (violazione grave):", "");
       if (reason===null) return;
       await supabase.rpc("admin_set_account_state", { p_profile:u.id, p_state:"suspended", p_reason: reason||"Sospeso da admin" });
     }
-    notify("Stato account aggiornato");
+    notify(t("auiAccountUpdated"));
     loadUsers();
   };
   const updateOrderStatus = async (orderId, status) => {
     await supabase.from("orders").update({ status }).eq("id", orderId);
-    notify("Order " + status + "!");
+    notify((t("auiOrder")+" ") + status + "!");
     
     // Send email notification based on status
     const order = orders.find(o => o.id === orderId);
@@ -5735,7 +5758,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             padding:"7px 18px", borderRadius:8, cursor:"pointer",
             background:"rgba(255,255,255,.2)", border:"1px solid rgba(255,255,255,.4)",
             color:"#fff", fontSize:12, fontWeight:700 }}>
-            ← Torna ad Admin
+            ← {t("auiBackAdmin")}
           </button>
         </div>
         {/* Render user's dashboard with extra top padding for banner */}
@@ -5763,7 +5786,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             display:"flex", justifyContent:"space-between", alignItems:"center" }}>
             <div style={{ fontSize:15, fontWeight:700, color:C.text }}>🔔 Notifiche {unreadCount > 0 && <span style={{ background:C.red, color:"#fff", borderRadius:10, padding:"1px 7px", fontSize:11, marginLeft:6 }}>{unreadCount}</span>}</div>
             <div style={{ display:"flex", gap:8, alignItems:"center" }}>
-              {unreadCount > 0 && <button onClick={markAllRead} style={{ fontSize:11, color:C.textMuted, background:"none", border:"none", cursor:"pointer", textDecoration:"underline" }}>Segna tutte lette</button>}
+              {unreadCount > 0 && <button onClick={markAllRead} style={{ fontSize:11, color:C.textMuted, background:"none", border:"none", cursor:"pointer", textDecoration:"underline" }}>{t("auiMarkAllRead")}</button>}
               <button onClick={() => setShowNotifPanel(false)} style={{ background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:20 }}>×</button>
             </div>
           </div>
@@ -5771,7 +5794,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             {pushNotifs.length === 0 ? (
               <div style={{ textAlign:"center", padding:40, color:C.textMuted }}>
                 <div style={{ fontSize:32, marginBottom:10 }}>🔔</div>
-                Nessuna notifica
+                {t("noNotif")}
               </div>
             ) : pushNotifs.map(n => (
               <div key={n.id} onClick={async () => {
@@ -6015,7 +6038,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               </div>
               <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
                 <label style={{ padding:"10px 16px", borderRadius:10, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13, fontWeight:600, display:"flex", alignItems:"center", gap:6 }}>
-                  📊 {importLoading ? "Importando..." : "Import Excel/CSV"}
+                  📊 {importLoading ? t("bdImporting") : "Import Excel/CSV"}
                   <input type="file" accept=".csv,.xlsx,.xls,.tsv" style={{ display:"none" }}
                     onChange={e => { const f = e.target.files?.[0]; if(f) importProducts(f); e.target.value=""; }}/>
                 </label>
@@ -6817,7 +6840,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:800 }}>
                 <thead>
                   <tr style={{ background:C.surface2 }}>
-                    {["Order #","Distributor","Brand","Spedire a","Amount","Status","Date","Tracking","Actions"].map((h,i) => (
+                    {[t("hdrOrderNum"),t("hdrDistributor"),t("hdrBrand"),t("hdrShipTo"),t("hdrAmount"),t("hdrStatus"),t("hdrDate"),t("hdrTracking"),t("hdrActions")].map((h,i) => (
                       <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
                     ))}
                   </tr>
@@ -6956,13 +6979,13 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📊 {t("acomTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 16px" }}>{t("acomSub")}</p>
             <div style={{ display:"flex", justifyContent:"flex-end", marginBottom:12 }}>
-              <button onClick={recalcNow} disabled={recalcing} style={{ padding:"9px 18px", borderRadius:9, cursor: recalcing?"default":"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, opacity: recalcing?0.6:1 }}>{recalcing ? "Ricalcolo..." : "🔄 Ricalcola ora"}</button>
+              <button onClick={recalcNow} disabled={recalcing} style={{ padding:"9px 18px", borderRadius:9, cursor: recalcing?"default":"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, opacity: recalcing?0.6:1 }}>{recalcing ? t("auiRecalcing") : t("auiRecalcNow")}</button>
             </div>
             <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:760 }}>
                 <thead>
                   <tr style={{ background:C.surface2 }}>
-                    {["Brand","Fatturato stimato","Fatturato anno (reale)","% attuale","% scaglione reale","Bloccata","Azione"].map((h,i) => (
+                    {[t("hdrBrand"),t("hdrEstRevenue"),t("hdrRealRevenue"),t("hdrCurrentPct"),t("hdrTierPct"),t("hdrLocked"),t("hdrAction")].map((h,i) => (
                       <th key={i} style={{ padding:"11px 16px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:"0.08em", textTransform:"uppercase", whiteSpace:"nowrap", fontWeight:600 }}>{h}</th>
                     ))}
                   </tr>
@@ -6982,7 +7005,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         <td style={{ padding:"12px 16px", fontSize:14, fontWeight:700, color:C.goldLight }}>{(row.current ?? 11.4)}%</td>
                         <td style={{ padding:"12px 16px", fontSize:14, fontWeight:700, color:changed?C.green:C.textMuted }}>{due}%</td>
                         <td style={{ padding:"12px 16px" }}>
-                          <button onClick={() => toggleLock(row)} title={row.locked ? "Sblocca tariffa" : "Blocca tariffa: l'automatismo non la modifichera'"} style={{ padding:"5px 10px", borderRadius:7, cursor:"pointer", fontSize:12, fontWeight:600, background: row.locked ? `${C.gold}18` : "transparent", border:`1px solid ${row.locked ? C.gold : C.border}`, color: row.locked ? C.goldLight : C.textMuted, whiteSpace:"nowrap" }}>{row.locked ? "🔒 Bloccata" : "🔓 Libera"}</button>
+                          <button onClick={() => toggleLock(row)} title={row.locked ? t("auiUnlockFee") : t("auiLockFeeHint")} style={{ padding:"5px 10px", borderRadius:7, cursor:"pointer", fontSize:12, fontWeight:600, background: row.locked ? `${C.gold}18` : "transparent", border:`1px solid ${row.locked ? C.gold : C.border}`, color: row.locked ? C.goldLight : C.textMuted, whiteSpace:"nowrap" }}>{row.locked ? t("auiLocked") : t("auiFree")}</button>
                         </td>
                         <td style={{ padding:"12px 16px" }}>
                           {row.locked
@@ -7007,7 +7030,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:680 }}>
                   <thead><tr style={{ background:C.surface2 }}>
-                    {["Data","Brand","Da → A","Motivo","Fatturato"].map((h,i) => (<th key={i} style={{ padding:"10px 16px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:"0.08em", textTransform:"uppercase", whiteSpace:"nowrap", fontWeight:600 }}>{h}</th>))}
+                    {[t("hdrDate"),t("hdrBrand"),t("hdrFromTo"),t("hdrReason"),t("hdrRevenue")].map((h,i) => (<th key={i} style={{ padding:"10px 16px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:"0.08em", textTransform:"uppercase", whiteSpace:"nowrap", fontWeight:600 }}>{h}</th>))}
                   </tr></thead>
                   <tbody>
                     {commissionLog.map((l) => (
@@ -7034,7 +7057,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               </div>
               <button onClick={openNewContract}
                 style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>
-                + Nuovo Contratto
+                + {t("auiNewContract")}
               </button>
             </div>
 
@@ -7065,7 +7088,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:800 }}>
                   <thead>
                     <tr style={{ background:C.surface2 }}>
-                      {["Numero","Brand","Distributore","Territorio","Esclusiva","Validità","Status","Azioni"].map((h,i) => (
+                      {[t("hdrNumber"),t("hdrBrand"),t("hdrDistributor"),t("hdrTerritory"),t("hdrExclusivity"),t("hdrValidity"),t("hdrStatus"),t("hdrActions")].map((h,i) => (
                         <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
                       ))}
                     </tr>
@@ -7078,7 +7101,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>{c.distributor?.company_name || "—"}</td>
                         <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{c.territory}</td>
                         <td style={{ padding:"11px 14px" }}>
-                          <span style={{ fontSize:11, color:c.exclusivity?C.green:C.textMuted }}>{c.exclusivity?"✓ Esclusivo":"Non esclusivo"}</span>
+                          <span style={{ fontSize:11, color:c.exclusivity?C.green:C.textMuted }}>{c.exclusivity?t("auiExclusive"):t("auiNonExclusive")}</span>
                         </td>
                         <td style={{ padding:"11px 14px", fontSize:11, color:C.textMuted }}>
                           {c.valid_from} → {c.valid_until}
@@ -7090,12 +7113,12 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                             <button onClick={() => setAdminViewContract(c)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}12`, border:`1px solid ${C.blue}40`, color:C.blue }}>{t("aconView")}</button>
                             <button onClick={async () => {
                               await supabase.from("contracts").update({ status:"active" }).eq("id", c.id);
-                              notify("✓ Contratto attivato!");
+                              notify(t("auiContractActivated"));
                               loadContracts();
                             }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green }}>{t("aconActivate")}</button>
                             <button onClick={async () => {
                               await supabase.from("contracts").update({ status:"terminated" }).eq("id", c.id);
-                              notify("Contratto terminato");
+                              notify(t("auiContractTerminated"));
                               loadContracts();
                             }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>{t("aconTerminate")}</button>
                           </div>
@@ -7130,7 +7153,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 <div style={{ display:"flex", gap:10, alignItems:"center" }}>
                   <div style={{ flex:1 }}><label style={lbl}>{t("aconPayTerms")}</label><input type="number" value={contractForm.payment_terms} onChange={e=>setContractForm(f=>({...f, payment_terms:e.target.value}))} style={fld}/></div>
                   <label style={{ display:"flex", alignItems:"center", gap:8, fontSize:13, color:C.text, marginTop:24, flex:1, cursor:"pointer" }}>
-                    <input type="checkbox" checked={!!contractForm.exclusivity} onChange={e=>setContractForm(f=>({...f, exclusivity:e.target.checked}))}/> Esclusiva territoriale
+                    <input type="checkbox" checked={!!contractForm.exclusivity} onChange={e=>setContractForm(f=>({...f, exclusivity:e.target.checked}))}/> {t("auiTerrExclusivity")}
                   </label>
                 </div>
                 <div style={{ display:"flex", gap:10 }}>
