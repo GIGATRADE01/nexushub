@@ -895,6 +895,13 @@ Object.assign(T.es,{ atabKeyAccount:"Grandes cuentas", kaTitle:"Grandes cuentas 
 Object.assign(T.de,{ atabKeyAccount:"Key Account", kaTitle:"Key Accounts — Ketten & E-Commerce", kaSubtitle:"Verwalte Ketten und große E-Commerce, die direkt von NexusHub beliefert werden", kaEmpty:"Noch keine Ketten oder E-Commerce registriert.", kaApprove:"Konto genehmigen", kaManageBrands:"Marken verwalten", kaHideBrands:"Ausblenden", kaAuthorizeBrands:"Markenverkauf autorisieren", kaNoBrands:"Keine Marken verfügbar.", kaAuthorize:"Autorisieren", kaRevoke:"Widerrufen", kaAccessGranted:"Marke autorisiert", kaAccessRevoked:"Autorisierung widerrufen" });
 Object.assign(T.zh,{ atabKeyAccount:"大客户", kaTitle:"大客户 — 连锁与电商", kaSubtitle:"管理由 NexusHub 直接供货的连锁店和大型电商", kaEmpty:"目前没有注册的连锁店或电商。", kaApprove:"批准账户", kaManageBrands:"管理品牌", kaHideBrands:"隐藏", kaAuthorizeBrands:"授权品牌销售", kaNoBrands:"没有可用品牌。", kaAuthorize:"授权", kaRevoke:"撤销", kaAccessGranted:"品牌已授权", kaAccessRevoked:"授权已撤销" });
 Object.assign(T.ar,{ atabKeyAccount:"حسابات رئيسية", kaTitle:"الحسابات الرئيسية — سلاسل المتاجر والتجارة الإلكترونية", kaSubtitle:"إدارة السلاسل والتجارة الإلكترونية الكبيرة المزوَّدة مباشرة من NexusHub", kaEmpty:"لا توجد سلاسل أو متاجر إلكترونية مسجلة حتى الآن.", kaApprove:"الموافقة على الحساب", kaManageBrands:"إدارة العلامات", kaHideBrands:"إخفاء", kaAuthorizeBrands:"تفويض بيع العلامات", kaNoBrands:"لا توجد علامات متاحة.", kaAuthorize:"تفويض", kaRevoke:"إلغاء", kaAccessGranted:"تم تفويض العلامة", kaAccessRevoked:"تم إلغاء التفويض" });
+Object.assign(T.en,{ kaPrices:"Prices", kaHidePrices:"Close prices", kaNoProducts:"No products for this brand.", kaBrandPrice:"Brand price", kaResaleHint:"Set the price this account sees and pays to NexusHub. Without a price the product isn't orderable.", kaSavePrice:"Save", kaPriceSaved:"Price saved", kaPriceCleared:"Price removed" });
+Object.assign(T.it,{ kaPrices:"Prezzi", kaHidePrices:"Chiudi prezzi", kaNoProducts:"Nessun prodotto per questo brand.", kaBrandPrice:"Prezzo brand", kaResaleHint:"Imposta il prezzo che questa catena vedrà e pagherà a NexusHub. Senza prezzo il prodotto non è ordinabile.", kaSavePrice:"Salva", kaPriceSaved:"Prezzo salvato", kaPriceCleared:"Prezzo rimosso" });
+Object.assign(T.fr,{ kaPrices:"Prix", kaHidePrices:"Fermer les prix", kaNoProducts:"Aucun produit pour cette marque.", kaBrandPrice:"Prix marque", kaResaleHint:"Définissez le prix que ce compte voit et paie à NexusHub. Sans prix, le produit n'est pas commandable.", kaSavePrice:"Enregistrer", kaPriceSaved:"Prix enregistré", kaPriceCleared:"Prix supprimé" });
+Object.assign(T.es,{ kaPrices:"Precios", kaHidePrices:"Cerrar precios", kaNoProducts:"Ningún producto para esta marca.", kaBrandPrice:"Precio marca", kaResaleHint:"Define el precio que esta cuenta ve y paga a NexusHub. Sin precio el producto no se puede pedir.", kaSavePrice:"Guardar", kaPriceSaved:"Precio guardado", kaPriceCleared:"Precio eliminado" });
+Object.assign(T.de,{ kaPrices:"Preise", kaHidePrices:"Preise schließen", kaNoProducts:"Keine Produkte für diese Marke.", kaBrandPrice:"Markenpreis", kaResaleHint:"Lege den Preis fest, den dieses Konto sieht und an NexusHub zahlt. Ohne Preis ist das Produkt nicht bestellbar.", kaSavePrice:"Speichern", kaPriceSaved:"Preis gespeichert", kaPriceCleared:"Preis entfernt" });
+Object.assign(T.zh,{ kaPrices:"价格", kaHidePrices:"关闭价格", kaNoProducts:"该品牌没有产品。", kaBrandPrice:"品牌价格", kaResaleHint:"设置此客户看到并支付给 NexusHub 的价格。没有价格则无法下单。", kaSavePrice:"保存", kaPriceSaved:"价格已保存", kaPriceCleared:"价格已删除" });
+Object.assign(T.ar,{ kaPrices:"الأسعار", kaHidePrices:"إغلاق الأسعار", kaNoProducts:"لا توجد منتجات لهذه العلامة.", kaBrandPrice:"سعر العلامة", kaResaleHint:"حدد السعر الذي يراه هذا الحساب ويدفعه إلى NexusHub. بدون سعر لا يمكن طلب المنتج.", kaSavePrice:"حفظ", kaPriceSaved:"تم حفظ السعر", kaPriceCleared:"تم حذف السعر" });
 
 
 
@@ -5019,6 +5026,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [brands, setBrands] = useState([]);
   const [kaSel, setKaSel] = useState(null);
   const [kaAccess, setKaAccess] = useState([]);
+  const [kaPriceBrand, setKaPriceBrand] = useState(null);
+  const [kaProducts, setKaProducts] = useState([]);
+  const [kaPriceInput, setKaPriceInput] = useState({});
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [retailTargets, setRetailTargets] = useState([]);
@@ -5607,6 +5617,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     setKaAccess(data || []);
   };
   const selectKa = async (u) => {
+    setKaPriceBrand(null); setKaProducts([]); setKaPriceInput({});
     if (kaSel === u.id) { setKaSel(null); setKaAccess([]); return; }
     setKaSel(u.id); await loadKaAccess(u.id);
   };
@@ -5619,6 +5630,30 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     await supabase.from("brand_access_requests").update({ status: "rejected", updated_at: new Date().toISOString() }).eq("distributor_id", customerId).eq("brand_id", brandId);
     notify(t("kaAccessRevoked"), "error");
     loadKaAccess(customerId);
+  };
+
+  const openBrandPrices = async (customerId, brandId) => {
+    if (kaPriceBrand === brandId) { setKaPriceBrand(null); setKaProducts([]); setKaPriceInput({}); return; }
+    setKaPriceBrand(brandId);
+    const { data: prods } = await supabase.from("products").select("id,name,sku,unit_price").eq("brand_id",brandId).eq("is_active",true).order("name");
+    setKaProducts(prods || []);
+    const { data: rp } = await supabase.from("nexus_resale_prices").select("product_id,price,customer_id").eq("brand_id",brandId);
+    const inputs = {}; (rp || []).forEach(r => { if (r.customer_id === customerId) inputs[r.product_id] = String(r.price); });
+    setKaPriceInput(inputs);
+  };
+  const saveResalePrice = async (customerId, brandId, productId, priceStr) => {
+    const price = parseFloat(String(priceStr == null ? "" : priceStr).replace(",", "."));
+    const { data: existing } = await supabase.from("nexus_resale_prices").select("id").eq("product_id", productId).eq("customer_id", customerId).maybeSingle();
+    if (!priceStr || isNaN(price)) {
+      if (existing) await supabase.from("nexus_resale_prices").delete().eq("id", existing.id);
+      notify(t("kaPriceCleared"), "error");
+    } else if (existing) {
+      await supabase.from("nexus_resale_prices").update({ price, is_active: true, updated_at: new Date().toISOString() }).eq("id", existing.id);
+      notify(t("kaPriceSaved"));
+    } else {
+      await supabase.from("nexus_resale_prices").insert({ product_id: productId, brand_id: brandId, customer_id: customerId, price, currency: "EUR", is_active: true });
+      notify(t("kaPriceSaved"));
+    }
   };
 
   // Add brand manually
@@ -6154,11 +6189,40 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                       ) : brands.map(b => {
                         const authorized = accMap[b.id] === "approved";
                         return (
-                          <div key={b.id} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"8px 12px", borderRadius:8, background:C.surface2, marginBottom:6 }}>
-                            <span style={{ fontSize:13, color:C.text }}>{b.company_name || b.email}</span>
-                            {authorized
-                              ? <button onClick={()=>revokeBrand(u.id,b.id)} style={{ padding:"5px 12px", borderRadius:6, cursor:"pointer", background:`${C.red}18`, border:`1px solid ${C.red}55`, color:C.red, fontSize:11, fontWeight:600 }}>{t("kaRevoke")}</button>
-                              : <button onClick={()=>grantBrand(u.id,b.id)} style={{ padding:"5px 12px", borderRadius:6, cursor:"pointer", background:`${C.green}18`, border:`1px solid ${C.green}55`, color:C.green, fontSize:11, fontWeight:600 }}>{t("kaAuthorize")}</button>}
+                          <div key={b.id} style={{ background:C.surface2, borderRadius:8, marginBottom:6, overflow:"hidden" }}>
+                            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"8px 12px" }}>
+                              <span style={{ fontSize:13, color:C.text }}>{b.company_name || b.email}</span>
+                              <div style={{ display:"flex", gap:6 }}>
+                                {authorized ? (
+                                  <>
+                                    <button onClick={()=>openBrandPrices(u.id,b.id)} style={{ padding:"5px 12px", borderRadius:6, cursor:"pointer", background:`${C.blue}18`, border:`1px solid ${C.blue}55`, color:C.blue, fontSize:11, fontWeight:600 }}>{kaPriceBrand===b.id ? t("kaHidePrices") : t("kaPrices")}</button>
+                                    <button onClick={()=>revokeBrand(u.id,b.id)} style={{ padding:"5px 12px", borderRadius:6, cursor:"pointer", background:`${C.red}18`, border:`1px solid ${C.red}55`, color:C.red, fontSize:11, fontWeight:600 }}>{t("kaRevoke")}</button>
+                                  </>
+                                ) : (
+                                  <button onClick={()=>grantBrand(u.id,b.id)} style={{ padding:"5px 12px", borderRadius:6, cursor:"pointer", background:`${C.green}18`, border:`1px solid ${C.green}55`, color:C.green, fontSize:11, fontWeight:600 }}>{t("kaAuthorize")}</button>
+                                )}
+                              </div>
+                            </div>
+                            {authorized && kaPriceBrand === b.id && (
+                              <div style={{ padding:"10px 12px", borderTop:`1px solid ${C.border}` }}>
+                                <div style={{ fontSize:11, color:C.textMuted, marginBottom:8 }}>{t("kaResaleHint")}</div>
+                                {kaProducts.length === 0 ? (
+                                  <div style={{ color:C.textDim, fontSize:12 }}>{t("kaNoProducts")}</div>
+                                ) : kaProducts.map(p => (
+                                  <div key={p.id} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", gap:10, padding:"6px 0", flexWrap:"wrap" }}>
+                                    <div style={{ minWidth:140, flex:1 }}>
+                                      <div style={{ fontSize:13, color:C.text }}>{p.name}</div>
+                                      <div style={{ fontSize:10, color:C.textDim }}>{t("kaBrandPrice")}: €{p.unit_price ?? "\u2014"}</div>
+                                    </div>
+                                    <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+                                      <span style={{ fontSize:12, color:C.textMuted }}>€</span>
+                                      <input type="number" step="0.01" min="0" value={kaPriceInput[p.id] ?? ""} onChange={e=>setKaPriceInput(prev=>({ ...prev, [p.id]: e.target.value }))} placeholder={p.unit_price ? String(p.unit_price) : "0.00"} style={{ width:90, padding:"6px 8px", borderRadius:6, background:C.surface, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none" }}/>
+                                      <button onClick={()=>saveResalePrice(u.id,b.id,p.id,kaPriceInput[p.id])} style={{ padding:"6px 12px", borderRadius:6, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:"#08080f", fontSize:11, fontWeight:700 }}>{t("kaSavePrice")}</button>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         );
                       })}
