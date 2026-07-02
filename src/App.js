@@ -3604,8 +3604,10 @@ const CONTRACT_LANG_BY_COUNTRY = {
   "france":"fr","francia":"fr","fr":"fr",
   "spain":"es","spagna":"es","espana":"es","es":"es",
   "germany":"de","germania":"de","deutschland":"de","de":"de",
+  "china":"zh","cina":"zh","cn":"zh",
+  "united arab emirates":"ar","uae":"ar","emirati arabi uniti":"ar","ae":"ar","saudi arabia":"ar","arabia saudita":"ar","sa":"ar","qatar":"ar","qa":"ar","kuwait":"ar","kw":"ar","bahrain":"ar","bh":"ar","oman":"ar","om":"ar","egypt":"ar","egitto":"ar","eg":"ar","jordan":"ar","jo":"ar","morocco":"ar","marocco":"ar","ma":"ar","lebanon":"ar","libano":"ar","lb":"ar",
 };
-const CONTRACT_LANG_NAME = { it:"Italiano", fr:"Francais", es:"Espanol", de:"Deutsch" };
+const CONTRACT_LANG_NAME = { it:"Italiano", fr:"Francais", es:"Espanol", de:"Deutsch", zh:"中文", ar:"العربية" };
 
 function buildContract(opts) {
   const o = opts || {};
@@ -3863,6 +3865,98 @@ Dieser Vertrag wird in englischer und deutscher Sprache erstellt. Bei Abweichung
 Mit der elektronischen Annahme bestatigt der Vertriebspartner, diesen Vertrag gelesen, verstanden und genehmigt zu haben. Die elektronische Annahme bildet zusammen mit dem erfassten Namen und Zeitstempel den Nachweis der Zustimmung des Vertriebspartners.
 
 — ENTWURF — Dieses Dokument ist eine zur betrieblichen Vereinfachung bereitgestellte Vorlage und muss vor der Verwendung von qualifizierten Rechtsberatern gepruft und freigegeben werden. Es stellt keine Rechtsberatung dar.`;
+  } else if (sec === "zh") {
+    secText = `国际分销协议
+协议编号：${contractNumber}
+
+签约双方
+${brandName}（"授权方"）
+与
+${distCompany}（"分销商"）
+
+1. 委任与范围
+授权方委任分销商在区域内推广、营销并转售授权方的产品（"产品"），分销商接受该项委任。
+
+2. 区域
+本协议所涵盖的区域为：${territory}。
+
+3. 独家性
+${exclusive ? "分销商被委任为该区域内产品的独家分销商。在协议期限内，授权方不得在该区域内委任其他产品分销商。" : "分销商以非独家方式被委任。授权方可在该区域内委任其他产品分销商。"}
+
+4. 期限
+本协议自 ${validFrom} 起至 ${validUntil} 止有效，除非依据其条款提前终止。经双方书面约定可予以续期。
+
+5. 订单与供应
+分销商通过 NexusHub 平台下达订单以采购产品。授权方将尽合理努力，在有货情况下履行已接受的订单。供应的商业与经济条件由双方另行约定，不构成本文件的组成部分。
+
+6. 商标与知识产权
+分销商仅可在协议期限内为营销和转售产品之目的使用授权方的商标及品牌资料，且不因此取得任何所有权。因该等使用而产生的一切商誉均归属授权方。
+
+7. 分销商的义务
+分销商应：(a) 在区域内勤勉推广产品；(b) 遵守所有适用的法律法规；(c) 维护产品及授权方品牌的声誉与完整；及 (d) 未经授权方事先书面同意，不得主动在区域外招揽销售。
+
+8. 保密
+各方应对自另一方获得的所有非公开信息予以保密，并仅将其用于履行本协议。
+
+9. 终止
+任何一方均可在对方发生重大违约且未能于书面通知后三十(30)日内予以纠正时，或在对方资不抵债时，终止本协议。协议届满或终止不影响在该日期之前已产生的权利与义务。
+
+10. 适用法律
+本协议受授权方营业地所适用的法律管辖。双方应在将争议提交有管辖权的法院之前，努力友好解决。
+
+11. 语言
+本协议以英文和中文订立。如有歧义或解释冲突，以英文版本为准。
+
+12. 接受
+通过电子方式接受，即表示分销商确认已阅读、理解并同意本协议。电子接受连同所记录的姓名及时间戳，构成分销商同意的证据。
+
+— 草稿 — 本文件为便于业务操作而提供的模板，使用前必须经合格法律顾问审核并确认。本文件不构成法律意见。`;
+  } else if (sec === "ar") {
+    secText = `اتفاقية توزيع دولية
+رقم الاتفاقية: ${contractNumber}
+
+بين
+${brandName} ("الموكِّل")
+و
+${distCompany} ("الموزِّع")
+
+1. التعيين والنطاق
+يعيّن الموكِّل الموزِّع للترويج لمنتجات الموكِّل ("المنتجات") وتسويقها وإعادة بيعها داخل الإقليم، ويقبل الموزِّع هذا التعيين.
+
+2. الإقليم
+الإقليم المشمول بهذه الاتفاقية هو: ${territory}.
+
+3. الحصرية
+${exclusive ? "يُعيَّن الموزِّع موزِّعًا حصريًا للمنتجات داخل الإقليم. وخلال مدة الاتفاقية، لا يجوز للموكِّل تعيين موزّعين آخرين للمنتجات داخل الإقليم." : "يُعيَّن الموزِّع على أساس غير حصري. ويجوز للموكِّل تعيين موزّعين آخرين للمنتجات داخل الإقليم."}
+
+4. المدة
+تسري هذه الاتفاقية من ${validFrom} إلى ${validUntil}، ما لم تُنهَ قبل ذلك وفقًا لأحكامها. ويجوز تجديدها باتفاق كتابي بين الطرفين.
+
+5. الطلبات والتوريد
+يشتري الموزِّع المنتجات بتقديم الطلبات عبر منصة NexusHub. ويبذل الموكِّل جهودًا معقولة لتنفيذ الطلبات المقبولة رهنًا بالتوافر. ويُتَّفق على الشروط التجارية والاقتصادية للتوريد بشكل منفصل بين الطرفين، ولا تُشكِّل جزءًا من هذه الوثيقة.
+
+6. العلامات التجارية والملكية الفكرية
+يجوز للموزِّع استخدام العلامات التجارية ومواد الموكِّل حصريًا لتسويق المنتجات وإعادة بيعها خلال مدة الاتفاقية، دون اكتساب أي حق ملكية فيها. وتعود كل شهرة تنشأ عن هذا الاستخدام لمصلحة الموكِّل.
+
+7. التزامات الموزِّع
+يلتزم الموزِّع بما يلي: (أ) الترويج للمنتجات بعناية داخل الإقليم؛ (ب) الامتثال لجميع القوانين واللوائح المعمول بها؛ (ج) حماية سمعة ونزاهة المنتجات وعلامة الموكِّل؛ (د) عدم السعي الفعّال للبيع خارج الإقليم دون موافقة كتابية مسبقة من الموكِّل.
+
+8. السرية
+يحافظ كل طرف على سرية جميع المعلومات غير العلنية التي يتلقاها من الطرف الآخر، ويستخدمها حصريًا لتنفيذ هذه الاتفاقية.
+
+9. الإنهاء
+يجوز لأي من الطرفين إنهاء هذه الاتفاقية في حال وقوع إخلال جوهري لم يُصحَّح خلال ثلاثين (30) يومًا من الإشعار الكتابي، أو عند إعسار الطرف الآخر. ولا يؤثر انتهاء المدة أو الإنهاء على الحقوق والالتزامات المستحقة قبل ذلك التاريخ.
+
+10. القانون الواجب التطبيق
+تخضع هذه الاتفاقية للقانون المعمول به في مقر عمل الموكِّل. ويسعى الطرفان إلى تسوية أي نزاع وديًا قبل عرضه على المحاكم المختصة.
+
+11. اللغة
+حُرِّرت هذه الاتفاقية باللغتين الإنجليزية والعربية. وفي حال وجود أي تعارض أو اختلاف في التفسير، تكون النسخة الإنجليزية هي المرجِّحة.
+
+12. القبول
+بالقبول إلكترونيًا، يؤكد الموزِّع أنه قرأ هذه الاتفاقية وفهمها ووافق عليها. ويُشكِّل القبول الإلكتروني، مع الاسم والطابع الزمني المسجَّلين، دليلًا على موافقة الموزِّع.
+
+— مسودة — هذه الوثيقة نموذج مقدَّم لأغراض التيسير التشغيلي، ويجب مراجعتها واعتمادها من مستشار قانوني مؤهل قبل الاستخدام. ولا تُشكِّل استشارة قانونية.`;
   }
 
   return { en: en, sec: sec, secName: secName, secText: secText };
@@ -3921,7 +4015,7 @@ const ContractModal = ({ contract, brandName, distCompany, distName, distCountry
           {doc.secText && (
             <div>
               <div style={{ margin:"22px 0 10px", borderTop:`1px dashed ${C.border}`, paddingTop:16, fontSize:11, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase" }}>{doc.secName}</div>
-              <pre style={preStyle}>{doc.secText}</pre>
+              <pre style={preStyle} dir={doc.sec==="ar"?"rtl":"ltr"}>{doc.secText}</pre>
             </div>
           )}
         </div>
