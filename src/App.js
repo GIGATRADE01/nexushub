@@ -839,6 +839,27 @@ Object.assign(T.es,{ dmoIntroTag:"Plataforma global de distribución B2B", dmoIn
 Object.assign(T.de,{ dmoIntroTag:"Globale B2B-Distributionsplattform", dmoIntroSub:"Wir verbinden Marken und Händler in ganz Europa — automatisiert, sofort, skalierbar", dmoProbTitle:"Der alte Weg funktioniert nicht mehr", dmoProb1:"Endlose E-Mails und Anrufe zur Händlerverwaltung", dmoProb2:"Keine Echtzeit-Sicht auf den Bestand", dmoProb3:"Manuelle Rechnungen und Zahlungsverfolgung", dmoProb4:"Keine Marktdaten oder Gebietsdaten", dmoSolTitle:"Eine Plattform. Alles.", dmoSolSub:"NexusHub automatisiert die gesamte Vertriebskette — vom Katalog bis zur Zahlung — in ganz Europa", dmoSolCountries:"Länder", dmoSolDelivery:"Lieferung", dmoSolAutomated:"Automatisiert", dmoSecTitle:"Jede Branche. Ein Hub.", dmoSecSub:"NexusHub funktioniert in allen B2B-Produktkategorien", dmoSecBeauty:"Beauty", dmoSecBeautyS:"Kosmetik & Düfte", dmoSecFashion:"Mode", dmoSecFashionS:"Bekleidung & Accessoires", dmoSecFood:"Food & Beverage", dmoSecFoodS:"Premium & Spezialitäten", dmoSecElec:"Elektronik", dmoSecElecS:"Consumer- & Pro-Technik", dmoSecHome:"Wohnen & Living", dmoSecHomeS:"Design & Möbel", dmoSecHealth:"Gesundheit", dmoSecHealthS:"OTC & Wellness", dmoMapTitle:"Ein Hub. Grenzenlose Verbindungen.", dmoMapSub:"Von Turin aus erreichen wir jeden europäischen Markt — schnell, direkt, exklusiv", dmoBrTitle:"Für Marken", dmoBrSub:"Volle Kontrolle. Volle Transparenz. Null Handarbeit.", dmoBr1:"Gebietsverwaltung — ein Händler pro Land", dmoBr2:"Echtzeit-Bestand mit Bestellregeln (MOQ, Vielfache)", dmoBr3:"Händler & Dokumente mit einem Klick freigeben", dmoBr4:"Automatische SEPA-Zahlungen — Gelder sofort erhalten", dmoDiTitle:"Für Händler", dmoDiSub:"Zugang zu Premium-Marken. Erweitere dein Gebiet.", dmoDi1:"Top-Weltmarken durchsuchen & bewerben", dmoDi2:"Aus Live-Katalog mit Echtzeit-Bestand bestellen", dmoDi3:"48h-Lieferung vom europäischen Hub in Turin", dmoDi4:"Umsatzanalysen & Gebiets-Performance-Dashboard", dmoValTitle:"Mehr Fluss. Mehr Umsatz.", dmoValSub:"NexusHub beseitigt Reibung — schnellere Lagerrotation bedeutet mehr Umsatz für alle", dmoValStock:"Bestand kommt an", dmoValStockS:"Echtzeit-Katalogaktualisierung", dmoValOrders:"Händler bestellt", dmoValOrdersS:"Sofortige SEPA-Zahlung", dmoValRev:"Umsatz fließt", dmoValRevS:"Marke + Händler gewinnen", dmoValM1:"Schnellere Rotation", dmoValM2:"Handarbeit", dmoValM3:"Umsatz für alle", dmoNumTitle:"Für Skalierung gebaut", dmoNum1:"Plattform-GMV", dmoNum2:"Aktive Händler", dmoNum3:"Paletten / Monat", dmoNum4:"Vom Hub zur Tür", dmoAmzService:"Exklusiver Management-Service", dmoAmzSub:"Wir kümmern uns um alles — du kassierst den Umsatz", dmoAmzC1:"FBA-Logistik", dmoAmzC1S:"Vollständiges Amazon-FBA-Management auf allen EU-Marktplätzen", dmoAmzC2:"PPC-Werbung", dmoAmzC2S:"Sponsored Ads, DSP-Kampagnen, Brand-Store-Verwaltung", dmoAmzC3:"Preiskontrolle", dmoAmzC3S:"MAP-Durchsetzung, Buy-Box-Optimierung, Wettbewerbsbeobachtung", dmoAmzC4:"Exklusivrechte", dmoAmzC4S:"Eine Marke, ein Partner — voller Marktschutz garantiert", dmoAmzActiveOn:"Aktiv auf", dmoCtaTitle:"Bereit mitzumachen?", dmoCtaSub:"Wähle deine Rolle — die Registrierung ist kostenlos, starte noch heute", dmoCtaBrand:"Ich bin eine Marke", dmoCtaDist:"Ich bin ein Händler", dmoCtaBack:"Zurück zum Login" });
 Object.assign(T.zh,{ dmoIntroTag:"全球 B2B 分销平台", dmoIntroSub:"连接全欧洲的品牌与经销商 —— 自动化、即时、可扩展", dmoProbTitle:"旧模式已经失灵", dmoProb1:"为管理经销商而无休止地发邮件、打电话", dmoProb2:"无法实时掌握库存", dmoProb3:"手动开票、追讨付款", dmoProb4:"毫无市场情报或区域数据", dmoSolTitle:"一个平台，包揽一切。", dmoSolSub:"NexusHub 自动化整个分销链 —— 从目录到付款 —— 覆盖全欧洲", dmoSolCountries:"国家", dmoSolDelivery:"交付", dmoSolAutomated:"自动化", dmoSecTitle:"每个行业，一个枢纽。", dmoSecSub:"NexusHub 适用于所有 B2B 产品类别", dmoSecBeauty:"美妆", dmoSecBeautyS:"化妆品与香水", dmoSecFashion:"时尚", dmoSecFashionS:"服装与配饰", dmoSecFood:"食品与饮料", dmoSecFoodS:"高端与特色", dmoSecElec:"电子产品", dmoSecElecS:"消费与专业科技", dmoSecHome:"家居生活", dmoSecHomeS:"设计与家具", dmoSecHealth:"健康", dmoSecHealthS:"非处方药与健康", dmoMapTitle:"一个枢纽，无限连接。", dmoMapSub:"从都灵出发，直达每一个欧洲市场 —— 快速、直接、专属", dmoBrTitle:"面向品牌", dmoBrSub:"完全掌控。完全可见。零手动操作。", dmoBr1:"区域管理 —— 每个国家一个经销商", dmoBr2:"实时库存与订购规则（MOQ、倍数）", dmoBr3:"一键批准经销商与文件", dmoBr4:"自动 SEPA 付款 —— 即时到账", dmoDiTitle:"面向经销商", dmoDiSub:"接触高端品牌。拓展你的区域。", dmoDi1:"浏览并申请全球顶级品牌", dmoDi2:"从实时目录下单，库存实时更新", dmoDi3:"从都灵欧洲枢纽 48 小时送达", dmoDi4:"营收分析与区域业绩仪表盘", dmoValTitle:"更多流动，更多营收。", dmoValSub:"NexusHub 消除摩擦 —— 库存周转更快，人人营收更高", dmoValStock:"库存到货", dmoValStockS:"实时更新目录", dmoValOrders:"经销商下单", dmoValOrdersS:"即时 SEPA 付款", dmoValRev:"营收流动", dmoValRevS:"品牌与经销商双赢", dmoValM1:"更快周转", dmoValM2:"手动工作", dmoValM3:"人人营收", dmoNumTitle:"为规模而生", dmoNum1:"平台 GMV", dmoNum2:"活跃经销商", dmoNum3:"托盘 / 月", dmoNum4:"从枢纽到家门", dmoAmzService:"独家管理服务", dmoAmzSub:"一切由我们打理 —— 营收归你", dmoAmzC1:"FBA 物流", dmoAmzC1S:"在所有欧盟站点全面管理亚马逊 FBA", dmoAmzC2:"PPC 广告", dmoAmzC2S:"赞助广告、DSP 活动、品牌旗舰店管理", dmoAmzC3:"价格管控", dmoAmzC3S:"执行 MAP、优化 Buy Box、竞品监控", dmoAmzC4:"独家权益", dmoAmzC4S:"一个品牌，一个伙伴 —— 保障全面的市场保护", dmoAmzActiveOn:"已上线", dmoCtaTitle:"准备好加入了吗？", dmoCtaSub:"选择你的角色 —— 注册免费，今天就开始", dmoCtaBrand:"我是品牌方", dmoCtaDist:"我是经销商", dmoCtaBack:"返回登录" });
 Object.assign(T.ar,{ dmoIntroTag:"منصة توزيع B2B عالمية", dmoIntroSub:"نربط العلامات والموزّعين في جميع أنحاء أوروبا — آلي وفوري وقابل للتوسّع", dmoProbTitle:"الطريقة القديمة لم تعد تعمل", dmoProb1:"رسائل ومكالمات لا تنتهي لإدارة الموزّعين", dmoProb2:"لا رؤية آنية للمخزون", dmoProb3:"فواتير يدوية ومطاردة للمدفوعات", dmoProb4:"صفر معلومات سوقية أو بيانات عن المناطق", dmoSolTitle:"منصة واحدة. كل شيء.", dmoSolSub:"يُؤتمت NexusHub سلسلة التوزيع بالكامل — من الكتالوج إلى الدفع — في أنحاء أوروبا", dmoSolCountries:"دولة", dmoSolDelivery:"توصيل", dmoSolAutomated:"آلي", dmoSecTitle:"كل قطاع. مركز واحد.", dmoSecSub:"يعمل NexusHub في جميع فئات منتجات B2B", dmoSecBeauty:"الجمال", dmoSecBeautyS:"مستحضرات التجميل والعطور", dmoSecFashion:"الموضة", dmoSecFashionS:"الملابس والإكسسوارات", dmoSecFood:"الأغذية والمشروبات", dmoSecFoodS:"بريميوم وتخصصية", dmoSecElec:"الإلكترونيات", dmoSecElecS:"تقنية استهلاكية واحترافية", dmoSecHome:"المنزل والمعيشة", dmoSecHomeS:"التصميم والأثاث", dmoSecHealth:"الصحة", dmoSecHealthS:"الأدوية دون وصفة والعافية", dmoMapTitle:"مركز واحد. اتصالات لا حدود لها.", dmoMapSub:"من تورينو نصل إلى كل سوق أوروبي — سريع ومباشر وحصري", dmoBrTitle:"للعلامات التجارية", dmoBrSub:"تحكّم كامل. رؤية كاملة. صفر عمل يدوي.", dmoBr1:"إدارة المناطق — موزّع واحد لكل دولة", dmoBr2:"مخزون آني مع قواعد الطلب (MOQ، مضاعفات)", dmoBr3:"اعتمد الموزّعين والمستندات بنقرة واحدة", dmoBr4:"مدفوعات SEPA تلقائية — استلم الأموال فورًا", dmoDiTitle:"للموزّعين", dmoDiSub:"احصل على علامات بريميوم. وسّع منطقتك.", dmoDi1:"تصفّح وقدّم لأفضل العلامات العالمية", dmoDi2:"اطلب من كتالوج حيّ بمخزون آني", dmoDi3:"توصيل خلال 48 ساعة من مركز تورينو الأوروبي", dmoDi4:"تحليلات الإيرادات ولوحة أداء المنطقة", dmoValTitle:"تدفّق أكثر. إيرادات أكثر.", dmoValSub:"يزيل NexusHub الاحتكاك — دوران أسرع للمخزون يعني إيرادات أكثر للجميع", dmoValStock:"يصل المخزون", dmoValStockS:"تحديث الكتالوج آنيًا", dmoValOrders:"يطلب الموزّع", dmoValOrdersS:"دفع SEPA فوري", dmoValRev:"تتدفّق الإيرادات", dmoValRevS:"تفوز العلامة + الموزّع", dmoValM1:"دوران أسرع", dmoValM2:"عمل يدوي", dmoValM3:"إيرادات للجميع", dmoNumTitle:"مبني للتوسّع", dmoNum1:"إجمالي مبيعات المنصة (GMV)", dmoNum2:"موزّعون نشطون", dmoNum3:"منصات نقالة / شهر", dmoNum4:"من المركز إلى الباب", dmoAmzService:"خدمة إدارة حصرية", dmoAmzSub:"نتولّى كل شيء — وأنت تحصّل الإيرادات", dmoAmzC1:"لوجستيات FBA", dmoAmzC1S:"إدارة كاملة لـ Amazon FBA في جميع أسواق الاتحاد الأوروبي", dmoAmzC2:"إعلانات PPC", dmoAmzC2S:"إعلانات ممولة، حملات DSP، إدارة متجر العلامة", dmoAmzC3:"التحكّم بالأسعار", dmoAmzC3S:"فرض MAP، تحسين Buy Box، مراقبة المنافسين", dmoAmzC4:"حقوق حصرية", dmoAmzC4S:"علامة واحدة، شريك واحد — حماية كاملة للسوق مضمونة", dmoAmzActiveOn:"نشط على", dmoCtaTitle:"جاهز للانضمام؟", dmoCtaSub:"اختر دورك — التسجيل مجاني، ابدأ اليوم", dmoCtaBrand:"أنا علامة تجارية", dmoCtaDist:"أنا موزّع", dmoCtaBack:"العودة لتسجيل الدخول" });
+Object.assign(T.en,{ rgBankHdrBrand:"Banking Details for Receiving Payments", rgBankHdrDist:"Shipping Address and Banking Details", rgBankInfoBrand:"Distributors will use these details to send you payments via SEPA transfer", rgBankInfoDist:"These details will be used for order payments", rgAddr:"Address (Street/Square)", rgAddrPh:"e.g. Via Roma 1", rgCity:"City", rgCityPh:"e.g. Bucharest", rgZip:"Postal Code", rgZipPh:"e.g. 010101", rgProvince:"Province/Region", rgProvincePh:"e.g. Sector 1", rgAcctHolder:"Account Holder", rgAcctHolderPh:"Name/Company Name", rgBank:"Bank", rgBankPh:"e.g. Unicredit, Intesa...", rgIbanLbl:"IBAN", rgSwift:"SWIFT/BIC (optional)", rgSwiftPh:"e.g. UNCRITMM", rgFiscalHdr:"Tax Details", rgVatNumber:"VAT Number" });
+Object.assign(T.it,{ rgBankHdrBrand:"Dati Bancari per Ricezione Pagamenti", rgBankHdrDist:"Indirizzo di Spedizione e Dati Bancari", rgBankInfoBrand:"I distributori useranno questi dati per inviarti i pagamenti via bonifico SEPA", rgBankInfoDist:"Questi dati saranno usati per i pagamenti degli ordini", rgAddr:"Indirizzo (Via/Piazza)", rgAddrPh:"es. Via Roma 1", rgCity:"Città", rgCityPh:"es. Bucarest", rgZip:"CAP", rgZipPh:"es. 010101", rgProvince:"Provincia/Regione", rgProvincePh:"es. Sector 1", rgAcctHolder:"Intestatario Conto", rgAcctHolderPh:"Nome/Ragione Sociale", rgBank:"Banca", rgBankPh:"es. Unicredit, Intesa...", rgIbanLbl:"IBAN", rgSwift:"SWIFT/BIC (opzionale)", rgSwiftPh:"es. UNCRITMM", rgFiscalHdr:"Dati Fiscali", rgVatNumber:"Partita IVA" });
+Object.assign(T.fr,{ rgBankHdrBrand:"Coordonnées bancaires pour recevoir les paiements", rgBankHdrDist:"Adresse de livraison et coordonnées bancaires", rgBankInfoBrand:"Les distributeurs utiliseront ces informations pour vous envoyer les paiements par virement SEPA", rgBankInfoDist:"Ces informations serviront aux paiements des commandes", rgAddr:"Adresse (rue/place)", rgAddrPh:"ex. Via Roma 1", rgCity:"Ville", rgCityPh:"ex. Bucarest", rgZip:"Code postal", rgZipPh:"ex. 010101", rgProvince:"Province/Région", rgProvincePh:"ex. Sector 1", rgAcctHolder:"Titulaire du compte", rgAcctHolderPh:"Nom/Raison sociale", rgBank:"Banque", rgBankPh:"ex. Unicredit, Intesa...", rgIbanLbl:"IBAN", rgSwift:"SWIFT/BIC (optionnel)", rgSwiftPh:"ex. UNCRITMM", rgFiscalHdr:"Données fiscales", rgVatNumber:"Numéro de TVA" });
+Object.assign(T.es,{ rgBankHdrBrand:"Datos bancarios para recibir pagos", rgBankHdrDist:"Dirección de envío y datos bancarios", rgBankInfoBrand:"Los distribuidores usarán estos datos para enviarte pagos por transferencia SEPA", rgBankInfoDist:"Estos datos se usarán para los pagos de los pedidos", rgAddr:"Dirección (calle/plaza)", rgAddrPh:"ej. Via Roma 1", rgCity:"Ciudad", rgCityPh:"ej. Bucarest", rgZip:"Código postal", rgZipPh:"ej. 010101", rgProvince:"Provincia/Región", rgProvincePh:"ej. Sector 1", rgAcctHolder:"Titular de la cuenta", rgAcctHolderPh:"Nombre/Razón social", rgBank:"Banco", rgBankPh:"ej. Unicredit, Intesa...", rgIbanLbl:"IBAN", rgSwift:"SWIFT/BIC (opcional)", rgSwiftPh:"ej. UNCRITMM", rgFiscalHdr:"Datos fiscales", rgVatNumber:"Número de IVA" });
+Object.assign(T.de,{ rgBankHdrBrand:"Bankdaten für den Zahlungseingang", rgBankHdrDist:"Lieferadresse und Bankdaten", rgBankInfoBrand:"Händler nutzen diese Daten, um dir Zahlungen per SEPA-Überweisung zu senden", rgBankInfoDist:"Diese Daten werden für Bestellzahlungen verwendet", rgAddr:"Adresse (Straße/Platz)", rgAddrPh:"z.B. Via Roma 1", rgCity:"Stadt", rgCityPh:"z.B. Bukarest", rgZip:"PLZ", rgZipPh:"z.B. 010101", rgProvince:"Provinz/Region", rgProvincePh:"z.B. Sector 1", rgAcctHolder:"Kontoinhaber", rgAcctHolderPh:"Name/Firmenname", rgBank:"Bank", rgBankPh:"z.B. Unicredit, Intesa...", rgIbanLbl:"IBAN", rgSwift:"SWIFT/BIC (optional)", rgSwiftPh:"z.B. UNCRITMM", rgFiscalHdr:"Steuerdaten", rgVatNumber:"USt-IdNr." });
+Object.assign(T.zh,{ rgBankHdrBrand:"收款银行信息", rgBankHdrDist:"收货地址与银行信息", rgBankInfoBrand:"经销商将使用这些信息通过 SEPA 转账向你付款", rgBankInfoDist:"这些信息将用于订单付款", rgAddr:"地址（街道/广场）", rgAddrPh:"例如 Via Roma 1", rgCity:"城市", rgCityPh:"例如 布加勒斯特", rgZip:"邮编", rgZipPh:"例如 010101", rgProvince:"省/地区", rgProvincePh:"例如 Sector 1", rgAcctHolder:"账户持有人", rgAcctHolderPh:"姓名/公司名称", rgBank:"银行", rgBankPh:"例如 Unicredit, Intesa...", rgIbanLbl:"IBAN", rgSwift:"SWIFT/BIC（可选）", rgSwiftPh:"例如 UNCRITMM", rgFiscalHdr:"税务信息", rgVatNumber:"增值税号" });
+Object.assign(T.ar,{ rgBankHdrBrand:"بيانات البنك لاستلام المدفوعات", rgBankHdrDist:"عنوان الشحن والبيانات المصرفية", rgBankInfoBrand:"سيستخدم الموزّعون هذه البيانات لإرسال المدفوعات إليك عبر تحويل SEPA", rgBankInfoDist:"ستُستخدم هذه البيانات لمدفوعات الطلبات", rgAddr:"العنوان (شارع/ميدان)", rgAddrPh:"مثال: Via Roma 1", rgCity:"المدينة", rgCityPh:"مثال: بوخارست", rgZip:"الرمز البريدي", rgZipPh:"مثال: 010101", rgProvince:"المحافظة/المنطقة", rgProvincePh:"مثال: Sector 1", rgAcctHolder:"صاحب الحساب", rgAcctHolderPh:"الاسم/اسم الشركة", rgBank:"البنك", rgBankPh:"مثال: Unicredit, Intesa...", rgIbanLbl:"IBAN", rgSwift:"SWIFT/BIC (اختياري)", rgSwiftPh:"مثال: UNCRITMM", rgFiscalHdr:"البيانات الضريبية", rgVatNumber:"الرقم الضريبي (VAT)" });
+Object.assign(T.en,{ ddIssueSent:"Issue submitted. It stays tracked and you'll be contacted back.", ddIssueErr:"Error submitting the issue.", ddOrderErr:"Order error:", ddNoProdAvail:"No product from this order is available in your catalog yet.", ddStripeNotCfg:"⚙️ Stripe not configured yet. Contact NexusHub to enable card payments.", ddStripeErr:"Stripe error:", ddRetry:"Try again", ddError:"Error:", ddDocs:"Documents", ddClose:"Close", ddReportIssue:"Report a problem", ddSave:"Save", ddNewAccessReq:"New access request", ddWishlist:"Wishlist", ddInvoices:"Invoices", ddAISuggest:"AI Suggestions", ddAttachPhoto:"Attach photo (optional)", ddViewAgreement:"📄 View signed agreement", ddSignAgreement:"✍️ Review & sign agreement", ddInWishlist:"♥ In wishlist", ddAddWishlist:"♡ Add to wishlist", ddSending:"Sending...", ddSendIssue:"Send report", ddConfirmWire:"🏦 Confirm Order — Pay via Bank Transfer", ddConfirmSepa:"⚡ Confirm Order — SEPA Debit", ddPayCard:"Pay by Card via Stripe", ddCancel:"Cancel", ddSeeOrders:"See my orders →", noNotif:"No notifications" });
+Object.assign(T.it,{ ddIssueSent:"Segnalazione inviata. Resta tracciata e verrai ricontattato.", ddIssueErr:"Errore nell'invio della segnalazione.", ddOrderErr:"Errore nell'ordine:", ddNoProdAvail:"Nessun prodotto di questo ordine è ancora disponibile nel tuo catalogo.", ddStripeNotCfg:"⚙️ Stripe non ancora configurato. Contatta NexusHub per abilitare i pagamenti con carta.", ddStripeErr:"Errore Stripe:", ddRetry:"Riprova", ddError:"Errore:", ddDocs:"Documenti", ddClose:"Chiudi", ddReportIssue:"Segnala un problema", ddSave:"Salva", ddNewAccessReq:"Nuova richiesta di accesso", ddWishlist:"Desideri", ddInvoices:"Fatture", ddAISuggest:"Suggerimenti AI", ddAttachPhoto:"Allega foto (opzionale)", ddViewAgreement:"📄 Vedi contratto firmato", ddSignAgreement:"✍️ Rivedi e firma il contratto", ddInWishlist:"♥ Nei desideri", ddAddWishlist:"♡ Aggiungi ai desideri", ddSending:"Invio...", ddSendIssue:"Invia segnalazione", ddConfirmWire:"🏦 Conferma Ordine — Paga via Bonifico", ddConfirmSepa:"⚡ Conferma Ordine — SEPA Debit", ddPayCard:"Paga con Carta via Stripe", ddCancel:"Annulla", ddSeeOrders:"Vedi i miei ordini →", noNotif:"Nessuna notifica" });
+Object.assign(T.fr,{ ddIssueSent:"Signalement envoyé. Il reste suivi et vous serez recontacté.", ddIssueErr:"Erreur lors de l'envoi du signalement.", ddOrderErr:"Erreur de commande :", ddNoProdAvail:"Aucun produit de cette commande n'est encore disponible dans votre catalogue.", ddStripeNotCfg:"⚙️ Stripe pas encore configuré. Contactez NexusHub pour activer les paiements par carte.", ddStripeErr:"Erreur Stripe :", ddRetry:"Réessayer", ddError:"Erreur :", ddDocs:"Documents", ddClose:"Fermer", ddReportIssue:"Signaler un problème", ddSave:"Enregistrer", ddNewAccessReq:"Nouvelle demande d'accès", ddWishlist:"Favoris", ddInvoices:"Factures", ddAISuggest:"Suggestions IA", ddAttachPhoto:"Joindre une photo (facultatif)", ddViewAgreement:"📄 Voir l'accord signé", ddSignAgreement:"✍️ Vérifier et signer l'accord", ddInWishlist:"♥ Dans les favoris", ddAddWishlist:"♡ Ajouter aux favoris", ddSending:"Envoi...", ddSendIssue:"Envoyer le signalement", ddConfirmWire:"🏦 Confirmer la commande — Payer par virement", ddConfirmSepa:"⚡ Confirmer la commande — Prélèvement SEPA", ddPayCard:"Payer par carte via Stripe", ddCancel:"Annuler", ddSeeOrders:"Voir mes commandes →", noNotif:"Aucune notification" });
+Object.assign(T.es,{ ddIssueSent:"Incidencia enviada. Queda registrada y te contactaremos.", ddIssueErr:"Error al enviar la incidencia.", ddOrderErr:"Error en el pedido:", ddNoProdAvail:"Ningún producto de este pedido está aún disponible en tu catálogo.", ddStripeNotCfg:"⚙️ Stripe aún no configurado. Contacta a NexusHub para habilitar pagos con tarjeta.", ddStripeErr:"Error de Stripe:", ddRetry:"Reintentar", ddError:"Error:", ddDocs:"Documentos", ddClose:"Cerrar", ddReportIssue:"Reportar un problema", ddSave:"Guardar", ddNewAccessReq:"Nueva solicitud de acceso", ddWishlist:"Deseos", ddInvoices:"Facturas", ddAISuggest:"Sugerencias de IA", ddAttachPhoto:"Adjuntar foto (opcional)", ddViewAgreement:"📄 Ver acuerdo firmado", ddSignAgreement:"✍️ Revisar y firmar el acuerdo", ddInWishlist:"♥ En deseos", ddAddWishlist:"♡ Añadir a deseos", ddSending:"Enviando...", ddSendIssue:"Enviar reporte", ddConfirmWire:"🏦 Confirmar pedido — Pagar por transferencia", ddConfirmSepa:"⚡ Confirmar pedido — Adeudo SEPA", ddPayCard:"Pagar con tarjeta vía Stripe", ddCancel:"Cancelar", ddSeeOrders:"Ver mis pedidos →", noNotif:"Sin notificaciones" });
+Object.assign(T.de,{ ddIssueSent:"Meldung gesendet. Sie bleibt nachverfolgt und du wirst kontaktiert.", ddIssueErr:"Fehler beim Senden der Meldung.", ddOrderErr:"Bestellfehler:", ddNoProdAvail:"Noch kein Produkt aus dieser Bestellung ist in deinem Katalog verfügbar.", ddStripeNotCfg:"⚙️ Stripe noch nicht konfiguriert. Kontaktiere NexusHub, um Kartenzahlungen zu aktivieren.", ddStripeErr:"Stripe-Fehler:", ddRetry:"Erneut versuchen", ddError:"Fehler:", ddDocs:"Dokumente", ddClose:"Schließen", ddReportIssue:"Problem melden", ddSave:"Speichern", ddNewAccessReq:"Neue Zugangsanfrage", ddWishlist:"Wunschliste", ddInvoices:"Rechnungen", ddAISuggest:"KI-Vorschläge", ddAttachPhoto:"Foto anhängen (optional)", ddViewAgreement:"📄 Signierte Vereinbarung ansehen", ddSignAgreement:"✍️ Vereinbarung prüfen & unterschreiben", ddInWishlist:"♥ In Wunschliste", ddAddWishlist:"♡ Zur Wunschliste", ddSending:"Senden...", ddSendIssue:"Meldung senden", ddConfirmWire:"🏦 Bestellung bestätigen — Per Überweisung zahlen", ddConfirmSepa:"⚡ Bestellung bestätigen — SEPA-Lastschrift", ddPayCard:"Mit Karte via Stripe zahlen", ddCancel:"Abbrechen", ddSeeOrders:"Meine Bestellungen ansehen →", noNotif:"Keine Benachrichtigungen" });
+Object.assign(T.zh,{ ddIssueSent:"问题已提交。将持续跟踪并回访你。", ddIssueErr:"提交问题时出错。", ddOrderErr:"订单错误：", ddNoProdAvail:"此订单中的产品尚未出现在你的目录中。", ddStripeNotCfg:"⚙️ Stripe 尚未配置。请联系 NexusHub 以启用银行卡支付。", ddStripeErr:"Stripe 错误：", ddRetry:"重试", ddError:"错误：", ddDocs:"文件", ddClose:"关闭", ddReportIssue:"报告问题", ddSave:"保存", ddNewAccessReq:"新的访问请求", ddWishlist:"心愿单", ddInvoices:"发票", ddAISuggest:"AI 建议", ddAttachPhoto:"附上照片（可选）", ddViewAgreement:"📄 查看已签协议", ddSignAgreement:"✍️ 审阅并签署协议", ddInWishlist:"♥ 已在心愿单", ddAddWishlist:"♡ 加入心愿单", ddSending:"发送中...", ddSendIssue:"发送报告", ddConfirmWire:"🏦 确认订单 —— 通过银行转账支付", ddConfirmSepa:"⚡ 确认订单 —— SEPA 直接扣款", ddPayCard:"通过 Stripe 用银行卡支付", ddCancel:"取消", ddSeeOrders:"查看我的订单 →", noNotif:"暂无通知" });
+Object.assign(T.ar,{ ddIssueSent:"تم إرسال البلاغ. يبقى متابَعًا وسيتم التواصل معك.", ddIssueErr:"خطأ في إرسال البلاغ.", ddOrderErr:"خطأ في الطلب:", ddNoProdAvail:"لا يوجد منتج من هذا الطلب متاح بعد في كتالوجك.", ddStripeNotCfg:"⚙️ لم يُهيّأ Stripe بعد. تواصل مع NexusHub لتفعيل الدفع بالبطاقة.", ddStripeErr:"خطأ Stripe:", ddRetry:"أعد المحاولة", ddError:"خطأ:", ddDocs:"المستندات", ddClose:"إغلاق", ddReportIssue:"الإبلاغ عن مشكلة", ddSave:"حفظ", ddNewAccessReq:"طلب وصول جديد", ddWishlist:"المفضلة", ddInvoices:"الفواتير", ddAISuggest:"اقتراحات الذكاء الاصطناعي", ddAttachPhoto:"إرفاق صورة (اختياري)", ddViewAgreement:"📄 عرض الاتفاقية الموقعة", ddSignAgreement:"✍️ مراجعة وتوقيع الاتفاقية", ddInWishlist:"♥ في المفضلة", ddAddWishlist:"♡ أضف إلى المفضلة", ddSending:"جارٍ الإرسال...", ddSendIssue:"إرسال البلاغ", ddConfirmWire:"🏦 تأكيد الطلب — الدفع عبر التحويل البنكي", ddConfirmSepa:"⚡ تأكيد الطلب — خصم SEPA", ddPayCard:"الدفع بالبطاقة عبر Stripe", ddCancel:"إلغاء", ddSeeOrders:"عرض طلباتي →", noNotif:"لا إشعارات" });
+Object.assign(T.en,{ bdPriceLists:"Price lists by country", bdDone:"Done", bdTerrNA:"Territory not available", bdAIAnalytics:"AI Analytics", bdAccessApproved:"Access approved ✓", bdAccessBlocked:"Access blocked", bdAccessExclMsg:"A brand has approved you EXCLUSIVELY for your territory: you are the only distributor in your country for this brand.", bdAccessSharedMsg:"A brand has approved your request: you can now view and order its products.", bdAccessOkOrder:"✓ Access approved — can order your products", bdAccessBlockedIcon:"🚫 Access blocked", bdExclusive:"🔒 Exclusive", bdShared:"Shared", bdLoading:"Loading...", bdImporting:"Importing...", bdDeactivate:"Deactivate", bdActivate:"Activate", bdCommission:"Commission", bdSale:"Sale", bdUploadPdf:"Upload PDF", hdrProduct:"Product", hdrPrice:"Price", hdrStock:"Stock", hdrMultiple:"Multiple", hdrStatus:"Status", hdrActions:"Actions", hdrAction:"Action", hdrDistributor:"Distributor", hdrCountry:"Country", hdrOrders:"Orders", hdrRevenue:"Revenue", hdrDiscount:"Discount", hdrOrder:"Order", hdrItems:"Items", hdrValue:"Value", hdrTracking:"Tracking", hdrRating:"Rating", hdrDate:"Date", hdrNumber:"Number", hdrType:"Type", hdrCounterparty:"Counterparty", hdrTotal:"Total" });
+Object.assign(T.it,{ bdPriceLists:"Listini per paese", bdDone:"Fatto", bdTerrNA:"Territorio non disponibile", bdAIAnalytics:"AI Analytics", bdAccessApproved:"Accesso approvato ✓", bdAccessBlocked:"Accesso bloccato", bdAccessExclMsg:"Un brand ti ha approvato IN ESCLUSIVA per il tuo territorio: sei l'unico distributore del tuo paese per questo brand.", bdAccessSharedMsg:"Un brand ha approvato la tua richiesta: ora puoi vedere e ordinare i suoi prodotti.", bdAccessOkOrder:"✓ Accesso approvato — può ordinare i tuoi prodotti", bdAccessBlockedIcon:"🚫 Accesso bloccato", bdExclusive:"🔒 Esclusiva", bdShared:"Condiviso", bdLoading:"Caricamento...", bdImporting:"Importando...", bdDeactivate:"Disattiva", bdActivate:"Attiva", bdCommission:"Commissione", bdSale:"Vendita", bdUploadPdf:"Carica PDF", hdrProduct:"Prodotto", hdrPrice:"Prezzo", hdrStock:"Stock", hdrMultiple:"Multiplo", hdrStatus:"Stato", hdrActions:"Azioni", hdrAction:"Azione", hdrDistributor:"Distributore", hdrCountry:"Paese", hdrOrders:"Ordini", hdrRevenue:"Fatturato", hdrDiscount:"Sconto", hdrOrder:"Ordine", hdrItems:"Articoli", hdrValue:"Valore", hdrTracking:"Tracking", hdrRating:"Voto", hdrDate:"Data", hdrNumber:"Numero", hdrType:"Tipo", hdrCounterparty:"Controparte", hdrTotal:"Totale" });
+Object.assign(T.fr,{ bdPriceLists:"Tarifs par pays", bdDone:"Terminé", bdTerrNA:"Territoire non disponible", bdAIAnalytics:"Analytique IA", bdAccessApproved:"Accès approuvé ✓", bdAccessBlocked:"Accès bloqué", bdAccessExclMsg:"Une marque vous a approuvé EN EXCLUSIVITÉ pour votre territoire : vous êtes le seul distributeur de votre pays pour cette marque.", bdAccessSharedMsg:"Une marque a approuvé votre demande : vous pouvez désormais voir et commander ses produits.", bdAccessOkOrder:"✓ Accès approuvé — peut commander vos produits", bdAccessBlockedIcon:"🚫 Accès bloqué", bdExclusive:"🔒 Exclusif", bdShared:"Partagé", bdLoading:"Chargement...", bdImporting:"Importation...", bdDeactivate:"Désactiver", bdActivate:"Activer", bdCommission:"Commission", bdSale:"Vente", bdUploadPdf:"Téléverser le PDF", hdrProduct:"Produit", hdrPrice:"Prix", hdrStock:"Stock", hdrMultiple:"Multiple", hdrStatus:"Statut", hdrActions:"Actions", hdrAction:"Action", hdrDistributor:"Distributeur", hdrCountry:"Pays", hdrOrders:"Commandes", hdrRevenue:"Chiffre d'affaires", hdrDiscount:"Remise", hdrOrder:"Commande", hdrItems:"Articles", hdrValue:"Valeur", hdrTracking:"Suivi", hdrRating:"Note", hdrDate:"Date", hdrNumber:"Numéro", hdrType:"Type", hdrCounterparty:"Contrepartie", hdrTotal:"Total" });
+Object.assign(T.es,{ bdPriceLists:"Listas de precios por país", bdDone:"Hecho", bdTerrNA:"Territorio no disponible", bdAIAnalytics:"Analítica de IA", bdAccessApproved:"Acceso aprobado ✓", bdAccessBlocked:"Acceso bloqueado", bdAccessExclMsg:"Una marca te ha aprobado EN EXCLUSIVA para tu territorio: eres el único distribuidor de tu país para esta marca.", bdAccessSharedMsg:"Una marca aprobó tu solicitud: ahora puedes ver y pedir sus productos.", bdAccessOkOrder:"✓ Acceso aprobado — puede pedir tus productos", bdAccessBlockedIcon:"🚫 Acceso bloqueado", bdExclusive:"🔒 Exclusiva", bdShared:"Compartido", bdLoading:"Cargando...", bdImporting:"Importando...", bdDeactivate:"Desactivar", bdActivate:"Activar", bdCommission:"Comisión", bdSale:"Venta", bdUploadPdf:"Subir PDF", hdrProduct:"Producto", hdrPrice:"Precio", hdrStock:"Stock", hdrMultiple:"Múltiplo", hdrStatus:"Estado", hdrActions:"Acciones", hdrAction:"Acción", hdrDistributor:"Distribuidor", hdrCountry:"País", hdrOrders:"Pedidos", hdrRevenue:"Facturación", hdrDiscount:"Descuento", hdrOrder:"Pedido", hdrItems:"Artículos", hdrValue:"Valor", hdrTracking:"Seguimiento", hdrRating:"Valoración", hdrDate:"Fecha", hdrNumber:"Número", hdrType:"Tipo", hdrCounterparty:"Contraparte", hdrTotal:"Total" });
+Object.assign(T.de,{ bdPriceLists:"Preislisten pro Land", bdDone:"Fertig", bdTerrNA:"Gebiet nicht verfügbar", bdAIAnalytics:"KI-Analytik", bdAccessApproved:"Zugang genehmigt ✓", bdAccessBlocked:"Zugang gesperrt", bdAccessExclMsg:"Eine Marke hat dich EXKLUSIV für dein Gebiet freigegeben: Du bist der einzige Händler deines Landes für diese Marke.", bdAccessSharedMsg:"Eine Marke hat deine Anfrage genehmigt: Du kannst jetzt ihre Produkte sehen und bestellen.", bdAccessOkOrder:"✓ Zugang genehmigt — kann deine Produkte bestellen", bdAccessBlockedIcon:"🚫 Zugang gesperrt", bdExclusive:"🔒 Exklusiv", bdShared:"Geteilt", bdLoading:"Laden...", bdImporting:"Importieren...", bdDeactivate:"Deaktivieren", bdActivate:"Aktivieren", bdCommission:"Provision", bdSale:"Verkauf", bdUploadPdf:"PDF hochladen", hdrProduct:"Produkt", hdrPrice:"Preis", hdrStock:"Bestand", hdrMultiple:"Vielfaches", hdrStatus:"Status", hdrActions:"Aktionen", hdrAction:"Aktion", hdrDistributor:"Händler", hdrCountry:"Land", hdrOrders:"Bestellungen", hdrRevenue:"Umsatz", hdrDiscount:"Rabatt", hdrOrder:"Bestellung", hdrItems:"Artikel", hdrValue:"Wert", hdrTracking:"Sendungsverfolgung", hdrRating:"Bewertung", hdrDate:"Datum", hdrNumber:"Nummer", hdrType:"Typ", hdrCounterparty:"Gegenpartei", hdrTotal:"Gesamt" });
+Object.assign(T.zh,{ bdPriceLists:"各国价目表", bdDone:"完成", bdTerrNA:"区域不可用", bdAIAnalytics:"AI 分析", bdAccessApproved:"访问已批准 ✓", bdAccessBlocked:"访问已阻止", bdAccessExclMsg:"某品牌已为你的区域授予独家授权：你是本国该品牌的唯一经销商。", bdAccessSharedMsg:"某品牌已批准你的请求：现在你可以查看并订购其产品。", bdAccessOkOrder:"✓ 访问已批准 —— 可订购你的产品", bdAccessBlockedIcon:"🚫 访问已阻止", bdExclusive:"🔒 独家", bdShared:"共享", bdLoading:"加载中...", bdImporting:"导入中...", bdDeactivate:"停用", bdActivate:"启用", bdCommission:"佣金", bdSale:"销售", bdUploadPdf:"上传 PDF", hdrProduct:"产品", hdrPrice:"价格", hdrStock:"库存", hdrMultiple:"倍数", hdrStatus:"状态", hdrActions:"操作", hdrAction:"操作", hdrDistributor:"经销商", hdrCountry:"国家", hdrOrders:"订单", hdrRevenue:"营收", hdrDiscount:"折扣", hdrOrder:"订单", hdrItems:"商品", hdrValue:"金额", hdrTracking:"物流跟踪", hdrRating:"评分", hdrDate:"日期", hdrNumber:"编号", hdrType:"类型", hdrCounterparty:"对方", hdrTotal:"合计" });
+Object.assign(T.ar,{ bdPriceLists:"قوائم الأسعار حسب الدولة", bdDone:"تم", bdTerrNA:"المنطقة غير متاحة", bdAIAnalytics:"تحليلات الذكاء الاصطناعي", bdAccessApproved:"تمت الموافقة على الوصول ✓", bdAccessBlocked:"الوصول محظور", bdAccessExclMsg:"اعتمدتك إحدى العلامات بشكل حصري لمنطقتك: أنت الموزّع الوحيد في بلدك لهذه العلامة.", bdAccessSharedMsg:"وافقت إحدى العلامات على طلبك: يمكنك الآن عرض منتجاتها وطلبها.", bdAccessOkOrder:"✓ تمت الموافقة على الوصول — يمكنه طلب منتجاتك", bdAccessBlockedIcon:"🚫 الوصول محظور", bdExclusive:"🔒 حصري", bdShared:"مشترك", bdLoading:"جارٍ التحميل...", bdImporting:"جارٍ الاستيراد...", bdDeactivate:"إلغاء التفعيل", bdActivate:"تفعيل", bdCommission:"العمولة", bdSale:"بيع", bdUploadPdf:"رفع PDF", hdrProduct:"المنتج", hdrPrice:"السعر", hdrStock:"المخزون", hdrMultiple:"المضاعف", hdrStatus:"الحالة", hdrActions:"الإجراءات", hdrAction:"إجراء", hdrDistributor:"الموزّع", hdrCountry:"الدولة", hdrOrders:"الطلبات", hdrRevenue:"الإيرادات", hdrDiscount:"الخصم", hdrOrder:"الطلب", hdrItems:"العناصر", hdrValue:"القيمة", hdrTracking:"التتبّع", hdrRating:"التقييم", hdrDate:"التاريخ", hdrNumber:"الرقم", hdrType:"النوع", hdrCounterparty:"الطرف المقابل", hdrTotal:"الإجمالي" });
 
 
 
@@ -1856,19 +1877,19 @@ const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
             {/* Banking fields - for both brand and distributor */}
             <div style={{ marginBottom:14 }}>
               <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:10 }}>
-                💳 {isBrand ? "Dati Bancari per Ricezione Pagamenti" : "Indirizzo di Spedizione e Dati Bancari"}
+                💳 {isBrand ? t("rgBankHdrBrand") : t("rgBankHdrDist")}
               </div>
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
                 {(!isBrand ? [
-                  { label:"Indirizzo (Via/Piazza)", val:accountHolder, set:setAccountHolder, placeholder:"es. Via Roma 1" },
-                  { label:"Città", val:bankName, set:setBankName, placeholder:"es. Bucarest" },
-                  { label:"CAP", val:iban, set:setIban, placeholder:"es. 010101" },
-                  { label:"Provincia/Regione", val:swiftBic, set:setSwiftBic, placeholder:"es. Sector 1" },
+                  { label:t("rgAddr"), val:accountHolder, set:setAccountHolder, placeholder:t("rgAddrPh") },
+                  { label:t("rgCity"), val:bankName, set:setBankName, placeholder:t("rgCityPh") },
+                  { label:t("rgZip"), val:iban, set:setIban, placeholder:t("rgZipPh") },
+                  { label:t("rgProvince"), val:swiftBic, set:setSwiftBic, placeholder:t("rgProvincePh") },
                 ] : [
-                  { label:"Intestatario Conto", val:accountHolder, set:setAccountHolder, placeholder:"Nome/Ragione Sociale" },
-                  { label:"Banca", val:bankName, set:setBankName, placeholder:"es. Unicredit, Intesa..." },
-                  { label:"IBAN", val:iban, set:setIban, placeholder:"IT60 X054 2811 1010 0000 0123 456" },
-                  { label:"SWIFT/BIC (opzionale)", val:swiftBic, set:setSwiftBic, placeholder:"es. UNCRITMM" },
+                  { label:t("rgAcctHolder"), val:accountHolder, set:setAccountHolder, placeholder:t("rgAcctHolderPh") },
+                  { label:t("rgBank"), val:bankName, set:setBankName, placeholder:t("rgBankPh") },
+                  { label:t("rgIbanLbl"), val:iban, set:setIban, placeholder:"IT60 X054 2811 1010 0000 0123 456" },
+                  { label:t("rgSwift"), val:swiftBic, set:setSwiftBic, placeholder:t("rgSwiftPh") },
                 ]).map(({label,val,set,placeholder}) => (
                   <div key={label}>
                     <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:5 }}>{label}</label>
@@ -1878,19 +1899,19 @@ const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
                 ))}
               </div>
               <div style={{ marginTop:8, padding:"8px 12px", background:`${C.gold}08`, border:`1px solid ${C.gold}20`, borderRadius:8, fontSize:11, color:C.textMuted }}>
-                💡 {isBrand ? "I distributori useranno questi dati per inviarti i pagamenti via bonifico SEPA" : "Questi dati saranno usati per i pagamenti degli ordini"}
+                💡 {isBrand ? t("rgBankInfoBrand") : t("rgBankInfoDist")}
               </div>
             </div>
 
             {/* VAT + SDI Section */}
             <div style={{ marginBottom:14 }}>
               <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:10 }}>
-                🧾 Dati Fiscali
+                🧾 {t("rgFiscalHdr")}
               </div>
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
                 <div>
                   <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:5 }}>
-                    VAT Number <span style={{ color:C.red }}>*</span>
+                    {t("rgVatNumber")} <span style={{ color:C.red }}>*</span>
                   </label>
                   <input type="text" value={vatNumber} onChange={e=>setVatNumber(e.target.value)}
                     placeholder={t("rgVatPh")}
@@ -2994,11 +3015,11 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     await supabase.from("brand_access_requests").update(upd).eq("id", req.id);
     await supabase.from("notifications").insert({
       user_id: req.distributor_id,
-      title: newStatus === "approved" ? "Accesso approvato ✓" : "Accesso bloccato",
+      title: newStatus === "approved" ? t("bdAccessApproved") : t("bdAccessBlocked"),
       message: newStatus === "approved"
         ? (exclusive
-            ? "Un brand ti ha approvato IN ESCLUSIVA per il tuo territorio: sei l'unico distributore del tuo paese per questo brand."
-            : "Un brand ha approvato la tua richiesta: ora puoi vedere e ordinare i suoi prodotti.")
+            ? t("bdAccessExclMsg")
+            : t("bdAccessSharedMsg"))
         : "Un brand ha bloccato il tuo accesso ai suoi prodotti.",
       type: "access_update",
     });
@@ -3045,7 +3066,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           for (const c of conflicts) {
             await supabase.from("notifications").insert({
               user_id: c.distributor_id,
-              title: "Territorio non disponibile",
+              title: t("bdTerrNA"),
               message: "Un altro distributore è stato selezionato in esclusiva per il tuo territorio: l'accesso a questo brand è stato chiuso.",
               type: "access_update",
             });
@@ -3061,9 +3082,9 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"distributors", icon:"⬡", label:t("tabDistributors") },
     { key:"catalog", icon:"◻", label:t("tabCatalog") },
     { key:"orders", icon:"↗", label:t("tabOrders") },
-    { key:"fatture", icon:"🧾", label:"Fatture" },
+    { key:"fatture", icon:"🧾", label:t("ddInvoices") },
     { key:"payments", icon:"€", label:t("tabPayments") },
-    { key:"analytics", icon:"🤖", label:"AI Analytics" },
+    { key:"analytics", icon:"🤖", label:t("bdAIAnalytics") },
     { key:"amazon", icon:"🛒", label:"Amazon" },
   ];
   return (
@@ -3085,7 +3106,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           <div style={{ flex:1, overflowY:"auto" }}>
             {brandNotifs.length === 0 ? (
               <div style={{ textAlign:"center", padding:40, color:C.textMuted }}>
-                <div style={{ fontSize:32, marginBottom:10 }}>🔔</div>Nessuna notifica
+                <div style={{ fontSize:32, marginBottom:10 }}>🔔</div>{t("noNotif")}
               </div>
             ) : brandNotifs.map(n => (
               <div key={n.id} onClick={async () => {
@@ -3194,7 +3215,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                 ) : (
                   <div style={{ display:"flex", alignItems:"center", gap:10, flexWrap:"wrap" }}>
                     <div style={{ padding:"11px 16px", borderRadius:8, background:r.status==="approved"?`${C.green}12`:`${C.red}12`, border:`1px solid ${r.status==="approved"?C.green:C.red}30`, fontSize:13, color:r.status==="approved"?C.green:C.red, fontWeight:600 }}>
-                      {r.status==="approved"?"✓ Accesso approvato — può ordinare i tuoi prodotti":"🚫 Accesso bloccato"}
+                      {r.status==="approved"?t("bdAccessOkOrder"):t("bdAccessBlockedIcon")}
                     </div>
                     {r.status==="approved" && <button onClick={() => handleAccess(r, "blocked")} style={{ padding:"9px 18px", borderRadius:8, cursor:"pointer", fontSize:12, background:"transparent", border:`1px solid ${C.red}40`, color:C.red }}>{t("bBlockAccess")}</button>}
                     {r.status==="blocked" && <button onClick={() => handleAccess(r, "approved")} style={{ padding:"9px 18px", borderRadius:8, cursor:"pointer", fontSize:12, background:"transparent", border:`1px solid ${C.green}40`, color:C.green }}>{t("bUnblock")}</button>}
@@ -3230,7 +3251,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                   <table style={{ width:"100%", borderCollapse:"collapse", minWidth:700 }}>
                     <thead>
                       <tr style={{ background:C.surface2 }}>
-                        {["Distributore","Paese","Ordini","Fatturato","Stato","Sconto","Azione"].map((h,i) => (
+                        {[t("hdrDistributor"),t("hdrCountry"),t("hdrOrders"),t("hdrRevenue"),t("hdrStatus"),t("hdrDiscount"),t("hdrAction")].map((h,i) => (
                           <th key={i} style={{ padding:"11px 16px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:"0.08em", textTransform:"uppercase", whiteSpace:"nowrap", fontWeight:600 }}>{h}</th>
                         ))}
                       </tr>
@@ -3252,7 +3273,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                             <td style={{ padding:"13px 16px" }}>
                               <div style={{ display:"flex", alignItems:"center", gap:6, flexWrap:"wrap" }}>
                                 <Badge status="active"/>
-                                <span style={{ padding:"2px 8px", borderRadius:5, fontSize:10, fontWeight:600, background:r.exclusive?`${C.gold}15`:`${C.blue}12`, border:`1px solid ${(r.exclusive?C.gold:C.blue)}30`, color:r.exclusive?C.gold:C.blue }}>{r.exclusive?"🔒 Esclusiva":"Condiviso"}</span>
+                                <span style={{ padding:"2px 8px", borderRadius:5, fontSize:10, fontWeight:600, background:r.exclusive?`${C.gold}15`:`${C.blue}12`, border:`1px solid ${(r.exclusive?C.gold:C.blue)}30`, color:r.exclusive?C.gold:C.blue }}>{r.exclusive?t("bdExclusive"):t("bdShared")}</span>
                               </div>
                             </td>
                             <td style={{ padding:"13px 16px", whiteSpace:"nowrap" }}>
@@ -3281,7 +3302,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           <div style={{ position:"fixed", bottom:24, left:"50%", transform:"translateX(-50%)", zIndex:1100, background:C.surface, border:`1px solid ${C.gold}55`, color:C.text, padding:"12px 20px", borderRadius:10, fontSize:13, boxShadow:"0 8px 30px rgba(0,0,0,.4)" }}>{bToast}</div>
         )}
         {bPricesProduct && (
-          <Modal title={"Listini per paese - " + (bPricesProduct.name || "")} onClose={() => setBPricesProduct(null)} onSave={() => setBPricesProduct(null)} saveLabel="Fatto">
+          <Modal title={(t("bdPriceLists")+" - ") + (bPricesProduct.name || "")} onClose={() => setBPricesProduct(null)} onSave={() => setBPricesProduct(null)} saveLabel={t("bdDone")}>
             <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 6px" }}>{t("bpPricePre")} <b style={{ color:C.goldLight }}>€{Number(bPricesProduct.unit_price||0).toFixed(2)}</b>{t("bpPricePost")}</p>
             <div style={{ display:"flex", gap:8, alignItems:"flex-end", margin:"14px 0 16px" }}>
               <div style={{ flex:1 }}>
@@ -3309,12 +3330,12 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           </Modal>
         )}
         {bDocsProduct && (
-          <Modal title={"Documenti · " + (bDocsProduct.name || "Prodotto")} onClose={() => { setBDocsProduct(null); setBDocs([]); }} onSave={() => { setBDocsProduct(null); setBDocs([]); }} saveLabel="Fatto">
+          <Modal title={(t("ddDocs")+" · ") + (bDocsProduct.name || "Prodotto")} onClose={() => { setBDocsProduct(null); setBDocs([]); }} onSave={() => { setBDocsProduct(null); setBDocs([]); }} saveLabel={t("bdDone")}>
             <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 14px" }}>{t("bDocsMsg")}</p>
             <label style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6, padding:"18px 12px", borderRadius:10, cursor:"pointer", background:C.surface2, border:`1px dashed ${C.gold}55`, textAlign:"center", marginBottom:16 }}>
               <input type="file" style={{ display:"none" }} disabled={bDocsBusy} onChange={e => { const f=e.target.files&&e.target.files[0]; if(f) bUploadDoc(f); if(e.target) e.target.value=""; }}/>
               <span style={{ fontSize:22 }}>{bDocsBusy ? "⏳" : "📎"}</span>
-              <span style={{ fontSize:12, color:C.textMuted }}>{bDocsBusy ? "Caricamento..." : "Carica un documento (PDF, immagine, ecc.)"}</span>
+              <span style={{ fontSize:12, color:C.textMuted }}>{bDocsBusy ? t("bdLoading") : "Carica un documento (PDF, immagine, ecc.)"}</span>
             </label>
             {bDocs.length === 0 ? (
               <div style={{ textAlign:"center", padding:16, color:C.textMuted, fontSize:13 }}>{t("bNoDocs")}</div>
@@ -3332,17 +3353,17 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           </Modal>
         )}
         {bShowAddProduct && (
-          <Modal title={bEditingProduct ? "Modifica Prodotto" : "Nuovo Prodotto"} onClose={() => { setBShowAddProduct(false); setBEditingProduct(null); }} onSave={bSaveProduct}>
+          <Modal title={bEditingProduct ? t("aprmTitleEdit") : t("aprmTitleNew")} onClose={() => { setBShowAddProduct(false); setBEditingProduct(null); }} onSave={bSaveProduct}>
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
               {[
-                { label:"Nome Prodotto *", key:"name", placeholder:"es. Khamrah EDP", mode:"text" },
-                { label:"SKU", key:"sku", placeholder:"es. LT-KHM-100", mode:"text" },
-                { label:"Categoria", key:"category", placeholder:"es. Premium", mode:"text" },
-                { label:"Formato", key:"size", placeholder:"es. 100ml", mode:"text" },
-                { label:"Prezzo unitario (€) *", key:"price", placeholder:"0.00", mode:"decimal" },
-                { label:"Multiplo d'ordine", key:"order_multiple", placeholder:"es. 12", mode:"numeric" },
-                { label:"Qta minima (MOQ)", key:"min_order_qty", placeholder:"es. 24", mode:"numeric" },
-                { label:"Qta massima (vuoto = illimitato)", key:"max_order_qty", placeholder:"es. 500", mode:"numeric" },
+                { label:t("aprmName"), key:"name", placeholder:t("aprmNamePh"), mode:"text" },
+                { label:"SKU", key:"sku", placeholder:t("aprmSkuPh"), mode:"text" },
+                { label:t("aprmCategory"), key:"category", placeholder:t("aprmCategoryPh"), mode:"text" },
+                { label:t("aprmSize"), key:"size", placeholder:t("aprmSizePh"), mode:"text" },
+                { label:t("aprmPrice"), key:"price", placeholder:"0.00", mode:"decimal" },
+                { label:t("aprmOrderMult"), key:"order_multiple", placeholder:t("aprmOrderMultPh"), mode:"numeric" },
+                { label:t("aprmMoq"), key:"min_order_qty", placeholder:t("aprmMoqPh"), mode:"numeric" },
+                { label:t("aprmMaxQty"), key:"max_order_qty", placeholder:t("aprmMaxQtyPh"), mode:"numeric" },
               ].map(({label, key, placeholder, mode}) => (
                 <div key={key} style={{ marginBottom:14 }}>
                   <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
@@ -3360,7 +3381,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                 <label style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6, padding:"16px 12px", borderRadius:10, cursor:"pointer", background: bProductForm.image_file ? `${C.green}10` : C.surface2, border:`1px dashed ${bProductForm.image_file ? C.green : C.border}`, textAlign:"center" }}>
                   <input type="file" accept="image/*" style={{ display:"none" }} onChange={e => { const f=e.target.files?.[0]; if(f) setBProductForm(p=>({...p,image_file:f,image_url:""})); }}/>
                   <span style={{ fontSize:22 }}>{bProductForm.image_file ? "✓" : "📁"}</span>
-                  <span style={{ fontSize:11, color: bProductForm.image_file ? C.green : C.textMuted }}>{bProductForm.image_file ? bProductForm.image_file.name : "Carica immagine"}</span>
+                  <span style={{ fontSize:11, color: bProductForm.image_file ? C.green : C.textMuted }}>{bProductForm.image_file ? bProductForm.image_file.name : t("aprmUploadImg")}</span>
                 </label>
                 <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
                   <span style={{ fontSize:11, color:C.textMuted }}>{t("bOrExtUrl")}</span>
@@ -3379,7 +3400,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
               </div>
               <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
                 <label style={{ padding:"10px 16px", borderRadius:10, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13, fontWeight:600, display:"flex", alignItems:"center", gap:6 }}>
-                  📊 {bImportLoading ? "Importando..." : "Import Excel/CSV"}
+                  📊 {bImportLoading ? t("bdImporting") : "Import Excel/CSV"}
                   <input type="file" accept=".csv,.xlsx,.xls,.tsv" style={{ display:"none" }} onChange={e => { const f = e.target.files?.[0]; if(f) bImportProducts(f); e.target.value=""; }}/>
                 </label>
                 <button onClick={() => { setBEditingProduct(null); setBProductForm({ name:"", sku:"", category:"", size:"", price:"", order_multiple:"", min_order_qty:"", max_order_qty:"", description:"", image_url:"", image_file:null }); setBShowAddProduct(true); }} style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>{t("bNewProduct")}</button>
@@ -3403,7 +3424,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:800 }}>
                   <thead>
                     <tr style={{ background:C.surface2 }}>
-                      {["SKU","Prodotto","Categoria","Prezzo","Stock","MOQ","Multiplo","Stato","Azioni"].map((h,i) => (
+                      {["SKU",t("hdrProduct"),t("aprmCategory"),t("hdrPrice"),t("hdrStock"),"MOQ",t("hdrMultiple"),t("hdrStatus"),t("hdrActions")].map((h,i) => (
                         <th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
                       ))}
                     </tr>
@@ -3429,7 +3450,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                             <button onClick={() => { setBEditingProduct(p); setBProductForm({ name:p.name||"", sku:p.sku||"", category:p.category||"", size:"", price:p.unit_price?.toString()||"", order_multiple:p.order_multiple||"", min_order_qty:p.min_order_qty||"", max_order_qty:p.max_order_qty||"", description:p.description||"", image_url:p.image_url||"", image_file:null }); setBShowAddProduct(true); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>{t("bEdit")}</button>
                             <button onClick={() => openBDocs(p)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.gold}15`, border:`1px solid ${C.gold}40`, color:C.goldLight }}>📎 {t("bDoc")}</button>
                             <button onClick={() => openBPrices(p)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>€ {t("bPrices")}</button>
-                            <button onClick={async () => { await supabase.from("products").update({ is_active:!p.is_active }).eq("id",p.id); reloadBrandProducts(); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted }}>{p.is_active?"Disattiva":"Attiva"}</button>
+                            <button onClick={async () => { await supabase.from("products").update({ is_active:!p.is_active }).eq("id",p.id); reloadBrandProducts(); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted }}>{p.is_active?t("bdDeactivate"):t("bdActivate")}</button>
                           </div>
                         </td>
                       </tr>
@@ -3455,7 +3476,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>{t("bNoOrders")}</div>
             ) : (
               <Table minWidth={900}
-                headers={["Ordine","Distributore","Articoli","Valore","Stato","Tracking","Voto","Data"]}
+                headers={[t("hdrOrder"),t("hdrDistributor"),t("hdrItems"),t("hdrValue"),t("hdrStatus"),t("hdrTracking"),t("hdrRating"),t("hdrDate")]}
                 rows={brandOrders.map(o => [
                   <span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{o.order_number}</span>,
                   <span style={{ fontSize:13, color:C.text, fontWeight:500 }}>{o.distributor?.company_name || "—"}</span>,
@@ -3480,17 +3501,17 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
             ) : (
               <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:760 }}>
-                  <thead><tr style={{ background:C.surface2 }}>{["Numero","Tipo","Controparte","Totale","PDF","Azione"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}</tr></thead>
+                  <thead><tr style={{ background:C.surface2 }}>{[t("hdrNumber"),t("hdrType"),t("hdrCounterparty"),t("hdrTotal"),"PDF",t("hdrAction")].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}</tr></thead>
                   <tbody>
                     {brandInvoices.map((inv,i)=>{ const isComm = inv.type==="nexushub_commission"; return (
                       <tr key={inv.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
                         <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{inv.invoice_number}</span></td>
-                        <td style={{ padding:"11px 14px" }}><span style={{ fontSize:11, fontWeight:600, color:isComm?C.gold:C.green }}>{isComm?"Commissione":"Vendita"}</span></td>
+                        <td style={{ padding:"11px 14px" }}><span style={{ fontSize:11, fontWeight:600, color:isComm?C.gold:C.green }}>{isComm?t("bdCommission"):t("bdSale")}</span></td>
                         <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>{isComm?inv.from_entity:inv.to_entity}</td>
                         <td style={{ padding:"11px 14px", fontSize:13, fontWeight:700, color:C.goldLight }}>€{Number(inv.total||0).toLocaleString("it-IT")}</td>
                         <td style={{ padding:"11px 14px" }}>
                           {inv.pdf_url ? (<a href={inv.pdf_url} target="_blank" rel="noreferrer" style={{ fontSize:11, color:C.blue }}>📎 PDF</a>) : (!isComm ? (
-                            <label style={{ fontSize:11, color:C.textMuted, cursor:"pointer", textDecoration:"underline" }}>Carica PDF
+                            <label style={{ fontSize:11, color:C.textMuted, cursor:"pointer", textDecoration:"underline" }}>{t("bdUploadPdf")}
                               <input type="file" accept="application/pdf" style={{ display:"none" }} onChange={async e=>{ const f=e.target.files&&e.target.files[0]; if(!f) return; const path="invoices/"+inv.id+"_"+f.name; const up=await supabase.storage.from("documents").upload(path,f,{upsert:true}); if(up&&up.data){ const u=supabase.storage.from("documents").getPublicUrl(path); const url=u.data.publicUrl; await supabase.from("invoices").update({ pdf_url:url }).eq("id",inv.id); setBrandInvoices(prev=>prev.map(x=>x.id===inv.id?{...x,pdf_url:url}:x)); } if(e.target) e.target.value=""; }}/>
                             </label>
                           ) : <span style={{ fontSize:11, color:C.textDim }}>—</span>)}
@@ -4000,8 +4021,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         reason: issueForm.reason.trim(), photo_url: photoUrl, status: "open"
       });
       setIssueOrder(null); setIssueForm({ reason:"", photo_file:null });
-      window.alert("Segnalazione inviata. Resta tracciata e verrai ricontattato.");
-    } catch(e) { console.error(e); window.alert("Errore nell'invio della segnalazione."); }
+      window.alert(t("ddIssueSent"));
+    } catch(e) { console.error(e); window.alert(t("ddIssueErr")); }
     setIssueBusy(false);
   };
   const [orderNote, setOrderNote] = useState("");
@@ -4135,7 +4156,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     if (error) { console.error("access request error:", error); return; }
     await supabase.from("notifications").insert({
       user_id: brand.id,
-      title: "Nuova richiesta di accesso",
+      title: t("ddNewAccessReq"),
       message: `${currentUser?.company_name || "Un distributore"} ha richiesto l'accesso ai tuoi prodotti.`,
       type: "access_request",
     });
@@ -4203,17 +4224,17 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
 
     } catch(e) {
       console.error("Order error:", e);
-      alert("Errore nell'ordine: " + e.message);
+      alert((t("ddOrderErr")+" ") + e.message);
     }
     setOrderLoading(false);
   };
   const tabs = [
     { key:"brands", icon:"◈", label:t("tabBrandMarket") },
     { key:"catalog", icon:"◻", label:t("tabMyCatalog") },
-    { key:"wishlist", icon:"♥", label:"Desideri" },
+    { key:"wishlist", icon:"♥", label:t("ddWishlist") },
     { key:"orders", icon:"↗", label:t("tabMyOrders") },
-    { key:"fatture", icon:"🧾", label:"Fatture" },
-    { key:"ai", icon:"🤖", label:"AI Suggestions" },
+    { key:"fatture", icon:"🧾", label:t("ddInvoices") },
+    { key:"ai", icon:"🤖", label:t("ddAISuggest") },
   ];
   return (
     <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
@@ -4262,7 +4283,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                     </div>
                     <p style={{ fontSize:13, color:C.textMuted, margin:"0 0 16px", lineHeight:1.55 }}>{t("diReqAccess")}</p>
                     {status==="approved" ? (
-                      <div style={{ display:"flex", flexDirection:"column", gap:8 }}><button onClick={() => setTab("catalog")} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:`${C.gold}20`, border:`1px solid ${C.gold}50`, color:C.goldLight, fontSize:13, fontWeight:600 }}>{t("viewCatalogBtn")}</button>{(() => { const ctr = distContracts.find(c => c.brand_id === brand.id); if (!ctr) return null; const sg = !!ctr.signed_at; return (<button onClick={() => setViewContract(ctr)} style={{ width:"100%", padding:"10px", borderRadius:8, cursor:"pointer", background: sg?`${C.green}12`:`${C.blue}12`, border:`1px solid ${sg?C.green:C.blue}40`, color: sg?C.green:C.blue, fontSize:12.5, fontWeight:600 }}>{sg ? "📄 View signed agreement" : "✍️ Review & sign agreement"}</button>); })()}</div>
+                      <div style={{ display:"flex", flexDirection:"column", gap:8 }}><button onClick={() => setTab("catalog")} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:`${C.gold}20`, border:`1px solid ${C.gold}50`, color:C.goldLight, fontSize:13, fontWeight:600 }}>{t("viewCatalogBtn")}</button>{(() => { const ctr = distContracts.find(c => c.brand_id === brand.id); if (!ctr) return null; const sg = !!ctr.signed_at; return (<button onClick={() => setViewContract(ctr)} style={{ width:"100%", padding:"10px", borderRadius:8, cursor:"pointer", background: sg?`${C.green}12`:`${C.blue}12`, border:`1px solid ${sg?C.green:C.blue}40`, color: sg?C.green:C.blue, fontSize:12.5, fontWeight:600 }}>{sg ? t("ddViewAgreement") : t("ddSignAgreement")}</button>); })()}</div>
                     ) : status==="pending" ? (
                       <div style={{ width:"100%", padding:"11px", borderRadius:8, textAlign:"center", background:`${C.blue}10`, border:`1px solid ${C.blue}30`, color:C.blue, fontSize:13 }}>{t("requestSentMsg")}</div>
                     ) : status==="blocked" ? (
@@ -4297,7 +4318,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
             </div>
 
             {distDocsProduct && (
-              <Modal title={"Documenti · " + (distDocsProduct.name || "Prodotto")} onClose={() => { setDistDocsProduct(null); setDistDocs([]); }} onSave={() => { setDistDocsProduct(null); setDistDocs([]); }} saveLabel="Chiudi">
+              <Modal title={(t("ddDocs")+" · ") + (distDocsProduct.name || "Prodotto")} onClose={() => { setDistDocsProduct(null); setDistDocs([]); }} onSave={() => { setDistDocsProduct(null); setDistDocs([]); }} saveLabel={t("ddClose")}>
                 {distDocs.length === 0 ? (
                   <div style={{ textAlign:"center", padding:20, color:C.textMuted, fontSize:13 }}>{t("diNoDocs")}</div>
                 ) : distDocs.map(d => (
@@ -4350,7 +4371,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       {moq > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.blue}10`, color:C.blue, border:`1px solid ${C.blue}25` }}>MOQ: {moq}</span>}
                       {multiple > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.purple}10`, color:"#a855f7", border:`1px solid #a855f740` }}>×{multiple}</span>}
                     </div>
-                    <button onClick={() => toggleWishlist(p.id)} style={{ width:"100%", marginBottom:8, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background: wishlist.includes(p.id)?`${C.red}15`:"transparent", border:`1px solid ${wishlist.includes(p.id)?C.red:C.border}`, color: wishlist.includes(p.id)?C.red:C.textMuted }}>{wishlist.includes(p.id) ? "♥ Nei desideri" : "♡ Aggiungi ai desideri"}</button><button onClick={() => openDistDocs(p)} style={{ width:"100%", marginBottom:12, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.gold}10`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>📎 {t("ckDocsTab")}</button>
+                    <button onClick={() => toggleWishlist(p.id)} style={{ width:"100%", marginBottom:8, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background: wishlist.includes(p.id)?`${C.red}15`:"transparent", border:`1px solid ${wishlist.includes(p.id)?C.red:C.border}`, color: wishlist.includes(p.id)?C.red:C.textMuted }}>{wishlist.includes(p.id) ? t("ddInWishlist") : t("ddAddWishlist")}</button><button onClick={() => openDistDocs(p)} style={{ width:"100%", marginBottom:12, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.gold}10`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>📎 {t("ckDocsTab")}</button>
                     {stock > 0 ? (
                       <div style={{ display:"flex", alignItems:"center", gap:8 }}>
                         <button onClick={() => {
@@ -4510,7 +4531,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                           if (stk <= 0) { skipped++; return; }
                           next[p.id] = Math.min(Number(it.quantity)||1, stk);
                         });
-                        if (Object.keys(next).length === 0) { window.alert("Nessun prodotto di questo ordine e ancora disponibile nel tuo catalogo."); return; }
+                        if (Object.keys(next).length === 0) { window.alert(t("ddNoProdAvail")); return; }
                         setCart(next);
                         setTab("catalog");
                         window.scrollTo(0,0);
@@ -4543,14 +4564,14 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         )}
       </div>
     {issueOrder && (
-      <Modal title={"Segnala un problema - " + (issueOrder.order_number || "")} onClose={() => setIssueOrder(null)} onSave={submitIssue} saveLabel={issueBusy ? "Invio..." : "Invia segnalazione"}>
+      <Modal title={(t("ddReportIssue")+" - ") + (issueOrder.order_number || "")} onClose={() => setIssueOrder(null)} onSave={submitIssue} saveLabel={issueBusy ? t("ddSending") : t("ddSendIssue")}>
         <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 14px" }}>{t("diProblemDesc")}</p>
         <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{t("diReason")}</label>
         <textarea value={issueForm.reason} onChange={e => setIssueForm(f => ({...f, reason:e.target.value}))} rows={4} placeholder={t("ckDisputePh")} style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", resize:"vertical", marginBottom:14 }}/>
         <label style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6, padding:"16px 12px", borderRadius:10, cursor:"pointer", background: issueForm.photo_file ? `${C.green}10` : C.surface2, border:`1px dashed ${issueForm.photo_file ? C.green : C.border}`, textAlign:"center" }}>
           <input type="file" accept="image/*" style={{ display:"none" }} onChange={e => { const f=e.target.files&&e.target.files[0]; if(f) setIssueForm(p=>({...p, photo_file:f})); }}/>
           <span style={{ fontSize:22 }}>{issueForm.photo_file ? "✓" : "📷"}</span>
-          <span style={{ fontSize:11, color: issueForm.photo_file ? C.green : C.textMuted }}>{issueForm.photo_file ? issueForm.photo_file.name : "Allega foto (opzionale)"}</span>
+          <span style={{ fontSize:11, color: issueForm.photo_file ? C.green : C.textMuted }}>{issueForm.photo_file ? issueForm.photo_file.name : t("ddAttachPhoto")}</span>
         </label>
       </Modal>
     )}
@@ -4569,7 +4590,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         <div style={{ flex:1, overflowY:"auto" }}>
           {distNotifs.length === 0 ? (
             <div style={{ textAlign:"center", padding:40, color:C.textMuted }}>
-              <div style={{ fontSize:32, marginBottom:10 }}>🔔</div>Nessuna notifica
+              <div style={{ fontSize:32, marginBottom:10 }}>🔔</div>{t("noNotif")}
             </div>
           ) : distNotifs.map(n => (
             <div key={n.id} onClick={async () => {
@@ -4743,7 +4764,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                   background:`linear-gradient(135deg,${C.gold},${C.goldDim})`,
                   border:"none", color:C.bg, fontSize:14, fontWeight:700,
                   display:"flex", alignItems:"center", justifyContent:"center", gap:10 }}>
-                {orderLoading ? "⏳ Invio ordine..." : selectedPayment==="sepa" ? "🏦 Conferma Ordine — Paga via Bonifico" : "⚡ Conferma Ordine — SEPA Debit"}
+                {orderLoading ? "⏳ Invio ordine..." : selectedPayment==="sepa" ? t("ddConfirmWire") : t("ddConfirmSepa")}
               </button>
             )}
             {/* Paga con Carta via Stripe */}
@@ -4790,21 +4811,21 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                     // Reindirizza a Stripe Checkout
                     window.location.href = data.checkout_url;
                   } else if (data.error && data.error.includes("not configured")) {
-                    alert("⚙️ Stripe non ancora configurato. Contatta NexusHub per abilitare i pagamenti con carta.");
+                    alert(t("ddStripeNotCfg"));
                   } else {
-                    alert("Errore Stripe: " + (data.error || "Riprova"));
+                    alert((t("ddStripeErr")+" ") + (data.error || t("ddRetry")));
                   }
                 }
               } catch(e) {
-                alert("Errore: " + e.message);
+                alert((t("ddError")+" ") + e.message);
               }
               setOrderLoading(false);
             }} disabled={orderLoading} style={{ width:"100%", padding:"14px", borderRadius:10, cursor:"pointer", background:"linear-gradient(135deg,#635bff,#4b44cc)", border:"none", color:"#fff", fontSize:14, fontWeight:700, display:"flex", alignItems:"center", justifyContent:"center", gap:10 }}>
-              💳 Paga con Carta via Stripe
+              💳 {t("ddPayCard")}
             </button>
             )}
             <button onClick={() => setShowCheckout(false)} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>
-              Annulla
+              {t("ddCancel")}
             </button>
           </div>
         </div>
@@ -4826,7 +4847,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           </p>
           <button onClick={() => { setOrderSuccess(null); setTab("orders"); }}
             style={{ padding:"12px 28px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700 }}>
-            Vedi i miei ordini →
+            {t("ddSeeOrders")}
           </button>
         </div>
       </div>
@@ -4837,7 +4858,9 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
 
 
 
-const Modal = ({ title, onClose, onSave, children, saveLabel="Save" }) => (
+const Modal = ({ title, onClose, onSave, children, saveLabel="Save" }) => {
+  const t = useT();
+  return (
   <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:500,
     display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
     <div style={{ background:"#0e0e1a", border:"1px solid #252838", borderRadius:16,
@@ -4848,12 +4871,13 @@ const Modal = ({ title, onClose, onSave, children, saveLabel="Save" }) => (
       </div>
       {children}
       <div style={{ display:"flex", gap:10, marginTop:20 }}>
-        <button onClick={onClose} style={{ flex:1, padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:"1px solid #252838", color:"#8890aa", fontSize:13 }}>Cancel</button>
+        <button onClick={onClose} style={{ flex:1, padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:"1px solid #252838", color:"#8890aa", fontSize:13 }}>{t("ddCancel")}</button>
         <button onClick={onSave} style={{ flex:2, padding:"11px", borderRadius:10, cursor:"pointer", background:"linear-gradient(135deg,#c9a84c,#7a5e28)", border:"none", color:"#08080f", fontSize:13, fontWeight:700 }}>{saveLabel}</button>
       </div>
     </div>
   </div>
-);
+  );
+};
 
 
 const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
