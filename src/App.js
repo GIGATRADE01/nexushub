@@ -909,6 +909,13 @@ Object.assign(T.es,{ diNoPrice:"Precio no disponible" });
 Object.assign(T.de,{ diNoPrice:"Preis nicht verfügbar" });
 Object.assign(T.zh,{ diNoPrice:"价格不可用" });
 Object.assign(T.ar,{ diNoPrice:"السعر غير متوفر" });
+Object.assign(T.en,{ kaViesCheck:"Check VIES", kaViesChecking:"Checking VAT on VIES…", kaViesValid:"VAT valid on VIES", kaViesInvalid:"VAT not valid on VIES", kaViesError:"VIES check failed" });
+Object.assign(T.it,{ kaViesCheck:"Verifica VIES", kaViesChecking:"Verifica P.IVA su VIES…", kaViesValid:"P.IVA valida su VIES", kaViesInvalid:"P.IVA non valida su VIES", kaViesError:"Verifica VIES fallita" });
+Object.assign(T.fr,{ kaViesCheck:"Vérifier VIES", kaViesChecking:"Vérification TVA sur VIES…", kaViesValid:"TVA valide sur VIES", kaViesInvalid:"TVA non valide sur VIES", kaViesError:"Échec de la vérification VIES" });
+Object.assign(T.es,{ kaViesCheck:"Verificar VIES", kaViesChecking:"Verificando IVA en VIES…", kaViesValid:"IVA válido en VIES", kaViesInvalid:"IVA no válido en VIES", kaViesError:"Error en la verificación VIES" });
+Object.assign(T.de,{ kaViesCheck:"VIES prüfen", kaViesChecking:"USt-IdNr. wird über VIES geprüft…", kaViesValid:"USt-IdNr. gültig (VIES)", kaViesInvalid:"USt-IdNr. ungültig (VIES)", kaViesError:"VIES-Prüfung fehlgeschlagen" });
+Object.assign(T.zh,{ kaViesCheck:"验证 VIES", kaViesChecking:"正在 VIES 验证增值税号…", kaViesValid:"增值税号在 VIES 有效", kaViesInvalid:"增值税号在 VIES 无效", kaViesError:"VIES 验证失败" });
+Object.assign(T.ar,{ kaViesCheck:"التحقق من VIES", kaViesChecking:"جارٍ التحقق من الرقم الضريبي عبر VIES…", kaViesValid:"الرقم الضريبي صالح على VIES", kaViesInvalid:"الرقم الضريبي غير صالح على VIES", kaViesError:"فشل التحقق من VIES" });
 
 
 
@@ -4286,7 +4293,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       const { data: ords } = await supabase.from("orders").select("id").eq("distributor_id", user.id);
       const ids = (ords||[]).map(o=>o.id);
       if(!ids.length){ setDistInvoices([]); return; }
-      const { data } = await supabase.from("invoices").select("*").in("order_id", ids).eq("type","brand_to_distributor").order("created_at",{ascending:false});
+      const { data } = await supabase.from("invoices").select("*").in("order_id", ids).in("type",["brand_to_distributor","nexushub_to_customer"]).order("created_at",{ascending:false});
       setDistInvoices(data||[]);
     };
     loadDistInvoices();
@@ -5671,6 +5678,21 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     }
   };
 
+  const checkVies = async (u) => {
+    notify(t("kaViesChecking"));
+    try {
+      const res = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/vies-check`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}` },
+        body: JSON.stringify({ profile_id: u.id })
+      });
+      const data = await res.json();
+      if (data && data.valid) notify(t("kaViesValid") + (data.name ? " \u2014 " + data.name : ""));
+      else notify(t("kaViesInvalid") + (data && data.error ? " (" + data.error + ")" : ""), "error");
+      loadUsers();
+    } catch (e) { notify(t("kaViesError"), "error"); }
+  };
+
   // Add brand manually
   const addBrand = async () => {
     const { data: authData } = await supabase.auth.signUp({
@@ -6190,9 +6212,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                       <span style={{ fontSize:10, fontWeight:700, textTransform:"uppercase", letterSpacing:"0.06em", padding:"3px 8px", borderRadius:6, background:`${C.blue}20`, color:C.blue }}>{u.account_type === "chain" ? t("rgAccChain") : t("rgAccEcom")}</span>
                       {u.country && <span style={{ fontSize:12, color:C.textMuted }}>{u.country}</span>}
                       <span style={{ fontSize:11, fontWeight:600, padding:"3px 8px", borderRadius:6, background: u.status==="approved" ? `${C.green}20` : u.status==="pending" ? `${C.gold}20` : `${C.red}20`, color: u.status==="approved" ? C.green : u.status==="pending" ? C.gold : C.red }}>{u.status}</span>
+                      <span style={{ fontSize:10, fontWeight:700, padding:"3px 8px", borderRadius:6, background: u.vies_valid===true ? `${C.green}20` : u.vies_valid===false ? `${C.red}20` : `${C.textDim}20`, color: u.vies_valid===true ? C.green : u.vies_valid===false ? C.red : C.textDim }}>{u.vies_valid===true ? "VIES \u2713" : u.vies_valid===false ? "VIES \u2717" : "VIES \u2014"}</span>
                     </div>
                     <div style={{ display:"flex", gap:8 }}>
                       {u.status === "pending" && <button onClick={()=>approveUser(u.id)} style={{ padding:"7px 14px", borderRadius:7, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:"#08080f", fontSize:12, fontWeight:700 }}>{t("kaApprove")}</button>}
+                      <button onClick={()=>checkVies(u)} style={{ padding:"7px 14px", borderRadius:7, cursor:"pointer", background:"transparent", border:`1px solid ${C.green}`, color:C.green, fontSize:12, fontWeight:600 }}>{t("kaViesCheck")}</button>
                       <button onClick={()=>selectKa(u)} style={{ padding:"7px 14px", borderRadius:7, cursor:"pointer", background:"transparent", border:`1px solid ${C.blue}`, color:C.blue, fontSize:12, fontWeight:600 }}>{kaSel===u.id ? t("kaHideBrands") : t("kaManageBrands")}</button>
                     </div>
                   </div>
