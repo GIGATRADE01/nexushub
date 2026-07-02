@@ -916,6 +916,13 @@ Object.assign(T.es,{ kaViesCheck:"Verificar VIES", kaViesChecking:"Verificando I
 Object.assign(T.de,{ kaViesCheck:"VIES prüfen", kaViesChecking:"USt-IdNr. wird über VIES geprüft…", kaViesValid:"USt-IdNr. gültig (VIES)", kaViesInvalid:"USt-IdNr. ungültig (VIES)", kaViesError:"VIES-Prüfung fehlgeschlagen" });
 Object.assign(T.zh,{ kaViesCheck:"验证 VIES", kaViesChecking:"正在 VIES 验证增值税号…", kaViesValid:"增值税号在 VIES 有效", kaViesInvalid:"增值税号在 VIES 无效", kaViesError:"VIES 验证失败" });
 Object.assign(T.ar,{ kaViesCheck:"التحقق من VIES", kaViesChecking:"جارٍ التحقق من الرقم الضريبي عبر VIES…", kaViesValid:"الرقم الضريبي صالح على VIES", kaViesInvalid:"الرقم الضريبي غير صالح على VIES", kaViesError:"فشل التحقق من VIES" });
+Object.assign(T.en,{ aretConvert:"Create Key Account", aretConverted:"Key Account", aretConverting:"Creating account…", aretConvertOk:"Key Account created — invite sent", aretConvertErr:"Conversion failed", aretNoEmail:"Add the buyer's email first" });
+Object.assign(T.it,{ aretConvert:"Crea Key Account", aretConverted:"Key Account", aretConverting:"Creazione account…", aretConvertOk:"Key Account creato — invito inviato", aretConvertErr:"Conversione fallita", aretNoEmail:"Aggiungi prima l'email del buyer" });
+Object.assign(T.fr,{ aretConvert:"Créer un grand compte", aretConverted:"Grand compte", aretConverting:"Création du compte…", aretConvertOk:"Grand compte créé — invitation envoyée", aretConvertErr:"Échec de la conversion", aretNoEmail:"Ajoutez d'abord l'e-mail de l'acheteur" });
+Object.assign(T.es,{ aretConvert:"Crear Key Account", aretConverted:"Key Account", aretConverting:"Creando cuenta…", aretConvertOk:"Key Account creado — invitación enviada", aretConvertErr:"Error en la conversión", aretNoEmail:"Añade primero el email del comprador" });
+Object.assign(T.de,{ aretConvert:"Key Account anlegen", aretConverted:"Key Account", aretConverting:"Konto wird erstellt…", aretConvertOk:"Key Account erstellt — Einladung gesendet", aretConvertErr:"Umwandlung fehlgeschlagen", aretNoEmail:"Zuerst die E-Mail des Käufers hinzufügen" });
+Object.assign(T.zh,{ aretConvert:"创建大客户", aretConverted:"大客户", aretConverting:"正在创建账户…", aretConvertOk:"已创建大客户 — 已发送邀请", aretConvertErr:"转换失败", aretNoEmail:"请先添加买家邮箱" });
+Object.assign(T.ar,{ aretConvert:"إنشاء حساب رئيسي", aretConverted:"حساب رئيسي", aretConverting:"جارٍ إنشاء الحساب…", aretConvertOk:"تم إنشاء الحساب — تم إرسال الدعوة", aretConvertErr:"فشل التحويل", aretNoEmail:"أضف بريد المشتري أولاً" });
 
 
 
@@ -5222,6 +5229,21 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     await supabase.from("retail_targets").delete().eq("id", t.id);
     setRetailTargets(prev => prev.filter(x => x.id !== t.id));
   };
+  const convertRetail = async (row) => {
+    if (!row.buyer_email) { notify(t("aretNoEmail"), "error"); return; }
+    notify(t("aretConverting"));
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const res = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/convert-retail-to-keyaccount`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${session ? session.access_token : ""}` },
+        body: JSON.stringify({ retail_target_id: row.id, account_type: "chain" })
+      });
+      const data = await res.json();
+      if (data && data.success) { notify(t("aretConvertOk")); loadRetail(); loadUsers(); }
+      else notify(t("aretConvertErr") + (data && data.error ? ": " + data.error : ""), "error");
+    } catch (e) { notify(t("aretConvertErr"), "error"); }
+  };
   const loadCompliance = async () => {
     const { data } = await supabase.from("compliance_documents").select("*").order("created_at", { ascending:false });
     setComplianceDocs(data || []);
@@ -6666,6 +6688,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           const stColor = (k)=>{ const f=STAGES.find(z=>z[0]===k); return f?f[2]:C.textMuted; };
           const brandName = (id)=>{ const b=brands.find(z=>z.id===id); return b?(b.company_name||"\u2014"):"\u2014"; };
           const won = retailTargets.filter(t=>t.stage==="won").length;
+          const convLabel = t("aretConvert"); const convDoneLabel = t("aretConverted");
           const active = retailTargets.filter(t=>!["won","lost"].includes(t.stage)).length;
           const avgProb = retailTargets.length ? Math.round(retailTargets.reduce((a,t)=>a+Number(t.probability||0),0)/retailTargets.length) : 0;
           const fld = { padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, width:"100%", boxSizing:"border-box", outline:"none" };
@@ -6713,6 +6736,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         <td style={{ padding:"10px 14px", fontSize:12, color:C.text }}>{Number(t.probability||0)}%</td>
                         <td style={{ padding:"10px 14px", fontSize:11, color:C.textMuted, whiteSpace:"nowrap" }}>{t.next_followup ? new Date(t.next_followup).toLocaleDateString("it-IT") : "—"}</td>
                         <td style={{ padding:"10px 14px", whiteSpace:"nowrap" }}>
+                          {t.stage === "won" && (t.converted_profile_id
+                            ? <span style={{ padding:"4px 10px", borderRadius:6, fontSize:11, background:`${C.green}18`, color:C.green, fontWeight:600, marginRight:6 }}>{"\u2713 " + convDoneLabel}</span>
+                            : <button onClick={()=>convertRetail(t)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.gold}18`, border:`1px solid ${C.gold}55`, color:C.goldLight, fontWeight:600, marginRight:6 }}>{convLabel}</button>)}
                           <button onClick={()=>openRetail(t)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue, marginRight:6 }}>{t("aretEdit")}</button>
                           <button onClick={()=>deleteRetail(t)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.red}10`, border:`1px solid ${C.red}30`, color:C.red }}>{t("aretDelete")}</button>
                         </td>
