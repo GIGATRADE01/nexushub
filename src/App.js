@@ -5224,10 +5224,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     await supabase.from("retail_targets").update({ stage, updated_at:new Date().toISOString() }).eq("id", t.id);
     setRetailTargets(prev => prev.map(x => x.id===t.id ? { ...x, stage } : x));
   };
-  const deleteRetail = async (t) => {
-    if (!window.confirm((t("auiDelTarget")+" ") + t.retailer_name + "?")) return;
-    await supabase.from("retail_targets").delete().eq("id", t.id);
-    setRetailTargets(prev => prev.filter(x => x.id !== t.id));
+  const deleteRetail = async (row) => {
+    if (!window.confirm((t("auiDelTarget")+" ") + row.retailer_name + "?")) return;
+    await supabase.from("retail_targets").delete().eq("id", row.id);
+    setRetailTargets(prev => prev.filter(x => x.id !== row.id));
   };
   const convertRetail = async (row) => {
     if (!row.buyer_email) { notify(t("aretNoEmail"), "error"); return; }
