@@ -1050,22 +1050,11 @@ const Navbar = ({ name, badge, onLogout, lang, onLangChange, onNotifications, no
       <span style={{ padding:"2px 6px", borderRadius:4, background:bCol[badge]+"18", border:`1px solid ${bCol[badge]}30`, fontSize:9, color:bCol[badge], letterSpacing:"0.08em", textTransform:"uppercase", flexShrink:0, display:"none" }} className="nav-badge">{bLabel[badge]}</span>
       {/* Spacer */}
       <div style={{ flex:1, minWidth:0 }}/>
-      {/* Lang switcher — compact on mobile */}
-      <div style={{ display:"flex", gap:2, flexShrink:0 }}>
-        {["en","it"].map(l => (
-          <button key={l} onClick={() => onLangChange(l)} style={{
-            padding:"2px 5px", borderRadius:4, cursor:"pointer", fontSize:10, fontWeight:600,
-            background:lang===l?`${C.gold}20`:"transparent",
-            border:`1px solid ${lang===l?C.gold:C.border}`,
-            color:lang===l?C.goldLight:C.textMuted,
-          }}>{l.toUpperCase()}</button>
-        ))}
-        <button onClick={() => onLangChange(lang === "ar" ? "en" : lang === "fr" ? "en" : "fr")} style={{
-          padding:"2px 5px", borderRadius:4, cursor:"pointer", fontSize:10,
-          background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted
-        }}>···</button>
-      </div>
-      {/* Notifications */}
+      {/* Lang switcher — all 7 languages */}
+      <select value={lang} onChange={e => onLangChange(e.target.value)} title="Language" style={{ padding:"3px 6px", borderRadius:5, cursor:"pointer", fontSize:11, fontWeight:600, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, flexShrink:0, outline:"none", maxWidth:150 }}>
+        {LANGS.map(l => (<option key={l.key} value={l.key} style={{ background:C.surface, color:C.text }}>{l.name}</option>))}
+      </select>
+            {/* Notifications */}
       {onNotifications && (
         <button onClick={onNotifications} style={{ position:"relative", background:"transparent", border:"none", cursor:"pointer", padding:"4px 6px", borderRadius:8, display:"flex", alignItems:"center", flexShrink:0 }}>
           <span style={{ fontSize:18 }}>🔔</span>
