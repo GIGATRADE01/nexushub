@@ -881,6 +881,13 @@ Object.assign(T.es,{ tbPlatinum:"Platino", tbGold:"Oro", tbSilver:"Plata", tbBro
 Object.assign(T.de,{ tbPlatinum:"Platin", tbGold:"Gold", tbSilver:"Silber", tbBronze:"Bronze", tbWatched:"Beobachtet", tbAtRisk:"Gefährdet", tbSuspended:"GESPERRT", tbAtRiskBadge:"GEFÄHRDET", ddBankMissing:"Bankdaten der Marke noch nicht hinterlegt. Kontaktiere NexusHub." });
 Object.assign(T.zh,{ tbPlatinum:"白金", tbGold:"黄金", tbSilver:"白银", tbBronze:"青铜", tbWatched:"观察中", tbAtRisk:"有风险", tbSuspended:"已暂停", tbAtRiskBadge:"有风险", ddBankMissing:"该品牌的银行信息尚未填写。请联系 NexusHub。" });
 Object.assign(T.ar,{ tbPlatinum:"بلاتيني", tbGold:"ذهبي", tbSilver:"فضي", tbBronze:"برونزي", tbWatched:"تحت المراقبة", tbAtRisk:"في خطر", tbSuspended:"موقوف", tbAtRiskBadge:"في خطر", ddBankMissing:"لم تُدخل بيانات البنك للعلامة بعد. تواصل مع NexusHub." });
+Object.assign(T.en,{ registerChain:"Retail chain / European e-commerce", rgAccTypeLabel:"Business type", rgAccChain:"Retail chain", rgAccEcom:"Large e-commerce" });
+Object.assign(T.it,{ registerChain:"Catena / E-commerce europeo", rgAccTypeLabel:"Tipo di attività", rgAccChain:"Catena retail", rgAccEcom:"Grande e-commerce" });
+Object.assign(T.fr,{ registerChain:"Chaîne / E-commerce européen", rgAccTypeLabel:"Type d'activité", rgAccChain:"Chaîne de magasins", rgAccEcom:"Grand e-commerce" });
+Object.assign(T.es,{ registerChain:"Cadena / E-commerce europeo", rgAccTypeLabel:"Tipo de actividad", rgAccChain:"Cadena retail", rgAccEcom:"Gran e-commerce" });
+Object.assign(T.de,{ registerChain:"Kette / Europäischer E-Commerce", rgAccTypeLabel:"Art des Unternehmens", rgAccChain:"Einzelhandelskette", rgAccEcom:"Großer E-Commerce" });
+Object.assign(T.zh,{ registerChain:"连锁 / 欧洲电商", rgAccTypeLabel:"业务类型", rgAccChain:"零售连锁", rgAccEcom:"大型电商" });
+Object.assign(T.ar,{ registerChain:"سلسلة متاجر / تجارة إلكترونية أوروبية", rgAccTypeLabel:"نوع النشاط", rgAccChain:"سلسلة متاجر", rgAccEcom:"تجارة إلكترونية كبيرة" });
 
 
 
@@ -1637,6 +1644,7 @@ const Login = ({ onLogin, lang, onLangChange }) => {
 
   if (view === "register-brand") return <RegisterScreen role="brand" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
   if (view === "register-dist") return <RegisterScreen role="distributor" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
+  if (view === "register-chain") return <RegisterScreen role="distributor" accountType="chain" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
   if (view === "demo") return <DemoPresentation lang={lang} onLangChange={onLangChange} onSelectRole={(role) => { if (role === "back") setView("login"); else setView("register-" + role); }} />;
 
   if (view === "reset") return (
@@ -1738,6 +1746,7 @@ const Login = ({ onLogin, lang, onLangChange }) => {
         <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
           <button onClick={() => setView("register-brand")} style={{ padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.gold}40`, color:C.gold, fontSize:13, fontWeight:500 }}>{t("registerBrand")}</button>
           <button onClick={() => setView("register-dist")} style={{ padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>{t("registerDist")}</button>
+          <button onClick={() => setView("register-chain")} style={{ padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.blue}40`, color:C.blue, fontSize:13 }}>{t("registerChain")}</button>
           <button onClick={() => setView("demo")} style={{ padding:"11px", borderRadius:8, cursor:"pointer", background:`${C.purple}10`, border:`1px solid ${C.purple}40`, color:"#a855f7", fontSize:13, fontWeight:500, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
             <span>▶</span> {t("watchDemo") || "Watch Platform Demo"}
           </button>
@@ -1747,9 +1756,11 @@ const Login = ({ onLogin, lang, onLangChange }) => {
   );
 };
 
-const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
+const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
   const t = useT();
   const isBrand = role === "brand";
+  const isManaged = accountType === "chain" || accountType === "ecommerce";
+  const [acctType, setAcctType] = useState(accountType || "distributor");
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -1793,12 +1804,12 @@ const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
     try {
       const { data, error: signUpError } = await supabase.auth.signUp({
         email, password,
-        options: { data: { role, company_name: companyName, full_name: fullName } }
+        options: { data: { role, company_name: companyName, full_name: fullName, account_type: acctType } }
       });
       if (signUpError) throw signUpError;
       if (data.user) {
         await supabase.from("profiles").update({ 
-          full_name: fullName, company_name: companyName, phone, country,
+          full_name: fullName, company_name: companyName, phone, country, account_type: acctType,
           iban: iban || null, bank_name: bankName || null,
           account_holder: accountHolder || null, swift_bic: swiftBic || null,
           vat_number: vatNumber || null,
@@ -1857,9 +1868,20 @@ const RegisterScreen = ({ role, lang, onLangChange, onBack }) => {
         </div>
 
         <h2 style={{ fontSize:22, fontWeight:700, color:C.text, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>
-          {isBrand ? t("registerBrand") : t("registerDist")}
+          {isBrand ? t("registerBrand") : isManaged ? t("registerChain") : t("registerDist")}
         </h2>
         <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 24px" }}>{step===1 ? t("step1") : t("step2")}</p>
+
+        {isManaged && step===1 && (
+          <div style={{ marginBottom:20 }}>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:8 }}>{t("rgAccTypeLabel")}</label>
+            <div style={{ display:"flex", gap:8 }}>
+              {[{v:"chain",l:t("rgAccChain")},{v:"ecommerce",l:t("rgAccEcom")}].map(o => (
+                <button key={o.v} type="button" onClick={() => setAcctType(o.v)} style={{ flex:1, padding:"10px", borderRadius:8, cursor:"pointer", background: acctType===o.v ? `${C.blue}20` : "transparent", border:`1px solid ${acctType===o.v ? C.blue : C.border}`, color: acctType===o.v ? C.blue : C.textMuted, fontSize:12, fontWeight:600 }}>{o.l}</button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {error && <div style={{ background:`${C.red}15`, border:`1px solid ${C.red}40`, borderRadius:8, padding:"10px 14px", color:C.red, fontSize:13, marginBottom:16 }}>{error}</div>}
 
@@ -3668,9 +3690,7 @@ ${sec
   : "This Agreement is provided in English, which shall be the governing language."}
 
 12. ACCEPTANCE
-By accepting electronically, the Distributor confirms that it has read, understood and agreed to this Agreement. The electronic acceptance, together with the recorded name and timestamp, evidences the Distributor's assent.
-
-— DRAFT — This document is a template provided for operational convenience and must be reviewed and validated by qualified legal counsel before use. It does not constitute legal advice.`;
+By accepting electronically, the Distributor confirms that it has read, understood and agreed to this Agreement. The electronic acceptance, together with the recorded name and timestamp, evidences the Distributor's assent.`;
 
   let secText = null;
   if (sec === "it") {
@@ -3718,9 +3738,7 @@ Il presente contratto e regolato dalla legge applicabile presso la sede del Conc
 Il presente contratto e redatto in inglese e in italiano. In caso di discrepanza o difformita interpretativa, prevale la versione inglese.
 
 12. ACCETTAZIONE
-Accettando per via elettronica, il Distributore conferma di aver letto, compreso e approvato il presente contratto. L'accettazione elettronica, unitamente al nominativo e alla data/ora registrati, costituisce prova del consenso del Distributore.
-
-— BOZZA — Il presente documento e un modello fornito per comodita operativa e deve essere esaminato e validato da un legale qualificato prima dell'uso. Non costituisce consulenza legale.`;
+Accettando per via elettronica, il Distributore conferma di aver letto, compreso e approvato il presente contratto. L'accettazione elettronica, unitamente al nominativo e alla data/ora registrati, costituisce prova del consenso del Distributore.`;
   } else if (sec === "fr") {
     secText = `CONTRAT DE DISTRIBUTION INTERNATIONALE
 Contrat n. ${contractNumber}
@@ -3766,9 +3784,7 @@ Le present contrat est regi par le droit applicable au lieu d'etablissement du C
 Le present contrat est etabli en anglais et en francais. En cas de divergence ou de conflit d'interpretation, la version anglaise prevaut.
 
 12. ACCEPTATION
-En acceptant par voie electronique, le Distributeur confirme avoir lu, compris et approuve le present contrat. L'acceptation electronique, ainsi que le nom et l'horodatage enregistres, attestent du consentement du Distributeur.
-
-— PROJET — Le present document est un modele fourni pour des raisons pratiques et doit etre examine et valide par un conseil juridique qualifie avant utilisation. Il ne constitue pas un avis juridique.`;
+En acceptant par voie electronique, le Distributeur confirme avoir lu, compris et approuve le present contrat. L'acceptation electronique, ainsi que le nom et l'horodatage enregistres, attestent du consentement du Distributeur.`;
   } else if (sec === "es") {
     secText = `CONTRATO DE DISTRIBUCION INTERNACIONAL
 Contrato n. ${contractNumber}
@@ -3814,9 +3830,7 @@ El presente contrato se rige por la ley aplicable en el domicilio del Concedente
 El presente contrato se otorga en ingles y en espanol. En caso de discrepancia o conflicto de interpretacion, prevalecera la version inglesa.
 
 12. ACEPTACION
-Al aceptar por via electronica, el Distribuidor confirma haber leido, comprendido y aprobado el presente contrato. La aceptacion electronica, junto con el nombre y la marca de tiempo registrados, acredita el consentimiento del Distribuidor.
-
-— BORRADOR — El presente documento es un modelo facilitado por comodidad operativa y debe ser revisado y validado por un asesor juridico cualificado antes de su uso. No constituye asesoramiento juridico.`;
+Al aceptar por via electronica, el Distribuidor confirma haber leido, comprendido y aprobado el presente contrato. La aceptacion electronica, junto con el nombre y la marca de tiempo registrados, acredita el consentimiento del Distribuidor.`;
   } else if (sec === "de") {
     secText = `INTERNATIONALER VERTRIEBSVERTRAG
 Vertrag Nr. ${contractNumber}
@@ -3862,9 +3876,7 @@ Dieser Vertrag unterliegt dem am Sitz des Lizenzgebers anwendbaren Recht. Die Pa
 Dieser Vertrag wird in englischer und deutscher Sprache erstellt. Bei Abweichungen oder Auslegungskonflikten ist die englische Fassung massgebend.
 
 12. ANNAHME
-Mit der elektronischen Annahme bestatigt der Vertriebspartner, diesen Vertrag gelesen, verstanden und genehmigt zu haben. Die elektronische Annahme bildet zusammen mit dem erfassten Namen und Zeitstempel den Nachweis der Zustimmung des Vertriebspartners.
-
-— ENTWURF — Dieses Dokument ist eine zur betrieblichen Vereinfachung bereitgestellte Vorlage und muss vor der Verwendung von qualifizierten Rechtsberatern gepruft und freigegeben werden. Es stellt keine Rechtsberatung dar.`;
+Mit der elektronischen Annahme bestatigt der Vertriebspartner, diesen Vertrag gelesen, verstanden und genehmigt zu haben. Die elektronische Annahme bildet zusammen mit dem erfassten Namen und Zeitstempel den Nachweis der Zustimmung des Vertriebspartners.`;
   } else if (sec === "zh") {
     secText = `国际分销协议
 协议编号：${contractNumber}
@@ -3908,9 +3920,7 @@ ${exclusive ? "分销商被委任为该区域内产品的独家分销商。在�
 本协议以英文和中文订立。如有歧义或解释冲突，以英文版本为准。
 
 12. 接受
-通过电子方式接受，即表示分销商确认已阅读、理解并同意本协议。电子接受连同所记录的姓名及时间戳，构成分销商同意的证据。
-
-— 草稿 — 本文件为便于业务操作而提供的模板，使用前必须经合格法律顾问审核并确认。本文件不构成法律意见。`;
+通过电子方式接受，即表示分销商确认已阅读、理解并同意本协议。电子接受连同所记录的姓名及时间戳，构成分销商同意的证据。`;
   } else if (sec === "ar") {
     secText = `اتفاقية توزيع دولية
 رقم الاتفاقية: ${contractNumber}
@@ -3954,9 +3964,7 @@ ${exclusive ? "يُعيَّن الموزِّع موزِّعًا حصريًا ل�
 حُرِّرت هذه الاتفاقية باللغتين الإنجليزية والعربية. وفي حال وجود أي تعارض أو اختلاف في التفسير، تكون النسخة الإنجليزية هي المرجِّحة.
 
 12. القبول
-بالقبول إلكترونيًا، يؤكد الموزِّع أنه قرأ هذه الاتفاقية وفهمها ووافق عليها. ويُشكِّل القبول الإلكتروني، مع الاسم والطابع الزمني المسجَّلين، دليلًا على موافقة الموزِّع.
-
-— مسودة — هذه الوثيقة نموذج مقدَّم لأغراض التيسير التشغيلي، ويجب مراجعتها واعتمادها من مستشار قانوني مؤهل قبل الاستخدام. ولا تُشكِّل استشارة قانونية.`;
+بالقبول إلكترونيًا، يؤكد الموزِّع أنه قرأ هذه الاتفاقية وفهمها ووافق عليها. ويُشكِّل القبول الإلكتروني، مع الاسم والطابع الزمني المسجَّلين، دليلًا على موافقة الموزِّع.`;
   }
 
   return { en: en, sec: sec, secName: secName, secText: secText };
