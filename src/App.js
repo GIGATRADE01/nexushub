@@ -888,6 +888,13 @@ Object.assign(T.es,{ registerChain:"Cadena / E-commerce europeo", rgAccTypeLabel
 Object.assign(T.de,{ registerChain:"Kette / Europäischer E-Commerce", rgAccTypeLabel:"Art des Unternehmens", rgAccChain:"Einzelhandelskette", rgAccEcom:"Großer E-Commerce" });
 Object.assign(T.zh,{ registerChain:"连锁 / 欧洲电商", rgAccTypeLabel:"业务类型", rgAccChain:"零售连锁", rgAccEcom:"大型电商" });
 Object.assign(T.ar,{ registerChain:"سلسلة متاجر / تجارة إلكترونية أوروبية", rgAccTypeLabel:"نوع النشاط", rgAccChain:"سلسلة متاجر", rgAccEcom:"تجارة إلكترونية كبيرة" });
+Object.assign(T.en,{ atabKeyAccount:"Key Account", kaTitle:"Key Accounts — Chains & E-commerce", kaSubtitle:"Manage chains and large e-commerce supplied directly by NexusHub", kaEmpty:"No chains or e-commerce registered yet.", kaApprove:"Approve account", kaManageBrands:"Manage brands", kaHideBrands:"Hide", kaAuthorizeBrands:"Authorize brand sales", kaNoBrands:"No brands available.", kaAuthorize:"Authorize", kaRevoke:"Revoke", kaAccessGranted:"Brand authorized", kaAccessRevoked:"Authorization revoked" });
+Object.assign(T.it,{ atabKeyAccount:"Key Account", kaTitle:"Key Account — Catene & E-commerce", kaSubtitle:"Gestisci catene e grandi e-commerce riforniti direttamente da NexusHub", kaEmpty:"Nessuna catena o e-commerce registrato al momento.", kaApprove:"Approva account", kaManageBrands:"Gestisci brand", kaHideBrands:"Nascondi", kaAuthorizeBrands:"Autorizza alla vendita dei brand", kaNoBrands:"Nessun brand disponibile.", kaAuthorize:"Autorizza", kaRevoke:"Revoca", kaAccessGranted:"Brand autorizzato", kaAccessRevoked:"Autorizzazione revocata" });
+Object.assign(T.fr,{ atabKeyAccount:"Grands comptes", kaTitle:"Grands comptes — Chaînes & E-commerce", kaSubtitle:"Gérez les chaînes et grands e-commerce approvisionnés directement par NexusHub", kaEmpty:"Aucune chaîne ou e-commerce enregistré pour le moment.", kaApprove:"Approuver le compte", kaManageBrands:"Gérer les marques", kaHideBrands:"Masquer", kaAuthorizeBrands:"Autoriser la vente des marques", kaNoBrands:"Aucune marque disponible.", kaAuthorize:"Autoriser", kaRevoke:"Révoquer", kaAccessGranted:"Marque autorisée", kaAccessRevoked:"Autorisation révoquée" });
+Object.assign(T.es,{ atabKeyAccount:"Grandes cuentas", kaTitle:"Grandes cuentas — Cadenas y E-commerce", kaSubtitle:"Gestiona cadenas y grandes e-commerce suministrados directamente por NexusHub", kaEmpty:"Ninguna cadena o e-commerce registrado por ahora.", kaApprove:"Aprobar cuenta", kaManageBrands:"Gestionar marcas", kaHideBrands:"Ocultar", kaAuthorizeBrands:"Autorizar la venta de marcas", kaNoBrands:"Ninguna marca disponible.", kaAuthorize:"Autorizar", kaRevoke:"Revocar", kaAccessGranted:"Marca autorizada", kaAccessRevoked:"Autorización revocada" });
+Object.assign(T.de,{ atabKeyAccount:"Key Account", kaTitle:"Key Accounts — Ketten & E-Commerce", kaSubtitle:"Verwalte Ketten und große E-Commerce, die direkt von NexusHub beliefert werden", kaEmpty:"Noch keine Ketten oder E-Commerce registriert.", kaApprove:"Konto genehmigen", kaManageBrands:"Marken verwalten", kaHideBrands:"Ausblenden", kaAuthorizeBrands:"Markenverkauf autorisieren", kaNoBrands:"Keine Marken verfügbar.", kaAuthorize:"Autorisieren", kaRevoke:"Widerrufen", kaAccessGranted:"Marke autorisiert", kaAccessRevoked:"Autorisierung widerrufen" });
+Object.assign(T.zh,{ atabKeyAccount:"大客户", kaTitle:"大客户 — 连锁与电商", kaSubtitle:"管理由 NexusHub 直接供货的连锁店和大型电商", kaEmpty:"目前没有注册的连锁店或电商。", kaApprove:"批准账户", kaManageBrands:"管理品牌", kaHideBrands:"隐藏", kaAuthorizeBrands:"授权品牌销售", kaNoBrands:"没有可用品牌。", kaAuthorize:"授权", kaRevoke:"撤销", kaAccessGranted:"品牌已授权", kaAccessRevoked:"授权已撤销" });
+Object.assign(T.ar,{ atabKeyAccount:"حسابات رئيسية", kaTitle:"الحسابات الرئيسية — سلاسل المتاجر والتجارة الإلكترونية", kaSubtitle:"إدارة السلاسل والتجارة الإلكترونية الكبيرة المزوَّدة مباشرة من NexusHub", kaEmpty:"لا توجد سلاسل أو متاجر إلكترونية مسجلة حتى الآن.", kaApprove:"الموافقة على الحساب", kaManageBrands:"إدارة العلامات", kaHideBrands:"إخفاء", kaAuthorizeBrands:"تفويض بيع العلامات", kaNoBrands:"لا توجد علامات متاحة.", kaAuthorize:"تفويض", kaRevoke:"إلغاء", kaAccessGranted:"تم تفويض العلامة", kaAccessRevoked:"تم إلغاء التفويض" });
 
 
 
@@ -5010,6 +5017,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [tab, setTab] = useState("overview");
   const [users, setUsers] = useState([]);
   const [brands, setBrands] = useState([]);
+  const [kaSel, setKaSel] = useState(null);
+  const [kaAccess, setKaAccess] = useState([]);
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [retailTargets, setRetailTargets] = useState([]);
@@ -5592,6 +5601,26 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     loadUsers();
   };
 
+  // Key Account (chains / e-commerce): admin authorizes brand access directly (no exclusivity / one-per-country check)
+  const loadKaAccess = async (customerId) => {
+    const { data } = await supabase.from("brand_access_requests").select("brand_id, status").eq("distributor_id", customerId);
+    setKaAccess(data || []);
+  };
+  const selectKa = async (u) => {
+    if (kaSel === u.id) { setKaSel(null); setKaAccess([]); return; }
+    setKaSel(u.id); await loadKaAccess(u.id);
+  };
+  const grantBrand = async (customerId, brandId) => {
+    await supabase.from("brand_access_requests").upsert({ distributor_id: customerId, brand_id: brandId, status: "approved", updated_at: new Date().toISOString() }, { onConflict: "distributor_id,brand_id" });
+    notify(t("kaAccessGranted"));
+    loadKaAccess(customerId);
+  };
+  const revokeBrand = async (customerId, brandId) => {
+    await supabase.from("brand_access_requests").update({ status: "rejected", updated_at: new Date().toISOString() }).eq("distributor_id", customerId).eq("brand_id", brandId);
+    notify(t("kaAccessRevoked"), "error");
+    loadKaAccess(customerId);
+  };
+
   // Add brand manually
   const addBrand = async () => {
     const { data: authData } = await supabase.auth.signUp({
@@ -5808,10 +5837,12 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
   const pendingUsers = users.filter(u => u.status === "pending");
   const approvedUsers = users.filter(u => u.status === "approved");
+  const managedUsers = users.filter(u => u.account_type === "chain" || u.account_type === "ecommerce");
 
   const tabs = [
     { key:"overview", icon:"◈", label:t("atabOverview") },
     { key:"users", icon:"👥", label:t("atabUsers"), badge: pendingUsers.length },
+    { key:"keyaccount", icon:"🔑", label:t("atabKeyAccount"), badge: managedUsers.filter(u=>u.status==="pending").length },
     { key:"brands", icon:"🏛️", label:t("atabBrands") },
     { key:"catalog", icon:"📦", label:t("atabCatalog") },
     { key:"inventory", icon:"🏭", label:t("atabInventory") },
@@ -6091,6 +6122,54 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         )}
 
         {/* BRANDS TAB */}
+        {tab === "keyaccount" && (
+          <div>
+            <div style={{ marginBottom:16 }}>
+              <h2 style={{ fontSize:20, fontWeight:700, color:C.text, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("kaTitle")}</h2>
+              <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("kaSubtitle")}</p>
+            </div>
+            {managedUsers.length === 0 ? (
+              <div style={{ padding:"40px 20px", textAlign:"center", color:C.textDim, fontSize:14, background:C.surface, borderRadius:12, border:`1px solid ${C.border}` }}>{t("kaEmpty")}</div>
+            ) : managedUsers.map(u => {
+              const accMap = {}; if (kaSel === u.id) kaAccess.forEach(a => { accMap[a.brand_id] = a.status; });
+              return (
+                <div key={u.id} style={{ background:C.surface, borderRadius:12, border:`1px solid ${C.border}`, padding:16, marginBottom:12 }}>
+                  <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:10 }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:10, flexWrap:"wrap" }}>
+                      <span style={{ fontSize:15, fontWeight:600, color:C.text }}>{u.company_name || u.email}</span>
+                      <span style={{ fontSize:10, fontWeight:700, textTransform:"uppercase", letterSpacing:"0.06em", padding:"3px 8px", borderRadius:6, background:`${C.blue}20`, color:C.blue }}>{u.account_type === "chain" ? t("rgAccChain") : t("rgAccEcom")}</span>
+                      {u.country && <span style={{ fontSize:12, color:C.textMuted }}>{u.country}</span>}
+                      <span style={{ fontSize:11, fontWeight:600, padding:"3px 8px", borderRadius:6, background: u.status==="approved" ? `${C.green}20` : u.status==="pending" ? `${C.gold}20` : `${C.red}20`, color: u.status==="approved" ? C.green : u.status==="pending" ? C.gold : C.red }}>{u.status}</span>
+                    </div>
+                    <div style={{ display:"flex", gap:8 }}>
+                      {u.status === "pending" && <button onClick={()=>approveUser(u.id)} style={{ padding:"7px 14px", borderRadius:7, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:"#08080f", fontSize:12, fontWeight:700 }}>{t("kaApprove")}</button>}
+                      <button onClick={()=>selectKa(u)} style={{ padding:"7px 14px", borderRadius:7, cursor:"pointer", background:"transparent", border:`1px solid ${C.blue}`, color:C.blue, fontSize:12, fontWeight:600 }}>{kaSel===u.id ? t("kaHideBrands") : t("kaManageBrands")}</button>
+                    </div>
+                  </div>
+                  {kaSel === u.id && (
+                    <div style={{ marginTop:14, paddingTop:14, borderTop:`1px solid ${C.border}` }}>
+                      <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:10 }}>{t("kaAuthorizeBrands")}</div>
+                      {brands.length === 0 ? (
+                        <div style={{ color:C.textDim, fontSize:13 }}>{t("kaNoBrands")}</div>
+                      ) : brands.map(b => {
+                        const authorized = accMap[b.id] === "approved";
+                        return (
+                          <div key={b.id} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"8px 12px", borderRadius:8, background:C.surface2, marginBottom:6 }}>
+                            <span style={{ fontSize:13, color:C.text }}>{b.company_name || b.email}</span>
+                            {authorized
+                              ? <button onClick={()=>revokeBrand(u.id,b.id)} style={{ padding:"5px 12px", borderRadius:6, cursor:"pointer", background:`${C.red}18`, border:`1px solid ${C.red}55`, color:C.red, fontSize:11, fontWeight:600 }}>{t("kaRevoke")}</button>
+                              : <button onClick={()=>grantBrand(u.id,b.id)} style={{ padding:"5px 12px", borderRadius:6, cursor:"pointer", background:`${C.green}18`, border:`1px solid ${C.green}55`, color:C.green, fontSize:11, fontWeight:600 }}>{t("kaAuthorize")}</button>}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+
         {tab === "brands" && (
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
