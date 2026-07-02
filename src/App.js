@@ -923,6 +923,13 @@ Object.assign(T.es,{ aretConvert:"Crear Key Account", aretConverted:"Key Account
 Object.assign(T.de,{ aretConvert:"Key Account anlegen", aretConverted:"Key Account", aretConverting:"Konto wird erstellt…", aretConvertOk:"Key Account erstellt — Einladung gesendet", aretConvertErr:"Umwandlung fehlgeschlagen", aretNoEmail:"Zuerst die E-Mail des Käufers hinzufügen" });
 Object.assign(T.zh,{ aretConvert:"创建大客户", aretConverted:"大客户", aretConverting:"正在创建账户…", aretConvertOk:"已创建大客户 — 已发送邀请", aretConvertErr:"转换失败", aretNoEmail:"请先添加买家邮箱" });
 Object.assign(T.ar,{ aretConvert:"إنشاء حساب رئيسي", aretConverted:"حساب رئيسي", aretConverting:"جارٍ إنشاء الحساب…", aretConvertOk:"تم إنشاء الحساب — تم إرسال الدعوة", aretConvertErr:"فشل التحويل", aretNoEmail:"أضف بريد المشتري أولاً" });
+Object.assign(T.en,{ ckBonificoName:"Bank transfer", ckBonificoDesc:"Normal or instant · SEPA", ckBonificoInfo:"After confirming you'll get the IBAN to send the transfer to. The order starts once payment is received.", ddPayBonifico:"Pay by bank transfer" });
+Object.assign(T.it,{ ckBonificoName:"Bonifico bancario", ckBonificoDesc:"Normale o istantaneo · SEPA", ckBonificoInfo:"Dopo la conferma riceverai l'IBAN a cui fare il bonifico. L'ordine parte quando l'incasso è confermato.", ddPayBonifico:"Paga con bonifico" });
+Object.assign(T.fr,{ ckBonificoName:"Virement bancaire", ckBonificoDesc:"Normal ou instantané · SEPA", ckBonificoInfo:"Après confirmation, vous recevrez l'IBAN pour le virement. La commande démarre à réception du paiement.", ddPayBonifico:"Payer par virement" });
+Object.assign(T.es,{ ckBonificoName:"Transferencia bancaria", ckBonificoDesc:"Normal o instantáneo · SEPA", ckBonificoInfo:"Tras confirmar recibirás el IBAN para la transferencia. El pedido inicia al recibirse el pago.", ddPayBonifico:"Pagar por transferencia" });
+Object.assign(T.de,{ ckBonificoName:"Überweisung", ckBonificoDesc:"Normal oder sofort · SEPA", ckBonificoInfo:"Nach der Bestätigung erhältst du die IBAN für die Überweisung. Die Bestellung startet bei Zahlungseingang.", ddPayBonifico:"Per Überweisung zahlen" });
+Object.assign(T.zh,{ ckBonificoName:"银行转账", ckBonificoDesc:"普通或即时 · SEPA", ckBonificoInfo:"确认后你将收到用于转账的 IBAN。收到款项后订单开始。", ddPayBonifico:"通过银行转账支付" });
+Object.assign(T.ar,{ ckBonificoName:"تحويل بنكي", ckBonificoDesc:"عادي أو فوري · SEPA", ckBonificoInfo:"بعد التأكيد ستحصل على الآيبان للتحويل. يبدأ الطلب عند استلام الدفع.", ddPayBonifico:"الدفع بالتحويل" });
 
 
 
@@ -4177,7 +4184,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [orderNote, setOrderNote] = useState("");
   const [orderLoading, setOrderLoading] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(null);
-  const [selectedPayment, setSelectedPayment] = useState("sepa"); // sepa, card, sepa_debit
+  const [selectedPayment, setSelectedPayment] = useState("bonifico"); // bonifico, card
   const [currentUser, setCurrentUser] = useState(null);
   const [countryPrices, setCountryPrices] = useState({});
   const [resalePrices, setResalePrices] = useState({});
@@ -4212,6 +4219,36 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     const item = realProducts.find(p=>p.id===pid);
     return s + (item ? effPrice(item) * qty : 0);
   }, 0);
+
+  const payWithStripe = async (method) => {
+    if (cartCount === 0) return;
+    setOrderLoading(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      const items = Object.entries(cart).filter(([,qty])=>qty>0).map(([pid,qty]) => {
+        const product = realProducts.find(p=>p.id===pid);
+        return { product_id:pid, quantity:qty, product_name:product?.name||"", sku:product?.sku||"", unit_price:effPrice(product) };
+      });
+      const total = items.reduce((s,i)=>s+(i.unit_price*i.quantity),0);
+      const brandId = items[0] ? realProducts.find(p=>p.id===items[0].product_id)?.brand_id : null;
+      const { data: order } = await supabase.from("orders").insert({
+        distributor_id: user.id, brand_id: brandId, total_amount: total, status: "pending",
+        payment_method: method === "bonifico" ? "bonifico" : "card", notes: orderNote,
+      }).select().single();
+      if (!order) throw new Error("order");
+      await supabase.from("order_items").insert(items.map(i=>({ ...i, order_id: order.id })));
+      const res = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/stripe-connect`, {
+        method: "POST",
+        headers: { "Content-Type":"application/json", "Authorization":`Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}` },
+        body: JSON.stringify({ action:"create_checkout", order_id: order.id, method: method === "bonifico" ? "bank_transfer" : "card" })
+      });
+      const data = await res.json();
+      if (data.checkout_url) { window.location.href = data.checkout_url; return; }
+      if (data.error && String(data.error).includes("configurato")) alert(t("ddStripeNotCfg"));
+      else alert((t("ddStripeErr")+" ") + (data.error || t("ddRetry")));
+    } catch(e) { alert((t("ddError")+" ") + e.message); }
+    setOrderLoading(false);
+  };
 
   useEffect(() => {
     // Load current user
@@ -4329,59 +4366,6 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         setAccessRequests(prev => ({ ...prev, [brand.id]: "blocked" }));
       }
     }
-  };
-  const placeOrder = async () => {
-    if (cartCount === 0) return;
-    setOrderLoading(true);
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      // Build order items
-      const items = Object.entries(cart)
-        .filter(([pid, qty]) => qty > 0)
-        .map(([pid, qty]) => {
-          const product = realProducts.find(p => p.id === pid);
-          return { product_id: pid, quantity: qty, product_name: product?.name || "", sku: product?.sku || "", unit_price: effPrice(product) };
-        });
-
-      const total = items.reduce((s, i) => s + (i.unit_price * i.quantity), 0);
-
-      // Create order
-      const { data: order, error } = await supabase.from("orders").insert({
-        distributor_id: user.id,
-        brand_id: items[0] ? realProducts.find(p=>p.id===items[0].product_id)?.brand_id : null,
-        total_amount: total,
-        status: "confirmed", // Auto-confirmed, stock scales immediately via DB trigger
-        notes: orderNote,
-      }).select().single();
-
-      if (error) throw error;
-
-      // Insert order items
-      await supabase.from("order_items").insert(
-        items.map(i => ({ ...i, order_id: order.id }))
-      );
-
-      // Send confirmation email
-      if (currentUser) {
-        await sendEmail("order_confirmed", currentUser.email, currentUser.company_name || currentUser.email,
-          "distributor", "", order.order_number, total.toLocaleString("it-IT"), items.length.toString());
-      }
-
-      setOrderSuccess(order);
-      setCart({});
-      setOrderNote("");
-      setShowCheckout(false);
-
-      // Reload orders
-      const { data: orders } = await supabase.from("orders").select("*, order_items(*)").order("created_at", { ascending: false });
-      setRealOrders(orders || []);
-
-    } catch(e) {
-      console.error("Order error:", e);
-      alert((t("ddOrderErr")+" ") + e.message);
-    }
-    setOrderLoading(false);
   };
   const tabs = [
     { key:"brands", icon:"◈", label:t("tabBrandMarket") },
@@ -4812,57 +4796,31 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
             <div style={{ fontSize:12, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em", marginBottom:8 }}>{t("ckChoosePayment")}</div>
             <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
 
-              {/* SEPA Bonifico */}
-              <div onClick={() => setSelectedPayment("sepa")}
-                style={{ padding:"14px 16px", background: selectedPayment==="sepa" ? `${C.gold}12` : C.surface2,
-                  border:`2px solid ${selectedPayment==="sepa" ? C.gold : C.border}`,
+              {/* Bonifico via Stripe */}
+              <div onClick={() => setSelectedPayment("bonifico")}
+                style={{ padding:"14px 16px", background: selectedPayment==="bonifico" ? `${C.gold}12` : C.surface2,
+                  border:`2px solid ${selectedPayment==="bonifico" ? C.gold : C.border}`,
                   borderRadius:10, cursor:"pointer", transition:"all .15s" }}>
-                <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom: selectedPayment==="sepa" ? 12 : 0 }}>
+                <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom: selectedPayment==="bonifico" ? 10 : 0 }}>
                   <span style={{ fontSize:22 }}>🏦</span>
                   <div style={{ flex:1 }}>
-                    <div style={{ fontSize:14, fontWeight:700, color:C.text }}>{t("ckSepaName")}</div>
-                    <div style={{ fontSize:11, color:C.textMuted }}>{t("ckFree12")}</div>
+                    <div style={{ fontSize:14, fontWeight:700, color:C.text }}>{t("ckBonificoName")}</div>
+                    <div style={{ fontSize:11, color:C.textMuted }}>{t("ckBonificoDesc")}</div>
                   </div>
-                  <div style={{ width:20, height:20, borderRadius:"50%", border:`2px solid ${selectedPayment==="sepa"?C.gold:C.border}`,
-                    background: selectedPayment==="sepa" ? C.gold : "transparent",
+                  <div style={{ width:20, height:20, borderRadius:"50%", border:`2px solid ${selectedPayment==="bonifico"?C.gold:C.border}`,
+                    background: selectedPayment==="bonifico" ? C.gold : "transparent",
                     display:"flex", alignItems:"center", justifyContent:"center" }}>
-                    {selectedPayment==="sepa" && <div style={{ width:8, height:8, borderRadius:"50%", background:C.bg }}/>}
+                    {selectedPayment==="bonifico" && <div style={{ width:8, height:8, borderRadius:"50%", background:C.bg }}/>}
                   </div>
                 </div>
-                {/* Mostra IBAN del brand solo se selezionato */}
-                {selectedPayment==="sepa" && (
-                  <div style={{ padding:"12px 14px", background:C.surface, border:`1px solid ${C.border}`, borderRadius:8 }}>
-                    <div style={{ fontSize:11, color:C.textMuted, marginBottom:8, fontWeight:600 }}>
-                      💳 {t("ckPaySepaTo")}
-                    </div>
-                    <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:6 }}>
-                      {currentUser?.iban ? [
-                        [t("ckAccountHolder"), currentUser.account_holder || currentUser.company_name],
-                        [t("ckBank"), currentUser.bank_name || "—"],
-                        ["IBAN", currentUser.iban],
-                        ["BIC/SWIFT", currentUser.swift_bic || "—"],
-                      ].map(([k,v]) => (
-                        <div key={k}>
-                          <div style={{ fontSize:9, color:C.textDim, textTransform:"uppercase", letterSpacing:".06em" }}>{k}</div>
-                          <div style={{ fontSize:11, fontWeight:700, color:C.goldLight, fontFamily:"monospace", marginTop:1 }}>{v}</div>
-                        </div>
-                      )) : (
-                        <div style={{ gridColumn:"1/-1", fontSize:12, color:C.red }}>
-                          ⚠️ {t("ddBankMissing")}
-                        </div>
-                      )}
-                    </div>
-                    <div style={{ marginTop:10, padding:"8px 10px", background:`${C.gold}10`, border:`1px solid ${C.gold}25`, borderRadius:6, fontSize:11, color:C.gold }}>
-                      📋 {t("ckCausale")} <strong style={{ fontFamily:"monospace" }}>NEXUSHUB · €{cartValue.toLocaleString("it-IT",{minimumFractionDigits:2})}</strong>
-                    </div>
-                    <div style={{ marginTop:6, fontSize:11, color:C.textMuted }}>
-                      ✅ {t("ckReserveInfo")} <strong style={{ color:C.green }}>{t("ck48Torino")}</strong>
-                    </div>
+                {selectedPayment==="bonifico" && (
+                  <div style={{ padding:"10px 12px", background:`${C.gold}10`, border:`1px solid ${C.gold}25`, borderRadius:8, fontSize:11, color:C.gold, lineHeight:1.5 }}>
+                    {t("ckBonificoInfo")}
                   </div>
                 )}
               </div>
 
-              {/* Carta di credito */}
+              {/* Carta via Stripe */}
               <div onClick={() => setSelectedPayment("card")}
                 style={{ padding:"14px 16px", background: selectedPayment==="card" ? `#635bff15` : C.surface2,
                   border:`2px solid ${selectedPayment==="card" ? "#635bff" : C.border}`,
@@ -4881,25 +4839,6 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                 </div>
               </div>
 
-              {/* SEPA Debit */}
-              <div onClick={() => setSelectedPayment("sepa_debit")}
-                style={{ padding:"14px 16px", background: selectedPayment==="sepa_debit" ? `${C.blue}12` : C.surface2,
-                  border:`2px solid ${selectedPayment==="sepa_debit" ? C.blue : C.border}`,
-                  borderRadius:10, cursor:"pointer", transition:"all .15s" }}>
-                <div style={{ display:"flex", alignItems:"center", gap:12 }}>
-                  <span style={{ fontSize:22 }}>⚡</span>
-                  <div style={{ flex:1 }}>
-                    <div style={{ fontSize:14, fontWeight:700, color:C.text }}>SEPA Direct Debit</div>
-                    <div style={{ fontSize:11, color:C.textMuted }}>{t("ckSddDesc")}</div>
-                  </div>
-                  <div style={{ width:20, height:20, borderRadius:"50%", border:`2px solid ${selectedPayment==="sepa_debit"?C.blue:C.border}`,
-                    background: selectedPayment==="sepa_debit" ? C.blue : "transparent",
-                    display:"flex", alignItems:"center", justifyContent:"center" }}>
-                    {selectedPayment==="sepa_debit" && <div style={{ width:8, height:8, borderRadius:"50%", background:"#fff" }}/>}
-                  </div>
-                </div>
-              </div>
-
             </div>
           </div>
 
@@ -4914,73 +4853,14 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           </div>
 
           <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
-            {/* Bottone dinamico in base al metodo selezionato */}
-            {(selectedPayment === "sepa" || selectedPayment === "sepa_debit") && (
-              <button onClick={placeOrder} disabled={orderLoading}
-                style={{ width:"100%", padding:"14px", borderRadius:10, cursor:"pointer",
-                  background:`linear-gradient(135deg,${C.gold},${C.goldDim})`,
-                  border:"none", color:C.bg, fontSize:14, fontWeight:700,
-                  display:"flex", alignItems:"center", justifyContent:"center", gap:10 }}>
-                {orderLoading ? "⏳ Invio ordine..." : selectedPayment==="sepa" ? t("ddConfirmWire") : t("ddConfirmSepa")}
-              </button>
-            )}
-            {/* Paga con Carta via Stripe */}
-            {selectedPayment === "card" && (
-            <button onClick={async () => {
-              if (cartCount === 0) return;
-              setOrderLoading(true);
-              try {
-                // Prima crea l ordine
-                const { data: { user } } = await supabase.auth.getUser();
-                const items = Object.entries(cart).filter(([,qty])=>qty>0).map(([pid,qty]) => {
-                  const product = realProducts.find(p=>p.id===pid);
-                  return { product_id:pid, quantity:qty, product_name:product?.name||"", sku:product?.sku||"", unit_price:effPrice(product) };
-                });
-                const total = items.reduce((s,i)=>s+(i.unit_price*i.quantity),0);
-                const { data: order } = await supabase.from("orders").insert({
-                  distributor_id: user.id,
-                  brand_id: items[0] ? realProducts.find(p=>p.id===items[0].product_id)?.brand_id : null,
-                  total_amount: total,
-                  status: "pending",
-                  payment_method: "card",
-                  notes: orderNote,
-                }).select().single();
-                if (order) {
-                  await supabase.from("order_items").insert(items.map(i=>({...i, order_id:order.id})));
-                  // Crea sessione Stripe
-                  const res = await fetch(
-                    `${process.env.REACT_APP_SUPABASE_URL}/functions/v1/stripe-checkout`,
-                    {
-                      method: "POST",
-                      headers: { "Content-Type":"application/json", "Authorization":`Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}` },
-                      body: JSON.stringify({
-                        order_id: order.id,
-                        amount: total,
-                        brand_name: realProducts.find(p=>p.id===items[0]?.product_id)?.profiles?.company_name || "Brand",
-                        order_number: order.order_number,
-                        distributor_email: currentUser?.email,
-                        items: items.length,
-                      })
-                    }
-                  );
-                  const data = await res.json();
-                  if (data.checkout_url) {
-                    // Reindirizza a Stripe Checkout
-                    window.location.href = data.checkout_url;
-                  } else if (data.error && data.error.includes("not configured")) {
-                    alert(t("ddStripeNotCfg"));
-                  } else {
-                    alert((t("ddStripeErr")+" ") + (data.error || t("ddRetry")));
-                  }
-                }
-              } catch(e) {
-                alert((t("ddError")+" ") + e.message);
-              }
-              setOrderLoading(false);
-            }} disabled={orderLoading} style={{ width:"100%", padding:"14px", borderRadius:10, cursor:"pointer", background:"linear-gradient(135deg,#635bff,#4b44cc)", border:"none", color:"#fff", fontSize:14, fontWeight:700, display:"flex", alignItems:"center", justifyContent:"center", gap:10 }}>
-              💳 {t("ddPayCard")}
+            {/* Pagamento via Stripe (carta o bonifico) */}
+            <button onClick={() => payWithStripe(selectedPayment)} disabled={orderLoading}
+              style={{ width:"100%", padding:"14px", borderRadius:10, cursor:"pointer",
+                background: selectedPayment==="card" ? "linear-gradient(135deg,#635bff,#4b44cc)" : `linear-gradient(135deg,${C.gold},${C.goldDim})`,
+                border:"none", color: selectedPayment==="card" ? "#fff" : C.bg, fontSize:14, fontWeight:700,
+                display:"flex", alignItems:"center", justifyContent:"center", gap:10 }}>
+              {orderLoading ? t("ddSending") : selectedPayment==="card" ? ("💳 " + t("ddPayCard")) : ("🏦 " + t("ddPayBonifico"))}
             </button>
-            )}
             <button onClick={() => setShowCheckout(false)} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>
               {t("ddCancel")}
             </button>
