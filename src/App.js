@@ -930,6 +930,13 @@ Object.assign(T.es,{ ckBonificoName:"Transferencia bancaria", ckBonificoDesc:"No
 Object.assign(T.de,{ ckBonificoName:"Überweisung", ckBonificoDesc:"Normal oder sofort · SEPA", ckBonificoInfo:"Nach der Bestätigung erhältst du die IBAN für die Überweisung. Die Bestellung startet bei Zahlungseingang.", ddPayBonifico:"Per Überweisung zahlen" });
 Object.assign(T.zh,{ ckBonificoName:"银行转账", ckBonificoDesc:"普通或即时 · SEPA", ckBonificoInfo:"确认后你将收到用于转账的 IBAN。收到款项后订单开始。", ddPayBonifico:"通过银行转账支付" });
 Object.assign(T.ar,{ ckBonificoName:"تحويل بنكي", ckBonificoDesc:"عادي أو فوري · SEPA", ckBonificoInfo:"بعد التأكيد ستحصل على الآيبان للتحويل. يبدأ الطلب عند استلام الدفع.", ddPayBonifico:"الدفع بالتحويل" });
+Object.assign(T.en,{ bStripeTitle:"Receive payments (Stripe)", bStripeDesc:"Connect your Stripe account to automatically receive your share of every order. NexusHub only keeps the agreed commission.", bStripeConnect:"Connect Stripe", bStripeResume:"Finish onboarding", bStripeCheck:"Check status", bStripeActive:"Stripe connected", bStripePending:"Awaiting completion", bStripeErr:"Stripe error, try again" });
+Object.assign(T.it,{ bStripeTitle:"Ricevi i pagamenti (Stripe)", bStripeDesc:"Collega il tuo conto Stripe per ricevere automaticamente la tua quota su ogni ordine. NexusHub trattiene solo la commissione concordata.", bStripeConnect:"Collega Stripe", bStripeResume:"Completa onboarding", bStripeCheck:"Verifica stato", bStripeActive:"Stripe collegato", bStripePending:"In attesa di completamento", bStripeErr:"Errore Stripe, riprova" });
+Object.assign(T.fr,{ bStripeTitle:"Recevoir les paiements (Stripe)", bStripeDesc:"Connectez votre compte Stripe pour recevoir automatiquement votre part sur chaque commande. NexusHub ne garde que la commission convenue.", bStripeConnect:"Connecter Stripe", bStripeResume:"Terminer l'inscription", bStripeCheck:"Vérifier le statut", bStripeActive:"Stripe connecté", bStripePending:"En attente de finalisation", bStripeErr:"Erreur Stripe, réessayez" });
+Object.assign(T.es,{ bStripeTitle:"Recibir pagos (Stripe)", bStripeDesc:"Conecta tu cuenta Stripe para recibir automáticamente tu parte de cada pedido. NexusHub solo se queda con la comisión acordada.", bStripeConnect:"Conectar Stripe", bStripeResume:"Completar registro", bStripeCheck:"Verificar estado", bStripeActive:"Stripe conectado", bStripePending:"Pendiente de completar", bStripeErr:"Error de Stripe, inténtalo de nuevo" });
+Object.assign(T.de,{ bStripeTitle:"Zahlungen erhalten (Stripe)", bStripeDesc:"Verbinde dein Stripe-Konto, um deinen Anteil an jeder Bestellung automatisch zu erhalten. NexusHub behält nur die vereinbarte Provision.", bStripeConnect:"Stripe verbinden", bStripeResume:"Onboarding abschließen", bStripeCheck:"Status prüfen", bStripeActive:"Stripe verbunden", bStripePending:"Abschluss ausstehend", bStripeErr:"Stripe-Fehler, bitte erneut versuchen" });
+Object.assign(T.zh,{ bStripeTitle:"接收付款（Stripe）", bStripeDesc:"连接你的 Stripe 账户，自动收取每笔订单中属于你的部分。NexusHub 仅保留约定的佣金。", bStripeConnect:"连接 Stripe", bStripeResume:"完成开通", bStripeCheck:"检查状态", bStripeActive:"Stripe 已连接", bStripePending:"等待完成", bStripeErr:"Stripe 错误，请重试" });
+Object.assign(T.ar,{ bStripeTitle:"استلام المدفوعات (Stripe)", bStripeDesc:"اربط حساب Stripe لتستلم حصتك تلقائيًا من كل طلب. يحتفظ NexusHub بالعمولة المتفق عليها فقط.", bStripeConnect:"ربط Stripe", bStripeResume:"إكمال التسجيل", bStripeCheck:"التحقق من الحالة", bStripeActive:"تم ربط Stripe", bStripePending:"بانتظار الإكمال", bStripeErr:"خطأ Stripe، حاول مجددًا" });
 
 
 
@@ -2900,7 +2907,46 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const [bImportLoading, setBImportLoading] = useState(false);
   const [bImportResults, setBImportResults] = useState(null);
   const [bToast, setBToast] = useState("");
+  const [bMe, setBMe] = useState(null);
+  const [bStripeBusy, setBStripeBusy] = useState(false);
   const bNotify = (m) => { setBToast(m); setTimeout(() => setBToast(""), 2600); };
+  useEffect(() => { (async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    const { data } = await supabase.from("profiles").select("id, company_name, email, country, stripe_connect_id, stripe_connect_status").eq("id", user.id).single();
+    setBMe(data);
+  })(); }, []);
+  const connectStripe = async () => {
+    setBStripeBusy(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      const res = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/stripe-connect`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}` },
+        body: JSON.stringify({ action: "create_brand_account", brand_id: user.id, brand_email: bMe && bMe.email, brand_name: bMe && bMe.company_name, brand_country: (bMe && bMe.country) || "IT" })
+      });
+      const data = await res.json();
+      if (data.onboarding_url) { window.location.href = data.onboarding_url; return; }
+      bNotify(data.error || t("bStripeErr"));
+    } catch (e) { bNotify(t("bStripeErr")); }
+    setBStripeBusy(false);
+  };
+  const refreshStripe = async () => {
+    if (!bMe || !bMe.stripe_connect_id) return;
+    setBStripeBusy(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      const res = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/stripe-connect`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}` },
+        body: JSON.stringify({ action: "check_account", stripe_connect_id: bMe.stripe_connect_id, brand_id: user.id })
+      });
+      const data = await res.json();
+      setBMe(m => m ? { ...m, stripe_connect_status: data.active ? "active" : "pending" } : m);
+      bNotify(data.active ? t("bStripeActive") : t("bStripePending"));
+    } catch (e) { bNotify(t("bStripeErr")); }
+    setBStripeBusy(false);
+  };
   const openBDocs = async (p) => {
     setBDocsProduct(p); setBDocs([]);
     const { data } = await supabase.from("product_documents").select("*").eq("product_id", p.id).order("created_at", { ascending:false });
@@ -3620,6 +3666,30 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("paymentsTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("paymentsSub")}</p>
+            {/* Stripe Connect onboarding */}
+            <div style={{ background:C.surface, border:`1px solid ${bMe && bMe.stripe_connect_status==="active" ? C.green+"55" : C.gold+"40"}`, borderRadius:14, padding:22, marginBottom:22 }}>
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:12 }}>
+                <div>
+                  <div style={{ fontSize:15, fontWeight:700, color:C.text, marginBottom:4 }}>{t("bStripeTitle")}</div>
+                  <div style={{ fontSize:12, color:C.textMuted, maxWidth:440, lineHeight:1.5 }}>{t("bStripeDesc")}</div>
+                </div>
+                <div>
+                  {bMe && bMe.stripe_connect_status==="active" ? (
+                    <span style={{ fontSize:13, fontWeight:700, color:C.green }}>{"\u2713 " + t("bStripeActive")}</span>
+                  ) : bMe && bMe.stripe_connect_id ? (
+                    <div style={{ display:"flex", flexDirection:"column", gap:8, alignItems:"flex-end" }}>
+                      <span style={{ fontSize:12, fontWeight:600, color:C.gold }}>{t("bStripePending")}</span>
+                      <div style={{ display:"flex", gap:8 }}>
+                        <button onClick={connectStripe} disabled={bStripeBusy} style={{ padding:"8px 14px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.gold}`, color:C.gold, fontSize:12, fontWeight:600 }}>{t("bStripeResume")}</button>
+                        <button onClick={refreshStripe} disabled={bStripeBusy} style={{ padding:"8px 14px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:12, fontWeight:600 }}>{t("bStripeCheck")}</button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button onClick={connectStripe} disabled={bStripeBusy} style={{ padding:"10px 18px", borderRadius:8, cursor:"pointer", background:"linear-gradient(135deg,#635bff,#4b44cc)", border:"none", color:"#fff", fontSize:13, fontWeight:700 }}>{bStripeBusy ? "\u2026" : t("bStripeConnect")}</button>
+                  )}
+                </div>
+              </div>
+            </div>
             <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, padding:22, marginBottom:22 }}>
               <div style={{ fontSize:11, color:C.textMuted, marginBottom:14, textTransform:"uppercase", letterSpacing:"0.08em" }}>{t("payArchLabel")}</div>
               <div style={{ overflowX:"auto" }}>
