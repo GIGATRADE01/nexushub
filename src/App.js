@@ -958,6 +958,13 @@ Object.assign(T.es,{ bFindDistTitle:"Buscar distribuidores", bFindDistSub:"Invit
 Object.assign(T.de,{ bFindDistTitle:"Distributoren finden", bFindDistSub:"Lade Distributoren der Plattform ein, deine Produkte zu verkaufen", bNoDistDir:"Noch keine Distributoren auf der Plattform.", bDistActive:"Aktiv", bDistPending:"Anfrage ausstehend", bInvite:"Einladen", bInviteSent:"Einladung gesendet", bInviteNotifTitle:"Eine Marke hat dich eingeladen", bInviteNotifMsg:"Eine Marke hat dir Zugang zu ihrem Katalog gegeben. Du findest ihre Produkte in deinem Katalog." });
 Object.assign(T.zh,{ bFindDistTitle:"查找分销商", bFindDistSub:"邀请平台上的分销商销售你的产品", bNoDistDir:"平台上暂无分销商。", bDistActive:"活跃", bDistPending:"请求待处理", bInvite:"邀请", bInviteSent:"邀请已发送", bInviteNotifTitle:"一个品牌邀请了你", bInviteNotifMsg:"一个品牌授予你访问其目录的权限。你将在目录中找到其产品。" });
 Object.assign(T.ar,{ bFindDistTitle:"البحث عن الموزعين", bFindDistSub:"ادعُ الموزعين على المنصة لبيع منتجاتك", bNoDistDir:"لا يوجد موزعون على المنصة حاليًا.", bDistActive:"نشط", bDistPending:"طلب قيد الانتظار", bInvite:"دعوة", bInviteSent:"تم إرسال الدعوة", bInviteNotifTitle:"دعتك إحدى العلامات", bInviteNotifMsg:"منحتك علامة تجارية الوصول إلى كتالوجها. ستجد منتجاتها في كتالوجك." });
+Object.assign(T.en,{ diSearchPh:"Search a product…" });
+Object.assign(T.it,{ diSearchPh:"Cerca un prodotto…" });
+Object.assign(T.fr,{ diSearchPh:"Rechercher un produit…" });
+Object.assign(T.es,{ diSearchPh:"Buscar un producto…" });
+Object.assign(T.de,{ diSearchPh:"Produkt suchen…" });
+Object.assign(T.zh,{ diSearchPh:"搜索产品…" });
+Object.assign(T.ar,{ diSearchPh:"ابحث عن منتج…" });
 
 
 
@@ -4279,6 +4286,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [accessRequests, setAccessRequests] = useState({});
   const [brandDiscounts, setBrandDiscounts] = useState({});
   const [realProducts, setRealProducts] = useState([]);
+  const [catSearch, setCatSearch] = useState("");
   const [distDocsProduct, setDistDocsProduct] = useState(null);
   const [distDocs, setDistDocs] = useState([]);
   const [issueOrder, setIssueOrder] = useState(null);
@@ -4608,13 +4616,18 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                 ))}
               </Modal>
             )}
+            {visibleProducts.length > 0 && (
+              <div style={{ marginBottom:16 }}>
+                <input type="text" value={catSearch} onChange={e => setCatSearch(e.target.value)} placeholder={t("diSearchPh")} style={{ width:"100%", maxWidth:360, padding:"10px 14px", borderRadius:10, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none" }}/>
+              </div>
+            )}
             {/* Products grouped by brand */}
             {visibleProducts.length === 0 ? (
                 <div style={{ gridColumn:"1/-1", textAlign:"center", padding:40, color:C.textMuted }}>
                   Non hai ancora accesso a nessun brand. Vai su "Marketplace Brand" e richiedi l'accesso per vedere i prodotti.
                 </div>
               ) : approvedBrandIds.map(bid => {
-              const bprods = visibleProducts.filter(p => p.brand_id === bid);
+              const bprods = visibleProducts.filter(p => p.brand_id === bid && (!catSearch || (p.name||"").toLowerCase().includes(catSearch.toLowerCase()) || (p.sku||"").toLowerCase().includes(catSearch.toLowerCase())));
               if (bprods.length === 0) return null;
               const bInfo = dbBrands.find(b => b.id === bid);
               const bLabel = (bInfo && (bInfo.company_name || bInfo.email)) || "Brand";
