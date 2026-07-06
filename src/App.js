@@ -1853,14 +1853,17 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
       });
       if (signUpError) throw signUpError;
       if (data.user) {
-        await supabase.from("profiles").update({ 
+        await supabase.from("profiles").update({
           full_name: fullName, company_name: companyName, phone, country, account_type: acctType,
+          vat_number: vatNumber || null,
+        }).eq("id", data.user.id);
+        await supabase.from("profile_billing").upsert({
+          id: data.user.id,
           iban: iban || null, bank_name: bankName || null,
           account_holder: accountHolder || null, swift_bic: swiftBic || null,
-          vat_number: vatNumber || null,
-          sdi_code: country === "Italia" || country === "Italy" || country === "IT" ? (sdiCode || null) : null,
-          pec_email: country === "Italia" || country === "Italy" || country === "IT" ? (pecEmail || null) : null,
-        }).eq("id", data.user.id);
+          sdi_code: (country === "Italia" || country === "Italy" || country === "IT") ? (sdiCode || null) : null,
+          pec_email: (country === "Italia" || country === "Italy" || country === "IT") ? (pecEmail || null) : null,
+        }, { onConflict: "id" });
         for (const docType of docTypes) {
           const file = docs[docType];
           if (file) {
@@ -5128,8 +5131,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     setLoading(true);
     try {
       const { data } = await supabase.from("profiles")
-        .select("*").neq("role","admin").order("created_at", { ascending: false });
-      setUsers(data || []);
+        .select("*, profile_billing(iban, bank_name, account_holder, swift_bic, sdi_code, pec_email)").neq("role","admin").order("created_at", { ascending: false });
+      const flat = (data || []).map(u => { const pb = Array.isArray(u.profile_billing) ? (u.profile_billing[0] || {}) : (u.profile_billing || {}); return { ...u, iban: pb.iban ?? null, bank_name: pb.bank_name ?? null, account_holder: pb.account_holder ?? null, swift_bic: pb.swift_bic ?? null, sdi_code: pb.sdi_code ?? null, pec_email: pb.pec_email ?? null }; });
+      setUsers(flat);
     } catch(e) { console.error(e); }
     setLoading(false);
   };
@@ -5499,14 +5503,14 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       const pids = [...pidSet];
       let proMap = {};
       if (pids.length) {
-        const { data: pros } = await supabase.from("profiles").select("id, company_name, iban").in("id", pids);
+        const { data: pros } = await supabase.from("profiles").select("id, company_name, profile_billing(iban)").in("id", pids);
         (pros||[]).forEach(p => { proMap[p.id] = p; });
       }
       setPaySplits(sp.map(s => {
         const o = ordMap[s.order_id] || {};
         const b = proMap[o.brand_id] || {};
         const d = proMap[o.distributor_id] || {};
-        return { ...s, order_number: o.order_number, brand_name: b.company_name, brand_iban: b.iban, distributor_name: d.company_name };
+        return { ...s, order_number: o.order_number, brand_name: b.company_name, brand_iban: (Array.isArray(b.profile_billing) ? (b.profile_billing[0] && b.profile_billing[0].iban) : (b.profile_billing && b.profile_billing.iban)) || null, distributor_name: d.company_name };
       }));
     } catch(e) { console.error(e); }
   };
