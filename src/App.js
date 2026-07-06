@@ -944,6 +944,13 @@ Object.assign(T.es,{ ckOnlyBonifico:"Por encima de 15.000\\u202f\\u20ac solo est
 Object.assign(T.de,{ ckOnlyBonifico:"\\u00dcber 15.000\\u202f\\u20ac ist nur \\u00dcberweisung verf\\u00fcgbar (niedrigere Geb\\u00fchren, sicherer). Du erh\\u00e4ltst die IBAN nach der Best\\u00e4tigung; die Bestellung startet bei Zahlungseingang." });
 Object.assign(T.zh,{ ckOnlyBonifico:"\\u8d85\\u8fc7 15,000 \\u6b27\\u5143\\u4ec5\\u53ef\\u7528\\u94f6\\u884c\\u8f6c\\u8d26\\uff08\\u8d39\\u7528\\u66f4\\u4f4e\\u3001\\u5927\\u989d\\u66f4\\u5b89\\u5168\\uff09\\u3002\\u786e\\u8ba4\\u540e\\u83b7\\u5f97 IBAN\\uff1b\\u6536\\u6b3e\\u540e\\u8ba2\\u5355\\u5f00\\u59cb\\u3002" });
 Object.assign(T.ar,{ ckOnlyBonifico:"\\u0644\\u0644\\u0645\\u0628\\u0627\\u0644\\u063a \\u0623\\u0643\\u0628\\u0631 \\u0645\\u0646 15,000 \\u064a\\u0648\\u0631\\u0648 \\u064a\\u062a\\u0648\\u0641\\u0631 \\u0627\\u0644\\u062a\\u062d\\u0648\\u064a\\u0644 \\u0627\\u0644\\u0628\\u0646\\u0643\\u064a \\u0641\\u0642\\u0637 (\\u0631\\u0633\\u0648\\u0645 \\u0623\\u0642\\u0644 \\u0648\\u0623\\u0643\\u062b\\u0631 \\u0623\\u0645\\u0627\\u0646\\u064b\\u0627). \\u0633\\u062a\\u062d\\u0635\\u0644 \\u0639\\u0644\\u0649 \\u0627\\u0644\\u0622\\u064a\\u0628\\u0627\\u0646 \\u0628\\u0639\\u062f \\u0627\\u0644\\u062a\\u0623\\u0643\\u064a\\u062f\\u061b \\u064a\\u0628\\u062f\\u0623 \\u0627\\u0644\\u0637\\u0644\\u0628 \\u0639\\u0646\\u062f \\u0627\\u0644\\u0627\\u0633\\u062a\\u0644\\u0627\\u0645." });
+Object.assign(T.en,{ diProducts:"products" });
+Object.assign(T.it,{ diProducts:"prodotti" });
+Object.assign(T.fr,{ diProducts:"produits" });
+Object.assign(T.es,{ diProducts:"productos" });
+Object.assign(T.de,{ diProducts:"Produkte" });
+Object.assign(T.zh,{ diProducts:"产品" });
+Object.assign(T.ar,{ diProducts:"منتجات" });
 
 
 
@@ -4555,13 +4562,24 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                 ))}
               </Modal>
             )}
-            {/* Product grid with real stock */}
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(min(280px,100%), 1fr))", gap:14 }}>
-              {visibleProducts.length === 0 ? (
+            {/* Products grouped by brand */}
+            {visibleProducts.length === 0 ? (
                 <div style={{ gridColumn:"1/-1", textAlign:"center", padding:40, color:C.textMuted }}>
                   Non hai ancora accesso a nessun brand. Vai su "Marketplace Brand" e richiedi l'accesso per vedere i prodotti.
                 </div>
-              ) : visibleProducts.map(p => {
+              ) : approvedBrandIds.map(bid => {
+              const bprods = visibleProducts.filter(p => p.brand_id === bid);
+              if (bprods.length === 0) return null;
+              const bInfo = dbBrands.find(b => b.id === bid);
+              const bLabel = (bInfo && (bInfo.company_name || bInfo.email)) || "Brand";
+              return (
+              <div key={bid} style={{ marginBottom:28 }}>
+                <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:12, paddingBottom:8, borderBottom:`1px solid ${C.border}` }}>
+                  <span style={{ fontSize:16, fontWeight:700, color:C.gold, fontFamily:"Georgia,serif" }}>{bLabel}</span>
+                  <span style={{ fontSize:11, color:C.textMuted, background:C.surface2, padding:"2px 8px", borderRadius:20 }}>{bprods.length} {t("diProducts")}</span>
+                </div>
+                <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(min(280px,100%), 1fr))", gap:14 }}>
+                  {bprods.map(p => {
                 const stock = p.inventory?.quantity_available || 0;
                 const inCart = cart[p.id] || 0;
                 const moq = p.min_order_qty || 1;
@@ -4626,8 +4644,11 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                     )}
                   </div>
                 );
-              })}
-            </div>
+                  })}
+                </div>
+              </div>
+              );
+            })}
           </div>
         )}
         {invoiceView && <InvoiceModal inv={invoiceView} onClose={()=>setInvoiceView(null)}/>}
