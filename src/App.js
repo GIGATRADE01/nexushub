@@ -1877,11 +1877,11 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
         const isItaly = country === "Italia" || country === "Italy" || country === "IT";
         await supabase.from("profiles").update({
           full_name: fullName, company_name: companyName, phone, country, account_type: acctType,
-          vat_number: vatNumber || null,
           ...(isBrand ? {} : { shipping_address: accountHolder || null, shipping_city: bankName || null, shipping_zip: iban || null, shipping_region: swiftBic || null }),
         }).eq("id", data.user.id);
         await supabase.from("profile_billing").upsert({
           id: data.user.id,
+          vat_number: vatNumber || null,
           ...(isBrand ? { iban: iban || null, bank_name: bankName || null, account_holder: accountHolder || null, swift_bic: swiftBic || null } : {}),
           sdi_code: isItaly ? (sdiCode || null) : null,
           pec_email: isItaly ? (pecEmail || null) : null,
@@ -2946,8 +2946,9 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   useEffect(() => { (async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
-    const { data } = await supabase.from("profiles").select("id, company_name, email, country, stripe_connect_id, stripe_connect_status").eq("id", user.id).single();
-    setBMe(data);
+    const { data } = await supabase.from("profiles").select("id, company_name, email, country, profile_billing(stripe_connect_id, stripe_connect_status)").eq("id", user.id).single();
+    const pbm = data && (Array.isArray(data.profile_billing) ? (data.profile_billing[0] || {}) : (data.profile_billing || {}));
+    setBMe(data ? { ...data, stripe_connect_id: pbm ? pbm.stripe_connect_id : null, stripe_connect_status: pbm ? pbm.stripe_connect_status : null } : null);
   })(); }, []);
   const connectStripe = async () => {
     setBStripeBusy(true);
@@ -3189,7 +3190,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     });
     // CONTRATTO AUTOMATICO: all'approvazione genera (o aggiorna) il contratto di distribuzione
     if (newStatus === "approved") {
-      const { data: bp } = await supabase.from("profiles").select("commission_rate").eq("id", req.brand_id).single();
+      const { data: bp } = await supabase.from("profile_billing").select("commission_rate").eq("id", req.brand_id).single();
       const comm = (bp && bp.commission_rate != null) ? bp.commission_rate : 11.4;
       const territory = (req.distributor?.country || "").trim() || "—";
       const today = new Date();
@@ -5216,8 +5217,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     setLoading(true);
     try {
       const { data } = await supabase.from("profiles")
-        .select("*, profile_billing(iban, bank_name, account_holder, swift_bic, sdi_code, pec_email)").neq("role","admin").order("created_at", { ascending: false });
-      const flat = (data || []).map(u => { const pb = Array.isArray(u.profile_billing) ? (u.profile_billing[0] || {}) : (u.profile_billing || {}); return { ...u, iban: pb.iban ?? null, bank_name: pb.bank_name ?? null, account_holder: pb.account_holder ?? null, swift_bic: pb.swift_bic ?? null, sdi_code: pb.sdi_code ?? null, pec_email: pb.pec_email ?? null }; });
+        .select("*, profile_billing(iban, bank_name, account_holder, swift_bic, sdi_code, pec_email, vat_number, commission_rate, estimated_annual_revenue, commission_locked, vies_valid, vies_name, vies_checked_at, stripe_connect_id, stripe_connect_status)").neq("role","admin").order("created_at", { ascending: false });
+      const flat = (data || []).map(u => { const pb = Array.isArray(u.profile_billing) ? (u.profile_billing[0] || {}) : (u.profile_billing || {}); return { ...u, iban: pb.iban ?? null, bank_name: pb.bank_name ?? null, account_holder: pb.account_holder ?? null, swift_bic: pb.swift_bic ?? null, sdi_code: pb.sdi_code ?? null, pec_email: pb.pec_email ?? null, vat_number: pb.vat_number ?? null, commission_rate: pb.commission_rate ?? null, estimated_annual_revenue: pb.estimated_annual_revenue ?? null, commission_locked: pb.commission_locked ?? null, vies_valid: pb.vies_valid ?? null, vies_name: pb.vies_name ?? null, vies_checked_at: pb.vies_checked_at ?? null, stripe_connect_id: pb.stripe_connect_id ?? null, stripe_connect_status: pb.stripe_connect_status ?? null }; });
       setUsers(flat);
     } catch(e) { console.error(e); }
     setLoading(false);
@@ -5602,7 +5603,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const markCollected = async (sp) => { await supabase.from("payment_splits").update({ split_status:"collected", nexushub_received_at:new Date().toISOString() }).eq("id", sp.id); loadPaySplits(); };
   const markPaidBrand = async (sp) => { await supabase.from("payment_splits").update({ split_status:"paid_brand", brand_received_at:new Date().toISOString() }).eq("id", sp.id); loadPaySplits(); };
   const loadCommissions = async () => {
-    const { data: bs } = await supabase.from("profiles").select("id, company_name, email, commission_rate, estimated_annual_revenue, commission_locked").eq("role", "brand");
+    const { data: bs } = await supabase.from("profiles").select("id, company_name, email, profile_billing(commission_rate, estimated_annual_revenue, commission_locked)").eq("role", "brand");
     const { data: ords } = await supabase.from("orders").select("brand_id, total_amount, created_at, status");
     const yr = new Date().getFullYear();
     const rev = {};
@@ -5612,17 +5613,20 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       if (oy !== yr) return;
       rev[o.brand_id] = (rev[o.brand_id] || 0) + (o.total_amount || 0);
     });
-    setCommissionRows((bs || []).map(b => ({
-      id: b.id,
-      name: b.company_name || b.email || "Brand",
-      declared: b.estimated_annual_revenue || 0,
-      actual: rev[b.id] || 0,
-      current: b.commission_rate ?? 11.4,
-      locked: b.commission_locked || false,
-    })));
+    setCommissionRows((bs || []).map(b => {
+      const pb = Array.isArray(b.profile_billing) ? (b.profile_billing[0] || {}) : (b.profile_billing || {});
+      return {
+        id: b.id,
+        name: b.company_name || b.email || "Brand",
+        declared: pb.estimated_annual_revenue || 0,
+        actual: rev[b.id] || 0,
+        current: pb.commission_rate ?? 11.4,
+        locked: pb.commission_locked || false,
+      };
+    }));
   };
   const applyCommission = async (row, newRate) => {
-    await supabase.from("profiles").update({ commission_rate: newRate }).eq("id", row.id);
+    await supabase.from("profile_billing").upsert({ id: row.id, commission_rate: newRate }, { onConflict: "id" });
     await supabase.from("contracts").update({ commission_rate: newRate }).eq("brand_id", row.id);
     await supabase.from("notifications").insert({
       user_id: row.id,
@@ -5636,7 +5640,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
   const toggleLock = async (row) => {
     const nv = !row.locked;
-    await supabase.from("profiles").update({ commission_locked: nv }).eq("id", row.id);
+    await supabase.from("profile_billing").upsert({ id: row.id, commission_locked: nv }, { onConflict: "id" });
     setCommissionRows(prev => prev.map(r => r.id === row.id ? { ...r, locked: nv } : r));
     notify(nv ? ("🔒 " + row.name + ": tariffa bloccata") : ("🔓 " + row.name + ": tariffa sbloccata"));
   };
@@ -7965,7 +7969,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                     <input type="number" min={0} step={10000} defaultValue={editingUser.estimated_annual_revenue ?? 0}
                       onBlur={async (e) => {
                         const v = Math.max(0, Number(e.target.value) || 0);
-                        await supabase.from("profiles").update({ estimated_annual_revenue: v }).eq("id", editingUser.id);
+                        await supabase.from("profile_billing").upsert({ id: editingUser.id, estimated_annual_revenue: v }, { onConflict: "id" });
                         setEditingUser(u => ({ ...u, estimated_annual_revenue: v }));
                         notify(t("aumRevUpdated"));
                       }}
