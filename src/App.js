@@ -951,6 +951,13 @@ Object.assign(T.es,{ diProducts:"productos" });
 Object.assign(T.de,{ diProducts:"Produkte" });
 Object.assign(T.zh,{ diProducts:"产品" });
 Object.assign(T.ar,{ diProducts:"منتجات" });
+Object.assign(T.en,{ bFindDistTitle:"Find distributors", bFindDistSub:"Invite distributors on the platform to sell your products", bNoDistDir:"No distributors on the platform yet.", bDistActive:"Active", bDistPending:"Request pending", bInvite:"Invite", bInviteSent:"Invitation sent", bInviteNotifTitle:"A brand invited you", bInviteNotifMsg:"A brand gave you access to its catalog. You'll find its products in your catalog." });
+Object.assign(T.it,{ bFindDistTitle:"Trova distributori", bFindDistSub:"Invita i distributori presenti sulla piattaforma a vendere i tuoi prodotti", bNoDistDir:"Nessun distributore sulla piattaforma al momento.", bDistActive:"Attivo", bDistPending:"Richiesta in attesa", bInvite:"Invita", bInviteSent:"Invito inviato", bInviteNotifTitle:"Un brand ti ha invitato", bInviteNotifMsg:"Un brand ti ha dato accesso al suo catalogo. Trovi i suoi prodotti nel tuo catalogo." });
+Object.assign(T.fr,{ bFindDistTitle:"Trouver des distributeurs", bFindDistSub:"Invitez les distributeurs de la plateforme à vendre vos produits", bNoDistDir:"Aucun distributeur sur la plateforme pour le moment.", bDistActive:"Actif", bDistPending:"Demande en attente", bInvite:"Inviter", bInviteSent:"Invitation envoyée", bInviteNotifTitle:"Une marque vous a invité", bInviteNotifMsg:"Une marque vous a donné accès à son catalogue. Vous trouverez ses produits dans votre catalogue." });
+Object.assign(T.es,{ bFindDistTitle:"Buscar distribuidores", bFindDistSub:"Invita a los distribuidores de la plataforma a vender tus productos", bNoDistDir:"Ningún distribuidor en la plataforma por ahora.", bDistActive:"Activo", bDistPending:"Solicitud pendiente", bInvite:"Invitar", bInviteSent:"Invitación enviada", bInviteNotifTitle:"Una marca te ha invitado", bInviteNotifMsg:"Una marca te dio acceso a su catálogo. Encontrarás sus productos en tu catálogo." });
+Object.assign(T.de,{ bFindDistTitle:"Distributoren finden", bFindDistSub:"Lade Distributoren der Plattform ein, deine Produkte zu verkaufen", bNoDistDir:"Noch keine Distributoren auf der Plattform.", bDistActive:"Aktiv", bDistPending:"Anfrage ausstehend", bInvite:"Einladen", bInviteSent:"Einladung gesendet", bInviteNotifTitle:"Eine Marke hat dich eingeladen", bInviteNotifMsg:"Eine Marke hat dir Zugang zu ihrem Katalog gegeben. Du findest ihre Produkte in deinem Katalog." });
+Object.assign(T.zh,{ bFindDistTitle:"查找分销商", bFindDistSub:"邀请平台上的分销商销售你的产品", bNoDistDir:"平台上暂无分销商。", bDistActive:"活跃", bDistPending:"请求待处理", bInvite:"邀请", bInviteSent:"邀请已发送", bInviteNotifTitle:"一个品牌邀请了你", bInviteNotifMsg:"一个品牌授予你访问其目录的权限。你将在目录中找到其产品。" });
+Object.assign(T.ar,{ bFindDistTitle:"البحث عن الموزعين", bFindDistSub:"ادعُ الموزعين على المنصة لبيع منتجاتك", bNoDistDir:"لا يوجد موزعون على المنصة حاليًا.", bDistActive:"نشط", bDistPending:"طلب قيد الانتظار", bInvite:"دعوة", bInviteSent:"تم إرسال الدعوة", bInviteNotifTitle:"دعتك إحدى العلامات", bInviteNotifMsg:"منحتك علامة تجارية الوصول إلى كتالوجها. ستجد منتجاتها في كتالوجك." });
 
 
 
@@ -2908,6 +2915,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
   const [tab, setTab] = useState("overview");
   const [accessReqs, setAccessReqs] = useState([]);
+  const [dbDistributors, setDbDistributors] = useState([]);
   const [brandOrders, setBrandOrders] = useState([]);
   const [brandProducts, setBrandProducts] = useState([]);
   const [brandInvoices, setBrandInvoices] = useState([]);
@@ -3105,6 +3113,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
       setAccessReqs(data || []);
     };
     loadAccessReqs();
+    supabase.from("profiles").select("id, company_name, email, country, trust_score, account_state").eq("role","distributor").eq("account_type","distributor").eq("status","approved").then(({ data }) => setDbDistributors(data || []));
     const loadBrandOrders = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
@@ -3146,6 +3155,14 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
       message: v > 0 ? ("Hai ricevuto uno sconto del " + v + "% su tutto il catalogo di questo brand.") : "Lo sconto sul catalogo di questo brand e stato rimosso.",
       type: "access_update",
     });
+  };
+  const inviteDistributor = async (dist) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    await supabase.from("brand_access_requests").upsert({ distributor_id: dist.id, brand_id: user.id, status: "approved", updated_at: new Date().toISOString() }, { onConflict: "distributor_id,brand_id" });
+    await supabase.from("notifications").insert({ user_id: dist.id, type: "access_update", title: t("bInviteNotifTitle"), message: t("bInviteNotifMsg") });
+    setAccessReqs(prev => prev.some(r => r.distributor_id === dist.id) ? prev.map(r => r.distributor_id === dist.id ? { ...r, status: "approved" } : r) : [...prev, { id: "tmp-"+dist.id, distributor_id: dist.id, brand_id: user.id, status: "approved", distributor: dist }]);
+    bNotify(t("bInviteSent"));
   };
   const handleAccess = async (req, newStatus, exclusive = false) => {
     setAccessReqs(prev => prev.map(r => r.id === req.id ? { ...r, status: newStatus, exclusive: newStatus === "approved" ? exclusive : r.exclusive } : r));
@@ -3435,6 +3452,35 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                 </div>
               );
             })()}
+            {/* Directory: invita distributori presenti sulla piattaforma */}
+            <div style={{ marginTop:28 }}>
+              <h3 style={{ fontSize:16, fontWeight:700, color:C.text, margin:"0 0 4px" }}>{t("bFindDistTitle")}</h3>
+              <p style={{ fontSize:12, color:C.textMuted, margin:"0 0 14px" }}>{t("bFindDistSub")}</p>
+              {(() => {
+                const reqByDist = {}; accessReqs.forEach(r => { reqByDist[r.distributor_id] = r.status; });
+                if (dbDistributors.length === 0) return <div style={{ color:C.textDim, fontSize:13 }}>{t("bNoDistDir")}</div>;
+                return (
+                  <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(min(260px,100%), 1fr))", gap:12 }}>
+                    {dbDistributors.map(dist => {
+                      const rst = reqByDist[dist.id];
+                      return (
+                        <div key={dist.id} style={{ background:C.surface, border:`1px solid ${rst==="approved"?C.goldDim:C.border}`, borderRadius:12, padding:14 }}>
+                          <div style={{ fontSize:14, fontWeight:600, color:C.text }}>{dist.company_name || dist.email || "Distributore"}</div>
+                          <div style={{ fontSize:12, color:C.textMuted, marginBottom:10 }}>{dist.country || "\u2014"}</div>
+                          {rst === "approved" ? (
+                            <span style={{ fontSize:12, fontWeight:600, color:C.green }}>{"\u2713 " + t("bDistActive")}</span>
+                          ) : rst === "pending" ? (
+                            <span style={{ fontSize:12, fontWeight:600, color:C.gold }}>{t("bDistPending")}</span>
+                          ) : (
+                            <button onClick={() => inviteDistributor(dist)} style={{ padding:"7px 14px", borderRadius:7, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:12, fontWeight:700 }}>{t("bInvite")}</button>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })()}
+            </div>
           </div>
         )}
         {bToast && (
