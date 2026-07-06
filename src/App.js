@@ -937,6 +937,13 @@ Object.assign(T.es,{ bStripeTitle:"Recibir pagos (Stripe)", bStripeDesc:"Conecta
 Object.assign(T.de,{ bStripeTitle:"Zahlungen erhalten (Stripe)", bStripeDesc:"Verbinde dein Stripe-Konto, um deinen Anteil an jeder Bestellung automatisch zu erhalten. NexusHub behält nur die vereinbarte Provision.", bStripeConnect:"Stripe verbinden", bStripeResume:"Onboarding abschließen", bStripeCheck:"Status prüfen", bStripeActive:"Stripe verbunden", bStripePending:"Abschluss ausstehend", bStripeErr:"Stripe-Fehler, bitte erneut versuchen" });
 Object.assign(T.zh,{ bStripeTitle:"接收付款（Stripe）", bStripeDesc:"连接你的 Stripe 账户，自动收取每笔订单中属于你的部分。NexusHub 仅保留约定的佣金。", bStripeConnect:"连接 Stripe", bStripeResume:"完成开通", bStripeCheck:"检查状态", bStripeActive:"Stripe 已连接", bStripePending:"等待完成", bStripeErr:"Stripe 错误，请重试" });
 Object.assign(T.ar,{ bStripeTitle:"استلام المدفوعات (Stripe)", bStripeDesc:"اربط حساب Stripe لتستلم حصتك تلقائيًا من كل طلب. يحتفظ NexusHub بالعمولة المتفق عليها فقط.", bStripeConnect:"ربط Stripe", bStripeResume:"إكمال التسجيل", bStripeCheck:"التحقق من الحالة", bStripeActive:"تم ربط Stripe", bStripePending:"بانتظار الإكمال", bStripeErr:"خطأ Stripe، حاول مجددًا" });
+Object.assign(T.en,{ ckOnlyBonifico:"Over \\u20ac15,000 only bank transfer is available (lower fees, safer for large amounts). You'll get the IBAN after confirming; the order starts on receipt." });
+Object.assign(T.it,{ ckOnlyBonifico:"Sopra i \\u20ac15.000 \\u00e8 disponibile solo il bonifico (commissioni pi\\u00f9 basse e pi\\u00f9 sicuro sui grandi importi). Riceverai l'IBAN dopo la conferma; l'ordine parte all'incasso." });
+Object.assign(T.fr,{ ckOnlyBonifico:"Au-del\\u00e0 de 15\\u202f000\\u202f\\u20ac, seul le virement est disponible (frais r\\u00e9duits, plus s\\u00fbr). Vous recevrez l'IBAN apr\\u00e8s confirmation ; la commande d\\u00e9marre \\u00e0 r\\u00e9ception." });
+Object.assign(T.es,{ ckOnlyBonifico:"Por encima de 15.000\\u202f\\u20ac solo est\\u00e1 disponible la transferencia (comisiones m\\u00e1s bajas, m\\u00e1s seguro). Recibir\\u00e1s el IBAN tras confirmar; el pedido inicia al cobro." });
+Object.assign(T.de,{ ckOnlyBonifico:"\\u00dcber 15.000\\u202f\\u20ac ist nur \\u00dcberweisung verf\\u00fcgbar (niedrigere Geb\\u00fchren, sicherer). Du erh\\u00e4ltst die IBAN nach der Best\\u00e4tigung; die Bestellung startet bei Zahlungseingang." });
+Object.assign(T.zh,{ ckOnlyBonifico:"\\u8d85\\u8fc7 15,000 \\u6b27\\u5143\\u4ec5\\u53ef\\u7528\\u94f6\\u884c\\u8f6c\\u8d26\\uff08\\u8d39\\u7528\\u66f4\\u4f4e\\u3001\\u5927\\u989d\\u66f4\\u5b89\\u5168\\uff09\\u3002\\u786e\\u8ba4\\u540e\\u83b7\\u5f97 IBAN\\uff1b\\u6536\\u6b3e\\u540e\\u8ba2\\u5355\\u5f00\\u59cb\\u3002" });
+Object.assign(T.ar,{ ckOnlyBonifico:"\\u0644\\u0644\\u0645\\u0628\\u0627\\u0644\\u063a \\u0623\\u0643\\u0628\\u0631 \\u0645\\u0646 15,000 \\u064a\\u0648\\u0631\\u0648 \\u064a\\u062a\\u0648\\u0641\\u0631 \\u0627\\u0644\\u062a\\u062d\\u0648\\u064a\\u0644 \\u0627\\u0644\\u0628\\u0646\\u0643\\u064a \\u0641\\u0642\\u0637 (\\u0631\\u0633\\u0648\\u0645 \\u0623\\u0642\\u0644 \\u0648\\u0623\\u0643\\u062b\\u0631 \\u0623\\u0645\\u0627\\u0646\\u064b\\u0627). \\u0633\\u062a\\u062d\\u0635\\u0644 \\u0639\\u0644\\u0649 \\u0627\\u0644\\u0622\\u064a\\u0628\\u0627\\u0646 \\u0628\\u0639\\u062f \\u0627\\u0644\\u062a\\u0623\\u0643\\u064a\\u062f\\u061b \\u064a\\u0628\\u062f\\u0623 \\u0627\\u0644\\u0637\\u0644\\u0628 \\u0639\\u0646\\u062f \\u0627\\u0644\\u0627\\u0633\\u062a\\u0644\\u0627\\u0645." });
 
 
 
@@ -4290,6 +4297,9 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     return s + (item ? effPrice(item) * qty : 0);
   }, 0);
 
+  const BONIFICO_ONLY_THRESHOLD = 15000;
+  const onlyBonifico = cartValue > BONIFICO_ONLY_THRESHOLD;
+  const effPay = onlyBonifico ? "bonifico" : selectedPayment;
   const payWithStripe = async (method) => {
     if (cartCount === 0) return;
     setOrderLoading(true);
@@ -4868,29 +4878,30 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
 
               {/* Bonifico via Stripe */}
               <div onClick={() => setSelectedPayment("bonifico")}
-                style={{ padding:"14px 16px", background: selectedPayment==="bonifico" ? `${C.gold}12` : C.surface2,
-                  border:`2px solid ${selectedPayment==="bonifico" ? C.gold : C.border}`,
+                style={{ padding:"14px 16px", background: (selectedPayment==="bonifico"||onlyBonifico) ? `${C.gold}12` : C.surface2,
+                  border:`2px solid ${(selectedPayment==="bonifico"||onlyBonifico) ? C.gold : C.border}`,
                   borderRadius:10, cursor:"pointer", transition:"all .15s" }}>
-                <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom: selectedPayment==="bonifico" ? 10 : 0 }}>
+                <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom: (selectedPayment==="bonifico"||onlyBonifico) ? 10 : 0 }}>
                   <span style={{ fontSize:22 }}>🏦</span>
                   <div style={{ flex:1 }}>
                     <div style={{ fontSize:14, fontWeight:700, color:C.text }}>{t("ckBonificoName")}</div>
                     <div style={{ fontSize:11, color:C.textMuted }}>{t("ckBonificoDesc")}</div>
                   </div>
-                  <div style={{ width:20, height:20, borderRadius:"50%", border:`2px solid ${selectedPayment==="bonifico"?C.gold:C.border}`,
-                    background: selectedPayment==="bonifico" ? C.gold : "transparent",
+                  <div style={{ width:20, height:20, borderRadius:"50%", border:`2px solid ${(selectedPayment==="bonifico"||onlyBonifico)?C.gold:C.border}`,
+                    background: (selectedPayment==="bonifico"||onlyBonifico) ? C.gold : "transparent",
                     display:"flex", alignItems:"center", justifyContent:"center" }}>
-                    {selectedPayment==="bonifico" && <div style={{ width:8, height:8, borderRadius:"50%", background:C.bg }}/>}
+                    {(selectedPayment==="bonifico"||onlyBonifico) && <div style={{ width:8, height:8, borderRadius:"50%", background:C.bg }}/>}
                   </div>
                 </div>
-                {selectedPayment==="bonifico" && (
+                {(selectedPayment==="bonifico"||onlyBonifico) && (
                   <div style={{ padding:"10px 12px", background:`${C.gold}10`, border:`1px solid ${C.gold}25`, borderRadius:8, fontSize:11, color:C.gold, lineHeight:1.5 }}>
-                    {t("ckBonificoInfo")}
+                    {onlyBonifico ? t("ckOnlyBonifico") : t("ckBonificoInfo")}
                   </div>
                 )}
               </div>
 
-              {/* Carta via Stripe */}
+              {/* Carta via Stripe (nascosta sopra la soglia) */}
+              {!onlyBonifico && (
               <div onClick={() => setSelectedPayment("card")}
                 style={{ padding:"14px 16px", background: selectedPayment==="card" ? `#635bff15` : C.surface2,
                   border:`2px solid ${selectedPayment==="card" ? "#635bff" : C.border}`,
@@ -4908,6 +4919,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                   </div>
                 </div>
               </div>
+              )}
 
             </div>
           </div>
@@ -4924,12 +4936,12 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
 
           <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
             {/* Pagamento via Stripe (carta o bonifico) */}
-            <button onClick={() => payWithStripe(selectedPayment)} disabled={orderLoading}
+            <button onClick={() => payWithStripe(effPay)} disabled={orderLoading}
               style={{ width:"100%", padding:"14px", borderRadius:10, cursor:"pointer",
-                background: selectedPayment==="card" ? "linear-gradient(135deg,#635bff,#4b44cc)" : `linear-gradient(135deg,${C.gold},${C.goldDim})`,
-                border:"none", color: selectedPayment==="card" ? "#fff" : C.bg, fontSize:14, fontWeight:700,
+                background: effPay==="card" ? "linear-gradient(135deg,#635bff,#4b44cc)" : `linear-gradient(135deg,${C.gold},${C.goldDim})`,
+                border:"none", color: effPay==="card" ? "#fff" : C.bg, fontSize:14, fontWeight:700,
                 display:"flex", alignItems:"center", justifyContent:"center", gap:10 }}>
-              {orderLoading ? t("ddSending") : selectedPayment==="card" ? ("💳 " + t("ddPayCard")) : ("🏦 " + t("ddPayBonifico"))}
+              {orderLoading ? t("ddSending") : effPay==="card" ? ("💳 " + t("ddPayCard")) : ("🏦 " + t("ddPayBonifico"))}
             </button>
             <button onClick={() => setShowCheckout(false)} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>
               {t("ddCancel")}
