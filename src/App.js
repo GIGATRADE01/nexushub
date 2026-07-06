@@ -1874,16 +1874,17 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
       });
       if (signUpError) throw signUpError;
       if (data.user) {
+        const isItaly = country === "Italia" || country === "Italy" || country === "IT";
         await supabase.from("profiles").update({
           full_name: fullName, company_name: companyName, phone, country, account_type: acctType,
           vat_number: vatNumber || null,
+          ...(isBrand ? {} : { shipping_address: accountHolder || null, shipping_city: bankName || null, shipping_zip: iban || null, shipping_region: swiftBic || null }),
         }).eq("id", data.user.id);
         await supabase.from("profile_billing").upsert({
           id: data.user.id,
-          iban: iban || null, bank_name: bankName || null,
-          account_holder: accountHolder || null, swift_bic: swiftBic || null,
-          sdi_code: (country === "Italia" || country === "Italy" || country === "IT") ? (sdiCode || null) : null,
-          pec_email: (country === "Italia" || country === "Italy" || country === "IT") ? (pecEmail || null) : null,
+          ...(isBrand ? { iban: iban || null, bank_name: bankName || null, account_holder: accountHolder || null, swift_bic: swiftBic || null } : {}),
+          sdi_code: isItaly ? (sdiCode || null) : null,
+          pec_email: isItaly ? (pecEmail || null) : null,
         }, { onConflict: "id" });
         for (const docType of docTypes) {
           const file = docs[docType];
@@ -4378,6 +4379,10 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       const { data: order } = await supabase.from("orders").insert({
         distributor_id: user.id, brand_id: brandId, total_amount: total, status: "pending",
         payment_method: method === "bonifico" ? "bonifico" : "card", notes: orderNote,
+        shipping_address: (currentUser && currentUser.shipping_address) || null,
+        shipping_city: (currentUser && currentUser.shipping_city) || null,
+        shipping_zip: (currentUser && currentUser.shipping_zip) || null,
+        shipping_country: (currentUser && currentUser.country) || null,
       }).select().single();
       if (!order) throw new Error("order");
       await supabase.from("order_items").insert(items.map(i=>({ ...i, order_id: order.id })));
