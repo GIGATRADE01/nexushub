@@ -986,6 +986,13 @@ Object.assign(T.es,{ asetRegOpenT:"Registros abiertos", asetRegOpenD:"Cuando est
 Object.assign(T.de,{ asetRegOpenT:"Registrierungen offen", asetRegOpenD:"Wenn aus, sind neue Registrierungen gesperrt.", asetRegOpened:"Registrierungen geöffnet", asetRegClosed:"Registrierungen geschlossen", regClosedMsg:"Registrierungen sind derzeit geschlossen. Versuche es später oder kontaktiere uns." });
 Object.assign(T.zh,{ asetRegOpenT:"开放注册", asetRegOpenD:"关闭时，新注册将被阻止。", asetRegOpened:"注册已开放", asetRegClosed:"注册已关闭", regClosedMsg:"注册目前已关闭。请稍后重试或联系我们。" });
 Object.assign(T.ar,{ asetRegOpenT:"التسجيل مفتوح", asetRegOpenD:"عند الإيقاف، يتم حظر التسجيلات الجديدة.", asetRegOpened:"تم فتح التسجيل", asetRegClosed:"تم إغلاق التسجيل", regClosedMsg:"التسجيل مغلق حاليًا. حاول لاحقًا أو تواصل معنا." });
+Object.assign(T.en,{ bPayoutTitle:"Payout details (where you receive money)", bPayoutDesc:"NexusHub collects the distributors' payments and pays you your share (minus the agreed commission) to this account. Keep it up to date.", bPayoutSave:"Save payout details", bPayoutSaved:"Payout details saved" });
+Object.assign(T.it,{ bPayoutTitle:"Dati di pagamento (dove ricevi i soldi)", bPayoutDesc:"NexusHub incassa i pagamenti dei distributori e ti versa la tua quota (meno la commissione concordata) su questo conto. Tienilo aggiornato.", bPayoutSave:"Salva dati di pagamento", bPayoutSaved:"Dati di pagamento salvati" });
+Object.assign(T.fr,{ bPayoutTitle:"Coordonnées de paiement (où vous recevez l'argent)", bPayoutDesc:"NexusHub encaisse les paiements des distributeurs et vous verse votre part (moins la commission convenue) sur ce compte. Gardez-le à jour.", bPayoutSave:"Enregistrer les coordonnées", bPayoutSaved:"Coordonnées enregistrées" });
+Object.assign(T.es,{ bPayoutTitle:"Datos de cobro (dónde recibes el dinero)", bPayoutDesc:"NexusHub cobra los pagos de los distribuidores y te abona tu parte (menos la comisión acordada) en esta cuenta. Mantenla actualizada.", bPayoutSave:"Guardar datos de cobro", bPayoutSaved:"Datos de cobro guardados" });
+Object.assign(T.de,{ bPayoutTitle:"Auszahlungsdaten (wohin du dein Geld erhältst)", bPayoutDesc:"NexusHub zieht die Zahlungen der Distributoren ein und zahlt dir deinen Anteil (abzüglich der vereinbarten Provision) auf dieses Konto. Halte es aktuell.", bPayoutSave:"Auszahlungsdaten speichern", bPayoutSaved:"Auszahlungsdaten gespeichert" });
+Object.assign(T.zh,{ bPayoutTitle:"收款信息（你收钱的账户）", bPayoutDesc:"NexusHub 代收分销商的款项，并将你的份额（扣除约定佣金）打入此账户。请保持更新。", bPayoutSave:"保存收款信息", bPayoutSaved:"收款信息已保存" });
+Object.assign(T.ar,{ bPayoutTitle:"بيانات الدفع (حيث تستلم أموالك)", bPayoutDesc:"يحصّل NexusHub مدفوعات الموزعين ويدفع لك حصتك (بعد خصم العمولة المتفق عليها) على هذا الحساب. حافظ على تحديثه.", bPayoutSave:"حفظ بيانات الدفع", bPayoutSaved:"تم حفظ بيانات الدفع" });
 
 
 
@@ -2963,46 +2970,24 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const [bImportLoading, setBImportLoading] = useState(false);
   const [bImportResults, setBImportResults] = useState(null);
   const [bToast, setBToast] = useState("");
-  const [bMe, setBMe] = useState(null);
-  const [bStripeBusy, setBStripeBusy] = useState(false);
+  const [bPayout, setBPayout] = useState({ account_holder:"", iban:"", swift_bic:"", bank_name:"" });
+  const [bPayoutSaving, setBPayoutSaving] = useState(false);
   const bNotify = (m) => { setBToast(m); setTimeout(() => setBToast(""), 2600); };
   useEffect(() => { (async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
-    const { data } = await supabase.from("profiles").select("id, company_name, email, country, profile_billing(stripe_connect_id, stripe_connect_status)").eq("id", user.id).single();
+    const { data } = await supabase.from("profiles").select("id, company_name, email, country, profile_billing(iban, swift_bic, bank_name, account_holder)").eq("id", user.id).single();
     const pbm = data && (Array.isArray(data.profile_billing) ? (data.profile_billing[0] || {}) : (data.profile_billing || {}));
-    setBMe(data ? { ...data, stripe_connect_id: pbm ? pbm.stripe_connect_id : null, stripe_connect_status: pbm ? pbm.stripe_connect_status : null } : null);
+    if (pbm) setBPayout({ account_holder: pbm.account_holder||"", iban: pbm.iban||"", swift_bic: pbm.swift_bic||"", bank_name: pbm.bank_name||"" });
   })(); }, []);
-  const connectStripe = async () => {
-    setBStripeBusy(true);
+  const savePayout = async () => {
+    setBPayoutSaving(true);
     try {
       const { data: { user } } = await supabase.auth.getUser();
-      const res = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/stripe-connect`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}` },
-        body: JSON.stringify({ action: "create_brand_account", brand_id: user.id, brand_email: bMe && bMe.email, brand_name: bMe && bMe.company_name, brand_country: (bMe && bMe.country) || "IT" })
-      });
-      const data = await res.json();
-      if (data.onboarding_url) { window.location.href = data.onboarding_url; return; }
-      bNotify(data.error || t("bStripeErr"));
+      await supabase.from("profile_billing").upsert({ id: user.id, account_holder: bPayout.account_holder || null, iban: bPayout.iban || null, swift_bic: bPayout.swift_bic || null, bank_name: bPayout.bank_name || null }, { onConflict: "id" });
+      bNotify(t("bPayoutSaved"));
     } catch (e) { bNotify(t("bStripeErr")); }
-    setBStripeBusy(false);
-  };
-  const refreshStripe = async () => {
-    if (!bMe || !bMe.stripe_connect_id) return;
-    setBStripeBusy(true);
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      const res = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/stripe-connect`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}` },
-        body: JSON.stringify({ action: "check_account", stripe_connect_id: bMe.stripe_connect_id, brand_id: user.id })
-      });
-      const data = await res.json();
-      setBMe(m => m ? { ...m, stripe_connect_status: data.active ? "active" : "pending" } : m);
-      bNotify(data.active ? t("bStripeActive") : t("bStripePending"));
-    } catch (e) { bNotify(t("bStripeErr")); }
-    setBStripeBusy(false);
+    setBPayoutSaving(false);
   };
   const openBDocs = async (p) => {
     setBDocsProduct(p); setBDocs([]);
@@ -3761,29 +3746,24 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("paymentsTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("paymentsSub")}</p>
-            {/* Stripe Connect onboarding */}
-            <div style={{ background:C.surface, border:`1px solid ${bMe && bMe.stripe_connect_status==="active" ? C.green+"55" : C.gold+"40"}`, borderRadius:14, padding:22, marginBottom:22 }}>
-              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:12 }}>
-                <div>
-                  <div style={{ fontSize:15, fontWeight:700, color:C.text, marginBottom:4 }}>{t("bStripeTitle")}</div>
-                  <div style={{ fontSize:12, color:C.textMuted, maxWidth:440, lineHeight:1.5 }}>{t("bStripeDesc")}</div>
-                </div>
-                <div>
-                  {bMe && bMe.stripe_connect_status==="active" ? (
-                    <span style={{ fontSize:13, fontWeight:700, color:C.green }}>{"\u2713 " + t("bStripeActive")}</span>
-                  ) : bMe && bMe.stripe_connect_id ? (
-                    <div style={{ display:"flex", flexDirection:"column", gap:8, alignItems:"flex-end" }}>
-                      <span style={{ fontSize:12, fontWeight:600, color:C.gold }}>{t("bStripePending")}</span>
-                      <div style={{ display:"flex", gap:8 }}>
-                        <button onClick={connectStripe} disabled={bStripeBusy} style={{ padding:"8px 14px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.gold}`, color:C.gold, fontSize:12, fontWeight:600 }}>{t("bStripeResume")}</button>
-                        <button onClick={refreshStripe} disabled={bStripeBusy} style={{ padding:"8px 14px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:12, fontWeight:600 }}>{t("bStripeCheck")}</button>
-                      </div>
-                    </div>
-                  ) : (
-                    <button onClick={connectStripe} disabled={bStripeBusy} style={{ padding:"10px 18px", borderRadius:8, cursor:"pointer", background:"linear-gradient(135deg,#635bff,#4b44cc)", border:"none", color:"#fff", fontSize:13, fontWeight:700 }}>{bStripeBusy ? "\u2026" : t("bStripeConnect")}</button>
-                  )}
-                </div>
+            {/* Payout details — where NexusHub pays the brand */}
+            <div style={{ background:C.surface, border:`1px solid ${C.gold}40`, borderRadius:14, padding:22, marginBottom:22 }}>
+              <div style={{ fontSize:15, fontWeight:700, color:C.text, marginBottom:4 }}>{t("bPayoutTitle")}</div>
+              <div style={{ fontSize:12, color:C.textMuted, maxWidth:520, lineHeight:1.5, marginBottom:16 }}>{t("bPayoutDesc")}</div>
+              <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(220px, 1fr))", gap:12 }}>
+                {[
+                  { k:"account_holder", label:t("ddBonifHolder") },
+                  { k:"iban", label:t("ddBonifIban") },
+                  { k:"swift_bic", label:t("ddBonifBic") },
+                  { k:"bank_name", label:t("ddBonifBank") },
+                ].map(f => (
+                  <div key={f.k}>
+                    <label style={{ fontSize:11, color:C.textMuted, display:"block", marginBottom:4 }}>{f.label}</label>
+                    <input type="text" value={bPayout[f.k]} onChange={e=>setBPayout(c=>({...c,[f.k]:e.target.value}))} style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none", fontFamily:"monospace" }}/>
+                  </div>
+                ))}
               </div>
+              <button onClick={savePayout} disabled={bPayoutSaving} style={{ padding:"10px 20px", borderRadius:8, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700, marginTop:16 }}>{bPayoutSaving ? "\u2026" : t("bPayoutSave")}</button>
             </div>
             <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, padding:22, marginBottom:22 }}>
               <div style={{ fontSize:11, color:C.textMuted, marginBottom:14, textTransform:"uppercase", letterSpacing:"0.08em" }}>{t("payArchLabel")}</div>
