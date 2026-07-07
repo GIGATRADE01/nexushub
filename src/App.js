@@ -993,6 +993,13 @@ Object.assign(T.es,{ bPayoutTitle:"Datos de cobro (dónde recibes el dinero)", b
 Object.assign(T.de,{ bPayoutTitle:"Auszahlungsdaten (wohin du dein Geld erhältst)", bPayoutDesc:"NexusHub zieht die Zahlungen der Distributoren ein und zahlt dir deinen Anteil (abzüglich der vereinbarten Provision) auf dieses Konto. Halte es aktuell.", bPayoutSave:"Auszahlungsdaten speichern", bPayoutSaved:"Auszahlungsdaten gespeichert" });
 Object.assign(T.zh,{ bPayoutTitle:"收款信息（你收钱的账户）", bPayoutDesc:"NexusHub 代收分销商的款项，并将你的份额（扣除约定佣金）打入此账户。请保持更新。", bPayoutSave:"保存收款信息", bPayoutSaved:"收款信息已保存" });
 Object.assign(T.ar,{ bPayoutTitle:"بيانات الدفع (حيث تستلم أموالك)", bPayoutDesc:"يحصّل NexusHub مدفوعات الموزعين ويدفع لك حصتك (بعد خصم العمولة المتفق عليها) على هذا الحساب. حافظ على تحديثه.", bPayoutSave:"حفظ بيانات الدفع", bPayoutSaved:"تم حفظ بيانات الدفع" });
+Object.assign(T.en,{ ddMyData:"My details", ddMyDataSub:"Update your company details and shipping address.", ddMyDataSave:"Save details", ddMyDataSaved:"Details saved", mdCompany:"Company name", mdPhone:"Phone", mdVat:"VAT number" });
+Object.assign(T.it,{ ddMyData:"I miei dati", ddMyDataSub:"Aggiorna i dati della tua azienda e l'indirizzo di spedizione.", ddMyDataSave:"Salva dati", ddMyDataSaved:"Dati salvati", mdCompany:"Ragione sociale", mdPhone:"Telefono", mdVat:"Partita IVA" });
+Object.assign(T.fr,{ ddMyData:"Mes informations", ddMyDataSub:"Mettez à jour les informations de votre entreprise et l'adresse de livraison.", ddMyDataSave:"Enregistrer", ddMyDataSaved:"Informations enregistrées", mdCompany:"Raison sociale", mdPhone:"Téléphone", mdVat:"Numéro de TVA" });
+Object.assign(T.es,{ ddMyData:"Mis datos", ddMyDataSub:"Actualiza los datos de tu empresa y la dirección de envío.", ddMyDataSave:"Guardar datos", ddMyDataSaved:"Datos guardados", mdCompany:"Razón social", mdPhone:"Teléfono", mdVat:"Número de IVA" });
+Object.assign(T.de,{ ddMyData:"Meine Daten", ddMyDataSub:"Aktualisiere deine Firmendaten und Lieferadresse.", ddMyDataSave:"Daten speichern", ddMyDataSaved:"Daten gespeichert", mdCompany:"Firmenname", mdPhone:"Telefon", mdVat:"USt-IdNr." });
+Object.assign(T.zh,{ ddMyData:"我的资料", ddMyDataSub:"更新你的公司信息和收货地址。", ddMyDataSave:"保存资料", ddMyDataSaved:"资料已保存", mdCompany:"公司名称", mdPhone:"电话", mdVat:"增值税号" });
+Object.assign(T.ar,{ ddMyData:"بياناتي", ddMyDataSub:"حدّث بيانات شركتك وعنوان الشحن.", ddMyDataSave:"حفظ البيانات", ddMyDataSaved:"تم حفظ البيانات", mdCompany:"اسم الشركة", mdPhone:"الهاتف", mdVat:"الرقم الضريبي" });
 
 
 
@@ -4294,6 +4301,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [catSearch, setCatSearch] = useState("");
   const [bonificoInfo, setBonificoInfo] = useState(null);
   const [payCoords, setPayCoords] = useState(null);
+  const [myData, setMyData] = useState({ company_name:"", phone:"", shipping_address:"", shipping_city:"", shipping_zip:"", shipping_region:"", vat_number:"" });
+  const [myDataSaving, setMyDataSaving] = useState(false);
   const [distDocsProduct, setDistDocsProduct] = useState(null);
   const [distDocs, setDistDocs] = useState([]);
   const [issueOrder, setIssueOrder] = useState(null);
@@ -4410,6 +4419,16 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     setOrderLoading(false);
   };
 
+  const saveMyData = async () => {
+    setMyDataSaving(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      await supabase.from("profiles").update({ company_name: myData.company_name||null, phone: myData.phone||null, shipping_address: myData.shipping_address||null, shipping_city: myData.shipping_city||null, shipping_zip: myData.shipping_zip||null, shipping_region: myData.shipping_region||null }).eq("id", user.id);
+      await supabase.from("profile_billing").upsert({ id: user.id, vat_number: myData.vat_number||null }, { onConflict: "id" });
+      alert(t("ddMyDataSaved"));
+    } catch (e) { alert(t("ddError")); }
+    setMyDataSaving(false);
+  };
   useEffect(() => {
     // Load current user
     supabase.auth.getUser().then(({ data }) => {
@@ -4417,6 +4436,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         supabase.from("profiles").select("*").eq("id", data.user.id).single()
           .then(async ({ data: profile }) => {
             setCurrentUser(profile);
+            setMyData({ company_name: profile?.company_name||"", phone: profile?.phone||"", shipping_address: profile?.shipping_address||"", shipping_city: profile?.shipping_city||"", shipping_zip: profile?.shipping_zip||"", shipping_region: profile?.shipping_region||"", vat_number: "" });
+            supabase.from("profile_billing").select("vat_number").eq("id", data.user.id).single().then(({ data: pb }) => { if (pb) setMyData(m => ({ ...m, vat_number: pb.vat_number||"" })); });
             if (profile && profile.country) {
               const { data: cp } = await supabase.from("product_country_prices").select("product_id, price").eq("country", profile.country);
               const m = {}; (cp||[]).forEach(r => { m[r.product_id] = r.price; }); setCountryPrices(m);
@@ -4535,6 +4556,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"orders", icon:"↗", label:t("tabMyOrders") },
     { key:"fatture", icon:"🧾", label:t("ddInvoices") },
     { key:"ai", icon:"🤖", label:t("ddAISuggest") },
+    { key:"profile", icon:"👤", label:t("ddMyData") },
   ];
   return (
     <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
@@ -4759,6 +4781,31 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           <NexusAI role="distributor"/>
         )}
 
+        {tab==="profile" && (
+          <div style={{ maxWidth:640 }}>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("ddMyData")}</h2>
+            <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("ddMyDataSub")}</p>
+            <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, padding:22 }}>
+              <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(240px, 1fr))", gap:14 }}>
+                {[
+                  { k:"company_name", label:t("mdCompany") },
+                  { k:"phone", label:t("mdPhone") },
+                  { k:"vat_number", label:t("mdVat") },
+                  { k:"shipping_address", label:t("rgAddr") },
+                  { k:"shipping_city", label:t("rgCity") },
+                  { k:"shipping_zip", label:t("rgZip") },
+                  { k:"shipping_region", label:t("rgProvince") },
+                ].map(f => (
+                  <div key={f.k}>
+                    <label style={{ fontSize:11, color:C.textMuted, display:"block", marginBottom:4 }}>{f.label}</label>
+                    <input type="text" value={myData[f.k]} onChange={e=>setMyData(m=>({...m,[f.k]:e.target.value}))} style={{ width:"100%", padding:"11px 13px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none" }}/>
+                  </div>
+                ))}
+              </div>
+              <button onClick={saveMyData} disabled={myDataSaving} style={{ padding:"11px 22px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, marginTop:18 }}>{myDataSaving ? "\u2026" : t("ddMyDataSave")}</button>
+            </div>
+          </div>
+        )}
         {tab==="wishlist" && (
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("diWishTitle")}</h2>
