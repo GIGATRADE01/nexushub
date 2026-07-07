@@ -1000,6 +1000,13 @@ Object.assign(T.es,{ ddMyData:"Mis datos", ddMyDataSub:"Actualiza los datos de t
 Object.assign(T.de,{ ddMyData:"Meine Daten", ddMyDataSub:"Aktualisiere deine Firmendaten und Lieferadresse.", ddMyDataSave:"Daten speichern", ddMyDataSaved:"Daten gespeichert", mdCompany:"Firmenname", mdPhone:"Telefon", mdVat:"USt-IdNr." });
 Object.assign(T.zh,{ ddMyData:"我的资料", ddMyDataSub:"更新你的公司信息和收货地址。", ddMyDataSave:"保存资料", ddMyDataSaved:"资料已保存", mdCompany:"公司名称", mdPhone:"电话", mdVat:"增值税号" });
 Object.assign(T.ar,{ ddMyData:"بياناتي", ddMyDataSub:"حدّث بيانات شركتك وعنوان الشحن.", ddMyDataSave:"حفظ البيانات", ddMyDataSaved:"تم حفظ البيانات", mdCompany:"اسم الشركة", mdPhone:"الهاتف", mdVat:"الرقم الضريبي" });
+Object.assign(T.en,{ ddMultiBrandErr:"Your cart contains products from different brands. Please order one brand at a time." });
+Object.assign(T.it,{ ddMultiBrandErr:"Il carrello contiene prodotti di brand diversi. Ordina un brand alla volta." });
+Object.assign(T.fr,{ ddMultiBrandErr:"Votre panier contient des produits de marques différentes. Commandez une marque à la fois." });
+Object.assign(T.es,{ ddMultiBrandErr:"Tu carrito contiene productos de marcas distintas. Haz un pedido por marca." });
+Object.assign(T.de,{ ddMultiBrandErr:"Dein Warenkorb enthält Produkte verschiedener Marken. Bitte bestelle eine Marke pro Bestellung." });
+Object.assign(T.zh,{ ddMultiBrandErr:"你的购物车包含不同品牌的产品。请每次只下单一个品牌。" });
+Object.assign(T.ar,{ ddMultiBrandErr:"تحتوي سلتك على منتجات من علامات مختلفة. يرجى الطلب لعلامة واحدة في كل مرة." });
 
 
 
@@ -1912,10 +1919,11 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
       if (signUpError) throw signUpError;
       if (data.user) {
         const isItaly = country === "Italia" || country === "Italy" || country === "IT";
-        await supabase.from("profiles").update({
+        await supabase.from("profiles").upsert({
+          id: data.user.id,
           full_name: fullName, company_name: companyName, phone, country, account_type: acctType,
           ...(isBrand ? {} : { shipping_address: accountHolder || null, shipping_city: bankName || null, shipping_zip: iban || null, shipping_region: swiftBic || null }),
-        }).eq("id", data.user.id);
+        }, { onConflict: "id" });
         await supabase.from("profile_billing").upsert({
           id: data.user.id,
           vat_number: vatNumber || null,
@@ -4390,6 +4398,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         return { product_id:pid, quantity:qty, product_name:product?.name||"", sku:product?.sku||"", unit_price:effPrice(product) };
       });
       const total = items.reduce((s,i)=>s+(i.unit_price*i.quantity),0);
+      const cartBrands = [...new Set(items.map(i => realProducts.find(p=>p.id===i.product_id)?.brand_id).filter(Boolean))];
+      if (cartBrands.length > 1) { alert(t("ddMultiBrandErr")); setOrderLoading(false); return; }
       const brandId = items[0] ? realProducts.find(p=>p.id===items[0].product_id)?.brand_id : null;
       const { data: order } = await supabase.from("orders").insert({
         distributor_id: user.id, brand_id: brandId, total_amount: total, status: "pending",
@@ -5450,10 +5460,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     notify(t("auiListingSaved"));
     setAmazonModal(false); loadAmazon();
   };
-  const deleteAmazon = async (t) => {
-    if (!window.confirm((t("auiDelete")+" ") + t.product_name + "?")) return;
-    await supabase.from("amazon_listings").delete().eq("id", t.id);
-    setAmazonRows(prev => prev.filter(x => x.id !== t.id));
+  const deleteAmazon = async (row) => {
+    if (!window.confirm((t("auiDelete") + " ") + row.product_name + "?")) return;
+    await supabase.from("amazon_listings").delete().eq("id", row.id);
+    setAmazonRows(prev => prev.filter(x => x.id !== row.id));
   };
   const quickAddAmazon = (p) => {
     setAmazonForm({ product_name:p.name||"", asin:"", sku:p.sku||"", brand_id:p.brand_id||"", product_id:p.id, _catalog:p.id, marketplace:"IT", fulfillment:"FBA", cost_price:0, sell_price:0, referral_fee_pct:15, fba_fee:0, units_in_stock:0, units_sold_30d:0, ad_spend_30d:0, notes:"" });
