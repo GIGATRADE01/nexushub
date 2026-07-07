@@ -4416,9 +4416,10 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         setCart({}); setShowCheckout(false); setOrderLoading(false);
         return;
       }
+      const { data: { session: sess } } = await supabase.auth.getSession();
       const res = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/stripe-connect`, {
         method: "POST",
-        headers: { "Content-Type":"application/json", "Authorization":`Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}` },
+        headers: { "Content-Type":"application/json", "apikey": process.env.REACT_APP_SUPABASE_ANON_KEY, "Authorization":`Bearer ${sess?.access_token || process.env.REACT_APP_SUPABASE_ANON_KEY}` },
         body: JSON.stringify({ action:"create_checkout", order_id: order.id, method: method === "bonifico" ? "bank_transfer" : "card" })
       });
       const data = await res.json();
@@ -5852,9 +5853,10 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const checkVies = async (u) => {
     notify(t("kaViesChecking"));
     try {
+      const { data: { session: sess } } = await supabase.auth.getSession();
       const res = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/vies-check`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}` },
+        headers: { "Content-Type": "application/json", "apikey": process.env.REACT_APP_SUPABASE_ANON_KEY, "Authorization": `Bearer ${sess?.access_token || process.env.REACT_APP_SUPABASE_ANON_KEY}` },
         body: JSON.stringify({ profile_id: u.id })
       });
       const data = await res.json();
