@@ -5215,6 +5215,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [scanType, setScanType] = useState("in"); // in = restock, out = remove
   const [linkProductId, setLinkProductId] = useState("");
   const scanInputRef = useRef(null);
+  const scanQtyRef = useRef(null);
+  const applyBtnRef = useRef(null);
 
   const notify = (msg, type="success") => {
     setNotification({ msg, type });
@@ -7041,6 +7043,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                           setScanResult(data);
                           setScanQty("");
                           setScanInput("");
+                          setTimeout(() => scanQtyRef.current?.focus(), 120);
                         } else {
                           setScanResult({ notFound: true, query: q });
                           setScanInput("");
@@ -7120,15 +7123,17 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         </div>
                         <div style={{ display:"flex", gap:10, alignItems:"center" }}>
                           <input
+                            ref={scanQtyRef}
                             type="text"
                             inputMode="numeric"
                             value={scanQty}
                             onChange={e => setScanQty(e.target.value)}
+                            onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); applyBtnRef.current?.click(); } }}
                             placeholder={scanType==="in" ? t("astkQtyAddPh") : t("astkQtyRemovePh")}
                             style={{ flex:1, padding:"12px 14px", borderRadius:9,
                               background:C.surface2, border:`1px solid ${C.border}`,
                               color:C.text, fontSize:14, outline:"none" }}/>
-                          <button onClick={async () => {
+                          <button ref={applyBtnRef} onClick={async () => {
                             const qty = parseInt(scanQty);
                             if (!qty || qty <= 0) return;
                             const currentStock = scanResult.inventory?.quantity_available || 0;
