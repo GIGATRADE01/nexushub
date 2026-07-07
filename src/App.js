@@ -979,6 +979,13 @@ Object.assign(T.es,{ ddBonifTitle:"Pedido creado — realiza la transferencia", 
 Object.assign(T.de,{ ddBonifTitle:"Bestellung erstellt — überweise jetzt", ddBonifIntro:"Um die Bestellung abzuschließen, überweise mit den folgenden Daten. Die Bestellung startet, sobald wir die Zahlung erhalten.", ddBonifAmount:"Betrag", ddBonifCausale:"Verwendungszweck (erforderlich)", ddBonifIban:"IBAN", ddBonifBic:"BIC/SWIFT", ddBonifBank:"Bank", ddBonifHolder:"Kontoinhaber", ddBonifNoCoords:"Zahlungsdaten noch nicht konfiguriert — bitte NexusHub kontaktieren.", ddBonifClose:"Verstanden", asetBonifT:"Überweisungsdaten (Distributor-Zahlungen)", asetBonifD:"Die IBAN, auf die Distributoren ihre Bestellungen per Überweisung zahlen.", asetBonifSave:"Daten speichern", asetBonifSaved:"Daten gespeichert" });
 Object.assign(T.zh,{ ddBonifTitle:"订单已创建 — 请转账", ddBonifIntro:"为完成订单，请使用以下信息进行银行转账。我们收到付款后订单即开始。", ddBonifAmount:"金额", ddBonifCausale:"备注（必填）", ddBonifIban:"IBAN", ddBonifBic:"BIC/SWIFT", ddBonifBank:"银行", ddBonifHolder:"账户持有人", ddBonifNoCoords:"付款信息尚未配置 — 请联系 NexusHub。", ddBonifClose:"知道了", asetBonifT:"银行转账信息（分销商付款）", asetBonifD:"分销商通过银行转账支付订单的 IBAN。", asetBonifSave:"保存信息", asetBonifSaved:"信息已保存" });
 Object.assign(T.ar,{ ddBonifTitle:"تم إنشاء الطلب — قم بالتحويل", ddBonifIntro:"لإتمام الطلب، قم بتحويل بنكي بالبيانات أدناه. يبدأ الطلب فور استلامنا الدفعة.", ddBonifAmount:"المبلغ", ddBonifCausale:"المرجع (إلزامي)", ddBonifIban:"الآيبان", ddBonifBic:"BIC/SWIFT", ddBonifBank:"البنك", ddBonifHolder:"صاحب الحساب", ddBonifNoCoords:"لم يتم تكوين بيانات الدفع بعد — يرجى الاتصال بـ NexusHub.", ddBonifClose:"حسنًا", asetBonifT:"بيانات التحويل (مدفوعات الموزعين)", asetBonifD:"الآيبان الذي يدفع عليه الموزعون طلباتهم بالتحويل.", asetBonifSave:"حفظ البيانات", asetBonifSaved:"تم حفظ البيانات" });
+Object.assign(T.en,{ asetRegOpenT:"Registrations open", asetRegOpenD:"When off, new sign-ups are blocked.", asetRegOpened:"Registrations opened", asetRegClosed:"Registrations closed", regClosedMsg:"Registrations are currently closed. Please try again later or contact us." });
+Object.assign(T.it,{ asetRegOpenT:"Registrazioni aperte", asetRegOpenD:"Quando è spento, le nuove iscrizioni sono bloccate.", asetRegOpened:"Registrazioni aperte", asetRegClosed:"Registrazioni chiuse", regClosedMsg:"Le registrazioni sono al momento chiuse. Riprova più tardi o contattaci." });
+Object.assign(T.fr,{ asetRegOpenT:"Inscriptions ouvertes", asetRegOpenD:"Désactivé, les nouvelles inscriptions sont bloquées.", asetRegOpened:"Inscriptions ouvertes", asetRegClosed:"Inscriptions fermées", regClosedMsg:"Les inscriptions sont actuellement fermées. Réessayez plus tard ou contactez-nous." });
+Object.assign(T.es,{ asetRegOpenT:"Registros abiertos", asetRegOpenD:"Cuando está apagado, se bloquean los nuevos registros.", asetRegOpened:"Registros abiertos", asetRegClosed:"Registros cerrados", regClosedMsg:"Los registros están cerrados por ahora. Inténtalo más tarde o contáctanos." });
+Object.assign(T.de,{ asetRegOpenT:"Registrierungen offen", asetRegOpenD:"Wenn aus, sind neue Registrierungen gesperrt.", asetRegOpened:"Registrierungen geöffnet", asetRegClosed:"Registrierungen geschlossen", regClosedMsg:"Registrierungen sind derzeit geschlossen. Versuche es später oder kontaktiere uns." });
+Object.assign(T.zh,{ asetRegOpenT:"开放注册", asetRegOpenD:"关闭时，新注册将被阻止。", asetRegOpened:"注册已开放", asetRegClosed:"注册已关闭", regClosedMsg:"注册目前已关闭。请稍后重试或联系我们。" });
+Object.assign(T.ar,{ asetRegOpenT:"التسجيل مفتوح", asetRegOpenD:"عند الإيقاف، يتم حظر التسجيلات الجديدة.", asetRegOpened:"تم فتح التسجيل", asetRegClosed:"تم إغلاق التسجيل", regClosedMsg:"التسجيل مغلق حاليًا. حاول لاحقًا أو تواصل معنا." });
 
 
 
@@ -1882,6 +1889,8 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
     e.preventDefault();
     setLoading(true); setError("");
     try {
+      const { data: regOk } = await supabase.rpc("registrations_open");
+      if (regOk === false) { setError(t("regClosedMsg")); setLoading(false); return; }
       const { data, error: signUpError } = await supabase.auth.signUp({
         email, password,
         options: { data: { role, company_name: companyName, full_name: fullName, account_type: acctType } }
@@ -5143,6 +5152,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [tab, setTab] = useState("overview");
   const [users, setUsers] = useState([]);
   const [bCoords, setBCoords] = useState({ bonifico_iban:"", bonifico_bic:"", bonifico_bank:"", bonifico_holder:"" });
+  const [regOpen, setRegOpen] = useState(true);
   const [brands, setBrands] = useState([]);
   const [kaSel, setKaSel] = useState(null);
   const [kaAccess, setKaAccess] = useState([]);
@@ -5218,7 +5228,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
   useEffect(() => {
     // Load existing notifications
-    supabase.from("platform_settings").select("*").eq("id",1).single().then(({ data }) => { if (data) setBCoords({ bonifico_iban:data.bonifico_iban||"", bonifico_bic:data.bonifico_bic||"", bonifico_bank:data.bonifico_bank||"", bonifico_holder:data.bonifico_holder||"" }); });
+    supabase.from("platform_settings").select("*").eq("id",1).single().then(({ data }) => { if (data) { setBCoords({ bonifico_iban:data.bonifico_iban||"", bonifico_bic:data.bonifico_bic||"", bonifico_bank:data.bonifico_bank||"", bonifico_holder:data.bonifico_holder||"" }); setRegOpen(data.registrations_open !== false); } });
     const loadNotifs = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
@@ -5657,6 +5667,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const markPaidBrand = async (sp) => { await supabase.from("payment_splits").update({ split_status:"paid_brand", brand_received_at:new Date().toISOString() }).eq("id", sp.id); loadPaySplits(); };
   const markBrandPaid = async (ids) => { if (!ids || !ids.length) return; await supabase.from("payment_splits").update({ split_status:"paid_brand", brand_received_at:new Date().toISOString() }).in("id", ids); loadPaySplits(); };
   const saveBCoords = async () => { await supabase.from("platform_settings").upsert({ id:1, ...bCoords, updated_at:new Date().toISOString() }, { onConflict:"id" }); notify(t("asetBonifSaved")); };
+  const toggleRegOpen = async () => { const nv = !regOpen; setRegOpen(nv); await supabase.from("platform_settings").upsert({ id:1, registrations_open:nv }, { onConflict:"id" }); notify(nv ? t("asetRegOpened") : t("asetRegClosed")); };
   const loadCommissions = async () => {
     const { data: bs } = await supabase.from("profiles").select("id, company_name, email, profile_billing(commission_rate, estimated_annual_revenue, commission_locked)").eq("role", "brand");
     const { data: ords } = await supabase.from("orders").select("brand_id, total_amount, created_at, status");
@@ -7841,31 +7852,15 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("asetTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 24px" }}>{t("asetSub")}</p>
 
-            {[
-              { title:t("asetDemoT"), desc:t("asetDemoD"), key:"demo" },
-              { title:t("asetRegT"), desc:t("asetRegD"), key:"registration" },
-              { title:t("asetSepaT"), desc:t("asetSepaD"), key:"payments" },
-              { title:t("asetEmailT"), desc:t("asetEmailD"), key:"emails" },
-              { title:t("asetScanT"), desc:t("asetScanD"), key:"scanner" },
-            ].map((s,i) => (
-              <div key={i} style={{ display:"flex", alignItems:"center", justifyContent:"space-between",
-                padding:"18px 20px", background:C.surface, border:`1px solid ${C.border}`,
-                borderRadius:12, marginBottom:10 }}>
-                <div>
-                  <div style={{ fontSize:14, fontWeight:600, color:C.text }}>{s.title}</div>
-                  <div style={{ fontSize:12, color:C.textMuted, marginTop:3 }}>{s.desc}</div>
-                </div>
-                <div style={{ width:44, height:24, borderRadius:12,
-                  background: i===0||i===1 ? C.gold : C.surface3,
-                  border:`1px solid ${i===0||i===1?C.gold:C.border}`,
-                  cursor:"pointer", position:"relative", flexShrink:0, marginLeft:16 }}
-                  onClick={() => notify(t("asetUpdated").replace("{name}", s.title))}>
-                  <div style={{ position:"absolute", top:3, width:18, height:18, borderRadius:"50%",
-                    background:"#fff", transition:"left .2s",
-                    left: i===0||i===1 ? 23 : 3 }}/>
-                </div>
+            <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"18px 20px", background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, marginBottom:10 }}>
+              <div>
+                <div style={{ fontSize:14, fontWeight:600, color:C.text }}>{t("asetRegOpenT")}</div>
+                <div style={{ fontSize:12, color:C.textMuted, marginTop:3 }}>{t("asetRegOpenD")}</div>
               </div>
-            ))}
+              <div onClick={toggleRegOpen} style={{ width:44, height:24, borderRadius:12, background: regOpen ? C.gold : C.surface3, border:`1px solid ${regOpen?C.gold:C.border}`, cursor:"pointer", position:"relative", flexShrink:0, marginLeft:16 }}>
+                <div style={{ position:"absolute", top:3, width:18, height:18, borderRadius:"50%", background:"#fff", transition:"left .2s", left: regOpen ? 23 : 3 }}/>
+              </div>
+            </div>
 
             <div style={{ marginTop:24, padding:"20px", background:C.surface, border:`1px solid ${C.gold}40`, borderRadius:12 }}>
               <div style={{ fontSize:14, fontWeight:700, color:C.goldLight, marginBottom:4 }}>{"\ud83c\udfe6 " + t("asetBonifT")}</div>
