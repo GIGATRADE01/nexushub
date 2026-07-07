@@ -972,6 +972,13 @@ Object.assign(T.es,{ aincPayBrand:"Marcar pagado" });
 Object.assign(T.de,{ aincPayBrand:"Als bezahlt markieren" });
 Object.assign(T.zh,{ aincPayBrand:"标记已付" });
 Object.assign(T.ar,{ aincPayBrand:"وضع علامة مدفوع" });
+Object.assign(T.en,{ ddBonifTitle:"Order created — send the transfer", ddBonifIntro:"To complete the order, send a bank transfer with the details below. The order starts as soon as we receive the payment.", ddBonifAmount:"Amount", ddBonifCausale:"Reference (required)", ddBonifIban:"IBAN", ddBonifBic:"BIC/SWIFT", ddBonifBank:"Bank", ddBonifHolder:"Account holder", ddBonifNoCoords:"Payment details not yet configured — please contact NexusHub.", ddBonifClose:"Got it", asetBonifT:"Bank transfer details (distributor payments)", asetBonifD:"The IBAN where distributors pay their orders by bank transfer.", asetBonifSave:"Save details", asetBonifSaved:"Details saved" });
+Object.assign(T.it,{ ddBonifTitle:"Ordine creato — effettua il bonifico", ddBonifIntro:"Per completare l'ordine, effettua un bonifico con i dati qui sotto. L'ordine parte appena riceviamo il pagamento.", ddBonifAmount:"Importo", ddBonifCausale:"Causale (obbligatoria)", ddBonifIban:"IBAN", ddBonifBic:"BIC/SWIFT", ddBonifBank:"Banca", ddBonifHolder:"Intestatario", ddBonifNoCoords:"Coordinate non ancora configurate — contatta NexusHub.", ddBonifClose:"Ho capito", asetBonifT:"Coordinate bonifico (incasso distributori)", asetBonifD:"L'IBAN su cui i distributori pagano gli ordini via bonifico.", asetBonifSave:"Salva coordinate", asetBonifSaved:"Coordinate salvate" });
+Object.assign(T.fr,{ ddBonifTitle:"Commande créée — effectuez le virement", ddBonifIntro:"Pour finaliser la commande, effectuez un virement avec les informations ci-dessous. La commande démarre dès réception du paiement.", ddBonifAmount:"Montant", ddBonifCausale:"Référence (obligatoire)", ddBonifIban:"IBAN", ddBonifBic:"BIC/SWIFT", ddBonifBank:"Banque", ddBonifHolder:"Titulaire", ddBonifNoCoords:"Coordonnées non encore configurées — contactez NexusHub.", ddBonifClose:"Compris", asetBonifT:"Coordonnées de virement (paiements distributeurs)", asetBonifD:"L'IBAN sur lequel les distributeurs paient leurs commandes par virement.", asetBonifSave:"Enregistrer", asetBonifSaved:"Coordonnées enregistrées" });
+Object.assign(T.es,{ ddBonifTitle:"Pedido creado — realiza la transferencia", ddBonifIntro:"Para completar el pedido, realiza una transferencia con los datos siguientes. El pedido inicia en cuanto recibamos el pago.", ddBonifAmount:"Importe", ddBonifCausale:"Concepto (obligatorio)", ddBonifIban:"IBAN", ddBonifBic:"BIC/SWIFT", ddBonifBank:"Banco", ddBonifHolder:"Titular", ddBonifNoCoords:"Datos de pago aún no configurados — contacta con NexusHub.", ddBonifClose:"Entendido", asetBonifT:"Datos de transferencia (pagos de distribuidores)", asetBonifD:"El IBAN donde los distribuidores pagan sus pedidos por transferencia.", asetBonifSave:"Guardar datos", asetBonifSaved:"Datos guardados" });
+Object.assign(T.de,{ ddBonifTitle:"Bestellung erstellt — überweise jetzt", ddBonifIntro:"Um die Bestellung abzuschließen, überweise mit den folgenden Daten. Die Bestellung startet, sobald wir die Zahlung erhalten.", ddBonifAmount:"Betrag", ddBonifCausale:"Verwendungszweck (erforderlich)", ddBonifIban:"IBAN", ddBonifBic:"BIC/SWIFT", ddBonifBank:"Bank", ddBonifHolder:"Kontoinhaber", ddBonifNoCoords:"Zahlungsdaten noch nicht konfiguriert — bitte NexusHub kontaktieren.", ddBonifClose:"Verstanden", asetBonifT:"Überweisungsdaten (Distributor-Zahlungen)", asetBonifD:"Die IBAN, auf die Distributoren ihre Bestellungen per Überweisung zahlen.", asetBonifSave:"Daten speichern", asetBonifSaved:"Daten gespeichert" });
+Object.assign(T.zh,{ ddBonifTitle:"订单已创建 — 请转账", ddBonifIntro:"为完成订单，请使用以下信息进行银行转账。我们收到付款后订单即开始。", ddBonifAmount:"金额", ddBonifCausale:"备注（必填）", ddBonifIban:"IBAN", ddBonifBic:"BIC/SWIFT", ddBonifBank:"银行", ddBonifHolder:"账户持有人", ddBonifNoCoords:"付款信息尚未配置 — 请联系 NexusHub。", ddBonifClose:"知道了", asetBonifT:"银行转账信息（分销商付款）", asetBonifD:"分销商通过银行转账支付订单的 IBAN。", asetBonifSave:"保存信息", asetBonifSaved:"信息已保存" });
+Object.assign(T.ar,{ ddBonifTitle:"تم إنشاء الطلب — قم بالتحويل", ddBonifIntro:"لإتمام الطلب، قم بتحويل بنكي بالبيانات أدناه. يبدأ الطلب فور استلامنا الدفعة.", ddBonifAmount:"المبلغ", ddBonifCausale:"المرجع (إلزامي)", ddBonifIban:"الآيبان", ddBonifBic:"BIC/SWIFT", ddBonifBank:"البنك", ddBonifHolder:"صاحب الحساب", ddBonifNoCoords:"لم يتم تكوين بيانات الدفع بعد — يرجى الاتصال بـ NexusHub.", ddBonifClose:"حسنًا", asetBonifT:"بيانات التحويل (مدفوعات الموزعين)", asetBonifD:"الآيبان الذي يدفع عليه الموزعون طلباتهم بالتحويل.", asetBonifSave:"حفظ البيانات", asetBonifSaved:"تم حفظ البيانات" });
 
 
 
@@ -4296,6 +4303,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [brandDiscounts, setBrandDiscounts] = useState({});
   const [realProducts, setRealProducts] = useState([]);
   const [catSearch, setCatSearch] = useState("");
+  const [bonificoInfo, setBonificoInfo] = useState(null);
+  const [payCoords, setPayCoords] = useState(null);
   const [distDocsProduct, setDistDocsProduct] = useState(null);
   const [distDocs, setDistDocs] = useState([]);
   const [issueOrder, setIssueOrder] = useState(null);
@@ -4394,6 +4403,11 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       }).select().single();
       if (!order) throw new Error("order");
       await supabase.from("order_items").insert(items.map(i=>({ ...i, order_id: order.id })));
+      if (method === "bonifico") {
+        setBonificoInfo({ order_number: order.order_number, amount: total });
+        setCart({}); setShowCheckout(false); setOrderLoading(false);
+        return;
+      }
       const res = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/stripe-connect`, {
         method: "POST",
         headers: { "Content-Type":"application/json", "Authorization":`Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}` },
@@ -4430,6 +4444,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       .eq("is_active", true)
       .order("created_at", { ascending: false })
       .then(({ data }) => setRealProducts(data || []));
+    supabase.from("platform_settings").select("*").eq("id",1).single().then(({ data }) => setPayCoords(data || null));
     // Load real orders
     supabase.from("orders")
       .select("*, order_items(*)")
@@ -4930,6 +4945,34 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     )}
 
     {/* Checkout Modal */}
+    {bonificoInfo && (
+      <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:600, display:"flex", alignItems:"center", justifyContent:"center", padding:20 }} onClick={()=>setBonificoInfo(null)}>
+        <div onClick={e=>e.stopPropagation()} style={{ background:C.bg, border:`1px solid ${C.gold}40`, borderRadius:16, padding:28, maxWidth:440, width:"100%" }}>
+          <div style={{ fontSize:18, fontWeight:700, color:C.text, fontFamily:"Georgia,serif", marginBottom:6 }}>{"\ud83c\udfe6 " + t("ddBonifTitle")}</div>
+          <div style={{ fontSize:13, color:C.textMuted, marginBottom:18, lineHeight:1.5 }}>{t("ddBonifIntro")}</div>
+          {payCoords && payCoords.bonifico_iban ? (
+            <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:16, marginBottom:18 }}>
+              {[
+                [t("ddBonifAmount"), "\u20ac"+Number(bonificoInfo.amount).toLocaleString("it-IT",{minimumFractionDigits:2})],
+                [t("ddBonifCausale"), bonificoInfo.order_number],
+                [t("ddBonifHolder"), payCoords.bonifico_holder||"\u2014"],
+                [t("ddBonifIban"), payCoords.bonifico_iban],
+                ...(payCoords.bonifico_bic ? [[t("ddBonifBic"), payCoords.bonifico_bic]] : []),
+                ...(payCoords.bonifico_bank ? [[t("ddBonifBank"), payCoords.bonifico_bank]] : []),
+              ].map(([lab,val],idx) => (
+                <div key={idx} style={{ display:"flex", justifyContent:"space-between", gap:12, padding:"6px 0", borderTop: idx===0?"none":`1px solid ${C.border}` }}>
+                  <span style={{ fontSize:12, color:C.textMuted }}>{lab}</span>
+                  <span style={{ fontSize:13, color:C.text, fontWeight:600, fontFamily:"monospace", textAlign:"right", wordBreak:"break-all" }}>{val}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ fontSize:13, color:C.red, marginBottom:18 }}>{t("ddBonifNoCoords")}</div>
+          )}
+          <button onClick={()=>setBonificoInfo(null)} style={{ width:"100%", padding:"12px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700 }}>{t("ddBonifClose")}</button>
+        </div>
+      </div>
+    )}
     {showCheckout && (
       <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:500,
         display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
@@ -5099,6 +5142,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
   const [tab, setTab] = useState("overview");
   const [users, setUsers] = useState([]);
+  const [bCoords, setBCoords] = useState({ bonifico_iban:"", bonifico_bic:"", bonifico_bank:"", bonifico_holder:"" });
   const [brands, setBrands] = useState([]);
   const [kaSel, setKaSel] = useState(null);
   const [kaAccess, setKaAccess] = useState([]);
@@ -5174,6 +5218,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
   useEffect(() => {
     // Load existing notifications
+    supabase.from("platform_settings").select("*").eq("id",1).single().then(({ data }) => { if (data) setBCoords({ bonifico_iban:data.bonifico_iban||"", bonifico_bic:data.bonifico_bic||"", bonifico_bank:data.bonifico_bank||"", bonifico_holder:data.bonifico_holder||"" }); });
     const loadNotifs = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
@@ -5611,6 +5656,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const markCollected = async (sp) => { await supabase.from("payment_splits").update({ split_status:"collected", nexushub_received_at:new Date().toISOString() }).eq("id", sp.id); loadPaySplits(); };
   const markPaidBrand = async (sp) => { await supabase.from("payment_splits").update({ split_status:"paid_brand", brand_received_at:new Date().toISOString() }).eq("id", sp.id); loadPaySplits(); };
   const markBrandPaid = async (ids) => { if (!ids || !ids.length) return; await supabase.from("payment_splits").update({ split_status:"paid_brand", brand_received_at:new Date().toISOString() }).in("id", ids); loadPaySplits(); };
+  const saveBCoords = async () => { await supabase.from("platform_settings").upsert({ id:1, ...bCoords, updated_at:new Date().toISOString() }, { onConflict:"id" }); notify(t("asetBonifSaved")); };
   const loadCommissions = async () => {
     const { data: bs } = await supabase.from("profiles").select("id, company_name, email, profile_billing(commission_rate, estimated_annual_revenue, commission_locked)").eq("role", "brand");
     const { data: ords } = await supabase.from("orders").select("brand_id, total_amount, created_at, status");
@@ -7820,6 +7866,23 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 </div>
               </div>
             ))}
+
+            <div style={{ marginTop:24, padding:"20px", background:C.surface, border:`1px solid ${C.gold}40`, borderRadius:12 }}>
+              <div style={{ fontSize:14, fontWeight:700, color:C.goldLight, marginBottom:4 }}>{"\ud83c\udfe6 " + t("asetBonifT")}</div>
+              <div style={{ fontSize:12, color:C.textMuted, marginBottom:16 }}>{t("asetBonifD")}</div>
+              {[
+                { k:"bonifico_holder", label:t("ddBonifHolder") },
+                { k:"bonifico_iban", label:t("ddBonifIban") },
+                { k:"bonifico_bic", label:t("ddBonifBic") },
+                { k:"bonifico_bank", label:t("ddBonifBank") },
+              ].map(f => (
+                <div key={f.k} style={{ marginBottom:12 }}>
+                  <label style={{ fontSize:11, color:C.textMuted, display:"block", marginBottom:4 }}>{f.label}</label>
+                  <input type="text" value={bCoords[f.k]} onChange={e=>setBCoords(c=>({...c,[f.k]:e.target.value}))} style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none", fontFamily:"monospace" }}/>
+                </div>
+              ))}
+              <button onClick={saveBCoords} style={{ padding:"10px 20px", borderRadius:8, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700, marginTop:4 }}>{t("asetBonifSave")}</button>
+            </div>
 
             <div style={{ marginTop:24, padding:"18px 20px", background:`${C.red}08`, border:`1px solid ${C.red}20`, borderRadius:12 }}>
               <div style={{ fontSize:14, fontWeight:600, color:C.red, marginBottom:6 }}>⚠️ {t("asetDanger")}</div>
