@@ -965,6 +965,13 @@ Object.assign(T.es,{ diSearchPh:"Buscar un producto…" });
 Object.assign(T.de,{ diSearchPh:"Produkt suchen…" });
 Object.assign(T.zh,{ diSearchPh:"搜索产品…" });
 Object.assign(T.ar,{ diSearchPh:"ابحث عن منتج…" });
+Object.assign(T.en,{ aincPayBrand:"Mark paid" });
+Object.assign(T.it,{ aincPayBrand:"Segna pagato" });
+Object.assign(T.fr,{ aincPayBrand:"Marquer payé" });
+Object.assign(T.es,{ aincPayBrand:"Marcar pagado" });
+Object.assign(T.de,{ aincPayBrand:"Als bezahlt markieren" });
+Object.assign(T.zh,{ aincPayBrand:"标记已付" });
+Object.assign(T.ar,{ aincPayBrand:"وضع علامة مدفوع" });
 
 
 
@@ -5589,19 +5596,21 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       const pids = [...pidSet];
       let proMap = {};
       if (pids.length) {
-        const { data: pros } = await supabase.from("profiles").select("id, company_name, profile_billing(iban)").in("id", pids);
+        const { data: pros } = await supabase.from("profiles").select("id, company_name, profile_billing(iban, swift_bic, bank_name, account_holder)").in("id", pids);
         (pros||[]).forEach(p => { proMap[p.id] = p; });
       }
       setPaySplits(sp.map(s => {
         const o = ordMap[s.order_id] || {};
         const b = proMap[o.brand_id] || {};
         const d = proMap[o.distributor_id] || {};
-        return { ...s, order_number: o.order_number, brand_name: b.company_name, brand_iban: (Array.isArray(b.profile_billing) ? (b.profile_billing[0] && b.profile_billing[0].iban) : (b.profile_billing && b.profile_billing.iban)) || null, distributor_name: d.company_name };
+        const bb = Array.isArray(b.profile_billing) ? (b.profile_billing[0] || {}) : (b.profile_billing || {});
+        return { ...s, order_number: o.order_number, brand_id: o.brand_id, brand_name: b.company_name, brand_iban: bb.iban || null, brand_swift: bb.swift_bic || null, brand_bank: bb.bank_name || null, brand_holder: bb.account_holder || null, distributor_name: d.company_name };
       }));
     } catch(e) { console.error(e); }
   };
   const markCollected = async (sp) => { await supabase.from("payment_splits").update({ split_status:"collected", nexushub_received_at:new Date().toISOString() }).eq("id", sp.id); loadPaySplits(); };
   const markPaidBrand = async (sp) => { await supabase.from("payment_splits").update({ split_status:"paid_brand", brand_received_at:new Date().toISOString() }).eq("id", sp.id); loadPaySplits(); };
+  const markBrandPaid = async (ids) => { if (!ids || !ids.length) return; await supabase.from("payment_splits").update({ split_status:"paid_brand", brand_received_at:new Date().toISOString() }).in("id", ids); loadPaySplits(); };
   const loadCommissions = async () => {
     const { data: bs } = await supabase.from("profiles").select("id, company_name, email, profile_billing(commission_rate, estimated_annual_revenue, commission_locked)").eq("role", "brand");
     const { data: ords } = await supabase.from("orders").select("brand_id, total_amount, created_at, status");
@@ -7658,7 +7667,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               const toBrand = coll.reduce((a,x)=>a+Number(x.brand_amount||0),0);
               const toCollect = pend.reduce((a,x)=>a+Number(x.total_amount||0),0);
               const byBrand = {};
-              coll.forEach(x => { const k = x.brand_name || "—"; if(!byBrand[k]) byBrand[k]={ amount:0, iban:x.brand_iban }; byBrand[k].amount += Number(x.brand_amount||0); });
+              coll.forEach(x => { const k = x.brand_name || "—"; if(!byBrand[k]) byBrand[k]={ amount:0, iban:x.brand_iban, swift:x.brand_swift, bank:x.brand_bank, holder:x.brand_holder, ids:[] }; byBrand[k].amount += Number(x.brand_amount||0); byBrand[k].ids.push(x.id); });
               return (
                 <div>
                   <div style={{ display:"flex", gap:14, marginBottom:22, flexWrap:"wrap" }}>
@@ -7671,11 +7680,17 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                       <div style={{ fontSize:13, fontWeight:700, color:C.goldLight, marginBottom:10 }}>💸 {t("aincRemitTitle")}</div>
                       {Object.entries(byBrand).map(([name, info]) => (
                         <div key={name} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"8px 0", borderTop:`1px solid ${C.border}`, gap:10, flexWrap:"wrap" }}>
-                          <div>
+                          <div style={{ minWidth:200 }}>
                             <div style={{ fontSize:13, color:C.text, fontWeight:600 }}>{name}</div>
                             <div style={{ fontSize:11, color:C.textMuted, fontFamily:"monospace" }}>{info.iban || t("aincNoIban")}</div>
+                            {(info.swift || info.bank || info.holder) && (
+                              <div style={{ fontSize:10, color:C.textDim, fontFamily:"monospace", marginTop:2 }}>{[info.swift ? "BIC "+info.swift : null, info.bank, info.holder].filter(Boolean).join(" · ")}</div>
+                            )}
                           </div>
-                          <div style={{ fontSize:15, fontWeight:800, color:C.goldLight }}>€{info.amount.toLocaleString("it-IT",{minimumFractionDigits:2})}</div>
+                          <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+                            <div style={{ fontSize:15, fontWeight:800, color:C.goldLight }}>€{info.amount.toLocaleString("it-IT",{minimumFractionDigits:2})}</div>
+                            <button onClick={()=>markBrandPaid(info.ids)} style={{ padding:"6px 14px", borderRadius:8, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:12, fontWeight:700, whiteSpace:"nowrap" }}>{t("aincPayBrand")}</button>
+                          </div>
                         </div>
                       ))}
                     </div>
