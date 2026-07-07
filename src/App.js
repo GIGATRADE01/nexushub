@@ -5645,7 +5645,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
       }));
     } catch(e) { console.error(e); }
   };
-  const markCollected = async (sp) => { await supabase.from("payment_splits").update({ split_status:"collected", nexushub_received_at:new Date().toISOString() }).eq("id", sp.id); loadPaySplits(); };
+  const markCollected = async (sp) => { await supabase.from("payment_splits").update({ split_status:"collected", nexushub_received_at:new Date().toISOString() }).eq("id", sp.id); if (sp.order_id) await supabase.from("orders").update({ payment_status:"paid", status:"confirmed", paid_at:new Date().toISOString() }).eq("id", sp.order_id); loadPaySplits(); };
   const markPaidBrand = async (sp) => { await supabase.from("payment_splits").update({ split_status:"paid_brand", brand_received_at:new Date().toISOString() }).eq("id", sp.id); loadPaySplits(); };
   const markBrandPaid = async (ids) => { if (!ids || !ids.length) return; await supabase.from("payment_splits").update({ split_status:"paid_brand", brand_received_at:new Date().toISOString() }).in("id", ids); loadPaySplits(); };
   const saveBCoords = async () => { await supabase.from("platform_settings").upsert({ id:1, ...bCoords, updated_at:new Date().toISOString() }, { onConflict:"id" }); notify(t("asetBonifSaved")); };
