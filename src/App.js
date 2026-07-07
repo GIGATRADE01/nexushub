@@ -8063,7 +8063,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                     <input type="number" min={9} max={11.4} step={0.1} defaultValue={editingUser.commission_rate ?? 11.4}
                       onBlur={async (e) => {
                         const v = Math.min(11.4, Math.max(9, Number(e.target.value) || 11.4));
-                        await supabase.from("profiles").update({ commission_rate: v }).eq("id", editingUser.id);
+                        await supabase.from("profile_billing").upsert({ id: editingUser.id, commission_rate: v }, { onConflict: "id" });
                         setEditingUser(u => ({ ...u, commission_rate: v }));
                         notify(t("aumCommUpdated"));
                       }}
