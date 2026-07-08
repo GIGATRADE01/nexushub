@@ -1790,7 +1790,7 @@ const Login = ({ onLogin, lang, onLangChange }) => {
               if (!resetEmail) return;
               setResetLoading(true);
               await supabase.auth.resetPasswordForEmail(resetEmail, {
-                redirectTo: "https://nexushub-eosin.vercel.app/reset-password"
+                redirectTo: "https://nexushub.trade/reset-password"
               });
               setResetLoading(false);
               setResetSent(true);
