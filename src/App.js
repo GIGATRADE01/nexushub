@@ -28,9 +28,9 @@ const sendEmail = async (type, email, company_name, role = "", reason = "", orde
 
 const C = {
   bg: "#08080f", surface: "#0f1018", surface2: "#151720", surface3: "#1c1f2e",
-  border: "#252838", gold: "#c9a84c", goldLight: "#e2bc6a", goldDim: "#7a5e28",
-  text: "#ede9e3", textMuted: "#8890aa", textDim: "#4a4e68",
-  green: "#27ae60", red: "#c0392b", blue: "#3d8ef0", purple: "#8e44ad",
+  border: "#33374a", gold: "#c9a84c", goldLight: "#e2bc6a", goldDim: "#7a5e28",
+  text: "#f0ece4", textMuted: "#9aa3c0", textDim: "#7a80a6",
+  green: "#2ecc71", red: "#e05545", blue: "#4b9bf5", purple: "#a855f7",
 };
 
 const LANGS = [
@@ -1058,7 +1058,7 @@ const TrustBadge = ({ score, state }) => {
 const Stat = ({ icon, label, value, sub, accent }) => (
   <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${accent||C.goldDim}`, borderRadius:12, padding:"16px 18px", minWidth:130, flex:"1 1 130px" }}>
     <div style={{ fontSize:18, marginBottom:6 }}>{icon}</div>
-    <div style={{ fontSize:22, fontWeight:700, color:accent||C.goldLight, fontFamily:"Georgia,serif", letterSpacing:"-0.02em" }}>{value}</div>
+    <div style={{ fontSize:22, fontWeight:700, color:accent||C.goldLight, fontFamily:"'Fraunces', Georgia, serif", letterSpacing:"-0.02em" }}>{value}</div>
     <div style={{ fontSize:12, color:C.text, marginTop:2 }}>{label}</div>
     {sub && <div style={{ fontSize:11, color:C.textMuted, marginTop:3 }}>{sub}</div>}
   </div>
@@ -1129,7 +1129,7 @@ const Navbar = ({ name, badge, onLogout, lang, onLangChange, onNotifications, no
     <div style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:"0 10px", display:"flex", alignItems:"center", height:52, position:"sticky", top:0, zIndex:200, gap:6, flexWrap:"nowrap", WebkitBackdropFilter:"blur(10px)", overflow:"hidden" }}>
       {/* Logo */}
       <div style={{ width:28, height:28, borderRadius:7, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:12, fontWeight:900, color:C.bg, flexShrink:0 }}>N</div>
-      <span style={{ fontSize:15, fontWeight:700, color:C.text, fontFamily:"Georgia,serif", flexShrink:0 }}>NexusHub</span>
+      <span style={{ fontSize:15, fontWeight:700, color:C.text, fontFamily:"'Fraunces', Georgia, serif", flexShrink:0 }}>NexusHub</span>
       {/* Badge - hidden on very small screens */}
       <span style={{ padding:"2px 6px", borderRadius:4, background:bCol[badge]+"18", border:`1px solid ${bCol[badge]}30`, fontSize:9, color:bCol[badge], letterSpacing:"0.08em", textTransform:"uppercase", flexShrink:0, display:"none" }} className="nav-badge">{bLabel[badge]}</span>
       {/* Spacer */}
@@ -1702,7 +1702,7 @@ function DemoPresentation({ lang, onLangChange, onSelectRole }) {
 // ============================================================
 const FormInput = ({ label, value, onChange, type="text", placeholder="" }) => (
   <div style={{ marginBottom:14 }}>
-    <label style={{ fontSize:11, color:"#8890aa", textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
+    <label style={{ fontSize:11, color:"#9aa3c0", textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{label}</label>
     <input
       type="text"
       inputMode={type === "number" ? "numeric" : type === "decimal" ? "decimal" : type === "email" ? "email" : "text"}
@@ -1710,7 +1710,7 @@ const FormInput = ({ label, value, onChange, type="text", placeholder="" }) => (
       onChange={e => onChange(e.target.value)}
       placeholder={placeholder}
       style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:"#151720",
-        border:"1px solid #252838", color:"#ede9e3", fontSize:16, outline:"none", boxSizing:"border-box" }}/>
+        border:"1px solid #33374a", color:"#f0ece4", fontSize:16, outline:"none", boxSizing:"border-box" }}/>
   </div>
 );
 
@@ -1760,7 +1760,7 @@ const Login = ({ onLogin, lang, onLangChange }) => {
       <div style={{ width:"100%", maxWidth:420, padding:"32px 20px", background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:`0 40px 80px rgba(0,0,0,0.7)` }}>
         <div style={{ textAlign:"center", marginBottom:28 }}>
           <div style={{ display:"inline-flex", alignItems:"center", justifyContent:"center", width:52, height:52, borderRadius:13, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, fontSize:22, fontWeight:900, color:C.bg, marginBottom:12 }}>N</div>
-          <div style={{ fontSize:20, fontWeight:800, color:C.text, fontFamily:"Georgia,serif" }}>{t("lgReset")}</div>
+          <div style={{ fontSize:20, fontWeight:800, color:C.text, fontFamily:"'Fraunces', Georgia, serif" }}>{t("lgReset")}</div>
           <div style={{ fontSize:12, color:C.textMuted, marginTop:4 }}>{t("lgResetSub")}</div>
         </div>
 
@@ -1814,7 +1814,7 @@ const Login = ({ onLogin, lang, onLangChange }) => {
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:28 }}>
           <div style={{ textAlign:"center", flex:1 }}>
             <div style={{ display:"inline-flex", alignItems:"center", justifyContent:"center", width:56, height:56, borderRadius:14, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, fontSize:24, fontWeight:900, color:C.bg, marginBottom:12, boxShadow:`0 8px 24px ${C.gold}35` }}>N</div>
-            <div style={{ fontSize:24, fontWeight:800, color:C.text, fontFamily:"Georgia,serif" }}>NexusHub</div>
+            <div style={{ fontSize:24, fontWeight:800, color:C.text, fontFamily:"'Fraunces', Georgia, serif" }}>NexusHub</div>
             <div style={{ fontSize:11, color:C.textMuted, marginTop:4, letterSpacing:"0.1em", textTransform:"uppercase" }}>{t("loginSubtitle")}</div>
           </div>
           <div style={{ marginTop:4 }}><LangSwitcher lang={lang} onChange={onLangChange}/></div>
@@ -1955,7 +1955,7 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
     <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center" }}>
       <div style={{ maxWidth:420, width:"100%", padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, textAlign:"center" }}>
         <div style={{ width:64, height:64, borderRadius:"50%", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:28, color:C.bg, margin:"0 auto 20px" }}>✓</div>
-        <h2 style={{ color:C.text, fontFamily:"Georgia,serif", marginBottom:12 }}>{t("successTitle")}</h2>
+        <h2 style={{ color:C.text, fontFamily:"'Fraunces', Georgia, serif", marginBottom:12 }}>{t("successTitle")}</h2>
         <p style={{ color:C.textMuted, fontSize:14, lineHeight:1.6, marginBottom:24 }}>{t("successMsg")}</p>
         <button onClick={onBack} style={{ padding:"12px 28px", borderRadius:8, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700 }}>{t("backToLogin")}</button>
       </div>
@@ -1968,7 +1968,7 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:24 }}>
           <div style={{ display:"flex", alignItems:"center", gap:10 }}>
             <div style={{ width:36, height:36, borderRadius:9, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:16, fontWeight:900, color:C.bg }}>N</div>
-            <span style={{ fontSize:18, fontWeight:700, color:C.text, fontFamily:"Georgia,serif" }}>NexusHub</span>
+            <span style={{ fontSize:18, fontWeight:700, color:C.text, fontFamily:"'Fraunces', Georgia, serif" }}>NexusHub</span>
           </div>
           <LangSwitcher lang={lang} onChange={onLangChange}/>
         </div>
@@ -1982,7 +1982,7 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
           ))}
         </div>
 
-        <h2 style={{ fontSize:22, fontWeight:700, color:C.text, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>
+        <h2 style={{ fontSize:22, fontWeight:700, color:C.text, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>
           {isBrand ? t("registerBrand") : isManaged ? t("registerChain") : t("registerDist")}
         </h2>
         <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 24px" }}>{step===1 ? t("step1") : t("step2")}</p>
@@ -2137,7 +2137,7 @@ const PendingScreen = ({ status, profile, onLogout, lang, onLangChange }) => {
     <div style={{ minHeight:"100vh", background:C.bg, display:"flex", flexDirection:"column" }}>
       <div style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:"0 10px", display:"flex", alignItems:"center", height:52, gap:6, flexWrap:"nowrap" }}>
         <div style={{ width:30, height:30, borderRadius:7, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:13, fontWeight:900, color:C.bg }}>N</div>
-        <span style={{ fontSize:16, fontWeight:700, color:C.text, fontFamily:"Georgia,serif" }}>NexusHub</span>
+        <span style={{ fontSize:16, fontWeight:700, color:C.text, fontFamily:"'Fraunces', Georgia, serif" }}>NexusHub</span>
         <div style={{ flex:1 }}/>
         <LangSwitcher lang={lang} onChange={onLangChange}/>
         <button onClick={onLogout} style={{ padding:"5px 12px", borderRadius:6, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:11 }}>{t("logout")}</button>
@@ -2145,7 +2145,7 @@ const PendingScreen = ({ status, profile, onLogout, lang, onLangChange }) => {
       <div style={{ flex:1, display:"flex", alignItems:"center", justifyContent:"center" }}>
         <div style={{ textAlign:"center", maxWidth:400, padding:40, background:C.surface, borderRadius:20, border:`1px solid ${C.border}` }}>
           <div style={{ fontSize:48, marginBottom:16 }}>{isPending ? "⏳" : "✗"}</div>
-          <h2 style={{ color:C.text, fontFamily:"Georgia,serif", marginBottom:12 }}>{isPending ? t("pendingTitle") : t("rejectedTitle")}</h2>
+          <h2 style={{ color:C.text, fontFamily:"'Fraunces', Georgia, serif", marginBottom:12 }}>{isPending ? t("pendingTitle") : t("rejectedTitle")}</h2>
           <p style={{ color:C.textMuted, fontSize:14, lineHeight:1.6 }}>{isPending ? t("pendingMsg") : t("rejectedMsg")}</p>
           {profile?.rejection_reason && <p style={{ color:C.red, fontSize:13, marginTop:12 }}>{profile.rejection_reason}</p>}
         </div>
@@ -2737,7 +2737,7 @@ const BrandAmazonPanel = () => {
       <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:6 }}>
         <div style={{ width:44, height:44, borderRadius:11, background:"linear-gradient(135deg,#ff9900,#e47911)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:22 }}>🛒</div>
         <div>
-          <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:0 }}>{t("azTitle")}</h2>
+          <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:0 }}>{t("azTitle")}</h2>
           <p style={{ color:C.textMuted, fontSize:12.5, margin:"2px 0 0" }}>{t("azSub")}</p>
         </div>
       </div>
@@ -2938,7 +2938,7 @@ const NexusAI = ({ role }) => {
       <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:6 }}>
         <div style={{ width:42, height:42, borderRadius:11, background:"linear-gradient(135deg,#8e44ad,#5b2c8d)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:22 }}>🤖</div>
         <div>
-          <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:0 }}>Nexus AI</h2>
+          <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:0 }}>Nexus AI</h2>
           <p style={{ color:C.textMuted, fontSize:12.5, margin:"2px 0 0" }}>{t("aiSub")}</p>
         </div>
       </div>
@@ -3326,7 +3326,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           const mapDist = approved.map(r=>{ const d=r.distributor||{}; const c=d.country||""; return { id:r.id, company:d.company_name||d.email||"Distributore", country:c, territory:c, country_code:CC[c]||(c?c.slice(0,2).toUpperCase():"IT"), status:"active" }; });
           return (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("overviewTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("overviewTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("overviewSub")}</p>
             <div style={{ display:"flex", gap:14, marginBottom:22, flexWrap:"wrap" }}>
               <Stat icon="⬡" label={t("statTerritories")} value={territories} sub={t("statTerritoriesSub")}/>
@@ -3369,7 +3369,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
         })()}
         {tab==="applications" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("appTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("appTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("appSub")}</p>
             {accessReqs.length === 0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>
@@ -3416,7 +3416,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
         )}
         {tab==="distributors" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("distTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("distTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("bDistSub")}</p>
             {(() => {
               const active = accessReqs.filter(r => r.status === "approved");
@@ -3612,7 +3612,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("catTitle")}</h2>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("catTitle")}</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{brandProducts.length} prodotti nel tuo catalogo</p>
               </div>
               <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
@@ -3681,7 +3681,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
 
         {tab==="orders" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("ordersTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("ordersTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("ordersSub")}</p>
             <div style={{ display:"flex", gap:14, marginBottom:22, flexWrap:"wrap" }}>
               <Stat icon="◻" label={t("statOrdersMonth")} value="127" sub={t("statOrdersMonthSub")}/>
@@ -3711,7 +3711,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
         {brandInvoiceView && <InvoiceModal inv={brandInvoiceView} onClose={()=>setBrandInvoiceView(null)}/>}
         {tab==="fatture" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🧾 {t("bInvoices")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>🧾 {t("bInvoices")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("bInvoicesMsg")}</p>
             {brandInvoices.length===0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>{t("diNoInvoices")}</div>
@@ -3747,7 +3747,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <NexusAI role="brand"/>
             <div style={{ height:1, background:C.border, margin:"28px 0" }}/>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🤖 {t("bAiTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>🤖 {t("bAiTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("bAiSub")}</p>
             <InventoryForecast products={brandProducts} orders={brandOrders}/>
             <BrandAnalytics
@@ -3759,7 +3759,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
 
         {tab==="payments" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("paymentsTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("paymentsTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("paymentsSub")}</p>
             {/* Payout details — where NexusHub pays the brand */}
             <div style={{ background:C.surface, border:`1px solid ${C.gold}40`, borderRadius:14, padding:22, marginBottom:22 }}>
@@ -4195,7 +4195,7 @@ const ContractModal = ({ contract, brandName, distCompany, distName, distCountry
     finally { setSaving(false); }
   };
 
-  const preStyle = { whiteSpace:"pre-wrap", fontFamily:"Georgia,serif", fontSize:12.5, lineHeight:1.65, color:C.text, margin:0 };
+  const preStyle = { whiteSpace:"pre-wrap", fontFamily:"'Fraunces', Georgia, serif", fontSize:12.5, lineHeight:1.65, color:C.text, margin:0 };
 
   return (
     <div onClick={onClose} style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.72)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:1000, padding:16 }}>
@@ -4248,7 +4248,7 @@ function printInvoice(inv, L){
   if(!w) return;
   const fmt = (n)=>"\u20ac"+Number(n||0).toLocaleString("it-IT",{minimumFractionDigits:2});
   const html = "<html><head><title>"+(inv.invoice_number||L.inv)+"</title>"+
-    "<style>body{font-family:Georgia,serif;color:#111;padding:40px;max-width:680px;margin:auto}h1{font-size:20px;margin:0 0 4px}table{width:100%;border-collapse:collapse;margin-top:18px}td,th{padding:8px;border-bottom:1px solid #ddd;text-align:left;font-size:13px}.r{text-align:right}.tot td{font-weight:bold;font-size:16px}.muted{color:#666;font-size:12px}</style></head><body>"+
+    "<style>body{font-family:'Fraunces', Georgia, serif;color:#111;padding:40px;max-width:680px;margin:auto}h1{font-size:20px;margin:0 0 4px}table{width:100%;border-collapse:collapse;margin-top:18px}td,th{padding:8px;border-bottom:1px solid #ddd;text-align:left;font-size:13px}.r{text-align:right}.tot td{font-weight:bold;font-size:16px}.muted{color:#666;font-size:12px}</style></head><body>"+
     "<h1>"+L.inv+" "+(inv.invoice_number||"")+"</h1>"+
     "<div class='muted'>"+(inv.type==="nexushub_commission"?L.comm:L.sale)+" \u00b7 "+new Date(inv.created_at).toLocaleDateString("it-IT")+"</div>"+
     "<table><tr><th>"+L.from+"</th><td>"+(inv.from_entity||"")+(inv.from_vat?(" \u00b7 "+L.vatno+" "+inv.from_vat):"")+"</td></tr>"+
@@ -4589,7 +4589,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
         {tab==="brands" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("marketTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("marketTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("marketSub")}</p>
             {dbBrands.length === 0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>
@@ -4635,7 +4635,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("myCatTitle")}</h2>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("myCatTitle")}</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("myCatSub")}</p>
               </div>
               {cartCount > 0 && (
@@ -4684,7 +4684,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
               return (
               <div key={bid} style={{ marginBottom:28 }}>
                 <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:12, paddingBottom:8, borderBottom:`1px solid ${C.border}` }}>
-                  <span style={{ fontSize:16, fontWeight:700, color:C.gold, fontFamily:"Georgia,serif" }}>{bLabel}</span>
+                  <span style={{ fontSize:16, fontWeight:700, color:C.gold, fontFamily:"'Fraunces', Georgia, serif" }}>{bLabel}</span>
                   <span style={{ fontSize:11, color:C.textMuted, background:C.surface2, padding:"2px 8px", borderRadius:20 }}>{bprods.length} {t("diProducts")}</span>
                 </div>
                 <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(min(280px,100%), 1fr))", gap:14 }}>
@@ -4763,7 +4763,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         {invoiceView && <InvoiceModal inv={invoiceView} onClose={()=>setInvoiceView(null)}/>}
         {tab==="fatture" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🧾 {t("ckInvoicesTab")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>🧾 {t("ckInvoicesTab")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("diInvoicesSub")}</p>
             {distInvoices.length===0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>{t("diNoInvoices")}</div>
@@ -4794,7 +4794,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
 
         {tab==="profile" && (
           <div style={{ maxWidth:640 }}>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("ddMyData")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("ddMyData")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("ddMyDataSub")}</p>
             <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, padding:22 }}>
               <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(240px, 1fr))", gap:14 }}>
@@ -4819,7 +4819,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         )}
         {tab==="wishlist" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("diWishTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("diWishTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("diWishSub")}</p>
             {(() => {
               const wp = visibleProducts.filter(p => wishlist.includes(p.id));
@@ -4856,7 +4856,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         )}
         {tab==="orders" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("myOrdersTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("myOrdersTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("myOrdersSub")}</p>
             <div style={{ display:"flex", gap:14, marginBottom:22, flexWrap:"wrap" }}>
               <Stat icon="◻" label={t("ckTotalOrders")} value={realOrders.length} sub={t("ckAllTime")}/>
@@ -4995,7 +4995,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     {bonificoInfo && (
       <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:600, display:"flex", alignItems:"center", justifyContent:"center", padding:20 }} onClick={()=>setBonificoInfo(null)}>
         <div onClick={e=>e.stopPropagation()} style={{ background:C.bg, border:`1px solid ${C.gold}40`, borderRadius:16, padding:28, maxWidth:440, width:"100%" }}>
-          <div style={{ fontSize:18, fontWeight:700, color:C.text, fontFamily:"Georgia,serif", marginBottom:6 }}>{"\ud83c\udfe6 " + t("ddBonifTitle")}</div>
+          <div style={{ fontSize:18, fontWeight:700, color:C.text, fontFamily:"'Fraunces', Georgia, serif", marginBottom:6 }}>{"\ud83c\udfe6 " + t("ddBonifTitle")}</div>
           <div style={{ fontSize:13, color:C.textMuted, marginBottom:18, lineHeight:1.5 }}>{t("ddBonifIntro")}</div>
           {payCoords && payCoords.bonifico_iban ? (
             <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:16, marginBottom:18 }}>
@@ -5026,7 +5026,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:16,
           padding:"20px 16px", width:"100%", maxWidth:520, maxHeight:"92vh", overflowY:"auto", WebkitOverflowScrolling:"touch" }}>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
-            <h3 style={{ color:C.text, fontFamily:"Georgia,serif", fontSize:18, margin:0 }}>🛒 {t("ckConfirmOrder")}</h3>
+            <h3 style={{ color:C.text, fontFamily:"'Fraunces', Georgia, serif", fontSize:18, margin:0 }}>🛒 {t("ckConfirmOrder")}</h3>
             <button onClick={() => setShowCheckout(false)} style={{ background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:22 }}>×</button>
           </div>
 
@@ -5144,7 +5144,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         <div style={{ background:C.surface, border:`1px solid ${C.green}40`, borderRadius:16,
           padding:"28px 16px", width:"100%", maxWidth:440, textAlign:"center" }}>
           <div style={{ fontSize:56, marginBottom:16 }}>🎉</div>
-          <h3 style={{ color:C.green, fontFamily:"Georgia,serif", fontSize:22, marginBottom:8 }}>{t("ckOrderSent")}</h3>
+          <h3 style={{ color:C.green, fontFamily:"'Fraunces', Georgia, serif", fontSize:22, marginBottom:8 }}>{t("ckOrderSent")}</h3>
           <div style={{ fontFamily:"monospace", fontSize:16, color:C.goldLight, fontWeight:700, marginBottom:12 }}>{orderSuccess.order_number}</div>
           <p style={{ color:C.textMuted, fontSize:14, lineHeight:1.6, marginBottom:24 }}>
             {t("ckOrderSentPre")}<strong style={{ color:C.green }}>{t("ckOrderSentStrong")}</strong>{t("ckOrderSentPost")}
@@ -5168,15 +5168,15 @@ const Modal = ({ title, onClose, onSave, children, saveLabel="Save" }) => {
   return (
   <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.75)", zIndex:500,
     display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
-    <div style={{ background:"#0e0e1a", border:"1px solid #252838", borderRadius:16,
+    <div style={{ background:"#0e0e1a", border:"1px solid #33374a", borderRadius:16,
       padding:"20px 16px", width:"100%", maxWidth:560, maxHeight:"92vh", overflowY:"auto", WebkitOverflowScrolling:"touch" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
-        <h3 style={{ color:"#ede9e3", fontFamily:"Georgia,serif", fontSize:18, margin:0 }}>{title}</h3>
-        <button onClick={onClose} style={{ background:"none", border:"none", color:"#8890aa", cursor:"pointer", fontSize:22 }}>×</button>
+        <h3 style={{ color:"#f0ece4", fontFamily:"'Fraunces', Georgia, serif", fontSize:18, margin:0 }}>{title}</h3>
+        <button onClick={onClose} style={{ background:"none", border:"none", color:"#9aa3c0", cursor:"pointer", fontSize:22 }}>×</button>
       </div>
       {children}
       <div style={{ display:"flex", gap:10, marginTop:20 }}>
-        <button onClick={onClose} style={{ flex:1, padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:"1px solid #252838", color:"#8890aa", fontSize:13 }}>{t("ddCancel")}</button>
+        <button onClick={onClose} style={{ flex:1, padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:"1px solid #33374a", color:"#9aa3c0", fontSize:13 }}>{t("ddCancel")}</button>
         <button onClick={onSave} style={{ flex:2, padding:"11px", borderRadius:10, cursor:"pointer", background:"linear-gradient(135deg,#c9a84c,#7a5e28)", border:"none", color:"#08080f", fontSize:13, fontWeight:700 }}>{saveLabel}</button>
       </div>
     </div>
@@ -6235,7 +6235,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* OVERVIEW TAB - shown when no tab selected, or add as first tab */}
         {tab === "overview" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("aoTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("aoTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("aoSub")}</p>
             <div style={{ display:"flex", gap:12, marginBottom:20, flexWrap:"wrap" }}>
               {[
@@ -6246,7 +6246,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 { label:t("aoTotalOrders"), value:orders.length, color:C.purple },
               ].map((s,i) => (
                 <div key={i} style={{ flex:"1 1 140px", padding:"16px 18px", background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${s.color}`, borderRadius:12 }}>
-                  <div style={{ fontSize:24, fontWeight:900, color:s.color, fontFamily:"Georgia,serif" }}>{s.value}</div>
+                  <div style={{ fontSize:24, fontWeight:900, color:s.color, fontFamily:"'Fraunces', Georgia, serif" }}>{s.value}</div>
                   <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{s.label}</div>
                 </div>
               ))}
@@ -6268,7 +6268,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("auTitle")}</h2>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("auTitle")}</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("auSub")}</p>
               </div>
               <div style={{ display:"flex", gap:10 }}>
@@ -6370,7 +6370,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {tab === "keyaccount" && (
           <div>
             <div style={{ marginBottom:16 }}>
-              <h2 style={{ fontSize:20, fontWeight:700, color:C.text, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("kaTitle")}</h2>
+              <h2 style={{ fontSize:20, fontWeight:700, color:C.text, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("kaTitle")}</h2>
               <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("kaSubtitle")}</p>
             </div>
             {managedUsers.length === 0 ? (
@@ -6450,7 +6450,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("abTitle")}</h2>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("abTitle")}</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{brands.length} brands on platform</p>
               </div>
               <button onClick={() => setShowAddBrand(true)} style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>{t("abAddBrand")}</button>
@@ -6490,7 +6490,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("acTitle")}</h2>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("acTitle")}</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{products.length} products</p>
               </div>
               <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
@@ -6572,7 +6572,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🛒 {t("aamzTitle")}</h2>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>🛒 {t("aamzTitle")}</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("aamzSub")}</p>
               </div>
               <button onClick={()=>openAmazon(null)} style={{ padding:"10px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>+ {t("aamzAdd")}</button>
@@ -6703,7 +6703,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           return (
           <div>
             <div style={{ marginBottom:14 }}>
-              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📈 {t("amrgTitle")}</h2>
+              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>📈 {t("amrgTitle")}</h2>
               <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("amrgSub")}</p>
             </div>
             <div style={{ display:"flex", alignItems:"center", gap:10, background:`${C.red}10`, border:`1px solid ${C.red}35`, borderRadius:10, padding:"10px 14px", marginBottom:20 }}>
@@ -6768,7 +6768,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🗂️ {t("acmpTitle")}</h2>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>🗂️ {t("acmpTitle")}</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("acmpSub")}</p>
               </div>
               <button onClick={()=>{ setCompForm({ category:"company" }); setCompModal(true); }} style={{ padding:"10px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>+ {t("acmpUpload")}</button>
@@ -6848,7 +6848,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🏬 {t("aretTitle")}</h2>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>🏬 {t("aretTitle")}</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("aretSub")}</p>
               </div>
               <button onClick={()=>openRetail(null)} style={{ padding:"10px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>+ {t("aretAdd")}</button>
@@ -6952,7 +6952,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           return (
           <div>
             <div style={{ marginBottom:20 }}>
-              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🚛 {t("alogTitle")}</h2>
+              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>🚛 {t("alogTitle")}</h2>
               <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("alogSub")}</p>
             </div>
             <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:24 }}>
@@ -7020,7 +7020,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:12 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("astkTitle")}</h2>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("astkTitle")}</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("astkSub")}</p>
               </div>
               <button onClick={() => setScannerMode(m => !m)} style={{
@@ -7044,7 +7044,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 { label:t("astkOutStock"), value:products.filter(p=>(p.inventory?.quantity_available||0)===0).length, color:C.red },
               ].map((s,i) => (
                 <div key={i} style={{ flex:"1 1 140px", padding:"16px 18px", background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${s.color}`, borderRadius:12 }}>
-                  <div style={{ fontSize:24, fontWeight:900, color:s.color, fontFamily:"Georgia,serif" }}>{s.value}</div>
+                  <div style={{ fontSize:24, fontWeight:900, color:s.color, fontFamily:"'Fraunces', Georgia, serif" }}>{s.value}</div>
                   <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{s.label}</div>
                 </div>
               ))}
@@ -7286,14 +7286,14 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {tab === "orders" && (
           <div>
             <div style={{ marginBottom:20 }}>
-              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("aordTitle")}</h2>
+              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("aordTitle")}</h2>
               <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{orders.length} orders total</p>
             </div>
             <button onClick={exportShippyPro} style={{ marginBottom:20, padding:"10px 16px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>📦 {t("aordExport")}</button>
             <div style={{ display:"flex", gap:12, marginBottom:20, flexWrap:"wrap" }}>
               {["pending","confirmed","shipped","delivered"].map(s => (
                 <div key={s} style={{ flex:"1 1 120px", padding:"14px 16px", background:C.surface, border:`1px solid ${C.border}`, borderRadius:10, textAlign:"center" }}>
-                  <div style={{ fontSize:20, fontWeight:900, color:s==="delivered"?C.green:s==="shipped"?C.blue:s==="confirmed"?C.gold:C.textMuted, fontFamily:"Georgia,serif" }}>
+                  <div style={{ fontSize:20, fontWeight:900, color:s==="delivered"?C.green:s==="shipped"?C.blue:s==="confirmed"?C.gold:C.textMuted, fontFamily:"'Fraunces', Georgia, serif" }}>
                     {orders.filter(o=>o.status===s).length}
                   </div>
                   <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em", marginTop:3 }}>{s}</div>
@@ -7364,7 +7364,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🧾 {t("ainvTitle")}</h2>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>🧾 {t("ainvTitle")}</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("ainvSub")}</p>
               </div>
               <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
@@ -7440,7 +7440,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* CONTRACTS TAB */}
         {tab === "commissions" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📊 {t("acomTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>📊 {t("acomTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 16px" }}>{t("acomSub")}</p>
             <div style={{ display:"flex", justifyContent:"flex-end", marginBottom:12 }}>
               <button onClick={recalcNow} disabled={recalcing} style={{ padding:"9px 18px", borderRadius:9, cursor: recalcing?"default":"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, opacity: recalcing?0.6:1 }}>{recalcing ? t("auiRecalcing") : t("auiRecalcNow")}</button>
@@ -7487,7 +7487,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             <div style={{ marginTop:12, padding:"10px 14px", background:`${C.blue}08`, border:`1px solid ${C.blue}15`, borderRadius:8, fontSize:12, color:C.textMuted, lineHeight:1.6 }}>
               💡 Automatico: ogni giorno la provvigione scende da sola al superamento di una soglia; il 1° gennaio si ricalcola sul fatturato dell'anno precedente. Le tariffe bloccate non vengono toccate. Notifica in-app al brand a ogni cambio (email in arrivo).
             </div>
-            <h3 style={{ fontSize:15, fontWeight:700, fontFamily:"Georgia,serif", margin:"24px 0 10px" }}>{t("acomHistory")}</h3>
+            <h3 style={{ fontSize:15, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"24px 0 10px" }}>{t("acomHistory")}</h3>
             {commissionLog.length === 0 ? (
               <div style={{ color:C.textMuted, fontSize:13 }}>{t("acomNoHistory")}</div>
             ) : (
@@ -7516,7 +7516,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           <div>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📝 {t("aconTitle")}</h2>
+                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>📝 {t("aconTitle")}</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("aconSub")}</p>
               </div>
               <button onClick={openNewContract}
@@ -7633,7 +7633,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* SEGNALAZIONI TAB */}
         {tab === "issues" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>🚩 {t("aissTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>🚩 {t("aissTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("aissSub")}</p>
             {orderIssues.length === 0 ? (
               <div style={{ textAlign:"center", padding:40, background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, color:C.textMuted, fontSize:13 }}>{t("aissEmpty")}</div>
@@ -7663,7 +7663,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* AUDIT LOG TAB */}
         {tab === "audit" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>📋 {t("aaudTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>📋 {t("aaudTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("aaudSub")}</p>
             <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, overflow:"hidden" }}>
               <table style={{ width:"100%", borderCollapse:"collapse" }}>
@@ -7696,7 +7696,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* FINANZE / P&L TAB */}
         {tab === "finanze" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>💶 {t("afinTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>💶 {t("afinTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("afinSub")}</p>
             {(() => {
               const valid = orders.filter(o => o.status !== "cancelled");
@@ -7759,7 +7759,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* INCASSI & SPLIT TAB */}
         {tab === "incassi" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>💸 {t("aincTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>💸 {t("aincTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("aincSub")}</p>
             {(() => {
               const pend = paySplits.filter(x => x.split_status === "pending");
@@ -7842,7 +7842,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* PAYMENTS TAB */}
         {tab === "payments" && (
           <div>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("apayTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("apayTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 20px" }}>{t("apaySub")}</p>
             <div style={{ display:"flex", gap:12, marginBottom:24, flexWrap:"wrap" }}>
               {[
@@ -7852,7 +7852,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 { label:t("apayAov"), value:orders.length>0?`€${(orders.reduce((s,o)=>s+(o.total_amount||0),0)/orders.length).toFixed(0)}`:"—", color:C.purple },
               ].map((s,i) => (
                 <div key={i} style={{ flex:"1 1 160px", padding:"18px 20px", background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${s.color}`, borderRadius:12 }}>
-                  <div style={{ fontSize:24, fontWeight:900, color:s.color, fontFamily:"Georgia,serif" }}>{s.value}</div>
+                  <div style={{ fontSize:24, fontWeight:900, color:s.color, fontFamily:"'Fraunces', Georgia, serif" }}>{s.value}</div>
                   <div style={{ fontSize:12, color:C.textMuted, marginTop:3 }}>{s.label}</div>
                 </div>
               ))}
@@ -7893,7 +7893,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* SETTINGS TAB */}
         {tab === "settings" && (
           <div style={{ maxWidth:600 }}>
-            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"Georgia,serif", margin:"0 0 4px" }}>{t("asetTitle")}</h2>
+            <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("asetTitle")}</h2>
             <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 24px" }}>{t("asetSub")}</p>
 
             <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"18px 20px", background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, marginBottom:10 }}>
@@ -7956,7 +7956,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             {/* Header */}
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
               <div>
-                <h3 style={{ color:C.text, fontFamily:"Georgia,serif", fontSize:18, margin:0 }}>
+                <h3 style={{ color:C.text, fontFamily:"'Fraunces', Georgia, serif", fontSize:18, margin:0 }}>
                   {editingUser.role === "brand" ? "🏛️" : "📦"} {editingUser.company_name || editingUser.email}
                 </h3>
                 <div style={{ fontSize:12, color:C.textMuted, marginTop:3 }}>{editingUser.email}</div>
@@ -8335,12 +8335,23 @@ const injectGlobalCSS = () => {
   const style = document.createElement("style");
   style.id = id;
   style.textContent = [
+    "@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');",
     "*, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }",
     "html { -webkit-text-size-adjust: 100%; }",
     "body { overflow-x: hidden; -webkit-overflow-scrolling: touch; }",
     "input, textarea, select { font-size: 16px !important; -webkit-appearance: none; appearance: none; }",
-    "button { cursor: pointer; -webkit-appearance: none; }",
+    "button { cursor: pointer; -webkit-appearance: none; transition: filter .15s ease, transform .12s ease, box-shadow .15s ease; }",
+    "button:hover:not(:disabled) { filter: brightness(1.08); }",
+    "button:active:not(:disabled) { transform: scale(.97); }",
+    "button:disabled { cursor: not-allowed; }",
+    "input:focus-visible, textarea:focus-visible, select:focus-visible, button:focus-visible { outline: none !important; box-shadow: 0 0 0 3px rgba(201,168,76,.35) !important; border-color: #c9a84c !important; }",
+    "table td, table th { font-variant-numeric: tabular-nums; }",
+    "::-webkit-scrollbar { width: 10px; height: 10px; }",
+    "::-webkit-scrollbar-track { background: transparent; }",
+    "::-webkit-scrollbar-thumb { background: #33374a; border-radius: 8px; border: 2px solid transparent; background-clip: content-box; }",
+    "::-webkit-scrollbar-thumb:hover { background: #454a63; background-clip: content-box; }",
     "* { -webkit-font-smoothing: antialiased; }",
+    "@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; } }",
   ].join("\n");
   document.head.appendChild(style);
 };
@@ -8356,7 +8367,7 @@ export default function App() {
   const dir = LANGS.find(l=>l.key===lang)?.dir ?? "ltr";
   const fontFamily = lang==="ar" ? "'Segoe UI', Tahoma, Arial, sans-serif"
                    : lang==="zh" ? "'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif"
-                   : "'Trebuchet MS', sans-serif";
+                   : "'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
 
   // Controlla sessione esistente all'avvio
   useEffect(() => {
@@ -8382,7 +8393,7 @@ export default function App() {
 
   if (screen === "loading") return (
     <div style={{ minHeight:"100vh", background:"#08080f", display:"flex", alignItems:"center", justifyContent:"center" }}>
-      <div style={{ color:"#c9a84c", fontSize:20, fontFamily:"Georgia,serif", letterSpacing:"0.2em" }}>NEXUSHUB</div>
+      <div style={{ color:"#c9a84c", fontSize:20, fontFamily:"'Fraunces', Georgia, serif", letterSpacing:"0.2em" }}>NEXUSHUB</div>
     </div>
   );
 
