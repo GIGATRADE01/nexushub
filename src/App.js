@@ -1,5 +1,11 @@
 import { useState, createContext, useContext, useEffect, useRef } from "react";
 import { createClient } from "@supabase/supabase-js";
+import {
+  Gauge, ClipboardList, Network, Package, TrendingUp, ReceiptText, Bot,
+  ShoppingCart, Users, KeyRound, Landmark, Factory, Truck, Store, FolderArchive,
+  LineChart, BarChart3, FileSignature, Send, Wallet, Euro, Coins, Settings, Heart,
+  User, Bell, CreditCard, CheckCircle2, Megaphone, Globe, Flag, Building2,
+} from "lucide-react";
 
 // ============================================================
 // SUPABASE CLIENT
@@ -1055,14 +1061,35 @@ const TrustBadge = ({ score, state }) => {
   );
 };
 
-const Stat = ({ icon, label, value, sub, accent }) => (
-  <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${accent||C.goldDim}`, borderRadius:12, padding:"16px 18px", minWidth:130, flex:"1 1 130px" }}>
-    <div style={{ fontSize:18, marginBottom:6 }}>{icon}</div>
+// Mappa emoji -> icone vettoriali Lucide (fallback: mostra il valore originale)
+const ICON_MAP = {
+  "◈": Gauge, "📋": ClipboardList, "⬡": Network, "◻": Package, "📦": Package,
+  "↗": TrendingUp, "📈": LineChart, "📊": BarChart3, "🧾": ReceiptText, "🤖": Bot,
+  "🛒": ShoppingCart, "👥": Users, "🔑": KeyRound, "🏛️": Landmark, "🏦": Building2,
+  "🏭": Factory, "🚛": Truck, "🏬": Store, "🗂️": FolderArchive, "📝": FileSignature,
+  "💸": Send, "💰": Wallet, "💶": Euro, "€": Euro, "🪙": Coins, "⚙️": Settings,
+  "♥": Heart, "👤": User, "🔔": Bell, "💳": CreditCard, "✅": CheckCircle2,
+  "📣": Megaphone, "🌍": Globe, "🚩": Flag, "🏢": Building2,
+};
+const renderIcon = (icon, size = 16, color) => {
+  if (typeof icon === "string") {
+    const Cmp = ICON_MAP[icon.trim()];
+    if (Cmp) return <Cmp size={size} color={color} strokeWidth={2} style={{ display:"block" }} />;
+  }
+  return icon;
+};
+
+const Stat = ({ icon, label, value, sub, accent }) => {
+  const col = accent || C.gold;
+  return (
+  <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderTop:`2px solid ${accent||C.goldDim}`, borderRadius:14, padding:"16px 18px", minWidth:130, flex:"1 1 130px", boxShadow:"0 2px 10px rgba(0,0,0,.35)" }}>
+    <div style={{ width:34, height:34, borderRadius:10, background:col+"1f", color:col, display:"flex", alignItems:"center", justifyContent:"center", marginBottom:11, fontSize:16 }}>{renderIcon(icon, 18, col)}</div>
     <div style={{ fontSize:22, fontWeight:700, color:accent||C.goldLight, fontFamily:"'Fraunces', Georgia, serif", letterSpacing:"-0.02em" }}>{value}</div>
     <div style={{ fontSize:12, color:C.text, marginTop:2 }}>{label}</div>
     {sub && <div style={{ fontSize:11, color:C.textMuted, marginTop:3 }}>{sub}</div>}
   </div>
-);
+  );
+};
 
 const Table = ({ headers, rows, minWidth=700 }) => (
   <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
@@ -1091,14 +1118,16 @@ const TabNav = ({ tabs, active, onChange }) => (
   <div style={{ display:"flex", gap:4, marginBottom:16, borderBottom:`1px solid ${C.border}`, overflowX:"auto", WebkitOverflowScrolling:"touch", scrollbarWidth:"none", msOverflowStyle:"none" }}>
     {tabs.map(t => (
       <button key={t.key} onClick={() => onChange(t.key)} style={{
-        padding:"10px 18px", cursor:"pointer", background:"transparent",
+        padding:"9px 15px", cursor:"pointer",
+        background:active===t.key?`${C.gold}14`:"transparent",
         border:"none", borderBottom:`2px solid ${active===t.key?C.gold:"transparent"}`,
+        borderRadius:"8px 8px 0 0",
         color:active===t.key?C.goldLight:C.textMuted,
-        fontSize:13, fontWeight:active===t.key?600:400,
+        fontSize:13, fontWeight:active===t.key?600:500,
         display:"flex", alignItems:"center", gap:7, whiteSpace:"nowrap",
         transition:"all 0.15s", marginBottom:-1,
       }}>
-        <span>{t.icon}</span>{t.label}
+        <span style={{ display:"flex", alignItems:"center" }}>{renderIcon(t.icon, 16)}</span>{t.label}
         {t.badge>0 && <span style={{ background:C.red, color:"#fff", borderRadius:10, padding:"1px 6px", fontSize:10, fontWeight:700 }}>{t.badge}</span>}
       </button>
     ))}
@@ -1141,7 +1170,7 @@ const Navbar = ({ name, badge, onLogout, lang, onLangChange, onNotifications, no
             {/* Notifications */}
       {onNotifications && (
         <button onClick={onNotifications} style={{ position:"relative", background:"transparent", border:"none", cursor:"pointer", padding:"4px 6px", borderRadius:8, display:"flex", alignItems:"center", flexShrink:0 }}>
-          <span style={{ fontSize:18 }}>🔔</span>
+          <Bell size={18} color={C.textMuted} />
           {notifCount > 0 && (
             <span style={{ position:"absolute", top:0, right:0, background:C.red, color:"#fff", borderRadius:10, fontSize:9, fontWeight:700, padding:"1px 4px", minWidth:14, textAlign:"center" }}>
               {notifCount > 9 ? "9+" : notifCount}
@@ -6220,13 +6249,15 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         <div style={{ display:"flex", gap:2, marginBottom:16, borderBottom:`1px solid ${C.border}`, overflowX:"auto", overflowY:"hidden", WebkitOverflowScrolling:"touch", paddingBottom:2 }}>
           {tabs.map(tb => (
             <button key={tb.key} onClick={() => setTab(tb.key)} style={{
-              padding:"7px 10px", cursor:"pointer", background:"transparent",
+              padding:"7px 12px", cursor:"pointer",
+              background: tab===tb.key ? `${C.gold}14` : "transparent",
               border:"none", borderBottom:`2px solid ${tab===tb.key?C.gold:"transparent"}`,
+              borderRadius:"8px 8px 0 0",
               color: tab===tb.key ? C.goldLight : C.textMuted,
-              fontSize:12, fontWeight: tab===tb.key ? 600 : 400,
+              fontSize:12, fontWeight: tab===tb.key ? 600 : 500,
               display:"flex", alignItems:"center", gap:6, whiteSpace:"nowrap",
               transition:"all .15s", marginBottom:-1 }}>
-              {tb.icon} {tb.label}
+              <span style={{ display:"flex", alignItems:"center" }}>{renderIcon(tb.icon, 15)}</span>{tb.label}
               {tb.badge>0 && <span style={{ background:C.red, color:"#fff", borderRadius:10, padding:"1px 6px", fontSize:10, fontWeight:700 }}>{tb.badge}</span>}
             </button>
           ))}
