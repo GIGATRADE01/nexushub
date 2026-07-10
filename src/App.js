@@ -3352,7 +3352,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
         </div>
       )}
 
-      <div style={{ padding:"16px 12px", maxWidth:1400, margin:"0 auto" }}>
+      <div style={{ padding:"22px 18px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
         {tab==="overview" && (() => {
           const approved = accessReqs.filter(r => r.status === "approved");
@@ -4655,7 +4655,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
           onAccepted={() => setDistContracts(prev => prev.map(c => c.id===viewContract.id ? { ...c, signed_at: new Date().toISOString(), status:"active" } : c))}
         />
       )}
-      <div style={{ padding:"16px 12px", maxWidth:1400, margin:"0 auto" }}>
+      <div style={{ padding:"22px 18px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
         {tab==="brands" && (
           <div>
@@ -6285,7 +6285,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         </div>
       )}
 
-      <div style={{ padding:"16px 12px", maxWidth:1400, margin:"0 auto" }}>
+      <div style={{ padding:"22px 18px", maxWidth:1400, margin:"0 auto" }}>
         {/* Tab Nav */}
         <div style={{ display:"flex", gap:2, marginBottom:16, borderBottom:`1px solid ${C.border}`, overflowX:"auto", overflowY:"hidden", WebkitOverflowScrolling:"touch", paddingBottom:2 }}>
           {tabs.map(tb => (
@@ -8431,6 +8431,8 @@ const injectGlobalCSS = () => {
     "@media (min-width: 560px) { .nav-badge { display: inline-flex; align-items: center; } }",
     ".nav-ico:hover { background: #1c2030 !important; border-color: #7a80a6 !important; }",
     ".nav-out:hover { border-color: #7a80a6 !important; color: #f0ece4 !important; }",
+    "h1, h2, h3 { text-wrap: balance; letter-spacing: -0.01em; }",
+    "p { text-wrap: pretty; }",
     "* { -webkit-font-smoothing: antialiased; }",
     "@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; } }",
   ].join("\n");
