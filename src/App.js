@@ -8419,6 +8419,8 @@ const injectGlobalCSS = () => {
     ".nx-panel { box-shadow: 0 2px 12px rgba(0,0,0,.35); }",
     ".nx-card { transition: transform .16s cubic-bezier(.16,1,.3,1), box-shadow .16s ease; }",
     ".nx-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,.5); }",
+    "tbody tr { transition: background .12s ease; }",
+    "tbody tr:hover { background: #1e2230 !important; }",
     "* { -webkit-font-smoothing: antialiased; }",
     "@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; } }",
   ].join("\n");
