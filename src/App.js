@@ -3102,16 +3102,16 @@ const NexusAI = ({ role }) => {
 // DEMO GUIDED TOUR — walks a visitor through every brand screen
 // ============================================================
 const DEMO_TOUR_STEPS = [
-  { tab:"overview",     title:"Welcome to your Brand cockpit", text:"You're inside the real NexusHub Brand dashboard (demo data). I'll walk you through every screen and what it does — about 90 seconds." },
+  { tab:"overview",     title:"Welcome to your Brand cockpit", text:"You're inside the real NexusHub Brand dashboard (demo data). In ~90 seconds I'll show you everything you can control." },
   { tab:"overview",     title:"1 · Overview", text:"Your command center: active distributors, orders, revenue and a live map of Europe — all in real time." },
-  { tab:"applications", title:"2 · Applications", text:"Distributors requesting to sell your brand. You approve or reject each one with a single click." },
-  { tab:"distributors", title:"3 · Distributors & Exclusivity", text:"The heart of control: manage every distributor, grant full or partial exclusivity by territory, or revoke access instantly. Nobody sells your brand without your approval." },
-  { tab:"catalog",      title:"4 · Catalog & Prices", text:"Your products, with prices, MOQ and per-country price lists. The prices you set apply to everyone — the end of grey-market undercutting." },
-  { tab:"orders",       title:"5 · Orders", text:"Every distributor order, from status to tracking. 48–72h delivery from the Turin hub." },
-  { tab:"fatture",      title:"6 · Invoices", text:"Automatic invoicing with the correct VAT for each EU country. Zero admin work for you." },
-  { tab:"payments",     title:"7 · Payments", text:"Transparent, tracked payments. You receive the funds — commission only on processed orders." },
-  { tab:"analytics",    title:"8 · AI Analytics", text:"Smart insights: demand by country, best-sellers, and where to push next." },
-  { tab:"amazon",       title:"9 · Amazon Control", text:"Full Amazon EU management: stop unauthorized sellers, control the buy-box and the price." },
+  { tab:"applications", title:"2 · Applications", text:"Distributors requesting to sell your brand. Approve or reject with one click — you decide who represents you." },
+  { tab:"distributors", title:"3 · Distributors, Exclusivity & Contracts", text:"The heart of control: manage every distributor, grant full or partial exclusivity by territory, set a custom discount per partner, issue a formal contract (commission, MOQ, duration) — or revoke access instantly. Nobody sells your brand without your rules." },
+  { tab:"catalog",      title:"4 · Catalog, Prices & Documents", text:"Your products with per-country pricing, MOQ and order multiples, plus technical sheets and compliance documents. The price you set is enforced on every channel — the end of grey-market undercutting." },
+  { tab:"orders",       title:"5 · Orders & Fulfilment", text:"Every distributor order, from status to tracking — stocked and shipped from the Turin hub in 48–72h." },
+  { tab:"fatture",      title:"6 · Invoices", text:"Automatic invoicing with the correct VAT for each of the 27 EU countries. Zero admin work for you." },
+  { tab:"payments",     title:"7 · Payments & Payouts", text:"Transparent, tracked payments and payouts. You receive the funds — commission only on processed orders, no upfront fees." },
+  { tab:"analytics",    title:"8 · AI Analytics", text:"Smart insights: demand by country, best-sellers, seasonality and where to push next." },
+  { tab:"amazon",       title:"9 · Amazon Control", text:"Full Amazon EU management: stop unauthorized sellers, protect the buy-box and enforce your price." },
 ];
 function DemoTour({ setTab }) {
   const [step, setStep] = useState(0);
@@ -4516,14 +4516,15 @@ const InvoiceModal = ({ inv, onClose }) => {
 // DEMO GUIDED TOUR — Distributor side
 // ============================================================
 const DIST_TOUR_STEPS = [
-  { tab:"brands",   title:"Welcome — the Distributor side", text:"You're inside the real NexusHub Distributor portal (demo). Here's how easy it is to source top Dubai brands." },
-  { tab:"brands",   title:"1 · Brand Marketplace", text:"Browse verified brands — Lattafa and more. See who they are and request access in one click." },
-  { tab:"catalog",  title:"2 · Catalog & Ordering", text:"The products you're approved to buy, with your price, MOQ and stock. Add to cart and order in seconds." },
-  { tab:"wishlist", title:"3 · Wishlist", text:"Save your favourites to reorder in a tap — no searching next time." },
-  { tab:"orders",   title:"4 · My Orders", text:"Track every order end-to-end. Delivered in 48–72h from the Turin hub — no customs headaches." },
-  { tab:"fatture",  title:"5 · Invoices", text:"Every order is invoiced automatically with the correct VAT — ready for your accountant." },
-  { tab:"ai",       title:"6 · AI Assistant", text:"Smart suggestions: what's selling, what to reorder, seasonal picks for your market." },
+  { tab:"brands",   title:"Welcome — the Distributor side", text:"You're inside the real NexusHub Distributor portal (demo). One account, all the best Dubai brands — with a service no importer gives you." },
+  { tab:"brands",   title:"1 · One place, many brands", text:"Access multiple top brands from a single account — Lattafa, Rasasi, Ajmal and more. Request access in one click. No more chasing suppliers across the world." },
+  { tab:"catalog",  title:"2 · Same price, better service", text:"The same wholesale prices you'd get buying direct — but ordered in seconds, with live stock, MOQ and one simple cart. The difference is the service, not the price." },
+  { tab:"wishlist", title:"3 · Wishlist", text:"Save your favourites and reorder in a single tap — no searching next time." },
+  { tab:"orders",   title:"4 · Delivered from Europe in 48–72h", text:"Track every order end-to-end. Shipped from the Turin hub — no customs, no import paperwork, no 3-week waits." },
+  { tab:"fatture",  title:"5 · Invoices done for you", text:"Every order invoiced automatically with the correct VAT — ready for your accountant." },
+  { tab:"ai",       title:"6 · AI Assistant", text:"Smart suggestions: what's selling and what to reorder for your market." },
   { tab:"profile",  title:"7 · Your Data", text:"Company details, VAT number and shipping — all in one place." },
+  { tab:"brands",   title:"Why distributors love NexusHub", text:"Many brands, one login. Same prices as direct — but with European logistics, automatic invoicing and Amazon handled for you. You just sell." },
 ];
 function DistributorTour({ setTab }) {
   const [step, setStep] = useState(0);
