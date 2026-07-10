@@ -1157,31 +1157,31 @@ const Navbar = ({ name, badge, onLogout, lang, onLangChange, onNotifications, no
   const bCol = { brand:C.gold, distributor:C.blue, admin:C.purple };
   const bLabel = { brand:t("portalBrand"), distributor:t("portalDistributor"), admin:t("portalAdmin") };
   return (
-    <div style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:"0 10px", display:"flex", alignItems:"center", height:52, position:"sticky", top:0, zIndex:200, gap:6, flexWrap:"nowrap", WebkitBackdropFilter:"blur(10px)", overflow:"hidden" }}>
+    <div style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:"0 16px", display:"flex", alignItems:"center", height:56, position:"sticky", top:0, zIndex:200, gap:10, flexWrap:"nowrap", WebkitBackdropFilter:"blur(10px)", overflow:"hidden" }}>
       {/* Logo */}
-      <div style={{ width:28, height:28, borderRadius:7, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:12, fontWeight:900, color:C.bg, flexShrink:0 }}>N</div>
-      <span style={{ fontSize:15, fontWeight:700, color:C.text, fontFamily:"'Fraunces', Georgia, serif", flexShrink:0 }}>NexusHub</span>
-      {/* Badge - hidden on very small screens */}
-      <span style={{ padding:"2px 6px", borderRadius:4, background:bCol[badge]+"18", border:`1px solid ${bCol[badge]}30`, fontSize:9, color:bCol[badge], letterSpacing:"0.08em", textTransform:"uppercase", flexShrink:0, display:"none" }} className="nav-badge">{bLabel[badge]}</span>
+      <div style={{ width:30, height:30, borderRadius:8, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:13, fontWeight:900, color:C.bg, flexShrink:0 }}>N</div>
+      <span style={{ fontSize:16, fontWeight:700, color:C.text, fontFamily:"'Fraunces', Georgia, serif", flexShrink:0 }}>NexusHub</span>
+      {/* Badge ruolo — visibile da ≥560px via CSS .nav-badge */}
+      <span className="nav-badge" style={{ padding:"3px 9px", borderRadius:20, background:bCol[badge]+"18", border:`1px solid ${bCol[badge]}30`, fontSize:10, fontWeight:600, color:bCol[badge], letterSpacing:"0.06em", textTransform:"uppercase", flexShrink:0 }}>{bLabel[badge]}</span>
       {/* Spacer */}
       <div style={{ flex:1, minWidth:0 }}/>
       {/* Lang switcher — all 7 languages */}
-      <select value={lang} onChange={e => onLangChange(e.target.value)} title="Language" style={{ padding:"3px 6px", borderRadius:5, cursor:"pointer", fontSize:11, fontWeight:600, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, flexShrink:0, outline:"none", maxWidth:150 }}>
+      <select value={lang} onChange={e => onLangChange(e.target.value)} title="Language" style={{ padding:"6px 9px", borderRadius:8, cursor:"pointer", fontSize:12, fontWeight:600, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, flexShrink:0, outline:"none", maxWidth:150 }}>
         {LANGS.map(l => (<option key={l.key} value={l.key} style={{ background:C.surface, color:C.text }}>{l.name}</option>))}
       </select>
-            {/* Notifications */}
+      {/* Notifications */}
       {onNotifications && (
-        <button onClick={onNotifications} style={{ position:"relative", background:"transparent", border:"none", cursor:"pointer", padding:"4px 6px", borderRadius:8, display:"flex", alignItems:"center", flexShrink:0 }}>
+        <button onClick={onNotifications} className="nav-ico" style={{ position:"relative", background:"transparent", border:`1px solid ${C.border}`, cursor:"pointer", padding:"7px", borderRadius:9, display:"flex", alignItems:"center", flexShrink:0 }}>
           <Bell size={18} color={C.textMuted} />
           {notifCount > 0 && (
-            <span style={{ position:"absolute", top:0, right:0, background:C.red, color:"#fff", borderRadius:10, fontSize:9, fontWeight:700, padding:"1px 4px", minWidth:14, textAlign:"center" }}>
+            <span style={{ position:"absolute", top:-5, right:-5, background:C.red, color:"#fff", borderRadius:10, fontSize:9, fontWeight:700, padding:"1px 5px", minWidth:14, textAlign:"center", border:`2px solid ${C.surface}` }}>
               {notifCount > 9 ? "9+" : notifCount}
             </span>
           )}
         </button>
       )}
-      {/* Logout — icona su mobile */}
-      <button onClick={onLogout} style={{ padding:"5px 10px", borderRadius:6, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:11, flexShrink:0, whiteSpace:"nowrap" }}>
+      {/* Logout */}
+      <button onClick={onLogout} className="nav-out" style={{ padding:"7px 13px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:12, fontWeight:500, flexShrink:0, whiteSpace:"nowrap" }}>
         {t("logout")}
       </button>
     </div>
@@ -8421,6 +8421,10 @@ const injectGlobalCSS = () => {
     ".nx-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,.5); }",
     "tbody tr { transition: background .12s ease; }",
     "tbody tr:hover { background: #1e2230 !important; }",
+    ".nav-badge { display: none; }",
+    "@media (min-width: 560px) { .nav-badge { display: inline-flex; align-items: center; } }",
+    ".nav-ico:hover { background: #1c2030 !important; border-color: #7a80a6 !important; }",
+    ".nav-out:hover { border-color: #7a80a6 !important; color: #f0ece4 !important; }",
     "* { -webkit-font-smoothing: antialiased; }",
     "@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; } }",
   ].join("\n");
