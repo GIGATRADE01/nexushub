@@ -8423,6 +8423,8 @@ const injectGlobalCSS = () => {
     "::-webkit-scrollbar-thumb { background: #33374a; border-radius: 8px; border: 2px solid transparent; background-clip: content-box; }",
     "::-webkit-scrollbar-thumb:hover { background: #454a63; background-clip: content-box; }",
     ".nx-panel { box-shadow: 0 2px 12px rgba(0,0,0,.35); }",
+    "@keyframes nxFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }",
+    ".nx-panel { animation: nxFade .28s cubic-bezier(.16,1,.3,1) both; }",
     ".nx-card { transition: transform .16s cubic-bezier(.16,1,.3,1), box-shadow .16s ease; }",
     ".nx-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,.5); }",
     "tbody tr { transition: background .12s ease; }",
