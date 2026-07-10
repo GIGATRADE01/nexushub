@@ -3106,12 +3106,13 @@ const DEMO_TOUR_STEPS = [
   { tab:"overview",     title:"1 · Overview", text:"Your command center: active distributors, orders, revenue and a live map of Europe — all in real time." },
   { tab:"applications", title:"2 · Applications", text:"Distributors requesting to sell your brand. Approve or reject with one click — you decide who represents you." },
   { tab:"distributors", title:"3 · Distributors, Exclusivity & Contracts", text:"The heart of control: manage every distributor, grant full or partial exclusivity by territory, set a custom discount per partner, issue a formal contract (commission, MOQ, duration) — or revoke access instantly. Nobody sells your brand without your rules." },
-  { tab:"catalog",      title:"4 · Catalog, Prices & Documents", text:"Your products with per-country pricing, MOQ and order multiples, plus technical sheets and compliance documents. The price you set is enforced on every channel — the end of grey-market undercutting." },
-  { tab:"orders",       title:"5 · Orders & Fulfilment", text:"Every distributor order, from status to tracking — stocked and shipped from the Turin hub in 48–72h." },
-  { tab:"fatture",      title:"6 · Invoices", text:"Automatic invoicing with the correct VAT for each of the 27 EU countries. Zero admin work for you." },
-  { tab:"payments",     title:"7 · Payments & Payouts", text:"Transparent, tracked payments and payouts. You receive the funds — commission only on processed orders, no upfront fees." },
-  { tab:"analytics",    title:"8 · AI Analytics", text:"Smart insights: demand by country, best-sellers, seasonality and where to push next." },
-  { tab:"amazon",       title:"9 · Amazon Control", text:"Full Amazon EU management: stop unauthorized sellers, protect the buy-box and enforce your price." },
+  { tab:"distributors", title:"4 · Direct-to-Chain", text:"Beyond independent distributors, NexusHub manages the major European retail chains directly — Douglas, Notino, OvS and more. Your brand reaches the shelves that matter, handled by us." },
+  { tab:"catalog",      title:"5 · Catalog, Prices & Documents", text:"Your products with per-country pricing, MOQ and order multiples, plus technical sheets and compliance documents. The price you set is enforced on every channel — the end of grey-market undercutting." },
+  { tab:"orders",       title:"6 · Orders & Fulfilment", text:"Every distributor order, from status to tracking — stocked and shipped from the Turin hub in 48–72h." },
+  { tab:"fatture",      title:"7 · Invoices", text:"Automatic invoicing with the correct VAT for each of the 27 EU countries. Zero admin work for you." },
+  { tab:"payments",     title:"8 · Payments & Payouts", text:"Transparent, tracked payments and payouts. You receive the funds — commission only on processed orders, no upfront fees." },
+  { tab:"analytics",    title:"9 · AI Analytics", text:"Smart insights: demand by country, best-sellers, seasonality and where to push next." },
+  { tab:"amazon",       title:"10 · Amazon Control", text:"Full Amazon EU management: stop unauthorized sellers, protect the buy-box and enforce your price." },
 ];
 function DemoTour({ setTab }) {
   const [step, setStep] = useState(0);
