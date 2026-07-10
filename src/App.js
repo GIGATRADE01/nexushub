@@ -15,6 +15,38 @@ const supabase = createClient(
   process.env.REACT_APP_SUPABASE_ANON_KEY
 );
 
+// ============================================================
+// DEMO MODE — public read-only brand demo (dedicated sandbox account)
+// ============================================================
+const DEMO_BRAND = { email: "brand-demo@nexushub.trade", password: "LattafaDemo2026" };
+let DEMO_MODE = typeof window !== "undefined" && window.sessionStorage.getItem("nx_demo") === "1";
+const isDemo = () => DEMO_MODE;
+const setDemoMode = (v) => {
+  DEMO_MODE = v;
+  try { v ? window.sessionStorage.setItem("nx_demo", "1") : window.sessionStorage.removeItem("nx_demo"); } catch (e) {}
+};
+// In demo mode, silently no-op every DB write so visitors can explore but never change data.
+const _demoNoop = () => {
+  const p = Promise.resolve({ data: [], error: null });
+  const proxy = new Proxy(function () {}, {
+    get(_t, prop) {
+      if (prop === "then") return p.then.bind(p);
+      if (prop === "catch") return p.catch.bind(p);
+      if (prop === "finally") return p.finally.bind(p);
+      return () => proxy;
+    },
+  });
+  return proxy;
+};
+const _realFrom = supabase.from.bind(supabase);
+supabase.from = (table) => {
+  const qb = _realFrom(table);
+  if (DEMO_MODE) ["insert", "update", "delete", "upsert"].forEach((m) => { qb[m] = _demoNoop; });
+  return qb;
+};
+const _realUpdateUser = supabase.auth.updateUser.bind(supabase.auth);
+supabase.auth.updateUser = (...a) => (DEMO_MODE ? Promise.resolve({ data: {}, error: null }) : _realUpdateUser(...a));
+
 // Send email via Edge Function
 const sendEmail = async (type, email, company_name, role = "", reason = "", order_number = "", order_amount = "", items_count = "") => {
   try {
@@ -1807,6 +1839,22 @@ const Login = ({ onLogin, lang, onLangChange }) => {
     }
   };
 
+  const handleDemoBrand = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      setDemoMode(true);
+      const { data, error: authError } = await supabase.auth.signInWithPassword(DEMO_BRAND);
+      if (authError) throw authError;
+      onLogin("brand", "approved", data.user);
+    } catch (err) {
+      setDemoMode(false);
+      setError(t("loginError"));
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (view === "register-brand") return <RegisterScreen role="brand" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
   if (view === "register-dist") return <RegisterScreen role="distributor" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
   if (view === "register-chain") return <RegisterScreen role="distributor" accountType="chain" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
@@ -1921,6 +1969,9 @@ const Login = ({ onLogin, lang, onLangChange }) => {
         <button onClick={() => setView("register-chain")} style={{ width:"100%", marginTop:10, padding:"10px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:12.5 }}>{t("registerChain")}</button>
         <button onClick={() => setView("demo")} style={{ width:"100%", marginTop:8, padding:"10px", borderRadius:8, cursor:"pointer", background:`${C.purple}10`, border:`1px solid ${C.purple}40`, color:"#a855f7", fontSize:12.5, fontWeight:500, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
           <span>▶</span> {t("watchDemo") || "Watch Platform Demo"}
+        </button>
+        <button onClick={handleDemoBrand} disabled={loading} style={{ width:"100%", marginTop:8, padding:"12px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13.5, fontWeight:800, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
+          <span>🎛️</span> Enter live Brand demo — no login
         </button>
       </div>
     </div>
@@ -8504,6 +8555,8 @@ export default function App() {
     setUserRole(null); setUserStatus(null); setScreen("login");
   };
 
+  const exitDemo = async () => { setDemoMode(false); await handleLogout(); };
+
   if (screen === "loading") return (
     <div style={{ minHeight:"100vh", background:"#08080f", display:"flex", alignItems:"center", justifyContent:"center" }}>
       <div style={{ color:"#c9a84c", fontSize:20, fontFamily:"'Fraunces', Georgia, serif", letterSpacing:"0.2em" }}>NEXUSHUB</div>
@@ -8516,6 +8569,20 @@ export default function App() {
     <LangCtx.Provider value={{ lang, t, dir }}>
 
       <div dir={dir} style={{ fontFamily, WebkitFontSmoothing:"antialiased", MozOsxFontSmoothing:"grayscale" }}>
+        {isDemo() && screen === "app" && (
+          <div style={{ position:"fixed", left:0, right:0, bottom:0, zIndex:99999,
+            background:"linear-gradient(90deg,#1c1708,#241d0a)", borderTop:"1px solid #6a531d",
+            display:"flex", alignItems:"center", justifyContent:"center", gap:14, flexWrap:"wrap",
+            padding:"9px 16px", fontFamily:"'DM Sans',sans-serif" }}>
+            <span style={{ color:"#e2bc6a", fontSize:12.5, fontWeight:700, textAlign:"center" }}>
+              🎛️ DEMO — you're exploring the Brand dashboard. Read-only: nothing you click is saved.
+            </span>
+            <button onClick={exitDemo} style={{ padding:"6px 14px", borderRadius:8, cursor:"pointer",
+              background:"#c9a84c", border:"none", color:"#0b0b0d", fontSize:12, fontWeight:800 }}>
+              Exit demo
+            </button>
+          </div>
+        )}
         {screen === "login" && <Login onLogin={handleLogin} lang={lang} onLangChange={setLang}/>}
         {screen === "app" && userRole === "admin" && <AdminDashboard {...dashboardProps}/>}
         {screen === "app" && userRole === "brand" && (userStatus === "approved"
