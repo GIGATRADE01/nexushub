@@ -1157,10 +1157,10 @@ const Navbar = ({ name, badge, onLogout, lang, onLangChange, onNotifications, no
   const bCol = { brand:C.gold, distributor:C.blue, admin:C.purple };
   const bLabel = { brand:t("portalBrand"), distributor:t("portalDistributor"), admin:t("portalAdmin") };
   return (
-    <div style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:"0 16px", display:"flex", alignItems:"center", height:56, position:"sticky", top:0, zIndex:200, gap:10, flexWrap:"nowrap", WebkitBackdropFilter:"blur(10px)", overflow:"hidden" }}>
+    <div className="nx-topbar" style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:"0 16px", display:"flex", alignItems:"center", height:56, position:"sticky", top:0, zIndex:200, gap:10, flexWrap:"nowrap", WebkitBackdropFilter:"blur(10px)", overflow:"hidden" }}>
       {/* Logo */}
       <div style={{ width:30, height:30, borderRadius:8, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:13, fontWeight:900, color:C.bg, flexShrink:0 }}>N</div>
-      <span style={{ fontSize:16, fontWeight:700, color:C.text, fontFamily:"'Fraunces', Georgia, serif", flexShrink:0 }}>NexusHub</span>
+      <span className="nx-wordmark" style={{ fontSize:16, fontWeight:700, color:C.text, fontFamily:"'Fraunces', Georgia, serif", flexShrink:0 }}>NexusHub</span>
       {/* Badge ruolo — visibile da ≥560px via CSS .nav-badge */}
       <span className="nav-badge" style={{ padding:"3px 9px", borderRadius:20, background:bCol[badge]+"18", border:`1px solid ${bCol[badge]}30`, fontSize:10, fontWeight:600, color:bCol[badge], letterSpacing:"0.06em", textTransform:"uppercase", flexShrink:0 }}>{bLabel[badge]}</span>
       {/* Spacer */}
@@ -8433,6 +8433,8 @@ const injectGlobalCSS = () => {
     ".nav-out:hover { border-color: #7a80a6 !important; color: #f0ece4 !important; }",
     "h1, h2, h3 { text-wrap: balance; letter-spacing: -0.01em; }",
     "p { text-wrap: pretty; }",
+    "@media (max-width: 400px) { .nx-topbar { padding-left: 10px !important; padding-right: 10px !important; gap: 8px !important; } }",
+    "@media (max-width: 380px) { .nx-wordmark { display: none; } }",
     "* { -webkit-font-smoothing: antialiased; }",
     "@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; } }",
   ].join("\n");
