@@ -1094,7 +1094,7 @@ const Stat = ({ icon, label, value, sub, accent }) => {
 };
 
 const Table = ({ headers, rows, minWidth=700 }) => (
-  <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+  <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
     <table style={{ width:"100%", minWidth, borderCollapse:"collapse" }}>
       <thead>
         <tr style={{ background:C.surface2 }}>
@@ -2801,7 +2801,7 @@ const BrandAmazonPanel = () => {
             </div>
           )}
           {rows.length>0 ? (
-            <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+            <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:640 }}>
                 <thead><tr style={{ background:C.surface2 }}>
                   {[t("colProduct"),t("azColMkt"),t("azColPrice"),t("colStock"),t("azColSold")].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign: i>=2?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".07em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
@@ -3367,7 +3367,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
               <Stat icon="🧾" label={t("ovOrders")} value={brandOrders.length}/>
             </div>
             <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(320px, 1fr))", gap:16 }}>
-              <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
+              <div className="nx-panel" style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
                 <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>⬡ {t("ovDistAuth")}</h3>
                 {approved.length===0 ? (
                   <div style={{ fontSize:13, color:C.textMuted, lineHeight:1.6 }}>{t("ovNoDist")}</div>
@@ -3385,7 +3385,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                 <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>🗺️ {t("ovEuMap")}</h3>
                 <EuropeMap distributors={mapDist}/>
               </div>
-              <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
+              <div className="nx-panel" style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
                 <h3 style={{ margin:"0 0 14px", fontSize:14, color:C.text }}>📦 {t("ovYourProd")}</h3>
                 {[[t("ovCatProd"), brandProducts.length],[t("ovTotOrders"), brandOrders.length],[t("ovActiveDist"), approved.length],[t("ovRevenue"), eur(revenue)]].map(([k,v],i)=>(
                   <div key={i} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"9px 0", borderBottom:i<3?`1px solid ${C.border}`:"none" }}>
@@ -3466,7 +3466,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                 </div>
               );
               return (
-                <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                   <table style={{ width:"100%", borderCollapse:"collapse", minWidth:700 }}>
                     <thead>
                       <tr style={{ background:C.surface2 }}>
@@ -3668,7 +3668,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                 <div style={{ fontSize:13, lineHeight:1.6, maxWidth:440, margin:"0 auto" }}>{t("bNoProductsMsg")}</div>
               </div>
             ) : (
-              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:800 }}>
                   <thead>
                     <tr style={{ background:C.surface2 }}>
@@ -3747,7 +3747,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
             {brandInvoices.length===0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>{t("diNoInvoices")}</div>
             ) : (
-              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:760 }}>
                   <thead><tr style={{ background:C.surface2 }}>{[t("hdrNumber"),t("hdrType"),t("hdrCounterparty"),t("hdrTotal"),"PDF",t("hdrAction")].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}</tr></thead>
                   <tbody>
@@ -4667,7 +4667,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                 const status = accessRequests[brand.id];
                 const bname = brand.company_name || brand.email || "Brand";
                 return (
-                  <div key={brand.id} style={{ background:C.surface, border:`1px solid ${status==="approved"?C.goldDim:C.border}`, borderTop:`2px solid ${status==="approved"?C.gold:status==="blocked"?C.red:C.border}`, borderRadius:14, padding:22 }}>
+                  <div key={brand.id} className="nx-card" style={{ background:C.surface, border:`1px solid ${status==="approved"?C.goldDim:C.border}`, borderTop:`2px solid ${status==="approved"?C.gold:status==="blocked"?C.red:C.border}`, borderRadius:14, padding:22 }}>
                     <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:14 }}>
                       <div style={{ width:46, height:46, borderRadius:12, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20, fontWeight:900, color:C.bg, flexShrink:0 }}>{(bname[0]||"B").toUpperCase()}</div>
                       <div style={{ flex:1 }}>
@@ -4758,9 +4758,9 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                 const moq = p.min_order_qty || 1;
                 const multiple = p.order_multiple || 1;
                 return (
-                  <div key={p.id} style={{ background:C.surface, border:`1px solid ${inCart>0?C.gold:C.border}`,
+                  <div key={p.id} className="nx-card" style={{ background:C.surface, border:`1px solid ${inCart>0?C.gold:C.border}`,
                     borderTop:`2px solid ${inCart>0?C.gold:stock>0?C.green:C.red}`,
-                    borderRadius:12, padding:18, transition:"all .2s" }}>
+                    borderRadius:12, padding:18 }}>
                     {/* Product image */}
                     {p.image_url && (
                       <img src={p.image_url} alt={p.name}
@@ -4832,7 +4832,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
             {distInvoices.length===0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>{t("diNoInvoices")}</div>
             ) : (
-              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:680 }}>
                   <thead><tr style={{ background:C.surface2 }}>{["Numero","Brand","Imponibile","IVA","Totale","Azione"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}</tr></thead>
                   <tbody>
@@ -4901,7 +4901,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                     const stock = p.inventory?.quantity_available || 0;
                     const ep = effPrice(p);
                     return (
-                      <div key={p.id} style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:16 }}>
+                      <div key={p.id} className="nx-card" style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:16 }}>
                         <div style={{ fontSize:14, fontWeight:700, color:C.text, marginBottom:2 }}>{p.name}</div>
                         <div style={{ fontSize:11, color:C.textMuted, marginBottom:8 }}>{p.sku} · {p.category}</div>
                         <div style={{ fontSize:16, fontWeight:800, color:C.goldLight, marginBottom:6 }}>€{ep.toFixed(2)}</div>
@@ -6317,7 +6317,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 </div>
               ))}
             </div>
-            <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
+            <div className="nx-panel" style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
               <h3 style={{ fontSize:14, color:C.text, marginBottom:14 }}>🗺️ {t("aoEuroNetwork")}</h3>
               <EuropeMap
                 distributors={users.filter(u=>u.role==="distributor"&&u.status==="approved").map(u=>({
@@ -6380,7 +6380,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 )}
 
                 <h3 style={{ fontSize:14, color:C.textMuted, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>{t("auAllUsers")} ({users.length})</h3>
-                <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                   <table style={{ width:"100%", borderCollapse:"collapse", minWidth:600 }}>
                     <thead>
                       <tr style={{ background:C.surface2 }}>
@@ -6577,7 +6577,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 </div>
               </div>
             )}
-            <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+            <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:800 }}>
                 <thead>
                   <tr style={{ background:C.surface2 }}>
@@ -6658,7 +6658,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 <button onClick={()=>openAmazon(null)} style={{ padding:"10px 22px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ {t("aamzAdd")}</button>
               </div>
             ) : (
-              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:920 }}>
                   <thead><tr style={{ background:C.surface2 }}>
                     {[t("aamzhProduct"),t("aamzhMkt"),t("aamzhPrice"),t("aamzhCost"),t("aamzhCostU"),t("aamzhMarginU"),t("aamzhMarginPct"),t("aamzhRoi"),t("aamzhStock"),t("aamzhActions")].map((h,i)=>(<th key={i} style={{ padding:"10px 12px", textAlign: (i>=2&&i<=7)?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".06em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
@@ -6792,7 +6792,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             {marginRows.length===0 ? (
               <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted, fontSize:14 }}>{marginBusy ? t("amrgLoading") : t("amrgEmpty")}</div>
             ) : (
-              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:880 }}>
                   <thead><tr style={{ background:C.surface2 }}>
                     {[t("amrghOrder"),t("amrghBrand"),"GMV",t("amrghComm"),"Stripe",t("amrghOpCost"),t("amrgNet"),"%"].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign: i>=2&&i<7?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
@@ -6852,7 +6852,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 <button onClick={()=>{ setCompForm({ category:"company" }); setCompModal(true); }} style={{ padding:"10px 22px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ {t("acmpUpload")}</button>
               </div>
             ) : (
-              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:760 }}>
                   <thead><tr style={{ background:C.surface2 }}>
                     {[t("acmphDoc"),t("acmphOwner"),t("acmphCat"),t("acmphExpiry"),t("acmphUploaded"),t("acmphActions")].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
@@ -6933,7 +6933,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 <button onClick={()=>openRetail(null)} style={{ padding:"10px 22px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>+ {t("aretAdd")}</button>
               </div>
             ) : (
-              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:820 }}>
                   <thead><tr style={{ background:C.surface2 }}>
                     {[t("arethRetailer"),t("arethCountry"),t("arethBuyer"),t("arethBrand"),t("arethStatus"),t("arethProb"),t("arethFollowup"),t("arethActions")].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>))}
@@ -7055,7 +7055,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             )}
 
             <h3 style={{ fontSize:14, color:C.textMuted, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>{t("alogWhHealth")}</h3>
-            <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+            <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:600 }}>
                 <thead><tr style={{ background:C.surface2 }}>
                   {[t("alogh2Product"),t("alogh2Brand"),t("alogh2Avail"),t("alogh2Reserved"),t("alogh2Status")].map((h,i)=>(<th key={i} style={{ padding:"10px 14px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase" }}>{h}</th>))}
@@ -7305,7 +7305,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               </div>
             )}
 
-            <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+            <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:700 }}>
                 <thead>
                   <tr style={{ background:C.surface2 }}>
@@ -7366,7 +7366,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 </div>
               ))}
             </div>
-            <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+            <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:800 }}>
                 <thead>
                   <tr style={{ background:C.surface2 }}>
@@ -7454,7 +7454,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 <div style={{ fontSize:13, color:C.textMuted }}>{t("ainvNoInvoicesMsg")}</div>
               </div>
             ) : (
-              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:900 }}>
                   <thead>
                     <tr style={{ background:C.surface2 }}>
@@ -7511,7 +7511,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             <div style={{ display:"flex", justifyContent:"flex-end", marginBottom:12 }}>
               <button onClick={recalcNow} disabled={recalcing} style={{ padding:"9px 18px", borderRadius:9, cursor: recalcing?"default":"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, opacity: recalcing?0.6:1 }}>{recalcing ? t("auiRecalcing") : t("auiRecalcNow")}</button>
             </div>
-            <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+            <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
               <table style={{ width:"100%", borderCollapse:"collapse", minWidth:760 }}>
                 <thead>
                   <tr style={{ background:C.surface2 }}>
@@ -7557,7 +7557,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
             {commissionLog.length === 0 ? (
               <div style={{ color:C.textMuted, fontSize:13 }}>{t("acomNoHistory")}</div>
             ) : (
-              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:680 }}>
                   <thead><tr style={{ background:C.surface2 }}>
                     {[t("hdrDate"),t("hdrBrand"),t("hdrFromTo"),t("hdrReason"),t("hdrRevenue")].map((h,i) => (<th key={i} style={{ padding:"10px 16px", textAlign:"left", fontSize:10, color:C.textDim, letterSpacing:"0.08em", textTransform:"uppercase", whiteSpace:"nowrap", fontWeight:600 }}>{h}</th>))}
@@ -7614,7 +7614,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 <div style={{ fontSize:13, color:C.textMuted }}>{t("aconNoContractsMsg")}</div>
               </div>
             ) : (
-              <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+              <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                 <table style={{ width:"100%", borderCollapse:"collapse", minWidth:800 }}>
                   <thead>
                     <tr style={{ background:C.surface2 }}>
@@ -7865,7 +7865,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                   {paySplits.length === 0 ? (
                     <div style={{ textAlign:"center", padding:48, background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, color:C.textMuted }}>{t("aincEmpty")}</div>
                   ) : (
-                    <div style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
+                    <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}` }}>
                       <table style={{ width:"100%", borderCollapse:"collapse", minWidth:880 }}>
                         <thead>
                           <tr style={{ background:C.surface2 }}>
@@ -7923,7 +7923,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 </div>
               ))}
             </div>
-            <div style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
+            <div className="nx-panel" style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:20 }}>
               <h3 style={{ fontSize:14, color:C.text, marginBottom:16 }}>{t("apayTxLog")}</h3>
               {orders.length === 0 ? (
                 <div style={{ color:C.textMuted, textAlign:"center", padding:30 }}>{t("apayNoTx")}</div>
@@ -8416,6 +8416,9 @@ const injectGlobalCSS = () => {
     "::-webkit-scrollbar-track { background: transparent; }",
     "::-webkit-scrollbar-thumb { background: #33374a; border-radius: 8px; border: 2px solid transparent; background-clip: content-box; }",
     "::-webkit-scrollbar-thumb:hover { background: #454a63; background-clip: content-box; }",
+    ".nx-panel { box-shadow: 0 2px 12px rgba(0,0,0,.35); }",
+    ".nx-card { transition: transform .16s cubic-bezier(.16,1,.3,1), box-shadow .16s ease; }",
+    ".nx-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,.5); }",
     "* { -webkit-font-smoothing: antialiased; }",
     "@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; } }",
   ].join("\n");
