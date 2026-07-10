@@ -3078,6 +3078,52 @@ const NexusAI = ({ role }) => {
   );
 };
 
+// ============================================================
+// DEMO GUIDED TOUR — walks a visitor through every brand screen
+// ============================================================
+const DEMO_TOUR_STEPS = [
+  { tab:"overview",     title:"Welcome to your Brand cockpit", text:"You're inside the real NexusHub Brand dashboard (demo data). I'll walk you through every screen and what it does — about 90 seconds." },
+  { tab:"overview",     title:"1 · Overview", text:"Your command center: active distributors, orders, revenue and a live map of Europe — all in real time." },
+  { tab:"applications", title:"2 · Applications", text:"Distributors requesting to sell your brand. You approve or reject each one with a single click." },
+  { tab:"distributors", title:"3 · Distributors & Exclusivity", text:"The heart of control: manage every distributor, grant full or partial exclusivity by territory, or revoke access instantly. Nobody sells your brand without your approval." },
+  { tab:"catalog",      title:"4 · Catalog & Prices", text:"Your products, with prices, MOQ and per-country price lists. The prices you set apply to everyone — the end of grey-market undercutting." },
+  { tab:"orders",       title:"5 · Orders", text:"Every distributor order, from status to tracking. 48–72h delivery from the Turin hub." },
+  { tab:"fatture",      title:"6 · Invoices", text:"Automatic invoicing with the correct VAT for each EU country. Zero admin work for you." },
+  { tab:"payments",     title:"7 · Payments", text:"Transparent, tracked payments. You receive the funds — commission only on processed orders." },
+  { tab:"analytics",    title:"8 · AI Analytics", text:"Smart insights: demand by country, best-sellers, and where to push next." },
+  { tab:"amazon",       title:"9 · Amazon Control", text:"Full Amazon EU management: stop unauthorized sellers, control the buy-box and the price." },
+];
+function DemoTour({ setTab }) {
+  const [step, setStep] = useState(0);
+  const [done, setDone] = useState(false);
+  useEffect(() => {
+    if (!done) { const st = DEMO_TOUR_STEPS[step]; if (st) { setTab(st.tab); window.scrollTo(0, 0); } }
+  }, [step, done, setTab]);
+  if (done) return null;
+  const s = DEMO_TOUR_STEPS[step];
+  const last = step === DEMO_TOUR_STEPS.length - 1;
+  return (
+    <div style={{ position:"fixed", left:"50%", bottom:58, transform:"translateX(-50%)", zIndex:100000,
+      width:"min(560px,92vw)", background:"linear-gradient(135deg,#14130e,#1c1708)", border:"1px solid #6a531d",
+      borderRadius:14, boxShadow:"0 20px 60px rgba(0,0,0,.6)", padding:"15px 18px", fontFamily:"'DM Sans',sans-serif" }}>
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:6 }}>
+        <div style={{ color:"#e2bc6a", fontSize:14, fontWeight:800 }}>{s.title}</div>
+        <button onClick={() => setDone(true)} style={{ background:"none", border:"none", color:"#9a927f", fontSize:12, cursor:"pointer", textDecoration:"underline" }}>Skip tour</button>
+      </div>
+      <div style={{ color:"#e7e2d4", fontSize:13, lineHeight:1.55, marginBottom:12 }}>{s.text}</div>
+      <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", gap:10 }}>
+        <div style={{ display:"flex", gap:4 }}>
+          {DEMO_TOUR_STEPS.map((_, i) => (<div key={i} style={{ width:i===step?16:6, height:6, borderRadius:3, background:i===step?"#c9a84c":"#3a3320", transition:"all .3s" }}/>))}
+        </div>
+        <div style={{ display:"flex", gap:8 }}>
+          <button disabled={step===0} onClick={() => setStep(step-1)} style={{ padding:"7px 14px", borderRadius:8, cursor:step===0?"default":"pointer", background:"transparent", border:"1px solid #3a3320", color:"#9a927f", fontSize:12.5, opacity:step===0?0.4:1 }}>Back</button>
+          <button onClick={() => (last ? setDone(true) : setStep(step+1))} style={{ padding:"7px 18px", borderRadius:8, cursor:"pointer", background:"#c9a84c", border:"none", color:"#0b0b0d", fontSize:12.5, fontWeight:800 }}>{last ? "Finish ✓" : "Next →"}</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
   const [tab, setTab] = useState("overview");
@@ -3431,6 +3477,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
 
       <div style={{ padding:"22px 18px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
+        {isDemo() && <DemoTour setTab={setTab}/>}
         {tab==="overview" && (() => {
           const approved = accessReqs.filter(r => r.status === "approved");
           const territories = new Set(approved.map(r => r.distributor && r.distributor.country).filter(Boolean)).size;
