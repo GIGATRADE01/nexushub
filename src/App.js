@@ -1194,6 +1194,7 @@ const Navbar = ({ name, badge, onLogout, lang, onLangChange, onNotifications, no
 // ============================================================
 const DEMO_SLIDES = [
   { id:0, type:"intro", duration:5000 },
+  { id:101, type:"video", duration:30000 },
   { id:1, type:"problem", duration:6000 },
   { id:2, type:"solution", duration:6000 },
   { id:3, type:"sectors", duration:7000 },
@@ -1201,6 +1202,7 @@ const DEMO_SLIDES = [
   { id:5, type:"brands", duration:7000 },
   { id:6, type:"distributors", duration:7000 },
   { id:7, type:"value", duration:8000 },
+  { id:102, type:"control", duration:11000 },
   { id:8, type:"numbers", duration:6000 },
   { id:9, type:"amazon", duration:8000 },
   { id:10, type:"cta", duration:99999 },
@@ -1288,6 +1290,30 @@ function DemoSlideContent({ slide, visible }) {
         fontFamily:"'DM Sans',sans-serif", ...anim(0.5) }}>
         {t("dmoIntroSub")}
       </div>
+    </div>
+  );
+
+  if (slide.type === "video") return (
+    <div style={{ textAlign:"center", maxWidth:760, width:"100%" }}>
+      <HL color={DC.goldL}>SEE IT IN MOTION</HL>
+      <Sub>NexusHub — the bridge from Dubai to Europe.</Sub>
+      <div style={{ borderRadius:16, overflow:"hidden", border:`1px solid ${DC.gold}55`,
+        boxShadow:"0 24px 70px rgba(0,0,0,.55)", ...animScale(0.3) }}>
+        <video src="/promo.mp4" controls autoPlay muted loop playsInline
+          style={{ width:"100%", display:"block", background:"#000" }}/>
+      </div>
+    </div>
+  );
+
+  if (slide.type === "control") return (
+    <div style={{ maxWidth:640, width:"100%", textAlign:"left" }}>
+      <HL color={DC.goldL}>YOU STAY IN CONTROL</HL>
+      <Sub>The brand holds the power — not the grey market.</Sub>
+      <FRow icon="🧭" text="Approve or remove any distributor — in one click" color={DC.gold} delay={0.25}/>
+      <FRow icon="🔒" text="Grant full or partial exclusivity, by territory" color={DC.gold} delay={0.37}/>
+      <FRow icon="🏷️" text="Enforce your prices on every channel — no more undercutting" color={DC.gold} delay={0.49}/>
+      <FRow icon="🛒" text="Full Amazon EU control — stop unauthorized sellers" color={DC.orange} delay={0.61}/>
+      <FRow icon="💶" text="Every payment tracked — funds to you, commission only on sales" color={DC.green} delay={0.73}/>
     </div>
   );
 
