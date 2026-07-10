@@ -19,6 +19,7 @@ const supabase = createClient(
 // DEMO MODE — public read-only brand demo (dedicated sandbox account)
 // ============================================================
 const DEMO_BRAND = { email: "brand-demo@nexushub.trade", password: "LattafaDemo2026" };
+const DEMO_DIST = { email: "demo-dist-de@nexushub.trade", password: "DemoDist2026" };
 let DEMO_MODE = typeof window !== "undefined" && window.sessionStorage.getItem("nx_demo") === "1";
 const isDemo = () => DEMO_MODE;
 const setDemoMode = (v) => {
@@ -1855,6 +1856,22 @@ const Login = ({ onLogin, lang, onLangChange }) => {
     }
   };
 
+  const handleDemoDist = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      setDemoMode(true);
+      const { data, error: authError } = await supabase.auth.signInWithPassword(DEMO_DIST);
+      if (authError) throw authError;
+      onLogin("distributor", "approved", data.user);
+    } catch (err) {
+      setDemoMode(false);
+      setError(t("loginError"));
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (view === "register-brand") return <RegisterScreen role="brand" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
   if (view === "register-dist") return <RegisterScreen role="distributor" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
   if (view === "register-chain") return <RegisterScreen role="distributor" accountType="chain" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
@@ -1972,6 +1989,9 @@ const Login = ({ onLogin, lang, onLangChange }) => {
         </button>
         <button onClick={handleDemoBrand} disabled={loading} style={{ width:"100%", marginTop:8, padding:"12px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13.5, fontWeight:800, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
           <span>🎛️</span> Enter live Brand demo — no login
+        </button>
+        <button onClick={handleDemoDist} disabled={loading} style={{ width:"100%", marginTop:8, padding:"12px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.blue},#2b6fc0)`, border:"none", color:"#fff", fontSize:13.5, fontWeight:800, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
+          <span>📦</span> Enter live Distributor demo — no login
         </button>
       </div>
     </div>
@@ -4492,6 +4512,50 @@ const InvoiceModal = ({ inv, onClose }) => {
   );
 };
 
+// ============================================================
+// DEMO GUIDED TOUR — Distributor side
+// ============================================================
+const DIST_TOUR_STEPS = [
+  { tab:"brands",   title:"Welcome — the Distributor side", text:"You're inside the real NexusHub Distributor portal (demo). Here's how easy it is to source top Dubai brands." },
+  { tab:"brands",   title:"1 · Brand Marketplace", text:"Browse verified brands — Lattafa and more. See who they are and request access in one click." },
+  { tab:"catalog",  title:"2 · Catalog & Ordering", text:"The products you're approved to buy, with your price, MOQ and stock. Add to cart and order in seconds." },
+  { tab:"wishlist", title:"3 · Wishlist", text:"Save your favourites to reorder in a tap — no searching next time." },
+  { tab:"orders",   title:"4 · My Orders", text:"Track every order end-to-end. Delivered in 48–72h from the Turin hub — no customs headaches." },
+  { tab:"fatture",  title:"5 · Invoices", text:"Every order is invoiced automatically with the correct VAT — ready for your accountant." },
+  { tab:"ai",       title:"6 · AI Assistant", text:"Smart suggestions: what's selling, what to reorder, seasonal picks for your market." },
+  { tab:"profile",  title:"7 · Your Data", text:"Company details, VAT number and shipping — all in one place." },
+];
+function DistributorTour({ setTab }) {
+  const [step, setStep] = useState(0);
+  const [done, setDone] = useState(false);
+  useEffect(() => {
+    if (!done) { const st = DIST_TOUR_STEPS[step]; if (st) { setTab(st.tab); window.scrollTo(0, 0); } }
+  }, [step, done, setTab]);
+  if (done) return null;
+  const s = DIST_TOUR_STEPS[step];
+  const last = step === DIST_TOUR_STEPS.length - 1;
+  return (
+    <div style={{ position:"fixed", left:"50%", bottom:58, transform:"translateX(-50%)", zIndex:100000,
+      width:"min(560px,92vw)", background:"linear-gradient(135deg,#0d1017,#0f1622)", border:"1px solid #24507e",
+      borderRadius:14, boxShadow:"0 20px 60px rgba(0,0,0,.6)", padding:"15px 18px", fontFamily:"'DM Sans',sans-serif" }}>
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:6 }}>
+        <div style={{ color:"#6fb0ff", fontSize:14, fontWeight:800 }}>{s.title}</div>
+        <button onClick={() => setDone(true)} style={{ background:"none", border:"none", color:"#7f89a3", fontSize:12, cursor:"pointer", textDecoration:"underline" }}>Skip tour</button>
+      </div>
+      <div style={{ color:"#dfe4ee", fontSize:13, lineHeight:1.55, marginBottom:12 }}>{s.text}</div>
+      <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", gap:10 }}>
+        <div style={{ display:"flex", gap:4 }}>
+          {DIST_TOUR_STEPS.map((_, i) => (<div key={i} style={{ width:i===step?16:6, height:6, borderRadius:3, background:i===step?"#3d8ef0":"#233047", transition:"all .3s" }}/>))}
+        </div>
+        <div style={{ display:"flex", gap:8 }}>
+          <button disabled={step===0} onClick={() => setStep(step-1)} style={{ padding:"7px 14px", borderRadius:8, cursor:step===0?"default":"pointer", background:"transparent", border:"1px solid #233047", color:"#7f89a3", fontSize:12.5, opacity:step===0?0.4:1 }}>Back</button>
+          <button onClick={() => (last ? setDone(true) : setStep(step+1))} style={{ padding:"7px 18px", borderRadius:8, cursor:"pointer", background:"#3d8ef0", border:"none", color:"#fff", fontSize:12.5, fontWeight:800 }}>{last ? "Finish ✓" : "Next →"}</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
   const [tab, setTab] = useState("brands");
@@ -4781,6 +4845,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       )}
       <div style={{ padding:"22px 18px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
+        {isDemo() && <DistributorTour setTab={setTab}/>}
         {tab==="brands" && (
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("marketTitle")}</h2>
