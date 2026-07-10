@@ -1882,14 +1882,20 @@ const Login = ({ onLogin, lang, onLangChange }) => {
           <div style={{ flex:1, height:1, background:C.border }}/>
         </div>
 
-        <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
-          <button onClick={() => setView("register-brand")} style={{ padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.gold}40`, color:C.gold, fontSize:13, fontWeight:500 }}>{t("registerBrand")}</button>
-          <button onClick={() => setView("register-dist")} style={{ padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>{t("registerDist")}</button>
-          <button onClick={() => setView("register-chain")} style={{ padding:"11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.blue}40`, color:C.blue, fontSize:13 }}>{t("registerChain")}</button>
-          <button onClick={() => setView("demo")} style={{ padding:"11px", borderRadius:8, cursor:"pointer", background:`${C.purple}10`, border:`1px solid ${C.purple}40`, color:"#a855f7", fontSize:13, fontWeight:500, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
-            <span>▶</span> {t("watchDemo") || "Watch Platform Demo"}
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
+          <button onClick={() => setView("register-brand")} className="nx-card" style={{ padding:"16px 12px", borderRadius:12, cursor:"pointer", background:C.surface2, border:`1px solid ${C.gold}45`, display:"flex", flexDirection:"column", alignItems:"center", gap:9 }}>
+            <span style={{ width:36, height:36, borderRadius:10, background:`${C.gold}1f`, color:C.gold, display:"flex", alignItems:"center", justifyContent:"center" }}><Landmark size={19}/></span>
+            <span style={{ fontSize:13, fontWeight:700, color:C.text, lineHeight:1.3, textAlign:"center" }}>{t("registerBrand")}</span>
+          </button>
+          <button onClick={() => setView("register-dist")} className="nx-card" style={{ padding:"16px 12px", borderRadius:12, cursor:"pointer", background:C.surface2, border:`1px solid ${C.blue}45`, display:"flex", flexDirection:"column", alignItems:"center", gap:9 }}>
+            <span style={{ width:36, height:36, borderRadius:10, background:`${C.blue}1f`, color:C.blue, display:"flex", alignItems:"center", justifyContent:"center" }}><Store size={19}/></span>
+            <span style={{ fontSize:13, fontWeight:700, color:C.text, lineHeight:1.3, textAlign:"center" }}>{t("registerDist")}</span>
           </button>
         </div>
+        <button onClick={() => setView("register-chain")} style={{ width:"100%", marginTop:10, padding:"10px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:12.5 }}>{t("registerChain")}</button>
+        <button onClick={() => setView("demo")} style={{ width:"100%", marginTop:8, padding:"10px", borderRadius:8, cursor:"pointer", background:`${C.purple}10`, border:`1px solid ${C.purple}40`, color:"#a855f7", fontSize:12.5, fontWeight:500, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
+          <span>▶</span> {t("watchDemo") || "Watch Platform Demo"}
+        </button>
       </div>
     </div>
   );
