@@ -663,6 +663,8 @@ Object.assign(T.es, { invFallback:"Factura", invComm:"Factura de comisión", inv
 Object.assign(T.de, { invFallback:"Rechnung", invComm:"Provisionsrechnung", invSale:"Verkaufsrechnung", invFrom:"Von", invTo:"An", invDate:"Datum", invSubtotal:"Nettobetrag", invVat:"MwSt.", invTotal:"Gesamt", invDownloadPdf:"PDF herunterladen", invPrint:"Drucken / PDF speichern", invDraftNote:"Von NexusHub erstelltes Dokument — Entwurf, mit Ihrem Steuerberater zu prüfen.", invVatNo:"USt-IdNr.", conTitle:"Vertriebsvertrag", conAcceptedBy:"Angenommen von", conConsent:"Ich habe diesen Vertriebsvertrag gelesen und akzeptiere ihn im Namen von {company}.", conSignph:"Vollständiger Name des Unterzeichners", conAcceptSign:"Annehmen & unterzeichnen", conWaiting:"Warten auf Annahme durch den Händler." });
 Object.assign(T.zh, { invFallback:"发票", invComm:"佣金发票", invSale:"销售发票", invFrom:"来自", invTo:"至", invDate:"日期", invSubtotal:"应税金额", invVat:"增值税", invTotal:"合计", invDownloadPdf:"下载已上传 PDF", invPrint:"打印 / 保存 PDF", invDraftNote:"由 NexusHub 生成的文件 — 草稿，需与会计师核实。", invVatNo:"税号", conTitle:"分销协议", conAcceptedBy:"接受人", conConsent:"我已阅读并代表 {company} 接受本分销协议。", conSignph:"签署人全名", conAcceptSign:"接受并签署", conWaiting:"等待分销商接受。" });
 Object.assign(T.ar, { invFallback:"فاتورة", invComm:"فاتورة عمولة", invSale:"فاتورة بيع", invFrom:"من", invTo:"إلى", invDate:"التاريخ", invSubtotal:"المبلغ الخاضع للضريبة", invVat:"ضريبة القيمة المضافة", invTotal:"الإجمالي", invDownloadPdf:"تنزيل ملف PDF", invPrint:"طباعة / حفظ PDF", invDraftNote:"مستند صادر عن NexusHub — مسودة، يجب التحقق منها مع محاسبك.", invVatNo:"الرقم الضريبي", conTitle:"اتفاقية التوزيع", conAcceptedBy:"قُبِل بواسطة", conConsent:"لقد قرأت وأوافق على اتفاقية التوزيع هذه نيابةً عن {company}.", conSignph:"الاسم الكامل للموقّع", conAcceptSign:"قبول وتوقيع", conWaiting:"في انتظار قبول الموزّع." });
+Object.assign(T.en, { invRea:"REA no.", invPec:"PEC" });
+Object.assign(T.it, { invRea:"REA", invPec:"PEC" });
 Object.assign(T.en, { lgReset:"Reset password", lgResetSub:"We'll send you a link by email", lgSent:"Email sent!", lgSentPre:"Check your email", lgSentPost:"and click the link to reset your password.", lgBackLogin:"← Back to login", lgResetPh:"Your registered email", lgSending:"Sending...", lgSendReset:"Send reset link", lgForgot:"Forgot your password?", lgNew:"new?", watchDemo:"Watch Platform Demo", rgContinue:"Continue →", rgVatPh:"e.g. IT12345678901 / DE123456789", rgSdi:"SDI Code", rgSdiPh:"e.g. ABCDEFG (7 characters)", rgPec:"PEC (optional)", rgPecPh:"e.g. company@pec.it", rgBack:"← Back" });
 Object.assign(T.it, { lgReset:"Reset Password", lgResetSub:"Ti invieremo un link via email", lgSent:"Email inviata!", lgSentPre:"Controlla la tua email", lgSentPost:"e clicca sul link per reimpostare la password.", lgBackLogin:"← Torna al login", lgResetPh:"La tua email registrata", lgSending:"Invio in corso...", lgSendReset:"Invia link di reset", lgForgot:"Hai dimenticato la password?", lgNew:"new?", watchDemo:"Guarda la demo della piattaforma", rgContinue:"Continua →", rgVatPh:"es. IT12345678901 / DE123456789", rgSdi:"Codice SDI", rgSdiPh:"es. ABCDEFG (7 caratteri)", rgPec:"PEC (opzionale)", rgPecPh:"es. azienda@pec.it", rgBack:"← Indietro" });
 Object.assign(T.fr, { lgReset:"Réinitialiser le mot de passe", lgResetSub:"Nous vous enverrons un lien par e-mail", lgSent:"E-mail envoyé !", lgSentPre:"Vérifiez votre e-mail", lgSentPost:"et cliquez sur le lien pour réinitialiser votre mot de passe.", lgBackLogin:"← Retour à la connexion", lgResetPh:"Votre e-mail enregistré", lgSending:"Envoi...", lgSendReset:"Envoyer le lien", lgForgot:"Mot de passe oublié ?", lgNew:"nouveau ?", watchDemo:"Voir la démo de la plateforme", rgContinue:"Continuer →", rgVatPh:"ex. IT12345678901 / DE123456789", rgSdi:"Code SDI", rgSdiPh:"ex. ABCDEFG (7 caractères)", rgPec:"PEC (facultatif)", rgPecPh:"ex. societe@pec.it", rgBack:"← Retour" });
@@ -4276,11 +4278,21 @@ function printInvoice(inv, L){
   const w = window.open("", "_blank", "width=820,height=900");
   if(!w) return;
   const fmt = (n)=>"\u20ac"+Number(n||0).toLocaleString("it-IT",{minimumFractionDigits:2});
+  const cmp = L.company;
+  const fromCell = cmp ? [
+    (cmp.company_name||inv.from_entity||""),
+    cmp.company_address,
+    [cmp.company_zip, cmp.company_city, cmp.company_country].filter(Boolean).join(" "),
+    (cmp.company_vat||inv.from_vat) ? (L.vatno+" "+(cmp.company_vat||inv.from_vat)) : "",
+    cmp.company_rea ? (L.rea+" "+cmp.company_rea) : "",
+    cmp.company_pec ? (L.pec+" "+cmp.company_pec) : "",
+    cmp.company_capital || ""
+  ].filter(Boolean).join("<br>") : ((inv.from_entity||"")+(inv.from_vat?(" \u00b7 "+L.vatno+" "+inv.from_vat):""));
   const html = "<html><head><title>"+(inv.invoice_number||L.inv)+"</title>"+
     "<style>body{font-family:'Fraunces', Georgia, serif;color:#111;padding:40px;max-width:680px;margin:auto}h1{font-size:20px;margin:0 0 4px}table{width:100%;border-collapse:collapse;margin-top:18px}td,th{padding:8px;border-bottom:1px solid #ddd;text-align:left;font-size:13px}.r{text-align:right}.tot td{font-weight:bold;font-size:16px}.muted{color:#666;font-size:12px}</style></head><body>"+
     "<h1>"+L.inv+" "+(inv.invoice_number||"")+"</h1>"+
     "<div class='muted'>"+(inv.type==="nexushub_commission"?L.comm:L.sale)+" \u00b7 "+new Date(inv.created_at).toLocaleDateString("it-IT")+"</div>"+
-    "<table><tr><th>"+L.from+"</th><td>"+(inv.from_entity||"")+(inv.from_vat?(" \u00b7 "+L.vatno+" "+inv.from_vat):"")+"</td></tr>"+
+    "<table><tr><th>"+L.from+"</th><td>"+fromCell+"</td></tr>"+
     "<tr><th>"+L.to+"</th><td>"+(inv.to_entity||"")+(inv.to_vat?(" \u00b7 "+L.vatno+" "+inv.to_vat):"")+"</td></tr></table>"+
     "<table><tr><th>"+L.sub+"</th><td class='r'>"+fmt(inv.subtotal)+"</td></tr>"+
     "<tr><th>"+L.vat+" ("+Number(inv.vat_rate||0)+"%)</th><td class='r'>"+fmt(inv.vat_amount)+"</td></tr>"+
@@ -4296,6 +4308,17 @@ function printInvoice(inv, L){
 
 const InvoiceModal = ({ inv, onClose }) => {
   const t = useT();
+  const [company, setCompany] = useState(null);
+  const isPlatformIssuer = !!inv && (inv.type === "nexushub_commission" || inv.type === "nexushub_to_customer");
+  useEffect(() => {
+    if (!isPlatformIssuer) { setCompany(null); return; }
+    let active = true;
+    supabase.from("platform_settings")
+      .select("company_name, company_vat, company_address, company_zip, company_city, company_country, company_rea, company_pec, company_capital")
+      .eq("id", 1).single()
+      .then(({ data }) => { if (active) setCompany(data || null); });
+    return () => { active = false; };
+  }, [isPlatformIssuer, inv]);
   if (!inv) return null;
   const fmt = (n) => "\u20ac" + Number(n||0).toLocaleString("it-IT",{minimumFractionDigits:2});
   const isComm = inv.type === "nexushub_commission";
@@ -4309,7 +4332,19 @@ const InvoiceModal = ({ inv, onClose }) => {
         </div>
         <div style={{ padding:"20px 22px" }}>
           <div style={{ display:"inline-block", padding:"4px 10px", borderRadius:20, fontSize:11, fontWeight:600, marginBottom:16, background:isComm?`${C.gold}15`:`${C.green}15`, color:isComm?C.gold:C.green, border:`1px solid ${isComm?C.gold:C.green}30` }}>{isComm?t("invComm"):t("invSale")}</div>
-          <div style={{ ...row, borderTop:"none" }}><span style={{ color:C.textMuted }}>{t("invFrom")}</span><span style={{ color:C.text, textAlign:"right" }}>{inv.from_entity}{inv.from_vat?` · ${t("invVatNo")} ${inv.from_vat}`:""}</span></div>
+          <div style={{ ...row, borderTop:"none", alignItems:"flex-start" }}><span style={{ color:C.textMuted }}>{t("invFrom")}</span>{isPlatformIssuer && company ? (
+            <div style={{ color:C.text, textAlign:"right", lineHeight:1.5 }}>
+              <div style={{ fontWeight:600 }}>{company.company_name || inv.from_entity}</div>
+              {company.company_address && <div style={{ fontSize:12, color:C.textMuted }}>{company.company_address}</div>}
+              {(company.company_zip || company.company_city || company.company_country) && <div style={{ fontSize:12, color:C.textMuted }}>{[company.company_zip, company.company_city, company.company_country].filter(Boolean).join(" ")}</div>}
+              {(company.company_vat || inv.from_vat) && <div style={{ fontSize:12, color:C.textMuted }}>{t("invVatNo")} {company.company_vat || inv.from_vat}</div>}
+              {company.company_rea && <div style={{ fontSize:12, color:C.textMuted }}>{t("invRea")} {company.company_rea}</div>}
+              {company.company_pec && <div style={{ fontSize:12, color:C.textMuted }}>{t("invPec")} {company.company_pec}</div>}
+              {company.company_capital && <div style={{ fontSize:11, color:C.textDim, marginTop:3 }}>{company.company_capital}</div>}
+            </div>
+          ) : (
+            <span style={{ color:C.text, textAlign:"right" }}>{inv.from_entity}{inv.from_vat?` · ${t("invVatNo")} ${inv.from_vat}`:""}</span>
+          )}</div>
           <div style={row}><span style={{ color:C.textMuted }}>{t("invTo")}</span><span style={{ color:C.text, textAlign:"right" }}>{inv.to_entity}{inv.to_vat?` · ${t("invVatNo")} ${inv.to_vat}`:""}</span></div>
           <div style={row}><span style={{ color:C.textMuted }}>{t("invDate")}</span><span style={{ color:C.text }}>{new Date(inv.created_at).toLocaleDateString("it-IT")}</span></div>
           <div style={{ height:8 }}/>
@@ -4320,7 +4355,7 @@ const InvoiceModal = ({ inv, onClose }) => {
           {inv.pdf_url && <a href={inv.pdf_url} target="_blank" rel="noreferrer" style={{ display:"inline-block", marginTop:14, fontSize:12, color:C.blue }}>📎 {t("invDownloadPdf")}</a>}
         </div>
         <div style={{ padding:"14px 22px", borderTop:`1px solid ${C.border}`, display:"flex", justifyContent:"flex-end" }}>
-          <button onClick={()=>printInvoice(inv, { inv:t("invFallback"), comm:t("invComm"), sale:t("invSale"), from:t("invFrom"), to:t("invTo"), sub:t("invSubtotal"), vat:t("invVat"), total:t("invTotal"), vatno:t("invVatNo"), draft:t("invDraftNote") })} style={{ padding:"9px 18px", borderRadius:8, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>🖨️ {t("invPrint")}</button>
+          <button onClick={()=>printInvoice(inv, { inv:t("invFallback"), comm:t("invComm"), sale:t("invSale"), from:t("invFrom"), to:t("invTo"), sub:t("invSubtotal"), vat:t("invVat"), total:t("invTotal"), vatno:t("invVatNo"), draft:t("invDraftNote"), rea:t("invRea"), pec:t("invPec"), company:(isPlatformIssuer ? company : null) })} style={{ padding:"9px 18px", borderRadius:8, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>🖨️ {t("invPrint")}</button>
         </div>
       </div>
     </div>
