@@ -3101,20 +3101,183 @@ const NexusAI = ({ role }) => {
 // ============================================================
 // DEMO GUIDED TOUR — walks a visitor through every brand screen
 // ============================================================
+// ————— Guided-tour i18n (brand = dt*, distributor = xt*, shared buttons = t*) —————
+Object.assign(T.en, {
+  tSkip:"Skip tour", tBack:"Back", tNext:"Next →", tFin:"Finish ✓",
+  dt0t:"Welcome to your Brand cockpit", dt0x:"You're inside the real NexusHub Brand dashboard (demo data). In ~90 seconds I'll show you everything you can control.",
+  dt1t:"1 · Overview", dt1x:"Your command center: active distributors, orders, revenue and a live map of Europe — all in real time.",
+  dt2t:"2 · Applications", dt2x:"Distributors requesting to sell your brand. Approve or reject with one click — you decide who represents you.",
+  dt3t:"3 · Distributors, Exclusivity & Contracts", dt3x:"The heart of control: manage every distributor, grant full or partial exclusivity by territory, set a custom discount per partner, issue a formal contract (commission, MOQ, duration) — or revoke access instantly. Nobody sells your brand without your rules.",
+  dt4t:"4 · Direct-to-Chain", dt4x:"Beyond independent distributors, NexusHub manages the major European retail chains directly — Douglas, Notino, OvS and more. Your brand reaches the shelves that matter, handled by us.",
+  dt5t:"5 · Catalog, Prices & Documents", dt5x:"Your products with per-country pricing, MOQ and order multiples, plus technical sheets and compliance documents. The price you set is enforced on every channel — the end of grey-market undercutting.",
+  dt6t:"6 · Orders & Fulfilment", dt6x:"Every distributor order, from status to tracking — stocked and shipped from the Turin hub in 48–72h.",
+  dt7t:"7 · Invoices", dt7x:"Automatic invoicing with the correct VAT for each of the 27 EU countries. Zero admin work for you.",
+  dt8t:"8 · Payments & Payouts", dt8x:"Transparent, tracked payments and payouts. You receive the funds — commission only on processed orders, no upfront fees.",
+  dt9t:"9 · AI Analytics", dt9x:"Smart insights: demand by country, best-sellers, seasonality and where to push next.",
+  dt10t:"10 · Amazon Control", dt10x:"Full Amazon EU management: stop unauthorized sellers, protect the buy-box and enforce your price.",
+  xt0t:"Welcome — the Distributor side", xt0x:"You're inside the real NexusHub Distributor portal (demo). One account, all the best Dubai brands — with a service no importer gives you.",
+  xt1t:"1 · One place, many brands", xt1x:"Access multiple top brands from a single account — Lattafa, Rasasi, Ajmal and more. Request access in one click. No more chasing suppliers across the world.",
+  xt2t:"2 · Same price, better service", xt2x:"The same wholesale prices you'd get buying direct — but ordered in seconds, with live stock, MOQ and one simple cart. The difference is the service, not the price.",
+  xt3t:"3 · Wishlist", xt3x:"Save your favourites and reorder in a single tap — no searching next time.",
+  xt4t:"4 · Delivered from Europe in 48–72h", xt4x:"Track every order end-to-end. Shipped from the Turin hub — no customs, no import paperwork, no 3-week waits.",
+  xt5t:"5 · Invoices done for you", xt5x:"Every order invoiced automatically with the correct VAT — ready for your accountant.",
+  xt6t:"6 · AI Assistant", xt6x:"Smart suggestions: what's selling and what to reorder for your market.",
+  xt7t:"7 · Your Data", xt7x:"Company details, VAT number and shipping — all in one place.",
+  xt8t:"Why distributors love NexusHub", xt8x:"Many brands, one login. Same prices as direct — but with European logistics, automatic invoicing and Amazon handled for you. You just sell.",
+});
+Object.assign(T.it, {
+  tSkip:"Salta il tour", tBack:"Indietro", tNext:"Avanti →", tFin:"Fine ✓",
+  dt0t:"Benvenuto nella cabina di regia del tuo Brand", dt0x:"Sei dentro la vera dashboard Brand di NexusHub (dati demo). In ~90 secondi ti mostro tutto ciò che puoi controllare.",
+  dt1t:"1 · Panoramica", dt1x:"Il tuo centro di comando: distributori attivi, ordini, fatturato e una mappa live dell'Europa — tutto in tempo reale.",
+  dt2t:"2 · Candidature", dt2x:"I distributori che chiedono di vendere il tuo brand. Approva o rifiuta con un clic — decidi tu chi ti rappresenta.",
+  dt3t:"3 · Distributori, Esclusive e Contratti", dt3x:"Il cuore del controllo: gestisci ogni distributore, concedi esclusiva totale o parziale per territorio, imposta uno sconto personalizzato per partner, emetti un contratto formale (commissione, MOQ, durata) — o revoca l'accesso all'istante. Nessuno vende il tuo brand senza le tue regole.",
+  dt4t:"4 · Direct-to-Chain", dt4x:"Oltre ai distributori indipendenti, NexusHub gestisce direttamente le grandi catene retail europee — Douglas, Notino, OvS e altre. Il tuo brand arriva sugli scaffali che contano, gestito da noi.",
+  dt5t:"5 · Catalogo, Prezzi e Documenti", dt5x:"I tuoi prodotti con prezzi per Paese, MOQ e multipli d'ordine, più schede tecniche e documenti di conformità. Il prezzo che imposti è applicato su ogni canale — la fine del grey market.",
+  dt6t:"6 · Ordini e Logistica", dt6x:"Ogni ordine dei distributori, dallo stato al tracking — stoccato e spedito dall'hub di Torino in 48–72h.",
+  dt7t:"7 · Fatture", dt7x:"Fatturazione automatica con l'IVA corretta per ognuno dei 27 Paesi UE. Zero lavoro amministrativo per te.",
+  dt8t:"8 · Pagamenti e Payout", dt8x:"Pagamenti e payout trasparenti e tracciati. Ricevi i fondi — commissione solo sugli ordini evasi, nessun costo anticipato.",
+  dt9t:"9 · AI Analytics", dt9x:"Insight intelligenti: domanda per Paese, best-seller, stagionalità e dove spingere adesso.",
+  dt10t:"10 · Controllo Amazon", dt10x:"Gestione completa di Amazon EU: blocca i venditori non autorizzati, proteggi la buy-box e fai rispettare il tuo prezzo.",
+  xt0t:"Benvenuto — il lato Distributore", xt0x:"Sei dentro il vero portale Distributore di NexusHub (demo). Un solo account, tutti i migliori brand di Dubai — con un servizio che nessun importatore ti dà.",
+  xt1t:"1 · Un solo posto, tanti brand", xt1x:"Accedi a più brand top da un unico account — Lattafa, Rasasi, Ajmal e altri. Richiedi l'accesso con un clic. Basta rincorrere fornitori in giro per il mondo.",
+  xt2t:"2 · Stesso prezzo, servizio migliore", xt2x:"Gli stessi prezzi all'ingrosso che avresti comprando diretto — ma ordinati in pochi secondi, con stock live, MOQ e un carrello semplice. La differenza è il servizio, non il prezzo.",
+  xt3t:"3 · Wishlist", xt3x:"Salva i tuoi preferiti e riordina con un tap — niente ricerche la prossima volta.",
+  xt4t:"4 · Consegnato dall'Europa in 48–72h", xt4x:"Traccia ogni ordine dall'inizio alla fine. Spedito dall'hub di Torino — niente dogana, niente pratiche di import, niente attese di 3 settimane.",
+  xt5t:"5 · Fatture fatte per te", xt5x:"Ogni ordine fatturato automaticamente con l'IVA corretta — pronto per il tuo commercialista.",
+  xt6t:"6 · Assistente AI", xt6x:"Suggerimenti intelligenti: cosa vende e cosa riordinare per il tuo mercato.",
+  xt7t:"7 · I tuoi dati", xt7x:"Dati aziendali, partita IVA e spedizione — tutto in un unico posto.",
+  xt8t:"Perché i distributori amano NexusHub", xt8x:"Tanti brand, un solo login. Stessi prezzi del diretto — ma con logistica europea, fatturazione automatica e Amazon gestito per te. Tu devi solo vendere.",
+});
+Object.assign(T.fr, {
+  tSkip:"Passer le tour", tBack:"Retour", tNext:"Suivant →", tFin:"Terminer ✓",
+  dt0t:"Bienvenue dans le cockpit de votre Marque", dt0x:"Vous êtes dans le vrai tableau de bord Marque de NexusHub (données démo). En ~90 secondes, je vous montre tout ce que vous pouvez contrôler.",
+  dt1t:"1 · Vue d'ensemble", dt1x:"Votre centre de commande : distributeurs actifs, commandes, chiffre d'affaires et une carte live de l'Europe — le tout en temps réel.",
+  dt2t:"2 · Candidatures", dt2x:"Les distributeurs qui demandent à vendre votre marque. Approuvez ou refusez en un clic — c'est vous qui décidez qui vous représente.",
+  dt3t:"3 · Distributeurs, Exclusivité et Contrats", dt3x:"Le cœur du contrôle : gérez chaque distributeur, accordez une exclusivité totale ou partielle par territoire, définissez une remise personnalisée par partenaire, émettez un contrat formel (commission, MOQ, durée) — ou révoquez l'accès instantanément. Personne ne vend votre marque sans vos règles.",
+  dt4t:"4 · Direct-to-Chain", dt4x:"Au-delà des distributeurs indépendants, NexusHub gère directement les grandes chaînes de distribution européennes — Douglas, Notino, OvS et plus encore. Votre marque atteint les rayons qui comptent, gérés par nous.",
+  dt5t:"5 · Catalogue, Prix et Documents", dt5x:"Vos produits avec des prix par pays, MOQ et multiples de commande, plus les fiches techniques et documents de conformité. Le prix que vous fixez est appliqué sur chaque canal — la fin du marché gris.",
+  dt6t:"6 · Commandes et Logistique", dt6x:"Chaque commande des distributeurs, du statut au suivi — stockée et expédiée depuis le hub de Turin en 48–72h.",
+  dt7t:"7 · Factures", dt7x:"Facturation automatique avec la TVA correcte pour chacun des 27 pays de l'UE. Zéro travail administratif pour vous.",
+  dt8t:"8 · Paiements et Versements", dt8x:"Paiements et versements transparents et suivis. Vous recevez les fonds — commission uniquement sur les commandes traitées, aucun frais d'avance.",
+  dt9t:"9 · AI Analytics", dt9x:"Des analyses intelligentes : demande par pays, best-sellers, saisonnalité et où pousser ensuite.",
+  dt10t:"10 · Contrôle Amazon", dt10x:"Gestion complète d'Amazon EU : stoppez les vendeurs non autorisés, protégez la buy-box et faites respecter votre prix.",
+  xt0t:"Bienvenue — le côté Distributeur", xt0x:"Vous êtes dans le vrai portail Distributeur de NexusHub (démo). Un seul compte, toutes les meilleures marques de Dubaï — avec un service qu'aucun importateur ne vous offre.",
+  xt1t:"1 · Un seul endroit, plusieurs marques", xt1x:"Accédez à plusieurs grandes marques depuis un seul compte — Lattafa, Rasasi, Ajmal et plus. Demandez l'accès en un clic. Fini de courir après les fournisseurs partout dans le monde.",
+  xt2t:"2 · Même prix, meilleur service", xt2x:"Les mêmes prix de gros qu'en achat direct — mais commandés en quelques secondes, avec stock live, MOQ et un panier simple. La différence, c'est le service, pas le prix.",
+  xt3t:"3 · Liste de souhaits", xt3x:"Enregistrez vos favoris et recommandez en un seul tap — aucune recherche la prochaine fois.",
+  xt4t:"4 · Livré depuis l'Europe en 48–72h", xt4x:"Suivez chaque commande de bout en bout. Expédiée depuis le hub de Turin — pas de douane, pas de paperasse d'import, pas d'attente de 3 semaines.",
+  xt5t:"5 · Factures faites pour vous", xt5x:"Chaque commande facturée automatiquement avec la TVA correcte — prête pour votre comptable.",
+  xt6t:"6 · Assistant IA", xt6x:"Suggestions intelligentes : ce qui se vend et ce qu'il faut recommander pour votre marché.",
+  xt7t:"7 · Vos données", xt7x:"Informations de l'entreprise, numéro de TVA et expédition — tout au même endroit.",
+  xt8t:"Pourquoi les distributeurs adorent NexusHub", xt8x:"Beaucoup de marques, un seul identifiant. Mêmes prix qu'en direct — mais avec la logistique européenne, la facturation automatique et Amazon géré pour vous. Vous n'avez qu'à vendre.",
+});
+Object.assign(T.es, {
+  tSkip:"Saltar el tour", tBack:"Atrás", tNext:"Siguiente →", tFin:"Finalizar ✓",
+  dt0t:"Bienvenido a la cabina de mando de tu Marca", dt0x:"Estás dentro del verdadero panel de Marca de NexusHub (datos demo). En ~90 segundos te muestro todo lo que puedes controlar.",
+  dt1t:"1 · Resumen", dt1x:"Tu centro de mando: distribuidores activos, pedidos, facturación y un mapa en vivo de Europa — todo en tiempo real.",
+  dt2t:"2 · Solicitudes", dt2x:"Los distribuidores que piden vender tu marca. Aprueba o rechaza con un clic — tú decides quién te representa.",
+  dt3t:"3 · Distribuidores, Exclusividad y Contratos", dt3x:"El corazón del control: gestiona cada distribuidor, concede exclusividad total o parcial por territorio, define un descuento personalizado por socio, emite un contrato formal (comisión, MOQ, duración) — o revoca el acceso al instante. Nadie vende tu marca sin tus reglas.",
+  dt4t:"4 · Direct-to-Chain", dt4x:"Más allá de los distribuidores independientes, NexusHub gestiona directamente las grandes cadenas de retail europeas — Douglas, Notino, OvS y más. Tu marca llega a los lineales que importan, gestionados por nosotros.",
+  dt5t:"5 · Catálogo, Precios y Documentos", dt5x:"Tus productos con precios por país, MOQ y múltiplos de pedido, además de fichas técnicas y documentos de conformidad. El precio que fijas se aplica en cada canal — el fin del mercado gris.",
+  dt6t:"6 · Pedidos y Logística", dt6x:"Cada pedido de los distribuidores, del estado al seguimiento — almacenado y enviado desde el hub de Turín en 48–72h.",
+  dt7t:"7 · Facturas", dt7x:"Facturación automática con el IVA correcto para cada uno de los 27 países de la UE. Cero trabajo administrativo para ti.",
+  dt8t:"8 · Pagos y Liquidaciones", dt8x:"Pagos y liquidaciones transparentes y rastreados. Recibes los fondos — comisión solo sobre los pedidos procesados, sin costes por adelantado.",
+  dt9t:"9 · AI Analytics", dt9x:"Información inteligente: demanda por país, best-sellers, estacionalidad y dónde impulsar a continuación.",
+  dt10t:"10 · Control de Amazon", dt10x:"Gestión completa de Amazon EU: detén a los vendedores no autorizados, protege la buy-box y haz respetar tu precio.",
+  xt0t:"Bienvenido — el lado Distribuidor", xt0x:"Estás dentro del verdadero portal de Distribuidor de NexusHub (demo). Una sola cuenta, todas las mejores marcas de Dubái — con un servicio que ningún importador te da.",
+  xt1t:"1 · Un solo lugar, muchas marcas", xt1x:"Accede a varias marcas top desde una sola cuenta — Lattafa, Rasasi, Ajmal y más. Solicita el acceso con un clic. Se acabó perseguir proveedores por todo el mundo.",
+  xt2t:"2 · Mismo precio, mejor servicio", xt2x:"Los mismos precios mayoristas que tendrías comprando directo — pero pedidos en segundos, con stock en vivo, MOQ y un carrito simple. La diferencia es el servicio, no el precio.",
+  xt3t:"3 · Lista de deseos", xt3x:"Guarda tus favoritos y vuelve a pedir con un solo toque — sin buscar la próxima vez.",
+  xt4t:"4 · Entregado desde Europa en 48–72h", xt4x:"Sigue cada pedido de principio a fin. Enviado desde el hub de Turín — sin aduana, sin papeleo de importación, sin esperas de 3 semanas.",
+  xt5t:"5 · Facturas listas para ti", xt5x:"Cada pedido facturado automáticamente con el IVA correcto — listo para tu contable.",
+  xt6t:"6 · Asistente IA", xt6x:"Sugerencias inteligentes: qué se vende y qué reponer para tu mercado.",
+  xt7t:"7 · Tus datos", xt7x:"Datos de la empresa, número de IVA y envío — todo en un solo lugar.",
+  xt8t:"Por qué los distribuidores adoran NexusHub", xt8x:"Muchas marcas, un solo acceso. Mismos precios que en directo — pero con logística europea, facturación automática y Amazon gestionado para ti. Tú solo vendes.",
+});
+Object.assign(T.de, {
+  tSkip:"Tour überspringen", tBack:"Zurück", tNext:"Weiter →", tFin:"Fertig ✓",
+  dt0t:"Willkommen im Cockpit Ihrer Marke", dt0x:"Sie sind im echten NexusHub-Marken-Dashboard (Demodaten). In ~90 Sekunden zeige ich Ihnen alles, was Sie steuern können.",
+  dt1t:"1 · Überblick", dt1x:"Ihre Kommandozentrale: aktive Distributoren, Bestellungen, Umsatz und eine Live-Karte Europas — alles in Echtzeit.",
+  dt2t:"2 · Bewerbungen", dt2x:"Distributoren, die Ihre Marke verkaufen möchten. Mit einem Klick genehmigen oder ablehnen — Sie entscheiden, wer Sie vertritt.",
+  dt3t:"3 · Distributoren, Exklusivität & Verträge", dt3x:"Das Herz der Kontrolle: Verwalten Sie jeden Distributor, gewähren Sie volle oder teilweise Exklusivität pro Gebiet, legen Sie einen individuellen Rabatt pro Partner fest, stellen Sie einen formellen Vertrag aus (Provision, MOQ, Laufzeit) — oder entziehen Sie den Zugang sofort. Niemand verkauft Ihre Marke ohne Ihre Regeln.",
+  dt4t:"4 · Direct-to-Chain", dt4x:"Über unabhängige Distributoren hinaus verwaltet NexusHub die großen europäischen Handelsketten direkt — Douglas, Notino, OvS und mehr. Ihre Marke erreicht die Regale, die zählen, von uns betreut.",
+  dt5t:"5 · Katalog, Preise & Dokumente", dt5x:"Ihre Produkte mit länderspezifischen Preisen, MOQ und Bestellvielfachen, plus technische Datenblätter und Konformitätsdokumente. Der von Ihnen festgelegte Preis gilt auf jedem Kanal — das Ende des Graumarkts.",
+  dt6t:"6 · Bestellungen & Fulfillment", dt6x:"Jede Distributoren-Bestellung, vom Status bis zum Tracking — gelagert und versandt vom Turin-Hub in 48–72 Std.",
+  dt7t:"7 · Rechnungen", dt7x:"Automatische Rechnungsstellung mit der korrekten MwSt. für jedes der 27 EU-Länder. Null Verwaltungsaufwand für Sie.",
+  dt8t:"8 · Zahlungen & Auszahlungen", dt8x:"Transparente, nachverfolgte Zahlungen und Auszahlungen. Sie erhalten die Gelder — Provision nur auf abgewickelte Bestellungen, keine Vorabkosten.",
+  dt9t:"9 · KI-Analytics", dt9x:"Intelligente Einblicke: Nachfrage nach Land, Bestseller, Saisonalität und wo als Nächstes pushen.",
+  dt10t:"10 · Amazon-Kontrolle", dt10x:"Vollständige Amazon-EU-Verwaltung: unautorisierte Verkäufer stoppen, die Buy-Box schützen und Ihren Preis durchsetzen.",
+  xt0t:"Willkommen — die Distributor-Seite", xt0x:"Sie sind im echten NexusHub-Distributor-Portal (Demo). Ein Konto, alle besten Marken aus Dubai — mit einem Service, den kein Importeur bietet.",
+  xt1t:"1 · Ein Ort, viele Marken", xt1x:"Zugang zu mehreren Top-Marken über ein einziges Konto — Lattafa, Rasasi, Ajmal und mehr. Zugang mit einem Klick anfragen. Kein Hinterherjagen von Lieferanten in aller Welt mehr.",
+  xt2t:"2 · Gleicher Preis, besserer Service", xt2x:"Dieselben Großhandelspreise wie beim Direktkauf — aber in Sekunden bestellt, mit Live-Bestand, MOQ und einem einfachen Warenkorb. Der Unterschied ist der Service, nicht der Preis.",
+  xt3t:"3 · Wunschliste", xt3x:"Speichern Sie Ihre Favoriten und bestellen Sie mit einem Tipp nach — kein Suchen beim nächsten Mal.",
+  xt4t:"4 · Aus Europa in 48–72 Std. geliefert", xt4x:"Verfolgen Sie jede Bestellung lückenlos. Versandt vom Turin-Hub — kein Zoll, kein Importpapierkram, kein 3-Wochen-Warten.",
+  xt5t:"5 · Rechnungen für Sie erledigt", xt5x:"Jede Bestellung automatisch mit der korrekten MwSt. abgerechnet — bereit für Ihren Steuerberater.",
+  xt6t:"6 · KI-Assistent", xt6x:"Intelligente Vorschläge: was sich verkauft und was Sie für Ihren Markt nachbestellen sollten.",
+  xt7t:"7 · Ihre Daten", xt7x:"Firmendaten, USt-IdNr. und Versand — alles an einem Ort.",
+  xt8t:"Warum Distributoren NexusHub lieben", xt8x:"Viele Marken, ein Login. Gleiche Preise wie direkt — aber mit europäischer Logistik, automatischer Rechnungsstellung und Amazon für Sie erledigt. Sie verkaufen nur.",
+});
+Object.assign(T.zh, {
+  tSkip:"跳过导览", tBack:"上一步", tNext:"下一步 →", tFin:"完成 ✓",
+  dt0t:"欢迎来到您的品牌驾驶舱", dt0x:"您正在真实的 NexusHub 品牌仪表盘中（演示数据）。约 90 秒内，我将向您展示您可以掌控的一切。",
+  dt1t:"1 · 总览", dt1x:"您的指挥中心：活跃分销商、订单、营收以及欧洲实时地图——全部实时呈现。",
+  dt2t:"2 · 申请", dt2x:"申请销售您品牌的分销商。一键批准或拒绝——由您决定谁代表您。",
+  dt3t:"3 · 分销商、独家权与合同", dt3x:"掌控的核心：管理每一个分销商，按区域授予完全或部分独家权，为每个合作伙伴设定专属折扣，签发正式合同（佣金、起订量、期限）——或即时撤销访问权限。没有您的规则，谁也无法销售您的品牌。",
+  dt4t:"4 · 直连连锁", dt4x:"除了独立分销商，NexusHub 还直接管理欧洲主要零售连锁——Douglas、Notino、OvS 等。您的品牌进入真正重要的货架，由我们负责。",
+  dt5t:"5 · 目录、价格与文件", dt5x:"您的产品含分国定价、起订量和订购倍数，以及技术资料和合规文件。您设定的价格在每个渠道强制执行——终结灰色市场压价。",
+  dt6t:"6 · 订单与履约", dt6x:"每一笔分销商订单，从状态到物流追踪——由都灵枢纽备货并在 48–72 小时内发货。",
+  dt7t:"7 · 发票", dt7x:"为 27 个欧盟国家分别以正确的增值税自动开票。您无需任何行政工作。",
+  dt8t:"8 · 付款与结算", dt8x:"透明、可追踪的付款与结算。资金归您——仅对已处理订单收取佣金，无预付费用。",
+  dt9t:"9 · AI 分析", dt9x:"智能洞察：各国需求、畅销品、季节性以及下一步应发力的方向。",
+  dt10t:"10 · Amazon 管控", dt10x:"完整的 Amazon EU 管理：阻止未授权卖家，保护购物车（buy-box），并强制执行您的价格。",
+  xt0t:"欢迎——分销商这一侧", xt0x:"您正在真实的 NexusHub 分销商门户中（演示）。一个账户，汇集迪拜所有顶级品牌——享受任何进口商都无法提供的服务。",
+  xt1t:"1 · 一处汇集众多品牌", xt1x:"通过单一账户访问多个顶级品牌——Lattafa、Rasasi、Ajmal 等。一键申请访问。不必再满世界追着供应商跑。",
+  xt2t:"2 · 同样的价格，更好的服务", xt2x:"与直接采购相同的批发价——但几秒即可下单，含实时库存、起订量和一个简单的购物车。差别在于服务，而非价格。",
+  xt3t:"3 · 心愿单", xt3x:"收藏您的最爱，一键即可再次下单——下次无需再找。",
+  xt4t:"4 · 从欧洲 48–72 小时送达", xt4x:"全程追踪每一笔订单。由都灵枢纽发货——无海关、无进口文书、无需苦等三周。",
+  xt5t:"5 · 发票为您代劳", xt5x:"每笔订单均以正确的增值税自动开票——可直接交给您的会计。",
+  xt6t:"6 · AI 助手", xt6x:"智能建议：什么在热卖，以及您的市场应补货什么。",
+  xt7t:"7 · 您的数据", xt7x:"公司信息、增值税号和配送——尽在一处。",
+  xt8t:"分销商为何钟爱 NexusHub", xt8x:"众多品牌，一个登录。与直接采购同价——但配备欧洲物流、自动开票，Amazon 也为您打理。您只管销售。",
+});
+Object.assign(T.ar, {
+  tSkip:"تخطّي الجولة", tBack:"رجوع", tNext:"التالي →", tFin:"إنهاء ✓",
+  dt0t:"مرحبًا بك في قمرة قيادة علامتك التجارية", dt0x:"أنت داخل لوحة تحكم العلامة التجارية الحقيقية في NexusHub (بيانات تجريبية). خلال ~90 ثانية سأعرض لك كل ما يمكنك التحكم به.",
+  dt1t:"1 · نظرة عامة", dt1x:"مركز القيادة الخاص بك: الموزعون النشطون، الطلبات، الإيرادات وخريطة حية لأوروبا — كل ذلك في الوقت الفعلي.",
+  dt2t:"2 · الطلبات", dt2x:"الموزعون الذين يطلبون بيع علامتك التجارية. وافق أو ارفض بنقرة واحدة — أنت من يقرر من يمثّلك.",
+  dt3t:"3 · الموزعون والحصرية والعقود", dt3x:"قلب التحكم: أدِر كل موزع، امنح حصرية كاملة أو جزئية حسب المنطقة، حدّد خصمًا مخصصًا لكل شريك، أصدر عقدًا رسميًا (العمولة، الحد الأدنى للطلب، المدة) — أو ألغِ الوصول فورًا. لا أحد يبيع علامتك التجارية دون قواعدك.",
+  dt4t:"4 · التوصيل المباشر للسلاسل", dt4x:"إلى جانب الموزعين المستقلين، تدير NexusHub كبرى سلاسل التجزئة الأوروبية مباشرةً — Douglas وNotino وOvS وغيرها. تصل علامتك التجارية إلى الرفوف المهمة، وندير ذلك نيابةً عنك.",
+  dt5t:"5 · الكتالوج والأسعار والمستندات", dt5x:"منتجاتك بأسعار لكل دولة، والحد الأدنى للطلب ومضاعفات الطلب، إضافةً إلى النشرات الفنية ومستندات الامتثال. السعر الذي تحدده يُطبَّق على كل قناة — نهاية السوق الرمادية.",
+  dt6t:"6 · الطلبات والتنفيذ", dt6x:"كل طلب من الموزعين، من الحالة إلى التتبّع — يُخزَّن ويُشحَن من مركز تورينو خلال 48–72 ساعة.",
+  dt7t:"7 · الفواتير", dt7x:"فوترة تلقائية بضريبة القيمة المضافة الصحيحة لكل دولة من دول الاتحاد الأوروبي الـ27. صفر عمل إداري عليك.",
+  dt8t:"8 · المدفوعات والتسويات", dt8x:"مدفوعات وتسويات شفافة ومتتبَّعة. أنت تستلم الأموال — عمولة فقط على الطلبات المنفَّذة، دون رسوم مقدمة.",
+  dt9t:"9 · تحليلات الذكاء الاصطناعي", dt9x:"رؤى ذكية: الطلب حسب الدولة، الأكثر مبيعًا، الموسمية، وأين تدفع لاحقًا.",
+  dt10t:"10 · التحكم في Amazon", dt10x:"إدارة كاملة لـ Amazon EU: أوقف البائعين غير المصرّح لهم، احمِ صندوق الشراء (buy-box)، وافرض سعرك.",
+  xt0t:"مرحبًا — جانب الموزّع", xt0x:"أنت داخل بوابة الموزّع الحقيقية في NexusHub (تجريبي). حساب واحد، وكل أفضل علامات دبي — بخدمة لا يقدّمها أي مستورد.",
+  xt1t:"1 · مكان واحد، علامات كثيرة", xt1x:"الوصول إلى عدة علامات رائدة من حساب واحد — Lattafa وRasasi وAjmal وغيرها. اطلب الوصول بنقرة واحدة. لا مزيد من ملاحقة الموردين حول العالم.",
+  xt2t:"2 · نفس السعر، خدمة أفضل", xt2x:"نفس أسعار الجملة التي تحصل عليها بالشراء المباشر — لكن بطلب خلال ثوانٍ، مع مخزون حي وحد أدنى للطلب وسلة بسيطة. الفرق في الخدمة، لا في السعر.",
+  xt3t:"3 · قائمة الأمنيات", xt3x:"احفظ مفضّلاتك وأعد الطلب بنقرة واحدة — دون بحث في المرة القادمة.",
+  xt4t:"4 · يُسلَّم من أوروبا خلال 48–72 ساعة", xt4x:"تتبّع كل طلب من البداية إلى النهاية. يُشحَن من مركز تورينو — دون جمارك، دون أوراق استيراد، دون انتظار 3 أسابيع.",
+  xt5t:"5 · فواتير جاهزة نيابةً عنك", xt5x:"كل طلب يُفوتَر تلقائيًا بضريبة القيمة المضافة الصحيحة — جاهز لمحاسبك.",
+  xt6t:"6 · مساعد الذكاء الاصطناعي", xt6x:"اقتراحات ذكية: ما الذي يُباع وما ينبغي إعادة طلبه لسوقك.",
+  xt7t:"7 · بياناتك", xt7x:"بيانات الشركة، الرقم الضريبي والشحن — كلها في مكان واحد.",
+  xt8t:"لماذا يحب الموزّعون NexusHub", xt8x:"علامات كثيرة، تسجيل دخول واحد. نفس أسعار الشراء المباشر — لكن مع لوجستيات أوروبية وفوترة تلقائية وإدارة Amazon نيابةً عنك. ما عليك سوى البيع.",
+});
 const DEMO_TOUR_STEPS = [
-  { tab:"overview",     title:"Welcome to your Brand cockpit", text:"You're inside the real NexusHub Brand dashboard (demo data). In ~90 seconds I'll show you everything you can control." },
-  { tab:"overview",     title:"1 · Overview", text:"Your command center: active distributors, orders, revenue and a live map of Europe — all in real time." },
-  { tab:"applications", title:"2 · Applications", text:"Distributors requesting to sell your brand. Approve or reject with one click — you decide who represents you." },
-  { tab:"distributors", title:"3 · Distributors, Exclusivity & Contracts", text:"The heart of control: manage every distributor, grant full or partial exclusivity by territory, set a custom discount per partner, issue a formal contract (commission, MOQ, duration) — or revoke access instantly. Nobody sells your brand without your rules." },
-  { tab:"distributors", title:"4 · Direct-to-Chain", text:"Beyond independent distributors, NexusHub manages the major European retail chains directly — Douglas, Notino, OvS and more. Your brand reaches the shelves that matter, handled by us." },
-  { tab:"catalog",      title:"5 · Catalog, Prices & Documents", text:"Your products with per-country pricing, MOQ and order multiples, plus technical sheets and compliance documents. The price you set is enforced on every channel — the end of grey-market undercutting." },
-  { tab:"orders",       title:"6 · Orders & Fulfilment", text:"Every distributor order, from status to tracking — stocked and shipped from the Turin hub in 48–72h." },
-  { tab:"fatture",      title:"7 · Invoices", text:"Automatic invoicing with the correct VAT for each of the 27 EU countries. Zero admin work for you." },
-  { tab:"payments",     title:"8 · Payments & Payouts", text:"Transparent, tracked payments and payouts. You receive the funds — commission only on processed orders, no upfront fees." },
-  { tab:"analytics",    title:"9 · AI Analytics", text:"Smart insights: demand by country, best-sellers, seasonality and where to push next." },
-  { tab:"amazon",       title:"10 · Amazon Control", text:"Full Amazon EU management: stop unauthorized sellers, protect the buy-box and enforce your price." },
+  { tab:"overview",     k:"dt0" },
+  { tab:"overview",     k:"dt1" },
+  { tab:"applications", k:"dt2" },
+  { tab:"distributors", k:"dt3" },
+  { tab:"distributors", k:"dt4" },
+  { tab:"catalog",      k:"dt5" },
+  { tab:"orders",       k:"dt6" },
+  { tab:"fatture",      k:"dt7" },
+  { tab:"payments",     k:"dt8" },
+  { tab:"analytics",    k:"dt9" },
+  { tab:"amazon",       k:"dt10" },
 ];
 function DemoTour({ setTab }) {
+  const t = useT();
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   useEffect(() => {
@@ -3128,17 +3291,17 @@ function DemoTour({ setTab }) {
       width:"min(560px,92vw)", background:"linear-gradient(135deg,#14130e,#1c1708)", border:"1px solid #6a531d",
       borderRadius:14, boxShadow:"0 20px 60px rgba(0,0,0,.6)", padding:"15px 18px", fontFamily:"'DM Sans',sans-serif" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:6 }}>
-        <div style={{ color:"#e2bc6a", fontSize:14, fontWeight:800 }}>{s.title}</div>
-        <button onClick={() => setDone(true)} style={{ background:"none", border:"none", color:"#9a927f", fontSize:12, cursor:"pointer", textDecoration:"underline" }}>Skip tour</button>
+        <div style={{ color:"#e2bc6a", fontSize:14, fontWeight:800 }}>{t(s.k+"t")}</div>
+        <button onClick={() => setDone(true)} style={{ background:"none", border:"none", color:"#9a927f", fontSize:12, cursor:"pointer", textDecoration:"underline" }}>{t("tSkip")}</button>
       </div>
-      <div style={{ color:"#e7e2d4", fontSize:13, lineHeight:1.55, marginBottom:12 }}>{s.text}</div>
+      <div style={{ color:"#e7e2d4", fontSize:13, lineHeight:1.55, marginBottom:12 }}>{t(s.k+"x")}</div>
       <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", gap:10 }}>
         <div style={{ display:"flex", gap:4 }}>
           {DEMO_TOUR_STEPS.map((_, i) => (<div key={i} style={{ width:i===step?16:6, height:6, borderRadius:3, background:i===step?"#c9a84c":"#3a3320", transition:"all .3s" }}/>))}
         </div>
         <div style={{ display:"flex", gap:8 }}>
-          <button disabled={step===0} onClick={() => setStep(step-1)} style={{ padding:"7px 14px", borderRadius:8, cursor:step===0?"default":"pointer", background:"transparent", border:"1px solid #3a3320", color:"#9a927f", fontSize:12.5, opacity:step===0?0.4:1 }}>Back</button>
-          <button onClick={() => (last ? setDone(true) : setStep(step+1))} style={{ padding:"7px 18px", borderRadius:8, cursor:"pointer", background:"#c9a84c", border:"none", color:"#0b0b0d", fontSize:12.5, fontWeight:800 }}>{last ? "Finish ✓" : "Next →"}</button>
+          <button disabled={step===0} onClick={() => setStep(step-1)} style={{ padding:"7px 14px", borderRadius:8, cursor:step===0?"default":"pointer", background:"transparent", border:"1px solid #3a3320", color:"#9a927f", fontSize:12.5, opacity:step===0?0.4:1 }}>{t("tBack")}</button>
+          <button onClick={() => (last ? setDone(true) : setStep(step+1))} style={{ padding:"7px 18px", borderRadius:8, cursor:"pointer", background:"#c9a84c", border:"none", color:"#0b0b0d", fontSize:12.5, fontWeight:800 }}>{last ? t("tFin") : t("tNext")}</button>
         </div>
       </div>
     </div>
@@ -4517,17 +4680,18 @@ const InvoiceModal = ({ inv, onClose }) => {
 // DEMO GUIDED TOUR — Distributor side
 // ============================================================
 const DIST_TOUR_STEPS = [
-  { tab:"brands",   title:"Welcome — the Distributor side", text:"You're inside the real NexusHub Distributor portal (demo). One account, all the best Dubai brands — with a service no importer gives you." },
-  { tab:"brands",   title:"1 · One place, many brands", text:"Access multiple top brands from a single account — Lattafa, Rasasi, Ajmal and more. Request access in one click. No more chasing suppliers across the world." },
-  { tab:"catalog",  title:"2 · Same price, better service", text:"The same wholesale prices you'd get buying direct — but ordered in seconds, with live stock, MOQ and one simple cart. The difference is the service, not the price." },
-  { tab:"wishlist", title:"3 · Wishlist", text:"Save your favourites and reorder in a single tap — no searching next time." },
-  { tab:"orders",   title:"4 · Delivered from Europe in 48–72h", text:"Track every order end-to-end. Shipped from the Turin hub — no customs, no import paperwork, no 3-week waits." },
-  { tab:"fatture",  title:"5 · Invoices done for you", text:"Every order invoiced automatically with the correct VAT — ready for your accountant." },
-  { tab:"ai",       title:"6 · AI Assistant", text:"Smart suggestions: what's selling and what to reorder for your market." },
-  { tab:"profile",  title:"7 · Your Data", text:"Company details, VAT number and shipping — all in one place." },
-  { tab:"brands",   title:"Why distributors love NexusHub", text:"Many brands, one login. Same prices as direct — but with European logistics, automatic invoicing and Amazon handled for you. You just sell." },
+  { tab:"brands",   k:"xt0" },
+  { tab:"brands",   k:"xt1" },
+  { tab:"catalog",  k:"xt2" },
+  { tab:"wishlist", k:"xt3" },
+  { tab:"orders",   k:"xt4" },
+  { tab:"fatture",  k:"xt5" },
+  { tab:"ai",       k:"xt6" },
+  { tab:"profile",  k:"xt7" },
+  { tab:"brands",   k:"xt8" },
 ];
 function DistributorTour({ setTab }) {
+  const t = useT();
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   useEffect(() => {
@@ -4541,17 +4705,17 @@ function DistributorTour({ setTab }) {
       width:"min(560px,92vw)", background:"linear-gradient(135deg,#0d1017,#0f1622)", border:"1px solid #24507e",
       borderRadius:14, boxShadow:"0 20px 60px rgba(0,0,0,.6)", padding:"15px 18px", fontFamily:"'DM Sans',sans-serif" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:6 }}>
-        <div style={{ color:"#6fb0ff", fontSize:14, fontWeight:800 }}>{s.title}</div>
-        <button onClick={() => setDone(true)} style={{ background:"none", border:"none", color:"#7f89a3", fontSize:12, cursor:"pointer", textDecoration:"underline" }}>Skip tour</button>
+        <div style={{ color:"#6fb0ff", fontSize:14, fontWeight:800 }}>{t(s.k+"t")}</div>
+        <button onClick={() => setDone(true)} style={{ background:"none", border:"none", color:"#7f89a3", fontSize:12, cursor:"pointer", textDecoration:"underline" }}>{t("tSkip")}</button>
       </div>
-      <div style={{ color:"#dfe4ee", fontSize:13, lineHeight:1.55, marginBottom:12 }}>{s.text}</div>
+      <div style={{ color:"#dfe4ee", fontSize:13, lineHeight:1.55, marginBottom:12 }}>{t(s.k+"x")}</div>
       <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", gap:10 }}>
         <div style={{ display:"flex", gap:4 }}>
           {DIST_TOUR_STEPS.map((_, i) => (<div key={i} style={{ width:i===step?16:6, height:6, borderRadius:3, background:i===step?"#3d8ef0":"#233047", transition:"all .3s" }}/>))}
         </div>
         <div style={{ display:"flex", gap:8 }}>
-          <button disabled={step===0} onClick={() => setStep(step-1)} style={{ padding:"7px 14px", borderRadius:8, cursor:step===0?"default":"pointer", background:"transparent", border:"1px solid #233047", color:"#7f89a3", fontSize:12.5, opacity:step===0?0.4:1 }}>Back</button>
-          <button onClick={() => (last ? setDone(true) : setStep(step+1))} style={{ padding:"7px 18px", borderRadius:8, cursor:"pointer", background:"#3d8ef0", border:"none", color:"#fff", fontSize:12.5, fontWeight:800 }}>{last ? "Finish ✓" : "Next →"}</button>
+          <button disabled={step===0} onClick={() => setStep(step-1)} style={{ padding:"7px 14px", borderRadius:8, cursor:step===0?"default":"pointer", background:"transparent", border:"1px solid #233047", color:"#7f89a3", fontSize:12.5, opacity:step===0?0.4:1 }}>{t("tBack")}</button>
+          <button onClick={() => (last ? setDone(true) : setStep(step+1))} style={{ padding:"7px 18px", borderRadius:8, cursor:"pointer", background:"#3d8ef0", border:"none", color:"#fff", fontSize:12.5, fontWeight:800 }}>{last ? t("tFin") : t("tNext")}</button>
         </div>
       </div>
     </div>
