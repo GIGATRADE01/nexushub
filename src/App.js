@@ -3263,6 +3263,35 @@ Object.assign(T.ar, {
   xt7t:"7 · بياناتك", xt7x:"بيانات الشركة، الرقم الضريبي والشحن — كلها في مكان واحد.",
   xt8t:"لماذا يحب الموزّعون NexusHub", xt8x:"علامات كثيرة، تسجيل دخول واحد. نفس أسعار الشراء المباشر — لكن مع لوجستيات أوروبية وفوترة تلقائية وإدارة Amazon نيابةً عنك. ما عليك سوى البيع.",
 });
+// ————— Product Launches module i18n (brand + distributor) —————
+Object.assign(T.en, {
+  tabLaunches:"Launches", lTitle:"Product Launches", lSub:"Create pre-launch and launch pages — collect reservations and interest from your distributors.", lNew:"New launch", lNone:"No launches yet. Create your first one to let distributors reserve and get notified.", lEdit:"Edit", lDelete:"Delete", lPublish:"Publish", lUnpublish:"Unpublish", lDraftBadge:"Draft", lPubBadge:"Published", lPreBadge:"Pre-launch", lfTitle:"Title", lfSubtitle:"Subtitle", lfDesc:"Description", lfDate:"Launch date", lfProduct:"Linked product (optional)", lfProductNone:"— none —", lfCover:"Cover image", lfPre:"Pre-launch (collect interest before the date)", lfResOpen:"Allow reservations", lfStatus:"Status", lSave:"Save", lCancel:"Cancel", lNewTitle:"New launch", lEditTitle:"Edit launch", lRes:"Reservations", lInterested:"Interested", lNoRes:"No reservations yet", lQty:"Qty", lNote2:"Note", lSaved:"Launch saved", lDeleted:"Launch deleted", lDelConfirm:"Delete this launch?", lNeed:"Title and launch date are required",
+  ldTitle:"Upcoming Launches", ldSub:"New products from your brands — reserve early or get notified at launch.", ldNone:"No launches available right now.", ldReserve:"Reserve", ldReserved:"Reserved ✓", ldNotify:"Notify me", ldNotifyOn:"You'll be notified ✓", ldDaysLeft:"days to launch", ldToday:"Launching today", ldLaunched:"Available now", ldConfirm:"Confirm reservation", ldDone:"Reservation sent", ldBy:"by",
+});
+Object.assign(T.it, {
+  tabLaunches:"Lanci", lTitle:"Lanci prodotto", lSub:"Crea pagine di pre-lancio e lancio — raccogli prenotazioni e interesse dai tuoi distributori.", lNew:"Nuovo lancio", lNone:"Ancora nessun lancio. Crea il primo per far prenotare e avvisare i distributori.", lEdit:"Modifica", lDelete:"Elimina", lPublish:"Pubblica", lUnpublish:"Rendi bozza", lDraftBadge:"Bozza", lPubBadge:"Pubblicato", lPreBadge:"Pre-lancio", lfTitle:"Titolo", lfSubtitle:"Sottotitolo", lfDesc:"Descrizione", lfDate:"Data di lancio", lfProduct:"Prodotto collegato (opzionale)", lfProductNone:"— nessuno —", lfCover:"Immagine di copertina", lfPre:"Pre-lancio (raccogli interesse prima della data)", lfResOpen:"Consenti prenotazioni", lfStatus:"Stato", lSave:"Salva", lCancel:"Annulla", lNewTitle:"Nuovo lancio", lEditTitle:"Modifica lancio", lRes:"Prenotazioni", lInterested:"Interessati", lNoRes:"Ancora nessuna prenotazione", lQty:"Qtà", lNote2:"Nota", lSaved:"Lancio salvato", lDeleted:"Lancio eliminato", lDelConfirm:"Eliminare questo lancio?", lNeed:"Titolo e data di lancio sono obbligatori",
+  ldTitle:"Prossimi lanci", ldSub:"Nuovi prodotti dai tuoi brand — prenota in anticipo o fatti avvisare al lancio.", ldNone:"Nessun lancio disponibile al momento.", ldReserve:"Prenota", ldReserved:"Prenotato ✓", ldNotify:"Avvisami", ldNotifyOn:"Sarai avvisato ✓", ldDaysLeft:"giorni al lancio", ldToday:"Lancio oggi", ldLaunched:"Disponibile ora", ldConfirm:"Conferma prenotazione", ldDone:"Prenotazione inviata", ldBy:"di",
+});
+Object.assign(T.fr, {
+  tabLaunches:"Lancements", lTitle:"Lancements de produits", lSub:"Créez des pages de pré-lancement et de lancement — recueillez réservations et intérêt de vos distributeurs.", lNew:"Nouveau lancement", lNone:"Aucun lancement pour le moment. Créez le premier pour que les distributeurs réservent et soient notifiés.", lEdit:"Modifier", lDelete:"Supprimer", lPublish:"Publier", lUnpublish:"Repasser en brouillon", lDraftBadge:"Brouillon", lPubBadge:"Publié", lPreBadge:"Pré-lancement", lfTitle:"Titre", lfSubtitle:"Sous-titre", lfDesc:"Description", lfDate:"Date de lancement", lfProduct:"Produit lié (facultatif)", lfProductNone:"— aucun —", lfCover:"Image de couverture", lfPre:"Pré-lancement (recueillir l'intérêt avant la date)", lfResOpen:"Autoriser les réservations", lfStatus:"Statut", lSave:"Enregistrer", lCancel:"Annuler", lNewTitle:"Nouveau lancement", lEditTitle:"Modifier le lancement", lRes:"Réservations", lInterested:"Intéressés", lNoRes:"Aucune réservation pour le moment", lQty:"Qté", lNote2:"Note", lSaved:"Lancement enregistré", lDeleted:"Lancement supprimé", lDelConfirm:"Supprimer ce lancement ?", lNeed:"Le titre et la date de lancement sont obligatoires",
+  ldTitle:"Prochains lancements", ldSub:"Nouveaux produits de vos marques — réservez en avance ou soyez notifié au lancement.", ldNone:"Aucun lancement disponible pour le moment.", ldReserve:"Réserver", ldReserved:"Réservé ✓", ldNotify:"Me notifier", ldNotifyOn:"Vous serez notifié ✓", ldDaysLeft:"jours avant le lancement", ldToday:"Lancement aujourd'hui", ldLaunched:"Disponible maintenant", ldConfirm:"Confirmer la réservation", ldDone:"Réservation envoyée", ldBy:"par",
+});
+Object.assign(T.es, {
+  tabLaunches:"Lanzamientos", lTitle:"Lanzamientos de producto", lSub:"Crea páginas de prelanzamiento y lanzamiento — recoge reservas e interés de tus distribuidores.", lNew:"Nuevo lanzamiento", lNone:"Aún no hay lanzamientos. Crea el primero para que los distribuidores reserven y reciban avisos.", lEdit:"Editar", lDelete:"Eliminar", lPublish:"Publicar", lUnpublish:"Pasar a borrador", lDraftBadge:"Borrador", lPubBadge:"Publicado", lPreBadge:"Prelanzamiento", lfTitle:"Título", lfSubtitle:"Subtítulo", lfDesc:"Descripción", lfDate:"Fecha de lanzamiento", lfProduct:"Producto vinculado (opcional)", lfProductNone:"— ninguno —", lfCover:"Imagen de portada", lfPre:"Prelanzamiento (recoger interés antes de la fecha)", lfResOpen:"Permitir reservas", lfStatus:"Estado", lSave:"Guardar", lCancel:"Cancelar", lNewTitle:"Nuevo lanzamiento", lEditTitle:"Editar lanzamiento", lRes:"Reservas", lInterested:"Interesados", lNoRes:"Aún no hay reservas", lQty:"Cant.", lNote2:"Nota", lSaved:"Lanzamiento guardado", lDeleted:"Lanzamiento eliminado", lDelConfirm:"¿Eliminar este lanzamiento?", lNeed:"El título y la fecha de lanzamiento son obligatorios",
+  ldTitle:"Próximos lanzamientos", ldSub:"Nuevos productos de tus marcas — reserva con antelación o recibe aviso en el lanzamiento.", ldNone:"No hay lanzamientos disponibles ahora mismo.", ldReserve:"Reservar", ldReserved:"Reservado ✓", ldNotify:"Avísame", ldNotifyOn:"Recibirás aviso ✓", ldDaysLeft:"días para el lanzamiento", ldToday:"Lanzamiento hoy", ldLaunched:"Disponible ahora", ldConfirm:"Confirmar reserva", ldDone:"Reserva enviada", ldBy:"de",
+});
+Object.assign(T.de, {
+  tabLaunches:"Launches", lTitle:"Produkt-Launches", lSub:"Erstellen Sie Pre-Launch- und Launch-Seiten — sammeln Sie Reservierungen und Interesse Ihrer Distributoren.", lNew:"Neuer Launch", lNone:"Noch keine Launches. Erstellen Sie den ersten, damit Distributoren reservieren und benachrichtigt werden.", lEdit:"Bearbeiten", lDelete:"Löschen", lPublish:"Veröffentlichen", lUnpublish:"Als Entwurf", lDraftBadge:"Entwurf", lPubBadge:"Veröffentlicht", lPreBadge:"Pre-Launch", lfTitle:"Titel", lfSubtitle:"Untertitel", lfDesc:"Beschreibung", lfDate:"Launch-Datum", lfProduct:"Verknüpftes Produkt (optional)", lfProductNone:"— keins —", lfCover:"Titelbild", lfPre:"Pre-Launch (Interesse vor dem Datum sammeln)", lfResOpen:"Reservierungen zulassen", lfStatus:"Status", lSave:"Speichern", lCancel:"Abbrechen", lNewTitle:"Neuer Launch", lEditTitle:"Launch bearbeiten", lRes:"Reservierungen", lInterested:"Interessenten", lNoRes:"Noch keine Reservierungen", lQty:"Menge", lNote2:"Notiz", lSaved:"Launch gespeichert", lDeleted:"Launch gelöscht", lDelConfirm:"Diesen Launch löschen?", lNeed:"Titel und Launch-Datum sind erforderlich",
+  ldTitle:"Kommende Launches", ldSub:"Neue Produkte Ihrer Marken — früh reservieren oder zum Launch benachrichtigt werden.", ldNone:"Derzeit keine Launches verfügbar.", ldReserve:"Reservieren", ldReserved:"Reserviert ✓", ldNotify:"Benachrichtigen", ldNotifyOn:"Sie werden benachrichtigt ✓", ldDaysLeft:"Tage bis zum Launch", ldToday:"Launch heute", ldLaunched:"Jetzt verfügbar", ldConfirm:"Reservierung bestätigen", ldDone:"Reservierung gesendet", ldBy:"von",
+});
+Object.assign(T.zh, {
+  tabLaunches:"新品发布", lTitle:"产品发布", lSub:"创建预发布和发布页面——收集分销商的预订与意向。", lNew:"新建发布", lNone:"暂无发布。创建第一个，让分销商预订并接收通知。", lEdit:"编辑", lDelete:"删除", lPublish:"发布", lUnpublish:"转为草稿", lDraftBadge:"草稿", lPubBadge:"已发布", lPreBadge:"预发布", lfTitle:"标题", lfSubtitle:"副标题", lfDesc:"描述", lfDate:"发布日期", lfProduct:"关联产品（可选）", lfProductNone:"— 无 —", lfCover:"封面图片", lfPre:"预发布（在日期之前收集意向）", lfResOpen:"允许预订", lfStatus:"状态", lSave:"保存", lCancel:"取消", lNewTitle:"新建发布", lEditTitle:"编辑发布", lRes:"预订", lInterested:"感兴趣", lNoRes:"暂无预订", lQty:"数量", lNote2:"备注", lSaved:"发布已保存", lDeleted:"发布已删除", lDelConfirm:"删除此发布？", lNeed:"标题和发布日期为必填项",
+  ldTitle:"即将发布", ldSub:"来自您品牌的新品——提前预订或在发布时获得通知。", ldNone:"目前暂无可用的发布。", ldReserve:"预订", ldReserved:"已预订 ✓", ldNotify:"通知我", ldNotifyOn:"将会通知您 ✓", ldDaysLeft:"天后发布", ldToday:"今日发布", ldLaunched:"现已上市", ldConfirm:"确认预订", ldDone:"预订已发送", ldBy:"来自",
+});
+Object.assign(T.ar, {
+  tabLaunches:"الإطلاقات", lTitle:"إطلاقات المنتجات", lSub:"أنشئ صفحات ما قبل الإطلاق والإطلاق — اجمع الحجوزات واهتمام موزّعيك.", lNew:"إطلاق جديد", lNone:"لا توجد إطلاقات بعد. أنشئ أول إطلاق ليحجز الموزّعون ويتلقّوا الإشعارات.", lEdit:"تعديل", lDelete:"حذف", lPublish:"نشر", lUnpublish:"إرجاع إلى مسودة", lDraftBadge:"مسودة", lPubBadge:"منشور", lPreBadge:"ما قبل الإطلاق", lfTitle:"العنوان", lfSubtitle:"العنوان الفرعي", lfDesc:"الوصف", lfDate:"تاريخ الإطلاق", lfProduct:"منتج مرتبط (اختياري)", lfProductNone:"— لا شيء —", lfCover:"صورة الغلاف", lfPre:"ما قبل الإطلاق (اجمع الاهتمام قبل التاريخ)", lfResOpen:"السماح بالحجوزات", lfStatus:"الحالة", lSave:"حفظ", lCancel:"إلغاء", lNewTitle:"إطلاق جديد", lEditTitle:"تعديل الإطلاق", lRes:"الحجوزات", lInterested:"المهتمّون", lNoRes:"لا توجد حجوزات بعد", lQty:"الكمية", lNote2:"ملاحظة", lSaved:"تم حفظ الإطلاق", lDeleted:"تم حذف الإطلاق", lDelConfirm:"حذف هذا الإطلاق؟", lNeed:"العنوان وتاريخ الإطلاق مطلوبان",
+  ldTitle:"الإطلاقات القادمة", ldSub:"منتجات جديدة من علاماتك — احجز مبكرًا أو احصل على إشعار عند الإطلاق.", ldNone:"لا توجد إطلاقات متاحة حاليًا.", ldReserve:"حجز", ldReserved:"محجوز ✓", ldNotify:"أبلغني", ldNotifyOn:"سيتم إبلاغك ✓", ldDaysLeft:"أيام حتى الإطلاق", ldToday:"الإطلاق اليوم", ldLaunched:"متاح الآن", ldConfirm:"تأكيد الحجز", ldDone:"تم إرسال الحجز", ldBy:"من",
+});
 const DEMO_TOUR_STEPS = [
   { tab:"overview",     k:"dt0" },
   { tab:"overview",     k:"dt1" },
@@ -3304,6 +3333,261 @@ function DemoTour({ setTab }) {
           <button onClick={() => (last ? setDone(true) : setStep(step+1))} style={{ padding:"7px 18px", borderRadius:8, cursor:"pointer", background:"#c9a84c", border:"none", color:"#0b0b0d", fontSize:12.5, fontWeight:800 }}>{last ? t("tFin") : t("tNext")}</button>
         </div>
       </div>
+    </div>
+  );
+}
+
+// ————— Product Launches — Brand side (create / manage / see reservations) —————
+function BrandLaunches() {
+  const t = useT();
+  const inp = { width:"100%", marginTop:5, padding:"9px 11px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, boxSizing:"border-box" };
+  const lbl = { fontSize:12.5, fontWeight:600, color:C.textMuted, display:"block" };
+  const rowChk = { display:"flex", alignItems:"center", gap:8, fontSize:13, color:C.text, cursor:"pointer" };
+  const btnGhost = { padding:"6px 10px", borderRadius:7, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:12, fontWeight:600 };
+  const blankForm = { title:"", subtitle:"", description:"", launch_date:"", product_id:"", is_prelaunch:true, reservations_open:true, status:"draft", cover_url:"", cover_file:null };
+  const [launches, setLaunches] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [info, setInfo] = useState({});
+  const [showForm, setShowForm] = useState(false);
+  const [editing, setEditing] = useState(null);
+  const [expanded, setExpanded] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const [toast, setToast] = useState("");
+  const [form, setForm] = useState(blankForm);
+  const notify = (m) => { setToast(m); setTimeout(() => setToast(""), 2600); };
+  const load = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    const { data: ls } = await supabase.from("product_launches").select("*").eq("brand_id", user.id).order("launch_date", { ascending: true });
+    setLaunches(ls || []);
+    const { data: ps } = await supabase.from("products").select("id, name").eq("brand_id", user.id).eq("is_active", true).order("name");
+    setProducts(ps || []);
+    const ids = (ls || []).map(l => l.id);
+    if (!ids.length) { setInfo({}); return; }
+    const { data: rs } = await supabase.from("launch_reservations").select("*").in("launch_id", ids);
+    const { data: sb } = await supabase.from("launch_subscribers").select("launch_id").in("launch_id", ids);
+    const distIds = [...new Set((rs || []).map(r => r.distributor_id))];
+    const names = {};
+    if (distIds.length) { const { data: pf } = await supabase.from("profiles").select("id, company_name").in("id", distIds); (pf || []).forEach(p => { names[p.id] = p.company_name; }); }
+    const map = {};
+    (ls || []).forEach(l => { map[l.id] = { res: (rs || []).filter(r => r.launch_id === l.id).map(r => ({ ...r, company: names[r.distributor_id] || "—" })), subs: (sb || []).filter(s => s.launch_id === l.id).length }; });
+    setInfo(map);
+  };
+  useEffect(() => { load(); }, []);
+  const openNew = () => { setEditing(null); setForm(blankForm); setShowForm(true); };
+  const openEdit = (l) => { setEditing(l); setForm({ title:l.title||"", subtitle:l.subtitle||"", description:l.description||"", launch_date: l.launch_date ? new Date(l.launch_date).toISOString().slice(0,16) : "", product_id:l.product_id||"", is_prelaunch:!!l.is_prelaunch, reservations_open:!!l.reservations_open, status:l.status||"draft", cover_url:l.cover_url||"", cover_file:null }); setShowForm(true); };
+  const save = async () => {
+    if (!form.title.trim() || !form.launch_date) { notify(t("lNeed")); return; }
+    setBusy(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      let coverUrl = form.cover_url || null;
+      if (form.cover_file) {
+        const f = form.cover_file; const path = `launches/${Date.now()}_${f.name}`;
+        const up = await supabase.storage.from("documents").upload(path, f, { upsert: true });
+        if (up && up.data) coverUrl = supabase.storage.from("documents").getPublicUrl(path).data.publicUrl;
+      }
+      const payload = { brand_id:user.id, title:form.title.trim(), subtitle:form.subtitle.trim()||null, description:form.description.trim()||null, launch_date:new Date(form.launch_date).toISOString(), product_id:form.product_id||null, is_prelaunch:!!form.is_prelaunch, reservations_open:!!form.reservations_open, status:form.status, cover_url:coverUrl };
+      if (editing) await supabase.from("product_launches").update({ ...payload, updated_at:new Date().toISOString() }).eq("id", editing.id);
+      else await supabase.from("product_launches").insert(payload);
+      notify(t("lSaved")); setShowForm(false); setEditing(null); setForm(blankForm); load();
+    } catch (e) { console.error(e); }
+    setBusy(false);
+  };
+  const togglePublish = async (l) => { const ns = l.status === "published" ? "draft" : "published"; await supabase.from("product_launches").update({ status:ns, updated_at:new Date().toISOString() }).eq("id", l.id); setLaunches(prev => prev.map(x => x.id===l.id ? { ...x, status:ns } : x)); };
+  const del = async (l) => { if (!window.confirm(t("lDelConfirm"))) return; await supabase.from("product_launches").delete().eq("id", l.id); setLaunches(prev => prev.filter(x => x.id !== l.id)); notify(t("lDeleted")); };
+  const fmtDate = (d) => new Date(d).toLocaleDateString(undefined, { day:"2-digit", month:"short", year:"numeric" });
+  return (
+    <div>
+      {toast && <div style={{ position:"fixed", bottom:20, left:"50%", transform:"translateX(-50%)", background:C.surface3, border:`1px solid ${C.gold}55`, color:C.goldLight, padding:"10px 18px", borderRadius:10, zIndex:100001, fontSize:13, fontWeight:600 }}>{toast}</div>}
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:12, marginBottom:16, flexWrap:"wrap" }}>
+        <div>
+          <div style={{ fontSize:20, fontWeight:800, color:C.text }}>{t("lTitle")}</div>
+          <div style={{ fontSize:13, color:C.textMuted, marginTop:3, maxWidth:640 }}>{t("lSub")}</div>
+        </div>
+        <button onClick={openNew} style={{ padding:"10px 18px", borderRadius:9, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:800, whiteSpace:"nowrap" }}>+ {t("lNew")}</button>
+      </div>
+      {launches.length === 0 ? (
+        <div style={{ textAlign:"center", padding:"60px 20px", color:C.textMuted, border:`1px dashed ${C.border}`, borderRadius:14 }}>
+          <div style={{ fontSize:40, marginBottom:12 }}>🚀</div>
+          <div style={{ fontSize:14, maxWidth:420, margin:"0 auto", lineHeight:1.6 }}>{t("lNone")}</div>
+        </div>
+      ) : (
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:16 }}>
+          {launches.map(l => {
+            const nfo = info[l.id] || { res:[], subs:0 };
+            const pub = l.status === "published";
+            const resCount = nfo.res.reduce((a,r)=>a+(r.quantity||1),0);
+            return (
+              <div key={l.id} style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, overflow:"hidden", display:"flex", flexDirection:"column" }}>
+                <div style={{ height:130, background: l.cover_url ? `center/cover no-repeat url(${l.cover_url})` : `linear-gradient(135deg,${C.surface3},${C.surface2})`, position:"relative", display:"flex", alignItems:"center", justifyContent:"center" }}>
+                  {!l.cover_url && <span style={{ fontSize:34, opacity:.5 }}>🚀</span>}
+                  <div style={{ position:"absolute", top:8, left:8, display:"flex", gap:6 }}>
+                    <span style={{ fontSize:10.5, fontWeight:700, padding:"3px 8px", borderRadius:20, background: pub?`${C.green}22`:`${C.textDim}22`, color: pub?C.green:C.textMuted, border:`1px solid ${pub?C.green:C.textDim}55` }}>{pub?t("lPubBadge"):t("lDraftBadge")}</span>
+                    {l.is_prelaunch && <span style={{ fontSize:10.5, fontWeight:700, padding:"3px 8px", borderRadius:20, background:`${C.gold}20`, color:C.goldLight, border:`1px solid ${C.gold}55` }}>{t("lPreBadge")}</span>}
+                  </div>
+                </div>
+                <div style={{ padding:"12px 14px", display:"flex", flexDirection:"column", gap:6, flex:1 }}>
+                  <div style={{ fontSize:15, fontWeight:700, color:C.text }}>{l.title}</div>
+                  {l.subtitle && <div style={{ fontSize:12.5, color:C.textMuted, lineHeight:1.5 }}>{l.subtitle}</div>}
+                  <div style={{ fontSize:12, color:C.textDim, marginTop:2 }}>📅 {fmtDate(l.launch_date)}</div>
+                  <div style={{ display:"flex", gap:14, marginTop:4, fontSize:12 }}>
+                    <span style={{ color:C.goldLight, fontWeight:600 }}>{resCount} · {t("lRes")}</span>
+                    <span style={{ color:C.blue, fontWeight:600 }}>{nfo.subs} · {t("lInterested")}</span>
+                  </div>
+                  <div style={{ display:"flex", gap:6, marginTop:8, flexWrap:"wrap" }}>
+                    <button onClick={()=>openEdit(l)} style={btnGhost}>{t("lEdit")}</button>
+                    <button onClick={()=>togglePublish(l)} style={btnGhost}>{pub?t("lUnpublish"):t("lPublish")}</button>
+                    <button onClick={()=>setExpanded(expanded===l.id?null:l.id)} style={btnGhost}>{t("lRes")} ({nfo.res.length})</button>
+                    <button onClick={()=>del(l)} style={{ ...btnGhost, color:C.red, borderColor:`${C.red}55` }}>{t("lDelete")}</button>
+                  </div>
+                  {expanded===l.id && (
+                    <div style={{ marginTop:8, borderTop:`1px solid ${C.border}`, paddingTop:8 }}>
+                      {nfo.res.length===0 ? <div style={{ fontSize:12, color:C.textMuted }}>{t("lNoRes")}</div> :
+                        nfo.res.map(r => (
+                          <div key={r.id} style={{ display:"flex", justifyContent:"space-between", gap:8, fontSize:12, padding:"4px 0", color:C.text }}>
+                            <span>{r.company}</span>
+                            <span style={{ color:C.textMuted }}>{t("lQty")}: {r.quantity}{r.note?` · ${r.note}`:""}</span>
+                          </div>
+                        ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+      {showForm && (
+        <div onClick={()=>!busy&&setShowForm(false)} style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.6)", zIndex:100000, display:"flex", alignItems:"flex-start", justifyContent:"center", padding:"40px 16px", overflowY:"auto" }}>
+          <div onClick={e=>e.stopPropagation()} style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:16, padding:22, width:"min(560px,100%)", display:"flex", flexDirection:"column", gap:12 }}>
+            <div style={{ fontSize:17, fontWeight:800, color:C.text }}>{editing?t("lEditTitle"):t("lNewTitle")}</div>
+            <label style={lbl}>{t("lfTitle")}<input value={form.title} onChange={e=>setForm(f=>({...f,title:e.target.value}))} style={inp}/></label>
+            <label style={lbl}>{t("lfSubtitle")}<input value={form.subtitle} onChange={e=>setForm(f=>({...f,subtitle:e.target.value}))} style={inp}/></label>
+            <label style={lbl}>{t("lfDesc")}<textarea value={form.description} onChange={e=>setForm(f=>({...f,description:e.target.value}))} rows={3} style={{...inp, resize:"vertical"}}/></label>
+            <label style={lbl}>{t("lfDate")}<input type="datetime-local" value={form.launch_date} onChange={e=>setForm(f=>({...f,launch_date:e.target.value}))} style={inp}/></label>
+            <label style={lbl}>{t("lfProduct")}<select value={form.product_id} onChange={e=>setForm(f=>({...f,product_id:e.target.value}))} style={inp}><option value="">{t("lfProductNone")}</option>{products.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></label>
+            <label style={lbl}>{t("lfCover")}<input type="file" accept="image/*" onChange={e=>setForm(f=>({...f,cover_file:e.target.files[0]||null}))} style={{...inp, padding:8}}/></label>
+            <label style={lbl}>{t("lfStatus")}<select value={form.status} onChange={e=>setForm(f=>({...f,status:e.target.value}))} style={inp}><option value="draft">{t("lDraftBadge")}</option><option value="published">{t("lPubBadge")}</option></select></label>
+            <label style={rowChk}><input type="checkbox" checked={form.is_prelaunch} onChange={e=>setForm(f=>({...f,is_prelaunch:e.target.checked}))}/> {t("lfPre")}</label>
+            <label style={rowChk}><input type="checkbox" checked={form.reservations_open} onChange={e=>setForm(f=>({...f,reservations_open:e.target.checked}))}/> {t("lfResOpen")}</label>
+            <div style={{ display:"flex", gap:8, justifyContent:"flex-end", marginTop:6 }}>
+              <button disabled={busy} onClick={()=>setShowForm(false)} style={btnGhost}>{t("lCancel")}</button>
+              <button disabled={busy} onClick={save} style={{ padding:"9px 20px", borderRadius:9, cursor:busy?"default":"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:800, opacity:busy?.6:1 }}>{busy?"…":t("lSave")}</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ————— Product Launches — Distributor side (browse / reserve / notify) —————
+function DistributorLaunches() {
+  const t = useT();
+  const inp = { width:"100%", marginTop:5, padding:"9px 11px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, boxSizing:"border-box" };
+  const btnGhost = { padding:"9px 14px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:12.5, fontWeight:600 };
+  const [launches, setLaunches] = useState([]);
+  const [brands, setBrands] = useState({});
+  const [myRes, setMyRes] = useState({});
+  const [mySubs, setMySubs] = useState({});
+  const [resModal, setResModal] = useState(null);
+  const [resForm, setResForm] = useState({ quantity:1, note:"" });
+  const [busy, setBusy] = useState(false);
+  const [toast, setToast] = useState("");
+  const notify = (m) => { setToast(m); setTimeout(() => setToast(""), 2600); };
+  const load = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    const { data: ls } = await supabase.from("product_launches").select("*").eq("status", "published").order("launch_date", { ascending: true });
+    setLaunches(ls || []);
+    const bids = [...new Set((ls || []).map(l => l.brand_id))];
+    if (bids.length) { const { data: pf } = await supabase.from("profiles").select("id, company_name").in("id", bids); const m = {}; (pf || []).forEach(p => { m[p.id] = p.company_name; }); setBrands(m); }
+    const { data: rs } = await supabase.from("launch_reservations").select("*").eq("distributor_id", user.id);
+    const rmap = {}; (rs || []).forEach(r => { rmap[r.launch_id] = r; }); setMyRes(rmap);
+    const { data: sb } = await supabase.from("launch_subscribers").select("launch_id").eq("distributor_id", user.id);
+    const smap = {}; (sb || []).forEach(s => { smap[s.launch_id] = true; }); setMySubs(smap);
+  };
+  useEffect(() => { load(); }, []);
+  const daysLeft = (d) => Math.ceil((new Date(d).getTime() - Date.now()) / 86400000);
+  const openReserve = (l) => { setResModal(l); setResForm({ quantity:1, note:"" }); };
+  const confirmReserve = async () => {
+    if (!resModal) return; setBusy(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      const row = { launch_id:resModal.id, distributor_id:user.id, quantity:parseInt(resForm.quantity)||1, note:resForm.note.trim()||null, status:"reserved" };
+      await supabase.from("launch_reservations").insert(row);
+      setMyRes(prev => ({ ...prev, [resModal.id]: row }));
+      notify(t("ldDone")); setResModal(null);
+    } catch (e) { console.error(e); }
+    setBusy(false);
+  };
+  const toggleNotify = async (l) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    if (mySubs[l.id]) { await supabase.from("launch_subscribers").delete().eq("distributor_id", user.id).eq("launch_id", l.id); setMySubs(prev => { const n = { ...prev }; delete n[l.id]; return n; }); }
+    else { await supabase.from("launch_subscribers").insert({ launch_id:l.id, distributor_id:user.id, notify:true }); setMySubs(prev => ({ ...prev, [l.id]:true })); }
+  };
+  const fmtDate = (d) => new Date(d).toLocaleDateString(undefined, { day:"2-digit", month:"short", year:"numeric" });
+  return (
+    <div>
+      {toast && <div style={{ position:"fixed", bottom:20, left:"50%", transform:"translateX(-50%)", background:C.surface3, border:`1px solid ${C.gold}55`, color:C.goldLight, padding:"10px 18px", borderRadius:10, zIndex:100001, fontSize:13, fontWeight:600 }}>{toast}</div>}
+      <div style={{ marginBottom:16 }}>
+        <div style={{ fontSize:20, fontWeight:800, color:C.text }}>{t("ldTitle")}</div>
+        <div style={{ fontSize:13, color:C.textMuted, marginTop:3, maxWidth:640 }}>{t("ldSub")}</div>
+      </div>
+      {launches.length === 0 ? (
+        <div style={{ textAlign:"center", padding:"60px 20px", color:C.textMuted, border:`1px dashed ${C.border}`, borderRadius:14 }}>
+          <div style={{ fontSize:40, marginBottom:12 }}>🚀</div>
+          <div style={{ fontSize:14 }}>{t("ldNone")}</div>
+        </div>
+      ) : (
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:16 }}>
+          {launches.map(l => {
+            const dl = daysLeft(l.launch_date);
+            const reserved = !!myRes[l.id];
+            const subbed = !!mySubs[l.id];
+            const cd = dl>0 ? `${dl} ${t("ldDaysLeft")}` : (dl===0 ? t("ldToday") : t("ldLaunched"));
+            return (
+              <div key={l.id} style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:14, overflow:"hidden", display:"flex", flexDirection:"column" }}>
+                <div style={{ height:140, background: l.cover_url ? `center/cover no-repeat url(${l.cover_url})` : `linear-gradient(135deg,${C.surface3},${C.surface2})`, position:"relative", display:"flex", alignItems:"center", justifyContent:"center" }}>
+                  {!l.cover_url && <span style={{ fontSize:34, opacity:.5 }}>🚀</span>}
+                  {l.is_prelaunch && <span style={{ position:"absolute", top:8, left:8, fontSize:10.5, fontWeight:700, padding:"3px 8px", borderRadius:20, background:`${C.gold}20`, color:C.goldLight, border:`1px solid ${C.gold}55` }}>{t("lPreBadge")}</span>}
+                  <span style={{ position:"absolute", bottom:8, right:8, fontSize:11, fontWeight:700, padding:"3px 9px", borderRadius:20, background:"rgba(0,0,0,.55)", color:"#fff" }}>{cd}</span>
+                </div>
+                <div style={{ padding:"12px 14px", display:"flex", flexDirection:"column", gap:6, flex:1 }}>
+                  <div style={{ fontSize:11, color:C.textDim, textTransform:"uppercase", letterSpacing:.4 }}>{t("ldBy")} {brands[l.brand_id]||"—"}</div>
+                  <div style={{ fontSize:15, fontWeight:700, color:C.text }}>{l.title}</div>
+                  {l.subtitle && <div style={{ fontSize:12.5, color:C.textMuted, lineHeight:1.5 }}>{l.subtitle}</div>}
+                  {l.description && <div style={{ fontSize:12, color:C.textDim, lineHeight:1.5 }}>{l.description}</div>}
+                  <div style={{ fontSize:12, color:C.textDim, marginTop:2 }}>📅 {fmtDate(l.launch_date)}</div>
+                  <div style={{ display:"flex", gap:8, marginTop:8 }}>
+                    {l.reservations_open && (reserved ? (
+                      <button disabled style={{ flex:1, padding:"9px", borderRadius:8, background:`${C.green}18`, border:`1px solid ${C.green}55`, color:C.green, fontSize:12.5, fontWeight:700, cursor:"default" }}>{t("ldReserved")}</button>
+                    ) : (
+                      <button onClick={()=>openReserve(l)} style={{ flex:1, padding:"9px", borderRadius:8, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:12.5, fontWeight:800, cursor:"pointer" }}>{t("ldReserve")}</button>
+                    ))}
+                    <button onClick={()=>toggleNotify(l)} style={{ flex:l.reservations_open?"0 0 auto":1, padding:"9px 12px", borderRadius:8, background: subbed?`${C.blue}18`:"transparent", border:`1px solid ${subbed?C.blue:C.border}`, color: subbed?C.blue:C.textMuted, fontSize:12.5, fontWeight:600, cursor:"pointer", whiteSpace:"nowrap" }}>{subbed?t("ldNotifyOn"):t("ldNotify")}</button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+      {resModal && (
+        <div onClick={()=>!busy&&setResModal(null)} style={{ position:"fixed", inset:0, background:"rgba(0,0,0,.6)", zIndex:100000, display:"flex", alignItems:"center", justifyContent:"center", padding:16 }}>
+          <div onClick={e=>e.stopPropagation()} style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:16, padding:22, width:"min(420px,100%)", display:"flex", flexDirection:"column", gap:12 }}>
+            <div style={{ fontSize:16, fontWeight:800, color:C.text }}>{resModal.title}</div>
+            <label style={{ fontSize:12.5, fontWeight:600, color:C.textMuted }}>{t("lQty")}<input type="number" min={1} value={resForm.quantity} onChange={e=>setResForm(f=>({...f,quantity:e.target.value}))} style={inp}/></label>
+            <label style={{ fontSize:12.5, fontWeight:600, color:C.textMuted }}>{t("lNote2")}<textarea rows={2} value={resForm.note} onChange={e=>setResForm(f=>({...f,note:e.target.value}))} style={{...inp, resize:"vertical"}}/></label>
+            <div style={{ display:"flex", gap:8, justifyContent:"flex-end" }}>
+              <button disabled={busy} onClick={()=>setResModal(null)} style={btnGhost}>{t("lCancel")}</button>
+              <button disabled={busy} onClick={confirmReserve} style={{ padding:"9px 20px", borderRadius:9, cursor:busy?"default":"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:800, opacity:busy?.6:1 }}>{busy?"…":t("ldConfirm")}</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -3613,6 +3897,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"applications", icon:"📋", label:t("tabApplications"), badge:pending },
     { key:"distributors", icon:"⬡", label:t("tabDistributors") },
     { key:"catalog", icon:"◻", label:t("tabCatalog") },
+    { key:"launches", icon:"🚀", label:t("tabLaunches") },
     { key:"orders", icon:"↗", label:t("tabOrders") },
     { key:"fatture", icon:"🧾", label:t("ddInvoices") },
     { key:"payments", icon:"€", label:t("tabPayments") },
@@ -3662,6 +3947,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
       <div style={{ padding:"22px 18px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
         {isDemo() && <DemoTour setTab={setTab}/>}
+        {tab==="launches" && <BrandLaunches/>}
         {tab==="overview" && (() => {
           const approved = accessReqs.filter(r => r.status === "approved");
           const territories = new Set(approved.map(r => r.distributor && r.distributor.country).filter(Boolean)).size;
@@ -4986,6 +5272,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   };
   const tabs = [
     { key:"brands", icon:"◈", label:t("tabBrandMarket") },
+    { key:"launches", icon:"🚀", label:t("tabLaunches") },
     { key:"catalog", icon:"◻", label:t("tabMyCatalog") },
     { key:"wishlist", icon:"♥", label:t("ddWishlist") },
     { key:"orders", icon:"↗", label:t("tabMyOrders") },
@@ -5012,6 +5299,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       <div style={{ padding:"22px 18px", maxWidth:1400, margin:"0 auto" }}>
         <TabNav tabs={tabs} active={tab} onChange={setTab}/>
         {isDemo() && <DistributorTour setTab={setTab}/>}
+        {tab==="launches" && <DistributorLaunches/>}
         {tab==="brands" && (
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("marketTitle")}</h2>
