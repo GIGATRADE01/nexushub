@@ -1993,6 +1993,12 @@ const Login = ({ onLogin, lang, onLangChange }) => {
         <button onClick={handleDemoDist} disabled={loading} style={{ width:"100%", marginTop:8, padding:"12px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.blue},#2b6fc0)`, border:"none", color:"#fff", fontSize:13.5, fontWeight:800, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
           <span>📦</span> Enter live Distributor demo — no login
         </button>
+        <div style={{ marginTop:18, paddingTop:14, borderTop:`1px solid ${C.border}`, textAlign:"center", fontSize:11, color:C.textDim, lineHeight:1.7 }}>
+          <a href="/privacy.html" target="_blank" rel="noreferrer" style={{ color:C.textMuted, textDecoration:"none" }}>{t("ftPrivacy")}</a>
+          <span style={{ margin:"0 8px" }}>·</span>
+          <a href="/terms.html" target="_blank" rel="noreferrer" style={{ color:C.textMuted, textDecoration:"none" }}>{t("ftTerms")}</a>
+          <div style={{ marginTop:4 }}>GIGA TRADE S.R.L.S. · P.IVA IT13105910015 · Torino, Italia</div>
+        </div>
       </div>
     </div>
   );
@@ -2015,6 +2021,7 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState("");
   const [docs, setDocs] = useState({});
+  const [consent, setConsent] = useState(false);
   const [iban, setIban] = useState("");
   const [bankName, setBankName] = useState("");
   const [accountHolder, setAccountHolder] = useState("");
@@ -2247,9 +2254,19 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
                 </label>
               ))}
             </div>
+            <label style={{ display:"flex", alignItems:"flex-start", gap:9, margin:"14px 0 4px", cursor:"pointer" }}>
+              <input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)}
+                style={{ marginTop:3, accentColor:C.gold, width:16, height:16, cursor:"pointer" }}/>
+              <span style={{ fontSize:12, color:C.textMuted, lineHeight:1.5 }}>
+                {t("rgConsent")}{" "}
+                <a href="/terms.html" target="_blank" rel="noreferrer" style={{ color:C.gold }}>{t("rgTerms")}</a>
+                {" "}{t("rgAnd")}{" "}
+                <a href="/privacy.html" target="_blank" rel="noreferrer" style={{ color:C.gold }}>{t("rgPrivacy")}</a>.
+              </span>
+            </label>
             <div style={{ display:"flex", gap:10 }}>
               <button type="button" onClick={() => setStep(1)} style={{ padding:"12px 18px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>{t("rgBack")}</button>
-              <button type="submit" disabled={loading} style={{ flex:1, padding:"13px", borderRadius:10, cursor:"pointer", background:loading?C.goldDim:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700 }}>
+              <button type="submit" disabled={loading || !consent} style={{ flex:1, padding:"13px", borderRadius:10, cursor:(loading||!consent)?"not-allowed":"pointer", background:(loading||!consent)?C.goldDim:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, opacity:(loading||!consent)?0.6:1 }}>
                 {loading ? t("sending") : t("submitRequest")}
               </button>
             </div>
@@ -3292,6 +3309,15 @@ Object.assign(T.ar, {
   tabLaunches:"الإطلاقات", lTitle:"إطلاقات المنتجات", lSub:"أنشئ صفحات ما قبل الإطلاق والإطلاق — اجمع الحجوزات واهتمام موزّعيك.", lNew:"إطلاق جديد", lNone:"لا توجد إطلاقات بعد. أنشئ أول إطلاق ليحجز الموزّعون ويتلقّوا الإشعارات.", lEdit:"تعديل", lDelete:"حذف", lPublish:"نشر", lUnpublish:"إرجاع إلى مسودة", lDraftBadge:"مسودة", lPubBadge:"منشور", lPreBadge:"ما قبل الإطلاق", lfTitle:"العنوان", lfSubtitle:"العنوان الفرعي", lfDesc:"الوصف", lfDate:"تاريخ الإطلاق", lfProduct:"منتج مرتبط (اختياري)", lfProductNone:"— لا شيء —", lfCover:"صورة الغلاف", lfPre:"ما قبل الإطلاق (اجمع الاهتمام قبل التاريخ)", lfResOpen:"السماح بالحجوزات", lfStatus:"الحالة", lSave:"حفظ", lCancel:"إلغاء", lNewTitle:"إطلاق جديد", lEditTitle:"تعديل الإطلاق", lRes:"الحجوزات", lInterested:"المهتمّون", lNoRes:"لا توجد حجوزات بعد", lQty:"الكمية", lNote2:"ملاحظة", lSaved:"تم حفظ الإطلاق", lDeleted:"تم حذف الإطلاق", lDelConfirm:"حذف هذا الإطلاق؟", lNeed:"العنوان وتاريخ الإطلاق مطلوبان",
   ldTitle:"الإطلاقات القادمة", ldSub:"منتجات جديدة من علاماتك — احجز مبكرًا أو احصل على إشعار عند الإطلاق.", ldNone:"لا توجد إطلاقات متاحة حاليًا.", ldReserve:"حجز", ldReserved:"محجوز ✓", ldNotify:"أبلغني", ldNotifyOn:"سيتم إبلاغك ✓", ldDaysLeft:"أيام حتى الإطلاق", ldToday:"الإطلاق اليوم", ldLaunched:"متاح الآن", ldConfirm:"تأكيد الحجز", ldDone:"تم إرسال الحجز", ldBy:"من",
 });
+
+// --- Legale: consenso in registrazione + link footer ---
+Object.assign(T.en, { rgConsent:"I confirm I am acting on behalf of a business and I accept the", rgTerms:"Terms and Conditions", rgAnd:"and the", rgPrivacy:"Privacy Policy", ftPrivacy:"Privacy", ftTerms:"Terms" });
+Object.assign(T.it, { rgConsent:"Dichiaro di agire per conto di un'impresa e accetto i", rgTerms:"Termini e Condizioni", rgAnd:"e l'", rgPrivacy:"Informativa Privacy", ftPrivacy:"Privacy", ftTerms:"Termini" });
+Object.assign(T.fr, { rgConsent:"Je déclare agir pour le compte d'une entreprise et j'accepte les", rgTerms:"Conditions Générales", rgAnd:"et la", rgPrivacy:"Politique de Confidentialité", ftPrivacy:"Confidentialité", ftTerms:"Conditions" });
+Object.assign(T.es, { rgConsent:"Declaro actuar en nombre de una empresa y acepto los", rgTerms:"Términos y Condiciones", rgAnd:"y la", rgPrivacy:"Política de Privacidad", ftPrivacy:"Privacidad", ftTerms:"Términos" });
+Object.assign(T.de, { rgConsent:"Ich handle im Namen eines Unternehmens und akzeptiere die", rgTerms:"AGB", rgAnd:"und die", rgPrivacy:"Datenschutzerklärung", ftPrivacy:"Datenschutz", ftTerms:"AGB" });
+Object.assign(T.zh, { rgConsent:"我确认代表企业行事，并接受", rgTerms:"条款与条件", rgAnd:"以及", rgPrivacy:"隐私政策", ftPrivacy:"隐私", ftTerms:"条款" });
+Object.assign(T.ar, { rgConsent:"أؤكد أنني أتصرف نيابة عن شركة وأوافق على", rgTerms:"الشروط والأحكام", rgAnd:"و", rgPrivacy:"سياسة الخصوصية", ftPrivacy:"الخصوصية", ftTerms:"الشروط" });
 const DEMO_TOUR_STEPS = [
   { tab:"overview",     k:"dt0" },
   { tab:"overview",     k:"dt1" },
