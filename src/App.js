@@ -2065,6 +2065,18 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
           full_name: fullName, company_name: companyName, phone, country, account_type: acctType,
           ...(isBrand ? {} : { shipping_address: accountHolder || null, shipping_city: bankName || null, shipping_zip: iban || null, shipping_region: swiftBic || null }),
         }, { onConflict: "id" });
+        // Firma elettronica del contratto: registra chi ha accettato, cosa e quando
+        try {
+          await supabase.from("agreement_acceptances").insert({
+            user_id: data.user.id,
+            role: role,
+            agreement_type: isBrand ? "brand_agreement" : "distributor_terms",
+            agreement_version: "1.0",
+            accepted_name: fullName || null,
+            company_name: companyName || null,
+            user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 300) : null,
+          });
+        } catch (e) { console.error("consenso non registrato", e); }
         await supabase.from("profile_billing").upsert({
           id: data.user.id,
           vat_number: vatNumber || null,
@@ -2259,9 +2271,14 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
                 style={{ marginTop:3, accentColor:C.gold, width:16, height:16, cursor:"pointer" }}/>
               <span style={{ fontSize:12, color:C.textMuted, lineHeight:1.5 }}>
                 {t("rgConsent")}{" "}
-                <a href="/terms.html" target="_blank" rel="noreferrer" style={{ color:C.gold }}>{t("rgTerms")}</a>
+                {isBrand ? (
+                  <a href="/brand-agreement.html" target="_blank" rel="noreferrer" style={{ color:C.gold, fontWeight:600 }}>{t("rgBrandAgr")}</a>
+                ) : (
+                  <a href="/terms.html" target="_blank" rel="noreferrer" style={{ color:C.gold, fontWeight:600 }}>{t("rgTerms")}</a>
+                )}
                 {" "}{t("rgAnd")}{" "}
                 <a href="/privacy.html" target="_blank" rel="noreferrer" style={{ color:C.gold }}>{t("rgPrivacy")}</a>.
+                <span style={{ display:"block", marginTop:4, fontSize:11, color:C.textDim }}>{t("rgSignNote")}</span>
               </span>
             </label>
             <div style={{ display:"flex", gap:10 }}>
@@ -3311,13 +3328,13 @@ Object.assign(T.ar, {
 });
 
 // --- Legale: consenso in registrazione + link footer ---
-Object.assign(T.en, { rgConsent:"I confirm I am acting on behalf of a business and I accept the", rgTerms:"Terms and Conditions", rgAnd:"and the", rgPrivacy:"Privacy Policy", ftPrivacy:"Privacy", ftTerms:"Terms" });
-Object.assign(T.it, { rgConsent:"Dichiaro di agire per conto di un'impresa e accetto i", rgTerms:"Termini e Condizioni", rgAnd:"e l'", rgPrivacy:"Informativa Privacy", ftPrivacy:"Privacy", ftTerms:"Termini" });
-Object.assign(T.fr, { rgConsent:"Je déclare agir pour le compte d'une entreprise et j'accepte les", rgTerms:"Conditions Générales", rgAnd:"et la", rgPrivacy:"Politique de Confidentialité", ftPrivacy:"Confidentialité", ftTerms:"Conditions" });
-Object.assign(T.es, { rgConsent:"Declaro actuar en nombre de una empresa y acepto los", rgTerms:"Términos y Condiciones", rgAnd:"y la", rgPrivacy:"Política de Privacidad", ftPrivacy:"Privacidad", ftTerms:"Términos" });
-Object.assign(T.de, { rgConsent:"Ich handle im Namen eines Unternehmens und akzeptiere die", rgTerms:"AGB", rgAnd:"und die", rgPrivacy:"Datenschutzerklärung", ftPrivacy:"Datenschutz", ftTerms:"AGB" });
-Object.assign(T.zh, { rgConsent:"我确认代表企业行事，并接受", rgTerms:"条款与条件", rgAnd:"以及", rgPrivacy:"隐私政策", ftPrivacy:"隐私", ftTerms:"条款" });
-Object.assign(T.ar, { rgConsent:"أؤكد أنني أتصرف نيابة عن شركة وأوافق على", rgTerms:"الشروط والأحكام", rgAnd:"و", rgPrivacy:"سياسة الخصوصية", ftPrivacy:"الخصوصية", ftTerms:"الشروط" });
+Object.assign(T.en, { rgConsent:"I confirm I am acting on behalf of a business and I accept the", rgTerms:"Terms and Conditions", rgBrandAgr:"Brand Framework Agreement", rgAnd:"and the", rgPrivacy:"Privacy Policy", rgSignNote:"Ticking this box constitutes electronic signature: name, company, version and timestamp are recorded.", ftPrivacy:"Privacy", ftTerms:"Terms" });
+Object.assign(T.it, { rgConsent:"Dichiaro di agire per conto di un'impresa e accetto i", rgTerms:"Termini e Condizioni", rgBrandAgr:"Contratto Quadro Brand", rgAnd:"e l'", rgPrivacy:"Informativa Privacy", rgSignNote:"La spunta vale come firma elettronica: vengono registrati nome, azienda, versione e data/ora.", ftPrivacy:"Privacy", ftTerms:"Termini" });
+Object.assign(T.fr, { rgConsent:"Je déclare agir pour le compte d'une entreprise et j'accepte les", rgTerms:"Conditions Générales", rgBrandAgr:"Contrat-Cadre Marque", rgAnd:"et la", rgPrivacy:"Politique de Confidentialité", rgSignNote:"Cocher cette case vaut signature électronique : nom, société, version et horodatage sont enregistrés.", ftPrivacy:"Confidentialité", ftTerms:"Conditions" });
+Object.assign(T.es, { rgConsent:"Declaro actuar en nombre de una empresa y acepto los", rgTerms:"Términos y Condiciones", rgBrandAgr:"Contrato Marco de Marca", rgAnd:"y la", rgPrivacy:"Política de Privacidad", rgSignNote:"Marcar la casilla equivale a firma electrónica: se registran nombre, empresa, versión y fecha/hora.", ftPrivacy:"Privacidad", ftTerms:"Términos" });
+Object.assign(T.de, { rgConsent:"Ich handle im Namen eines Unternehmens und akzeptiere die", rgTerms:"AGB", rgBrandAgr:"Marken-Rahmenvertrag", rgAnd:"und die", rgPrivacy:"Datenschutzerklärung", rgSignNote:"Das Setzen des Hakens gilt als elektronische Unterschrift: Name, Unternehmen, Version und Zeitstempel werden gespeichert.", ftPrivacy:"Datenschutz", ftTerms:"AGB" });
+Object.assign(T.zh, { rgConsent:"我确认代表企业行事，并接受", rgTerms:"条款与条件", rgBrandAgr:"品牌框架协议", rgAnd:"以及", rgPrivacy:"隐私政策", rgSignNote:"勾选此框即为电子签名：将记录姓名、公司、版本和时间戳。", ftPrivacy:"隐私", ftTerms:"条款" });
+Object.assign(T.ar, { rgConsent:"أؤكد أنني أتصرف نيابة عن شركة وأوافق على", rgTerms:"الشروط والأحكام", rgBrandAgr:"الاتفاقية الإطارية للعلامة", rgAnd:"و", rgPrivacy:"سياسة الخصوصية", rgSignNote:"يُعدّ وضع علامة في هذا المربع توقيعًا إلكترونيًا: يُسجَّل الاسم والشركة والإصدار والتاريخ والوقت.", ftPrivacy:"الخصوصية", ftTerms:"الشروط" });
 const DEMO_TOUR_STEPS = [
   { tab:"overview",     k:"dt0" },
   { tab:"overview",     k:"dt1" },
