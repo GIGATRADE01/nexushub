@@ -1,25 +1,15 @@
-/* NexusHub — testi legali in 7 lingue (en, it, fr, es, de, zh, ar).
+/* NexusHub — Contratto Quadro Brand, 7 lingue. Richiede legal-core.js.
    Struttura: LEGAL[doc][lang] = { title, updated, sections: [[titolo, htmlCorpo], ...] }
    In caso di discrepanza fa fede la versione inglese (clausola finale in ogni doc). */
-window.LEGAL_LANGS = [
-  { k: "en", name: "English", dir: "ltr" },
-  { k: "it", name: "Italiano", dir: "ltr" },
-  { k: "fr", name: "Français", dir: "ltr" },
-  { k: "es", name: "Español", dir: "ltr" },
-  { k: "de", name: "Deutsch", dir: "ltr" },
-  { k: "zh", name: "中文", dir: "ltr" },
-  { k: "ar", name: "العربية", dir: "rtl" },
-];
 
 var CO_EN = "GIGA TRADE S.R.L.S. — Via Ottavio Revel 6, 10121 Turin (TO), Italy · VAT ID IT13105910015 · REA TO-1339467 · <a href='mailto:info@nexushub.trade'>info@nexushub.trade</a>";
 var CO_IT = "GIGA TRADE S.R.L.S. — Via Ottavio Revel 6, 10121 Torino (TO), Italia · P.IVA IT13105910015 · REA TO-1339467 · <a href='mailto:info@nexushub.trade'>info@nexushub.trade</a>";
 var TIERS_EN = "<table><tr><th>Annual revenue on the platform</th><th>Commission</th></tr><tr><td>up to € 10,000,000</td><td><b>11.4%</b></td></tr><tr><td>€ 10–15 million</td><td><b>10%</b></td></tr><tr><td>above € 15 million</td><td><b>9%</b></td></tr></table>";
 var TIERS_IT = "<table><tr><th>Fatturato annuo sulla piattaforma</th><th>Commissione</th></tr><tr><td>fino a € 10.000.000</td><td><b>11,4%</b></td></tr><tr><td>€ 10–15 milioni</td><td><b>10%</b></td></tr><tr><td>oltre € 15 milioni</td><td><b>9%</b></td></tr></table>";
 
-window.LEGAL = {
 
 /* ============================ BRAND AGREEMENT ============================ */
-brand: {
+window.LEGAL.brand = {
 en: { title:"Brand Framework Agreement", updated:"Version 1.0 · 3 August 2026 · Accepted electronically upon registration", sections:[
 ["Parties","<div class='box'><b>Platform operator (\"NexusHub\")</b><br>"+CO_EN+"<br><br><b>The Brand</b>: the company registering on the platform, as identified by the corporate details and documents provided during registration.</div>"],
 ["1. Purpose","<p>This Agreement governs the relationship between NexusHub and the Brand for the distribution of the Brand's products to professional distributors and retailers in Europe, through the NexusHub platform and its logistics hub in Turin, Italy. It is accepted electronically upon registration and applies to all activity on the platform until replaced by a specific written agreement.</p>"],
@@ -131,5 +121,4 @@ ar: { title:"الاتفاقية الإطارية للعلامة التجارية
 ["11. السرية والبيانات","<p>يلتزم الطرفان بسرية المعلومات التجارية المتبادلة (الأسعار، الكميات، قوائم الموزّعين). وتُعالَج البيانات الشخصية وفق <a href='/privacy.html'>سياسة الخصوصية</a>.</p>"],
 ["12. القبول الإلكتروني","<p>تُقبل هذه الاتفاقية بوضع علامة في المربع المخصص أثناء التسجيل. وتسجّل المنصة هوية المستخدم القابل والشركة وإصدار المستند والتاريخ والوقت؛ ويشكّل هذا السجل دليلًا على القبول.</p>"],
 ["13. القانون الواجب التطبيق والاختصاص واللغة","<p>تخضع لـ<b>القانون الإيطالي</b>؛ والاختصاص الحصري لـ<b>محكمة تورينو</b>. وفيما لم يرد بشأنه نص تُطبَّق <a href='/terms.html'>الشروط والأحكام</a> الخاصة بالمنصة. ويُقدَّم هذا المستند بعدة لغات لأغراض التيسير: <b>وفي حال التعارض تسود النسخة الإنجليزية</b>.</p>"]]}
-}
 };

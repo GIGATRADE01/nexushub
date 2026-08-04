@@ -1,0 +1,25 @@
+/* NexusHub — foglio di stile condiviso dei documenti legali. */
+:root{--bg:#08080f;--card:#0f1018;--gold:#c9a84c;--txt:#e9e6df;--mut:#9aa3c0;--bd:#252838}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.7 -apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:840px;margin:0 auto;padding:44px 22px 80px}
+a{color:var(--gold)}
+h1{font-size:29px;margin:0 0 6px;color:var(--gold);letter-spacing:.02em}
+h2{font-size:18px;margin:32px 0 8px;color:var(--gold)}
+.brand{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut);margin-bottom:20px}
+.upd{font-size:13px;color:var(--mut);margin-bottom:22px}
+.box{background:var(--card);border:1px solid var(--bd);border-left:3px solid var(--gold);border-radius:10px;padding:16px 18px;margin:16px 0}
+p{margin:8px 0}
+ul{padding-left:20px}li{margin:5px 0}
+.tablewrap,#doc{overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+th,td{border:1px solid var(--bd);padding:9px 11px;text-align:left;vertical-align:top}
+th{background:#151720;color:var(--gold);font-weight:600}
+.lang{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.lang button{padding:6px 14px;border:1px solid var(--bd);border-radius:20px;background:transparent;color:var(--mut);font-size:13px;cursor:pointer;font-family:inherit}
+.lang button:hover{color:var(--txt)}
+.lang button.on{background:var(--gold);color:#08080f;border-color:var(--gold);font-weight:600}
+footer{margin-top:48px;padding-top:22px;border-top:1px solid var(--bd);font-size:13px;color:var(--mut)}
+[dir="rtl"] th,[dir="rtl"] td{text-align:right}
+[dir="rtl"] ul{padding-right:20px;padding-left:0}
+[dir="rtl"] .box{border-left:1px solid var(--bd);border-right:3px solid var(--gold)}
