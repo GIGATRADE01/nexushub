@@ -3335,6 +3335,15 @@ Object.assign(T.ar, {
   ldTitle:"الإطلاقات القادمة", ldSub:"منتجات جديدة من علاماتك — احجز مبكرًا أو احصل على إشعار عند الإطلاق.", ldNone:"لا توجد إطلاقات متاحة حاليًا.", ldReserve:"حجز", ldReserved:"محجوز ✓", ldNotify:"أبلغني", ldNotifyOn:"سيتم إبلاغك ✓", ldDaysLeft:"أيام حتى الإطلاق", ldToday:"الإطلاق اليوم", ldLaunched:"متاح الآن", ldConfirm:"تأكيد الحجز", ldDone:"تم إرسال الحجز", ldBy:"من",
 });
 
+/* Spazio nel territorio: il candidato lo vede prima di presentare domanda al brand. */
+Object.assign(T.en, { terrFree:"Your country is open", terrFreeHint:"No approved distributor for this brand in your country yet. Apply and the brand will assess your application.", terrShared:"Country already served", terrSharedHint:"This brand already has distributors in your country, but no exclusivity: there is still room to apply.", terrTaken:"Country under exclusivity", terrTakenHint:"This brand has granted exclusivity for your country. You can still apply, but access is unlikely until it is released." });
+Object.assign(T.it, { terrFree:"Il tuo paese è libero", terrFreeHint:"Per questo brand non c'è ancora un distributore approvato nel tuo paese. Candidati e il brand valuterà la tua richiesta.", terrShared:"Paese già servito", terrSharedHint:"Questo brand ha già distributori nel tuo paese, ma nessuna esclusiva: c'è ancora spazio per candidarsi.", terrTaken:"Paese in esclusiva", terrTakenHint:"Questo brand ha concesso l'esclusiva per il tuo paese. Puoi comunque candidarti, ma è difficile entrare finché non viene liberata." });
+Object.assign(T.fr, { terrFree:"Votre pays est libre", terrFreeHint:"Aucun distributeur approuvé pour cette marque dans votre pays. Posez votre candidature : la marque l'examinera.", terrShared:"Pays déjà couvert", terrSharedHint:"Cette marque a déjà des distributeurs dans votre pays, mais sans exclusivité : il reste de la place.", terrTaken:"Pays sous exclusivité", terrTakenHint:"Cette marque a accordé l'exclusivité pour votre pays. Vous pouvez postuler, mais l'accès est peu probable tant qu'elle n'est pas libérée." });
+Object.assign(T.es, { terrFree:"Tu país está libre", terrFreeHint:"Aún no hay distribuidor aprobado para esta marca en tu país. Presenta tu candidatura y la marca la valorará.", terrShared:"País ya atendido", terrSharedHint:"Esta marca ya tiene distribuidores en tu país, pero sin exclusiva: todavía hay espacio.", terrTaken:"País en exclusiva", terrTakenHint:"Esta marca ha concedido la exclusiva para tu país. Puedes postularte, pero es difícil entrar hasta que se libere." });
+Object.assign(T.de, { terrFree:"Ihr Land ist frei", terrFreeHint:"Für diese Marke gibt es in Ihrem Land noch keinen zugelassenen Distributor. Bewerben Sie sich — die Marke prüft Ihre Anfrage.", terrShared:"Land bereits betreut", terrSharedHint:"Diese Marke hat in Ihrem Land bereits Distributoren, jedoch ohne Exklusivität: es ist noch Platz.", terrTaken:"Land exklusiv vergeben", terrTakenHint:"Diese Marke hat für Ihr Land Exklusivität vergeben. Eine Bewerbung ist möglich, ein Zugang aber unwahrscheinlich, solange sie besteht." });
+Object.assign(T.zh, { terrFree:"您所在国家尚未占用", terrFreeHint:"该品牌在您所在国家还没有获批分销商。欢迎申请，由品牌方评估。", terrShared:"该国已有分销商", terrSharedHint:"该品牌在您所在国家已有分销商，但未授予独家权：仍有申请空间。", terrTaken:"该国已授予独家权", terrTakenHint:"该品牌已就您所在国家授予独家权。仍可申请，但在独家权解除前较难进入。" });
+Object.assign(T.ar, { terrFree:"بلدك متاح", terrFreeHint:"لا يوجد بعد موزّع معتمد لهذه العلامة في بلدك. قدّم طلبك وستقوم العلامة بتقييمه.", terrShared:"البلد مغطّى بالفعل", terrSharedHint:"لدى هذه العلامة موزّعون في بلدك، لكن دون حصرية: لا يزال هناك مجال للتقديم.", terrTaken:"البلد ممنوح بالحصرية", terrTakenHint:"منحت هذه العلامة حصرية لبلدك. يمكنك التقديم، لكن الدخول صعب ما لم تُرفع الحصرية." });
+
 /* Annuncio del lancio via email: ogni distributore lo riceve nella propria lingua. */
 Object.assign(T.en, { lAnnounce:"Notify distributors", lAnnounceHint:"Send the launch announcement to your distributors, each in their own language.", lAnnounceConfirm:"Send the launch announcement by email to your distributors? Anyone who already received it will be skipped.", lAnnounceDone:"Emails sent:", lAnnounceNone:"No distributors to notify yet.", lAnnounceErr:"Could not send the announcement." });
 Object.assign(T.it, { lAnnounce:"Avvisa i distributori", lAnnounceHint:"Invia l'annuncio del lancio ai tuoi distributori, ciascuno nella sua lingua.", lAnnounceConfirm:"Inviare l'annuncio del lancio via email ai tuoi distributori? Chi l'ha già ricevuto viene saltato.", lAnnounceDone:"Email inviate:", lAnnounceNone:"Non ci sono ancora distributori da avvisare.", lAnnounceErr:"Non è stato possibile inviare l'annuncio." });
@@ -5103,6 +5112,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [cart, setCart] = useState({});
   const [dbBrands, setDbBrands] = useState([]);
   const [accessRequests, setAccessRequests] = useState({});
+  const [territoryCoverage, setTerritoryCoverage] = useState({});
   const [brandDiscounts, setBrandDiscounts] = useState({});
   const [realProducts, setRealProducts] = useState([]);
   const [catSearch, setCatSearch] = useState("");
@@ -5293,6 +5303,20 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       setAccessRequests(map); setBrandDiscounts(dmap);
     };
     loadAccess();
+    /* Occupazione del proprio paese: si vede PRIMA di candidarsi, per capire
+       se per quel brand c'e' ancora spazio o se il territorio e' gia' in esclusiva. */
+    const loadCoverage = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data: me } = await supabase.from("profiles").select("country").eq("id", user.id).single();
+      const cc = (me?.country || "").trim().toUpperCase();
+      if (!cc) return;
+      const { data } = await supabase.from("brand_territory_coverage").select("*").eq("country_code", cc);
+      const cov = {};
+      (data || []).forEach(c => { cov[c.brand_id] = c; });
+      setTerritoryCoverage(cov);
+    };
+    loadCoverage();
     const loadDistNotifs = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
@@ -5416,7 +5440,22 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
                       {status==="approved" && <Badge status="active"/>}
                       {status==="blocked" && <Badge status="rejected"/>}
                     </div>
-                    <p style={{ fontSize:13, color:C.textMuted, margin:"0 0 16px", lineHeight:1.55 }}>{t("diReqAccess")}</p>
+                    <p style={{ fontSize:13, color:C.textMuted, margin:"0 0 12px", lineHeight:1.55 }}>{t("diReqAccess")}</p>
+                    {/* Spazio nel proprio territorio: si vede prima di candidarsi */}
+                    {(() => {
+                      const cov = territoryCoverage[brand.id];
+                      const taken = cov?.coverage === "exclusive";
+                      const shared = cov?.coverage === "partial";
+                      const col = taken ? C.red : shared ? C.blue : C.green;
+                      const label = taken ? t("terrTaken") : shared ? t("terrShared") : t("terrFree");
+                      const hint = taken ? t("terrTakenHint") : shared ? t("terrSharedHint") : t("terrFreeHint");
+                      return (
+                        <div style={{ background:`${col}10`, border:`1px solid ${col}35`, borderRadius:8, padding:"9px 11px", marginBottom:14 }}>
+                          <div style={{ fontSize:12, fontWeight:700, color:col }}>{taken ? "🔒" : shared ? "◐" : "◯"} {label}</div>
+                          <div style={{ fontSize:11.5, color:C.textMuted, marginTop:3, lineHeight:1.5 }}>{hint}</div>
+                        </div>
+                      );
+                    })()}
                     {status==="approved" ? (
                       <div style={{ display:"flex", flexDirection:"column", gap:8 }}><button onClick={() => setTab("catalog")} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:`${C.gold}20`, border:`1px solid ${C.gold}50`, color:C.goldLight, fontSize:13, fontWeight:600 }}>{t("viewCatalogBtn")}</button>{(() => { const ctr = distContracts.find(c => c.brand_id === brand.id); if (!ctr) return null; const sg = !!ctr.signed_at; return (<button onClick={() => setViewContract(ctr)} style={{ width:"100%", padding:"10px", borderRadius:8, cursor:"pointer", background: sg?`${C.green}12`:`${C.blue}12`, border:`1px solid ${sg?C.green:C.blue}40`, color: sg?C.green:C.blue, fontSize:12.5, fontWeight:600 }}>{sg ? t("ddViewAgreement") : t("ddSignAgreement")}</button>); })()}</div>
                     ) : status==="pending" ? (
