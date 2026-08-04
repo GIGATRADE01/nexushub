@@ -696,8 +696,14 @@ Object.assign(T.es, { invFallback:"Factura", invComm:"Factura de comisión", inv
 Object.assign(T.de, { invFallback:"Rechnung", invComm:"Provisionsrechnung", invSale:"Verkaufsrechnung", invFrom:"Von", invTo:"An", invDate:"Datum", invSubtotal:"Nettobetrag", invVat:"MwSt.", invTotal:"Gesamt", invDownloadPdf:"PDF herunterladen", invPrint:"Drucken / PDF speichern", invDraftNote:"Von NexusHub erstelltes Dokument — Entwurf, mit Ihrem Steuerberater zu prüfen.", invVatNo:"USt-IdNr.", conTitle:"Vertriebsvertrag", conAcceptedBy:"Angenommen von", conConsent:"Ich habe diesen Vertriebsvertrag gelesen und akzeptiere ihn im Namen von {company}.", conSignph:"Vollständiger Name des Unterzeichners", conAcceptSign:"Annehmen & unterzeichnen", conWaiting:"Warten auf Annahme durch den Händler." });
 Object.assign(T.zh, { invFallback:"发票", invComm:"佣金发票", invSale:"销售发票", invFrom:"来自", invTo:"至", invDate:"日期", invSubtotal:"应税金额", invVat:"增值税", invTotal:"合计", invDownloadPdf:"下载已上传 PDF", invPrint:"打印 / 保存 PDF", invDraftNote:"由 NexusHub 生成的文件 — 草稿，需与会计师核实。", invVatNo:"税号", conTitle:"分销协议", conAcceptedBy:"接受人", conConsent:"我已阅读并代表 {company} 接受本分销协议。", conSignph:"签署人全名", conAcceptSign:"接受并签署", conWaiting:"等待分销商接受。" });
 Object.assign(T.ar, { invFallback:"فاتورة", invComm:"فاتورة عمولة", invSale:"فاتورة بيع", invFrom:"من", invTo:"إلى", invDate:"التاريخ", invSubtotal:"المبلغ الخاضع للضريبة", invVat:"ضريبة القيمة المضافة", invTotal:"الإجمالي", invDownloadPdf:"تنزيل ملف PDF", invPrint:"طباعة / حفظ PDF", invDraftNote:"مستند صادر عن NexusHub — مسودة، يجب التحقق منها مع محاسبك.", invVatNo:"الرقم الضريبي", conTitle:"اتفاقية التوزيع", conAcceptedBy:"قُبِل بواسطة", conConsent:"لقد قرأت وأوافق على اتفاقية التوزيع هذه نيابةً عن {company}.", conSignph:"الاسم الكامل للموقّع", conAcceptSign:"قبول وتوقيع", conWaiting:"في انتظار قبول الموزّع." });
+/* REA e PEC sono istituti italiani: si tengono in originale con una glossa nella lingua del cliente. */
 Object.assign(T.en, { invRea:"REA no.", invPec:"PEC" });
 Object.assign(T.it, { invRea:"REA", invPec:"PEC" });
+Object.assign(T.fr, { invRea:"N° REA", invPec:"PEC (e-mail certifiée)" });
+Object.assign(T.es, { invRea:"N.º REA", invPec:"PEC (correo certificado)" });
+Object.assign(T.de, { invRea:"REA-Nr.", invPec:"PEC (zertifizierte E-Mail)" });
+Object.assign(T.zh, { invRea:"工商登记号 (REA)", invPec:"认证邮箱 (PEC)" });
+Object.assign(T.ar, { invRea:"رقم السجل التجاري (REA)", invPec:"البريد المعتمد (PEC)" });
 Object.assign(T.en, { lgReset:"Reset password", lgResetSub:"We'll send you a link by email", lgSent:"Email sent!", lgSentPre:"Check your email", lgSentPost:"and click the link to reset your password.", lgBackLogin:"← Back to login", lgResetPh:"Your registered email", lgSending:"Sending...", lgSendReset:"Send reset link", lgForgot:"Forgot your password?", lgNew:"new?", watchDemo:"Watch Platform Demo", rgContinue:"Continue →", rgVatPh:"e.g. IT12345678901 / DE123456789", rgSdi:"SDI Code", rgSdiPh:"e.g. ABCDEFG (7 characters)", rgPec:"PEC (optional)", rgPecPh:"e.g. company@pec.it", rgBack:"← Back" });
 Object.assign(T.it, { lgReset:"Reset Password", lgResetSub:"Ti invieremo un link via email", lgSent:"Email inviata!", lgSentPre:"Controlla la tua email", lgSentPost:"e clicca sul link per reimpostare la password.", lgBackLogin:"← Torna al login", lgResetPh:"La tua email registrata", lgSending:"Invio in corso...", lgSendReset:"Invia link di reset", lgForgot:"Hai dimenticato la password?", lgNew:"new?", watchDemo:"Guarda la demo della piattaforma", rgContinue:"Continua →", rgVatPh:"es. IT12345678901 / DE123456789", rgSdi:"Codice SDI", rgSdiPh:"es. ABCDEFG (7 caratteri)", rgPec:"PEC (opzionale)", rgPecPh:"es. azienda@pec.it", rgBack:"← Indietro" });
 Object.assign(T.fr, { lgReset:"Réinitialiser le mot de passe", lgResetSub:"Nous vous enverrons un lien par e-mail", lgSent:"E-mail envoyé !", lgSentPre:"Vérifiez votre e-mail", lgSentPost:"et cliquez sur le lien pour réinitialiser votre mot de passe.", lgBackLogin:"← Retour à la connexion", lgResetPh:"Votre e-mail enregistré", lgSending:"Envoi...", lgSendReset:"Envoyer le lien", lgForgot:"Mot de passe oublié ?", lgNew:"nouveau ?", watchDemo:"Voir la démo de la plateforme", rgContinue:"Continuer →", rgVatPh:"ex. IT12345678901 / DE123456789", rgSdi:"Code SDI", rgSdiPh:"ex. ABCDEFG (7 caractères)", rgPec:"PEC (facultatif)", rgPecPh:"ex. societe@pec.it", rgBack:"← Retour" });
@@ -2063,6 +2069,8 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
         await supabase.from("profiles").upsert({
           id: data.user.id,
           full_name: fullName, company_name: companyName, phone, country, account_type: acctType,
+          // Lingua in cui si e' registrato: e' quella in cui ricevera' le email della piattaforma
+          preferred_lang: lang,
           ...(isBrand ? {} : { shipping_address: accountHolder || null, shipping_city: bankName || null, shipping_zip: iban || null, shipping_region: swiftBic || null }),
         }, { onConflict: "id" });
         // Firma elettronica del contratto: registra chi ha accettato, cosa e quando
@@ -3327,6 +3335,15 @@ Object.assign(T.ar, {
   ldTitle:"الإطلاقات القادمة", ldSub:"منتجات جديدة من علاماتك — احجز مبكرًا أو احصل على إشعار عند الإطلاق.", ldNone:"لا توجد إطلاقات متاحة حاليًا.", ldReserve:"حجز", ldReserved:"محجوز ✓", ldNotify:"أبلغني", ldNotifyOn:"سيتم إبلاغك ✓", ldDaysLeft:"أيام حتى الإطلاق", ldToday:"الإطلاق اليوم", ldLaunched:"متاح الآن", ldConfirm:"تأكيد الحجز", ldDone:"تم إرسال الحجز", ldBy:"من",
 });
 
+/* Annuncio del lancio via email: ogni distributore lo riceve nella propria lingua. */
+Object.assign(T.en, { lAnnounce:"Notify distributors", lAnnounceHint:"Send the launch announcement to your distributors, each in their own language.", lAnnounceConfirm:"Send the launch announcement by email to your distributors? Anyone who already received it will be skipped.", lAnnounceDone:"Emails sent:", lAnnounceNone:"No distributors to notify yet.", lAnnounceErr:"Could not send the announcement." });
+Object.assign(T.it, { lAnnounce:"Avvisa i distributori", lAnnounceHint:"Invia l'annuncio del lancio ai tuoi distributori, ciascuno nella sua lingua.", lAnnounceConfirm:"Inviare l'annuncio del lancio via email ai tuoi distributori? Chi l'ha già ricevuto viene saltato.", lAnnounceDone:"Email inviate:", lAnnounceNone:"Non ci sono ancora distributori da avvisare.", lAnnounceErr:"Non è stato possibile inviare l'annuncio." });
+Object.assign(T.fr, { lAnnounce:"Prévenir les distributeurs", lAnnounceHint:"Envoyez l'annonce du lancement à vos distributeurs, chacun dans sa langue.", lAnnounceConfirm:"Envoyer l'annonce du lancement par email à vos distributeurs ? Ceux qui l'ont déjà reçue seront ignorés.", lAnnounceDone:"Emails envoyés :", lAnnounceNone:"Aucun distributeur à prévenir pour le moment.", lAnnounceErr:"Impossible d'envoyer l'annonce." });
+Object.assign(T.es, { lAnnounce:"Avisar a los distribuidores", lAnnounceHint:"Envía el anuncio del lanzamiento a tus distribuidores, cada uno en su idioma.", lAnnounceConfirm:"¿Enviar el anuncio del lanzamiento por email a tus distribuidores? Se omitirá a quienes ya lo recibieron.", lAnnounceDone:"Emails enviados:", lAnnounceNone:"Todavía no hay distribuidores a los que avisar.", lAnnounceErr:"No se ha podido enviar el anuncio." });
+Object.assign(T.de, { lAnnounce:"Distributoren benachrichtigen", lAnnounceHint:"Senden Sie die Launch-Ankündigung an Ihre Distributoren, jeweils in deren Sprache.", lAnnounceConfirm:"Die Launch-Ankündigung per E-Mail an Ihre Distributoren senden? Wer sie bereits erhalten hat, wird übersprungen.", lAnnounceDone:"Gesendete E-Mails:", lAnnounceNone:"Noch keine Distributoren zu benachrichtigen.", lAnnounceErr:"Die Ankündigung konnte nicht gesendet werden." });
+Object.assign(T.zh, { lAnnounce:"通知分销商", lAnnounceHint:"向分销商发送发布通知，各自使用其语言。", lAnnounceConfirm:"是否通过邮件向分销商发送发布通知？已收到的将自动跳过。", lAnnounceDone:"已发送邮件：", lAnnounceNone:"暂无可通知的分销商。", lAnnounceErr:"通知发送失败。" });
+Object.assign(T.ar, { lAnnounce:"إبلاغ الموزّعين", lAnnounceHint:"أرسل إعلان الإطلاق إلى موزّعيك، كلٌّ بلغته.", lAnnounceConfirm:"هل تريد إرسال إعلان الإطلاق بالبريد الإلكتروني إلى موزّعيك؟ سيتم تخطّي من استلمه سابقًا.", lAnnounceDone:"الرسائل المُرسلة:", lAnnounceNone:"لا يوجد موزّعون لإبلاغهم بعد.", lAnnounceErr:"تعذّر إرسال الإعلان." });
+
 // --- Legale: consenso in registrazione + link footer ---
 Object.assign(T.en, { rgConsent:"I confirm I am acting on behalf of a business and I accept the", rgTerms:"Terms and Conditions", rgBrandAgr:"Brand Framework Agreement", rgAnd:"and the", rgPrivacy:"Privacy Policy", rgSignNote:"Ticking this box constitutes electronic signature: name, company, version and timestamp are recorded.", ftPrivacy:"Privacy", ftTerms:"Terms" });
 Object.assign(T.it, { rgConsent:"Dichiaro di agire per conto di un'impresa e accetto i", rgTerms:"Termini e Condizioni", rgBrandAgr:"Contratto Quadro Brand", rgAnd:"e l'", rgPrivacy:"Informativa Privacy", rgSignNote:"La spunta vale come firma elettronica: vengono registrati nome, azienda, versione e data/ora.", ftPrivacy:"Privacy", ftTerms:"Termini" });
@@ -3409,11 +3426,13 @@ function BrandLaunches() {
     if (!ids.length) { setInfo({}); return; }
     const { data: rs } = await supabase.from("launch_reservations").select("*").in("launch_id", ids);
     const { data: sb } = await supabase.from("launch_subscribers").select("launch_id").in("launch_id", ids);
+    /* Quanti annunci sono gia' partiti per ciascun lancio. */
+    const { data: nt } = await supabase.from("launch_notifications").select("launch_id, kind, status").in("launch_id", ids);
     const distIds = [...new Set((rs || []).map(r => r.distributor_id))];
     const names = {};
     if (distIds.length) { const { data: pf } = await supabase.from("profiles").select("id, company_name").in("id", distIds); (pf || []).forEach(p => { names[p.id] = p.company_name; }); }
     const map = {};
-    (ls || []).forEach(l => { map[l.id] = { res: (rs || []).filter(r => r.launch_id === l.id).map(r => ({ ...r, company: names[r.distributor_id] || "—" })), subs: (sb || []).filter(s => s.launch_id === l.id).length }; });
+    (ls || []).forEach(l => { map[l.id] = { res: (rs || []).filter(r => r.launch_id === l.id).map(r => ({ ...r, company: names[r.distributor_id] || "—" })), subs: (sb || []).filter(s => s.launch_id === l.id).length, notified: (nt || []).filter(n => n.launch_id === l.id && n.kind === "announce" && n.status === "sent").length }; });
     setInfo(map);
   };
   useEffect(() => { load(); }, []);
@@ -3440,6 +3459,26 @@ function BrandLaunches() {
   const togglePublish = async (l) => { const ns = l.status === "published" ? "draft" : "published"; await supabase.from("product_launches").update({ status:ns, updated_at:new Date().toISOString() }).eq("id", l.id); setLaunches(prev => prev.map(x => x.id===l.id ? { ...x, status:ns } : x)); };
   const del = async (l) => { if (!window.confirm(t("lDelConfirm"))) return; await supabase.from("product_launches").delete().eq("id", l.id); setLaunches(prev => prev.filter(x => x.id !== l.id)); notify(t("lDeleted")); };
   const fmtDate = (d) => new Date(d).toLocaleDateString(undefined, { day:"2-digit", month:"short", year:"numeric" });
+  /* Annuncio del lancio ai distributori: ognuno lo riceve nella propria lingua.
+     Chi l'ha gia' ricevuto viene saltato, quindi il tasto si puo' premere piu' volte senza doppioni. */
+  const announce = async (l) => {
+    if (!window.confirm(t("lAnnounceConfirm"))) return;
+    setBusy(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const r = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/launch-notify`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${session?.access_token}` },
+        body: JSON.stringify({ launch_id: l.id }),
+      });
+      const d = await r.json();
+      if (!r.ok || d.error) notify(t("lAnnounceErr"));
+      else if (!d.sent && !d.skipped) notify(t("lAnnounceNone"));
+      else notify(`${t("lAnnounceDone")} ${d.sent}${d.failed ? ` · ${d.failed} ✕` : ""}`);
+      load();
+    } catch (e) { console.error(e); notify(t("lAnnounceErr")); }
+    setBusy(false);
+  };
   return (
     <div>
       {toast && <div style={{ position:"fixed", bottom:20, left:"50%", transform:"translateX(-50%)", background:C.surface3, border:`1px solid ${C.gold}55`, color:C.goldLight, padding:"10px 18px", borderRadius:10, zIndex:100001, fontSize:13, fontWeight:600 }}>{toast}</div>}
@@ -3481,6 +3520,13 @@ function BrandLaunches() {
                   <div style={{ display:"flex", gap:6, marginTop:8, flexWrap:"wrap" }}>
                     <button onClick={()=>openEdit(l)} style={btnGhost}>{t("lEdit")}</button>
                     <button onClick={()=>togglePublish(l)} style={btnGhost}>{pub?t("lUnpublish"):t("lPublish")}</button>
+                    {pub && (
+                      <button onClick={()=>announce(l)} disabled={busy}
+                        title={nfo.notified ? `${t("lAnnounceDone")} ${nfo.notified}` : t("lAnnounceHint")}
+                        style={{ ...btnGhost, color:C.goldLight, borderColor:`${C.gold}55` }}>
+                        ✉ {t("lAnnounce")}{nfo.notified ? ` · ${nfo.notified}` : ""}
+                      </button>
+                    )}
                     <button onClick={()=>setExpanded(expanded===l.id?null:l.id)} style={btnGhost}>{t("lRes")} ({nfo.res.length})</button>
                     <button onClick={()=>del(l)} style={{ ...btnGhost, color:C.red, borderColor:`${C.red}55` }}>{t("lDelete")}</button>
                   </div>
