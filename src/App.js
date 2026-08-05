@@ -1878,6 +1878,21 @@ const Login = ({ onLogin, lang, onLangChange }) => {
     }
   };
 
+  /* Link diretto alla demo, da mettere nelle email: nexushub.trade/?demo=brand
+     (o ?demo=distributor). Chi clicca entra subito nel pannello giusto, senza registrarsi
+     e senza dover cercare il pulsante. La lingua si puo' forzare con &lang=fr. */
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    const d = (p.get("demo") || "").toLowerCase();
+    if (!d) return;
+    const l = (p.get("lang") || "").toLowerCase();
+    if (l && onLangChange) onLangChange(l);
+    window.history.replaceState({}, "", window.location.pathname);
+    if (d === "brand") handleDemoBrand();
+    else if (d === "distributor" || d === "dist") handleDemoDist();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   if (view === "register-brand") return <RegisterScreen role="brand" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
   if (view === "register-dist") return <RegisterScreen role="distributor" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
   if (view === "register-chain") return <RegisterScreen role="distributor" accountType="chain" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
