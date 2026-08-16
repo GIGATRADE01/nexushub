@@ -9,13 +9,11 @@
 // In italiano: queste email le legge Andrea, non i clienti.
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { invia } from "../_shared/mailer.ts";
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
-/* Quando nexushub.trade sara' verificato su Resend bastera' impostare EMAIL_FROM. */
-const FROM = Deno.env.get("EMAIL_FROM") || "NexusHub <onboarding@resend.dev>";
 const TO_DECISIONI = Deno.env.get("MAIL_DECISIONI") || "andrea@nexushub.trade";
 const TO_ORDINI = Deno.env.get("MAIL_ORDINI") || "orders@nexushub.trade";
 const SITE = "https://nexushub.trade";
@@ -216,14 +214,10 @@ serve(async (req) => {
       });
     }
 
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${RESEND_API_KEY}` },
-      body: JSON.stringify({ from: FROM, to: mail.to, subject: mail.subject, html: mail.html }),
-    });
-    const data = await res.json();
+    const esito = await invia(mail.to, mail.subject, mail.html);
 
-    return new Response(JSON.stringify({ sent: res.ok, to: mail.to, data }), {
+    return new Response(JSON.stringify({ sent: esito.ok, to: mail.to, ...esito }), {
+      status: esito.ok ? 200 : 502,
       headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
     });
   } catch (e) {
