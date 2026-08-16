@@ -749,6 +749,8 @@ Object.assign(T.ar, { insStrategy:"الاستراتيجية", insWinter:"الش�
 Object.assign(T.en, { atabOverview:"Overview", atabUsers:"Users", atabBrands:"Brands", atabCatalog:"Catalog", atabInventory:"Inventory", atabLogistics:"Logistics", atabRetail:"Retail", atabCompliance:"Compliance", atabMargins:"Margins", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"Orders", atabInvoices:"Invoices", atabContracts:"Contracts", atabCommissions:"Commissions", atabIncassi:"Collections", atabFinance:"Finance", atabAudit:"Audit", atabIssues:"Issues", atabPayments:"Payments", atabSettings:"Settings" });
 Object.assign(T.en, { auVat:"VAT", auNoVat:"VAT not provided", auViesOk:"VIES valid", auViesKo:"VIES not validated", auViesNa:"VIES not checked", auDocs:"Documents", auNoDocs:"No documents uploaded - ask for them before approving", auOpenDoc:"Open" });
 Object.assign(T.it, { auVat:"P.IVA", auNoVat:"P.IVA non indicata", auViesOk:"VIES valida", auViesKo:"VIES non validata", auViesNa:"VIES non verificata", auDocs:"Documenti", auNoDocs:"Nessun documento caricato - chiederli prima di approvare", auOpenDoc:"Apri" });
+Object.assign(T.en, { exTitle:"Exclusive rights for this territory", exSub:"An exclusive with no end date is one you can never take back. Set a duration and a minimum: if the minimum is not met, the territory frees itself.", exMonths:"Duration", ex6:"6 months", ex9:"9 months", ex12:"12 months", exMin:"Minimum units in the period", exMinHint:"0 = no target, renews automatically", exRenew:"Renew automatically if the minimum is met", exConfirm:"Grant exclusivity", exCancel:"Cancel", exUntil:"Exclusive until", exLeft:"days left", exDone:"done", exOf:"of", exExpired:"expired", exAed:"approx." });
+Object.assign(T.it, { exTitle:"Esclusiva per questo territorio", exSub:"Un\u2019esclusiva senza scadenza non te la riprendi piu\u0300. Imposta una durata e un minimo: se il minimo non viene raggiunto, il territorio si libera da solo.", exMonths:"Durata", ex6:"6 mesi", ex9:"9 mesi", ex12:"12 mesi", exMin:"Minimo pezzi nel periodo", exMinHint:"0 = nessun obiettivo, si rinnova da solo", exRenew:"Rinnova automaticamente se il minimo viene raggiunto", exConfirm:"Concedi l\u2019esclusiva", exCancel:"Annulla", exUntil:"Esclusiva fino al", exLeft:"giorni rimasti", exDone:"fatti", exOf:"di", exExpired:"scaduta", exAed:"circa" });
 Object.assign(T.it, { atabOverview:"Panoramica", atabUsers:"Utenti", atabBrands:"Brand", atabCatalog:"Catalogo", atabInventory:"Inventario", atabLogistics:"Logistica", atabRetail:"Retail", atabCompliance:"Compliance", atabMargins:"Margini", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"Ordini", atabInvoices:"Fatture", atabContracts:"Contratti", atabCommissions:"Provvigioni", atabIncassi:"Incassi", atabFinance:"Finanze", atabAudit:"Audit", atabIssues:"Segnalazioni", atabPayments:"Pagamenti", atabSettings:"Impostazioni" });
 Object.assign(T.fr, { atabOverview:"Aperçu", atabUsers:"Utilisateurs", atabBrands:"Marques", atabCatalog:"Catalogue", atabInventory:"Inventaire", atabLogistics:"Logistique", atabRetail:"Vente au détail", atabCompliance:"Conformité", atabMargins:"Marges", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"Commandes", atabInvoices:"Factures", atabContracts:"Contrats", atabCommissions:"Commissions", atabIncassi:"Encaissements", atabFinance:"Finances", atabAudit:"Audit", atabIssues:"Signalements", atabPayments:"Paiements", atabSettings:"Paramètres" });
 Object.assign(T.es, { atabOverview:"Resumen", atabUsers:"Usuarios", atabBrands:"Marcas", atabCatalog:"Catálogo", atabInventory:"Inventario", atabLogistics:"Logística", atabRetail:"Retail", atabCompliance:"Cumplimiento", atabMargins:"Márgenes", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"Pedidos", atabInvoices:"Facturas", atabContracts:"Contratos", atabCommissions:"Comisiones", atabIncassi:"Cobros", atabFinance:"Finanzas", atabAudit:"Auditoría", atabIssues:"Incidencias", atabPayments:"Pagos", atabSettings:"Ajustes" });
@@ -1066,6 +1068,25 @@ Object.assign(T.ar,{ ddMultiBrandErr:"تحتوي سلتك على منتجات م
 const fmt = n => "€ " + n.toLocaleString("it-IT");
 const LangCtx = createContext({ lang:"en", t: k=>k, dir:"ltr" });
 const useT = () => useContext(LangCtx).t;
+
+/* Un brand di Dubai legge i suoi numeri in dirham, non in euro: mostrare solo
+   l'euro lo costringe a fare il conto a mente ogni volta. Il cambio arriva dalla
+   Banca centrale europea (frankfurter.app, senza chiave), con un valore di
+   ripiego se la rete non risponde: meglio un ordine di grandezza corretto che
+   nessun numero. */
+const AED_RIPIEGO = 4.0;
+const useAed = () => {
+  const [rate, setRate] = useState(AED_RIPIEGO);
+  useEffect(() => {
+    let vivo = true;
+    fetch("https://api.frankfurter.app/latest?from=EUR&to=AED")
+      .then(r => r.json())
+      .then(d => { if (vivo && d?.rates?.AED) setRate(d.rates.AED); })
+      .catch(() => {});
+    return () => { vivo = false; };
+  }, []);
+  return (n) => "AED " + Math.round(Number(n || 0) * rate).toLocaleString("it-IT");
+};
 
 // ============================================================
 // SHARED UI COMPONENTS (unchanged)
@@ -3724,6 +3745,7 @@ function DistributorLaunches() {
 
 const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
+  const aed = useAed();
   const [tab, setTab] = useState("overview");
   const [accessReqs, setAccessReqs] = useState([]);
   const [dbDistributors, setDbDistributors] = useState([]);
@@ -3954,10 +3976,32 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     setAccessReqs(prev => prev.some(r => r.distributor_id === dist.id) ? prev.map(r => r.distributor_id === dist.id ? { ...r, status: "approved" } : r) : [...prev, { id: "tmp-"+dist.id, distributor_id: dist.id, brand_id: user.id, status: "approved", distributor: dist }]);
     bNotify(t("bInviteSent"));
   };
-  const handleAccess = async (req, newStatus, exclusive = false) => {
+  /* Chi sta ricevendo l'esclusiva: apre il pannellino con durata e minimo. */
+  const [exReq, setExReq] = useState(null);
+  const [exForm, setExForm] = useState({ months: 12, minUnits: 0, autoRenew: true });
+
+  const handleAccess = async (req, newStatus, exclusive = false, opts = {}) => {
     setAccessReqs(prev => prev.map(r => r.id === req.id ? { ...r, status: newStatus, exclusive: newStatus === "approved" ? exclusive : r.exclusive } : r));
     const upd = { status: newStatus, updated_at: new Date().toISOString() };
-    if (newStatus === "approved") upd.exclusive = exclusive;
+    if (newStatus === "approved") {
+      upd.exclusive = exclusive;
+      /* L'esclusiva ha sempre una fine: durata scelta dal brand, con un minimo
+         da raggiungere perche' il rinnovo scatti. */
+      if (exclusive) {
+        const mesi = [6, 9, 12].includes(opts.months) ? opts.months : 12;
+        const da = new Date();
+        const a = new Date(da); a.setMonth(a.getMonth() + mesi);
+        upd.exclusive_months = mesi;
+        upd.exclusive_from = da.toISOString();
+        upd.exclusive_until = a.toISOString();
+        upd.exclusive_min_units = Math.max(0, parseInt(opts.minUnits, 10) || 0);
+        upd.exclusive_auto_renew = opts.autoRenew !== false;
+        upd.exclusive_last_notice = null;
+      } else {
+        upd.exclusive_months = null; upd.exclusive_from = null; upd.exclusive_until = null;
+        upd.exclusive_min_units = 0; upd.exclusive_last_notice = null;
+      }
+    }
     await supabase.from("brand_access_requests").update(upd).eq("id", req.id);
     await supabase.from("notifications").insert({
       user_id: req.distributor_id,
@@ -4092,7 +4136,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
             <div style={{ display:"flex", gap:14, marginBottom:22, flexWrap:"wrap" }}>
               <Stat icon="⬡" label={t("statTerritories")} value={territories} sub={t("statTerritoriesSub")}/>
               <Stat icon="◻" label={t("statDistributors")} value={approved.length} sub={`${pending} ${t("statDistributorsSub")}`} accent={C.blue}/>
-              <Stat icon="↗" label={t("statRevenue")} value={eur(revenue)} sub={t("statRevenueSub")}/>
+              <Stat icon="↗" label={t("statRevenue")} value={eur(revenue)} sub={`${t("exAed")} ${aed(revenue)}`}/>
               <Stat icon="📦" label={t("ovProducts")} value={brandProducts.length} accent={C.green}/>
               <Stat icon="🧾" label={t("ovOrders")} value={brandOrders.length}/>
             </div>
@@ -4128,6 +4172,60 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
           </div>
           );
         })()}
+        {/* Prima di concedere un'esclusiva si decide per quanto e a quali condizioni:
+            e' la differenza fra un favore e un contratto. */}
+        {exReq && (
+          <div onClick={() => setExReq(null)} style={{ position:"fixed", inset:0, background:"#000000cc", zIndex:200, display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
+            <div onClick={(e) => e.stopPropagation()} style={{ background:C.surface, border:`1px solid ${C.gold}40`, borderRadius:14, padding:26, maxWidth:460, width:"100%", maxHeight:"90vh", overflowY:"auto" }}>
+              <h3 style={{ margin:"0 0 6px", fontSize:18, color:C.goldLight, fontFamily:"'Fraunces', Georgia, serif" }}>🔒 {t("exTitle")}</h3>
+              <p style={{ margin:"0 0 4px", fontSize:13, color:C.text, fontWeight:600 }}>
+                {exReq.distributor?.company_name || "—"} · {exReq.distributor?.country || "—"}
+              </p>
+              <p style={{ margin:"0 0 20px", fontSize:12, color:C.textMuted, lineHeight:1.6 }}>{t("exSub")}</p>
+
+              <div style={{ marginBottom:18 }}>
+                <div style={{ fontSize:11, color:C.textDim, textTransform:"uppercase", letterSpacing:".08em", marginBottom:8 }}>{t("exMonths")}</div>
+                <div style={{ display:"flex", gap:8 }}>
+                  {[6, 9, 12].map(m => (
+                    <button key={m} onClick={() => setExForm(f => ({ ...f, months:m }))}
+                      style={{ flex:1, padding:"11px 0", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700,
+                        background: exForm.months===m ? `${C.gold}22` : "transparent",
+                        border:`1px solid ${exForm.months===m ? C.gold : C.border}`,
+                        color: exForm.months===m ? C.goldLight : C.textMuted }}>
+                      {t("ex" + m)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ marginBottom:18 }}>
+                <div style={{ fontSize:11, color:C.textDim, textTransform:"uppercase", letterSpacing:".08em", marginBottom:8 }}>{t("exMin")}</div>
+                <input type="number" min="0" value={exForm.minUnits}
+                  onChange={(e) => setExForm(f => ({ ...f, minUnits:e.target.value }))}
+                  style={{ width:"100%", padding:"11px 13px", borderRadius:9, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, boxSizing:"border-box" }}/>
+                <div style={{ fontSize:11, color:C.textDim, marginTop:6 }}>{t("exMinHint")}</div>
+              </div>
+
+              <label style={{ display:"flex", alignItems:"flex-start", gap:9, marginBottom:22, cursor:"pointer" }}>
+                <input type="checkbox" checked={exForm.autoRenew}
+                  onChange={(e) => setExForm(f => ({ ...f, autoRenew:e.target.checked }))}
+                  style={{ marginTop:2, accentColor:C.gold, width:16, height:16 }}/>
+                <span style={{ fontSize:12.5, color:C.textMuted, lineHeight:1.5 }}>{t("exRenew")}</span>
+              </label>
+
+              <div style={{ display:"flex", gap:10 }}>
+                <button onClick={() => setExReq(null)}
+                  style={{ flex:1, padding:"12px", borderRadius:9, cursor:"pointer", fontSize:13, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted }}>
+                  {t("exCancel")}
+                </button>
+                <button onClick={() => { const r = exReq; setExReq(null); handleAccess(r, "approved", true, exForm); }}
+                  style={{ flex:2, padding:"12px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:"#08080f" }}>
+                  🔒 {t("exConfirm")}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         {tab==="applications" && (
           <div>
             <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("appTitle")}</h2>
@@ -4157,7 +4255,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                 </div>
                 {r.status==="pending" ? (
                   <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
-                    <button onClick={() => handleAccess(r, "approved", true)} style={{ padding:"10px 18px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.gold}20`, border:`1px solid ${C.gold}55`, color:C.gold }}>🔒 {t("bApproveExcl")}</button>
+                    <button onClick={() => { setExForm({ months:12, minUnits:0, autoRenew:true }); setExReq(r); }} style={{ padding:"10px 18px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.gold}20`, border:`1px solid ${C.gold}55`, color:C.gold }}>🔒 {t("bApproveExcl")}</button>
                     <button onClick={() => handleAccess(r, "approved", false)} style={{ padding:"10px 18px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.green}18`, border:`1px solid ${C.green}50`, color:C.green }}>✓ {t("bApproveShared")}</button>
                     <button onClick={() => handleAccess(r, "blocked")} style={{ padding:"10px 22px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.red}12`, border:`1px solid ${C.red}40`, color:C.red }}>✗ {t("bBlock")}</button>
                   </div>
@@ -4223,6 +4321,18 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                               <div style={{ display:"flex", alignItems:"center", gap:6, flexWrap:"wrap" }}>
                                 <Badge status="active"/>
                                 <span style={{ padding:"2px 8px", borderRadius:5, fontSize:10, fontWeight:600, background:r.exclusive?`${C.gold}15`:`${C.blue}12`, border:`1px solid ${(r.exclusive?C.gold:C.blue)}30`, color:r.exclusive?C.gold:C.blue }}>{r.exclusive?t("bdExclusive"):t("bdShared")}</span>
+                                {r.exclusive && r.exclusive_until && (() => {
+                                  /* Quanto manca alla scadenza: sotto i due mesi diventa rosso,
+                                     perche' e' il momento in cui il brand deve decidere. */
+                                  const gg = Math.max(0, Math.ceil((new Date(r.exclusive_until) - new Date()) / 86400000));
+                                  const col = gg <= 60 ? C.red : C.textMuted;
+                                  return (
+                                    <span style={{ fontSize:10, color:col, fontWeight:600 }}>
+                                      {gg > 0 ? `${gg} ${t("exLeft")}` : t("exExpired")}
+                                      {r.exclusive_min_units > 0 ? ` · ${t("exMin")} ${r.exclusive_min_units}` : ""}
+                                    </span>
+                                  );
+                                })()}
                               </div>
                             </td>
                             <td style={{ padding:"13px 16px", whiteSpace:"nowrap" }}>
