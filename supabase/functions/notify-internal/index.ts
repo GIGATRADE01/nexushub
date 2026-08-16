@@ -1,15 +1,25 @@
 // notify-internal — le email che avvisano NexusHub di quello che succede in piattaforma.
 //
-// Tre eventi, tre caselle:
+// Quattro eventi, due caselle:
 //   registration   -> andrea@   (nuova registrazione: dati, P.IVA, VIES, documenti)
 //   access_request -> andrea@   (un distributore si candida a un brand)
+//   issue          -> andrea@   (segnalazione su un ordine: merce danneggiata, mancante...)
 //   order          -> orders@   (nuovo ordine)
+//
+// Su andrea@ va solo cio' che richiede una decisione. Gli ordini stanno su
+// orders@, altrimenti in due settimane la casella delle decisioni non si apre piu'.
 //
 // Chiamata dai trigger sul database via pg_net. Il corpo e' { kind, id }.
 // In italiano: queste email le legge Andrea, non i clienti.
+//
+// Gli oggetti restano in ASCII: emoji e trattini lunghi nell'header Subject
+// arrivano come stringa MIME non decodificata su alcuni client di posta.
+//
+// Il pulsante porta dritto al pannello admin sulla scheda giusta
+// (nexushub.trade/?admin=users), non alla pagina iniziale.
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { invia } from "../_shared/mailer.ts";
+import { invia } from "./mailer.ts";
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -158,6 +168,45 @@ async function candidatura(id: string) {
   };
 }
 
+/* Una segnalazione e' un cliente che ha un problema adesso: va su andrea@,
+   non nel flusso ordini, e porta con se' la foto come prova. */
+async function segnalazione(id: string) {
+  const [i] = await db(`order_issues?id=eq.${id}&select=*`);
+  if (!i) return null;
+  const [o] = await db(`orders?id=eq.${i.order_id}&select=order_number,total_amount,status`);
+  const [d] = await db(`profiles?id=eq.${i.distributor_id}&select=company_name,country,email,phone`);
+  const [m] = i.brand_id ? await db(`profiles?id=eq.${i.brand_id}&select=company_name`) : [null];
+
+  const foto = i.photo_url
+    ? `<div style="margin:18px 0"><a href="${docUrl(i.photo_url)}" style="display:block;padding:14px;background:#151720;border:1px solid #c9a84c35;border-radius:10px;color:#e2bc6a;font-size:13px;text-decoration:none;text-align:center">📷 Apri la foto allegata dal distributore &rarr;</a></div>`
+    : `<p style="color:#8890aa;font-size:12px;margin:14px 0">Nessuna foto allegata.</p>`;
+
+  return {
+    to: TO_DECISIONI,
+    subject: `[SEGNALAZIONE] ordine ${o?.order_number || ""} - ${d?.company_name || "distributore"}`,
+    html: shell(
+      "Segnalazione su un ordine",
+      "#c0392b",
+      righe([
+        ["Ordine", o?.order_number],
+        ["Importo", o?.total_amount != null ? `€ ${o.total_amount}` : null],
+        ["Stato ordine", o?.status],
+        ["Distributore", d?.company_name],
+        ["Paese", d?.country],
+        ["Contatto", `${d?.email || "—"}${d?.phone ? " · " + d.phone : ""}`],
+        ["Brand", m?.company_name],
+      ]) +
+        `<div style="margin-top:18px;padding:16px;background:#c0392b12;border:1px solid #c0392b35;border-radius:10px">
+           <p style="color:#c0392b;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px">Cosa segnala</p>
+           <p style="color:#ede9e3;font-size:14px;line-height:1.6;margin:0">${esc(i.reason)}</p>
+         </div>` +
+        foto,
+      "Apri la segnalazione",
+      "issues",
+    ),
+  };
+}
+
 async function ordine(id: string) {
   const [o] = await db(`orders?id=eq.${id}&select=*`);
   if (!o) return null;
@@ -203,6 +252,7 @@ serve(async (req) => {
     const mail =
       kind === "registration" ? await registrazione(id)
       : kind === "access_request" ? await candidatura(id)
+      : kind === "issue" ? await segnalazione(id)
       : kind === "order" ? await ordine(id)
       : null;
 
