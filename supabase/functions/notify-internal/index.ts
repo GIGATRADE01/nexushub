@@ -36,7 +36,7 @@ function docUrl(u: string) {
   return `${SUPABASE_URL}/storage/v1/object/public/${u.replace(/^\/+/, "")}`;
 }
 
-const shell = (titolo: string, colore: string, corpo: string, cta: string) => `
+const shell = (titolo: string, colore: string, corpo: string, cta: string, dove = "users") => `
 <div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;background:#08080f;color:#ede9e3;padding:32px;border-radius:12px">
   <div style="text-align:center;margin-bottom:24px">
     <div style="display:inline-block;width:46px;height:46px;background:linear-gradient(135deg,#c9a84c,#7a5e28);border-radius:11px;line-height:46px;font-size:21px;font-weight:900;color:#08080f">N</div>
@@ -47,7 +47,7 @@ const shell = (titolo: string, colore: string, corpo: string, cta: string) => `
   </div>
   ${corpo}
   <div style="text-align:center;margin:28px 0 4px">
-    <a href="${SITE}" style="display:inline-block;padding:13px 30px;background:linear-gradient(135deg,#c9a84c,#7a5e28);color:#08080f;text-decoration:none;border-radius:10px;font-weight:700;font-size:14px">${cta} &rarr;</a>
+    <a href="${SITE}/?admin=${dove}" style="display:inline-block;padding:13px 30px;background:linear-gradient(135deg,#c9a84c,#7a5e28);color:#08080f;text-decoration:none;border-radius:10px;font-weight:700;font-size:14px">${cta} &rarr;</a>
   </div>
   <p style="color:#4a4e68;font-size:11px;text-align:center;border-top:1px solid #252838;padding-top:14px;margin-top:24px">
     Notifica automatica della piattaforma &middot; <a href="${SITE}" style="color:#c9a84c">nexushub.trade</a>
@@ -118,7 +118,8 @@ async function registrazione(id: string) {
         ["Contratto firmato", p.terms_accepted_at ? "✅ " + String(p.terms_accepted_at).slice(0, 10) : "❌ non ancora"],
         ["Stato attuale", p.status],
       ]) + elencoDoc,
-      "Apri la piattaforma e decidi",
+      "Apri le candidature da valutare",
+      "users",
     ),
   };
 }
@@ -152,6 +153,7 @@ async function candidatura(id: string) {
         ["Esclusive gia' assegnate", esclusive.length ? `${esclusive.length} — verificare il territorio` : "nessuna"],
       ]),
       "Approva o rifiuta",
+      "users",
     ),
   };
 }
@@ -177,6 +179,7 @@ async function ordine(id: string) {
         ["Stato", o.status],
       ]),
       "Vedi l'ordine",
+      "orders",
     ),
   };
 }

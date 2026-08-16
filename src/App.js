@@ -747,6 +747,8 @@ Object.assign(T.de, { insStrategy:"Strategie", insWinter:"Der Winter ist der Hö
 Object.assign(T.zh, { insStrategy:"策略", insWinter:"冬季是沉香和东方香水的高峰期。请确保分销商备货充足。", insSummer:"夏季适合清新和花香型香水。为南欧分销商准备促销活动。", insSpring:"春季适合推出新产品：分销商更愿意试销新的 SKU。", insAutumn:"秋季为暖季做准备：现在就提前安排冬季补货。", insDistTitle:"顶级分销商", insDistText:"{company}（{territory}）是您营收最高的分销商：€{rev}，共 {orders} 笔订单。", insProdTitle:"畅销产品", insProdText:"{name} 是销量最高的产品，共 {units} 件。可考虑与 {name2} 组合销售以提升订单价值。", insAnotherSku:"另一个 SKU", insNoDataTitle:"数据仍不足", insNoDataText:"目前订单数量不足以进行完整分析。随着分销商下单，数据将显示在此处。" });
 Object.assign(T.ar, { insStrategy:"الاستراتيجية", insWinter:"الشتاء هو ذروة عطور العود والعطور الشرقية. تأكد من توفر مخزون كافٍ لدى الموزّعين.", insSummer:"الصيف يفضّل العطور المنعشة والزهرية. جهّز عروضًا لموزّعي جنوب أوروبا.", insSpring:"الربيع مثالي لإطلاق منتجات جديدة: الموزّعون أكثر انفتاحًا لتجربة أصناف جديدة.", insAutumn:"الخريف يهيّئ للموسم الدافئ: قدّم طلبات إعادة التوريد الشتوية الآن.", insDistTitle:"أفضل موزّع", insDistText:"{company} ({territory}) هو موزّعك الأعلى إيرادًا: €{rev} عبر {orders} طلبًا.", insProdTitle:"المنتج الأكثر مبيعًا", insProdText:"{name} هو الأكثر مبيعًا بـ {units} وحدة. فكّر في حزمة مع {name2} لزيادة قيمة الطلب.", insAnotherSku:"صنف آخر", insNoDataTitle:"البيانات غير كافية بعد", insNoDataText:"لا توجد طلبات كافية بعد لإجراء تحليل كامل. ستظهر البيانات هنا مع قيام الموزّعين بالطلب." });
 Object.assign(T.en, { atabOverview:"Overview", atabUsers:"Users", atabBrands:"Brands", atabCatalog:"Catalog", atabInventory:"Inventory", atabLogistics:"Logistics", atabRetail:"Retail", atabCompliance:"Compliance", atabMargins:"Margins", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"Orders", atabInvoices:"Invoices", atabContracts:"Contracts", atabCommissions:"Commissions", atabIncassi:"Collections", atabFinance:"Finance", atabAudit:"Audit", atabIssues:"Issues", atabPayments:"Payments", atabSettings:"Settings" });
+Object.assign(T.en, { auVat:"VAT", auNoVat:"VAT not provided", auViesOk:"VIES valid", auViesKo:"VIES not validated", auViesNa:"VIES not checked", auDocs:"Documents", auNoDocs:"No documents uploaded - ask for them before approving", auOpenDoc:"Open" });
+Object.assign(T.it, { auVat:"P.IVA", auNoVat:"P.IVA non indicata", auViesOk:"VIES valida", auViesKo:"VIES non validata", auViesNa:"VIES non verificata", auDocs:"Documenti", auNoDocs:"Nessun documento caricato - chiederli prima di approvare", auOpenDoc:"Apri" });
 Object.assign(T.it, { atabOverview:"Panoramica", atabUsers:"Utenti", atabBrands:"Brand", atabCatalog:"Catalogo", atabInventory:"Inventario", atabLogistics:"Logistica", atabRetail:"Retail", atabCompliance:"Compliance", atabMargins:"Margini", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"Ordini", atabInvoices:"Fatture", atabContracts:"Contratti", atabCommissions:"Provvigioni", atabIncassi:"Incassi", atabFinance:"Finanze", atabAudit:"Audit", atabIssues:"Segnalazioni", atabPayments:"Pagamenti", atabSettings:"Impostazioni" });
 Object.assign(T.fr, { atabOverview:"Aperçu", atabUsers:"Utilisateurs", atabBrands:"Marques", atabCatalog:"Catalogue", atabInventory:"Inventaire", atabLogistics:"Logistique", atabRetail:"Vente au détail", atabCompliance:"Conformité", atabMargins:"Marges", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"Commandes", atabInvoices:"Factures", atabContracts:"Contrats", atabCommissions:"Commissions", atabIncassi:"Encaissements", atabFinance:"Finances", atabAudit:"Audit", atabIssues:"Signalements", atabPayments:"Paiements", atabSettings:"Paramètres" });
 Object.assign(T.es, { atabOverview:"Resumen", atabUsers:"Usuarios", atabBrands:"Marcas", atabCatalog:"Catálogo", atabInventory:"Inventario", atabLogistics:"Logística", atabRetail:"Retail", atabCompliance:"Cumplimiento", atabMargins:"Márgenes", atabNexusAI:"Nexus AI", atabAmazon:"Amazon", atabOrders:"Pedidos", atabInvoices:"Facturas", atabContracts:"Contratos", atabCommissions:"Comisiones", atabIncassi:"Cobros", atabFinance:"Finanzas", atabAudit:"Auditoría", atabIssues:"Incidencias", atabPayments:"Pagos", atabSettings:"Ajustes" });
@@ -6057,9 +6059,26 @@ const Modal = ({ title, onClose, onSave, children, saveLabel="Save" }) => {
 };
 
 
+/* I documenti sono nello storage: il percorso salvato va reso apribile in un clic. */
+const docUrlPubblico = (u) => {
+  if (!u) return "#";
+  if (/^https?:\/\//i.test(u)) return u;
+  return `${process.env.REACT_APP_SUPABASE_URL}/storage/v1/object/public/${String(u).replace(/^\/+/, "")}`;
+};
+
 const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const t = useT();
-  const [tab, setTab] = useState("overview");
+  /* Link diretto dalle email di notifica: nexushub.trade/?admin=users porta
+     dritto alle candidature da valutare, senza passare dalla panoramica. */
+  const [tab, setTab] = useState(() => {
+    const a = new URLSearchParams(window.location.search).get("admin");
+    return a && ["users","orders","invoices","contracts","compliance"].includes(a) ? a : "overview";
+  });
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("admin")) {
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+  }, []);
   const [users, setUsers] = useState([]);
   const [bCoords, setBCoords] = useState({ bonifico_iban:"", bonifico_bic:"", bonifico_bank:"", bonifico_holder:"" });
   const [regOpen, setRegOpen] = useState(true);
@@ -6191,8 +6210,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     setLoading(true);
     try {
       const { data } = await supabase.from("profiles")
-        .select("*, profile_billing(iban, bank_name, account_holder, swift_bic, sdi_code, pec_email, vat_number, commission_rate, estimated_annual_revenue, commission_locked, vies_valid, vies_name, vies_checked_at, stripe_connect_id, stripe_connect_status)").neq("role","admin").order("created_at", { ascending: false });
-      const flat = (data || []).map(u => { const pb = Array.isArray(u.profile_billing) ? (u.profile_billing[0] || {}) : (u.profile_billing || {}); return { ...u, iban: pb.iban ?? null, bank_name: pb.bank_name ?? null, account_holder: pb.account_holder ?? null, swift_bic: pb.swift_bic ?? null, sdi_code: pb.sdi_code ?? null, pec_email: pb.pec_email ?? null, vat_number: pb.vat_number ?? null, commission_rate: pb.commission_rate ?? null, estimated_annual_revenue: pb.estimated_annual_revenue ?? null, commission_locked: pb.commission_locked ?? null, vies_valid: pb.vies_valid ?? null, vies_name: pb.vies_name ?? null, vies_checked_at: pb.vies_checked_at ?? null, stripe_connect_id: pb.stripe_connect_id ?? null, stripe_connect_status: pb.stripe_connect_status ?? null }; });
+        .select("*, profile_billing(iban, bank_name, account_holder, swift_bic, sdi_code, pec_email, vat_number, commission_rate, estimated_annual_revenue, commission_locked, vies_valid, vies_name, vies_checked_at, stripe_connect_id, stripe_connect_status), documents(doc_type, file_name, file_url, verified)").neq("role","admin").order("created_at", { ascending: false });
+      const flat = (data || []).map(u => { const pb = Array.isArray(u.profile_billing) ? (u.profile_billing[0] || {}) : (u.profile_billing || {}); return { ...u, documents: Array.isArray(u.documents) ? u.documents : [], iban: pb.iban ?? null, bank_name: pb.bank_name ?? null, account_holder: pb.account_holder ?? null, swift_bic: pb.swift_bic ?? null, sdi_code: pb.sdi_code ?? null, pec_email: pb.pec_email ?? null, vat_number: pb.vat_number ?? null, commission_rate: pb.commission_rate ?? null, estimated_annual_revenue: pb.estimated_annual_revenue ?? null, commission_locked: pb.commission_locked ?? null, vies_valid: pb.vies_valid ?? null, vies_name: pb.vies_name ?? null, vies_checked_at: pb.vies_checked_at ?? null, stripe_connect_id: pb.stripe_connect_id ?? null, stripe_connect_status: pb.stripe_connect_status ?? null }; });
       setUsers(flat);
     } catch(e) { console.error(e); }
     setLoading(false);
@@ -7173,10 +7192,41 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                               <div style={{ fontSize:15, fontWeight:700, color:C.text }}>{u.company_name || u.email}</div>
                               <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{u.email} · {u.role.toUpperCase()}</div>
                               <div style={{ fontSize:11, color:C.textDim, marginTop:2 }}>{u.country || "—"} · {new Date(u.created_at).toLocaleDateString()}</div>
+                              <div style={{ fontSize:11, marginTop:4 }}>
+                                <span style={{ color: u.vat_number ? C.textMuted : C.red }}>
+                                  {u.vat_number ? `${t("auVat")} ${u.vat_number}` : t("auNoVat")}
+                                </span>
+                                <span style={{ color: u.vies_valid === true ? C.green : u.vies_valid === false ? C.red : C.textDim }}>
+                                  {" · "}{u.vies_valid === true ? `✅ ${t("auViesOk")}` : u.vies_valid === false ? `⚠️ ${t("auViesKo")}` : t("auViesNa")}
+                                </span>
+                              </div>
                             </div>
                           </div>
                           <Badge status="pending"/>
                         </div>
+
+                        {/* I documenti si valutano da qui: senza, l'approvazione e' alla cieca. */}
+                        {u.documents && u.documents.length > 0 ? (
+                          <div style={{ marginTop:12, padding:"10px 12px", background:C.surface2, borderRadius:9, border:`1px solid ${C.border}` }}>
+                            <div style={{ fontSize:10, color:C.gold, letterSpacing:".08em", textTransform:"uppercase", marginBottom:7 }}>
+                              {t("auDocs")} ({u.documents.length})
+                            </div>
+                            <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
+                              {u.documents.map((d, i) => (
+                                <a key={i} href={docUrlPubblico(d.file_url)} target="_blank" rel="noreferrer"
+                                   style={{ fontSize:12, color:C.goldLight, textDecoration:"none", padding:"5px 10px", borderRadius:7,
+                                            background:`${C.gold}12`, border:`1px solid ${C.gold}35` }}>
+                                  📄 {d.doc_type || d.file_name} ↗
+                                </a>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
+                          <div style={{ marginTop:12, padding:"10px 12px", background:`${C.red}10`, borderRadius:9, border:`1px solid ${C.red}30`, fontSize:12, color:C.red }}>
+                            ⚠️ {t("auNoDocs")}
+                          </div>
+                        )}
+
                         <div style={{ display:"flex", gap:10, marginTop:14, flexWrap:"wrap" }}>
                           <button onClick={() => approveUser(u.id)} style={{ padding:"9px 20px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.green}18`, border:`1px solid ${C.green}50`, color:C.green }}>✓ {t("auApprove")}</button>
                           <button onClick={() => rejectUser(u.id)} style={{ padding:"9px 20px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:600, background:`${C.red}12`, border:`1px solid ${C.red}40`, color:C.red }}>✗ {t("auReject")}</button>
