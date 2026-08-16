@@ -100,7 +100,7 @@ async function registrazione(id: string) {
 
   return {
     to: TO_DECISIONI,
-    subject: `🔔 Nuova registrazione ${tipo}${catena ? " (catena)" : ""} — ${p.company_name || p.email}`,
+    subject: `[REGISTRAZIONE] ${tipo}${catena ? " (catena)" : ""} - ${p.company_name || p.email}`,
     html: shell(
       `Nuova registrazione ${tipo}`,
       p.role === "brand" ? "#c9a84c" : "#3d8ef0",
@@ -137,7 +137,7 @@ async function candidatura(id: string) {
 
   return {
     to: TO_DECISIONI,
-    subject: `📨 ${d?.company_name || "Un distributore"} si candida a ${m?.company_name || "un brand"}`,
+    subject: `[CANDIDATURA] ${d?.company_name || "Un distributore"} -> ${m?.company_name || "un brand"}`,
     html: shell(
       "Nuova candidatura distributore → brand",
       "#8e44ad",
@@ -164,7 +164,7 @@ async function ordine(id: string) {
 
   return {
     to: TO_ORDINI,
-    subject: `🛒 Nuovo ordine ${o.order_number || ""} — € ${o.total_amount}`,
+    subject: `[ORDINE] ${o.order_number || ""} - EUR ${o.total_amount}`,
     html: shell(
       "Nuovo ordine ricevuto",
       "#27ae60",
