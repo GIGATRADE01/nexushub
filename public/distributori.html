@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>NexusHub — Your territory, before someone else takes it</title>
-<meta name="description" content="Arab fragrance brands, direct from the manufacturer. Official price, 48-72h from Turin, quality control on arrival. Territories assigned at Beautyworld Dubai, 6-8 October 2026."/>
+<title>NexusHub — In Europe, someone else decides your price</title>
+<meta name="description" content="Arab fragrance brands stocked in Europe. Official price, 48-72h from Turin, quality control on arrival, protected territory. Territories assigned at Beautyworld Dubai, 6-8 October 2026."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -12,38 +12,58 @@
   :root{
     --bg:#08080f; --surface:#12131c; --surface2:#191b26; --border:#252838;
     --text:#ede9e3; --muted:#8890aa; --dim:#5a6079;
-    --gold:#c9a84c; --goldLight:#e2bc6a; --goldDim:#7a5e28; --green:#27ae60; --red:#c0392b;
+    --gold:#c9a84c; --goldLight:#e2bc6a; --goldDim:#7a5e28; --green:#27ae60; --red:#c0392b; --blue:#3d8ef0;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',-apple-system,Segoe UI,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.65}
-  .wrap{max-width:880px;margin:0 auto;padding:0 22px}
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px}
   h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:700;line-height:1.2;margin:0}
   a{color:var(--goldLight)}
 
-  header{border-bottom:1px solid var(--border);padding:16px 0;position:sticky;top:0;background:rgba(8,8,15,.94);backdrop-filter:blur(10px);z-index:10}
+  header{border-bottom:1px solid var(--border);padding:16px 0;position:sticky;top:0;background:rgba(8,8,15,.94);backdrop-filter:blur(10px);z-index:20}
   .hrow{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
   .logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
   .mark{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--gold),var(--goldDim));display:grid;place-items:center;font-weight:900;color:#08080f;font-size:19px}
   .logo b{font-family:'Fraunces',serif;font-size:17px;letter-spacing:.01em}
   select{background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px;font-family:inherit;cursor:pointer}
 
-  .hero{padding:62px 0 46px;text-align:center}
+  .hero{padding:64px 0 40px;text-align:center}
   .flag{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.36);color:var(--goldLight);
         border-radius:100px;padding:8px 17px;font-size:12.5px;font-weight:700;letter-spacing:.03em;margin-bottom:24px}
-  .hero h1{font-size:clamp(30px,5.4vw,50px);letter-spacing:-.02em}
+  .hero h1{font-size:clamp(31px,5.6vw,52px);letter-spacing:-.02em}
   .hero h1 em{font-style:normal;color:var(--goldLight)}
-  .lead{color:var(--muted);font-size:clamp(16px,2.1vw,18.5px);margin:20px auto 0;max-width:640px}
+  .lead{color:var(--muted);font-size:clamp(16px,2.1vw,18.5px);margin:22px auto 0;max-width:660px}
 
-  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
-  .btn{display:inline-block;padding:15px 30px;border-radius:11px;text-decoration:none;font-weight:700;font-size:15px;border:1px solid transparent;transition:transform .12s}
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+  .btn{display:inline-block;padding:15px 30px;border-radius:11px;text-decoration:none;font-weight:700;font-size:15px;border:1px solid transparent;transition:transform .12s;cursor:pointer;font-family:inherit}
   .btn:hover{transform:translateY(-1px)}
   .btn-p{background:linear-gradient(135deg,var(--gold),var(--goldDim));color:#08080f}
   .btn-s{background:transparent;border-color:var(--border);color:var(--text)}
   .free{color:var(--dim);font-size:12.5px;margin-top:14px}
 
-  section{padding:52px 0;border-top:1px solid var(--border)}
+  section{padding:50px 0;border-top:1px solid var(--border)}
   .sect-h{font-size:clamp(22px,3.4vw,29px);margin-bottom:10px}
-  .sect-s{color:var(--muted);font-size:15.5px;margin:0 0 30px}
+  .sect-s{color:var(--muted);font-size:15.5px;margin:0 0 28px}
+
+  /* --- i tre percorsi: chi arriva si riconosce prima di leggere il resto --- */
+  .vie{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:6px}
+  .via{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 20px;cursor:pointer;
+       text-align:left;transition:border-color .15s,transform .12s;font-family:inherit;color:inherit}
+  .via:hover{transform:translateY(-2px);border-color:var(--gold)}
+  .via.on{border-color:var(--gold);background:linear-gradient(160deg,rgba(201,168,76,.13),rgba(201,168,76,.03))}
+  .via .n{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:9px}
+  .via h3{font-size:17px;color:var(--goldLight);margin-bottom:7px}
+  .via p{color:var(--muted);font-size:13.5px;margin:0}
+  .via .apri{color:var(--gold);font-size:12.5px;font-weight:700;margin-top:11px;display:block}
+
+  .pannello{display:none;margin-top:18px;background:var(--surface);border:1px solid rgba(201,168,76,.34);border-radius:14px;padding:28px}
+  .pannello.on{display:block;animation:sali .22s ease}
+  @keyframes sali{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .pannello h3{font-size:20px;color:var(--goldLight);margin-bottom:12px}
+  .pannello p{color:var(--text);font-size:15.5px;line-height:1.75;margin:0 0 14px}
+  .pannello p.sec{color:var(--muted);font-size:14.5px}
+  .pannello .kicker{display:inline-block;background:rgba(192,57,43,.13);border:1px solid rgba(192,57,43,.4);color:#e8776a;
+                    border-radius:8px;padding:11px 15px;font-size:14.5px;margin:4px 0 16px;line-height:1.6}
 
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px}
   .card{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:23px}
@@ -61,9 +81,9 @@
 
   .money{background:linear-gradient(135deg,rgba(39,174,96,.12),rgba(39,174,96,.04));border:1px solid rgba(39,174,96,.32);border-radius:14px;padding:28px;text-align:center}
   .money h3{color:var(--green);font-size:21px;margin-bottom:11px}
-  .money p{color:var(--text);font-size:16px;margin:0;max-width:600px;margin-inline:auto}
+  .money p{color:var(--text);font-size:16px;margin:0 auto;max-width:620px}
 
-  .steps{counter-reset:s;display:grid;gap:13px;margin-top:6px}
+  .steps{display:grid;gap:13px;margin-top:6px}
   .step{display:flex;gap:16px;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:19px}
   .step .n{flex:0 0 30px;height:30px;border-radius:50%;background:rgba(201,168,76,.14);border:1px solid rgba(201,168,76,.4);
            color:var(--goldLight);display:grid;place-items:center;font-weight:700;font-size:14px}
@@ -72,11 +92,10 @@
 
   .fair{background:var(--surface);border:1px solid rgba(201,168,76,.32);border-radius:14px;padding:30px;text-align:center}
   .fair .d{font-family:'Fraunces',serif;font-size:29px;color:var(--goldLight);margin-bottom:6px}
-  .fair p{color:var(--muted);max-width:620px;margin:12px auto 0;font-size:15.5px}
+  .fair p{color:var(--muted);max-width:640px;margin:12px auto 0;font-size:15.5px}
 
   footer{border-top:1px solid var(--border);padding:34px 0 46px;text-align:center;color:var(--dim);font-size:12.5px}
   footer a{color:var(--muted);text-decoration:none}
-  [data-t]{transition:opacity .12s}
 </style>
 </head>
 <body>
@@ -99,8 +118,8 @@
 
   <div class="hero">
     <div class="flag">📍 <span data-t="flag">Beautyworld Dubai · 6-8 October 2026</span></div>
-    <h1><span data-t="h1a">Arab fragrances,</span> <em data-t="h1b">straight from the manufacturer</em></h1>
-    <p class="lead" data-t="lead">You already sell them. But you buy from a wholesaler who bought from another wholesaler — and the price you pay carries two or three mark-ups nobody ever explained to you. We built these houses a second home in Europe: their stock, in our hub in Turin, a few hours from your shelves.</p>
+    <h1><span data-t="h1a">In Europe, the price of your fragrances</span> <em data-t="h1b">is decided by someone else</em></h1>
+    <p class="lead" data-t="lead">Whether you hold an official mandate or buy from a wholesaler, the shelf price in your country is set by people nobody appointed. We built the Gulf houses a second home in Europe: their stock, in our hub in Turin, hours from your shelves — at the price the brand decided.</p>
     <div class="cta">
       <a class="btn btn-p" href="https://nexushub.trade" data-t="cta1">Claim your territory</a>
       <a class="btn btn-s" href="https://nexushub.trade/?demo=distributor" data-t="cta2">See it first, no sign-up</a>
@@ -109,19 +128,76 @@
   </div>
 
   <section>
-    <h2 class="sect-h" data-t="s1h">What changes for you</h2>
+    <h2 class="sect-h" data-t="sVh">Which one are you?</h2>
+    <p class="sect-s" data-t="sVs">Three situations, three different problems. Pick yours.</p>
+
+    <div class="vie">
+      <button class="via" data-via="a">
+        <div class="n" data-t="viaAn">Situation 1</div>
+        <h3 data-t="viaAh">You already hold an official mandate</h3>
+        <p data-t="viaAp">You buy container loads straight from the manufacturer and you set the price yourself.</p>
+        <span class="apri" data-t="apri">Read what changes →</span>
+      </button>
+      <button class="via" data-via="b">
+        <div class="n" data-t="viaBn">Situation 2</div>
+        <h3 data-t="viaBh">You already sell Arab fragrances</h3>
+        <p data-t="viaBp">You buy from an importer or a larger wholesaler, and you take the price you are given.</p>
+        <span class="apri" data-t="apri2">Read what changes →</span>
+      </button>
+      <button class="via" data-via="c">
+        <div class="n" data-t="viaCn">Situation 3</div>
+        <h3 data-t="viaCh">You don't carry the category yet</h3>
+        <p data-t="viaCp">You have the warehouse, the customers and the sales network — but not a single Arab brand.</p>
+        <span class="apri" data-t="apri3">Read what changes →</span>
+      </button>
+    </div>
+
+    <div class="pannello" id="p-a">
+      <h3 data-t="pAh">Your exclusivity is worth what somebody else lets it be worth</h3>
+      <div class="kicker" data-t="pAk">You paid for the exclusive rights to your country. Open your national marketplace and count how many sellers are offering the same product today. Nobody is enforcing what you bought.</div>
+      <p data-t="pAp1">We govern the marketplaces on the brand's behalf and have unauthorised sellers removed. The exclusivity you already paid for starts meaning something again.</p>
+      <p data-t="pAp2">And the second thing nobody says out loud: to hold the mandate you have to take container loads of new references without knowing which will move, tie up capital for months, and discount whatever is left to make room for the next shipment.</p>
+      <p class="sec" data-t="pAp3">With us the brand's stock is already in Europe, cleared and inspected. You order three hundred units of the reference that is selling in Germany, you get them in 48-72 hours, and if it moves you reorder next week. If it doesn't, there is no container to clear out. We do not take the brand away from you — we take away the warehouse and the risk.</p>
+    </div>
+
+    <div class="pannello" id="p-b">
+      <h3 data-t="pBh">Between you and the manufacturer there are two or three margins</h3>
+      <div class="kicker" data-t="pBk">You buy from an importer, who bought from someone else. Every step takes its cut, and none of them was ever explained to you.</div>
+      <p data-t="pBp1">Here you buy at the price the brand set, not at the end of a chain. The commission is paid by the brand — never by you.</p>
+      <p data-t="pBp2">The goods are already inside Europe, already cleared, already inspected on arrival: 48-72 hours from Turin, correct VAT for your country, no container minimums.</p>
+      <p class="sec" data-t="pBp3">And your territory stops being open ground: the brand decides who sells in your country, exclusively or shared among a few. Nothing is sold to anyone the brand has not approved.</p>
+    </div>
+
+    <div class="pannello" id="p-c">
+      <h3 data-t="pCh">The category your customers ask for, and you don't have</h3>
+      <div class="kicker" data-t="pCk">Arab fragrance is the fastest-growing category in European perfumery. Most established distributors watched it from a distance, because the supply chain was the problem: importing from the Gulf, customs, EU cosmetic compliance, containers.</div>
+      <p data-t="pCp1">That complication is gone. The Gulf houses keep their stock in our hub in Turin: already imported, already cleared, already compliant with EU cosmetics regulation, with us as their Responsible Person.</p>
+      <p data-t="pCp2">You buy at the brand's price, order what you need with no container minimums, and receive in 48-72 hours with the invoice already correct for your country.</p>
+      <p class="sec" data-t="pCp3">In practice: you can open the category tomorrow, without importing anything and without risking stock. And you get in before the distributor down the road does.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sect-h" data-t="s1h">What you get, whichever you are</h2>
     <p class="sect-s" data-t="s1s">Not another middleman. The structure that removes the ones already there.</p>
     <div class="cards">
-      <div class="card"><div class="ic">🏷️</div><h3 data-t="c1h">The brand's official price</h3><p data-t="c1p">You buy at the price the brand set, not at the end of a chain of wholesalers. And the commission is paid by the brand — never by you.</p></div>
+      <div class="card"><div class="ic">🏷️</div><h3 data-t="c1h">The brand's official price</h3><p data-t="c1p">You buy at the price the brand set. And the commission is paid by the brand — never by you.</p></div>
       <div class="card"><div class="ic">🚚</div><h3 data-t="c2h">48-72 hours, from Turin</h3><p data-t="c2p">Stock sits inside Europe, already cleared through customs. No six-week container, no import paperwork, no minimum order by the pallet.</p></div>
       <div class="card"><div class="ic">🔍</div><h3 data-t="c3h">Quality controlled on arrival</h3><p data-t="c3p">Every consignment is checked when it lands: batch, labelling, packaging, EU compliance. What reaches you has already been looked at.</p></div>
-      <div class="card"><div class="ic">🛡️</div><h3 data-t="c4h">Your territory, protected</h3><p data-t="c4p">Territories are assigned by the brand: exclusive to one distributor, or shared between a few. Either way, nothing is sold to anyone the brand has not approved.</p></div>
+      <div class="card"><div class="ic">🛡️</div><h3 data-t="c4h">Your territory, protected</h3><p data-t="c4p">Territories are assigned by the brand: exclusive to one distributor, or shared between a few. Nothing is sold to anyone the brand has not approved.</p></div>
+      <div class="card"><div class="ic">📉</div><h3 data-t="c6h">A price that holds</h3><p data-t="c6p">We govern Amazon Europe on the brand's behalf and remove unauthorised sellers. Your selling price stops being destroyed by people the brand never appointed.</p></div>
       <div class="card"><div class="ic">🧾</div><h3 data-t="c5h">Invoicing that works</h3><p data-t="c5p">Every order invoiced automatically with the correct VAT treatment for your country. Ready for your accountant, no chasing.</p></div>
-      <div class="card"><div class="ic">📉</div><h3 data-t="c6h">A price that holds</h3><p data-t="c6p">We govern Amazon Europe on the brand's behalf and remove unauthorised sellers. The price you sell at stops being destroyed by people the brand never appointed.</p></div>
       <div class="card"><div class="ic">🔗</div><h3 data-t="c7h">Several brands, one door</h3><p data-t="c7p">One account, one cart, one delivery — across every brand on the platform. And you keep the brands you already work with: nothing you have built is taken away from you.</p></div>
       <div class="card"><div class="ic">💳</div><h3 data-t="c8h">Pay the way you work</h3><p data-t="c8p">Bank transfer, card, or agreed payment terms. Not one rigid method decided by someone else.</p></div>
-      <div class="card"><div class="ic">📣</div><h3 data-t="c9h">Launches reach you first</h3><p data-t="c9p">When a brand launches a product you are notified automatically, in your own language, and you can reserve stock before the release date instead of finding out when it is sold out.</p></div>
-      <div class="card"><div class="ic">💬</div><h3 data-t="c10h">A person, not a ticket</h3><p data-t="c10p">A platform simple enough that you do not need training, and someone reachable when something goes wrong. In English or Italian, by phone, email or WhatsApp.</p></div>
+      <div class="card"><div class="ic">📣</div><h3 data-t="c9h">Launches reach you first</h3><p data-t="c9p">When a brand launches a product you are notified automatically, in your own language, and you can reserve stock before the release date.</p></div>
+      <div class="card"><div class="ic">💬</div><h3 data-t="c10h">A person, not a ticket</h3><p data-t="c10p">A platform simple enough that you do not need training, and someone reachable when something goes wrong. By phone, email or WhatsApp.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="money">
+      <h3 data-t="mh">Somebody already pays for European distribution</h3>
+      <p data-t="mp">Today you pay for it, hidden inside your purchase price. Here the brand pays it. No registration fee, no subscription, no commission on your orders — our commission comes from the brand, out of a margin that today goes to the intermediaries between you and them. You pay for the goods, and that is all.</p>
     </div>
   </section>
 
@@ -130,24 +206,17 @@
     <p class="sect-s" data-t="s2s">The same products. A different way of getting them.</p>
     <div class="scroll">
       <table class="cmp">
-        <thead><tr><th></th><th data-t="th1">How you buy today</th><th data-t="th2">With NexusHub</th></tr></thead>
+        <thead><tr><th></th><th data-t="th1">Today</th><th data-t="th2">With NexusHub</th></tr></thead>
         <tbody>
-          <tr><td data-t="r1">Price</td><td class="now" data-t="r1a">Wholesaler's price, after two or three mark-ups</td><td class="nx" data-t="r1b">The <b>brand's official price</b></td></tr>
-          <tr><td data-t="r2">Who pays the commission</td><td class="now" data-t="r2a">It is inside the price. You pay it without seeing it.</td><td class="nx" data-t="r2b">The <b>brand</b>. Never you.</td></tr>
           <tr><td data-t="r3">Delivery</td><td class="now" data-t="r3a">Weeks. Container, customs, paperwork.</td><td class="nx" data-t="r3b"><b>48-72 hours</b> from Turin</td></tr>
           <tr><td data-t="r4">Minimum order</td><td class="now" data-t="r4a">Often a full container or pallet</td><td class="nx" data-t="r4b"><b>What you actually need</b>, when you need it</td></tr>
           <tr><td data-t="r5">Goods you receive</td><td class="now" data-t="r5a">Whatever arrives. Nobody checked it.</td><td class="nx" data-t="r5b"><b>Quality controlled</b> on arrival in Europe</td></tr>
-          <tr><td data-t="r6">Competition</td><td class="now" data-t="r6a">Twelve sellers on the same product, all undercutting</td><td class="nx" data-t="r6b"><b>Territory assigned by the brand</b></td></tr>
-          <tr><td data-t="r7">Authenticity</td><td class="now" data-t="r7a">You trust the wholesaler, who trusts his own</td><td class="nx" data-t="r7b"><b>Direct from the manufacturer</b></td></tr>
+          <tr><td data-t="r6">Competition in your country</td><td class="now" data-t="r6a">Ten sellers on the same product, all undercutting</td><td class="nx" data-t="r6b"><b>Territory assigned by the brand</b></td></tr>
+          <tr><td data-t="r2">Who pays the commission</td><td class="now" data-t="r2a">It is inside the price. You pay it without seeing it.</td><td class="nx" data-t="r2b">The <b>brand</b>. Never you.</td></tr>
+          <tr><td data-t="r8">Capital</td><td class="now" data-t="r8a">Tied up in stock for months</td><td class="nx" data-t="r8b"><b>You order what sells</b>, when it sells</td></tr>
+          <tr><td data-t="r9">EU compliance</td><td class="now" data-t="r9a">Yours: Responsible Person, CPNP, labelling</td><td class="nx" data-t="r9b"><b>Ours.</b> We are the Responsible Person</td></tr>
         </tbody>
       </table>
-    </div>
-  </section>
-
-  <section>
-    <div class="money">
-      <h3 data-t="mh">You pay nothing to NexusHub</h3>
-      <p data-t="mp">No registration fee, no subscription, no commission on your orders. Our commission is paid by the brand, out of a margin that today goes to the intermediaries between you and them. You pay for the goods, and that is all.</p>
     </div>
   </section>
 
@@ -189,27 +258,53 @@
 /* Le traduzioni stanno qui: la pagina e' statica e deve restare una sola richiesta.
    Il polacco c'e' anche se la piattaforma non lo parla ancora: per la profumeria
    araba la Polonia e' il mercato piu' grosso d'Europa, e un grossista polacco che
-   riceve una pagina in inglese la chiude. */
+   riceve una pagina in inglese la chiude prima di leggerla. */
 var T = {
- it:{c7h:"Più brand, una porta sola",c7p:"Un account, un carrello, una consegna — su tutti i brand della piattaforma. E i brand che tratti già restano tuoi: non ti viene tolto niente di quello che hai costruito.",c8h:"Paghi come lavori",c8p:"Bonifico, carta o termini di pagamento concordati. Non un solo metodo rigido deciso da altri.",c9h:"I lanci arrivano prima a te",c9p:"Quando un brand lancia un prodotto vieni avvisato automaticamente, nella tua lingua, e puoi prenotare la merce prima della data di uscita invece di scoprirlo quando è esaurita.",c10h:"Una persona, non un ticket",c10p:"Una piattaforma abbastanza semplice da non richiedere formazione, e qualcuno raggiungibile quando qualcosa va storto. In italiano o inglese, per telefono, email o WhatsApp.",lead:"Le vendi già. Ma le compri da un grossista che le ha comprate da un altro grossista, e nel prezzo che paghi ci sono due o tre ricarichi che nessuno ti ha mai spiegato. A queste case abbiamo costruito una seconda casa in Europa: la loro merce, nel nostro hub di Torino, a poche ore dai tuoi scaffali.",flag:"Beautyworld Dubai · 6-8 ottobre 2026",h1a:"Fragranze arabe,",h1b:"direttamente dal produttore",
-  lead:"Le vendi già. Ma le compri da un grossista che le ha comprate da un altro grossista, e nel prezzo che paghi ci sono due o tre ricarichi che nessuno ti ha mai spiegato.",
+ it:{flag:"Beautyworld Dubai · 6-8 ottobre 2026",
+  h1a:"In Europa il prezzo dei tuoi profumi",h1b:"lo decide qualcun altro",
+  lead:"Che tu abbia un mandato ufficiale o compri da un grossista, il prezzo a scaffale nel tuo paese lo fa gente che nessuno ha nominato. Alle case del Golfo abbiamo costruito una seconda casa in Europa: la loro merce, nel nostro hub di Torino, a poche ore dai tuoi scaffali — al prezzo deciso dal brand.",
   cta1:"Prendi il tuo territorio",cta2:"Guarda prima, senza registrarti",freeline:"La registrazione è gratuita e non impegna a nulla.",freeline2:"Gratis, e non impegna a nulla.",
-  s1h:"Cosa cambia per te",s1s:"Non un intermediario in più. La struttura che toglie quelli che ci sono già.",
-  c1h:"Il prezzo ufficiale del brand",c1p:"Compri al prezzo deciso dal brand, non alla fine di una catena di grossisti. E la commissione la paga il brand — mai tu.",
+  sVh:"Tu quale sei?",sVs:"Tre situazioni, tre problemi diversi. Scegli la tua.",
+  viaAn:"Situazione 1",viaAh:"Hai già un mandato ufficiale",viaAp:"Compri container direttamente dal produttore e il prezzo lo fai tu.",
+  viaBn:"Situazione 2",viaBh:"Vendi già fragranze arabe",viaBp:"Compri da un importatore o da un grossista più grande, e il prezzo lo subisci.",
+  viaCn:"Situazione 3",viaCh:"Non hai ancora la categoria",viaCp:"Hai magazzino, clienti e rete di vendita — ma nemmeno un brand arabo.",
+  apri:"Leggi cosa cambia →",apri2:"Leggi cosa cambia →",apri3:"Leggi cosa cambia →",
+  pAh:"La tua esclusiva vale quanto qualcun altro le lascia valere",
+  pAk:"Hai pagato per l'esclusiva sul tuo paese. Apri il marketplace nazionale e conta quanti venditori offrono oggi lo stesso prodotto. Nessuno sta facendo rispettare quello che hai comprato.",
+  pAp1:"Noi governiamo i marketplace per conto del brand e facciamo rimuovere i venditori non autorizzati. L'esclusiva che hai già pagato torna a significare qualcosa.",
+  pAp2:"E la seconda cosa, quella che nessuno dice ad alta voce: per tenere il mandato devi prendere container di referenze nuove senza sapere quali gireranno, immobilizzare capitale per mesi, e svendere quello che resta per far posto alla spedizione successiva.",
+  pAp3:"Con noi la merce del brand è già in Europa, sdoganata e controllata. Ordini trecento pezzi della referenza che sta vendendo in Germania, li ricevi in 48-72 ore, e se gira riordini la settimana dopo. Se non gira, non hai un container da smaltire. Non ti togliamo il brand: ti togliamo il magazzino e il rischio.",
+  pBh:"Fra te e il produttore ci sono due o tre margini",
+  pBk:"Compri da un importatore, che ha comprato da qualcun altro. Ogni passaggio prende la sua parte, e nessuno te l'ha mai spiegata.",
+  pBp1:"Qui compri al prezzo deciso dal brand, non alla fine di una catena. La commissione la paga il brand — mai tu.",
+  pBp2:"La merce è già dentro l'Europa, già sdoganata, già controllata all'arrivo: 48-72 ore da Torino, IVA corretta per il tuo paese, nessun minimo da container.",
+  pBp3:"E il tuo territorio smette di essere terra di nessuno: è il brand a decidere chi vende nel tuo paese, in esclusiva o condiviso fra pochi. Non si vende a nessuno che il brand non abbia approvato.",
+  pCh:"La categoria che i tuoi clienti chiedono e tu non hai",
+  pCk:"La profumeria araba è la categoria cresciuta più in fretta in Europa. La maggior parte dei distributori strutturati l'ha guardata da lontano, perché il problema era la filiera: importare dal Golfo, la dogana, la conformità cosmetica europea, i container.",
+  pCp1:"Quella complicazione non c'è più. Le case del Golfo tengono la loro merce nel nostro hub di Torino: già importata, già sdoganata, già conforme alla normativa cosmetica europea, con noi come loro Responsible Person.",
+  pCp2:"Tu compri al prezzo del brand, ordini quello che ti serve senza minimi da container, e ricevi in 48-72 ore con la fattura già corretta per il tuo paese.",
+  pCp3:"In pratica: puoi aprire la categoria domani, senza importare nulla e senza rischiare stock. E ci entri prima del distributore dietro l'angolo.",
+  s1h:"Cosa ottieni, chiunque tu sia",s1s:"Non un intermediario in più. La struttura che toglie quelli che ci sono già.",
+  c1h:"Il prezzo ufficiale del brand",c1p:"Compri al prezzo deciso dal brand. E la commissione la paga il brand — mai tu.",
   c2h:"48-72 ore, da Torino",c2p:"La merce è già in Europa, già sdoganata. Niente container da sei settimane, niente pratiche di importazione, niente minimi a pallet.",
   c3h:"Controllo qualità all'arrivo",c3p:"Ogni carico viene verificato quando arriva: lotto, etichettatura, confezionamento, conformità UE. Quello che ricevi è già stato guardato.",
-  c4h:"Il tuo territorio, protetto",c4p:"I territori li assegna il brand: in esclusiva a un solo distributore, o condivisi fra pochi. In ogni caso non si vende a nessuno che il brand non abbia approvato.",
+  c4h:"Il tuo territorio, protetto",c4p:"I territori li assegna il brand: in esclusiva a un solo distributore, o condivisi fra pochi. Non si vende a nessuno che il brand non abbia approvato.",
   c5h:"Fatturazione che funziona",c5p:"Ogni ordine fatturato automaticamente con l'IVA corretta per il tuo paese. Pronta per il commercialista, senza rincorrere nessuno.",
   c6h:"Un prezzo che tiene",c6p:"Governiamo Amazon Europa per conto del brand e rimuoviamo i venditori non autorizzati. Il prezzo a cui vendi smette di essere distrutto da gente che il brand non ha mai nominato.",
-  s2h:"Oggi, e con NexusHub",s2s:"Gli stessi prodotti. Un modo diverso di averli.",th1:"Come compri oggi",th2:"Con NexusHub",
-  r1:"Prezzo",r1a:"Prezzo del grossista, dopo due o tre ricarichi",r1b:"Il <b>prezzo ufficiale del brand</b>",
+  c7h:"Più brand, una porta sola",c7p:"Un account, un carrello, una consegna — su tutti i brand della piattaforma. E i brand che tratti già restano tuoi: non ti viene tolto niente di quello che hai costruito.",
+  c8h:"Paghi come lavori",c8p:"Bonifico, carta o termini di pagamento concordati. Non un solo metodo rigido deciso da altri.",
+  c9h:"I lanci arrivano prima a te",c9p:"Quando un brand lancia un prodotto vieni avvisato automaticamente, nella tua lingua, e puoi prenotare la merce prima della data di uscita.",
+  c10h:"Una persona, non un ticket",c10p:"Una piattaforma abbastanza semplice da non richiedere formazione, e qualcuno raggiungibile quando qualcosa va storto. Per telefono, email o WhatsApp.",
+  mh:"La distribuzione europea qualcuno la paga già",
+  mp:"Oggi la paghi tu, nascosta dentro il prezzo d'acquisto. Qui la paga il brand. Nessun costo di iscrizione, nessun abbonamento, nessuna commissione sui tuoi ordini: la nostra commissione arriva dal brand, da un margine che oggi finisce agli intermediari fra te e lui. Tu paghi la merce, e basta.",
+  s2h:"Oggi, e con NexusHub",s2s:"Gli stessi prodotti. Un modo diverso di averli.",th1:"Oggi",th2:"Con NexusHub",
   r2:"Chi paga la commissione",r2a:"È dentro il prezzo. La paghi senza vederla.",r2b:"Il <b>brand</b>. Mai tu.",
   r3:"Consegna",r3a:"Settimane. Container, dogana, pratiche.",r3b:"<b>48-72 ore</b> da Torino",
   r4:"Ordine minimo",r4a:"Spesso un container o un pallet intero",r4b:"<b>Quello che ti serve davvero</b>, quando ti serve",
   r5:"Merce che ricevi",r5a:"Quella che arriva. Nessuno l'ha controllata.",r5b:"<b>Controllata</b> all'arrivo in Europa",
-  r6:"Concorrenza",r6a:"Dodici venditori sullo stesso prodotto, tutti sotto prezzo",r6b:"<b>Territorio assegnato dal brand</b>",
-  r7:"Autenticità",r7a:"Ti fidi del grossista, che si fida del suo",r7b:"<b>Direttamente dal produttore</b>",
-  mh:"A NexusHub non paghi nulla",mp:"Nessun costo di iscrizione, nessun abbonamento, nessuna commissione sui tuoi ordini. La nostra commissione la paga il brand, da un margine che oggi finisce agli intermediari fra te e lui. Tu paghi la merce, e basta.",
+  r6:"Concorrenza nel tuo paese",r6a:"Dieci venditori sullo stesso prodotto, tutti sotto prezzo",r6b:"<b>Territorio assegnato dal brand</b>",
+  r8:"Capitale",r8a:"Immobilizzato in magazzino per mesi",r8b:"<b>Ordini quello che vendi</b>, quando lo vendi",
+  r9:"Conformità UE",r9a:"Tua: Responsible Person, CPNP, etichette",r9b:"<b>Nostra.</b> Il Responsible Person siamo noi",
   s3h:"Come funziona",s3s:"Quattro passaggi. Il primo richiede pochi minuti.",
   p1h:"Ti registri e indichi il tuo territorio",p1p:"Gratis, e non impegna a nulla. Dati aziendali, partita IVA, i paesi che copri.",
   p2h:"Ti candidi ai brand che vuoi",p2p:"Ogni brand ti approva o ti rifiuta, e decide se il tuo territorio è esclusivo o condiviso. Prima di candidarti vedi già se è ancora libero.",
@@ -220,25 +315,51 @@ var T = {
   fp2:"Ogni territorio può andare in esclusiva a un solo distributore, oppure essere aperto a pochi. <strong>Decide il brand — ma chi c'è già viene guardato per primo.</strong>",
   fcta:"Sii su quella lista",ft1:"Condizioni",ft2:"Privacy"},
 
- de:{c7h:"Mehrere Marken, eine Tür",c7p:"Ein Konto, ein Warenkorb, eine Lieferung — über alle Marken der Plattform. Und die Marken, mit denen Sie bereits arbeiten, bleiben Ihre: Ihnen wird nichts weggenommen.",c8h:"Zahlen, wie Sie arbeiten",c8p:"Überweisung, Karte oder vereinbarte Zahlungsziele. Keine starre Methode, die jemand anders festgelegt hat.",c9h:"Neuheiten erreichen Sie zuerst",c9p:"Wenn eine Marke ein Produkt einführt, werden Sie automatisch in Ihrer Sprache benachrichtigt und können Ware vor dem Verkaufsstart reservieren, statt es zu erfahren, wenn alles weg ist.",c10h:"Ein Mensch, kein Ticket",c10p:"Eine Plattform, die so einfach ist, dass keine Schulung nötig ist, und jemand, der erreichbar ist, wenn etwas schiefgeht. Auf Englisch oder Italienisch, per Telefon, E-Mail oder WhatsApp.",lead:"Sie verkaufen sie bereits. Aber Sie kaufen bei einem Großhändler, der bei einem anderen gekauft hat — und im Preis stecken zwei oder drei Aufschläge, die Ihnen nie jemand erklärt hat. Diesen Häusern haben wir ein zweites Zuhause in Europa gebaut: ihre Ware, in unserem Hub in Turin, wenige Stunden von Ihren Regalen entfernt.",flag:"Beautyworld Dubai · 6.-8. Oktober 2026",h1a:"Arabische Düfte,",h1b:"direkt vom Hersteller",
-  lead:"Sie verkaufen sie bereits. Aber Sie kaufen bei einem Großhändler, der bei einem anderen Großhändler gekauft hat — und im Preis stecken zwei oder drei Aufschläge, die Ihnen nie jemand erklärt hat.",
+ de:{flag:"Beautyworld Dubai · 6.-8. Oktober 2026",
+  h1a:"In Europa entscheidet den Preis Ihrer Düfte",h1b:"jemand anderes",
+  lead:"Ob Sie ein offizielles Mandat halten oder bei einem Großhändler kaufen: den Regalpreis in Ihrem Land machen Leute, die niemand beauftragt hat. Den Häusern am Golf haben wir ein zweites Zuhause in Europa gebaut: ihre Ware, in unserem Hub in Turin, wenige Stunden von Ihren Regalen — zu dem Preis, den die Marke festgelegt hat.",
   cta1:"Sichern Sie sich Ihr Gebiet",cta2:"Erst ansehen, ohne Anmeldung",freeline:"Die Registrierung ist kostenlos und völlig unverbindlich.",freeline2:"Kostenlos und unverbindlich.",
-  s1h:"Was sich für Sie ändert",s1s:"Kein weiterer Zwischenhändler. Die Struktur, die die bestehenden entfernt.",
-  c1h:"Der offizielle Markenpreis",c1p:"Sie kaufen zu dem Preis, den die Marke festgelegt hat, nicht am Ende einer Großhandelskette. Und die Provision zahlt die Marke — niemals Sie.",
+  sVh:"Welcher sind Sie?",sVs:"Drei Situationen, drei verschiedene Probleme. Wählen Sie Ihre.",
+  viaAn:"Situation 1",viaAh:"Sie halten bereits ein offizielles Mandat",viaAp:"Sie kaufen Container direkt beim Hersteller und machen den Preis selbst.",
+  viaBn:"Situation 2",viaBh:"Sie verkaufen bereits arabische Düfte",viaBp:"Sie kaufen bei einem Importeur oder größeren Großhändler und nehmen den Preis, den Sie bekommen.",
+  viaCn:"Situation 3",viaCh:"Sie führen die Kategorie noch nicht",viaCp:"Sie haben Lager, Kunden und Vertrieb — aber keine einzige arabische Marke.",
+  apri:"Was sich ändert →",apri2:"Was sich ändert →",apri3:"Was sich ändert →",
+  pAh:"Ihre Exklusivität ist so viel wert, wie andere sie wert sein lassen",
+  pAk:"Sie haben für die Exklusivrechte in Ihrem Land bezahlt. Öffnen Sie den nationalen Marktplatz und zählen Sie, wie viele Verkäufer dasselbe Produkt heute anbieten. Niemand setzt durch, wofür Sie bezahlt haben.",
+  pAp1:"Wir steuern die Marktplätze im Auftrag der Marke und lassen nicht autorisierte Verkäufer entfernen. Die Exklusivität, die Sie bereits bezahlt haben, bekommt wieder Bedeutung.",
+  pAp2:"Und das Zweite, was niemand laut sagt: Um das Mandat zu halten, müssen Sie Container neuer Artikel nehmen, ohne zu wissen, welche laufen, monatelang Kapital binden und den Rest verramschen, um Platz für die nächste Lieferung zu schaffen.",
+  pAp3:"Bei uns liegt die Ware der Marke bereits in Europa, verzollt und geprüft. Sie bestellen dreihundert Stück des Artikels, der in Deutschland läuft, erhalten sie in 48-72 Stunden, und wenn er sich verkauft, bestellen Sie nächste Woche nach. Wenn nicht, gibt es keinen Container abzuverkaufen. Wir nehmen Ihnen nicht die Marke — wir nehmen Ihnen das Lager und das Risiko.",
+  pBh:"Zwischen Ihnen und dem Hersteller liegen zwei oder drei Margen",
+  pBk:"Sie kaufen bei einem Importeur, der bei jemand anderem gekauft hat. Jede Stufe nimmt ihren Anteil, und keine wurde Ihnen je erklärt.",
+  pBp1:"Hier kaufen Sie zu dem Preis, den die Marke festgelegt hat, nicht am Ende einer Kette. Die Provision zahlt die Marke — niemals Sie.",
+  pBp2:"Die Ware ist bereits in Europa, bereits verzollt, bereits bei Ankunft geprüft: 48-72 Stunden ab Turin, korrekte Umsatzsteuer für Ihr Land, keine Container-Mindestmengen.",
+  pBp3:"Und Ihr Gebiet ist kein Niemandsland mehr: Die Marke entscheidet, wer in Ihrem Land verkauft, exklusiv oder unter wenigen geteilt. An niemanden wird verkauft, den die Marke nicht genehmigt hat.",
+  pCh:"Die Kategorie, nach der Ihre Kunden fragen und die Sie nicht haben",
+  pCk:"Arabische Düfte sind die am schnellsten wachsende Kategorie in Europa. Die meisten etablierten Distributoren haben sie aus der Ferne betrachtet, weil die Lieferkette das Problem war: Import aus dem Golf, Zoll, EU-Kosmetikkonformität, Container.",
+  pCp1:"Diese Komplikation gibt es nicht mehr. Die Häuser am Golf lagern ihre Ware in unserem Hub in Turin: bereits importiert, bereits verzollt, bereits konform mit der EU-Kosmetikverordnung, mit uns als ihrer Responsible Person.",
+  pCp2:"Sie kaufen zum Markenpreis, bestellen was Sie brauchen ohne Container-Mindestmengen und erhalten in 48-72 Stunden mit bereits korrekter Rechnung für Ihr Land.",
+  pCp3:"Praktisch: Sie können die Kategorie morgen eröffnen, ohne etwas zu importieren und ohne Lagerrisiko. Und Sie sind vor dem Distributor um die Ecke drin.",
+  s1h:"Was Sie bekommen, wer auch immer Sie sind",s1s:"Kein weiterer Zwischenhändler. Die Struktur, die die bestehenden entfernt.",
+  c1h:"Der offizielle Markenpreis",c1p:"Sie kaufen zu dem Preis, den die Marke festgelegt hat. Und die Provision zahlt die Marke — niemals Sie.",
   c2h:"48-72 Stunden, ab Turin",c2p:"Die Ware liegt bereits in Europa, bereits verzollt. Kein Container mit sechs Wochen Vorlauf, keine Importpapiere, keine Paletten-Mindestmengen.",
   c3h:"Qualitätskontrolle bei Ankunft",c3p:"Jede Lieferung wird bei Ankunft geprüft: Charge, Kennzeichnung, Verpackung, EU-Konformität. Was Sie erhalten, wurde bereits angesehen.",
-  c4h:"Ihr Gebiet, geschützt",c4p:"Die Gebiete vergibt die Marke: exklusiv an einen Distributor oder geteilt unter wenigen. In jedem Fall wird an niemanden verkauft, den die Marke nicht genehmigt hat.",
+  c4h:"Ihr Gebiet, geschützt",c4p:"Die Gebiete vergibt die Marke: exklusiv an einen Distributor oder geteilt unter wenigen. An niemanden wird verkauft, den die Marke nicht genehmigt hat.",
   c5h:"Rechnungen, die funktionieren",c5p:"Jede Bestellung automatisch mit der korrekten Umsatzsteuer für Ihr Land abgerechnet. Fertig für die Buchhaltung.",
   c6h:"Ein Preis, der hält",c6p:"Wir steuern Amazon Europa im Auftrag der Marke und entfernen nicht autorisierte Verkäufer. Ihr Verkaufspreis wird nicht länger von Leuten zerstört, die die Marke nie beauftragt hat.",
-  s2h:"Heute, und mit NexusHub",s2s:"Dieselben Produkte. Ein anderer Weg, sie zu bekommen.",th1:"Wie Sie heute kaufen",th2:"Mit NexusHub",
-  r1:"Preis",r1a:"Großhandelspreis, nach zwei oder drei Aufschlägen",r1b:"Der <b>offizielle Markenpreis</b>",
+  c7h:"Mehrere Marken, eine Tür",c7p:"Ein Konto, ein Warenkorb, eine Lieferung — über alle Marken der Plattform. Und die Marken, mit denen Sie bereits arbeiten, bleiben Ihre.",
+  c8h:"Zahlen, wie Sie arbeiten",c8p:"Überweisung, Karte oder vereinbarte Zahlungsziele. Keine starre Methode, die jemand anders festgelegt hat.",
+  c9h:"Neuheiten erreichen Sie zuerst",c9p:"Wenn eine Marke ein Produkt einführt, werden Sie automatisch in Ihrer Sprache benachrichtigt und können Ware vor dem Verkaufsstart reservieren.",
+  c10h:"Ein Mensch, kein Ticket",c10p:"Eine Plattform, die so einfach ist, dass keine Schulung nötig ist, und jemand, der erreichbar ist, wenn etwas schiefgeht. Per Telefon, E-Mail oder WhatsApp.",
+  mh:"Die europäische Distribution zahlt bereits jemand",
+  mp:"Heute zahlen Sie sie, versteckt in Ihrem Einkaufspreis. Hier zahlt sie die Marke. Keine Anmeldegebühr, kein Abo, keine Provision auf Ihre Bestellungen: Unsere Provision kommt von der Marke, aus einer Marge, die heute an die Zwischenhändler zwischen Ihnen und ihr geht. Sie zahlen die Ware, mehr nicht.",
+  s2h:"Heute, und mit NexusHub",s2s:"Dieselben Produkte. Ein anderer Weg, sie zu bekommen.",th1:"Heute",th2:"Mit NexusHub",
   r2:"Wer zahlt die Provision",r2a:"Sie steckt im Preis. Sie zahlen sie, ohne sie zu sehen.",r2b:"Die <b>Marke</b>. Niemals Sie.",
   r3:"Lieferung",r3a:"Wochen. Container, Zoll, Papiere.",r3b:"<b>48-72 Stunden</b> ab Turin",
   r4:"Mindestbestellung",r4a:"Oft ein ganzer Container oder eine Palette",r4b:"<b>Was Sie wirklich brauchen</b>, wann Sie es brauchen",
   r5:"Erhaltene Ware",r5a:"Was ankommt. Niemand hat sie geprüft.",r5b:"<b>Geprüft</b> bei Ankunft in Europa",
-  r6:"Wettbewerb",r6a:"Zwölf Verkäufer auf demselben Produkt, alle unterbieten sich",r6b:"<b>Von der Marke zugewiesenes Gebiet</b>",
-  r7:"Echtheit",r7a:"Sie vertrauen dem Großhändler, der seinem vertraut",r7b:"<b>Direkt vom Hersteller</b>",
-  mh:"An NexusHub zahlen Sie nichts",mp:"Keine Anmeldegebühr, kein Abo, keine Provision auf Ihre Bestellungen. Unsere Provision zahlt die Marke, aus einer Marge, die heute an die Zwischenhändler zwischen Ihnen und ihr geht. Sie zahlen die Ware, mehr nicht.",
+  r6:"Wettbewerb in Ihrem Land",r6a:"Zehn Verkäufer auf demselben Produkt, alle unterbieten sich",r6b:"<b>Von der Marke zugewiesenes Gebiet</b>",
+  r8:"Kapital",r8a:"Monatelang im Lager gebunden",r8b:"<b>Sie bestellen, was sich verkauft</b>, wenn es sich verkauft",
+  r9:"EU-Konformität",r9a:"Ihre: Responsible Person, CPNP, Kennzeichnung",r9b:"<b>Unsere.</b> Wir sind die Responsible Person",
   s3h:"So funktioniert es",s3s:"Vier Schritte. Der erste dauert wenige Minuten.",
   p1h:"Sie registrieren sich und nennen Ihr Gebiet",p1p:"Kostenlos und unverbindlich. Firmendaten, USt-IdNr., die Länder, die Sie abdecken.",
   p2h:"Sie bewerben sich bei den Marken, die Sie wollen",p2p:"Jede Marke nimmt Sie an oder nicht und entscheidet, ob Ihr Gebiet exklusiv oder geteilt ist. Vor der Bewerbung sehen Sie bereits, ob es noch frei ist.",
@@ -249,90 +370,168 @@ var T = {
   fp2:"Jedes Gebiet kann exklusiv an einen Distributor gehen oder für wenige geöffnet werden. <strong>Die Marke entscheidet — aber wer schon da ist, wird zuerst angesehen.</strong>",
   fcta:"Stehen Sie auf dieser Liste",ft1:"AGB",ft2:"Datenschutz"},
 
- fr:{c7h:"Plusieurs marques, une seule porte",c7p:"Un compte, un panier, une livraison — sur toutes les marques de la plateforme. Et les marques que vous travaillez déjà restent les vôtres : on ne vous enlève rien de ce que vous avez construit.",c8h:"Vous payez comme vous travaillez",c8p:"Virement, carte ou délais convenus. Pas une seule méthode rigide décidée par d'autres.",c9h:"Les lancements vous arrivent en premier",c9p:"Quand une marque lance un produit, vous êtes prévenu automatiquement, dans votre langue, et vous pouvez réserver la marchandise avant la date de sortie au lieu de l'apprendre quand tout est vendu.",c10h:"Une personne, pas un ticket",c10p:"Une plateforme assez simple pour ne demander aucune formation, et quelqu'un de joignable quand quelque chose ne va pas. En anglais ou en italien, par téléphone, e-mail ou WhatsApp.",lead:"Vous les vendez déjà. Mais vous achetez chez un grossiste qui a acheté chez un autre grossiste — et le prix que vous payez contient deux ou trois marges que personne ne vous a jamais expliquées. À ces maisons nous avons construit une seconde maison en Europe : leur marchandise, dans notre hub de Turin, à quelques heures de vos rayons.",flag:"Beautyworld Dubaï · 6-8 octobre 2026",h1a:"Parfums arabes,",h1b:"directement du fabricant",
-  lead:"Vous les vendez déjà. Mais vous achetez chez un grossiste qui a acheté chez un autre grossiste — et le prix que vous payez contient deux ou trois marges que personne ne vous a jamais expliquées.",
+ fr:{flag:"Beautyworld Dubaï · 6-8 octobre 2026",
+  h1a:"En Europe, le prix de vos parfums",h1b:"est décidé par quelqu'un d'autre",
+  lead:"Que vous ayez un mandat officiel ou que vous achetiez chez un grossiste, le prix en rayon dans votre pays est fixé par des gens que personne n'a nommés. Aux maisons du Golfe nous avons construit une seconde maison en Europe : leur marchandise, dans notre hub de Turin, à quelques heures de vos rayons — au prix décidé par la marque.",
   cta1:"Réservez votre territoire",cta2:"Voir d'abord, sans inscription",freeline:"L'inscription est gratuite et n'engage à rien.",freeline2:"Gratuit, et sans engagement.",
-  s1h:"Ce qui change pour vous",s1s:"Pas un intermédiaire de plus. La structure qui supprime ceux qui existent déjà.",
-  c1h:"Le prix officiel de la marque",c1p:"Vous achetez au prix fixé par la marque, pas au bout d'une chaîne de grossistes. Et la commission est payée par la marque — jamais par vous.",
+  sVh:"Vous êtes lequel ?",sVs:"Trois situations, trois problèmes différents. Choisissez la vôtre.",
+  viaAn:"Situation 1",viaAh:"Vous avez déjà un mandat officiel",viaAp:"Vous achetez des conteneurs directement au fabricant et vous fixez le prix vous-même.",
+  viaBn:"Situation 2",viaBh:"Vous vendez déjà des parfums arabes",viaBp:"Vous achetez chez un importateur ou un grossiste plus grand, et vous subissez le prix.",
+  viaCn:"Situation 3",viaCh:"Vous n'avez pas encore la catégorie",viaCp:"Vous avez l'entrepôt, les clients et le réseau — mais pas une seule marque arabe.",
+  apri:"Ce qui change →",apri2:"Ce qui change →",apri3:"Ce qui change →",
+  pAh:"Votre exclusivité vaut ce que les autres veulent bien lui laisser valoir",
+  pAk:"Vous avez payé l'exclusivité sur votre pays. Ouvrez la marketplace nationale et comptez combien de vendeurs proposent le même produit aujourd'hui. Personne ne fait respecter ce que vous avez acheté.",
+  pAp1:"Nous pilotons les marketplaces pour le compte de la marque et faisons retirer les vendeurs non autorisés. L'exclusivité que vous avez déjà payée retrouve un sens.",
+  pAp2:"Et la deuxième chose, celle que personne ne dit tout haut : pour garder le mandat vous devez prendre des conteneurs de nouvelles références sans savoir lesquelles tourneront, immobiliser du capital pendant des mois, et brader ce qui reste pour faire place à la livraison suivante.",
+  pAp3:"Chez nous la marchandise de la marque est déjà en Europe, dédouanée et contrôlée. Vous commandez trois cents pièces de la référence qui marche en Allemagne, vous les recevez en 48-72 heures, et si elle tourne vous recommandez la semaine suivante. Sinon, aucun conteneur à écouler. Nous ne vous enlevons pas la marque : nous vous enlevons l'entrepôt et le risque.",
+  pBh:"Entre vous et le fabricant il y a deux ou trois marges",
+  pBk:"Vous achetez chez un importateur, qui a acheté chez quelqu'un d'autre. Chaque étape prend sa part, et aucune ne vous a jamais été expliquée.",
+  pBp1:"Ici vous achetez au prix fixé par la marque, pas au bout d'une chaîne. La commission est payée par la marque — jamais par vous.",
+  pBp2:"La marchandise est déjà en Europe, déjà dédouanée, déjà contrôlée à l'arrivée : 48-72 heures depuis Turin, TVA correcte pour votre pays, aucun minimum au conteneur.",
+  pBp3:"Et votre territoire cesse d'être un terrain vague : c'est la marque qui décide qui vend dans votre pays, en exclusivité ou partagé entre quelques-uns.",
+  pCh:"La catégorie que vos clients demandent et que vous n'avez pas",
+  pCk:"Le parfum arabe est la catégorie qui a le plus vite grandi en Europe. La plupart des distributeurs établis l'ont regardée de loin, parce que le problème était la filière : importer du Golfe, la douane, la conformité cosmétique européenne, les conteneurs.",
+  pCp1:"Cette complication n'existe plus. Les maisons du Golfe gardent leur marchandise dans notre hub de Turin : déjà importée, déjà dédouanée, déjà conforme au règlement cosmétique européen, avec nous comme Responsible Person.",
+  pCp2:"Vous achetez au prix de la marque, commandez ce dont vous avez besoin sans minimum au conteneur, et recevez en 48-72 heures avec la facture déjà correcte pour votre pays.",
+  pCp3:"En pratique : vous pouvez ouvrir la catégorie demain, sans rien importer et sans risquer de stock. Et vous y entrez avant le distributeur d'à côté.",
+  s1h:"Ce que vous obtenez, quel que soit votre cas",s1s:"Pas un intermédiaire de plus. La structure qui supprime ceux qui existent déjà.",
+  c1h:"Le prix officiel de la marque",c1p:"Vous achetez au prix fixé par la marque. Et la commission est payée par la marque — jamais par vous.",
   c2h:"48-72 heures, depuis Turin",c2p:"La marchandise est déjà en Europe, déjà dédouanée. Pas de conteneur à six semaines, pas de formalités d'importation, pas de minimum à la palette.",
   c3h:"Contrôle qualité à l'arrivée",c3p:"Chaque envoi est vérifié à son arrivée : lot, étiquetage, conditionnement, conformité UE. Ce que vous recevez a déjà été examiné.",
-  c4h:"Votre territoire, protégé",c4p:"Les territoires sont attribués par la marque : en exclusivité à un seul distributeur, ou partagés entre quelques-uns. Dans tous les cas, rien n'est vendu à quelqu'un que la marque n'a pas approuvé.",
+  c4h:"Votre territoire, protégé",c4p:"Les territoires sont attribués par la marque : en exclusivité à un seul distributeur, ou partagés entre quelques-uns.",
   c5h:"Une facturation qui fonctionne",c5p:"Chaque commande facturée automatiquement avec la TVA correcte pour votre pays. Prête pour votre comptable.",
   c6h:"Un prix qui tient",c6p:"Nous pilotons Amazon Europe pour le compte de la marque et retirons les vendeurs non autorisés. Votre prix de vente cesse d'être détruit par des gens que la marque n'a jamais nommés.",
-  s2h:"Aujourd'hui, et avec NexusHub",s2s:"Les mêmes produits. Une autre façon de les obtenir.",th1:"Comment vous achetez aujourd'hui",th2:"Avec NexusHub",
-  r1:"Prix",r1a:"Prix du grossiste, après deux ou trois marges",r1b:"Le <b>prix officiel de la marque</b>",
+  c7h:"Plusieurs marques, une seule porte",c7p:"Un compte, un panier, une livraison — sur toutes les marques de la plateforme. Et les marques que vous travaillez déjà restent les vôtres.",
+  c8h:"Vous payez comme vous travaillez",c8p:"Virement, carte ou délais convenus. Pas une seule méthode rigide décidée par d'autres.",
+  c9h:"Les lancements vous arrivent en premier",c9p:"Quand une marque lance un produit, vous êtes prévenu automatiquement, dans votre langue, et vous pouvez réserver avant la date de sortie.",
+  c10h:"Une personne, pas un ticket",c10p:"Une plateforme assez simple pour ne demander aucune formation, et quelqu'un de joignable quand quelque chose ne va pas. Par téléphone, e-mail ou WhatsApp.",
+  mh:"La distribution européenne, quelqu'un la paie déjà",
+  mp:"Aujourd'hui c'est vous qui la payez, cachée dans votre prix d'achat. Ici c'est la marque. Aucun frais d'inscription, aucun abonnement, aucune commission sur vos commandes : notre commission vient de la marque, d'une marge qui va aujourd'hui aux intermédiaires entre vous et elle. Vous payez la marchandise, c'est tout.",
+  s2h:"Aujourd'hui, et avec NexusHub",s2s:"Les mêmes produits. Une autre façon de les obtenir.",th1:"Aujourd'hui",th2:"Avec NexusHub",
   r2:"Qui paie la commission",r2a:"Elle est dans le prix. Vous la payez sans la voir.",r2b:"La <b>marque</b>. Jamais vous.",
   r3:"Livraison",r3a:"Des semaines. Conteneur, douane, papiers.",r3b:"<b>48-72 heures</b> depuis Turin",
   r4:"Commande minimum",r4a:"Souvent un conteneur ou une palette entière",r4b:"<b>Ce dont vous avez besoin</b>, quand vous en avez besoin",
   r5:"Marchandise reçue",r5a:"Ce qui arrive. Personne ne l'a contrôlée.",r5b:"<b>Contrôlée</b> à l'arrivée en Europe",
-  r6:"Concurrence",r6a:"Douze vendeurs sur le même produit, tous en dessous",r6b:"<b>Territoire attribué par la marque</b>",
-  r7:"Authenticité",r7a:"Vous faites confiance au grossiste, qui fait confiance au sien",r7b:"<b>Directement du fabricant</b>",
-  mh:"À NexusHub vous ne payez rien",mp:"Aucun frais d'inscription, aucun abonnement, aucune commission sur vos commandes. Notre commission est payée par la marque, sur une marge qui va aujourd'hui aux intermédiaires entre vous et elle. Vous payez la marchandise, c'est tout.",
+  r6:"Concurrence dans votre pays",r6a:"Dix vendeurs sur le même produit, tous en dessous",r6b:"<b>Territoire attribué par la marque</b>",
+  r8:"Capital",r8a:"Immobilisé en stock pendant des mois",r8b:"<b>Vous commandez ce qui se vend</b>, quand ça se vend",
+  r9:"Conformité UE",r9a:"La vôtre : Responsible Person, CPNP, étiquetage",r9b:"<b>La nôtre.</b> Le Responsible Person, c'est nous",
   s3h:"Comment ça marche",s3s:"Quatre étapes. La première prend quelques minutes.",
   p1h:"Vous vous inscrivez et indiquez votre territoire",p1p:"Gratuit et sans engagement. Données de l'entreprise, numéro de TVA, les pays que vous couvrez.",
-  p2h:"Vous postulez aux marques que vous voulez",p2p:"Chaque marque vous accepte ou vous refuse, et décide si votre territoire est exclusif ou partagé. Avant de postuler, vous voyez déjà s'il est encore libre.",
+  p2h:"Vous postulez aux marques que vous voulez",p2p:"Chaque marque vous accepte ou vous refuse, et décide si votre territoire est exclusif ou partagé.",
   p3h:"Vous commandez sur le catalogue en direct",p3p:"Stock réel, prix officiels pour votre pays, un seul panier. Virement, carte ou délais convenus.",
   p4h:"Livré en 48-72 heures",p4p:"Expédié depuis Turin, suivi, avec la facture déjà correcte pour votre pays.",
   fd:"6-8 octobre 2026 · Dubaï",fh:"Pourquoi maintenant, et pas en novembre",
-  fp1:"En octobre nous sommes à Beautyworld Dubaï, à la table des fabricants. Quand les territoires européens seront discutés, nous apportons la liste des distributeurs déjà inscrits sur la plateforme.",
+  fp1:"En octobre nous sommes à Beautyworld Dubaï, à la table des fabricants. Quand les territoires européens seront discutés, nous apportons la liste des distributeurs déjà inscrits.",
   fp2:"Chaque territoire peut revenir en exclusivité à un seul distributeur, ou être ouvert à quelques-uns. <strong>C'est la marque qui décide — mais celui qui est déjà là est regardé en premier.</strong>",
   fcta:"Soyez sur cette liste",ft1:"Conditions",ft2:"Confidentialité"},
 
- es:{c7h:"Varias marcas, una sola puerta",c7p:"Una cuenta, un carrito, una entrega — en todas las marcas de la plataforma. Y las marcas que ya trabajas siguen siendo tuyas: no se te quita nada de lo que has construido.",c8h:"Pagas como trabajas",c8p:"Transferencia, tarjeta o plazos acordados. No un único método rígido decidido por otros.",c9h:"Los lanzamientos te llegan primero",c9p:"Cuando una marca lanza un producto se te avisa automáticamente, en tu idioma, y puedes reservar mercancía antes de la fecha de salida en vez de enterarte cuando ya está agotada.",c10h:"Una persona, no un ticket",c10p:"Una plataforma lo bastante sencilla como para no necesitar formación, y alguien localizable cuando algo va mal. En inglés o italiano, por teléfono, correo o WhatsApp.",lead:"Ya las vendes. Pero las compras a un mayorista que las compró a otro mayorista, y en el precio que pagas hay dos o tres márgenes que nadie te ha explicado nunca. A estas casas les hemos construido una segunda casa en Europa: su mercancía, en nuestro hub de Turín, a pocas horas de tus estantes.",flag:"Beautyworld Dubái · 6-8 de octubre de 2026",h1a:"Fragancias árabes,",h1b:"directamente del fabricante",
-  lead:"Ya las vendes. Pero las compras a un mayorista que las compró a otro mayorista, y en el precio que pagas hay dos o tres márgenes que nadie te ha explicado nunca.",
+ es:{flag:"Beautyworld Dubái · 6-8 de octubre de 2026",
+  h1a:"En Europa el precio de tus perfumes",h1b:"lo decide otro",
+  lead:"Tengas un mandato oficial o compres a un mayorista, el precio en el lineal de tu país lo fija gente que nadie ha nombrado. A las casas del Golfo les hemos construido una segunda casa en Europa: su mercancía, en nuestro hub de Turín, a pocas horas de tus estantes — al precio que decidió la marca.",
   cta1:"Reserva tu territorio",cta2:"Míralo antes, sin registrarte",freeline:"El registro es gratuito y no compromete a nada.",freeline2:"Gratis, y sin compromiso.",
-  s1h:"Qué cambia para ti",s1s:"No un intermediario más. La estructura que elimina los que ya hay.",
-  c1h:"El precio oficial de la marca",c1p:"Compras al precio que fijó la marca, no al final de una cadena de mayoristas. Y la comisión la paga la marca — nunca tú.",
-  c2h:"48-72 horas, desde Turín",c2p:"La mercancía ya está en Europa, ya despachada en aduana. Sin contenedor a seis semanas, sin trámites de importación, sin mínimos por palé.",
+  sVh:"¿Tú cuál eres?",sVs:"Tres situaciones, tres problemas distintos. Elige la tuya.",
+  viaAn:"Situación 1",viaAh:"Ya tienes un mandato oficial",viaAp:"Compras contenedores directamente al fabricante y el precio lo pones tú.",
+  viaBn:"Situación 2",viaBh:"Ya vendes fragancias árabes",viaBp:"Compras a un importador o a un mayorista mayor, y el precio lo sufres.",
+  viaCn:"Situación 3",viaCh:"Aún no tienes la categoría",viaCp:"Tienes almacén, clientes y red de ventas — pero ni una sola marca árabe.",
+  apri:"Qué cambia →",apri2:"Qué cambia →",apri3:"Qué cambia →",
+  pAh:"Tu exclusividad vale lo que otros la dejan valer",
+  pAk:"Pagaste por la exclusividad de tu país. Abre el marketplace nacional y cuenta cuántos vendedores ofrecen hoy el mismo producto. Nadie está haciendo respetar lo que compraste.",
+  pAp1:"Nosotros gestionamos los marketplaces en nombre de la marca y hacemos retirar a los vendedores no autorizados. La exclusividad que ya pagaste vuelve a significar algo.",
+  pAp2:"Y lo segundo, lo que nadie dice en voz alta: para mantener el mandato tienes que comprar contenedores de referencias nuevas sin saber cuáles rotarán, inmovilizar capital durante meses, y liquidar lo que queda para hacer sitio al siguiente envío.",
+  pAp3:"Con nosotros la mercancía de la marca ya está en Europa, despachada y controlada. Pides trescientas unidades de la referencia que está funcionando en Alemania, las recibes en 48-72 horas, y si rota repites la semana siguiente. Si no, no hay contenedor que liquidar. No te quitamos la marca: te quitamos el almacén y el riesgo.",
+  pBh:"Entre tú y el fabricante hay dos o tres márgenes",
+  pBk:"Compras a un importador, que compró a otro. Cada paso se lleva su parte, y ninguno te lo ha explicado nunca.",
+  pBp1:"Aquí compras al precio que fijó la marca, no al final de una cadena. La comisión la paga la marca — nunca tú.",
+  pBp2:"La mercancía ya está dentro de Europa, ya despachada, ya controlada a la llegada: 48-72 horas desde Turín, IVA correcto para tu país, sin mínimos por contenedor.",
+  pBp3:"Y tu territorio deja de ser tierra de nadie: es la marca quien decide quién vende en tu país, en exclusiva o compartido entre unos pocos.",
+  pCh:"La categoría que tus clientes piden y tú no tienes",
+  pCk:"La perfumería árabe es la categoría que más rápido ha crecido en Europa. La mayoría de los distribuidores establecidos la miró de lejos, porque el problema era la cadena: importar del Golfo, la aduana, el cumplimiento cosmético europeo, los contenedores.",
+  pCp1:"Esa complicación ya no existe. Las casas del Golfo guardan su mercancía en nuestro hub de Turín: ya importada, ya despachada, ya conforme al reglamento cosmético europeo, con nosotros como su Responsible Person.",
+  pCp2:"Tú compras al precio de la marca, pides lo que necesitas sin mínimos por contenedor, y recibes en 48-72 horas con la factura ya correcta para tu país.",
+  pCp3:"En la práctica: puedes abrir la categoría mañana, sin importar nada y sin arriesgar stock. Y entras antes que el distribuidor de al lado.",
+  s1h:"Qué obtienes, seas quien seas",s1s:"No un intermediario más. La estructura que elimina los que ya hay.",
+  c1h:"El precio oficial de la marca",c1p:"Compras al precio que fijó la marca. Y la comisión la paga la marca — nunca tú.",
+  c2h:"48-72 horas, desde Turín",c2p:"La mercancía ya está en Europa, ya despachada. Sin contenedor a seis semanas, sin trámites de importación, sin mínimos por palé.",
   c3h:"Control de calidad a la llegada",c3p:"Cada envío se verifica al llegar: lote, etiquetado, embalaje, conformidad UE. Lo que recibes ya ha sido revisado.",
-  c4h:"Tu territorio, protegido",c4p:"Los territorios los asigna la marca: en exclusiva a un distribuidor, o compartidos entre unos pocos. En cualquier caso, no se vende a nadie que la marca no haya aprobado.",
+  c4h:"Tu territorio, protegido",c4p:"Los territorios los asigna la marca: en exclusiva a un distribuidor, o compartidos entre unos pocos.",
   c5h:"Facturación que funciona",c5p:"Cada pedido facturado automáticamente con el IVA correcto para tu país. Listo para tu asesoría.",
   c6h:"Un precio que aguanta",c6p:"Gestionamos Amazon Europa en nombre de la marca y retiramos a los vendedores no autorizados. Tu precio de venta deja de ser destruido por gente que la marca nunca nombró.",
-  s2h:"Hoy, y con NexusHub",s2s:"Los mismos productos. Otra forma de conseguirlos.",th1:"Cómo compras hoy",th2:"Con NexusHub",
-  r1:"Precio",r1a:"Precio del mayorista, tras dos o tres márgenes",r1b:"El <b>precio oficial de la marca</b>",
+  c7h:"Varias marcas, una sola puerta",c7p:"Una cuenta, un carrito, una entrega — en todas las marcas de la plataforma. Y las marcas que ya trabajas siguen siendo tuyas.",
+  c8h:"Pagas como trabajas",c8p:"Transferencia, tarjeta o plazos acordados. No un único método rígido decidido por otros.",
+  c9h:"Los lanzamientos te llegan primero",c9p:"Cuando una marca lanza un producto se te avisa automáticamente, en tu idioma, y puedes reservar antes de la fecha de salida.",
+  c10h:"Una persona, no un ticket",c10p:"Una plataforma lo bastante sencilla como para no necesitar formación, y alguien localizable cuando algo va mal. Por teléfono, correo o WhatsApp.",
+  mh:"La distribución europea alguien ya la paga",
+  mp:"Hoy la pagas tú, escondida dentro de tu precio de compra. Aquí la paga la marca. Sin cuota de alta, sin suscripción, sin comisión sobre tus pedidos: nuestra comisión viene de la marca, de un margen que hoy va a los intermediarios entre tú y ella. Tú pagas la mercancía, y ya está.",
+  s2h:"Hoy, y con NexusHub",s2s:"Los mismos productos. Otra forma de conseguirlos.",th1:"Hoy",th2:"Con NexusHub",
   r2:"Quién paga la comisión",r2a:"Está dentro del precio. La pagas sin verla.",r2b:"La <b>marca</b>. Nunca tú.",
   r3:"Entrega",r3a:"Semanas. Contenedor, aduana, papeleo.",r3b:"<b>48-72 horas</b> desde Turín",
   r4:"Pedido mínimo",r4a:"A menudo un contenedor o un palé entero",r4b:"<b>Lo que realmente necesitas</b>, cuando lo necesitas",
   r5:"Mercancía recibida",r5a:"La que llega. Nadie la ha revisado.",r5b:"<b>Controlada</b> a la llegada a Europa",
-  r6:"Competencia",r6a:"Doce vendedores en el mismo producto, todos por debajo",r6b:"<b>Territorio asignado por la marca</b>",
-  r7:"Autenticidad",r7a:"Confías en el mayorista, que confía en el suyo",r7b:"<b>Directo del fabricante</b>",
-  mh:"A NexusHub no le pagas nada",mp:"Sin cuota de alta, sin suscripción, sin comisión sobre tus pedidos. Nuestra comisión la paga la marca, de un margen que hoy va a los intermediarios entre tú y ella. Tú pagas la mercancía, y ya está.",
+  r6:"Competencia en tu país",r6a:"Diez vendedores en el mismo producto, todos por debajo",r6b:"<b>Territorio asignado por la marca</b>",
+  r8:"Capital",r8a:"Inmovilizado en stock durante meses",r8b:"<b>Pides lo que vendes</b>, cuando lo vendes",
+  r9:"Cumplimiento UE",r9a:"Tuyo: Responsible Person, CPNP, etiquetado",r9b:"<b>Nuestro.</b> El Responsible Person somos nosotros",
   s3h:"Cómo funciona",s3s:"Cuatro pasos. El primero lleva unos minutos.",
   p1h:"Te registras e indicas tu territorio",p1p:"Gratis y sin compromiso. Datos de la empresa, NIF/IVA, los países que cubres.",
-  p2h:"Te postulas a las marcas que quieras",p2p:"Cada marca te aprueba o te rechaza, y decide si tu territorio es exclusivo o compartido. Antes de postularte ya ves si sigue libre.",
+  p2h:"Te postulas a las marcas que quieras",p2p:"Cada marca te aprueba o te rechaza, y decide si tu territorio es exclusivo o compartido.",
   p3h:"Pides desde el catálogo en vivo",p3p:"Stock real, precios oficiales para tu país, un solo carrito. Transferencia, tarjeta o plazos acordados.",
   p4h:"Llega en 48-72 horas",p4p:"Enviado desde Turín, con seguimiento y la factura ya correcta para tu país.",
   fd:"6-8 de octubre de 2026 · Dubái",fh:"Por qué ahora y no en noviembre",
-  fp1:"En octubre estamos en Beautyworld Dubái, sentados con los fabricantes. Cuando se hable de los territorios europeos, llevamos la lista de distribuidores ya registrados en la plataforma.",
+  fp1:"En octubre estamos en Beautyworld Dubái, sentados con los fabricantes. Cuando se hable de los territorios europeos, llevamos la lista de distribuidores ya registrados.",
   fp2:"Cada territorio puede ir en exclusiva a un solo distribuidor, o abrirse a unos pocos. <strong>Lo decide la marca — pero a quien ya está se le mira primero.</strong>",
   fcta:"Entra en esa lista",ft1:"Condiciones",ft2:"Privacidad"},
 
- pl:{c7h:"Wiele marek, jedne drzwi",c7p:"Jedno konto, jeden koszyk, jedna dostawa — dla wszystkich marek na platformie. A marki, z którymi już pracujesz, pozostają twoje: nikt ci nie zabiera tego, co zbudowałeś.",c8h:"Płacisz tak, jak pracujesz",c8p:"Przelew, karta lub uzgodnione terminy płatności. Nie jedna sztywna metoda narzucona przez kogoś innego.",c9h:"Premiery docierają najpierw do ciebie",c9p:"Gdy marka wprowadza produkt, dostajesz powiadomienie automatycznie, w swoim języku, i możesz zarezerwować towar przed datą premiery, zamiast dowiadywać się, gdy już go nie ma.",c10h:"Człowiek, a nie zgłoszenie",c10p:"Platforma na tyle prosta, że nie wymaga szkolenia, i ktoś dostępny, gdy coś pójdzie nie tak. Po angielsku lub włosku, telefonicznie, mailowo albo przez WhatsApp.",lead:"Już je sprzedajesz. Ale kupujesz od hurtownika, który kupił od innego hurtownika — a w cenie są dwie lub trzy marże, których nikt ci nigdy nie wytłumaczył. Tym firmom zbudowaliśmy drugi dom w Europie: ich towar, w naszym magazynie w Turynie, kilka godzin od twoich półek.",flag:"Beautyworld Dubaj · 6-8 października 2026",h1a:"Arabskie perfumy,",h1b:"prosto od producenta",
-  lead:"Już je sprzedajesz. Ale kupujesz od hurtownika, który kupił od innego hurtownika — a w cenie, którą płacisz, są dwie lub trzy marże, których nikt ci nigdy nie wytłumaczył.",
+ pl:{flag:"Beautyworld Dubaj · 6-8 października 2026",
+  h1a:"W Europie cenę twoich perfum",h1b:"ustala ktoś inny",
+  lead:"Niezależnie od tego, czy masz oficjalny mandat, czy kupujesz od hurtownika, cenę na półce w twoim kraju ustalają ludzie, których nikt nie wyznaczył. Domom z Zatoki zbudowaliśmy drugi dom w Europie: ich towar, w naszym magazynie w Turynie, kilka godzin od twoich półek — w cenie ustalonej przez markę.",
   cta1:"Zarezerwuj swoje terytorium",cta2:"Zobacz najpierw, bez rejestracji",freeline:"Rejestracja jest bezpłatna i do niczego nie zobowiązuje.",freeline2:"Bezpłatnie i bez zobowiązań.",
-  s1h:"Co się dla ciebie zmienia",s1s:"Nie kolejny pośrednik. Struktura, która usuwa tych, którzy już są.",
-  c1h:"Oficjalna cena marki",c1p:"Kupujesz w cenie ustalonej przez markę, a nie na końcu łańcucha hurtowników. A prowizję płaci marka — nigdy ty.",
+  sVh:"Kim jesteś?",sVs:"Trzy sytuacje, trzy różne problemy. Wybierz swoją.",
+  viaAn:"Sytuacja 1",viaAh:"Masz już oficjalny mandat",viaAp:"Kupujesz kontenery bezpośrednio od producenta i sam ustalasz cenę.",
+  viaBn:"Sytuacja 2",viaBh:"Sprzedajesz już perfumy arabskie",viaBp:"Kupujesz od importera lub większego hurtownika i przyjmujesz cenę, którą ci dają.",
+  viaCn:"Sytuacja 3",viaCh:"Nie masz jeszcze tej kategorii",viaCp:"Masz magazyn, klientów i sieć sprzedaży — ale ani jednej arabskiej marki.",
+  apri:"Co się zmienia →",apri2:"Co się zmienia →",apri3:"Co się zmienia →",
+  pAh:"Twoja wyłączność jest warta tyle, ile inni pozwolą jej być wartą",
+  pAk:"Zapłaciłeś za wyłączność na swój kraj. Otwórz krajowy marketplace i policz, ilu sprzedawców oferuje dziś ten sam produkt. Nikt nie egzekwuje tego, za co zapłaciłeś.",
+  pAp1:"Zarządzamy marketplace'ami w imieniu marki i doprowadzamy do usunięcia nieautoryzowanych sprzedawców. Wyłączność, za którą już zapłaciłeś, znów zaczyna coś znaczyć.",
+  pAp2:"I druga rzecz, której nikt nie mówi głośno: żeby utrzymać mandat, musisz brać kontenery nowych indeksów, nie wiedząc, które się sprzedadzą, zamrażać kapitał na miesiące i wyprzedawać resztę, by zrobić miejsce na kolejną dostawę.",
+  pAp3:"U nas towar marki jest już w Europie, odprawiony i sprawdzony. Zamawiasz trzysta sztuk indeksu, który sprzedaje się w Niemczech, dostajesz je w 48-72 godziny, a jeśli się kręci, zamawiasz ponownie w przyszłym tygodniu. Jeśli nie — nie masz kontenera do wyprzedania. Nie zabieramy ci marki: zabieramy ci magazyn i ryzyko.",
+  pBh:"Między tobą a producentem są dwie lub trzy marże",
+  pBk:"Kupujesz od importera, który kupił od kogoś innego. Każdy etap bierze swoją część, a żadnego ci nigdy nie wytłumaczono.",
+  pBp1:"Tutaj kupujesz w cenie ustalonej przez markę, a nie na końcu łańcucha. Prowizję płaci marka — nigdy ty.",
+  pBp2:"Towar jest już w Europie, już odprawiony, już sprawdzony przy odbiorze: 48-72 godziny z Turynu, poprawny VAT dla twojego kraju, bez minimów kontenerowych.",
+  pBp3:"A twoje terytorium przestaje być ziemią niczyją: to marka decyduje, kto sprzedaje w twoim kraju, na wyłączność albo dzielone między kilku.",
+  pCh:"Kategoria, o którą pytają twoi klienci, a której nie masz",
+  pCk:"Perfumeria arabska to najszybciej rosnąca kategoria w Europie. Większość ustabilizowanych dystrybutorów patrzyła na nią z daleka, bo problemem był łańcuch dostaw: import z Zatoki, cło, zgodność kosmetyczna UE, kontenery.",
+  pCp1:"Tej komplikacji już nie ma. Domy z Zatoki trzymają swój towar w naszym magazynie w Turynie: już zaimportowany, już odprawiony, już zgodny z unijnym rozporządzeniem kosmetycznym, z nami jako ich Responsible Person.",
+  pCp2:"Kupujesz w cenie marki, zamawiasz to, czego potrzebujesz, bez minimów kontenerowych, i dostajesz w 48-72 godziny z fakturą już poprawną dla twojego kraju.",
+  pCp3:"W praktyce: możesz otworzyć kategorię jutro, bez importowania czegokolwiek i bez ryzyka magazynowego. I wchodzisz przed dystrybutorem zza rogu.",
+  s1h:"Co dostajesz, kimkolwiek jesteś",s1s:"Nie kolejny pośrednik. Struktura, która usuwa tych, którzy już są.",
+  c1h:"Oficjalna cena marki",c1p:"Kupujesz w cenie ustalonej przez markę. A prowizję płaci marka — nigdy ty.",
   c2h:"48-72 godziny, z Turynu",c2p:"Towar jest już w Europie, już odprawiony celnie. Bez sześciotygodniowego kontenera, bez formalności importowych, bez minimów na paletę.",
   c3h:"Kontrola jakości przy odbiorze",c3p:"Każda dostawa jest sprawdzana po przyjeździe: partia, etykiety, opakowanie, zgodność z UE. To, co dostajesz, zostało już obejrzane.",
-  c4h:"Twoje terytorium, chronione",c4p:"Terytoria przydziela marka: na wyłączność jednemu dystrybutorowi albo dzielone między kilku. Tak czy inaczej nie sprzedaje się nikomu, kogo marka nie zatwierdziła.",
+  c4h:"Twoje terytorium, chronione",c4p:"Terytoria przydziela marka: na wyłączność jednemu dystrybutorowi albo dzielone między kilku.",
   c5h:"Fakturowanie, które działa",c5p:"Każde zamówienie fakturowane automatycznie z poprawnym VAT dla twojego kraju. Gotowe dla księgowości.",
   c6h:"Cena, która się trzyma",c6p:"Zarządzamy Amazonem w Europie w imieniu marki i usuwamy nieautoryzowanych sprzedawców. Twoja cena przestaje być niszczona przez ludzi, których marka nigdy nie wyznaczyła.",
-  s2h:"Dziś, i z NexusHub",s2s:"Te same produkty. Inny sposób ich zdobycia.",th1:"Jak kupujesz dziś",th2:"Z NexusHub",
-  r1:"Cena",r1a:"Cena hurtownika, po dwóch lub trzech marżach",r1b:"<b>Oficjalna cena marki</b>",
+  c7h:"Wiele marek, jedne drzwi",c7p:"Jedno konto, jeden koszyk, jedna dostawa — dla wszystkich marek na platformie. A marki, z którymi już pracujesz, pozostają twoje.",
+  c8h:"Płacisz tak, jak pracujesz",c8p:"Przelew, karta lub uzgodnione terminy płatności. Nie jedna sztywna metoda narzucona przez kogoś innego.",
+  c9h:"Premiery docierają najpierw do ciebie",c9p:"Gdy marka wprowadza produkt, dostajesz powiadomienie automatycznie, w swoim języku, i możesz zarezerwować towar przed datą premiery.",
+  c10h:"Człowiek, a nie zgłoszenie",c10p:"Platforma na tyle prosta, że nie wymaga szkolenia, i ktoś dostępny, gdy coś pójdzie nie tak. Telefonicznie, mailowo albo przez WhatsApp.",
+  mh:"Za europejską dystrybucję ktoś już płaci",
+  mp:"Dziś płacisz za nią ty, ukrytą w cenie zakupu. Tutaj płaci marka. Bez opłaty rejestracyjnej, bez abonamentu, bez prowizji od twoich zamówień: nasza prowizja pochodzi od marki, z marży, która dziś trafia do pośredników między tobą a nią. Ty płacisz za towar i tyle.",
+  s2h:"Dziś, i z NexusHub",s2s:"Te same produkty. Inny sposób ich zdobycia.",th1:"Dziś",th2:"Z NexusHub",
   r2:"Kto płaci prowizję",r2a:"Jest w cenie. Płacisz ją, nie widząc jej.",r2b:"<b>Marka</b>. Nigdy ty.",
   r3:"Dostawa",r3a:"Tygodnie. Kontener, cło, dokumenty.",r3b:"<b>48-72 godziny</b> z Turynu",
   r4:"Minimum zamówienia",r4a:"Często cały kontener lub paleta",r4b:"<b>Tyle, ile naprawdę potrzebujesz</b>, kiedy potrzebujesz",
   r5:"Otrzymany towar",r5a:"To, co przyjdzie. Nikt tego nie sprawdził.",r5b:"<b>Sprawdzony</b> po przyjeździe do Europy",
-  r6:"Konkurencja",r6a:"Dwunastu sprzedawców na tym samym produkcie, wszyscy schodzą z ceny",r6b:"<b>Terytorium przydzielone przez markę</b>",
-  r7:"Autentyczność",r7a:"Ufasz hurtownikowi, który ufa swojemu",r7b:"<b>Prosto od producenta</b>",
-  mh:"NexusHub nic cię nie kosztuje",mp:"Bez opłaty rejestracyjnej, bez abonamentu, bez prowizji od twoich zamówień. Naszą prowizję płaci marka, z marży, która dziś trafia do pośredników między tobą a nią. Ty płacisz za towar i tyle.",
+  r6:"Konkurencja w twoim kraju",r6a:"Dziesięciu sprzedawców na tym samym produkcie, wszyscy schodzą z ceny",r6b:"<b>Terytorium przydzielone przez markę</b>",
+  r8:"Kapitał",r8a:"Zamrożony w magazynie na miesiące",r8b:"<b>Zamawiasz to, co sprzedajesz</b>, kiedy to sprzedajesz",
+  r9:"Zgodność z UE",r9a:"Twoja: Responsible Person, CPNP, etykiety",r9b:"<b>Nasza.</b> To my jesteśmy Responsible Person",
   s3h:"Jak to działa",s3s:"Cztery kroki. Pierwszy zajmuje kilka minut.",
   p1h:"Rejestrujesz się i wskazujesz swoje terytorium",p1p:"Bezpłatnie i bez zobowiązań. Dane firmy, NIP, kraje, które obsługujesz.",
-  p2h:"Składasz wniosek do marek, które chcesz",p2p:"Każda marka przyjmuje cię lub odrzuca i decyduje, czy twoje terytorium jest na wyłączność, czy dzielone. Przed złożeniem wniosku widzisz, czy jest jeszcze wolne.",
+  p2h:"Składasz wniosek do marek, które chcesz",p2p:"Każda marka przyjmuje cię lub odrzuca i decyduje, czy twoje terytorium jest na wyłączność, czy dzielone.",
   p3h:"Zamawiasz z katalogu na żywo",p3p:"Realny stan magazynowy, oficjalne ceny dla twojego kraju, jeden koszyk. Przelew, karta lub uzgodnione terminy.",
   p4h:"Dociera w 48-72 godziny",p4p:"Wysyłka z Turynu, ze śledzeniem i fakturą już poprawną dla twojego kraju.",
   fd:"6-8 października 2026 · Dubaj",fh:"Dlaczego teraz, a nie w listopadzie",
-  fp1:"W październiku jesteśmy na Beautyworld w Dubaju, przy stole z producentami. Kiedy będzie mowa o terytoriach europejskich, przywozimy listę dystrybutorów już zarejestrowanych na platformie.",
+  fp1:"W październiku jesteśmy na Beautyworld w Dubaju, przy stole z producentami. Kiedy będzie mowa o terytoriach europejskich, przywozimy listę już zarejestrowanych dystrybutorów.",
   fp2:"Każde terytorium może trafić na wyłączność do jednego dystrybutora albo zostać otwarte dla kilku. <strong>Decyduje marka — ale ten, kto już jest, jest oglądany pierwszy.</strong>",
   fcta:"Bądź na tej liście",ft1:"Regulamin",ft2:"Prywatność"}
 };
@@ -340,13 +539,29 @@ var T = {
 function applica(l){
   var d = T[l];
   document.documentElement.lang = l;
+  if (!d) return;               /* inglese: resta il testo scritto nell'HTML */
   document.querySelectorAll("[data-t]").forEach(function(el){
     var k = el.getAttribute("data-t");
-    if (!d) return;               /* inglese: resta il testo scritto nell'HTML */
     if (d[k] != null) el.innerHTML = d[k];
   });
   try { localStorage.setItem("nx_dist_lang", l); } catch(e){}
 }
+
+/* I tre percorsi: si apre uno alla volta, e riclicando si richiude. */
+document.querySelectorAll(".via").forEach(function(b){
+  b.addEventListener("click", function(){
+    var id = b.getAttribute("data-via");
+    var pan = document.getElementById("p-" + id);
+    var gia = pan.classList.contains("on");
+    document.querySelectorAll(".pannello").forEach(function(p){ p.classList.remove("on"); });
+    document.querySelectorAll(".via").forEach(function(v){ v.classList.remove("on"); });
+    if (!gia) {
+      pan.classList.add("on");
+      b.classList.add("on");
+      setTimeout(function(){ pan.scrollIntoView({ behavior:"smooth", block:"nearest" }); }, 60);
+    }
+  });
+});
 
 /* La lingua si indovina dal browser: un grossista polacco che apre una pagina in
    inglese la chiude prima di leggerla. Resta comunque cambiabile a mano. */
@@ -356,7 +571,7 @@ function applica(l){
   try { salvata = localStorage.getItem("nx_dist_lang"); } catch(e){}
   var url = new URLSearchParams(location.search).get("lang");
   var nav = (navigator.language || "en").slice(0,2).toLowerCase();
-  var l = url || salvata || (T[nav] || nav === "en" ? nav : "en");
+  var l = url || salvata || (T[nav] ? nav : "en");
   if (l !== "en" && !T[l]) l = "en";
   sel.value = l;
   if (l !== "en") applica(l);
