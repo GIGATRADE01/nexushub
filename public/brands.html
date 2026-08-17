@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>NexusHub — In Europe your brand is already represented</title>
+<meta name="description" content="389 European distributors mapped. 73 call themselves official distributors of a Gulf house. Take back control of your European market: EU Responsible Person, one customs clearance, 48-72h from Turin, Amazon governance. The goods stay yours."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08080f; --surface:#12131c; --surface2:#191b26; --border:#252838;
+    --text:#ede9e3; --muted:#8890aa; --dim:#5a6079;
+    --gold:#c9a84c; --goldLight:#e2bc6a; --goldDim:#7a5e28; --green:#27ae60; --red:#c0392b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',-apple-system,Segoe UI,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.65}
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px}
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:700;line-height:1.2;margin:0}
+  a{color:var(--goldLight)}
+  html[dir="rtl"] body{font-family:'Segoe UI',Tahoma,Arial,sans-serif}
+  html[dir="rtl"] .hero,html[dir="rtl"] .fair,html[dir="rtl"] .money{text-align:center}
+  html[dir="rtl"] .cmp th,html[dir="rtl"] .cmp td{text-align:right}
+
+  header{border-bottom:1px solid var(--border);padding:16px 0;position:sticky;top:0;background:rgba(8,8,15,.94);backdrop-filter:blur(10px);z-index:20}
+  .hrow{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
+  .mark{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--gold),var(--goldDim));display:grid;place-items:center;font-weight:900;color:#08080f;font-size:19px}
+  .logo b{font-family:'Fraunces',serif;font-size:17px;letter-spacing:.01em}
+  select{background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-size:13px;font-family:inherit;cursor:pointer}
+
+  .hero{padding:64px 0 42px;text-align:center}
+  .flag{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.36);color:var(--goldLight);
+        border-radius:100px;padding:8px 17px;font-size:12.5px;font-weight:700;letter-spacing:.03em;margin-bottom:24px}
+  .hero h1{font-size:clamp(31px,5.6vw,52px);letter-spacing:-.02em}
+  .hero h1 em{font-style:normal;color:var(--goldLight)}
+  .lead{color:var(--muted);font-size:clamp(16px,2.1vw,18.5px);margin:22px auto 0;max-width:680px}
+
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+  .btn{display:inline-block;padding:15px 30px;border-radius:11px;text-decoration:none;font-weight:700;font-size:15px;border:1px solid transparent;transition:transform .12s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-p{background:linear-gradient(135deg,var(--gold),var(--goldDim));color:#08080f}
+  .btn-s{background:transparent;border-color:var(--border);color:var(--text)}
+  .free{color:var(--dim);font-size:12.5px;margin-top:14px}
+
+  section{padding:50px 0;border-top:1px solid var(--border)}
+  .sect-h{font-size:clamp(22px,3.4vw,29px);margin-bottom:10px}
+  .sect-s{color:var(--muted);font-size:15.5px;margin:0 0 28px}
+
+  /* il blocco dei 73: e' l'amo, e va guardato prima di tutto il resto */
+  .prova{background:linear-gradient(150deg,rgba(192,57,43,.11),rgba(192,57,43,.03));border:1px solid rgba(192,57,43,.36);border-radius:15px;padding:30px}
+  .prova h2{color:#e8776a;font-size:clamp(20px,3.2vw,26px);margin-bottom:16px}
+  .prova p{font-size:16px;line-height:1.8;margin:0 0 14px}
+  .prova ul{margin:16px 0;padding-inline-start:20px;color:var(--muted);font-size:15px;line-height:1.9}
+  .prova .chiusa{color:var(--text);font-weight:600;font-size:16.5px;margin-top:18px}
+
+  .num{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:26px 0 4px}
+  .n{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+  .n b{display:block;font-family:'Fraunces',serif;font-size:32px;color:var(--goldLight);line-height:1.1}
+  .n span{font-size:12.5px;color:var(--muted);display:block;margin-top:6px}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:23px}
+  .card .ic{font-size:23px;margin-bottom:11px}
+  .card h3{font-size:16.5px;margin-bottom:8px;color:var(--goldLight)}
+  .card p{color:var(--muted);font-size:14px;margin:0}
+
+  .sov{background:var(--surface);border:1px solid rgba(39,174,96,.34);border-radius:15px;padding:30px}
+  .sov h2{color:var(--green);font-size:clamp(20px,3.2vw,25px);margin-bottom:14px}
+  .sov p{font-size:15.5px;line-height:1.8;margin:0 0 14px}
+  .sov ul{margin:16px 0 0;padding-inline-start:20px;font-size:15px;line-height:2}
+  .sov li b{color:var(--goldLight)}
+
+  .cmp{width:100%;border-collapse:collapse;font-size:14.5px}
+  .cmp th,.cmp td{padding:14px 13px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+  .cmp thead th{font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--dim);font-weight:700}
+  .cmp .now{color:var(--muted)}
+  .cmp .nx{color:var(--text);font-weight:600}
+  .cmp .nx b{color:var(--goldLight)}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+  .money{background:linear-gradient(135deg,rgba(39,174,96,.12),rgba(39,174,96,.04));border:1px solid rgba(39,174,96,.32);border-radius:14px;padding:28px;text-align:center}
+  .money h3{color:var(--green);font-size:21px;margin-bottom:11px}
+  .money p{color:var(--text);font-size:16px;margin:0 auto;max-width:640px}
+
+  .fair{background:var(--surface);border:1px solid rgba(201,168,76,.32);border-radius:14px;padding:30px;text-align:center}
+  .fair .d{font-family:'Fraunces',serif;font-size:29px;color:var(--goldLight);margin-bottom:6px}
+  .fair p{color:var(--muted);max-width:640px;margin:12px auto 0;font-size:15.5px}
+
+  footer{border-top:1px solid var(--border);padding:34px 0 46px;text-align:center;color:var(--dim);font-size:12.5px}
+  footer a{color:var(--muted);text-decoration:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hrow">
+    <a class="logo" href="https://nexushub.trade"><span class="mark">N</span><b>NexusHub</b></a>
+    <select id="lang" aria-label="Language">
+      <option value="en">English</option>
+      <option value="ar">العربية</option>
+      <option value="it">Italiano</option>
+      <option value="fr">Français</option>
+    </select>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="flag">📍 <span data-t="flag">Beautyworld Dubai · 6-8 October 2026</span></div>
+    <h1><span data-t="h1a">In Europe your brand is already represented.</span> <em data-t="h1b">By people you never chose.</em></h1>
+    <p class="lead" data-t="lead">Your fragrances are on European shelves today, at prices you did not set, sold by companies you never appointed. Some of them describe themselves as your official distributor. We built the structure that gives that market back to you — without taking a single one of your existing partners away.</p>
+    <div class="cta">
+      <a class="btn btn-p" href="https://nexushub.trade/?demo=brand" data-t="cta1">See your dashboard — no sign-up</a>
+      <a class="btn btn-s" href="mailto:andrea@nexushub.trade?subject=Who%20represents%20us%20in%20Europe" data-t="cta2">Ask who represents you in Europe</a>
+    </div>
+    <div class="free" data-t="freeline">No fee to join. No fixed cost. Commission only on orders processed.</div>
+  </div>
+
+  <section>
+    <div class="prova">
+      <h2 data-t="pvh">We mapped Europe. Here is what we found.</h2>
+      <p data-t="pvp1">Over the past weeks we verified, company registry in hand, every distributor of Arab perfumery in Europe. Not a purchased list: pages read one by one, registration numbers checked, dead companies discarded.</p>
+      <div class="num">
+        <div class="n"><b>389</b><span data-t="pvn1">distributors verified</span></div>
+        <div class="n"><b>32</b><span data-t="pvn2">countries</span></div>
+        <div class="n"><b>73</b><span data-t="pvn3">call themselves "official distributor" of a Gulf house</span></div>
+      </div>
+      <p style="margin-top:22px" data-t="pvp2">Seventy-three. And several of them claim it <strong>for the whole of Europe</strong>, in different countries, for the same house — which cannot be true for all of them at once.</p>
+      <p data-t="pvp3">Among the claims we verified against public registries:</p>
+      <ul>
+        <li data-t="pvl1">a company incorporated three months before publishing the claim</li>
+        <li data-t="pvl2">one whose only published contact is a free webmail address</li>
+        <li data-t="pvl3">one registered as an online retailer, not a wholesaler, that advertises container shipments</li>
+        <li data-t="pvl4">one that registered a domain carrying a brand's name and calls itself that brand's "official European home"</li>
+      </ul>
+      <p class="chiusa" data-t="pvp4">We will not publish names here — it would damage the houses, not the people misusing them. But if you want to know who is using <em>your</em> name in Europe, ask us. We will tell you privately, with the links and the registry dates, and the document is yours whatever you decide about us.</p>
+      <div class="cta" style="justify-content:flex-start;margin-top:22px">
+        <a class="btn btn-p" href="mailto:andrea@nexushub.trade?subject=Who%20represents%20us%20in%20Europe" data-t="pvcta">Ask for your list</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sect-h" data-t="s1h">What Europe costs you today</h2>
+    <p class="sect-s" data-t="s1s">Not a lost market. A market that works without you.</p>
+    <div class="scroll">
+      <table class="cmp">
+        <thead><tr><th></th><th data-t="th1">Today</th><th data-t="th2">With NexusHub</th></tr></thead>
+        <tbody>
+          <tr><td data-t="r1">Who sets the shelf price</td><td class="now" data-t="r1a">Whoever bought the container. Then whoever bought from him.</td><td class="nx" data-t="r1b"><b>You do.</b> The same price in every country</td></tr>
+          <tr><td data-t="r2">Who sells your brand</td><td class="now" data-t="r2a">Anyone who can buy a pallet somewhere</td><td class="nx" data-t="r2b"><b>Only who you approve</b>, one by one</td></tr>
+          <tr><td data-t="r3">What you see</td><td class="now" data-t="r3a">Nothing, once the goods leave Dubai</td><td class="nx" data-t="r3b"><b>Every order, country, price</b>, live</td></tr>
+          <tr><td data-t="r4">Your distributors wait</td><td class="now" data-t="r4a">Six weeks: container, customs, paperwork</td><td class="nx" data-t="r4b"><b>48-72 hours</b> from Turin</td></tr>
+          <tr><td data-t="r5">Who holds your EU compliance</td><td class="now" data-t="r5a">Usually a distributor — so he owns your access to Europe</td><td class="nx" data-t="r5b"><b>A neutral operator</b> that does not compete with you</td></tr>
+          <tr><td data-t="r6">Amazon Europe</td><td class="now" data-t="r6a">Ten sellers undercutting each other on your product</td><td class="nx" data-t="r6b"><b>One official presence</b>, one price</td></tr>
+          <tr><td data-t="r7">The margin between export and shelf</td><td class="now" data-t="r7a">Goes to intermediaries you never appointed</td><td class="nx" data-t="r7b"><b>Stays inside your network</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sect-h" data-t="s2h">What we do underneath</h2>
+    <p class="sect-s" data-t="s2s">Your second home in Europe. The goods stay yours from the first day to the last.</p>
+    <div class="cards">
+      <div class="card"><div class="ic">⚖️</div><h3 data-t="c1h">EU Responsible Person</h3><p data-t="c1p">Under Regulation (EC) 1223/2009 no cosmetic product enters the EU without one. We hold it as a neutral operator — and the day you want it moved, it moves.</p></div>
+      <div class="card"><div class="ic">🛃</div><h3 data-t="c2h">One customs clearance</h3><p data-t="c2p">Cleared once for the whole continent, with quality control on arrival: batch, labelling, packaging, compliance. Checked before it reaches anyone.</p></div>
+      <div class="card"><div class="ic">🚚</div><h3 data-t="c3h">48-72 hours to your distributors</h3><p data-t="c3p">Your stock sits in our hub in Turin and reaches all 27 EU countries in two to three days, with the correct VAT invoice for each one.</p></div>
+      <div class="card"><div class="ic">✅</div><h3 data-t="c4h">You approve every distributor</h3><p data-t="c4p">European distributors apply to you through the platform. You accept or decline each one, assign the territory, set the price. Nothing is sold to anyone you have not authorised.</p></div>
+      <div class="card"><div class="ic">⏳</div><h3 data-t="c5h">Exclusivity with an end date</h3><p data-t="c5p">Six, nine or twelve months, with a minimum to reach. If it is not reached, the territory frees itself and reopens to applications. An exclusive stops being a gift and becomes a contract.</p></div>
+      <div class="card"><div class="ic">📉</div><h3 data-t="c6h">Amazon Europe governed</h3><p data-t="c6p">One official presence, one price aligned with what your distributors pay, unauthorised sellers removed. Amazon stops draining your network and starts feeding it.</p></div>
+      <div class="card"><div class="ic">📊</div><h3 data-t="c7h">You finally see everything</h3><p data-t="c7p">Who buys, in which country, how much, how often, at what price — live, in euro and in dirham. After decades of exporting, the first time you can see what happens after Dubai.</p></div>
+      <div class="card"><div class="ic">📣</div><h3 data-t="c8h">Launch once, reach everyone</h3><p data-t="c8p">Publish a new product and every distributor across Europe is notified automatically, each in their own language, with reminders as the date approaches.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sov">
+      <h2 data-t="svh">The question you will not put in an email</h2>
+      <p data-t="svp1">If a European structure grows your brand, will that structure one day dictate terms to you? Will you become a hostage of your own European channel?</p>
+      <p data-t="svp2">It is the right question, and nobody asks it out loud. So here is the answer, in the terms that are written in our agreement — published in full, in seven languages including Arabic, <a href="/brand-agreement.html" data-t="svlink">before any negotiation</a>:</p>
+      <ul>
+        <li data-t="svl1"><b>The goods remain your property</b> the entire time they are in our hub. We never buy your stock, so we can never hold it against you.</li>
+        <li data-t="svl2"><b>You set every price</b>, country by country. We do not mark up and we do not discount.</li>
+        <li data-t="svl3"><b>You approve every distributor</b> and you can revoke access instantly.</li>
+        <li data-t="svl4"><b>We are paid a commission on processed orders only.</b> No fixed fee, no minimum, no shelf rental. If you sell nothing, we earn nothing.</li>
+        <li data-t="svl5"><b>We never compete with you.</b> We do not own a competing brand and we do not sell to the final consumer.</li>
+        <li data-t="svl6"><b>You can leave.</b> The terms of withdrawal are written in the agreement, public, before you sign anything.</li>
+      </ul>
+      <p style="margin-top:18px" data-t="svp3">We are not a distributor and we are not asking you to give anything up. We are the operations department you would otherwise have to open in Europe: a company, a warehouse, staff, a regulatory officer. Without opening it.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="money">
+      <h3 data-t="mh">What it costs you</h3>
+      <p data-t="mp">Nothing to join, nothing to stay, no minimum volume. We are paid a commission on orders actually processed — out of the margin that today goes to the intermediaries between you and the European shelf. If nothing sells, you pay nothing.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="fair">
+      <div class="d" data-t="fd">6-8 October 2026 · Dubai</div>
+      <h2 class="sect-h" data-t="fh">We will be at Beautyworld</h2>
+      <p data-t="fp1">Fifteen minutes at your stand. We will bring the European price mapping of your products: where they are sold today, by whom, and at what price — plus the list of companies presenting themselves as your official distributors in Europe.</p>
+      <p data-t="fp2"><strong>That document is yours to keep, whatever you decide about us.</strong></p>
+      <div class="cta" style="margin-top:26px">
+        <a class="btn btn-p" href="mailto:andrea@nexushub.trade?subject=Meeting%20at%20Beautyworld%20Dubai" data-t="fcta">Book the fifteen minutes</a>
+      </div>
+      <div class="free" data-t="freeline2">Or look at the platform first, without registering.</div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div style="margin-bottom:9px"><a href="https://nexushub.trade">nexushub.trade</a> · <a href="mailto:andrea@nexushub.trade">andrea@nexushub.trade</a></div>
+    <div>NexusHub — The European Distribution Platform · GIGA TRADE S.R.L.S. · Via Ottavio Revel 6, 10121 Torino, Italia · VAT IT13105910015</div>
+    <div style="margin-top:9px"><a href="/brand-agreement.html" data-t="ft0">Brand agreement</a> · <a href="/terms.html" data-t="ft1">Terms</a> · <a href="/privacy.html" data-t="ft2">Privacy</a></div>
+  </div>
+</footer>
+
+<script>
+/* Quattro lingue soltanto, ma quelle giuste: inglese e arabo sono le lingue in cui
+   si lavora nel Golfo, l'italiano serve ad Andrea, il francese ai brand del Maghreb. */
+var T = {
+ ar:{flag:"بيوتي وورلد دبي · 6-8 أكتوبر 2026",
+  h1a:"علامتك التجارية مُمثَّلة في أوروبا بالفعل.",h1b:"من أشخاص لم تخترهم أنت.",
+  lead:"عطورك موجودة اليوم على رفوف أوروبا، بأسعار لم تحدّدها، وتُباع من شركات لم تُعيّنها. وبعضها يصف نفسه بأنه الموزّع الرسمي لك. لقد بنينا البنية التي تعيد إليك هذا السوق — دون أن نأخذ منك ولا شريكًا واحدًا من شركائك الحاليين.",
+  cta1:"شاهد لوحة تحكّمك — دون تسجيل",cta2:"اسألنا مَن يمثّلك في أوروبا",
+  freeline:"لا رسوم انضمام. لا تكاليف ثابتة. عمولة على الطلبات المنفَّذة فقط.",freeline2:"أو اطّلع على المنصة أولًا، دون تسجيل.",
+  pvh:"لقد رسمنا خريطة أوروبا. وهذا ما وجدناه.",
+  pvp1:"خلال الأسابيع الماضية تحقّقنا، بالسجلّات التجارية في أيدينا، من كل موزّع للعطور العربية في أوروبا. ليست قائمة مشتراة: صفحات قرأناها واحدة واحدة، وأرقام تسجيل تحقّقنا منها، وشركات مُتوقّفة استبعدناها.",
+  pvn1:"موزّعًا تم التحقّق منه",pvn2:"دولة",pvn3:"يصفون أنفسهم بأنهم موزّعون رسميون لإحدى بيوت الخليج",
+  pvp2:"ثلاثة وسبعون. وعدد منهم يدّعي ذلك <strong>لأوروبا كلها</strong>، في دول مختلفة، ولنفس البيت — وهذا لا يمكن أن يكون صحيحًا للجميع في آن واحد.",
+  pvp3:"ومن الادّعاءات التي تحقّقنا منها في السجلّات الرسمية:",
+  pvl1:"شركة تأسّست قبل ثلاثة أشهر فقط من نشر الادّعاء",
+  pvl2:"واحدة عنوان مراسلتها الوحيد بريد مجاني",
+  pvl3:"واحدة مسجَّلة كمتجر تجزئة إلكتروني لا كتاجر جملة، وتعلن عن شحنات بالحاويات",
+  pvl4:"وواحدة سجّلت نطاقًا يحمل اسم علامة تجارية وتسمّي نفسها «البيت الأوروبي الرسمي» لتلك العلامة",
+  pvp4:"لن ننشر الأسماء هنا — فذلك يضرّ البيوت لا مَن يسيء استخدام أسمائها. لكن إن أردت معرفة مَن يستخدم اسمك أنت في أوروبا، اسألنا. سنخبرك على انفراد، بالروابط وتواريخ التسجيل، والوثيقة لك مهما كان قرارك بشأننا.",
+  pvcta:"اطلب قائمتك",
+  s1h:"ما تكلّفك أوروبا اليوم",s1s:"ليست سوقًا ضائعة. بل سوق تعمل من دونك.",th1:"اليوم",th2:"مع NexusHub",
+  r1:"مَن يحدّد سعر الرف",r1a:"مَن اشترى الحاوية. ثم مَن اشترى منه.",r1b:"<b>أنت.</b> السعر نفسه في كل دولة",
+  r2:"مَن يبيع علامتك",r2a:"أي شخص يستطيع شراء منصّة بضاعة من مكان ما",r2b:"<b>مَن توافق عليه فقط</b>، واحدًا واحدًا",
+  r3:"ما الذي تراه",r3a:"لا شيء، بعد أن تغادر البضاعة دبي",r3b:"<b>كل طلب ودولة وسعر</b>، لحظة بلحظة",
+  r4:"كم ينتظر موزّعوك",r4a:"ستة أسابيع: حاوية وجمارك ومعاملات",r4b:"<b>48-72 ساعة</b> من تورينو",
+  r5:"مَن يحمل امتثالك الأوروبي",r5a:"موزّع عادةً — أي أنه يملك بوابة دخولك إلى أوروبا",r5b:"<b>جهة محايدة</b> لا تنافسك",
+  r6:"أمازون أوروبا",r6a:"عشرة بائعين يخفضون الأسعار على منتجك",r6b:"<b>حضور رسمي واحد</b> وسعر واحد",
+  r7:"الهامش بين سعر التصدير والرف",r7a:"يذهب إلى وسطاء لم تُعيّنهم",r7b:"<b>يبقى داخل شبكتك</b>",
+  s2h:"ما نقوم به تحت السطح",s2s:"بيتك الثاني في أوروبا. البضاعة تبقى ملكك من أول يوم إلى آخره.",
+  c1h:"الشخص المسؤول في الاتحاد الأوروبي",c1p:"بموجب اللائحة (EC) 1223/2009 لا يدخل أي منتج تجميلي إلى الاتحاد الأوروبي بدونه. نتولّاه بصفتنا جهة محايدة — ويوم تريد نقله، يُنقل.",
+  c2h:"تخليص جمركي واحد",c2p:"تخليص واحد للقارة كلها، مع فحص الجودة عند الوصول: التشغيلة، الملصقات، التغليف، الامتثال.",
+  c3h:"48-72 ساعة إلى موزّعيك",c3p:"بضاعتك في مستودعنا بتورينو وتصل إلى الدول الـ27 خلال يومين إلى ثلاثة، بفاتورة ضريبية صحيحة لكل دولة.",
+  c4h:"أنت مَن يوافق على كل موزّع",c4p:"الموزّعون الأوروبيون يتقدّمون إليك عبر المنصة. تقبل أو ترفض كلًّا منهم، وتحدّد الإقليم والسعر. ولا يُباع لأحد لم تأذن له.",
+  c5h:"حصرية بتاريخ انتهاء",c5p:"ستة أو تسعة أو اثنا عشر شهرًا، مع حدّ أدنى يجب بلوغه. وإن لم يتحقّق، يتحرّر الإقليم ويُفتح من جديد. الحصرية تتوقّف عن كونها هديّة وتصير عقدًا.",
+  c6h:"إدارة أمازون أوروبا",c6p:"حضور رسمي واحد، وسعر واحد متوافق مع ما يدفعه موزّعوك، وإزالة البائعين غير المصرّح لهم.",
+  c7h:"ترى كل شيء أخيرًا",c7p:"مَن يشتري، وفي أي دولة، وكم، وكم مرّة، وبأي سعر — لحظة بلحظة، باليورو وبالدرهم.",
+  c8h:"أطلق مرّة، وتصل إلى الجميع",c8p:"تنشر منتجًا جديدًا فيصل الإشعار تلقائيًا إلى كل موزّع في أوروبا، كلٌّ بلغته، مع تذكيرات كلما اقترب الموعد.",
+  svh:"السؤال الذي لن تكتبه في رسالة",
+  svp1:"إن نمَت علامتك عبر بنية أوروبية، فهل ستملي عليك تلك البنية شروطها يومًا ما؟ هل تصبح رهينة قناتك الأوروبية؟",
+  svp2:"إنه السؤال الصحيح، ولا أحد يطرحه بصوت عالٍ. وهذا هو الجواب، بالبنود المكتوبة في اتفاقيتنا المنشورة كاملة بسبع لغات بينها العربية، <a href='/brand-agreement.html'>قبل أي تفاوض</a>:",
+  svl1:"<b>البضاعة تبقى ملكك</b> طوال وجودها في مستودعنا. نحن لا نشتري مخزونك أبدًا، فلا يمكننا أن نستخدمه ضدك.",
+  svl2:"<b>أنت تحدّد كل سعر</b>، دولة بدولة. لا نضيف هامشًا ولا نمنح خصمًا.",
+  svl3:"<b>أنت توافق على كل موزّع</b>، ويمكنك سحب الوصول فورًا.",
+  svl4:"<b>نتقاضى عمولة على الطلبات المنفَّذة فقط.</b> بلا رسوم ثابتة ولا حدّ أدنى. إن لم تبع شيئًا، لا نكسب شيئًا.",
+  svl5:"<b>لا ننافسك أبدًا.</b> لا نملك علامة منافسة ولا نبيع للمستهلك النهائي.",
+  svl6:"<b>يمكنك الانسحاب.</b> شروط الانسحاب مكتوبة في الاتفاقية، منشورة، قبل أن توقّع أي شيء.",
+  svp3:"لسنا موزّعًا ولا نطلب منك التنازل عن شيء. نحن قسم العمليات الذي كنت ستضطر إلى فتحه في أوروبا: شركة ومستودع وموظفون ومسؤول تنظيمي. من دون أن تفتحه.",
+  mh:"وكم يكلّفك هذا",
+  mp:"لا شيء للانضمام، ولا شيء للبقاء، ولا حدّ أدنى للكميات. نتقاضى عمولة على الطلبات المنفَّذة فعليًا — من الهامش الذي يذهب اليوم إلى الوسطاء بينك وبين الرف الأوروبي. وإن لم يُبَع شيء، لا تدفع شيئًا.",
+  fd:"6-8 أكتوبر 2026 · دبي",fh:"سنكون في بيوتي وورلد",
+  fp1:"خمس عشرة دقيقة عند جناحكم. سنحضر خريطة أسعار منتجاتكم في أوروبا: أين تُباع اليوم، ومن يبيعها، وبأي سعر — إضافةً إلى قائمة الشركات التي تقدّم نفسها كموزّعين رسميين لكم في أوروبا.",
+  fp2:"<strong>وهذه الوثيقة لكم، مهما كان قراركم بشأننا.</strong>",
+  fcta:"احجز الخمس عشرة دقيقة",ft0:"اتفاقية العلامة",ft1:"الشروط",ft2:"الخصوصية"},
+
+ it:{flag:"Beautyworld Dubai · 6-8 ottobre 2026",
+  h1a:"In Europa il vostro marchio è già rappresentato.",h1b:"Da persone che non avete scelto.",
+  lead:"Le vostre fragranze sono oggi sugli scaffali europei, a prezzi che non avete deciso, vendute da aziende che non avete mai nominato. Alcune di loro si presentano come vostro distributore ufficiale. Abbiamo costruito la struttura che vi restituisce quel mercato — senza togliervi nemmeno uno dei partner che avete già.",
+  cta1:"Guarda la tua dashboard — senza registrarti",cta2:"Chiedici chi vi rappresenta in Europa",
+  freeline:"Nessun costo di ingresso. Nessun costo fisso. Commissione solo sugli ordini processati.",freeline2:"Oppure guarda prima la piattaforma, senza registrarti.",
+  pvh:"Abbiamo mappato l'Europa. Ecco cosa abbiamo trovato.",
+  pvp1:"Nelle scorse settimane abbiamo verificato, registro delle imprese alla mano, ogni distributore di profumeria araba in Europa. Non una lista comprata: pagine lette una per una, numeri di registrazione controllati, aziende cessate scartate.",
+  pvn1:"distributori verificati",pvn2:"paesi",pvn3:"si dichiarano «distributore ufficiale» di una casa del Golfo",
+  pvp2:"Settantatré. E diversi di loro lo dichiarano <strong>per l'Europa intera</strong>, in paesi diversi, per la stessa casa — cosa che non può essere vera per tutti contemporaneamente.",
+  pvp3:"Fra le dichiarazioni che abbiamo verificato nei registri pubblici:",
+  pvl1:"una società costituita tre mesi prima di pubblicare la dichiarazione",
+  pvl2:"una il cui unico recapito pubblicato è un indirizzo di posta gratuita",
+  pvl3:"una registrata come negozio al dettaglio online, non come grossista, che pubblicizza spedizioni a container",
+  pvl4:"una che ha registrato un dominio col nome di un marchio e si definisce «la casa europea ufficiale» di quel marchio",
+  pvp4:"Qui non pubblichiamo nomi: danneggerebbe le case, non chi ne abusa. Ma se volete sapere chi sta usando il <em>vostro</em> nome in Europa, chiedetecelo. Ve lo diciamo in privato, con i link e le date di registrazione, e il documento è vostro qualunque cosa decidiate su di noi.",
+  pvcta:"Chiedi la vostra lista",
+  s1h:"Quanto vi costa l'Europa oggi",s1s:"Non un mercato perduto. Un mercato che funziona senza di voi.",th1:"Oggi",th2:"Con NexusHub",
+  r1:"Chi decide il prezzo a scaffale",r1a:"Chi ha comprato il container. Poi chi ha comprato da lui.",r1b:"<b>Voi.</b> Lo stesso prezzo in ogni paese",
+  r2:"Chi vende il vostro marchio",r2a:"Chiunque riesca a comprare un pallet da qualche parte",r2b:"<b>Solo chi approvate</b>, uno per uno",
+  r3:"Cosa vedete",r3a:"Niente, da quando la merce lascia Dubai",r3b:"<b>Ogni ordine, paese, prezzo</b>, in tempo reale",
+  r4:"Quanto aspettano i vostri distributori",r4a:"Sei settimane: container, dogana, pratiche",r4b:"<b>48-72 ore</b> da Torino",
+  r5:"Chi tiene la vostra conformità UE",r5a:"Di solito un distributore — quindi possiede la vostra porta d'ingresso in Europa",r5b:"<b>Un operatore neutro</b> che non vi fa concorrenza",
+  r6:"Amazon Europa",r6a:"Dieci venditori che si sottoquotano sul vostro prodotto",r6b:"<b>Una sola presenza ufficiale</b>, un solo prezzo",
+  r7:"Il margine fra export e scaffale",r7a:"Finisce a intermediari che non avete nominato",r7b:"<b>Resta dentro la vostra rete</b>",
+  s2h:"Cosa facciamo sotto",s2s:"La vostra seconda casa in Europa. La merce resta vostra dal primo all'ultimo giorno.",
+  c1h:"Responsible Person UE",c1p:"Senza di essa, per il Reg. (CE) 1223/2009, nessun cosmetico entra nell'Unione. La teniamo da operatore neutro — e il giorno che volete spostarla, si sposta.",
+  c2h:"Un solo sdoganamento",c2p:"Sdoganato una volta per tutto il continente, con controllo qualità all'arrivo: lotto, etichettatura, confezionamento, conformità.",
+  c3h:"48-72 ore ai vostri distributori",c3p:"La vostra merce sta nel nostro hub di Torino e raggiunge i 27 paesi in due o tre giorni, con la fattura IVA corretta per ciascuno.",
+  c4h:"Approvate voi ogni distributore",c4p:"I distributori europei si candidano a voi attraverso la piattaforma. Accettate o rifiutate ognuno, assegnate il territorio, fissate il prezzo. Non si vende a nessuno che non abbiate autorizzato.",
+  c5h:"Esclusive con una scadenza",c5p:"Sei, nove o dodici mesi, con un minimo da raggiungere. Se non viene raggiunto il territorio si libera da solo e torna aperto alle candidature. L'esclusiva smette di essere un regalo e diventa un contratto.",
+  c6h:"Amazon Europa governata",c6p:"Una sola presenza ufficiale, un prezzo allineato a quello dei vostri distributori, i venditori non autorizzati rimossi.",
+  c7h:"Finalmente vedete tutto",c7p:"Chi compra, in che paese, quanto, quante volte, a che prezzo — in tempo reale, in euro e in dirham.",
+  c8h:"Lanciate una volta, arrivate a tutti",c8p:"Pubblicate un prodotto nuovo e ogni distributore europeo viene avvisato automaticamente, ognuno nella propria lingua, con promemoria all'avvicinarsi della data.",
+  svh:"La domanda che non metterete mai in una email",
+  svp1:"Se una struttura europea fa crescere il vostro marchio, un giorno quella struttura vi detterà le condizioni? Diventerete ostaggio del vostro stesso canale europeo?",
+  svp2:"È la domanda giusta, e nessuno la fa ad alta voce. Quindi ecco la risposta, con le clausole scritte nel nostro contratto — pubblicato per intero in sette lingue, arabo compreso, <a href='/brand-agreement.html'>prima di qualunque trattativa</a>:",
+  svl1:"<b>La merce resta di vostra proprietà</b> per tutto il tempo in cui è nel nostro hub. Non compriamo mai il vostro stock, quindi non possiamo mai usarlo contro di voi.",
+  svl2:"<b>Il prezzo lo fate voi</b>, paese per paese. Non ricarichiamo e non scontiamo.",
+  svl3:"<b>Ogni distributore lo approvate voi</b>, e potete revocare l'accesso all'istante.",
+  svl4:"<b>Prendiamo una commissione solo sugli ordini processati.</b> Nessun costo fisso, nessun minimo. Se non vendete, non guadagniamo.",
+  svl5:"<b>Non vi facciamo mai concorrenza.</b> Non possediamo un marchio concorrente e non vendiamo al consumatore finale.",
+  svl6:"<b>Potete andarvene.</b> Le condizioni di recesso sono scritte nel contratto, pubbliche, prima che firmiate qualcosa.",
+  svp3:"Non siamo un distributore e non vi chiediamo di rinunciare a niente. Siamo il reparto operativo che altrimenti dovreste aprire in Europa: una società, un magazzino, del personale, un responsabile regolatorio. Senza aprirlo.",
+  mh:"Quanto vi costa",
+  mp:"Niente per entrare, niente per restare, nessun volume minimo. Prendiamo una commissione sugli ordini effettivamente processati — da quel margine che oggi finisce agli intermediari fra voi e lo scaffale europeo. Se non si vende nulla, non pagate nulla.",
+  fd:"6-8 ottobre 2026 · Dubai",fh:"Saremo a Beautyworld",
+  fp1:"Quindici minuti al vostro stand. Portiamo la mappa europea dei prezzi dei vostri prodotti: dove sono venduti oggi, da chi e a quanto — più l'elenco delle aziende che si presentano come vostri distributori ufficiali in Europa.",
+  fp2:"<strong>Quel documento è vostro, qualunque cosa decidiate su di noi.</strong>",
+  fcta:"Prenota i quindici minuti",ft0:"Contratto brand",ft1:"Condizioni",ft2:"Privacy"},
+
+ fr:{flag:"Beautyworld Dubaï · 6-8 octobre 2026",
+  h1a:"En Europe, votre marque est déjà représentée.",h1b:"Par des gens que vous n'avez pas choisis.",
+  lead:"Vos parfums sont aujourd'hui dans les rayons européens, à des prix que vous n'avez pas fixés, vendus par des sociétés que vous n'avez jamais nommées. Certaines se présentent comme votre distributeur officiel. Nous avons construit la structure qui vous rend ce marché — sans vous retirer un seul de vos partenaires actuels.",
+  cta1:"Voir votre tableau de bord — sans inscription",cta2:"Demandez qui vous représente en Europe",
+  freeline:"Aucun frais d'entrée. Aucun coût fixe. Commission uniquement sur les commandes traitées.",freeline2:"Ou regardez d'abord la plateforme, sans vous inscrire.",
+  pvh:"Nous avons cartographié l'Europe. Voici ce que nous avons trouvé.",
+  pvp1:"Ces dernières semaines nous avons vérifié, registre du commerce en main, chaque distributeur de parfumerie arabe en Europe. Pas une liste achetée : des pages lues une à une, des numéros d'immatriculation contrôlés, des sociétés cessées écartées.",
+  pvn1:"distributeurs vérifiés",pvn2:"pays",pvn3:"se déclarent « distributeur officiel » d'une maison du Golfe",
+  pvp2:"Soixante-treize. Et plusieurs le déclarent <strong>pour l'Europe entière</strong>, dans des pays différents, pour la même maison — ce qui ne peut pas être vrai pour tous en même temps.",
+  pvp3:"Parmi les déclarations vérifiées dans les registres publics :",
+  pvl1:"une société immatriculée trois mois avant de publier la déclaration",
+  pvl2:"une dont le seul contact publié est une adresse de messagerie gratuite",
+  pvl3:"une immatriculée en vente au détail en ligne, pas en gros, qui annonce des expéditions par conteneur",
+  pvl4:"une qui a déposé un nom de domaine portant le nom d'une marque et se dit « la maison européenne officielle » de cette marque",
+  pvp4:"Nous ne publions pas de noms ici : cela nuirait aux maisons, pas à ceux qui en abusent. Mais si vous voulez savoir qui utilise <em>votre</em> nom en Europe, demandez-le-nous. Nous vous le dirons en privé, avec les liens et les dates d'immatriculation, et le document est à vous quelle que soit votre décision.",
+  pvcta:"Demandez votre liste",
+  s1h:"Ce que l'Europe vous coûte aujourd'hui",s1s:"Pas un marché perdu. Un marché qui fonctionne sans vous.",th1:"Aujourd'hui",th2:"Avec NexusHub",
+  r1:"Qui fixe le prix en rayon",r1a:"Celui qui a acheté le conteneur. Puis celui qui lui a acheté.",r1b:"<b>Vous.</b> Le même prix dans chaque pays",
+  r2:"Qui vend votre marque",r2a:"Quiconque parvient à acheter une palette quelque part",r2b:"<b>Seulement qui vous approuvez</b>, un par un",
+  r3:"Ce que vous voyez",r3a:"Rien, dès que la marchandise quitte Dubaï",r3b:"<b>Chaque commande, pays, prix</b>, en temps réel",
+  r4:"Combien attendent vos distributeurs",r4a:"Six semaines : conteneur, douane, papiers",r4b:"<b>48-72 heures</b> depuis Turin",
+  r5:"Qui détient votre conformité UE",r5a:"Un distributeur, en général — il possède donc votre porte d'entrée en Europe",r5b:"<b>Un opérateur neutre</b> qui ne vous concurrence pas",
+  r6:"Amazon Europe",r6a:"Dix vendeurs qui se sous-cotent sur votre produit",r6b:"<b>Une seule présence officielle</b>, un seul prix",
+  r7:"La marge entre export et rayon",r7a:"Va à des intermédiaires que vous n'avez pas nommés",r7b:"<b>Reste dans votre réseau</b>",
+  s2h:"Ce que nous faisons en dessous",s2s:"Votre seconde maison en Europe. La marchandise reste la vôtre du premier au dernier jour.",
+  c1h:"Personne Responsable UE",c1p:"Sans elle, selon le règlement (CE) 1223/2009, aucun cosmétique n'entre dans l'Union. Nous la détenons en opérateur neutre — et le jour où vous voulez la déplacer, elle se déplace.",
+  c2h:"Un seul dédouanement",c2p:"Dédouané une fois pour tout le continent, avec contrôle qualité à l'arrivée : lot, étiquetage, conditionnement, conformité.",
+  c3h:"48-72 heures à vos distributeurs",c3p:"Votre marchandise est dans notre hub de Turin et atteint les 27 pays en deux à trois jours, avec la facture TVA correcte pour chacun.",
+  c4h:"Vous approuvez chaque distributeur",c4p:"Les distributeurs européens postulent auprès de vous via la plateforme. Vous acceptez ou refusez chacun, attribuez le territoire, fixez le prix.",
+  c5h:"Des exclusivités avec une échéance",c5p:"Six, neuf ou douze mois, avec un minimum à atteindre. S'il n'est pas atteint, le territoire se libère et rouvre aux candidatures.",
+  c6h:"Amazon Europe pilotée",c6p:"Une seule présence officielle, un prix aligné sur celui de vos distributeurs, les vendeurs non autorisés retirés.",
+  c7h:"Vous voyez enfin tout",c7p:"Qui achète, dans quel pays, combien, à quelle fréquence, à quel prix — en temps réel, en euros et en dirhams.",
+  c8h:"Lancez une fois, touchez tout le monde",c8p:"Vous publiez un nouveau produit et chaque distributeur européen est prévenu automatiquement, dans sa langue, avec des rappels à l'approche de la date.",
+  svh:"La question que vous ne mettrez jamais dans un e-mail",
+  svp1:"Si une structure européenne fait croître votre marque, cette structure vous dictera-t-elle un jour ses conditions ? Deviendrez-vous otage de votre propre canal européen ?",
+  svp2:"C'est la bonne question, et personne ne la pose à voix haute. Voici donc la réponse, avec les clauses écrites dans notre contrat — publié intégralement en sept langues dont l'arabe, <a href='/brand-agreement.html'>avant toute négociation</a> :",
+  svl1:"<b>La marchandise reste votre propriété</b> tout le temps qu'elle est dans notre hub. Nous n'achetons jamais votre stock, nous ne pouvons donc jamais l'utiliser contre vous.",
+  svl2:"<b>C'est vous qui fixez chaque prix</b>, pays par pays. Nous ne majorons pas et nous ne remisons pas.",
+  svl3:"<b>Vous approuvez chaque distributeur</b> et pouvez révoquer l'accès instantanément.",
+  svl4:"<b>Nous sommes payés à la commission sur les commandes traitées uniquement.</b> Aucun frais fixe, aucun minimum. Si vous ne vendez rien, nous ne gagnons rien.",
+  svl5:"<b>Nous ne vous concurrençons jamais.</b> Nous ne possédons pas de marque concurrente et nous ne vendons pas au consommateur final.",
+  svl6:"<b>Vous pouvez partir.</b> Les conditions de retrait sont écrites dans le contrat, publiques, avant toute signature.",
+  svp3:"Nous ne sommes pas un distributeur et nous ne vous demandons de renoncer à rien. Nous sommes le service opérationnel que vous devriez sinon ouvrir en Europe : une société, un entrepôt, du personnel, un responsable réglementaire. Sans l'ouvrir.",
+  mh:"Ce que cela vous coûte",
+  mp:"Rien pour entrer, rien pour rester, aucun volume minimum. Nous sommes payés à la commission sur les commandes réellement traitées — sur la marge qui va aujourd'hui aux intermédiaires entre vous et le rayon européen. Si rien ne se vend, vous ne payez rien.",
+  fd:"6-8 octobre 2026 · Dubaï",fh:"Nous serons à Beautyworld",
+  fp1:"Quinze minutes à votre stand. Nous apporterons la cartographie européenne des prix de vos produits : où ils sont vendus aujourd'hui, par qui et à quel prix — ainsi que la liste des sociétés qui se présentent comme vos distributeurs officiels en Europe.",
+  fp2:"<strong>Ce document est à vous, quelle que soit votre décision.</strong>",
+  fcta:"Réserver les quinze minutes",ft0:"Contrat marque",ft1:"Conditions",ft2:"Confidentialité"}
+};
+
+function applica(l){
+  var d = T[l];
+  document.documentElement.lang = l;
+  document.documentElement.dir = (l === "ar") ? "rtl" : "ltr";
+  if (!d) return;               /* inglese: resta il testo scritto nell'HTML */
+  document.querySelectorAll("[data-t]").forEach(function(el){
+    var k = el.getAttribute("data-t");
+    if (d[k] != null) el.innerHTML = d[k];
+  });
+  try { localStorage.setItem("nx_brand_lang", l); } catch(e){}
+}
+
+/* Un proprietario a Dubai apre la pagina in arabo. Il resto lo decide il browser. */
+(function(){
+  var sel = document.getElementById("lang");
+  var salvata = null;
+  try { salvata = localStorage.getItem("nx_brand_lang"); } catch(e){}
+  var url = new URLSearchParams(location.search).get("lang");
+  var nav = (navigator.language || "en").slice(0,2).toLowerCase();
+  var l = url || salvata || (T[nav] ? nav : "en");
+  if (l !== "en" && !T[l]) l = "en";
+  sel.value = l;
+  if (l !== "en") applica(l);
+  sel.addEventListener("change", function(){
+    if (this.value === "en") { location.href = location.pathname + "?lang=en"; return; }
+    applica(this.value);
+  });
+})();
+</script>
+</body>
+</html>
