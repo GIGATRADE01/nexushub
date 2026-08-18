@@ -110,9 +110,14 @@ serve(async (req) => {
      che gli passiamo se non e' nella lista bianca del pannello. Con il
      gettone in mano il ritorno lo decidiamo noi, e non dipende piu' da
      nessuna impostazione. */
+  /* Il gettone viaggia nel frammento e senza segno di uguale: la posta
+     codifica il messaggio in quoted-printable e un "=" seguito da due cifre
+     esadecimali viene interpretato come carattere di controllo. Il
+     collegamento arrivava rotto e nessuno se ne sarebbe accorto guardando
+     l'email. */
   const gettone = dati?.hashed_token || dati?.properties?.hashed_token;
   const collegamento = gettone
-    ? `${SITO}/?recupero=${encodeURIComponent(gettone)}`
+    ? `${SITO}/#recupero/${encodeURIComponent(gettone)}`
     : (dati?.action_link || dati?.properties?.action_link);
 
   if (!rLink.ok || !collegamento) {

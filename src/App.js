@@ -9655,7 +9655,7 @@ export default function App() {
   const [recupero, setRecupero] = useState(() => {
     if (typeof window === "undefined") return false;
     return /type=recovery/.test(window.location.hash + window.location.search)
-        || new URLSearchParams(window.location.search).has("recupero");
+        || /[#?&]recupero[/=]/.test(window.location.hash + window.location.search);
   });
 
   const [recuperoScaduto, setRecuperoScaduto] = useState(false);
@@ -9678,7 +9678,10 @@ export default function App() {
      tempo di scegliere la nuova password. Il gettone sparisce subito dalla
      barra del browser, cosi' non resta nella cronologia. */
   useEffect(() => {
-    const gettone = new URLSearchParams(window.location.search).get("recupero");
+    /* Il gettone puo' arrivare nel frammento (#recupero/xxx, la forma che usa
+       l'email) oppure fra i parametri: si accettano entrambe. */
+    const daFrammento = (window.location.hash.match(/#recupero\/([^&/?]+)/) || [])[1];
+    const gettone = daFrammento || new URLSearchParams(window.location.search).get("recupero");
     if (!gettone) return;
     window.history.replaceState({}, "", window.location.pathname);
     supabase.auth.verifyOtp({ token_hash: gettone, type: "recovery" }).then(({ error }) => {
