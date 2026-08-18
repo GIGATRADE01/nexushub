@@ -2168,12 +2168,12 @@ const Login = ({ onLogin, lang, onLangChange }) => {
 /* Dove si atterra dopo aver premuto il tasto nell'email di recupero. Il
    collegamento porta una sessione temporanea: finche' dura si puo' cambiare
    la password, e poi si torna al login. */
-const NuovaPassword = ({ lang, onLangChange, onFatto }) => {
+const NuovaPassword = ({ lang, onLangChange, onFatto, scaduto }) => {
   const t = useT();
   const [pwd, setPwd] = useState("");
   const [conferma, setConferma] = useState("");
   const [attesa, setAttesa] = useState(false);
-  const [errore, setErrore] = useState("");
+  const [errore, setErrore] = useState(scaduto ? t("npFail") : "");
   const [fatta, setFatta] = useState(false);
 
   const salva = async (e) => {
@@ -9654,8 +9654,11 @@ export default function App() {
      pannello. Il segnale sta nell'indirizzo e, subito dopo, nell'evento. */
   const [recupero, setRecupero] = useState(() => {
     if (typeof window === "undefined") return false;
-    return /type=recovery/.test(window.location.hash + window.location.search);
+    return /type=recovery/.test(window.location.hash + window.location.search)
+        || new URLSearchParams(window.location.search).has("recupero");
   });
+
+  const [recuperoScaduto, setRecuperoScaduto] = useState(false);
 
   const t = key => T[lang]?.[key] ?? T["en"][key] ?? key;
   const dir = LANGS.find(l=>l.key===lang)?.dir ?? "ltr";
@@ -9668,6 +9671,20 @@ export default function App() {
       if (evento === "PASSWORD_RECOVERY") setRecupero(true);
     });
     return () => data?.subscription?.unsubscribe();
+  }, []);
+
+  /* Chi arriva dal tasto dell'email di recupero porta il gettone
+     nell'indirizzo: lo si scambia con una sessione temporanea, giusto il
+     tempo di scegliere la nuova password. Il gettone sparisce subito dalla
+     barra del browser, cosi' non resta nella cronologia. */
+  useEffect(() => {
+    const gettone = new URLSearchParams(window.location.search).get("recupero");
+    if (!gettone) return;
+    window.history.replaceState({}, "", window.location.pathname);
+    supabase.auth.verifyOtp({ token_hash: gettone, type: "recovery" }).then(({ error }) => {
+      if (error) setRecuperoScaduto(true);
+      setRecupero(true);
+    });
   }, []);
 
   // Controlla sessione esistente all'avvio
@@ -9703,7 +9720,7 @@ export default function App() {
   if (recupero) return (
     <LangCtx.Provider value={{ lang, t, dir }}>
       <div dir={dir} style={{ fontFamily, WebkitFontSmoothing:"antialiased" }}>
-        <NuovaPassword lang={lang} onLangChange={setLang} onFatto={async () => {
+        <NuovaPassword lang={lang} onLangChange={setLang} scaduto={recuperoScaduto} onFatto={async () => {
           window.history.replaceState({}, "", window.location.pathname);
           setRecupero(false);
           await handleLogout();

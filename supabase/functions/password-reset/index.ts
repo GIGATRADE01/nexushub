@@ -66,7 +66,7 @@ const pagina = (v: Voce, link: string, rtl: boolean) => `
   </div>
   <p style="font-size:12px;line-height:1.7;color:#8890aa;margin:0">${v.nota}</p>
   <p style="color:#4a4e68;font-size:11px;text-align:center;border-top:1px solid #252838;padding-top:16px;margin-top:28px">
-    GIGA TRADE S.R.L.S. &middot; Torino, Italia &middot; <a href="${SITO}" style="color:#c9a84c">nexushub.trade</a>
+    GIGA TRADE S.R.L.S. · Torino, Italia · <a href="${SITO}" style="color:#c9a84c">nexushub.trade</a>
   </p>
 </div>`;
 
@@ -103,7 +103,17 @@ serve(async (req) => {
     body: JSON.stringify({ type: "recovery", email, redirect_to: SITO + "/" }),
   });
   const dati = await rLink.json().catch(() => ({}));
-  const collegamento = dati?.action_link || dati?.properties?.action_link;
+
+  /* Il collegamento se lo costruisce la piattaforma, non lo si prende da
+     Supabase: quello che genera Supabase torna sempre al "Site URL" del
+     progetto (che qui e' rimasto http://localhost:3000) e ignora l'indirizzo
+     che gli passiamo se non e' nella lista bianca del pannello. Con il
+     gettone in mano il ritorno lo decidiamo noi, e non dipende piu' da
+     nessuna impostazione. */
+  const gettone = dati?.hashed_token || dati?.properties?.hashed_token;
+  const collegamento = gettone
+    ? `${SITO}/?recupero=${encodeURIComponent(gettone)}`
+    : (dati?.action_link || dati?.properties?.action_link);
 
   if (!rLink.ok || !collegamento) {
     console.log("recupero password: nessun collegamento per questo indirizzo");
