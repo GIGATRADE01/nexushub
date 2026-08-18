@@ -751,6 +751,27 @@ Object.assign(T.en, { auVat:"VAT", auNoVat:"VAT not provided", auViesOk:"VIES va
 Object.assign(T.it, { auVat:"P.IVA", auNoVat:"P.IVA non indicata", auViesOk:"VIES valida", auViesKo:"VIES non validata", auViesNa:"VIES non verificata", auDocs:"Documenti", auNoDocs:"Nessun documento caricato - chiederli prima di approvare", auOpenDoc:"Apri" });
 Object.assign(T.en, { exTitle:"Exclusive rights for this territory", exSub:"An exclusive with no end date is one you can never take back. Set a duration and a minimum: if the minimum is not met, the territory frees itself.", exMonths:"Duration", ex6:"6 months", ex9:"9 months", ex12:"12 months", exMin:"Minimum units in the period", exMinHint:"0 = no target, renews automatically", exRenew:"Renew automatically if the minimum is met", exConfirm:"Grant exclusivity", exCancel:"Cancel", exUntil:"Exclusive until", exLeft:"days left", exDone:"done", exOf:"of", exExpired:"expired", exAed:"approx." });
 Object.assign(T.it, { exTitle:"Esclusiva per questo territorio", exSub:"Un\u2019esclusiva senza scadenza non te la riprendi piu\u0300. Imposta una durata e un minimo: se il minimo non viene raggiunto, il territorio si libera da solo.", exMonths:"Durata", ex6:"6 mesi", ex9:"9 mesi", ex12:"12 mesi", exMin:"Minimo pezzi nel periodo", exMinHint:"0 = nessun obiettivo, si rinnova da solo", exRenew:"Rinnova automaticamente se il minimo viene raggiunto", exConfirm:"Concedi l\u2019esclusiva", exCancel:"Annulla", exUntil:"Esclusiva fino al", exLeft:"giorni rimasti", exDone:"fatti", exOf:"di", exExpired:"scaduta", exAed:"circa" });
+Object.assign(T.en, { npTitle:"Choose a new password", npSub:"Type it twice, then sign in again.", npSave:"Save the new password", npSaving:"Saving...", npDone:"Password changed", npDoneSub:"You can now sign in with the new password.", npToLogin:"Go to sign in", npFail:"The link has expired or has already been used. Ask for a new one from the sign-in page." });
+Object.assign(T.it, { npTitle:"Scegli una nuova password", npSub:"Scrivila due volte, poi accedi di nuovo.", npSave:"Salva la nuova password", npSaving:"Salvataggio...", npDone:"Password cambiata", npDoneSub:"Ora puoi accedere con la nuova password.", npToLogin:"Vai all'accesso", npFail:"Il collegamento \u00e8 scaduto o \u00e8 gi\u00e0 stato usato. Chiedine uno nuovo dalla schermata di accesso." });
+Object.assign(T.fr, { npTitle:"Choisissez un nouveau mot de passe", npSub:"Saisissez-le deux fois, puis reconnectez-vous.", npSave:"Enregistrer le mot de passe", npSaving:"Enregistrement...", npDone:"Mot de passe modifi\u00e9", npDoneSub:"Vous pouvez maintenant vous connecter avec le nouveau mot de passe.", npToLogin:"Aller \u00e0 la connexion", npFail:"Le lien a expir\u00e9 ou a d\u00e9j\u00e0 servi. Demandez-en un nouveau depuis la page de connexion." });
+Object.assign(T.es, { npTitle:"Elige una contrase\u00f1a nueva", npSub:"Escr\u00edbela dos veces y vuelve a iniciar sesi\u00f3n.", npSave:"Guardar la contrase\u00f1a", npSaving:"Guardando...", npDone:"Contrase\u00f1a cambiada", npDoneSub:"Ya puedes iniciar sesi\u00f3n con la nueva contrase\u00f1a.", npToLogin:"Ir al inicio de sesi\u00f3n", npFail:"El enlace ha caducado o ya se ha usado. Pide uno nuevo desde la pantalla de acceso." });
+Object.assign(T.de, { npTitle:"Neues Passwort w\u00e4hlen", npSub:"Zweimal eingeben, dann erneut anmelden.", npSave:"Neues Passwort speichern", npSaving:"Wird gespeichert...", npDone:"Passwort ge\u00e4ndert", npDoneSub:"Sie k\u00f6nnen sich jetzt mit dem neuen Passwort anmelden.", npToLogin:"Zur Anmeldung", npFail:"Der Link ist abgelaufen oder wurde bereits verwendet. Fordern Sie auf der Anmeldeseite einen neuen an." });
+Object.assign(T.zh, { npTitle:"\u8bbe\u7f6e\u65b0\u5bc6\u7801", npSub:"\u8f93\u5165\u4e24\u6b21\uff0c\u7136\u540e\u91cd\u65b0\u767b\u5f55\u3002", npSave:"\u4fdd\u5b58\u65b0\u5bc6\u7801", npSaving:"\u4fdd\u5b58\u4e2d...", npDone:"\u5bc6\u7801\u5df2\u66f4\u6539", npDoneSub:"\u73b0\u5728\u53ef\u4ee5\u7528\u65b0\u5bc6\u7801\u767b\u5f55\u4e86\u3002", npToLogin:"\u524d\u5f80\u767b\u5f55", npFail:"\u94fe\u63a5\u5df2\u5931\u6548\u6216\u5df2\u4f7f\u7528\u3002\u8bf7\u5728\u767b\u5f55\u9875\u9762\u91cd\u65b0\u7533\u8bf7\u3002" });
+Object.assign(T.ar, { npTitle:"\u0627\u062e\u062a\u0631 \u0643\u0644\u0645\u0629 \u0645\u0631\u0648\u0631 \u062c\u062f\u064a\u062f\u0629", npSub:"\u0627\u0643\u062a\u0628\u0647\u0627 \u0645\u0631\u062a\u064a\u0646\u060c \u062b\u0645 \u0633\u062c\u0651\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0645\u0646 \u062c\u062f\u064a\u062f.", npSave:"\u062d\u0641\u0638 \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631", npSaving:"\u062c\u0627\u0631\u064d \u0627\u0644\u062d\u0641\u0638...", npDone:"\u062a\u0645 \u062a\u063a\u064a\u064a\u0631 \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631", npDoneSub:"\u064a\u0645\u0643\u0646\u0643 \u0627\u0644\u0622\u0646 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0628\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631 \u0627\u0644\u062c\u062f\u064a\u062f\u0629.", npToLogin:"\u0627\u0644\u0630\u0647\u0627\u0628 \u0625\u0644\u0649 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644", npFail:"\u0627\u0646\u062a\u0647\u062a \u0635\u0644\u0627\u062d\u064a\u0629 \u0627\u0644\u0631\u0627\u0628\u0637 \u0623\u0648 \u0627\u0633\u062a\u064f\u062e\u062f\u0645 \u0645\u0633\u0628\u0642\u064b\u0627. \u0627\u0637\u0644\u0628 \u0631\u0627\u0628\u0637\u064b\u0627 \u062c\u062f\u064a\u062f\u064b\u0627 \u0645\u0646 \u0635\u0641\u062d\u0629 \u0627\u0644\u062f\u062e\u0648\u0644." });
+Object.assign(T.en, { rgEmailUsed:"This email address is already registered. Try signing in, or use the password reset.", rgTooMany:"Too many registrations in the last hour. Please try again shortly.", rgBadEmail:"Please check the email address.", rgDocTooBig:"Each document must be smaller than 5 MB.", rgSaveFailed:"We could not complete the registration. Nothing was saved — please try again, or write to info@nexushub.trade." });
+Object.assign(T.it, { rgEmailUsed:"Questa email è già registrata. Prova ad accedere, oppure recupera la password.", rgTooMany:"Troppe registrazioni nell'ultima ora. Riprova tra poco.", rgBadEmail:"Controlla l'indirizzo email.", rgDocTooBig:"Ogni documento deve pesare meno di 5 MB.", rgSaveFailed:"Non siamo riusciti a completare la registrazione. Non è stato salvato nulla: riprova, oppure scrivi a info@nexushub.trade." });
+Object.assign(T.fr, { rgEmailUsed:"Cette adresse e-mail est déjà enregistrée. Essayez de vous connecter ou réinitialisez le mot de passe.", rgTooMany:"Trop d'inscriptions durant la dernière heure. Réessayez dans un moment.", rgBadEmail:"Vérifiez l'adresse e-mail.", rgDocTooBig:"Chaque document doit peser moins de 5 Mo.", rgSaveFailed:"Nous n'avons pas pu finaliser l'inscription. Rien n'a été enregistré : réessayez ou écrivez à info@nexushub.trade." });
+Object.assign(T.es, { rgEmailUsed:"Este correo ya está registrado. Prueba a iniciar sesión o recupera la contraseña.", rgTooMany:"Demasiados registros en la última hora. Inténtalo dentro de un rato.", rgBadEmail:"Revisa la dirección de correo.", rgDocTooBig:"Cada documento debe pesar menos de 5 MB.", rgSaveFailed:"No hemos podido completar el registro. No se ha guardado nada: inténtalo de nuevo o escribe a info@nexushub.trade." });
+Object.assign(T.de, { rgEmailUsed:"Diese E-Mail-Adresse ist bereits registriert. Melden Sie sich an oder setzen Sie das Passwort zurück.", rgTooMany:"Zu viele Registrierungen in der letzten Stunde. Bitte versuchen Sie es gleich noch einmal.", rgBadEmail:"Bitte prüfen Sie die E-Mail-Adresse.", rgDocTooBig:"Jedes Dokument muss kleiner als 5 MB sein.", rgSaveFailed:"Die Registrierung konnte nicht abgeschlossen werden. Es wurde nichts gespeichert — bitte erneut versuchen oder an info@nexushub.trade schreiben." });
+Object.assign(T.zh, { rgEmailUsed:"该邮箱已注册。请尝试登录，或找回密码。", rgTooMany:"过去一小时内注册过多，请稍后再试。", rgBadEmail:"请检查邮箱地址。", rgDocTooBig:"每份文件需小于 5 MB。", rgSaveFailed:"注册未能完成，且未保存任何内容。请重试，或发邮件至 info@nexushub.trade。" });
+Object.assign(T.ar, { rgEmailUsed:"هذا البريد مسجّل مسبقًا. جرّب تسجيل الدخول أو استعادة كلمة المرور.", rgTooMany:"عدد كبير من التسجيلات خلال الساعة الماضية. أعد المحاولة بعد قليل.", rgBadEmail:"تحقق من عنوان البريد.", rgDocTooBig:"يجب أن يكون حجم كل مستند أقل من 5 ميجابايت.", rgSaveFailed:"تعذّر إتمام التسجيل، ولم يُحفظ شيء. أعد المحاولة أو اكتب إلى info@nexushub.trade." });
+Object.assign(T.en, { lgHeroA:"The Gulf houses produce in the Middle East.", lgHeroB:"The market is in Europe.", lgHeroSub:"NexusHub is the bridge: the brand's stock enters a logistics hub in Italy and from there reaches European distributors in 48-72 hours, at the official price and with protected territory. The brand decides who represents it. The distributor stops waiting for containers.", lgFrom:"Where are you coming from?", lgChainVia:"I am a retail chain or an e-commerce — I buy for several points of sale", lgDemoLab:"Step inside and look around — no sign-up", lgDemoBrand:"Live Brand demo", lgDemoDist:"Live Distributor demo", lgHave:"I already have an account — Sign in" });
+Object.assign(T.it, { lgHeroA:"Le case del Golfo producono in Medio Oriente.", lgHeroB:"Il mercato però è in Europa.", lgHeroSub:"NexusHub è il ponte: la merce del brand entra in un polo logistico in Italia e da lì raggiunge i distributori europei in 48-72 ore, a prezzo ufficiale e con territorio protetto. Il brand decide chi lo rappresenta. Il distributore smette di aspettare i container.", lgFrom:"Da dove arrivi?", lgChainVia:"Sono una catena o un e-commerce — acquisto per più punti vendita", lgDemoLab:"Entra e guarda, senza registrarti", lgDemoBrand:"Demo Brand dal vivo", lgDemoDist:"Demo Distributore dal vivo", lgHave:"Ho già un account — Accedi" });
+Object.assign(T.fr, { lgHeroA:"Les maisons du Golfe produisent au Moyen-Orient.", lgHeroB:"Le marché, lui, est en Europe.", lgHeroSub:"NexusHub est le pont : la marchandise de la marque entre dans un pôle logistique en Italie et atteint de là les distributeurs européens en 48-72 heures, au prix officiel et avec un territoire protégé. La marque choisit qui la représente. Le distributeur cesse d'attendre les conteneurs.", lgFrom:"D'où venez-vous ?", lgChainVia:"Je suis une chaîne ou un e-commerce — j'achète pour plusieurs points de vente", lgDemoLab:"Entrez et regardez, sans inscription", lgDemoBrand:"Démo Marque en direct", lgDemoDist:"Démo Distributeur en direct", lgHave:"J'ai déjà un compte — Se connecter" });
+Object.assign(T.es, { lgHeroA:"Las casas del Golfo producen en Oriente Medio.", lgHeroB:"El mercado, en cambio, está en Europa.", lgHeroSub:"NexusHub es el puente: la mercancía de la marca entra en un centro logístico en Italia y desde allí llega a los distribuidores europeos en 48-72 horas, a precio oficial y con territorio protegido. La marca decide quién la representa. El distribuidor deja de esperar los contenedores.", lgFrom:"¿De dónde vienes?", lgChainVia:"Soy una cadena o un e-commerce — compro para varios puntos de venta", lgDemoLab:"Entra y mira, sin registrarte", lgDemoBrand:"Demo Marca en vivo", lgDemoDist:"Demo Distribuidor en vivo", lgHave:"Ya tengo una cuenta — Iniciar sesión" });
+Object.assign(T.de, { lgHeroA:"Die Häuser am Golf produzieren im Nahen Osten.", lgHeroB:"Der Markt aber liegt in Europa.", lgHeroSub:"NexusHub ist die Brücke: Die Ware der Marke kommt in ein Logistikzentrum in Italien und erreicht von dort die europäischen Distributoren in 48-72 Stunden, zum offiziellen Preis und mit geschütztem Gebiet. Die Marke entscheidet, wer sie vertritt. Der Distributor wartet nicht mehr auf Container.", lgFrom:"Woher kommen Sie?", lgChainVia:"Ich bin eine Kette oder ein E-Commerce — ich kaufe für mehrere Verkaufsstellen", lgDemoLab:"Reinschauen, ohne Registrierung", lgDemoBrand:"Live-Demo Marke", lgDemoDist:"Live-Demo Distributor", lgHave:"Ich habe bereits ein Konto — Anmelden" });
+Object.assign(T.zh, { lgHeroA:"海湾香水世家在中东生产。", lgHeroB:"但市场在欧洲。", lgHeroSub:"NexusHub 就是这座桥：品牌的货物进入意大利的物流中心，再从那里在 48-72 小时内送达欧洲经销商，按官方价格、并享有受保护的区域。品牌自己决定由谁代表。经销商不必再等集装箱。", lgFrom:"您来自哪一方？", lgChainVia:"我是连锁或电商——为多个销售点采购", lgDemoLab:"无需注册，直接进入查看", lgDemoBrand:"品牌端实时演示", lgDemoDist:"经销商端实时演示", lgHave:"我已有账户——登录" });
+Object.assign(T.ar, { lgHeroA:"بيوت العطور في الخليج تُنتج في الشرق الأوسط.", lgHeroB:"لكنّ السوق في أوروبا.", lgHeroSub:"نكسس هَب هو الجسر: تدخل بضاعة العلامة إلى مركز لوجستي في إيطاليا، ومنه تصل إلى الموزّعين الأوروبيين خلال 48-72 ساعة، بالسعر الرسمي ومع منطقة محمية. العلامة تقرّر من يمثّلها، والموزّع يتوقّف عن انتظار الحاويات.", lgFrom:"من أي طرف أنت؟", lgChainVia:"أنا سلسلة متاجر أو متجر إلكتروني — أشتري لعدة نقاط بيع", lgDemoLab:"ادخل وشاهد، دون تسجيل", lgDemoBrand:"عرض حي لواجهة العلامة", lgDemoDist:"عرض حي لواجهة الموزّع", lgHave:"لديّ حساب بالفعل — تسجيل الدخول" });
 Object.assign(T.en, { dlpTitle:"Are you a distributor or a wholesaler?", dlpBody:"In Europe the price of your fragrances is decided by someone else. See what changes when the Gulf houses keep their stock in Europe \u2014 official price, 48-72h from Turin, protected territory.", dlpCta:"Read the page for distributors" });
 Object.assign(T.it, { dlpTitle:"Sei un distributore o un grossista?", dlpBody:"In Europa il prezzo dei tuoi profumi lo decide qualcun altro. Guarda cosa cambia quando le case del Golfo tengono la loro merce in Europa \u2014 prezzo ufficiale, 48-72 ore da Torino, territorio protetto.", dlpCta:"Leggi la pagina per i distributori" });
 Object.assign(T.fr, { dlpTitle:"Vous \u00eates distributeur ou grossiste ?", dlpBody:"En Europe, le prix de vos parfums est d\u00e9cid\u00e9 par quelqu\u2019un d\u2019autre. Voyez ce qui change quand les maisons du Golfe gardent leur marchandise en Europe \u2014 prix officiel, 48-72 h depuis Turin, territoire prot\u00e9g\u00e9.", dlpCta:"Lire la page pour les distributeurs" });
@@ -1084,18 +1105,22 @@ const LangCtx = createContext({ lang:"en", t: k=>k, dir:"ltr" });
 const useT = () => useContext(LangCtx).t;
 
 /* Un brand di Dubai legge i suoi numeri in dirham, non in euro: mostrare solo
-   l'euro lo costringe a fare il conto a mente ogni volta. Il cambio arriva dalla
-   Banca centrale europea (frankfurter.app, senza chiave), con un valore di
-   ripiego se la rete non risponde: meglio un ordine di grandezza corretto che
-   nessun numero. */
-const AED_RIPIEGO = 4.0;
+   l'euro lo costringe a fare il conto a mente ogni volta.
+
+   Il dirham non e' fra le valute di riferimento della Banca centrale europea,
+   quindi non esiste un cambio EUR/AED da prendere li'. Pero' il dirham e'
+   agganciato per legge al dollaro a 3,6725: si prende quindi il cambio
+   euro/dollaro della BCE e lo si moltiplica per l'aggancio. Se la rete non
+   risponde resta un valore di ripiego, aggiornato a mano. */
+const AED_PER_USD = 3.6725;       // aggancio fisso della banca centrale emiratina
+const AED_RIPIEGO = 4.25;
 const useAed = () => {
   const [rate, setRate] = useState(AED_RIPIEGO);
   useEffect(() => {
     let vivo = true;
-    fetch("https://api.frankfurter.app/latest?from=EUR&to=AED")
+    fetch("https://api.frankfurter.dev/v1/latest?base=EUR&symbols=USD")
       .then(r => r.json())
-      .then(d => { if (vivo && d?.rates?.AED) setRate(d.rates.AED); })
+      .then(d => { if (vivo && d?.rates?.USD) setRate(d.rates.USD * AED_PER_USD); })
       .catch(() => {});
     return () => { vivo = false; };
   }, []);
@@ -1863,6 +1888,7 @@ const Login = ({ onLogin, lang, onLangChange }) => {
   const [resetEmail, setResetEmail] = useState("");
   const [resetSent, setResetSent] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
+  const [formAperto, setFormAperto] = useState(false); // solo su telefono
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -1969,9 +1995,20 @@ const Login = ({ onLogin, lang, onLangChange }) => {
             <button onClick={async () => {
               if (!resetEmail) return;
               setResetLoading(true);
-              await supabase.auth.resetPasswordForEmail(resetEmail, {
-                redirectTo: "https://nexushub.trade/reset-password"
-              });
+              /* La posta di prova di Supabase accetta due email all'ora e le
+                 consegna solo al titolare del progetto: il collegamento lo
+                 generiamo noi e lo spediamo dalla casella di NexusHub. */
+              try {
+                await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/password-reset`, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "apikey": process.env.REACT_APP_SUPABASE_ANON_KEY,
+                    "Authorization": `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}`,
+                  },
+                  body: JSON.stringify({ email: resetEmail, lang }),
+                });
+              } catch (e) { /* la risposta non dice mai se l'indirizzo esiste */ }
               setResetLoading(false);
               setResetSent(true);
             }} disabled={resetLoading || !resetEmail}
@@ -1988,94 +2025,220 @@ const Login = ({ onLogin, lang, onLangChange }) => {
     </div>
   );
 
+  const etich = { fontSize:10.5, color:C.textDim, letterSpacing:"0.13em", textTransform:"uppercase", margin:"0 0 12px", fontWeight:700 };
+  const scatolaVia = { display:"block", textDecoration:"none", padding:"17px 17px 15px", borderRadius:13 };
+
   return (
-    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", backgroundImage:`radial-gradient(ellipse at 20% 50%,${C.gold}08 0%,transparent 60%)`, padding:"20px 12px", overflowY:"auto" }}>
-      <div style={{ width:"100%", maxWidth:420, padding:"32px 20px", background:C.surface, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:`0 40px 80px rgba(0,0,0,0.7)` }}>
-        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:28 }}>
+    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", backgroundImage:`radial-gradient(ellipse at 18% 45%,${C.gold}08 0%,transparent 62%)`, padding:"20px 12px", overflowY:"auto" }}>
+      <div className="lg-split">
+
+        {/* --------------------------------------------------- marchio e lingua */}
+        <div className="lg-testa">
+          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", gap:12 }}>
+            <div style={{ display:"flex", alignItems:"center", gap:13 }}>
+              <div style={{ width:52, height:52, borderRadius:13, display:"flex", alignItems:"center", justifyContent:"center", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, fontSize:23, fontWeight:900, color:C.bg, boxShadow:`0 8px 24px ${C.gold}35`, flexShrink:0 }}>N</div>
+              <div>
+                <div style={{ fontSize:23, fontWeight:800, color:C.text, fontFamily:"'Fraunces', Georgia, serif", lineHeight:1.1 }}>NexusHub</div>
+                <div style={{ fontSize:10.5, color:C.textMuted, marginTop:3, letterSpacing:"0.11em", textTransform:"uppercase" }}>{t("loginSubtitle")}</div>
+              </div>
+            </div>
+            <LangSwitcher lang={lang} onChange={onLangChange}/>
+          </div>
+        </div>
+
+        {/* ------------------------------------ cosa siamo, i percorsi, le demo */}
+        <div className="lg-sx">
+          <h1 className="lg-h1" style={{ fontFamily:"'Fraunces', Georgia, serif", fontWeight:800, lineHeight:1.25, margin:"0 0 12px", color:C.text }}>
+            {t("lgHeroA")}<br/><span style={{ color:C.goldLight }}>{t("lgHeroB")}</span>
+          </h1>
+          <p style={{ fontSize:14, color:C.textMuted, lineHeight:1.65, margin:"0 0 26px", maxWidth:620 }}>{t("lgHeroSub")}</p>
+
+          <div style={etich}>{t("lgFrom")}</div>
+          <div className="lg-vie">
+            {/* Le due pagine di presentazione: chi arriva dalle email deve poterle
+                leggere prima ancora di decidere se registrarsi. */}
+            <a className="lg-via" href="/brands.html" target="_blank" rel="noreferrer"
+               style={{ ...scatolaVia, background:`linear-gradient(150deg, ${C.gold}1a, ${C.gold}05)`, border:`1px solid ${C.gold}45` }}>
+              <div style={{ fontSize:14, fontWeight:800, color:C.goldLight, marginBottom:6 }}>🏛️ {t("blpTitle")}</div>
+              <div style={{ fontSize:12.2, color:C.textMuted, lineHeight:1.58 }}>{t("blpBody")}</div>
+              <div style={{ fontSize:12.2, fontWeight:700, color:C.gold, marginTop:10 }}>{t("blpCta")} →</div>
+            </a>
+            <a className="lg-via" href="/distributori.html" target="_blank" rel="noreferrer"
+               style={{ ...scatolaVia, background:`linear-gradient(150deg, ${C.blue}1a, ${C.blue}05)`, border:`1px solid ${C.blue}45` }}>
+              <div style={{ fontSize:14, fontWeight:800, color:"#8fc0f8", marginBottom:6 }}>📦 {t("dlpTitle")}</div>
+              <div style={{ fontSize:12.2, color:C.textMuted, lineHeight:1.58 }}>{t("dlpBody")}</div>
+              <div style={{ fontSize:12.2, fontWeight:700, color:C.blue, marginTop:10 }}>{t("dlpCta")} →</div>
+            </a>
+          </div>
+          <button onClick={() => setView("register-chain")}
+            style={{ width:"100%", marginTop:11, padding:"11px 14px", borderRadius:10, cursor:"pointer", textAlign:"left", background:"rgba(255,255,255,.015)", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:12.5 }}>
+            🏬 {t("lgChainVia")} →
+          </button>
+
+          <div style={{ marginTop:26, paddingTop:22, borderTop:`1px solid ${C.border}` }}>
+            <div style={etich}>{t("lgDemoLab")}</div>
+            <div className="lg-vie">
+              <button onClick={handleDemoBrand} disabled={loading}
+                style={{ padding:"12px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:800, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
+                <span>🎛️</span> {t("lgDemoBrand")}
+              </button>
+              <button onClick={handleDemoDist} disabled={loading}
+                style={{ padding:"12px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.blue},#2b6fc0)`, border:"none", color:"#fff", fontSize:13, fontWeight:800, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
+                <span>📦</span> {t("lgDemoDist")}
+              </button>
+            </div>
+            <button onClick={() => setView("demo")}
+              style={{ width:"100%", marginTop:9, padding:"11px", borderRadius:10, cursor:"pointer", background:`${C.purple}10`, border:`1px solid ${C.purple}40`, color:"#c084fc", fontSize:12.5, fontWeight:600, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
+              <span>▶</span> {t("watchDemo") || "Watch Platform Demo"}
+            </button>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------- login */}
+        <div className="lg-dx">
+          <h2 className="lg-acc" style={{ fontSize:19, fontWeight:800, margin:"0 0 20px", color:C.text, fontFamily:"'Fraunces', Georgia, serif" }}>{t("loginBtn")}</h2>
+
+          {/* Su telefono il login sta chiuso in una riga sola: chi torna la tocca
+              ed e' dentro, chi arriva la prima volta la scorre e legge il resto. */}
+          <button type="button" className="lg-tog" onClick={() => setFormAperto(v => !v)}
+            style={{ display:"flex", alignItems:"center", justifyContent:"space-between", width:"100%", padding:"13px 15px", borderRadius:11, cursor:"pointer", background:C.surface2, border:`1px solid ${C.gold}45`, color:C.goldLight, fontSize:13.5, fontWeight:800 }}>
+            <span>🔑 {t("lgHave")}</span><span>{formAperto ? "▴" : "▾"}</span>
+          </button>
+
+          <div className={"lg-mform" + (formAperto ? " on" : "")}>
+            {error && (
+              <div style={{ background:`${C.red}15`, border:`1px solid ${C.red}40`, borderRadius:8, padding:"10px 14px", color:C.red, fontSize:13, marginBottom:16 }}>{error}</div>
+            )}
+            <form onSubmit={handleLogin} style={{ display:"flex", flexDirection:"column", gap:14 }}>
+              <div>
+                <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{t("emailLabel")}</label>
+                <input type="email" value={email} onChange={e=>setEmail(e.target.value)} required
+                  style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:16, outline:"none", boxSizing:"border-box" }}/>
+              </div>
+              <div>
+                <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{t("passwordLabel")}</label>
+                <input type="password" value={password} onChange={e=>setPassword(e.target.value)} required
+                  style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:16, outline:"none", boxSizing:"border-box" }}/>
+              </div>
+              <button type="submit" disabled={loading} style={{ padding:"13px", borderRadius:10, cursor:"pointer", background:loading?C.goldDim:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, marginTop:4 }}>
+                {loading ? t("loggingIn") : t("loginBtn")}
+              </button>
+              <div style={{ textAlign:"center", marginTop:8 }}>
+                <button onClick={() => setView("reset")} type="button" style={{ background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:12, textDecoration:"underline" }}>
+                  {t("lgForgot")}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        {/* ------------------------------------------ registrazione e note legali */}
+        <div className="lg-coda">
+          <div style={{ display:"flex", alignItems:"center", gap:10, margin:"24px 0 16px" }}>
+            <div style={{ flex:1, height:1, background:C.border }}/>
+            <span style={{ fontSize:11, color:C.textDim }}>{t("lgNew")}</span>
+            <div style={{ flex:1, height:1, background:C.border }}/>
+          </div>
+
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
+            <button onClick={() => setView("register-brand")} className="nx-card" style={{ padding:"16px 12px", borderRadius:12, cursor:"pointer", background:C.surface2, border:`1px solid ${C.gold}45`, display:"flex", flexDirection:"column", alignItems:"center", gap:9 }}>
+              <span style={{ width:36, height:36, borderRadius:10, background:`${C.gold}1f`, color:C.gold, display:"flex", alignItems:"center", justifyContent:"center" }}><Landmark size={19}/></span>
+              <span style={{ fontSize:13, fontWeight:700, color:C.text, lineHeight:1.3, textAlign:"center" }}>{t("registerBrand")}</span>
+            </button>
+            <button onClick={() => setView("register-dist")} className="nx-card" style={{ padding:"16px 12px", borderRadius:12, cursor:"pointer", background:C.surface2, border:`1px solid ${C.blue}45`, display:"flex", flexDirection:"column", alignItems:"center", gap:9 }}>
+              <span style={{ width:36, height:36, borderRadius:10, background:`${C.blue}1f`, color:C.blue, display:"flex", alignItems:"center", justifyContent:"center" }}><Store size={19}/></span>
+              <span style={{ fontSize:13, fontWeight:700, color:C.text, lineHeight:1.3, textAlign:"center" }}>{t("registerDist")}</span>
+            </button>
+          </div>
+          <button onClick={() => setView("register-chain")} style={{ width:"100%", marginTop:10, padding:"10px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:12.5 }}>{t("registerChain")}</button>
+
+          <div style={{ marginTop:24, paddingTop:14, borderTop:`1px solid ${C.border}`, textAlign:"center", fontSize:11, color:C.textDim, lineHeight:1.7 }}>
+            <a href="/privacy.html" target="_blank" rel="noreferrer" style={{ color:C.textMuted, textDecoration:"none" }}>{t("ftPrivacy")}</a>
+            <span style={{ margin:"0 8px" }}>·</span>
+            <a href="/terms.html" target="_blank" rel="noreferrer" style={{ color:C.textMuted, textDecoration:"none" }}>{t("ftTerms")}</a>
+            <div style={{ marginTop:4 }}>GIGA TRADE S.R.L.S. · P.IVA IT13105910015 · Torino, Italia</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+};
+
+/* Dove si atterra dopo aver premuto il tasto nell'email di recupero. Il
+   collegamento porta una sessione temporanea: finche' dura si puo' cambiare
+   la password, e poi si torna al login. */
+const NuovaPassword = ({ lang, onLangChange, onFatto }) => {
+  const t = useT();
+  const [pwd, setPwd] = useState("");
+  const [conferma, setConferma] = useState("");
+  const [attesa, setAttesa] = useState(false);
+  const [errore, setErrore] = useState("");
+  const [fatta, setFatta] = useState(false);
+
+  const salva = async (e) => {
+    e.preventDefault();
+    if (pwd.length < 8) { setErrore(t("passwordShort")); return; }
+    if (pwd !== conferma) { setErrore(t("passwordMismatch")); return; }
+    setAttesa(true); setErrore("");
+    const { error } = await supabase.auth.updateUser({ password: pwd });
+    setAttesa(false);
+    if (error) { setErrore(t("npFail")); return; }
+    setFatta(true);
+  };
+
+  const campo = { width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2,
+                  border:`1px solid ${C.border}`, color:C.text, fontSize:16, outline:"none", boxSizing:"border-box" };
+  const etichetta = { fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 };
+
+  return (
+    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center",
+                  backgroundImage:`radial-gradient(ellipse at 20% 50%,${C.gold}08 0%,transparent 60%)`, padding:"20px 12px" }}>
+      <div style={{ width:"100%", maxWidth:420, padding:"32px 20px", background:C.surface, borderRadius:20,
+                    border:`1px solid ${C.border}`, boxShadow:"0 40px 80px rgba(0,0,0,0.7)" }}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:26 }}>
           <div style={{ textAlign:"center", flex:1 }}>
-            <div style={{ display:"inline-flex", alignItems:"center", justifyContent:"center", width:56, height:56, borderRadius:14, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, fontSize:24, fontWeight:900, color:C.bg, marginBottom:12, boxShadow:`0 8px 24px ${C.gold}35` }}>N</div>
-            <div style={{ fontSize:24, fontWeight:800, color:C.text, fontFamily:"'Fraunces', Georgia, serif" }}>NexusHub</div>
-            <div style={{ fontSize:11, color:C.textMuted, marginTop:4, letterSpacing:"0.1em", textTransform:"uppercase" }}>{t("loginSubtitle")}</div>
+            <div style={{ display:"inline-flex", alignItems:"center", justifyContent:"center", width:52, height:52, borderRadius:13,
+                          background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, fontSize:22, fontWeight:900, color:C.bg, marginBottom:12 }}>N</div>
+            <div style={{ fontSize:20, fontWeight:800, color:C.text, fontFamily:"'Fraunces', Georgia, serif" }}>{t("npTitle")}</div>
+            <div style={{ fontSize:12, color:C.textMuted, marginTop:4 }}>{t("npSub")}</div>
           </div>
           <div style={{ marginTop:4 }}><LangSwitcher lang={lang} onChange={onLangChange}/></div>
         </div>
 
-        {error && (
-          <div style={{ background:`${C.red}15`, border:`1px solid ${C.red}40`, borderRadius:8, padding:"10px 14px", color:C.red, fontSize:13, marginBottom:18 }}>{error}</div>
-        )}
-
-        <form onSubmit={handleLogin} style={{ display:"flex", flexDirection:"column", gap:14 }}>
+        {fatta ? (
           <div>
-            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{t("emailLabel")}</label>
-            <input type="email" value={email} onChange={e=>setEmail(e.target.value)} required
-              style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:16, outline:"none", boxSizing:"border-box" }}/>
-          </div>
-          <div>
-            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{t("passwordLabel")}</label>
-            <input type="password" value={password} onChange={e=>setPassword(e.target.value)} required
-              style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:16, outline:"none", boxSizing:"border-box" }}/>
-          </div>
-          <button type="submit" disabled={loading} style={{ padding:"13px", borderRadius:10, cursor:"pointer", background:loading?C.goldDim:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, marginTop:4 }}>
-            {loading ? t("loggingIn") : t("loginBtn")}
-          </button>
-          <div style={{ textAlign:"center", marginTop:8 }}>
-            <button onClick={() => setView("reset")} type="button" style={{ background:"none", border:"none", color:C.textMuted, cursor:"pointer", fontSize:12, textDecoration:"underline" }}>
-              {t("lgForgot")}
+            <div style={{ background:`${C.green}15`, border:`1px solid ${C.green}40`, borderRadius:10, padding:"18px 20px", textAlign:"center", marginBottom:20 }}>
+              <div style={{ fontSize:30, marginBottom:8 }}>✅</div>
+              <div style={{ fontSize:15, fontWeight:700, color:C.green, marginBottom:6 }}>{t("npDone")}</div>
+              <div style={{ fontSize:13, color:C.textMuted, lineHeight:1.6 }}>{t("npDoneSub")}</div>
+            </div>
+            <button onClick={onFatto}
+              style={{ width:"100%", padding:"13px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`,
+                       border:"none", color:C.bg, fontSize:14, fontWeight:700 }}>
+              {t("npToLogin")}
             </button>
           </div>
-        </form>
-
-        <div style={{ display:"flex", alignItems:"center", gap:10, margin:"20px 0" }}>
-          <div style={{ flex:1, height:1, background:C.border }}/>
-          <span style={{ fontSize:11, color:C.textDim }}>{t("lgNew")}</span>
-          <div style={{ flex:1, height:1, background:C.border }}/>
-        </div>
-
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
-          <button onClick={() => setView("register-brand")} className="nx-card" style={{ padding:"16px 12px", borderRadius:12, cursor:"pointer", background:C.surface2, border:`1px solid ${C.gold}45`, display:"flex", flexDirection:"column", alignItems:"center", gap:9 }}>
-            <span style={{ width:36, height:36, borderRadius:10, background:`${C.gold}1f`, color:C.gold, display:"flex", alignItems:"center", justifyContent:"center" }}><Landmark size={19}/></span>
-            <span style={{ fontSize:13, fontWeight:700, color:C.text, lineHeight:1.3, textAlign:"center" }}>{t("registerBrand")}</span>
-          </button>
-          <button onClick={() => setView("register-dist")} className="nx-card" style={{ padding:"16px 12px", borderRadius:12, cursor:"pointer", background:C.surface2, border:`1px solid ${C.blue}45`, display:"flex", flexDirection:"column", alignItems:"center", gap:9 }}>
-            <span style={{ width:36, height:36, borderRadius:10, background:`${C.blue}1f`, color:C.blue, display:"flex", alignItems:"center", justifyContent:"center" }}><Store size={19}/></span>
-            <span style={{ fontSize:13, fontWeight:700, color:C.text, lineHeight:1.3, textAlign:"center" }}>{t("registerDist")}</span>
-          </button>
-        </div>
-        <button onClick={() => setView("register-chain")} style={{ width:"100%", marginTop:10, padding:"10px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:12.5 }}>{t("registerChain")}</button>
-        <button onClick={() => setView("demo")} style={{ width:"100%", marginTop:8, padding:"10px", borderRadius:8, cursor:"pointer", background:`${C.purple}10`, border:`1px solid ${C.purple}40`, color:"#a855f7", fontSize:12.5, fontWeight:500, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
-          <span>▶</span> {t("watchDemo") || "Watch Platform Demo"}
-        </button>
-        <button onClick={handleDemoBrand} disabled={loading} style={{ width:"100%", marginTop:8, padding:"12px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13.5, fontWeight:800, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
-          <span>🎛️</span> Enter live Brand demo — no login
-        </button>
-        <button onClick={handleDemoDist} disabled={loading} style={{ width:"100%", marginTop:8, padding:"12px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.blue},#2b6fc0)`, border:"none", color:"#fff", fontSize:13.5, fontWeight:800, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
-          <span>📦</span> Enter live Distributor demo — no login
-        </button>
-        {/* I due richiami alle pagine di presentazione. Stanno prima del login
-            perche' chi arriva dalle email deve capire cosa gli offriamo senza
-            doversi registrare, e decidere dopo. */}
-        <a href="/brands.html" target="_blank" rel="noreferrer"
-           style={{ display:"block", marginTop:16, padding:"15px 16px", borderRadius:11, textDecoration:"none",
-                    background:`linear-gradient(150deg, ${C.gold}14, ${C.gold}05)`, border:`1px solid ${C.gold}45` }}>
-          <div style={{ fontSize:13.5, fontWeight:800, color:C.goldLight, marginBottom:5 }}>🏛️ {t("blpTitle")}</div>
-          <div style={{ fontSize:12, color:C.textMuted, lineHeight:1.55 }}>{t("blpBody")}</div>
-          <div style={{ fontSize:12.5, fontWeight:700, color:C.gold, marginTop:8 }}>{t("blpCta")} →</div>
-        </a>
-
-        <a href="/distributori.html" target="_blank" rel="noreferrer"
-           style={{ display:"block", marginTop:16, padding:"15px 16px", borderRadius:11, textDecoration:"none",
-                    background:`linear-gradient(150deg, ${C.gold}14, ${C.gold}05)`, border:`1px solid ${C.gold}45` }}>
-          <div style={{ fontSize:13.5, fontWeight:800, color:C.goldLight, marginBottom:5 }}>📦 {t("dlpTitle")}</div>
-          <div style={{ fontSize:12, color:C.textMuted, lineHeight:1.55 }}>{t("dlpBody")}</div>
-          <div style={{ fontSize:12.5, fontWeight:700, color:C.gold, marginTop:8 }}>{t("dlpCta")} →</div>
-        </a>
-
-        <div style={{ marginTop:18, paddingTop:14, borderTop:`1px solid ${C.border}`, textAlign:"center", fontSize:11, color:C.textDim, lineHeight:1.7 }}>
-          <a href="/privacy.html" target="_blank" rel="noreferrer" style={{ color:C.textMuted, textDecoration:"none" }}>{t("ftPrivacy")}</a>
-          <span style={{ margin:"0 8px" }}>·</span>
-          <a href="/terms.html" target="_blank" rel="noreferrer" style={{ color:C.textMuted, textDecoration:"none" }}>{t("ftTerms")}</a>
-          <div style={{ marginTop:4 }}>GIGA TRADE S.R.L.S. · P.IVA IT13105910015 · Torino, Italia</div>
-        </div>
+        ) : (
+          <form onSubmit={salva} style={{ display:"flex", flexDirection:"column", gap:14 }}>
+            {errore && (
+              <div style={{ background:`${C.red}15`, border:`1px solid ${C.red}40`, borderRadius:8, padding:"10px 14px", color:C.red, fontSize:13 }}>{errore}</div>
+            )}
+            <div>
+              <label style={etichetta}>{t("passwordLabel")}</label>
+              <input type="password" value={pwd} onChange={e=>setPwd(e.target.value)} required style={campo}/>
+            </div>
+            <div>
+              <label style={etichetta}>{t("confirmPassword")}</label>
+              <input type="password" value={conferma} onChange={e=>setConferma(e.target.value)} required style={campo}/>
+            </div>
+            <button type="submit" disabled={attesa}
+              style={{ padding:"13px", borderRadius:10, cursor:"pointer", background: attesa ? C.goldDim : `linear-gradient(135deg,${C.gold},${C.goldDim})`,
+                       border:"none", color:C.bg, fontSize:14, fontWeight:700, marginTop:4 }}>
+              {attesa ? t("npSaving") : t("npSave")}
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );
@@ -2124,60 +2287,80 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
     setError(""); setStep(2);
   };
 
+  /* Legge un allegato e lo trasforma in testo, per poterlo spedire insieme
+     al resto della registrazione in un'unica chiamata. */
+  const inBase64 = (file) => new Promise((ris, no) => {
+    const r = new FileReader();
+    r.onload = () => ris(String(r.result).split(",")[1] || "");
+    r.onerror = no;
+    r.readAsDataURL(file);
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true); setError("");
     try {
       const { data: regOk } = await supabase.rpc("registrations_open");
       if (regOk === false) { setError(t("regClosedMsg")); setLoading(false); return; }
-      const { data, error: signUpError } = await supabase.auth.signUp({
-        email, password,
-        options: { data: { role, company_name: companyName, full_name: fullName, account_type: acctType } }
-      });
-      if (signUpError) throw signUpError;
-      if (data.user) {
-        const isItaly = country === "Italia" || country === "Italy" || country === "IT";
-        await supabase.from("profiles").upsert({
-          id: data.user.id,
-          full_name: fullName, company_name: companyName, phone, country, account_type: acctType,
-          // Lingua in cui si e' registrato: e' quella in cui ricevera' le email della piattaforma
-          preferred_lang: lang,
-          ...(isBrand ? {} : { shipping_address: accountHolder || null, shipping_city: bankName || null, shipping_zip: iban || null, shipping_region: swiftBic || null }),
-        }, { onConflict: "id" });
-        // Firma elettronica del contratto: registra chi ha accettato, cosa e quando
-        try {
-          await supabase.from("agreement_acceptances").insert({
-            user_id: data.user.id,
-            role: role,
-            agreement_type: isBrand ? "brand_agreement" : "distributor_terms",
-            agreement_version: "1.0",
-            accepted_name: fullName || null,
-            company_name: companyName || null,
-            user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 300) : null,
-          });
-        } catch (e) { console.error("consenso non registrato", e); }
-        await supabase.from("profile_billing").upsert({
-          id: data.user.id,
-          vat_number: vatNumber || null,
-          ...(isBrand ? { iban: iban || null, bank_name: bankName || null, account_holder: accountHolder || null, swift_bic: swiftBic || null } : {}),
-          sdi_code: isItaly ? (sdiCode || null) : null,
-          pec_email: isItaly ? (pecEmail || null) : null,
-        }, { onConflict: "id" });
-        for (const docType of docTypes) {
-          const file = docs[docType];
-          if (file) {
-            const path = `${data.user.id}/${docType}/${Date.now()}_${file.name}`;
-            await supabase.storage.from("documents").upload(path, file);
-            const { data: urlData } = supabase.storage.from("documents").getPublicUrl(path);
-            await supabase.from("documents").insert({ user_id: data.user.id, doc_type: docType, file_url: urlData.publicUrl, file_name: file.name });
-          }
-        }
+
+      const isItaly = country === "Italia" || country === "Italy" || country === "IT";
+
+      const documenti = [];
+      for (const docType of docTypes) {
+        const file = docs[docType];
+        if (!file) continue;
+        if (file.size > 5 * 1024 * 1024) { setError(t("rgDocTooBig")); setLoading(false); return; }
+        documenti.push({
+          doc_type: docType, file_name: file.name,
+          content_type: file.type || "application/pdf",
+          base64: await inBase64(file),
+        });
       }
-      // Send confirmation email
+
+      /* Tutto in un colpo solo, lato server: account, dati azienda, dati
+         fiscali, firma del contratto e documenti. Se una parte non passa,
+         il server annulla anche l'account: niente iscritti a meta'. */
+      const risp = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/register-complete`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": process.env.REACT_APP_SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({
+          email, password, role, account_type: acctType,
+          full_name: fullName, company_name: companyName, phone, country,
+          preferred_lang: lang,
+          vat_number: vatNumber,
+          sdi_code: isItaly ? sdiCode : null,
+          pec_email: isItaly ? pecEmail : null,
+          ...(isBrand
+            ? { iban, bank_name: bankName, account_holder: accountHolder, swift_bic: swiftBic }
+            : { shipping_address: accountHolder, shipping_city: bankName, shipping_zip: iban, shipping_region: swiftBic }),
+          agreement_version: "1.0",
+          user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 300) : null,
+          documenti,
+        }),
+      });
+
+      const esito = await risp.json().catch(() => ({}));
+      if (!risp.ok || !esito.ok) {
+        const messaggi = {
+          email_gia_usata: t("rgEmailUsed"),
+          registrazioni_chiuse: t("regClosedMsg"),
+          troppe_richieste: t("rgTooMany"),
+          email: t("rgBadEmail"),
+          password: t("passwordShort"),
+        };
+        setError(messaggi[esito.errore] || t("rgSaveFailed"));
+        setLoading(false);
+        return;
+      }
+
       await sendEmail("pending", email, companyName || email, role);
       setSuccess(true);
     } catch (err) {
-      setError(err.message || "Registration error");
+      setError(err.message || t("rgSaveFailed"));
     } finally {
       setLoading(false);
     }
@@ -6203,10 +6386,16 @@ const Modal = ({ title, onClose, onSave, children, saveLabel="Save" }) => {
 
 
 /* I documenti sono nello storage: il percorso salvato va reso apribile in un clic. */
-const docUrlPubblico = (u) => {
-  if (!u) return "#";
-  if (/^https?:\/\//i.test(u)) return u;
-  return `${process.env.REACT_APP_SUPABASE_URL}/storage/v1/object/public/${String(u).replace(/^\/+/, "")}`;
+/* Il secchio dei documenti e' privato: per aprirne uno serve un link firmato,
+   valido pochi minuti. I documenti nuovi salvano il percorso; se in una riga
+   vecchia c'e' ancora un indirizzo intero, lo si apre com'e'. */
+const apriDocumento = async (u) => {
+  if (!u) return;
+  if (/^https?:\/\//i.test(u)) { window.open(u, "_blank", "noreferrer"); return; }
+  const percorso = String(u).replace(/^\/+/, "").replace(/^documents\//, "");
+  const { data, error } = await supabase.storage.from("documents").createSignedUrl(percorso, 300);
+  if (error || !data?.signedUrl) { alert("Documento non disponibile"); return; }
+  window.open(data.signedUrl, "_blank", "noreferrer");
 };
 
 const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
@@ -7356,11 +7545,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                             </div>
                             <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
                               {u.documents.map((d, i) => (
-                                <a key={i} href={docUrlPubblico(d.file_url)} target="_blank" rel="noreferrer"
-                                   style={{ fontSize:12, color:C.goldLight, textDecoration:"none", padding:"5px 10px", borderRadius:7,
+                                <button key={i} type="button" onClick={() => apriDocumento(d.file_url)}
+                                   style={{ fontSize:12, color:C.goldLight, cursor:"pointer", padding:"5px 10px", borderRadius:7,
                                             background:`${C.gold}12`, border:`1px solid ${C.gold}35` }}>
                                   📄 {d.doc_type || d.file_name} ↗
-                                </a>
+                                </button>
                               ))}
                             </div>
                           </div>
@@ -9432,6 +9621,22 @@ const injectGlobalCSS = () => {
     "p { text-wrap: pretty; }",
     "@media (max-width: 400px) { .nx-topbar { padding-left: 10px !important; padding-right: 10px !important; gap: 8px !important; } }",
     "@media (max-width: 380px) { .nx-wordmark { display: none; } }",
+    /* La schermata d'ingresso. Sotto i 1000px resta una colonna sola, ma
+       riordinata: marchio, login pieghevole, racconto, registrazione. Sopra i
+       1000px diventa due colonne, col login sempre fermo a destra. */
+    ".lg-split { display:flex; flex-direction:column; width:100%; max-width:440px; margin:0 auto; background:#0f1018; border:1px solid #33374a; border-radius:20px; overflow:hidden; box-shadow:0 40px 80px rgba(0,0,0,.7); }",
+    ".lg-testa { order:1; padding:26px 20px 0; }",
+    ".lg-dx { order:2; padding:16px 20px 0; }",
+    ".lg-sx { order:3; padding:24px 20px 0; }",
+    ".lg-coda { order:4; padding:0 20px 24px; }",
+    ".lg-vie { display:grid; grid-template-columns:1fr; gap:11px; }",
+    ".lg-h1 { font-size:23px; }",
+    ".lg-acc { display:none; }",
+    ".lg-mform { display:none; padding-top:16px; }",
+    ".lg-mform.on { display:block; }",
+    ".lg-via { transition: transform .16s cubic-bezier(.16,1,.3,1), border-color .16s ease; }",
+    ".lg-via:hover { transform: translateY(-2px); }",
+    "@media (min-width: 1000px) { .lg-split { display:grid; max-width:1140px; grid-template-columns:1fr 400px; grid-template-rows:auto auto 1fr; background:#08080f; } .lg-testa { padding:34px 40px 0; grid-area:1/1/2/2; } .lg-sx { padding:26px 40px 38px; grid-area:2/1/4/2; } .lg-dx { padding:34px 30px 0; grid-area:1/2/3/3; background:#0f1018; border-left:1px solid #33374a; } .lg-coda { padding:0 30px 30px; grid-area:3/2/4/3; background:#0f1018; border-left:1px solid #33374a; } .lg-vie { grid-template-columns:1fr 1fr; } .lg-h1 { font-size:30px; } .lg-acc { display:block; } .lg-tog { display:none !important; } .lg-mform { display:block !important; padding-top:0; } }",
     "* { -webkit-font-smoothing: antialiased; }",
     "@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; } }",
   ].join("\n");
@@ -9444,12 +9649,26 @@ export default function App() {
   const [userRole, setUserRole] = useState(null);
   const [userStatus, setUserStatus] = useState(null);
   const [lang, setLang] = useState("en");
+  /* Chi arriva dal tasto dell'email di recupero porta con se' una sessione
+     temporanea: va mandato alla schermata della nuova password, non al
+     pannello. Il segnale sta nell'indirizzo e, subito dopo, nell'evento. */
+  const [recupero, setRecupero] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return /type=recovery/.test(window.location.hash + window.location.search);
+  });
 
   const t = key => T[lang]?.[key] ?? T["en"][key] ?? key;
   const dir = LANGS.find(l=>l.key===lang)?.dir ?? "ltr";
   const fontFamily = lang==="ar" ? "'Segoe UI', Tahoma, Arial, sans-serif"
                    : lang==="zh" ? "'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif"
                    : "'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+
+  useEffect(() => {
+    const { data } = supabase.auth.onAuthStateChange((evento) => {
+      if (evento === "PASSWORD_RECOVERY") setRecupero(true);
+    });
+    return () => data?.subscription?.unsubscribe();
+  }, []);
 
   // Controlla sessione esistente all'avvio
   useEffect(() => {
@@ -9479,6 +9698,18 @@ export default function App() {
     <div style={{ minHeight:"100vh", background:"#08080f", display:"flex", alignItems:"center", justifyContent:"center" }}>
       <div style={{ color:"#c9a84c", fontSize:20, fontFamily:"'Fraunces', Georgia, serif", letterSpacing:"0.2em" }}>NEXUSHUB</div>
     </div>
+  );
+
+  if (recupero) return (
+    <LangCtx.Provider value={{ lang, t, dir }}>
+      <div dir={dir} style={{ fontFamily, WebkitFontSmoothing:"antialiased" }}>
+        <NuovaPassword lang={lang} onLangChange={setLang} onFatto={async () => {
+          window.history.replaceState({}, "", window.location.pathname);
+          setRecupero(false);
+          await handleLogout();
+        }}/>
+      </div>
+    </LangCtx.Provider>
   );
 
   const dashboardProps = { onLogout: handleLogout, lang, onLangChange: setLang };
