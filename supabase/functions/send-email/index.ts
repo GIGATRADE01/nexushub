@@ -10,6 +10,7 @@ const NEXUSHUB_URL = 'https://nexushub.trade'
 /* Il mittente lo decide il mailer (la casella Zoho autenticata). Qui si
    sceglie solo dove finiscono le risposte dei clienti. */
 const REPLY_TO = Deno.env.get('EMAIL_REPLY_TO') || 'info@nexushub.trade'
+const MITTENTE = Deno.env.get('EMAIL_MITTENTE') || 'info@nexushub.trade'
 
 const header = `<div style="text-align:center;margin-bottom:28px">
   <div style="display:inline-block;width:52px;height:52px;background:linear-gradient(135deg,#c9a84c,#7a5e28);border-radius:12px;line-height:52px;font-size:24px;font-weight:900;color:#08080f">N</div>
@@ -154,7 +155,9 @@ serve(async (req) => {
     /* L'invio SMTP consuma piu' CPU di quanta ne abbia un worker per una
        singola richiesta: aspettarlo fa terminare male la funzione dopo che
        l'email e' gia' partita. Si risponde subito e si lascia proseguire. */
-    const spedizione = invia(email, subject, html, { replyTo: REPLY_TO })
+    /* Queste email le riceve il cliente: escono da info@, la casella
+       aziendale, non da quella personale. */
+    const spedizione = invia(email, subject, html, { replyTo: REPLY_TO, mittente: MITTENTE })
       .then((esito) => { if (!esito.ok) console.error('email non spedita:', type, esito.errore) })
       .catch((e) => console.error('email, errore di invio:', String(e?.message || e)))
 

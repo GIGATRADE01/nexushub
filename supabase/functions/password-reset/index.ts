@@ -104,12 +104,14 @@ serve(async (req) => {
   });
   const dati = await rLink.json().catch(() => ({}));
 
+  /* Traccia di come e' configurato il pannello: se qui compare localhost
+     vuol dire che il "Site URL" del progetto e' ancora quello di sviluppo. */
+  console.log("ritorno impostato nel pannello:", dati?.redirect_to || "non indicato");
+
   /* Il collegamento se lo costruisce la piattaforma, non lo si prende da
      Supabase: quello che genera Supabase torna sempre al "Site URL" del
-     progetto (che qui e' rimasto http://localhost:3000) e ignora l'indirizzo
-     che gli passiamo se non e' nella lista bianca del pannello. Con il
-     gettone in mano il ritorno lo decidiamo noi, e non dipende piu' da
-     nessuna impostazione. */
+     progetto e ignora l'indirizzo che gli passiamo se non e' nella lista
+     bianca del pannello. Con il gettone in mano il ritorno lo decidiamo noi. */
   /* Il gettone viaggia nel frammento e senza segno di uguale: la posta
      codifica il messaggio in quoted-printable e un "=" seguito da due cifre
      esadecimali viene interpretato come carattere di controllo. Il
@@ -136,8 +138,10 @@ serve(async (req) => {
      risposta non deve dire nulla, nemmeno se l'indirizzo esiste. */
   const spedizione = invia(email, v.oggetto, pagina(v, collegamento, lingua === "ar"), {
     replyTo: "info@nexushub.trade",
+    mittente: Deno.env.get("EMAIL_MITTENTE") || "info@nexushub.trade",
   }).then((esito) => {
     if (!esito.ok) console.error("recupero password non spedito:", esito.errore);
+    else console.log("recupero password spedito via", esito.via);
   }).catch((e) => console.error("recupero password, errore di invio:", String(e?.message || e)));
 
   const runtime = (globalThis as any).EdgeRuntime;
