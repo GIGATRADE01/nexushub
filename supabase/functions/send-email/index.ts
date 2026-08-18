@@ -1,12 +1,14 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+/* Le email ai clienti escono dalla posta di NexusHub come tutte le altre.
+   Prima partivano dal dominio di prova di Resend: chi si registrava riceveva
+   il benvenuto da onboarding@resend.dev, e con il dominio non verificato la
+   consegna era garantita solo alla casella del titolare. */
+import { invia } from './mailer.ts'
 
-const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
 const NEXUSHUB_URL = 'https://nexushub.trade'
 
-/* Quando nexushub.trade sara' verificato su Resend bastera' impostare EMAIL_FROM
-   (es. "NexusHub <info@nexushub.trade>") e le email smetteranno di uscire dal
-   dominio di prova di Resend. */
-const FROM = Deno.env.get('EMAIL_FROM') || 'NexusHub <onboarding@resend.dev>'
+/* Il mittente lo decide il mailer (la casella Zoho autenticata). Qui si
+   sceglie solo dove finiscono le risposte dei clienti. */
 const REPLY_TO = Deno.env.get('EMAIL_REPLY_TO') || 'info@nexushub.trade'
 
 const header = `<div style="text-align:center;margin-bottom:28px">
@@ -149,14 +151,17 @@ serve(async (req) => {
       return new Response(JSON.stringify({ error: 'Unknown email type' }), { status: 400 })
     }
 
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${RESEND_API_KEY}` },
-      body: JSON.stringify({ from: FROM, reply_to: REPLY_TO, to: email, subject, html })
-    })
+    /* L'invio SMTP consuma piu' CPU di quanta ne abbia un worker per una
+       singola richiesta: aspettarlo fa terminare male la funzione dopo che
+       l'email e' gia' partita. Si risponde subito e si lascia proseguire. */
+    const spedizione = invia(email, subject, html, { replyTo: REPLY_TO })
+      .then((esito) => { if (!esito.ok) console.error('email non spedita:', type, esito.errore) })
+      .catch((e) => console.error('email, errore di invio:', String(e?.message || e)))
 
-    const data = await res.json()
-    return new Response(JSON.stringify({ success: true, data }), {
+    const runtime = (globalThis as any).EdgeRuntime
+    if (runtime?.waitUntil) runtime.waitUntil(spedizione)
+
+    return new Response(JSON.stringify({ success: true }), {
       headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     })
   } catch (error) {
