@@ -751,6 +751,20 @@ Object.assign(T.en, { auVat:"VAT", auNoVat:"VAT not provided", auViesOk:"VIES va
 Object.assign(T.it, { auVat:"P.IVA", auNoVat:"P.IVA non indicata", auViesOk:"VIES valida", auViesKo:"VIES non validata", auViesNa:"VIES non verificata", auDocs:"Documenti", auNoDocs:"Nessun documento caricato - chiederli prima di approvare", auOpenDoc:"Apri" });
 Object.assign(T.en, { exTitle:"Exclusive rights for this territory", exSub:"An exclusive with no end date is one you can never take back. Set a duration and a minimum: if the minimum is not met, the territory frees itself.", exMonths:"Duration", ex6:"6 months", ex9:"9 months", ex12:"12 months", exMin:"Minimum units in the period", exMinHint:"0 = no target, renews automatically", exRenew:"Renew automatically if the minimum is met", exConfirm:"Grant exclusivity", exCancel:"Cancel", exUntil:"Exclusive until", exLeft:"days left", exDone:"done", exOf:"of", exExpired:"expired", exAed:"approx." });
 Object.assign(T.it, { exTitle:"Esclusiva per questo territorio", exSub:"Un\u2019esclusiva senza scadenza non te la riprendi piu\u0300. Imposta una durata e un minimo: se il minimo non viene raggiunto, il territorio si libera da solo.", exMonths:"Durata", ex6:"6 mesi", ex9:"9 mesi", ex12:"12 mesi", exMin:"Minimo pezzi nel periodo", exMinHint:"0 = nessun obiettivo, si rinnova da solo", exRenew:"Rinnova automaticamente se il minimo viene raggiunto", exConfirm:"Concedi l\u2019esclusiva", exCancel:"Annulla", exUntil:"Esclusiva fino al", exLeft:"giorni rimasti", exDone:"fatti", exOf:"di", exExpired:"scaduta", exAed:"circa" });
+Object.assign(T.en, { rgWebsite:"Company website" });
+Object.assign(T.it, { rgWebsite:"Sito aziendale" });
+Object.assign(T.fr, { rgWebsite:"Site de l'entreprise" });
+Object.assign(T.es, { rgWebsite:"Sitio web de la empresa" });
+Object.assign(T.de, { rgWebsite:"Website des Unternehmens" });
+Object.assign(T.zh, { rgWebsite:"公司网站" });
+Object.assign(T.ar, { rgWebsite:"الموقع الإلكتروني للشركة" });
+Object.assign(T.en, { docRegistro:"Trade licence or company registration", docFiscale:"VAT or tax registration certificate", docBanca:"Bank details (IBAN or account certificate)" });
+Object.assign(T.it, { docRegistro:"Visura camerale", docFiscale:"Certificato di attribuzione P. IVA", docBanca:"Coordinate bancarie (IBAN)" });
+Object.assign(T.fr, { docRegistro:"Extrait Kbis ou immatriculation de la société", docFiscale:"Numéro de TVA ou attestation fiscale", docBanca:"Coordonnées bancaires (IBAN)" });
+Object.assign(T.es, { docRegistro:"Certificado de registro mercantil o licencia comercial", docFiscale:"Certificado de IVA o registro fiscal", docBanca:"Datos bancarios (IBAN)" });
+Object.assign(T.de, { docRegistro:"Handelsregisterauszug oder Gewerbelizenz", docFiscale:"USt-Bescheinigung oder Steuernummer", docBanca:"Bankverbindung (IBAN)" });
+Object.assign(T.zh, { docRegistro:"营业执照或公司注册证明", docFiscale:"增值税或税务登记证", docBanca:"银行账户信息（IBAN）" });
+Object.assign(T.ar, { docRegistro:"الرخصة التجارية أو سجل الشركة", docFiscale:"شهادة التسجيل الضريبي (VAT)", docBanca:"بيانات الحساب البنكي (IBAN)" });
 Object.assign(T.en, { npTitle:"Choose a new password", npSub:"Type it twice, then sign in again.", npSave:"Save the new password", npSaving:"Saving...", npDone:"Password changed", npDoneSub:"You can now sign in with the new password.", npToLogin:"Go to sign in", npFail:"The link has expired or has already been used. Ask for a new one from the sign-in page." });
 Object.assign(T.it, { npTitle:"Scegli una nuova password", npSub:"Scrivila due volte, poi accedi di nuovo.", npSave:"Salva la nuova password", npSaving:"Salvataggio...", npDone:"Password cambiata", npDoneSub:"Ora puoi accedere con la nuova password.", npToLogin:"Vai all'accesso", npFail:"Il collegamento \u00e8 scaduto o \u00e8 gi\u00e0 stato usato. Chiedine uno nuovo dalla schermata di accesso." });
 Object.assign(T.fr, { npTitle:"Choisissez un nouveau mot de passe", npSub:"Saisissez-le deux fois, puis reconnectez-vous.", npSave:"Enregistrer le mot de passe", npSaving:"Enregistrement...", npDone:"Mot de passe modifi\u00e9", npDoneSub:"Vous pouvez maintenant vous connecter avec le nouveau mot de passe.", npToLogin:"Aller \u00e0 la connexion", npFail:"Le lien a expir\u00e9 ou a d\u00e9j\u00e0 servi. Demandez-en un nouveau depuis la page de connexion." });
@@ -2267,17 +2281,23 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
   const [accountHolder, setAccountHolder] = useState("");
   const [swiftBic, setSwiftBic] = useState("");
   const [vatNumber, setVatNumber] = useState("");
+  const [website, setWebsite] = useState("");
   const [sdiCode, setSdiCode] = useState("");
   const [pecEmail, setPecEmail] = useState("");
 
+  /* Alla casa produttrice si chiede chi e' e dove incassa. Le carte della
+     camera di commercio si chiedono al distributore, che e' quello che poi
+     maneggia la merce sul territorio e va verificato. */
   const docTypes = isBrand
-    ? ["visura_camerale","partita_iva","coordinate_bancarie"]
+    ? ["partita_iva","coordinate_bancarie"]
     : ["visura_camerale","partita_iva"];
 
+  /* Il nome della pratica cambia da paese a paese: una casa di Dubai non ha
+     una visura camerale, ha una trade licence. E' lo stesso documento. */
   const docLabels = {
-    visura_camerale: "Visura Camerale",
-    partita_iva: "Partita IVA",
-    coordinate_bancarie: "Coordinate Bancarie",
+    visura_camerale: t("docRegistro"),
+    partita_iva: t("docFiscale"),
+    coordinate_bancarie: t("docBanca"),
   };
 
   const handleStep1 = (e) => {
@@ -2330,6 +2350,7 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
         body: JSON.stringify({
           email, password, role, account_type: acctType,
           full_name: fullName, company_name: companyName, phone, country,
+          website,
           preferred_lang: lang,
           vat_number: vatNumber,
           sdi_code: isItaly ? sdiCode : null,
@@ -2440,10 +2461,11 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
                 {label:t("companyName"),val:companyName,set:setCompanyName},
                 {label:t("phone"),val:phone,set:setPhone},
                 {label:t("country"),val:country,set:setCountry},
-              ].map(({label,val,set}) => (
+                {label:t("rgWebsite"),val:website,set:setWebsite,placeholder:"www.esempio.com"},
+              ].map(({label,val,set,placeholder}) => (
                 <div key={label}>
                   <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{label}</label>
-                  <input type="text" value={val} onChange={e=>set(e.target.value)}
+                  <input type="text" value={val} onChange={e=>set(e.target.value)} placeholder={placeholder}
                     style={{ width:"100%", padding:"11px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
                 </div>
               ))}
@@ -7524,6 +7546,15 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                               <div style={{ fontSize:15, fontWeight:700, color:C.text }}>{u.company_name || u.email}</div>
                               <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{u.email} · {u.role.toUpperCase()}</div>
                               <div style={{ fontSize:11, color:C.textDim, marginTop:2 }}>{u.country || "—"} · {new Date(u.created_at).toLocaleDateString()}</div>
+                              {/* Il sito e' il primo controllo che si fa prima di approvare:
+                                  dice in trenta secondi se l'azienda esiste davvero. */}
+                              {u.website && (
+                                <a href={/^https?:\/\//i.test(u.website) ? u.website : `https://${u.website}`}
+                                   target="_blank" rel="noreferrer"
+                                   style={{ fontSize:11, color:C.goldLight, textDecoration:"none", marginTop:3, display:"inline-block" }}>
+                                  🔗 {u.website}
+                                </a>
+                              )}
                               <div style={{ fontSize:11, marginTop:4 }}>
                                 <span style={{ color: u.vat_number ? C.textMuted : C.red }}>
                                   {u.vat_number ? `${t("auVat")} ${u.vat_number}` : t("auNoVat")}

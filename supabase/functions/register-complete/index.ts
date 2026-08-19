@@ -95,6 +95,7 @@ serve(async (req) => {
     company_name: testo(b.company_name),
     phone: testo(b.phone, 40),
     country: testo(b.country, 80),
+    website: testo(b.website, 200),
     preferred_lang: testo(b.preferred_lang, 5) || "en",
     ...(isBrand ? {} : {
       shipping_address: testo(b.shipping_address),
