@@ -7,8 +7,8 @@ import { invia } from './mailer.ts'
 
 const NEXUSHUB_URL = 'https://nexushub.trade'
 
-/* Il mittente lo decide il mailer (la casella Zoho autenticata). Qui si
-   sceglie solo dove finiscono le risposte dei clienti. */
+/* Queste email le riceve il cliente: escono da info@, la casella aziendale,
+   e le risposte tornano li'. La casella personale non deve comparire. */
 const REPLY_TO = Deno.env.get('EMAIL_REPLY_TO') || 'info@nexushub.trade'
 const MITTENTE = Deno.env.get('EMAIL_MITTENTE') || 'info@nexushub.trade'
 
@@ -158,7 +158,7 @@ serve(async (req) => {
     /* Queste email le riceve il cliente: escono da info@, la casella
        aziendale, non da quella personale. */
     const spedizione = invia(email, subject, html, { replyTo: REPLY_TO, mittente: MITTENTE })
-      .then((esito) => { if (!esito.ok) console.error('email non spedita:', type, esito.errore) })
+      .then((esito) => { if (!esito.ok) console.error('email non spedita:', type, esito.errore); else console.log('email', type, 'via', esito.via) })
       .catch((e) => console.error('email, errore di invio:', String(e?.message || e)))
 
     const runtime = (globalThis as any).EdgeRuntime
