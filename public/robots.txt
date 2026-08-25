@@ -1,3 +1,14 @@
 # https://www.robotstxt.org/robotstxt.html
+#
+# Le pagine pubbliche sono aperte. Il contratto quadro e le demo con la
+# sessione dentro l'indirizzo non hanno motivo di finire nei motori: la prima
+# e' un documento contrattuale, le seconde aprono un account di prova.
+
 User-agent: *
-Disallow:
+Disallow: /brand-agreement.html
+Disallow: /*?demo=
+Disallow: /*?admin=
+Disallow: /*#recupero/
+Allow: /
+
+Sitemap: https://nexushub.trade/sitemap.xml
