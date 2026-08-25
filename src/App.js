@@ -1,5 +1,9 @@
 import { useState, createContext, useContext, useEffect, useRef } from "react";
 import { createClient } from "@supabase/supabase-js";
+/* Legge gli Excel veri. Senza questa, un .xlsx letto come testo e'
+   una sfilza di byte: e' il motivo per cui l'import di prima non
+   funzionava con i listini che mandano i brand. */
+import * as XLSX from "xlsx";
 import {
   Gauge, ClipboardList, Network, Package, TrendingUp, ReceiptText, Bot,
   ShoppingCart, Users, KeyRound, Landmark, Factory, Truck, Store, FolderArchive,
@@ -758,6 +762,13 @@ Object.assign(T.es, { rgWebsite:"Sitio web de la empresa" });
 Object.assign(T.de, { rgWebsite:"Website des Unternehmens" });
 Object.assign(T.zh, { rgWebsite:"公司网站" });
 Object.assign(T.ar, { rgWebsite:"الموقع الإلكتروني للشركة" });
+Object.assign(T.en, { imTitolo:"Check before it goes into the catalogue", imRighe:"rows read", imAbbina:"Which column is which", imNessuna:"— none —", imAnteprima:"How the first rows will be saved", imRigaSaltata:"skipped: no name", imProdottiLetti:"products ready", imSaltate:"rows skipped", imSenzaPrezzo:"without a price", imSenzaCodice:"without a code", imAggiorna:"If a code already exists in the catalogue, update it instead of creating a duplicate", imAnnulla:"Cancel", imScrivi:"Write to catalogue" });
+Object.assign(T.it, { imTitolo:"Controlla prima che entri nel catalogo", imRighe:"righe lette", imAbbina:"Quale colonna e' quale", imNessuna:"— nessuna —", imAnteprima:"Come verranno salvate le prime righe", imRigaSaltata:"saltata: manca il nome", imProdottiLetti:"prodotti pronti", imSaltate:"righe saltate", imSenzaPrezzo:"senza prezzo", imSenzaCodice:"senza codice", imAggiorna:"Se un codice esiste gia' nel catalogo, aggiornalo invece di creare un doppione", imAnnulla:"Annulla", imScrivi:"Scrivi nel catalogo" });
+Object.assign(T.fr, { imTitolo:"Verifiez avant l'entree au catalogue", imRighe:"lignes lues", imAbbina:"Quelle colonne correspond a quoi", imNessuna:"— aucune —", imAnteprima:"Comment les premieres lignes seront enregistrees", imRigaSaltata:"ignoree : pas de nom", imProdottiLetti:"produits prets", imSaltate:"lignes ignorees", imSenzaPrezzo:"sans prix", imSenzaCodice:"sans code", imAggiorna:"Si un code existe deja au catalogue, le mettre a jour au lieu de creer un doublon", imAnnulla:"Annuler", imScrivi:"Ecrire au catalogue" });
+Object.assign(T.es, { imTitolo:"Comprueba antes de que entre en el catalogo", imRighe:"filas leidas", imAbbina:"Que columna es cual", imNessuna:"— ninguna —", imAnteprima:"Como se guardaran las primeras filas", imRigaSaltata:"omitida: falta el nombre", imProdottiLetti:"productos listos", imSaltate:"filas omitidas", imSenzaPrezzo:"sin precio", imSenzaCodice:"sin codigo", imAggiorna:"Si un codigo ya existe en el catalogo, actualizalo en vez de crear un duplicado", imAnnulla:"Cancelar", imScrivi:"Escribir en el catalogo" });
+Object.assign(T.de, { imTitolo:"Pruefen, bevor es in den Katalog geht", imRighe:"gelesene Zeilen", imAbbina:"Welche Spalte ist was", imNessuna:"— keine —", imAnteprima:"So werden die ersten Zeilen gespeichert", imRigaSaltata:"uebersprungen: kein Name", imProdottiLetti:"Produkte bereit", imSaltate:"Zeilen uebersprungen", imSenzaPrezzo:"ohne Preis", imSenzaCodice:"ohne Code", imAggiorna:"Wenn ein Code bereits im Katalog steht, aktualisieren statt doppelt anlegen", imAnnulla:"Abbrechen", imScrivi:"In den Katalog schreiben" });
+Object.assign(T.zh, { imTitolo:"\u5199\u5165\u76ee\u5f55\u524d\u8bf7\u6838\u5bf9", imRighe:"\u884c\u5df2\u8bfb\u53d6", imAbbina:"\u5217\u5bf9\u5e94\u5173\u7cfb", imNessuna:"\u2014 \u65e0 \u2014", imAnteprima:"\u524d\u51e0\u884c\u5c06\u8fd9\u6837\u4fdd\u5b58", imRigaSaltata:"\u5df2\u8df3\u8fc7\uff1a\u7f3a\u540d\u79f0", imProdottiLetti:"\u4ef6\u5546\u54c1\u5c31\u7eea", imSaltate:"\u884c\u5df2\u8df3\u8fc7", imSenzaPrezzo:"\u65e0\u4ef7\u683c", imSenzaCodice:"\u65e0\u7f16\u7801", imAggiorna:"\u82e5\u7f16\u7801\u5df2\u5b58\u5728\uff0c\u5219\u66f4\u65b0\u800c\u975e\u65b0\u5efa\u91cd\u590d\u9879", imAnnulla:"\u53d6\u6d88", imScrivi:"\u5199\u5165\u76ee\u5f55" });
+Object.assign(T.ar, { imTitolo:"\u062a\u062d\u0642\u0651\u0642 \u0642\u0628\u0644 \u0627\u0644\u0625\u062f\u062e\u0627\u0644 \u0625\u0644\u0649 \u0627\u0644\u0643\u062a\u0627\u0644\u0648\u062c", imRighe:"\u0635\u0641\u0648\u0641 \u0645\u0642\u0631\u0648\u0621\u0629", imAbbina:"\u0645\u0637\u0627\u0628\u0642\u0629 \u0627\u0644\u0623\u0639\u0645\u062f\u0629", imNessuna:"\u2014 \u0644\u0627 \u0634\u064a\u0621 \u2014", imAnteprima:"\u0643\u064a\u0641 \u0633\u062a\u064f\u062d\u0641\u0638 \u0627\u0644\u0635\u0641\u0648\u0641 \u0627\u0644\u0623\u0648\u0644\u0649", imRigaSaltata:"\u0645\u062a\u062c\u0627\u0648\u0632: \u0644\u0627 \u064a\u0648\u062c\u062f \u0627\u0633\u0645", imProdottiLetti:"\u0645\u0646\u062a\u062c\u0627\u062a \u062c\u0627\u0647\u0632\u0629", imSaltate:"\u0635\u0641\u0648\u0641 \u0645\u062a\u062c\u0627\u0648\u0632\u0629", imSenzaPrezzo:"\u0628\u0644\u0627 \u0633\u0639\u0631", imSenzaCodice:"\u0628\u0644\u0627 \u0631\u0645\u0632", imAggiorna:"\u0625\u0630\u0627 \u0643\u0627\u0646 \u0627\u0644\u0631\u0645\u0632 \u0645\u0648\u062c\u0648\u062f\u064b\u0627\u060c \u062d\u062f\u0651\u062b\u0647 \u0628\u062f\u0644 \u0625\u0646\u0634\u0627\u0621 \u0646\u0633\u062e\u0629 \u0645\u0643\u0631\u0631\u0629", imAnnulla:"\u0625\u0644\u063a\u0627\u0621", imScrivi:"\u0627\u0644\u0643\u062a\u0627\u0628\u0629 \u0641\u064a \u0627\u0644\u0643\u062a\u0627\u0644\u0648\u062c" });
 Object.assign(T.en, { docRegistro:"Trade licence or company registration", docFiscale:"VAT or tax registration certificate", docBanca:"Bank details (IBAN or account certificate)" });
 Object.assign(T.it, { docRegistro:"Visura camerale", docFiscale:"Certificato di attribuzione P. IVA", docBanca:"Coordinate bancarie (IBAN)" });
 Object.assign(T.fr, { docRegistro:"Extrait Kbis ou immatriculation de la société", docFiscale:"Numéro de TVA ou attestation fiscale", docBanca:"Coordonnées bancaires (IBAN)" });
@@ -1140,6 +1151,122 @@ const useAed = () => {
   }, []);
   return (n) => "AED " + Math.round(Number(n || 0) * rate).toLocaleString("it-IT");
 };
+
+
+/* ============================================================
+   IMPORTAZIONE DEL CATALOGO DA EXCEL O CSV
+   ============================================================
+   I brand mandano listini fatti a modo loro: intestazioni in inglese, in
+   arabo, in italiano, colonne in ordine sparso, prezzi con la virgola
+   decimale. Questa parte legge il file, prova a indovinare quale colonna e'
+   quale, e poi lascia correggere a mano prima di scrivere qualcosa. */
+
+/* I nomi che le colonne possono avere nei listini veri. L'ordine conta:
+   si prende la prima che combacia. */
+const COLONNE_NOTE = {
+  name:        ["name", "nome", "product", "product name", "productname", "prodotto",
+                "descrizione articolo", "article", "articolo", "artikel", "designation",
+                "description produit", "item", "item name", "nombre", "producto", "titolo", "title", "bezeichnung", "produkt"],
+  sku:         ["sku", "code", "codice", "cod", "item code", "product code", "ref",
+                "reference", "riferimento", "art", "art.", "articolo n", "codigo", "id", "artikel nr", "artikelnummer", "art nr"],
+  barcode:     ["barcode", "ean", "ean13", "upc", "gtin", "codice a barre"],
+  category:    ["category", "categoria", "type", "tipo", "linea", "line", "famiglia", "family",
+                "kategorie", "famille", "gruppe"],
+  unit_price:  ["price", "prezzo", "unit price", "unitprice", "prezzo unitario", "cost",
+                "costo", "wholesale", "wholesale price", "prezzo ingrosso", "precio",
+                "prix", "preis", "eur", "euro", "€", "ek preis", "preis netto", "prix ht", "vk"],
+  description: ["description", "descrizione", "note", "notes", "details", "dettagli",
+                "descripcion", "beschreibung"],
+  order_multiple: ["order multiple", "multiple", "multiplo", "confezione", "pack", "box",
+                   "pcs per box", "pezzi per cartone", "carton", "karton", "vpe", "verpackung"],
+  min_order_qty:  ["min order", "moq", "minimum", "minimo", "min qty", "quantita minima",
+                   "min order qty", "mindestbestellmenge", "mindestmenge"],
+  image_url:   ["image", "immagine", "foto", "photo", "image url", "url immagine", "picture"],
+};
+
+const ETICHETTE_CAMPI = {
+  name: "Nome prodotto", sku: "Codice / SKU", barcode: "Barcode / EAN",
+  category: "Categoria", unit_price: "Prezzo", description: "Descrizione",
+  order_multiple: "Multiplo d'ordine", min_order_qty: "Ordine minimo",
+  image_url: "Indirizzo immagine",
+};
+
+const normalizza = (v) =>
+  String(v == null ? "" : v).trim().toLowerCase()
+    .replace(/[._\-/]+/g, " ").replace(/\s+/g, " ");
+
+/* Indovina l'abbinamento fra le colonne del file e i nostri campi. Si parte
+   dalla corrispondenza esatta, poi si accetta che il nome della colonna
+   contenga la parola cercata: "Wholesale Price EUR" deve finire su prezzo. */
+function indovinaMappa(colonne) {
+  const mappa = {};
+  const usate = new Set();
+  for (const campo of Object.keys(COLONNE_NOTE)) {
+    const candidati = COLONNE_NOTE[campo];
+    let scelta = colonne.find(c => !usate.has(c) && candidati.includes(normalizza(c)));
+    if (!scelta) {
+      scelta = colonne.find(c => !usate.has(c) &&
+        candidati.some(k => k.length > 3 && normalizza(c).includes(k)));
+    }
+    if (scelta) { mappa[campo] = scelta; usate.add(scelta); }
+  }
+  return mappa;
+}
+
+/* I prezzi arrivano scritti come capita: "€ 24,50", "24.50 EUR", "1.234,56".
+   Va tolto tutto cio' che non e' cifra e capito quale separatore e' quello
+   decimale, altrimenti un listino italiano diventa un catalogo da milioni. */
+function leggiPrezzo(v) {
+  if (v == null || v === "") return 0;
+  if (typeof v === "number") return v;
+  let t = String(v).replace(/[^\d.,-]/g, "").trim();
+  if (!t) return 0;
+  const ultimaVirgola = t.lastIndexOf(","), ultimoPunto = t.lastIndexOf(".");
+  if (ultimaVirgola > -1 && ultimoPunto > -1) {
+    // quello piu' a destra e' il decimale, l'altro separa le migliaia
+    if (ultimaVirgola > ultimoPunto) t = t.replace(/\./g, "").replace(",", ".");
+    else t = t.replace(/,/g, "");
+  } else if (ultimaVirgola > -1) {
+    t = t.replace(/\./g, "").replace(",", ".");
+  }
+  const n = parseFloat(t);
+  return isNaN(n) ? 0 : n;
+}
+
+const leggiIntero = (v) => {
+  const n = parseInt(String(v == null ? "" : v).replace(/[^\d]/g, ""), 10);
+  return isNaN(n) || n <= 0 ? null : n;
+};
+
+/* Legge il file e restituisce intestazioni e righe. Il formato lo decide
+   SheetJS: xlsx, xls, csv e tsv passano tutti da qui, cosi' non c'e' un
+   percorso separato che va in pezzi con le virgolette del CSV. */
+async function leggiTabella(file) {
+  const buffer = await file.arrayBuffer();
+  const libro = XLSX.read(buffer, { type: "array", cellDates: false });
+  const foglio = libro.Sheets[libro.SheetNames[0]];
+  if (!foglio) return { colonne: [], righe: [] };
+  const griglia = XLSX.utils.sheet_to_json(foglio, { header: 1, blankrows: false, defval: "" });
+
+  /* La prima riga utile non e' sempre la prima del foglio: i listini hanno
+     spesso il logo, il titolo o una riga vuota in cima. Si cerca la prima
+     riga con almeno due celle piene e di testo. */
+  let iTesta = 0;
+  for (let i = 0; i < Math.min(griglia.length, 15); i++) {
+    const piene = (griglia[i] || []).filter(c => String(c).trim() !== "");
+    if (piene.length >= 2) { iTesta = i; break; }
+  }
+  const testa = (griglia[iTesta] || []).map((c, i) =>
+    String(c).trim() || ("colonna " + (i + 1)));
+  const righe = griglia.slice(iTesta + 1)
+    .filter(r => (r || []).some(c => String(c).trim() !== ""))
+    .map(r => {
+      const o = {};
+      testa.forEach((h, i) => { o[h] = r[i] == null ? "" : r[i]; });
+      return o;
+    });
+  return { colonne: testa, righe };
+}
 
 // ============================================================
 // SHARED UI COMPONENTS (unchanged)
@@ -4103,40 +4230,107 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     setBProductForm({ name:"", sku:"", category:"", size:"", price:"", order_multiple:"", min_order_qty:"", max_order_qty:"", description:"", image_url:"", image_file:null });
     reloadBrandProducts();
   };
+  /* Passo uno: si legge il file e si prepara l'anteprima. Non si scrive
+     ancora niente sul catalogo - prima Andrea (o il brand) deve vedere. */
+  const [bImport, setBImport] = useState(null);   // anteprima prima di scrivere
   const bImportProducts = async (file) => {
     setBImportLoading(true); setBImportResults(null);
     try {
+      const { colonne, righe } = await leggiTabella(file);
+      if (!righe.length) {
+        bNotify("Il file non contiene righe leggibili");
+        setBImportLoading(false); return;
+      }
+      setBImport({
+        nomeFile: file.name,
+        colonne,
+        righe,
+        mappa: indovinaMappa(colonne),
+        aggiorna: true,
+      });
+    } catch (e) {
+      bNotify("Non sono riuscito a leggere il file: " + (e.message || "formato non riconosciuto"));
+    }
+    setBImportLoading(false);
+  };
+
+  /* Trasforma una riga del file in un prodotto, secondo l'abbinamento
+     scelto. Se il nome manca la riga non vale: e' quasi sempre un totale in
+     fondo al listino o una riga di separazione. */
+  const rigaAProdotto = (riga, mappa) => {
+    const p = (campo) => mappa[campo] ? riga[mappa[campo]] : "";
+    const nome = String(p("name") || "").trim();
+    if (!nome) return null;
+    return {
+      name: nome,
+      sku: String(p("sku") || "").trim() || null,
+      barcode: String(p("barcode") || "").trim() || null,
+      category: String(p("category") || "").trim() || null,
+      description: String(p("description") || "").trim() || null,
+      unit_price: leggiPrezzo(p("unit_price")),
+      order_multiple: leggiIntero(p("order_multiple")),
+      min_order_qty: leggiIntero(p("min_order_qty")),
+      image_url: String(p("image_url") || "").trim() || null,
+    };
+  };
+
+  /* Passo due: si scrive davvero. I prodotti che hanno un codice gia'
+     presente nel catalogo vengono aggiornati, non duplicati: un listino
+     rimandato dal brand a settembre non deve creare un secondo catalogo
+     accanto al primo. */
+  const bConfermaImport = async () => {
+    if (!bImport) return;
+    setBImportLoading(true);
+    try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { setBImportLoading(false); return; }
-      const text = await file.text();
-      const lines = text.split(/\r?\n/).filter(l => l.trim());
-      if (lines.length < 2) { bNotify("File vuoto o non valido"); setBImportLoading(false); return; }
-      const headers = lines[0].split(/[,;\t]/).map(h => h.trim().toLowerCase().replace(/[^a-z_]/g,''));
-      const rows = lines.slice(1);
-      let success = 0, errors = 0;
-      for (const row of rows) {
-        const vals = row.split(/[,;\t]/);
-        const obj = {};
-        headers.forEach((h, i) => { obj[h] = (vals[i] || "").trim().replace(/^"|"$/g, ""); });
-        if (!obj.name && !obj.nome && !obj.product) continue;
-        const payload = {
-          name: obj.name || obj.nome || obj.product || "",
-          sku: obj.sku || obj.cod || obj.codice || "",
-          category: obj.category || obj.categoria || "",
-          unit_price: parseFloat(obj.price || obj.prezzo || obj.unit_price || 0) || 0,
-          order_multiple: parseInt(obj.order_multiple || obj.multiplo || 0) || null,
-          min_order_qty: parseInt(obj.min_order_qty || obj.moq || obj.min || 0) || null,
-          description: obj.description || obj.descrizione || "",
-          image_url: obj.image_url || obj.immagine || obj.foto || null,
-          brand_id: user.id, is_active: true,
-        };
-        const { error } = await supabase.from("products").insert(payload);
-        if (error) errors++; else success++;
+
+      const prodotti = bImport.righe
+        .map(r => rigaAProdotto(r, bImport.mappa))
+        .filter(Boolean);
+
+      if (!prodotti.length) {
+        bNotify("Nessuna riga valida: controlla di aver abbinato la colonna del nome");
+        setBImportLoading(false); return;
       }
-      setBImportResults({ success, errors, total: rows.length });
-      bNotify("Importati " + success + " prodotti" + (errors > 0 ? ", " + errors + " errori" : ""));
+
+      /* Chi c'e' gia', per codice. Il confronto e' sul codice perche' il nome
+         cambia spesso fra un listino e l'altro (maiuscole, formati, ml). */
+      const { data: esistenti } = await supabase.from("products")
+        .select("id, sku").eq("brand_id", user.id);
+      const perSku = {};
+      (esistenti || []).forEach(x => { if (x.sku) perSku[x.sku.trim().toLowerCase()] = x.id; });
+
+      const nuovi = [], daAggiornare = [];
+      for (const p of prodotti) {
+        const id = p.sku ? perSku[p.sku.trim().toLowerCase()] : null;
+        if (id && bImport.aggiorna) daAggiornare.push({ id, ...p });
+        else if (!id) nuovi.push({ ...p, brand_id: user.id, is_active: true, currency: "EUR" });
+      }
+
+      let inseriti = 0, aggiornati = 0, errori = 0;
+
+      /* A blocchi di cento: un listino da mille righe in una sola chiamata
+         supera il limite della richiesta e torna indietro tutto. */
+      for (let k = 0; k < nuovi.length; k += 100) {
+        const { error } = await supabase.from("products").insert(nuovi.slice(k, k + 100));
+        if (error) errori += nuovi.slice(k, k + 100).length;
+        else inseriti += nuovi.slice(k, k + 100).length;
+      }
+      for (const p of daAggiornare) {
+        const { id, ...campi } = p;
+        const { error } = await supabase.from("products").update(campi).eq("id", id);
+        if (error) errori++; else aggiornati++;
+      }
+
+      setBImportResults({ success: inseriti, aggiornati, errors: errori, total: prodotti.length });
+      setBImport(null);
+      bNotify("Catalogo aggiornato: " + inseriti + " nuovi, " + aggiornati + " aggiornati"
+              + (errori ? ", " + errori + " errori" : ""));
       reloadBrandProducts();
-    } catch(e) { bNotify("Errore durante l'importazione"); }
+    } catch (e) {
+      bNotify("Errore durante il salvataggio");
+    }
     setBImportLoading(false);
   };
   const [brandNotifs, setBrandNotifs] = useState([]);
@@ -4716,6 +4910,155 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
               </div>
             </div>
           </Modal>
+        )}
+        {bImport && (
+          <div style={{ position:"fixed", inset:0, zIndex:9000, background:"rgba(0,0,0,.72)",
+                        display:"flex", alignItems:"center", justifyContent:"center", padding:16 }}
+               onClick={e => { if (e.target === e.currentTarget) setBImport(null); }}>
+            <div style={{ width:"100%", maxWidth:980, maxHeight:"92vh", overflowY:"auto",
+                          background:C.surface, border:`1px solid ${C.border}`, borderRadius:16,
+                          boxShadow:"0 40px 90px rgba(0,0,0,.7)" }}>
+
+              <div style={{ padding:"20px 24px", borderBottom:`1px solid ${C.border}` }}>
+                <div style={{ fontSize:18, fontWeight:800, color:C.text, fontFamily:"'Fraunces', Georgia, serif" }}>
+                  {t("imTitolo")}
+                </div>
+                <div style={{ fontSize:12.5, color:C.textMuted, marginTop:4 }}>
+                  {bImport.nomeFile} · {bImport.righe.length} {t("imRighe")}
+                </div>
+              </div>
+
+              {/* l'abbinamento delle colonne */}
+              <div style={{ padding:"18px 24px" }}>
+                <div style={{ fontSize:11, color:C.textDim, textTransform:"uppercase",
+                              letterSpacing:".1em", fontWeight:700, marginBottom:10 }}>
+                  {t("imAbbina")}
+                </div>
+                <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(260px,1fr))", gap:10 }}>
+                  {Object.keys(ETICHETTE_CAMPI).map(campo => (
+                    <div key={campo} style={{ display:"flex", alignItems:"center", gap:8 }}>
+                      <span style={{ fontSize:12.5, color: campo === "name" ? C.goldLight : C.textMuted,
+                                     minWidth:118, fontWeight: campo === "name" ? 700 : 400 }}>
+                        {ETICHETTE_CAMPI[campo]}{campo === "name" ? " *" : ""}
+                      </span>
+                      <select value={bImport.mappa[campo] || ""}
+                              onChange={e => setBImport(v => ({ ...v,
+                                mappa: { ...v.mappa, [campo]: e.target.value || undefined } }))}
+                              style={{ flex:1, padding:"7px 9px", borderRadius:8, fontSize:12.5,
+                                       background:C.surface2, color:C.text,
+                                       border:`1px solid ${campo === "name" && !bImport.mappa[campo] ? C.red : C.border}` }}>
+                        <option value="">{t("imNessuna")}</option>
+                        {bImport.colonne.map(c => <option key={c} value={c}>{c}</option>)}
+                      </select>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* come verranno salvate */}
+              <div style={{ padding:"0 24px 18px" }}>
+                <div style={{ fontSize:11, color:C.textDim, textTransform:"uppercase",
+                              letterSpacing:".1em", fontWeight:700, marginBottom:10 }}>
+                  {t("imAnteprima")}
+                </div>
+                <div style={{ overflowX:"auto", border:`1px solid ${C.border}`, borderRadius:10 }}>
+                  <table style={{ width:"100%", borderCollapse:"collapse", fontSize:12.5 }}>
+                    <thead>
+                      <tr style={{ background:C.surface2 }}>
+                        {["name","sku","unit_price","category","min_order_qty"].map(c => (
+                          <th key={c} style={{ padding:"9px 12px", textAlign:"left", color:C.textMuted,
+                                               fontWeight:600, whiteSpace:"nowrap" }}>
+                            {ETICHETTE_CAMPI[c]}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {bImport.righe.slice(0, 6).map((r, i) => {
+                        const p = rigaAProdotto(r, bImport.mappa);
+                        return (
+                          <tr key={i} style={{ borderTop:`1px solid ${C.border}`,
+                                               opacity: p ? 1 : .45 }}>
+                            <td style={{ padding:"9px 12px", color: p ? C.text : C.red }}>
+                              {p ? p.name : t("imRigaSaltata")}
+                            </td>
+                            <td style={{ padding:"9px 12px", color:C.textMuted }}>{p?.sku || "—"}</td>
+                            <td style={{ padding:"9px 12px", color: p && p.unit_price ? C.goldLight : C.red,
+                                         whiteSpace:"nowrap" }}>
+                              {p ? "€ " + p.unit_price.toFixed(2) : "—"}
+                            </td>
+                            <td style={{ padding:"9px 12px", color:C.textMuted }}>{p?.category || "—"}</td>
+                            <td style={{ padding:"9px 12px", color:C.textMuted }}>{p?.min_order_qty || "—"}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* il conto di cosa succedera' */}
+                {(() => {
+                  const validi = bImport.righe.map(r => rigaAProdotto(r, bImport.mappa)).filter(Boolean);
+                  const senzaPrezzo = validi.filter(p => !p.unit_price).length;
+                  const senzaCodice = validi.filter(p => !p.sku).length;
+                  return (
+                    <div style={{ marginTop:12, display:"flex", flexWrap:"wrap", gap:8, fontSize:12.5 }}>
+                      <span style={{ padding:"6px 11px", borderRadius:20, background:`${C.green}15`,
+                                     border:`1px solid ${C.green}40`, color:C.green }}>
+                        {validi.length} {t("imProdottiLetti")}
+                      </span>
+                      {bImport.righe.length - validi.length > 0 && (
+                        <span style={{ padding:"6px 11px", borderRadius:20, background:`${C.textDim}18`,
+                                       border:`1px solid ${C.border}`, color:C.textMuted }}>
+                          {bImport.righe.length - validi.length} {t("imSaltate")}
+                        </span>
+                      )}
+                      {senzaPrezzo > 0 && (
+                        <span style={{ padding:"6px 11px", borderRadius:20, background:`${C.red}12`,
+                                       border:`1px solid ${C.red}35`, color:C.red }}>
+                          {senzaPrezzo} {t("imSenzaPrezzo")}
+                        </span>
+                      )}
+                      {senzaCodice > 0 && (
+                        <span style={{ padding:"6px 11px", borderRadius:20, background:`${C.gold}12`,
+                                       border:`1px solid ${C.gold}35`, color:C.goldLight }}>
+                          {senzaCodice} {t("imSenzaCodice")}
+                        </span>
+                      )}
+                    </div>
+                  );
+                })()}
+
+                <label style={{ display:"flex", alignItems:"flex-start", gap:9, marginTop:14,
+                                fontSize:12.5, color:C.textMuted, cursor:"pointer" }}>
+                  <input type="checkbox" checked={bImport.aggiorna}
+                         onChange={e => setBImport(v => ({ ...v, aggiorna: e.target.checked }))}
+                         style={{ marginTop:2, width:16, height:16, accentColor:C.gold }}/>
+                  <span>{t("imAggiorna")}</span>
+                </label>
+              </div>
+
+              <div style={{ padding:"16px 24px", borderTop:`1px solid ${C.border}`,
+                            display:"flex", gap:10, justifyContent:"flex-end" }}>
+                <button onClick={() => setBImport(null)}
+                        style={{ padding:"11px 20px", borderRadius:10, cursor:"pointer",
+                                 background:"transparent", border:`1px solid ${C.border}`,
+                                 color:C.textMuted, fontSize:13 }}>
+                  {t("imAnnulla")}
+                </button>
+                <button onClick={bConfermaImport}
+                        disabled={bImportLoading || !bImport.mappa.name}
+                        style={{ padding:"11px 24px", borderRadius:10,
+                                 cursor: bImport.mappa.name ? "pointer" : "not-allowed",
+                                 background: bImport.mappa.name
+                                   ? `linear-gradient(135deg,${C.gold},${C.goldDim})` : C.surface2,
+                                 border:"none", color: bImport.mappa.name ? C.bg : C.textDim,
+                                 fontSize:13, fontWeight:800 }}>
+                  {bImportLoading ? t("bdImporting") : t("imScrivi")}
+                </button>
+              </div>
+            </div>
+          </div>
         )}
         {tab==="catalog" && (
           <div>
