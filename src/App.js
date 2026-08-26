@@ -762,6 +762,13 @@ Object.assign(T.es, { rgWebsite:"Sitio web de la empresa" });
 Object.assign(T.de, { rgWebsite:"Website des Unternehmens" });
 Object.assign(T.zh, { rgWebsite:"公司网站" });
 Object.assign(T.ar, { rgWebsite:"الموقع الإلكتروني للشركة" });
+Object.assign(T.en, { imPulsante:"Import Excel/CSV", imChiudi:"Close", fotoPulsante:"Bulk photo upload", fotoTitolo:"Photos matched to your products", fotoFile:"files", fotoAbbinate:"matched", fotoNessunProdotto:"no product found with this code or name", fotoHaGia:"already has a photo", fotoAltre:"and {n} more files", fotoSovrascrivi:"Replace photos on products that already have one", fotoNota:"Files are matched by product code first, then by name. Name the files with the code (AHP1604.jpg) and everything lands in the right place.", fotoCarica:"Upload and attach", fotoCaricate:"photos attached", fotoSaltate:"skipped", fotoErrori:"errors" });
+Object.assign(T.it, { imPulsante:"Importa Excel/CSV", imChiudi:"Chiudi", fotoPulsante:"Carica foto in blocco", fotoTitolo:"Foto abbinate ai tuoi prodotti", fotoFile:"file", fotoAbbinate:"abbinate", fotoNessunProdotto:"nessun prodotto con questo codice o nome", fotoHaGia:"ha gia' una foto", fotoAltre:"e altri {n} file", fotoSovrascrivi:"Sostituisci la foto anche ai prodotti che ne hanno gia' una", fotoNota:"I file si abbinano prima per codice prodotto, poi per nome. Se le foto si chiamano col codice (AHP1604.jpg) finisce tutto al posto giusto.", fotoCarica:"Carica e aggancia", fotoCaricate:"foto agganciate", fotoSaltate:"saltate", fotoErrori:"errori" });
+Object.assign(T.fr, { imPulsante:"Importer Excel/CSV", imChiudi:"Fermer", fotoPulsante:"Photos en lot", fotoTitolo:"Photos associees a vos produits", fotoFile:"fichiers", fotoAbbinate:"associees", fotoNessunProdotto:"aucun produit avec ce code ou ce nom", fotoHaGia:"a deja une photo", fotoAltre:"et {n} autres fichiers", fotoSovrascrivi:"Remplacer aussi la photo des produits qui en ont deja une", fotoNota:"Les fichiers sont associes d'abord par code produit, puis par nom. Nommez les photos avec le code (AHP1604.jpg) et tout arrive au bon endroit.", fotoCarica:"Charger et associer", fotoCaricate:"photos associees", fotoSaltate:"ignorees", fotoErrori:"erreurs" });
+Object.assign(T.es, { imPulsante:"Importar Excel/CSV", imChiudi:"Cerrar", fotoPulsante:"Fotos en bloque", fotoTitolo:"Fotos asociadas a tus productos", fotoFile:"archivos", fotoAbbinate:"asociadas", fotoNessunProdotto:"ningun producto con este codigo o nombre", fotoHaGia:"ya tiene foto", fotoAltre:"y {n} archivos mas", fotoSovrascrivi:"Sustituir tambien la foto de los productos que ya tienen una", fotoNota:"Los archivos se asocian primero por codigo de producto y luego por nombre. Nombra las fotos con el codigo (AHP1604.jpg) y todo llega a su sitio.", fotoCarica:"Subir y asociar", fotoCaricate:"fotos asociadas", fotoSaltate:"omitidas", fotoErrori:"errores" });
+Object.assign(T.de, { imPulsante:"Excel/CSV importieren", imChiudi:"Schliessen", fotoPulsante:"Fotos im Stapel", fotoTitolo:"Fotos Ihren Produkten zugeordnet", fotoFile:"Dateien", fotoAbbinate:"zugeordnet", fotoNessunProdotto:"kein Produkt mit diesem Code oder Namen", fotoHaGia:"hat bereits ein Foto", fotoAltre:"und {n} weitere Dateien", fotoSovrascrivi:"Foto auch bei Produkten ersetzen, die bereits eines haben", fotoNota:"Zuerst wird nach Produktcode zugeordnet, dann nach Namen. Benennen Sie die Fotos mit dem Code (AHP1604.jpg), dann landet alles richtig.", fotoCarica:"Hochladen und zuordnen", fotoCaricate:"Fotos zugeordnet", fotoSaltate:"uebersprungen", fotoErrori:"Fehler" });
+Object.assign(T.zh, { imPulsante:"\u5bfc\u5165 Excel/CSV", imChiudi:"\u5173\u95ed", fotoPulsante:"\u6279\u91cf\u4e0a\u4f20\u56fe\u7247", fotoTitolo:"\u56fe\u7247\u4e0e\u5546\u54c1\u7684\u5bf9\u5e94", fotoFile:"\u4e2a\u6587\u4ef6", fotoAbbinate:"\u5df2\u5339\u914d", fotoNessunProdotto:"\u672a\u627e\u5230\u5bf9\u5e94\u7f16\u7801\u6216\u540d\u79f0\u7684\u5546\u54c1", fotoHaGia:"\u5df2\u6709\u56fe\u7247", fotoAltre:"\u53e6\u6709 {n} \u4e2a\u6587\u4ef6", fotoSovrascrivi:"\u5df2\u6709\u56fe\u7247\u7684\u5546\u54c1\u4e5f\u4e00\u5e76\u66ff\u6362", fotoNota:"\u5148\u6309\u5546\u54c1\u7f16\u7801\u5339\u914d\uff0c\u518d\u6309\u540d\u79f0\u3002\u7528\u7f16\u7801\u547d\u540d\u56fe\u7247\uff08AHP1604.jpg\uff09\u5c31\u4e0d\u4f1a\u51fa\u9519\u3002", fotoCarica:"\u4e0a\u4f20\u5e76\u5173\u8054", fotoCaricate:"\u5f20\u56fe\u7247\u5df2\u5173\u8054", fotoSaltate:"\u5df2\u8df3\u8fc7", fotoErrori:"\u9519\u8bef" });
+Object.assign(T.ar, { imPulsante:"\u0627\u0633\u062a\u064a\u0631\u0627\u062f Excel/CSV", imChiudi:"\u0625\u063a\u0644\u0627\u0642", fotoPulsante:"\u0631\u0641\u0639 \u0627\u0644\u0635\u0648\u0631 \u062f\u0641\u0639\u0629 \u0648\u0627\u062d\u062f\u0629", fotoTitolo:"\u0645\u0637\u0627\u0628\u0642\u0629 \u0627\u0644\u0635\u0648\u0631 \u0645\u0639 \u0645\u0646\u062a\u062c\u0627\u062a\u0643", fotoFile:"\u0645\u0644\u0641\u0627\u062a", fotoAbbinate:"\u0645\u0637\u0627\u0628\u0642\u0629", fotoNessunProdotto:"\u0644\u0627 \u064a\u0648\u062c\u062f \u0645\u0646\u062a\u062c \u0628\u0647\u0630\u0627 \u0627\u0644\u0631\u0645\u0632 \u0623\u0648 \u0627\u0644\u0627\u0633\u0645", fotoHaGia:"\u0644\u062f\u064a\u0647 \u0635\u0648\u0631\u0629 \u0628\u0627\u0644\u0641\u0639\u0644", fotoAltre:"\u0648{n} \u0645\u0644\u0641\u0627\u062a \u0623\u062e\u0631\u0649", fotoSovrascrivi:"\u0627\u0633\u062a\u0628\u062f\u0644 \u0627\u0644\u0635\u0648\u0631\u0629 \u062d\u062a\u0649 \u0644\u0644\u0645\u0646\u062a\u062c\u0627\u062a \u0627\u0644\u062a\u064a \u0644\u062f\u064a\u0647\u0627 \u0648\u0627\u062d\u062f\u0629", fotoNota:"\u062a\u062a\u0645 \u0627\u0644\u0645\u0637\u0627\u0628\u0642\u0629 \u0623\u0648\u0644\u0627\u064b \u0628\u0631\u0645\u0632 \u0627\u0644\u0645\u0646\u062a\u062c \u062b\u0645 \u0628\u0627\u0644\u0627\u0633\u0645. \u0633\u0645\u0651\u0650 \u0627\u0644\u0635\u0648\u0631 \u0628\u0627\u0644\u0631\u0645\u0632 (AHP1604.jpg) \u0648\u0633\u064a\u0635\u0644 \u0643\u0644 \u0634\u064a\u0621 \u0625\u0644\u0649 \u0645\u0643\u0627\u0646\u0647.", fotoCarica:"\u0627\u0631\u0641\u0639 \u0648\u0627\u0631\u0628\u0637", fotoCaricate:"\u0635\u0648\u0631\u0629 \u0645\u0631\u062a\u0628\u0637\u0629", fotoSaltate:"\u0645\u062a\u062c\u0627\u0648\u0632\u0629", fotoErrori:"\u0623\u062e\u0637\u0627\u0621" });
 Object.assign(T.en, { imTitolo:"Check before it goes into the catalogue", imRighe:"rows read", imAbbina:"Which column is which", imNessuna:"— none —", imAnteprima:"How the first rows will be saved", imRigaSaltata:"skipped: no name", imProdottiLetti:"products ready", imSaltate:"rows skipped", imSenzaPrezzo:"without a price", imSenzaCodice:"without a code", imAggiorna:"If a code already exists in the catalogue, update it instead of creating a duplicate", imAnnulla:"Cancel", imScrivi:"Write to catalogue" });
 Object.assign(T.it, { imTitolo:"Controlla prima che entri nel catalogo", imRighe:"righe lette", imAbbina:"Quale colonna e' quale", imNessuna:"— nessuna —", imAnteprima:"Come verranno salvate le prime righe", imRigaSaltata:"saltata: manca il nome", imProdottiLetti:"prodotti pronti", imSaltate:"righe saltate", imSenzaPrezzo:"senza prezzo", imSenzaCodice:"senza codice", imAggiorna:"Se un codice esiste gia' nel catalogo, aggiornalo invece di creare un doppione", imAnnulla:"Annulla", imScrivi:"Scrivi nel catalogo" });
 Object.assign(T.fr, { imTitolo:"Verifiez avant l'entree au catalogue", imRighe:"lignes lues", imAbbina:"Quelle colonne correspond a quoi", imNessuna:"— aucune —", imAnteprima:"Comment les premieres lignes seront enregistrees", imRigaSaltata:"ignoree : pas de nom", imProdottiLetti:"produits prets", imSaltate:"lignes ignorees", imSenzaPrezzo:"sans prix", imSenzaCodice:"sans code", imAggiorna:"Si un code existe deja au catalogue, le mettre a jour au lieu de creer un doublon", imAnnulla:"Annuler", imScrivi:"Ecrire au catalogue" });
@@ -1152,6 +1159,42 @@ const useAed = () => {
   return (n) => "AED " + Math.round(Number(n || 0) * rate).toLocaleString("it-IT");
 };
 
+
+
+/* Dal nome del file al prodotto.
+
+   I brand chiamano le foto come capita: "AHP1604.jpg", "AHP-1604.JPG",
+   "ahp1604 (1).jpg", "Amber Oud Gold 60ml.png". Si prova prima col codice,
+   che e' il riferimento sicuro, e solo dopo col nome del prodotto. */
+const nudo = (v) =>
+  String(v || "").toLowerCase()
+    .replace(/\.[a-z0-9]+$/, "")        // via l'estensione
+    .replace(/\s*\(\d+\)\s*$/, "")      // via il "(1)" delle copie
+    .replace(/[^a-z0-9]/g, "");         // via spazi, trattini, underscore
+
+function abbinaFoto(nomeFile, prodotti) {
+  const f = nudo(nomeFile);
+  if (!f) return null;
+
+  // 1. il codice combacia esattamente: e' il caso pulito
+  let p = prodotti.find(x => x.sku && nudo(x.sku) === f);
+  if (p) return p;
+
+  // 2. il nome del file contiene il codice (es. "foto-AHP1604-fronte.jpg")
+  p = prodotti.find(x => x.sku && nudo(x.sku).length >= 4 && f.includes(nudo(x.sku)));
+  if (p) return p;
+
+  // 3. il nome del prodotto combacia
+  p = prodotti.find(x => x.name && nudo(x.name) === f);
+  if (p) return p;
+
+  // 4. il nome del file contiene quello del prodotto, o viceversa. Si chiede
+  //    una lunghezza minima: sotto le otto lettere gli abbinamenti casuali
+  //    diventano piu' probabili di quelli giusti.
+  p = prodotti.find(x => x.name && nudo(x.name).length >= 8 &&
+                         (f.includes(nudo(x.name)) || nudo(x.name).includes(f)));
+  return p || null;
+}
 
 /* ============================================================
    IMPORTAZIONE DEL CATALOGO DA EXCEL O CSV
@@ -4233,6 +4276,61 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   /* Passo uno: si legge il file e si prepara l'anteprima. Non si scrive
      ancora niente sul catalogo - prima Andrea (o il brand) deve vedere. */
   const [bImport, setBImport] = useState(null);   // anteprima prima di scrivere
+  const [bFoto, setBFoto] = useState(null);      // anteprima del caricamento foto
+
+  /* Passo uno: si guardano i nomi dei file e si dice a quale prodotto
+     andrebbe ognuno. Non si carica ancora niente. */
+  const bPreparaFoto = (files) => {
+    const elenco = Array.from(files);
+    if (!elenco.length) return;
+    const abbinate = elenco.map(file => ({
+      file,
+      prodotto: abbinaFoto(file.name, brandProducts),
+    }));
+    setBFoto({ voci: abbinate, sovrascrivi: false, fatto: null });
+  };
+
+  /* Passo due: si caricano solo quelle che hanno trovato casa. */
+  const bCaricaFoto = async () => {
+    if (!bFoto) return;
+    setBImportLoading(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { setBImportLoading(false); return; }
+
+      let caricate = 0, saltate = 0, errori = 0;
+      for (const v of bFoto.voci) {
+        if (!v.prodotto) { saltate++; continue; }
+        if (v.prodotto.image_url && !bFoto.sovrascrivi) { saltate++; continue; }
+
+        const estensione = (v.file.name.match(/\.[a-z0-9]+$/i) || [".jpg"])[0].toLowerCase();
+        const percorso = user.id + "/" + v.prodotto.id + estensione;
+
+        const { error: errUp } = await supabase.storage.from("product-images")
+          .upload(percorso, v.file, { upsert: true, contentType: v.file.type || "image/jpeg" });
+        if (errUp) { errori++; continue; }
+
+        const { data: pubblico } = supabase.storage.from("product-images").getPublicUrl(percorso);
+        /* si aggiunge un contrassegno all'indirizzo: senza, il browser
+           continua a mostrare la vecchia foto dalla propria memoria anche
+           dopo che il file e' stato sostituito */
+        const url = pubblico.publicUrl + "?v=" + Date.now();
+
+        const { error: errDb } = await supabase.from("products")
+          .update({ image_url: url }).eq("id", v.prodotto.id);
+        if (errDb) errori++; else caricate++;
+      }
+
+      setBFoto(f => ({ ...f, fatto: { caricate, saltate, errori } }));
+      bNotify("Foto caricate: " + caricate + (saltate ? ", " + saltate + " saltate" : "")
+              + (errori ? ", " + errori + " errori" : ""));
+      reloadBrandProducts();
+    } catch (e) {
+      bNotify("Errore durante il caricamento delle foto");
+    }
+    setBImportLoading(false);
+  };
+
   const bImportProducts = async (file) => {
     setBImportLoading(true); setBImportResults(null);
     try {
@@ -4911,6 +5009,109 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
             </div>
           </Modal>
         )}
+        {bFoto && (
+          <div style={{ position:"fixed", inset:0, zIndex:9000, background:"rgba(0,0,0,.72)",
+                        display:"flex", alignItems:"center", justifyContent:"center", padding:16 }}
+               onClick={e => { if (e.target === e.currentTarget) setBFoto(null); }}>
+            <div style={{ width:"100%", maxWidth:860, maxHeight:"92vh", overflowY:"auto",
+                          background:C.surface, border:`1px solid ${C.border}`, borderRadius:16,
+                          boxShadow:"0 40px 90px rgba(0,0,0,.7)" }}>
+
+              <div style={{ padding:"20px 24px", borderBottom:`1px solid ${C.border}` }}>
+                <div style={{ fontSize:18, fontWeight:800, color:C.text, fontFamily:"'Fraunces', Georgia, serif" }}>
+                  {t("fotoTitolo")}
+                </div>
+                <div style={{ fontSize:12.5, color:C.textMuted, marginTop:4 }}>
+                  {bFoto.voci.length} {t("fotoFile")} · {bFoto.voci.filter(v => v.prodotto).length} {t("fotoAbbinate")}
+                </div>
+              </div>
+
+              {bFoto.fatto ? (
+                <div style={{ padding:"28px 24px", textAlign:"center" }}>
+                  <div style={{ fontSize:38, marginBottom:10 }}>✅</div>
+                  <div style={{ fontSize:15, fontWeight:700, color:C.green, marginBottom:6 }}>
+                    {bFoto.fatto.caricate} {t("fotoCaricate")}
+                  </div>
+                  <div style={{ fontSize:13, color:C.textMuted }}>
+                    {bFoto.fatto.saltate > 0 && (bFoto.fatto.saltate + " " + t("fotoSaltate") + ". ")}
+                    {bFoto.fatto.errori > 0 && (bFoto.fatto.errori + " " + t("fotoErrori"))}
+                  </div>
+                </div>
+              ) : (
+                <div style={{ padding:"18px 24px" }}>
+                  <div style={{ border:`1px solid ${C.border}`, borderRadius:10, overflow:"hidden" }}>
+                    {bFoto.voci.slice(0, 40).map((v, i) => (
+                      <div key={i} style={{ display:"flex", alignItems:"center", gap:12,
+                                            padding:"9px 14px",
+                                            borderTop: i ? `1px solid ${C.border}` : "none",
+                                            background: v.prodotto ? "transparent" : `${C.red}08` }}>
+                        <span style={{ fontSize:12.5, color:C.textMuted, minWidth:170,
+                                       overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
+                          {v.file.name}
+                        </span>
+                        <span style={{ color: v.prodotto ? C.green : C.red, fontSize:13 }}>
+                          {v.prodotto ? "→" : "✕"}
+                        </span>
+                        <span style={{ fontSize:12.5, flex:1,
+                                       color: v.prodotto ? C.text : C.red }}>
+                          {v.prodotto
+                            ? v.prodotto.name + (v.prodotto.sku ? "  ·  " + v.prodotto.sku : "")
+                            : t("fotoNessunProdotto")}
+                        </span>
+                        {v.prodotto?.image_url && (
+                          <span style={{ fontSize:11, color:C.goldLight, whiteSpace:"nowrap" }}>
+                            {t("fotoHaGia")}
+                          </span>
+                        )}
+                      </div>
+                    ))}
+                    {bFoto.voci.length > 40 && (
+                      <div style={{ padding:"9px 14px", borderTop:`1px solid ${C.border}`,
+                                    fontSize:12, color:C.textDim }}>
+                        … {t("fotoAltre").replace("{n}", bFoto.voci.length - 40)}
+                      </div>
+                    )}
+                  </div>
+
+                  <label style={{ display:"flex", alignItems:"flex-start", gap:9, marginTop:14,
+                                  fontSize:12.5, color:C.textMuted, cursor:"pointer" }}>
+                    <input type="checkbox" checked={bFoto.sovrascrivi}
+                           onChange={e => setBFoto(f => ({ ...f, sovrascrivi: e.target.checked }))}
+                           style={{ marginTop:2, width:16, height:16, accentColor:C.gold }}/>
+                    <span>{t("fotoSovrascrivi")}</span>
+                  </label>
+
+                  <div style={{ marginTop:12, fontSize:11.5, color:C.textDim, lineHeight:1.6 }}>
+                    {t("fotoNota")}
+                  </div>
+                </div>
+              )}
+
+              <div style={{ padding:"16px 24px", borderTop:`1px solid ${C.border}`,
+                            display:"flex", gap:10, justifyContent:"flex-end" }}>
+                <button onClick={() => setBFoto(null)}
+                        style={{ padding:"11px 20px", borderRadius:10, cursor:"pointer",
+                                 background:"transparent", border:`1px solid ${C.border}`,
+                                 color:C.textMuted, fontSize:13 }}>
+                  {bFoto.fatto ? t("imChiudi") : t("imAnnulla")}
+                </button>
+                {!bFoto.fatto && (
+                  <button onClick={bCaricaFoto}
+                          disabled={bImportLoading || !bFoto.voci.some(v => v.prodotto)}
+                          style={{ padding:"11px 24px", borderRadius:10,
+                                   cursor: bFoto.voci.some(v => v.prodotto) ? "pointer" : "not-allowed",
+                                   background: bFoto.voci.some(v => v.prodotto)
+                                     ? `linear-gradient(135deg,${C.gold},${C.goldDim})` : C.surface2,
+                                   border:"none",
+                                   color: bFoto.voci.some(v => v.prodotto) ? C.bg : C.textDim,
+                                   fontSize:13, fontWeight:800 }}>
+                    {bImportLoading ? t("bdImporting") : t("fotoCarica")}
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
         {bImport && (
           <div style={{ position:"fixed", inset:0, zIndex:9000, background:"rgba(0,0,0,.72)",
                         display:"flex", alignItems:"center", justifyContent:"center", padding:16 }}
@@ -5069,8 +5270,15 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
               </div>
               <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
                 <label style={{ padding:"10px 16px", borderRadius:10, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13, fontWeight:600, display:"flex", alignItems:"center", gap:6 }}>
-                  📊 {bImportLoading ? t("bdImporting") : "Import Excel/CSV"}
+                  📊 {bImportLoading ? t("bdImporting") : t("imPulsante")}
                   <input type="file" accept=".csv,.xlsx,.xls,.tsv" style={{ display:"none" }} onChange={e => { const f = e.target.files?.[0]; if(f) bImportProducts(f); e.target.value=""; }}/>
+                </label>
+                {/* Le foto arrivano quasi sempre dopo il listino, in una
+                    cartella a parte: sta accanto all'importazione perche' e'
+                    il secondo passo dello stesso lavoro. */}
+                <label style={{ padding:"10px 16px", borderRadius:10, cursor: brandProducts.length ? "pointer" : "not-allowed", background:"transparent", border:`1px solid ${C.border}`, color: brandProducts.length ? C.textMuted : C.textDim, fontSize:13, fontWeight:600, display:"flex", alignItems:"center", gap:6, opacity: brandProducts.length ? 1 : .5 }}>
+                  🖼️ {t("fotoPulsante")}
+                  <input type="file" accept="image/*" multiple disabled={!brandProducts.length} style={{ display:"none" }} onChange={e => { if (e.target.files?.length) bPreparaFoto(e.target.files); e.target.value=""; }}/>
                 </label>
                 <button onClick={() => { setBEditingProduct(null); setBProductForm({ name:"", sku:"", category:"", size:"", price:"", order_multiple:"", min_order_qty:"", max_order_qty:"", description:"", image_url:"", image_file:null }); setBShowAddProduct(true); }} style={{ padding:"10px 20px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13, fontWeight:700 }}>{t("bNewProduct")}</button>
               </div>
