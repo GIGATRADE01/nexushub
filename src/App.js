@@ -1219,7 +1219,16 @@ const COLONNE_NOTE = {
                 "costo", "wholesale", "wholesale price", "prezzo ingrosso", "precio",
                 "prix", "preis", "eur", "euro", "€", "ek preis", "preis netto", "prix ht", "vk"],
   description: ["description", "descrizione", "note", "notes", "details", "dettagli",
-                "descripcion", "beschreibung"],
+                "descripcion", "beschreibung", "descrizione lunga", "long description",
+                "product description", "olfactory notes", "note olfattive", "famiglia olfattiva"],
+  size:        ["size", "misura", "formato", "volume", "capacity", "capacita", "ml",
+                "content", "contenuto", "grosse", "groesse", "inhalt", "contenance",
+                "tamano", "taglia", "conf"],
+  subcategory: ["subcategory", "sottocategoria", "subfamily", "sottofamiglia",
+                "sub category", "linea prodotto", "collection", "collezione", "serie"],
+  max_order_qty: ["max order", "maximum", "massimo", "max qty", "quantita massima",
+                  "max order qty", "hoechstmenge"],
+  currency:    ["currency", "valuta", "divisa", "waehrung", "devise", "moneda"],
   order_multiple: ["order multiple", "multiple", "multiplo", "confezione", "pack", "box",
                    "pcs per box", "pezzi per cartone", "carton", "karton", "vpe", "verpackung"],
   min_order_qty:  ["min order", "moq", "minimum", "minimo", "min qty", "quantita minima",
@@ -1229,9 +1238,10 @@ const COLONNE_NOTE = {
 
 const ETICHETTE_CAMPI = {
   name: "Nome prodotto", sku: "Codice / SKU", barcode: "Barcode / EAN",
-  category: "Categoria", unit_price: "Prezzo", description: "Descrizione",
+  size: "Misura / formato", category: "Categoria", subcategory: "Sottocategoria",
+  unit_price: "Prezzo", currency: "Valuta", description: "Descrizione",
   order_multiple: "Multiplo d'ordine", min_order_qty: "Ordine minimo",
-  image_url: "Indirizzo immagine",
+  max_order_qty: "Ordine massimo", image_url: "Indirizzo immagine",
 };
 
 const normalizza = (v) =>
@@ -4260,6 +4270,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     }
     const payload = {
       name: bProductForm.name, sku: bProductForm.sku, category: bProductForm.category, description: bProductForm.description,
+      size: bProductForm.size || null,   // prima si scriveva e non veniva salvata
       unit_price: parseFloat(bProductForm.price) || 0,
       brand_id: user.id,
       order_multiple: bProductForm.order_multiple ? parseInt(bProductForm.order_multiple) : null,
@@ -4359,15 +4370,25 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     const p = (campo) => mappa[campo] ? riga[mappa[campo]] : "";
     const nome = String(p("name") || "").trim();
     if (!nome) return null;
+    /* La valuta si accetta solo se e' una di quelle che sappiamo trattare:
+       una cella con dentro "prezzo netto" non deve diventare una valuta. */
+    const val = String(p("currency") || "").trim().toUpperCase()
+      .replace("€", "EUR").replace("$", "USD").replace("£", "GBP");
+    const valuta = ["EUR", "USD", "GBP", "AED", "CHF"].includes(val) ? val : "EUR";
+
     return {
       name: nome,
       sku: String(p("sku") || "").trim() || null,
       barcode: String(p("barcode") || "").trim() || null,
+      size: String(p("size") || "").trim() || null,
       category: String(p("category") || "").trim() || null,
+      subcategory: String(p("subcategory") || "").trim() || null,
       description: String(p("description") || "").trim() || null,
       unit_price: leggiPrezzo(p("unit_price")),
+      currency: valuta,
       order_multiple: leggiIntero(p("order_multiple")),
       min_order_qty: leggiIntero(p("min_order_qty")),
+      max_order_qty: leggiIntero(p("max_order_qty")),
       image_url: String(p("image_url") || "").trim() || null,
     };
   };
@@ -4403,7 +4424,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
       for (const p of prodotti) {
         const id = p.sku ? perSku[p.sku.trim().toLowerCase()] : null;
         if (id && bImport.aggiorna) daAggiornare.push({ id, ...p });
-        else if (!id) nuovi.push({ ...p, brand_id: user.id, is_active: true, currency: "EUR" });
+        else if (!id) nuovi.push({ ...p, brand_id: user.id, is_active: true });
       }
 
       let inseriti = 0, aggiornati = 0, errori = 0;
@@ -5166,7 +5187,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                   <table style={{ width:"100%", borderCollapse:"collapse", fontSize:12.5 }}>
                     <thead>
                       <tr style={{ background:C.surface2 }}>
-                        {["name","sku","unit_price","category","min_order_qty"].map(c => (
+                        {["name","size","sku","unit_price","description"].map(c => (
                           <th key={c} style={{ padding:"9px 12px", textAlign:"left", color:C.textMuted,
                                                fontWeight:600, whiteSpace:"nowrap" }}>
                             {ETICHETTE_CAMPI[c]}
@@ -5183,13 +5204,16 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                             <td style={{ padding:"9px 12px", color: p ? C.text : C.red }}>
                               {p ? p.name : t("imRigaSaltata")}
                             </td>
+                            <td style={{ padding:"9px 12px", color:C.textMuted, whiteSpace:"nowrap" }}>{p?.size || "—"}</td>
                             <td style={{ padding:"9px 12px", color:C.textMuted }}>{p?.sku || "—"}</td>
                             <td style={{ padding:"9px 12px", color: p && p.unit_price ? C.goldLight : C.red,
                                          whiteSpace:"nowrap" }}>
-                              {p ? "€ " + p.unit_price.toFixed(2) : "—"}
+                              {p ? (p.currency === "EUR" ? "€ " : p.currency + " ") + p.unit_price.toFixed(2) : "—"}
                             </td>
-                            <td style={{ padding:"9px 12px", color:C.textMuted }}>{p?.category || "—"}</td>
-                            <td style={{ padding:"9px 12px", color:C.textMuted }}>{p?.min_order_qty || "—"}</td>
+                            <td style={{ padding:"9px 12px", color:C.textMuted, maxWidth:260,
+                                         overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
+                              {p?.description || "—"}
+                            </td>
                           </tr>
                         );
                       })}
@@ -5324,7 +5348,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
                         <td style={{ padding:"11px 14px" }}><Badge status={p.is_active?"active":"rejected"}/></td>
                         <td style={{ padding:"11px 14px" }}>
                           <div style={{ display:"flex", gap:6 }}>
-                            <button onClick={() => { setBEditingProduct(p); setBProductForm({ name:p.name||"", sku:p.sku||"", category:p.category||"", size:"", price:p.unit_price?.toString()||"", order_multiple:p.order_multiple||"", min_order_qty:p.min_order_qty||"", max_order_qty:p.max_order_qty||"", description:p.description||"", image_url:p.image_url||"", image_file:null }); setBShowAddProduct(true); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>{t("bEdit")}</button>
+                            <button onClick={() => { setBEditingProduct(p); setBProductForm({ name:p.name||"", sku:p.sku||"", category:p.category||"", size:p.size||"", price:p.unit_price?.toString()||"", order_multiple:p.order_multiple||"", min_order_qty:p.min_order_qty||"", max_order_qty:p.max_order_qty||"", description:p.description||"", image_url:p.image_url||"", image_file:null }); setBShowAddProduct(true); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>{t("bEdit")}</button>
                             <button onClick={() => openBDocs(p)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.gold}15`, border:`1px solid ${C.gold}40`, color:C.goldLight }}>📎 {t("bDoc")}</button>
                             <button onClick={() => openBPrices(p)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}15`, border:`1px solid ${C.blue}40`, color:C.blue }}>€ {t("bPrices")}</button>
                             <button onClick={async () => { await supabase.from("products").update({ is_active:!p.is_active }).eq("id",p.id); reloadBrandProducts(); }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted }}>{p.is_active?t("bdDeactivate"):t("bdActivate")}</button>
