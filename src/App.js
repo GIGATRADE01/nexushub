@@ -3338,22 +3338,28 @@ const BrandPaymentsPanel = () => {
   );
 };
 
-const BrandAmazonPanel = () => {
+const BrandAmazonPanel = ({ comeUtente = null }) => {
   const t = useT();
   const [rows, setRows] = useState([]);
   const [catalog, setCatalog] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => { (async () => {
     try {
+      /* Il catalogo va filtrato per brand. Senza filtro questa schermata
+         mostrava i prodotti di TUTTI i brand: da sessione di brand le regole
+         di accesso lo impedivano, ma con l'amministratore che guarda "come"
+         no, e comparivano 301 prodotti di aziende diverse mescolati. */
+      const mio = comeUtente || (await supabase.auth.getUser()).data?.user?.id || null;
       const [r1, r2] = await Promise.all([
         supabase.rpc("amazon_brand_performance"),
-        supabase.from("products").select("id,name,is_active")
+        mio ? supabase.from("products").select("id,name,is_active").eq("brand_id", mio)
+            : Promise.resolve({ data: [] })
       ]);
       setRows(r1.data || []);
       setCatalog((r2.data || []).filter(p => p.is_active !== false));
     } catch(e){ console.error(e); }
     setLoading(false);
-  })(); }, []);
+  })(); }, [comeUtente]);
   const num = (x) => Number(x||0);
   const eur = (n) => "€" + num(n).toLocaleString("it-IT", { minimumFractionDigits:2, maximumFractionDigits:2 });
   const sold30 = rows.reduce((a,r)=>a+num(r.units_sold_30d),0);
@@ -4161,7 +4167,18 @@ function DistributorLaunches() {
   );
 }
 
-const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
+const BrandDashboard = ({ onLogout, lang, onLangChange, comeUtente = null }) => {
+  /* Chi siamo, in questo cruscotto.
+
+     Normalmente e' l'utente della sessione. Ma quando l'amministratore entra
+     con "visualizza come", la sessione resta la sua e i dati da mostrare sono
+     di un altro: in quel caso comanda `comeUtente`.
+
+     Esiste per non dover ricordare la distinzione in venticinque query. */
+  const getUser = async () => {
+    if (comeUtente) return { data: { user: { id: comeUtente } } };
+    return await getUser();
+  };
   const t = useT();
   const aed = useAed();
   const [tab, setTab] = useState("overview");
@@ -4187,7 +4204,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const [bPayoutSaving, setBPayoutSaving] = useState(false);
   const bNotify = (m) => { setBToast(m); setTimeout(() => setBToast(""), 2600); };
   useEffect(() => { (async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await getUser();
     if (!user) return;
     const { data } = await supabase.from("profiles").select("id, company_name, email, country, profile_billing(iban, swift_bic, bank_name, account_holder)").eq("id", user.id).single();
     const pbm = data && (Array.isArray(data.profile_billing) ? (data.profile_billing[0] || {}) : (data.profile_billing || {}));
@@ -4196,7 +4213,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   const savePayout = async () => {
     setBPayoutSaving(true);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getUser();
       await supabase.from("profile_billing").upsert({ id: user.id, account_holder: bPayout.account_holder || null, iban: bPayout.iban || null, swift_bic: bPayout.swift_bic || null, bank_name: bPayout.bank_name || null }, { onConflict: "id" });
       bNotify(t("bPayoutSaved"));
     } catch (e) { bNotify(t("bStripeErr")); }
@@ -4211,7 +4228,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     if (!file || !bDocsProduct) return;
     setBDocsBusy(true);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getUser();
       const path = "product-docs/" + bDocsProduct.id + "_" + Date.now() + "_" + file.name;
       const up = await supabase.storage.from("documents").upload(path, file, { upsert: true });
       if (up && up.data) {
@@ -4237,7 +4254,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
   };
   const bSavePrice = async () => {
     if (!bPricesProduct || !bPriceForm.country || !bPriceForm.price) { bNotify("Scegli paese e prezzo"); return; }
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await getUser();
     const { data: row } = await supabase.from("product_country_prices").upsert({
       product_id: bPricesProduct.id, brand_id: user.id, country: bPriceForm.country, price: parseFloat(bPriceForm.price) || 0
     }, { onConflict: "product_id,country" }).select().single();
@@ -4252,14 +4269,14 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     setBPrices(prev => prev.filter(x => x.id !== id));
   };
   const reloadBrandProducts = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await getUser();
     if (!user) return;
     const { data } = await supabase.from("products").select("*, inventory(*)").eq("brand_id", user.id).order("created_at", { ascending: false });
     setBrandProducts(data || []);
   };
   const bSaveProduct = async () => {
     if (!bProductForm.name) { bNotify("Inserisci il nome del prodotto"); return; }
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await getUser();
     if (!user) return;
     let imageUrl = bProductForm.image_url || null;
     if (bProductForm.image_file) {
@@ -4306,7 +4323,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     if (!bFoto) return;
     setBImportLoading(true);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getUser();
       if (!user) { setBImportLoading(false); return; }
 
       let caricate = 0, saltate = 0, errori = 0;
@@ -4401,7 +4418,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     if (!bImport) return;
     setBImportLoading(true);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getUser();
       if (!user) { setBImportLoading(false); return; }
 
       const prodotti = bImport.righe
@@ -4459,7 +4476,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
 
   useEffect(() => {
     const loadBrandNotifs = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getUser();
       if (!user) return;
       const { data } = await supabase.from("notifications")
         .select("*").eq("user_id", user.id)
@@ -4468,7 +4485,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     };
     loadBrandNotifs();
     const loadAccessReqs = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getUser();
       if (!user) return;
       const { data } = await supabase.from("brand_access_requests")
         .select("*, distributor:profiles!brand_access_requests_distributor_id_fkey(company_name, email, country, trust_score, account_state)")
@@ -4478,7 +4495,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     loadAccessReqs();
     supabase.from("profiles").select("id, company_name, email, country, trust_score, account_state").eq("role","distributor").eq("account_type","distributor").eq("status","approved").then(({ data }) => setDbDistributors(data || []));
     const loadBrandOrders = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getUser();
       if (!user) return;
       const { data } = await supabase.from("orders")
         .select("*, order_items(*), distributor:profiles!orders_distributor_id_fkey(company_name)").eq("brand_id", user.id);
@@ -4486,14 +4503,14 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     };
     loadBrandOrders();
     const loadBrandProducts = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getUser();
       if (!user) return;
       const { data } = await supabase.from("products").select("*, inventory(*)").eq("brand_id", user.id);
       setBrandProducts(data || []);
     };
     loadBrandProducts();
     const loadBrandInvoices = async () => {
-      const { data:{ user } } = await supabase.auth.getUser();
+      const { data:{ user } } = await getUser();
       if(!user) return;
       const { data: ords } = await supabase.from("orders").select("id").eq("brand_id", user.id);
       const ids = (ords||[]).map(o=>o.id);
@@ -4520,7 +4537,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
     });
   };
   const inviteDistributor = async (dist) => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await getUser();
     if (!user) return;
     await supabase.from("brand_access_requests").upsert({ distributor_id: dist.id, brand_id: user.id, status: "approved", updated_at: new Date().toISOString() }, { onConflict: "distributor_id,brand_id" });
     await supabase.from("notifications").insert({ user_id: dist.id, type: "access_update", title: t("bInviteNotifTitle"), message: t("bInviteNotifMsg") });
@@ -5426,7 +5443,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange }) => {
             )}
           </div>
         )}
-        {tab==="amazon" && <BrandAmazonPanel/>}
+        {tab==="amazon" && <BrandAmazonPanel comeUtente={comeUtente}/>}
         {tab==="analytics" && (
           <div>
             <NexusAI role="brand"/>
@@ -6062,7 +6079,18 @@ function DistributorTour({ setTab }) {
   );
 }
 
-const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
+const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null }) => {
+  /* Chi siamo, in questo cruscotto.
+
+     Normalmente e' l'utente della sessione. Ma quando l'amministratore entra
+     con "visualizza come", la sessione resta la sua e i dati da mostrare sono
+     di un altro: in quel caso comanda `comeUtente`.
+
+     Esiste per non dover ricordare la distinzione in venticinque query. */
+  const getUser = async () => {
+    if (comeUtente) return { data: { user: { id: comeUtente } } };
+    return await getUser();
+  };
   const t = useT();
   const [tab, setTab] = useState("brands");
   const [cart, setCart] = useState({});
@@ -6101,7 +6129,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
         const up = await supabase.storage.from("documents").upload(path, f, { upsert: true });
         if (up && up.data) photoUrl = supabase.storage.from("documents").getPublicUrl(path).data.publicUrl;
       }
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getUser();
       await supabase.from("order_issues").insert({
         order_id: issueOrder.id, distributor_id: user.id, brand_id: issueOrder.brand_id || null,
         reason: issueForm.reason.trim(), photo_url: photoUrl, status: "open"
@@ -6133,7 +6161,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const [distNotifPanel, setDistNotifPanel] = useState(false);
   const distUnread = distNotifs.filter(n => !n.read).length;
   const toggleWishlist = async (productId) => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await getUser();
     if (!user) return;
     if (wishlist.includes(productId)) {
       await supabase.from("wishlist_items").delete().eq("distributor_id", user.id).eq("product_id", productId);
@@ -6157,7 +6185,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     if (cartCount === 0) return;
     setOrderLoading(true);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getUser();
       const items = Object.entries(cart).filter(([,qty])=>qty>0).map(([pid,qty]) => {
         const product = realProducts.find(p=>p.id===pid);
         return { product_id:pid, quantity:qty, product_name:product?.name||"", sku:product?.sku||"", unit_price:effPrice(product) };
@@ -6198,7 +6226,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   const saveMyData = async () => {
     setMyDataSaving(true);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getUser();
       await supabase.from("profiles").update({ company_name: myData.company_name||null, phone: myData.phone||null, shipping_address: myData.shipping_address||null, shipping_city: myData.shipping_city||null, shipping_zip: myData.shipping_zip||null, shipping_region: myData.shipping_region||null }).eq("id", user.id);
       await supabase.from("profile_billing").upsert({ id: user.id, vat_number: myData.vat_number||null }, { onConflict: "id" });
       alert(t("ddMyDataSaved"));
@@ -6207,7 +6235,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   };
   useEffect(() => {
     // Load current user
-    supabase.auth.getUser().then(({ data }) => {
+    getUser().then(({ data }) => {
       if (data.user) {
         supabase.from("profiles").select("*").eq("id", data.user.id).single()
           .then(async ({ data: profile }) => {
@@ -6237,7 +6265,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       .order("created_at", { ascending: false })
       .then(({ data }) => setRealOrders(data || []));
     // Load wishlist
-    supabase.auth.getUser().then(({ data }) => {
+    getUser().then(({ data }) => {
       if (data.user) {
         supabase.from("wishlist_items").select("product_id").eq("distributor_id", data.user.id)
           .then(({ data: w }) => setWishlist((w||[]).map(r => r.product_id)));
@@ -6250,7 +6278,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
       .eq("role", "brand").eq("status", "approved")
       .then(({ data }) => setDbBrands(data || []));
     const loadAccess = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getUser();
       if (!user) return;
       const { data } = await supabase.from("brand_access_requests")
         .select("brand_id, status, discount_pct").eq("distributor_id", user.id);
@@ -6262,7 +6290,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     /* Occupazione del proprio paese: si vede PRIMA di candidarsi, per capire
        se per quel brand c'e' ancora spazio o se il territorio e' gia' in esclusiva. */
     const loadCoverage = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getUser();
       if (!user) return;
       const { data: me } = await supabase.from("profiles").select("country").eq("id", user.id).single();
       const cc = (me?.country || "").trim().toUpperCase();
@@ -6274,7 +6302,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     };
     loadCoverage();
     const loadDistNotifs = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getUser();
       if (!user) return;
       const { data } = await supabase.from("notifications")
         .select("*").eq("user_id", user.id)
@@ -6283,7 +6311,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     };
     loadDistNotifs();
     const loadDistContracts = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getUser();
       if (!user) return;
       const { data } = await supabase.from("contracts")
         .select("*, brand:profiles!contracts_brand_id_fkey(company_name, country)")
@@ -6293,7 +6321,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
     };
     loadDistContracts();
     const loadDistInvoices = async () => {
-      const { data:{ user } } = await supabase.auth.getUser();
+      const { data:{ user } } = await getUser();
       if(!user) return;
       const { data: ords } = await supabase.from("orders").select("id").eq("distributor_id", user.id);
       const ids = (ords||[]).map(o=>o.id);
@@ -6311,7 +6339,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange }) => {
   }, []);
 
   const requestAccess = async (brand) => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await getUser();
     if (!user) return;
     setAccessRequests(prev => ({ ...prev, [brand.id]: "pending" }));
     const { error } = await supabase.from("brand_access_requests").upsert({
@@ -7962,8 +7990,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         {/* Render user's dashboard with extra top padding for banner */}
         <div style={{ paddingTop:44 }}>
           {impersonating.role === "brand"
-            ? <BrandDashboard onLogout={() => setImpersonating(null)} lang={lang} onLangChange={onLangChange}/>
-            : <DistributorDashboard onLogout={() => setImpersonating(null)} lang={lang} onLangChange={onLangChange}/>
+            ? <BrandDashboard comeUtente={impersonating.id} onLogout={() => setImpersonating(null)} lang={lang} onLangChange={onLangChange}/>
+            : <DistributorDashboard comeUtente={impersonating.id} onLogout={() => setImpersonating(null)} lang={lang} onLangChange={onLangChange}/>
           }
         </div>
       </div>
