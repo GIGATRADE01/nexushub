@@ -1,4 +1,4 @@
-import { useState, createContext, useContext, useEffect, useRef } from "react";
+import { useState, createContext, useContext, useEffect, useRef, useCallback } from "react";
 import { createClient } from "@supabase/supabase-js";
 /* Legge gli Excel veri. Senza questa, un .xlsx letto come testo e'
    una sfilza di byte: e' il motivo per cui l'import di prima non
@@ -4175,10 +4175,10 @@ const BrandDashboard = ({ onLogout, lang, onLangChange, comeUtente = null }) => 
      di un altro: in quel caso comanda `comeUtente`.
 
      Esiste per non dover ricordare la distinzione in venticinque query. */
-  const getUser = async () => {
+  const getUser = useCallback(async () => {
     if (comeUtente) return { data: { user: { id: comeUtente } } };
-    return await getUser();
-  };
+    return await supabase.auth.getUser();
+  }, [comeUtente]);
   const t = useT();
   const aed = useAed();
   const [tab, setTab] = useState("overview");
@@ -4209,7 +4209,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange, comeUtente = null }) => 
     const { data } = await supabase.from("profiles").select("id, company_name, email, country, profile_billing(iban, swift_bic, bank_name, account_holder)").eq("id", user.id).single();
     const pbm = data && (Array.isArray(data.profile_billing) ? (data.profile_billing[0] || {}) : (data.profile_billing || {}));
     if (pbm) setBPayout({ account_holder: pbm.account_holder||"", iban: pbm.iban||"", swift_bic: pbm.swift_bic||"", bank_name: pbm.bank_name||"" });
-  })(); }, []);
+  })(); }, [getUser]);
   const savePayout = async () => {
     setBPayoutSaving(true);
     try {
@@ -4524,7 +4524,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange, comeUtente = null }) => 
         (payload) => { setBrandNotifs(prev => [payload.new, ...prev]); if (payload.new?.type === "access_request") loadAccessReqs(); })
       .subscribe();
     return () => supabase.removeChannel(channel);
-  }, []);
+  }, [getUser]);
   const saveDiscount = async (req, pct) => {
     const v = Math.max(0, Math.min(90, Number(pct) || 0));
     setAccessReqs(prev => prev.map(r => r.id === req.id ? { ...r, discount_pct: v } : r));
@@ -6087,10 +6087,10 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
      di un altro: in quel caso comanda `comeUtente`.
 
      Esiste per non dover ricordare la distinzione in venticinque query. */
-  const getUser = async () => {
+  const getUser = useCallback(async () => {
     if (comeUtente) return { data: { user: { id: comeUtente } } };
-    return await getUser();
-  };
+    return await supabase.auth.getUser();
+  }, [comeUtente]);
   const t = useT();
   const [tab, setTab] = useState("brands");
   const [cart, setCart] = useState({});
@@ -6336,7 +6336,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
         (payload) => { setDistNotifs(prev => [payload.new, ...prev]); if (payload.new?.type === "access_update") loadAccess(); })
       .subscribe();
     return () => supabase.removeChannel(channel);
-  }, []);
+  }, [getUser]);
 
   const requestAccess = async (brand) => {
     const { data: { user } } = await getUser();
