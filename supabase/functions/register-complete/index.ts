@@ -49,6 +49,14 @@ serve(async (req) => {
   if (password.length < 8) return risposta({ errore: "password" }, 400);
   if (!role) return risposta({ errore: "ruolo" }, 400);
 
+  // Catene ed e-commerce non passano dal brand: li serviamo noi, dal nostro
+  // magazzino, a un prezzo che decidiamo noi. Prima di spedire a un'azienda
+  // dobbiamo sapere quanto e' grande, e il sito e' l'unico modo di saperlo
+  // in trenta secondi. Il controllo c'e' anche nel modulo, ma quello lo salta
+  // chiunque apra la console del browser.
+  const gestito = accountType === "chain" || accountType === "ecommerce";
+  if (gestito && !testo(b.website, 200)) return risposta({ errore: "sito_obbligatorio" }, 400);
+
   const { data: aperte } = await admin.rpc("registrations_open");
   if (aperte === false) return risposta({ errore: "registrazioni_chiuse" }, 403);
 
@@ -96,6 +104,9 @@ serve(async (req) => {
     phone: testo(b.phone, 40),
     country: testo(b.country, 80),
     website: testo(b.website, 200),
+    // Quanto e' grande: punti vendita per le catene, scaglione di fatturato
+    // per gli e-commerce. Serve a decidere che listino fargli.
+    business_size: testo(b.business_size, 60),
     preferred_lang: testo(b.preferred_lang, 5) || "en",
     ...(isBrand ? {} : {
       shipping_address: testo(b.shipping_address),

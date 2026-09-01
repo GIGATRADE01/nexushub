@@ -762,6 +762,22 @@ Object.assign(T.es, { rgWebsite:"Sitio web de la empresa" });
 Object.assign(T.de, { rgWebsite:"Website des Unternehmens" });
 Object.assign(T.zh, { rgWebsite:"公司网站" });
 Object.assign(T.ar, { rgWebsite:"الموقع الإلكتروني للشركة" });
+/* Il sito e' l'unica cosa che, in trenta secondi, dice se un'azienda esiste
+   davvero e quanto e' grande. Per chi serviamo noi non e' facoltativo. */
+Object.assign(T.en, { rgWebReq:"required", rgWebSug:"recommended", rgWebMissing:"Please enter your company website. For a retail chain or an e-commerce it is required: it is how we understand the size of your business." });
+Object.assign(T.it, { rgWebReq:"obbligatorio", rgWebSug:"consigliato", rgWebMissing:"Inserisci il sito della tua azienda. Per una catena o un e-commerce e' obbligatorio: e' come capiamo l'entita' della tua attivita'." });
+Object.assign(T.fr, { rgWebReq:"obligatoire", rgWebSug:"recommandé", rgWebMissing:"Indiquez le site de votre entreprise. Pour une chaîne ou un e-commerce, c'est obligatoire : c'est ainsi que nous mesurons la taille de votre activité." });
+Object.assign(T.es, { rgWebReq:"obligatorio", rgWebSug:"recomendado", rgWebMissing:"Introduce el sitio web de tu empresa. Para una cadena o un e-commerce es obligatorio: es como entendemos el tamaño de tu negocio." });
+Object.assign(T.de, { rgWebReq:"erforderlich", rgWebSug:"empfohlen", rgWebMissing:"Bitte geben Sie die Website Ihres Unternehmens an. Für eine Handelskette oder einen E-Commerce ist sie erforderlich: So erkennen wir die Größe Ihres Geschäfts." });
+Object.assign(T.zh, { rgWebReq:"必填", rgWebSug:"建议填写", rgWebMissing:"请填写公司网站。连锁或电商必须填写：我们据此了解贵司的规模。" });
+Object.assign(T.en, { rgSizeChain:"Points of sale", rgSizeEcom:"Annual revenue", rgSizePick:"Select...", rgSizeMissing:"Tell us the size of your business: it is how we set your price list.", rgSizeAcctType:"Business type" });
+Object.assign(T.it, { rgSizeChain:"Punti vendita", rgSizeEcom:"Fatturato annuo", rgSizePick:"Scegli...", rgSizeMissing:"Dicci quanto e' grande la tua attivita': e' come costruiamo il tuo listino.", rgSizeAcctType:"Tipo di attivita'" });
+Object.assign(T.fr, { rgSizeChain:"Points de vente", rgSizeEcom:"Chiffre d'affaires annuel", rgSizePick:"Choisir...", rgSizeMissing:"Indiquez la taille de votre activité : c'est ainsi que nous établissons votre tarif.", rgSizeAcctType:"Type d'activité" });
+Object.assign(T.es, { rgSizeChain:"Puntos de venta", rgSizeEcom:"Facturación anual", rgSizePick:"Elegir...", rgSizeMissing:"Dinos el tamaño de tu negocio: es como creamos tu tarifa.", rgSizeAcctType:"Tipo de negocio" });
+Object.assign(T.de, { rgSizeChain:"Verkaufsstellen", rgSizeEcom:"Jahresumsatz", rgSizePick:"Auswählen...", rgSizeMissing:"Nennen Sie uns die Größe Ihres Geschäfts: danach erstellen wir Ihre Preisliste.", rgSizeAcctType:"Art des Geschäfts" });
+Object.assign(T.zh, { rgSizeChain:"门店数量", rgSizeEcom:"年营业额", rgSizePick:"请选择...", rgSizeMissing:"请告知贵司规模：我们据此制定您的价目表。", rgSizeAcctType:"业务类型" });
+Object.assign(T.ar, { rgSizeChain:"نقاط البيع", rgSizeEcom:"الإيرادات السنوية", rgSizePick:"اختر...", rgSizeMissing:"أخبرنا بحجم نشاطك: على أساسه نضع قائمة أسعارك.", rgSizeAcctType:"نوع النشاط" });
+Object.assign(T.ar, { rgWebReq:"إلزامي", rgWebSug:"مستحسن", rgWebMissing:"يرجى إدخال الموقع الإلكتروني لشركتك. وهو إلزامي لسلسلة المتاجر أو التجارة الإلكترونية: به نفهم حجم نشاطك." });
 Object.assign(T.en, { imPulsante:"Import Excel/CSV", imChiudi:"Close", fotoPulsante:"Bulk photo upload", fotoTitolo:"Photos matched to your products", fotoFile:"files", fotoAbbinate:"matched", fotoNessunProdotto:"no product found with this code or name", fotoHaGia:"already has a photo", fotoAltre:"and {n} more files", fotoSovrascrivi:"Replace photos on products that already have one", fotoNota:"Files are matched by product code first, then by name. Name the files with the code (AHP1604.jpg) and everything lands in the right place.", fotoCarica:"Upload and attach", fotoCaricate:"photos attached", fotoSaltate:"skipped", fotoErrori:"errors" });
 Object.assign(T.it, { imPulsante:"Importa Excel/CSV", imChiudi:"Chiudi", fotoPulsante:"Carica foto in blocco", fotoTitolo:"Foto abbinate ai tuoi prodotti", fotoFile:"file", fotoAbbinate:"abbinate", fotoNessunProdotto:"nessun prodotto con questo codice o nome", fotoHaGia:"ha gia' una foto", fotoAltre:"e altri {n} file", fotoSovrascrivi:"Sostituisci la foto anche ai prodotti che ne hanno gia' una", fotoNota:"I file si abbinano prima per codice prodotto, poi per nome. Se le foto si chiamano col codice (AHP1604.jpg) finisce tutto al posto giusto.", fotoCarica:"Carica e aggancia", fotoCaricate:"foto agganciate", fotoSaltate:"saltate", fotoErrori:"errori" });
 Object.assign(T.fr, { imPulsante:"Importer Excel/CSV", imChiudi:"Fermer", fotoPulsante:"Photos en lot", fotoTitolo:"Photos associees a vos produits", fotoFile:"fichiers", fotoAbbinate:"associees", fotoNessunProdotto:"aucun produit avec ce code ou ce nom", fotoHaGia:"a deja une photo", fotoAltre:"et {n} autres fichiers", fotoSovrascrivi:"Remplacer aussi la photo des produits qui en ont deja une", fotoNota:"Les fichiers sont associes d'abord par code produit, puis par nom. Nommez les photos avec le code (AHP1604.jpg) et tout arrive au bon endroit.", fotoCarica:"Charger et associer", fotoCaricate:"photos associees", fotoSaltate:"ignorees", fotoErrori:"erreurs" });
@@ -2462,6 +2478,7 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
   const [swiftBic, setSwiftBic] = useState("");
   const [vatNumber, setVatNumber] = useState("");
   const [website, setWebsite] = useState("");
+  const [businessSize, setBusinessSize] = useState("");
   const [sdiCode, setSdiCode] = useState("");
   const [pecEmail, setPecEmail] = useState("");
 
@@ -2505,6 +2522,12 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
 
       const isItaly = country === "Italia" || country === "Italy" || country === "IT";
 
+      /* Senza sito, una catena o un e-commerce non si registra: e' il solo
+         dato che ci dice, prima di spedirgli merce, con chi abbiamo a che
+         fare. Stesso controllo in register-complete, lato server. */
+      if (isManaged && !website.trim()) { setError(t("rgWebMissing")); setLoading(false); return; }
+      if (isManaged && !businessSize) { setError(t("rgSizeMissing")); setLoading(false); return; }
+
       const documenti = [];
       for (const docType of docTypes) {
         const file = docs[docType];
@@ -2531,6 +2554,7 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
           email, password, role, account_type: acctType,
           full_name: fullName, company_name: companyName, phone, country,
           website,
+          business_size: businessSize || null,
           preferred_lang: lang,
           vat_number: vatNumber,
           sdi_code: isItaly ? sdiCode : null,
@@ -2614,6 +2638,24 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
           </div>
         )}
 
+        {/* Quanto e' grande. Una tendina e non un campo libero: due
+            risposte scritte a mano non si possono confrontare, e questo
+            dato serve proprio per confrontare. */}
+        {isManaged && step===2 && (
+          <div style={{ marginBottom:16 }}>
+            <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>
+              {acctType==="chain" ? t("rgSizeChain") : t("rgSizeEcom")} · {t("rgWebReq")}
+            </label>
+            <select value={businessSize} onChange={e=>setBusinessSize(e.target.value)} required
+              style={{ width:"100%", padding:"11px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${businessSize?C.border:C.gold}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}>
+              <option value="">{t("rgSizePick")}</option>
+              {(acctType==="chain"
+                ? ["1-5", "6-20", "21-50", "50+"]
+                : ["< 100k EUR", "100k - 500k EUR", "500k - 2M EUR", "2M - 10M EUR", "> 10M EUR"]
+              ).map(o => <option key={o} value={o}>{o}</option>)}
+          </select>
+          </div>
+        )}
         {error && <div style={{ background:`${C.red}15`, border:`1px solid ${C.red}40`, borderRadius:8, padding:"10px 14px", color:C.red, fontSize:13, marginBottom:16 }}>{error}</div>}
 
         {step===1 && (
@@ -2641,12 +2683,15 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
                 {label:t("companyName"),val:companyName,set:setCompanyName},
                 {label:t("phone"),val:phone,set:setPhone},
                 {label:t("country"),val:country,set:setCountry},
-                {label:t("rgWebsite"),val:website,set:setWebsite,placeholder:"www.esempio.com"},
-              ].map(({label,val,set,placeholder}) => (
+                /* Obbligatorio per catene ed e-commerce, che serviamo noi
+                   direttamente e di cui dobbiamo sapere subito l'entita'.
+                   Consigliato a brand e distributori: chiesto, non preteso. */
+                {label:t("rgWebsite")+" · "+(isManaged?t("rgWebReq"):t("rgWebSug")),val:website,set:setWebsite,placeholder:"www.esempio.com",required:isManaged},
+              ].map(({label,val,set,placeholder,required}) => (
                 <div key={label}>
                   <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{label}</label>
-                  <input type="text" value={val} onChange={e=>set(e.target.value)} placeholder={placeholder}
-                    style={{ width:"100%", padding:"11px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+                  <input type="text" value={val} onChange={e=>set(e.target.value)} placeholder={placeholder} required={!!required}
+                    style={{ width:"100%", padding:"11px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${required && !val ? C.gold : C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
                 </div>
               ))}
             </div>
@@ -10014,6 +10059,27 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                   <option value="admin">{t("aumRoleAdmin")}</option>
                 </select>
               </div>
+              {/* Il tipo lo sceglie chi si registra, e non sempre lo sceglie
+                  bene: chi si dichiara "grande e-commerce" a volte e' una
+                  bottega. Spostarlo a distributore vuol dire farlo passare
+                  dal brand invece che dal nostro magazzino, ed e' una
+                  decisione commerciale che deve poter prendere l'admin. */}
+              {(userEditForm.role||editingUser.role) === "distributor" && (
+                <div style={{ marginBottom:12 }}>
+                  <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{t("rgSizeAcctType")}</label>
+                  <select value={userEditForm.account_type ?? editingUser.account_type ?? "distributor"} onChange={e=>setUserEditForm(f=>({...f,account_type:e.target.value}))}
+                    style={{ width:"100%", padding:"9px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}>
+                    <option value="distributor">{t("registerDist")}</option>
+                    <option value="chain">{t("rgAccChain")}</option>
+                    <option value="ecommerce">{t("rgAccEcom")}</option>
+                  </select>
+                  {editingUser.business_size && (
+                    <div style={{ fontSize:11, color:C.textMuted, marginTop:5 }}>
+                      {(editingUser.account_type==="chain" ? t("rgSizeChain") : t("rgSizeEcom"))}: <b style={{ color:C.text }}>{editingUser.business_size}</b>
+                    </div>
+                  )}
+                </div>
+              )}
               <div>
                 <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".08em", display:"block", marginBottom:5 }}>{t("aumStatus")}</label>
                 <select value={userEditForm.status||""} onChange={e=>setUserEditForm(f=>({...f,status:e.target.value}))}
