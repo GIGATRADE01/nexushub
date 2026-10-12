@@ -7173,6 +7173,13 @@ const Modal = ({ title, onClose, onSave, children, saveLabel="Save" }) => {
    che tu sia distributore, brand o amministratore. Chi la usa passa il prodotto
    e, se serve, un blocco in fondo (es. il pre-ordine) come children.
 --------------------------------------------------------------------------- */
+const frecciaStile = (lato) => ({
+  position:"absolute", top:"50%", transform:"translateY(-50%)", [lato]:6,
+  width:30, height:30, borderRadius:"50%", cursor:"pointer", lineHeight:1,
+  background:"rgba(0,0,0,.45)", border:"none", color:"#fff", fontSize:20, fontWeight:700,
+  display:"flex", alignItems:"center", justifyContent:"center", padding:0,
+});
+
 const Piramide = ({ top, heart, base, lTop, lHeart, lBase }) => {
   const tier = (etichetta, note, y) => (
     <div style={{ display:"flex", gap:12, alignItems:"flex-start", minHeight:62 }}>
@@ -7206,7 +7213,12 @@ const Piramide = ({ top, heart, base, lTop, lHeart, lBase }) => {
 const ProductSheet = ({ product, brandName = "", onClose, children }) => {
   const t = useT();
   const [tab, setTab] = useState("desc");
+  const [idx, setIdx] = useState(0);
   const p = product || {};
+  /* Tutte le foto del prodotto, senza doppioni: la copertina piu' le altre. */
+  const galleria = [...new Set([p.image_url, ...(Array.isArray(p.image_urls) ? p.image_urls : [])].filter(Boolean))];
+  const fotoGrande = galleria[idx] || galleria[0] || null;
+  useEffect(() => { setIdx(0); setTab("desc"); }, [p.id]);
   const stock = p.inventory?.quantity_available ?? null;
   const mult = p.order_multiple || 1;
   const moq = p.min_order_qty || 1;
@@ -7228,17 +7240,31 @@ const ProductSheet = ({ product, brandName = "", onClose, children }) => {
     <Modal title={p.name || ""} onClose={onClose} onSave={onClose} saveLabel={t("pdClose")}>
       <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(min(260px,100%),1fr))", gap:20 }}>
         <div>
-          {p.image_url ? (
-            <img src={p.image_url} alt={p.name}
-              style={{ width:"100%", background:"#fff", borderRadius:10, objectFit:"contain", maxHeight:360 }}
-              onError={e=>{ e.target.style.display="none"; }}/>
+          {fotoGrande ? (
+            <div style={{ position:"relative", background:"#fff", borderRadius:10, overflow:"hidden" }}>
+              <img src={fotoGrande} alt={p.name}
+                style={{ width:"100%", display:"block", objectFit:"contain", maxHeight:360 }}
+                onError={e=>{ e.target.style.visibility="hidden"; }}/>
+              {galleria.length > 1 && (
+                <>
+                  <button onClick={() => setIdx(i => (i - 1 + galleria.length) % galleria.length)}
+                    aria-label="‹" style={frecciaStile("left")}>‹</button>
+                  <button onClick={() => setIdx(i => (i + 1) % galleria.length)}
+                    aria-label="›" style={frecciaStile("right")}>›</button>
+                  <div style={{ position:"absolute", bottom:8, right:10, background:"rgba(0,0,0,.55)", color:"#fff",
+                    fontSize:11, fontWeight:700, padding:"2px 8px", borderRadius:20 }}>{idx+1}/{galleria.length}</div>
+                </>
+              )}
+            </div>
           ) : (
             <div style={{ height:200, borderRadius:10, background:C.surface2, border:`1px dashed ${C.border}`, display:"flex", alignItems:"center", justifyContent:"center", color:C.textDim, fontSize:28 }}>🫙</div>
           )}
-          {Array.isArray(p.image_urls) && p.image_urls.length > 1 && (
-            <div style={{ display:"flex", gap:6, marginTop:8, flexWrap:"wrap" }}>
-              {p.image_urls.slice(0,6).map((u,i) => (
-                <img key={i} src={u} alt="" style={{ width:54, height:54, objectFit:"contain", background:"#fff", borderRadius:6, border:`1px solid ${C.border}` }}
+          {galleria.length > 1 && (
+            <div style={{ display:"flex", gap:7, marginTop:8, flexWrap:"wrap" }}>
+              {galleria.map((u,i) => (
+                <img key={i} src={u} alt="" onClick={() => setIdx(i)}
+                  style={{ width:58, height:58, objectFit:"contain", background:"#fff", borderRadius:6, cursor:"pointer",
+                    border:`2px solid ${i===idx ? C.gold : C.border}`, opacity: i===idx ? 1 : .72 }}
                   onError={e=>{ e.target.style.display="none"; }}/>
               ))}
             </div>
