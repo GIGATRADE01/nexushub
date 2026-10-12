@@ -1142,6 +1142,22 @@ Object.assign(T.de,{ ddMultiBrandErr:"Dein Warenkorb enthält Produkte verschied
 Object.assign(T.zh,{ ddMultiBrandErr:"你的购物车包含不同品牌的产品。请每次只下单一个品牌。" });
 Object.assign(T.ar,{ ddMultiBrandErr:"تحتوي سلتك على منتجات من علامات مختلفة. يرجى الطلب لعلامة واحدة في كل مرة." });
 
+/* Scheda prodotto + pre-ordine */
+Object.assign(T.en,{ pdOpen:"Product sheet", pdPreorder:"Pre-order", pdPcs:"pcs", pdFamily:"Olfactory family", pdNotesTop:"Top notes", pdNotesHeart:"Heart notes", pdNotesBase:"Base notes", pdFormat:"Format", pdConc:"Concentration", pdOrigin:"Made in", pdMoq:"Minimum order", pdMultiple:"Order multiple", pdStock:"Stock in Turin hub", pdPreorderOn:"Pre-order open", pdPreorderSub:"Not in stock yet: reserve your quantity now and we confirm as soon as the lot is complete.", pdQty:"Quantity", pdConfirmPre:"Confirm pre-order", pdPreDone:"Pre-order registered", pdAlready:"Pre-order already registered", pdNoDesc:"No description available.", pdClose:"Close", pdNote:"Note for us (optional)" });
+Object.assign(T.it,{ pdOpen:"Scheda prodotto", pdPreorder:"Pre-ordina", pdPcs:"pz", pdFamily:"Famiglia olfattiva", pdNotesTop:"Note di testa", pdNotesHeart:"Note di cuore", pdNotesBase:"Note di fondo", pdFormat:"Formato", pdConc:"Concentrazione", pdOrigin:"Prodotto in", pdMoq:"Ordine minimo", pdMultiple:"Multiplo d'ordine", pdStock:"Stock hub di Torino", pdPreorderOn:"Pre-ordine aperto", pdPreorderSub:"Non ancora a stock: prenota ora la tua quantità, confermiamo appena il lotto è completo.", pdQty:"Quantità", pdConfirmPre:"Conferma pre-ordine", pdPreDone:"Pre-ordine registrato", pdAlready:"Pre-ordine già registrato", pdNoDesc:"Nessuna descrizione disponibile.", pdClose:"Chiudi", pdNote:"Nota per noi (facoltativa)" });
+Object.assign(T.fr,{ pdOpen:"Fiche produit", pdPreorder:"Précommander", pdPcs:"pcs", pdFamily:"Famille olfactive", pdNotesTop:"Notes de tête", pdNotesHeart:"Notes de cœur", pdNotesBase:"Notes de fond", pdFormat:"Format", pdConc:"Concentration", pdOrigin:"Fabriqué en", pdMoq:"Commande minimum", pdMultiple:"Multiple de commande", pdStock:"Stock hub de Turin", pdPreorderOn:"Précommande ouverte", pdPreorderSub:"Pas encore en stock : réservez votre quantité, nous confirmons dès que le lot est complet.", pdQty:"Quantité", pdConfirmPre:"Confirmer la précommande", pdPreDone:"Précommande enregistrée", pdAlready:"Précommande déjà enregistrée", pdNoDesc:"Aucune description disponible.", pdClose:"Fermer", pdNote:"Note pour nous (facultatif)" });
+Object.assign(T.es,{ pdOpen:"Ficha de producto", pdPreorder:"Reservar", pdPcs:"uds", pdFamily:"Familia olfativa", pdNotesTop:"Notas de salida", pdNotesHeart:"Notas de corazón", pdNotesBase:"Notas de fondo", pdFormat:"Formato", pdConc:"Concentración", pdOrigin:"Fabricado en", pdMoq:"Pedido mínimo", pdMultiple:"Múltiplo de pedido", pdStock:"Stock hub de Turín", pdPreorderOn:"Reserva abierta", pdPreorderSub:"Aún sin stock: reserva tu cantidad y confirmamos en cuanto el lote esté completo.", pdQty:"Cantidad", pdConfirmPre:"Confirmar reserva", pdPreDone:"Reserva registrada", pdAlready:"Reserva ya registrada", pdNoDesc:"Sin descripción disponible.", pdClose:"Cerrar", pdNote:"Nota para nosotros (opcional)" });
+Object.assign(T.de,{ pdOpen:"Produktblatt", pdPreorder:"Vorbestellen", pdPcs:"Stk", pdFamily:"Duftfamilie", pdNotesTop:"Kopfnoten", pdNotesHeart:"Herznoten", pdNotesBase:"Basisnoten", pdFormat:"Format", pdConc:"Konzentration", pdOrigin:"Hergestellt in", pdMoq:"Mindestbestellung", pdMultiple:"Bestellvielfaches", pdStock:"Bestand Hub Turin", pdPreorderOn:"Vorbestellung offen", pdPreorderSub:"Noch nicht auf Lager: Menge jetzt reservieren, wir bestätigen sobald das Los vollständig ist.", pdQty:"Menge", pdConfirmPre:"Vorbestellung bestätigen", pdPreDone:"Vorbestellung erfasst", pdAlready:"Vorbestellung bereits erfasst", pdNoDesc:"Keine Beschreibung verfügbar.", pdClose:"Schließen", pdNote:"Hinweis für uns (optional)" });
+Object.assign(T.zh,{ pdOpen:"产品详情", pdPreorder:"预订", pdPcs:"件", pdFamily:"香调家族", pdNotesTop:"前调", pdNotesHeart:"中调", pdNotesBase:"后调", pdFormat:"规格", pdConc:"浓度", pdOrigin:"产地", pdMoq:"最低起订量", pdMultiple:"订购倍数", pdStock:"都灵仓库库存", pdPreorderOn:"预订已开放", pdPreorderSub:"暂无现货：现在预留数量，整批凑齐后我们立即确认。", pdQty:"数量", pdConfirmPre:"确认预订", pdPreDone:"预订已登记", pdAlready:"已登记预订", pdNoDesc:"暂无描述。", pdClose:"关闭", pdNote:"给我们的备注（选填）" });
+Object.assign(T.en,{ pdTabDesc:"Description", pdTabNotes:"Olfactory notes", pdTabSpecs:"Specifications", pdPyramid:"Fragrance unfolded", pdTop:"Top", pdHeart:"Heart", pdBase:"Base" });
+Object.assign(T.it,{ pdTabDesc:"Descrizione", pdTabNotes:"Note olfattive", pdTabSpecs:"Scheda tecnica", pdPyramid:"La piramide olfattiva", pdTop:"Testa", pdHeart:"Cuore", pdBase:"Fondo" });
+Object.assign(T.fr,{ pdTabDesc:"Description", pdTabNotes:"Notes olfactives", pdTabSpecs:"Fiche technique", pdPyramid:"La pyramide olfactive", pdTop:"Tête", pdHeart:"Cœur", pdBase:"Fond" });
+Object.assign(T.es,{ pdTabDesc:"Descripción", pdTabNotes:"Notas olfativas", pdTabSpecs:"Ficha técnica", pdPyramid:"La pirámide olfativa", pdTop:"Salida", pdHeart:"Corazón", pdBase:"Fondo" });
+Object.assign(T.de,{ pdTabDesc:"Beschreibung", pdTabNotes:"Duftnoten", pdTabSpecs:"Technisches Datenblatt", pdPyramid:"Die Duftpyramide", pdTop:"Kopf", pdHeart:"Herz", pdBase:"Basis" });
+Object.assign(T.zh,{ pdTabDesc:"描述", pdTabNotes:"香调", pdTabSpecs:"技术参数", pdPyramid:"香调金字塔", pdTop:"前调", pdHeart:"中调", pdBase:"后调" });
+Object.assign(T.ar,{ pdTabDesc:"الوصف", pdTabNotes:"النفحات العطرية", pdTabSpecs:"البطاقة الفنية", pdPyramid:"هرم النفحات", pdTop:"المقدمة", pdHeart:"القلب", pdBase:"القاعدة" });
+Object.assign(T.ar,{ pdOpen:"بطاقة المنتج", pdPreorder:"طلب مسبق", pdPcs:"قطعة", pdFamily:"العائلة العطرية", pdNotesTop:"المقدمة", pdNotesHeart:"القلب", pdNotesBase:"القاعدة", pdFormat:"الحجم", pdConc:"التركيز", pdOrigin:"صنع في", pdMoq:"الحد الأدنى للطلب", pdMultiple:"مضاعف الطلب", pdStock:"المخزون في مركز تورينو", pdPreorderOn:"الطلب المسبق مفتوح", pdPreorderSub:"غير متوفر بعد: احجز كميتك الآن ونؤكد فور اكتمال الدفعة.", pdQty:"الكمية", pdConfirmPre:"تأكيد الطلب المسبق", pdPreDone:"تم تسجيل الطلب المسبق", pdAlready:"الطلب المسبق مسجّل بالفعل", pdNoDesc:"لا يوجد وصف.", pdClose:"إغلاق", pdNote:"ملاحظة لنا (اختياري)" });
+
 
 
 
@@ -4235,6 +4251,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange, comeUtente = null }) => 
   const [brandInvoiceView, setBrandInvoiceView] = useState(null);
   const [bShowAddProduct, setBShowAddProduct] = useState(false);
   const [bEditingProduct, setBEditingProduct] = useState(null);
+  const [bSheet, setBSheet] = useState(null);
   const [bDocsProduct, setBDocsProduct] = useState(null);
   const [bDocs, setBDocs] = useState([]);
   const [bDocsBusy, setBDocsBusy] = useState(false);
@@ -5053,6 +5070,7 @@ const BrandDashboard = ({ onLogout, lang, onLangChange, comeUtente = null }) => 
             ))}
           </Modal>
         )}
+        {bSheet && <ProductSheet product={bSheet} onClose={() => setBSheet(null)}/>}
         {bShowAddProduct && (
           <Modal title={bEditingProduct ? t("aprmTitleEdit") : t("aprmTitleNew")} onClose={() => { setBShowAddProduct(false); setBEditingProduct(null); }} onSave={bSaveProduct}>
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
@@ -5397,9 +5415,9 @@ const BrandDashboard = ({ onLogout, lang, onLangChange, comeUtente = null }) => 
                       <tr key={p.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
                         <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{p.sku || "—"}</span></td>
                         <td style={{ padding:"11px 14px", whiteSpace:"nowrap" }}>
-                          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-                            {p.image_url && <img src={p.image_url} alt="" style={{ width:32, height:32, objectFit:"cover", borderRadius:6, flexShrink:0 }} onError={e=>e.target.style.display="none"}/>}
-                            <span style={{ fontSize:13, fontWeight:600, color:C.text }}>{p.name}</span>
+                          <div onClick={() => setBSheet(p)} title={t("pdOpen")} style={{ display:"flex", alignItems:"center", gap:10, cursor:"pointer" }}>
+                            {p.image_url && <img src={p.image_url} alt="" style={{ width:38, height:38, objectFit:"contain", background:"#fff", borderRadius:6, flexShrink:0 }} onError={e=>e.target.style.display="none"}/>}
+                            <span style={{ fontSize:13, fontWeight:600, color:C.text, textDecoration:"underline", textDecorationColor:C.border, textUnderlineOffset:3 }}>{p.name}</span>
                           </div>
                         </td>
                         <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{p.category || "—"}</td>
@@ -6157,6 +6175,30 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
   const [realOrders, setRealOrders] = useState([]);
   const [showCheckout, setShowCheckout] = useState(false);
   const [wishlist, setWishlist] = useState([]);
+  const [detailProduct, setDetailProduct] = useState(null);
+  const [openLaunches, setOpenLaunches] = useState({});
+  const [preQty, setPreQty] = useState(0);
+  const [preNote, setPreNote] = useState("");
+  const [preBusy, setPreBusy] = useState(false);
+  const [myPreorders, setMyPreorders] = useState({});
+  const openSheet = (p) => {
+    setDetailProduct(p);
+    setPreQty(Math.max(p.min_order_qty || 1, p.order_multiple || 1));
+    setPreNote("");
+  };
+  const confirmPreorder = async () => {
+    const l = detailProduct && openLaunches[detailProduct.id];
+    if (!l) return;
+    setPreBusy(true);
+    try {
+      const { data: { user } } = await getUser();
+      const row = { launch_id: l.id, distributor_id: user.id, quantity: parseInt(preQty) || 0,
+                    note: preNote.trim() || null, status: "reserved" };
+      const { error } = await supabase.from("launch_reservations").insert(row);
+      if (!error) setMyPreorders(prev => ({ ...prev, [detailProduct.id]: row }));
+    } catch (e) { console.error(e); }
+    setPreBusy(false);
+  };
   const openDistDocs = async (p) => {
     setDistDocsProduct(p); setDistDocs([]);
     const { data } = await supabase.from("product_documents").select("*").eq("product_id", p.id).order("created_at", { ascending:false });
@@ -6303,6 +6345,23 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
       .eq("is_active", true)
       .order("created_at", { ascending: false })
       .then(({ data }) => setRealProducts(data || []));
+    // Pre-ordini aperti: lancio pubblicato con prenotazioni aperte, indicizzato per prodotto
+    supabase.from("product_launches")
+      .select("id, product_id, title, subtitle, launch_date, reservations_open")
+      .eq("status", "published").eq("reservations_open", true)
+      .then(async ({ data }) => {
+        const m = {};
+        (data || []).forEach(l => { if (l.product_id) m[l.product_id] = l; });
+        setOpenLaunches(m);
+        const { data: { user } } = await getUser();
+        if (!user) return;
+        const { data: rs } = await supabase.from("launch_reservations")
+          .select("launch_id, quantity, status").eq("distributor_id", user.id);
+        const byLaunch = {}; (rs || []).forEach(r => { byLaunch[r.launch_id] = r; });
+        const perProd = {};
+        Object.entries(m).forEach(([pid, l]) => { if (byLaunch[l.id]) perProd[pid] = byLaunch[l.id]; });
+        setMyPreorders(perProd);
+      });
     supabase.from("platform_settings").select("*").eq("id",1).single().then(({ data }) => setPayCoords(data || null));
     // Load real orders
     supabase.from("orders")
@@ -6536,6 +6595,49 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                 ))}
               </Modal>
             )}
+
+            {detailProduct && (() => {
+              const p = detailProduct;
+              const lan = openLaunches[p.id];
+              const stock = p.inventory?.quantity_available || 0;
+              const mult = p.order_multiple || 1;
+              const gia = myPreorders[p.id];
+              const brandName = (dbBrands.find(b => b.id === p.brand_id) || {}).company_name || "";
+              return (
+                <ProductSheet product={p} brandName={brandName} onClose={() => setDetailProduct(null)}>
+                  {stock === 0 && lan && (
+                    <div style={{ marginTop:18, padding:16, borderRadius:12, background:`${C.gold}0A`, border:`1px solid ${C.gold}35` }}>
+                      <div style={{ fontSize:14, fontWeight:800, color:C.goldLight, marginBottom:4 }}>{t("pdPreorderOn")}</div>
+                      <div style={{ fontSize:12.5, color:C.textMuted, lineHeight:1.55, marginBottom:14 }}>{t("pdPreorderSub")}</div>
+                      {gia ? (
+                        <div style={{ padding:"10px 12px", borderRadius:8, background:`${C.green}12`, border:`1px solid ${C.green}40`, color:C.green, fontSize:13, fontWeight:600 }}>
+                          ✓ {t("pdAlready")} — {gia.quantity} {t("pdPcs")}
+                        </div>
+                      ) : (
+                        <>
+                          <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:12, flexWrap:"wrap" }}>
+                            <button onClick={() => setPreQty(q => Math.max(mult, (parseInt(q)||0) - mult))}
+                              style={{ width:36, height:36, borderRadius:8, cursor:"pointer", background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:18 }}>−</button>
+                            <div style={{ minWidth:110, textAlign:"center", fontSize:17, fontWeight:800, color:C.goldLight }}>{preQty} {t("pdPcs")}</div>
+                            <button onClick={() => setPreQty(q => (parseInt(q)||0) + mult)}
+                              style={{ width:36, height:36, borderRadius:8, cursor:"pointer", background:`${C.gold}20`, border:`1px solid ${C.gold}50`, color:C.goldLight, fontSize:18, fontWeight:700 }}>+</button>
+                            <div style={{ fontSize:11, color:C.textDim }}>{t("pdMultiple")}: ×{mult}</div>
+                          </div>
+                          <input type="text" value={preNote} onChange={e => setPreNote(e.target.value)} placeholder={t("pdNote")}
+                            style={{ width:"100%", padding:"9px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", marginBottom:12 }}/>
+                          <button disabled={preBusy || preQty < 1} onClick={confirmPreorder}
+                            style={{ width:"100%", padding:"11px", borderRadius:9, cursor: preBusy ? "wait" : "pointer", fontWeight:800, fontSize:13,
+                              background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, opacity: preBusy ? .6 : 1 }}>
+                            {t("pdConfirmPre")}
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </ProductSheet>
+              );
+            })()}
+
             {visibleProducts.length > 0 && (
               <div style={{ marginBottom:16 }}>
                 <input type="text" value={catSearch} onChange={e => setCatSearch(e.target.value)} placeholder={t("diSearchPh")} style={{ width:"100%", maxWidth:360, padding:"10px 14px", borderRadius:10, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none" }}/>
@@ -6567,14 +6669,17 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                   <div key={p.id} className="nx-card" style={{ background:C.surface, border:`1px solid ${inCart>0?C.gold:C.border}`,
                     borderTop:`2px solid ${inCart>0?C.gold:stock>0?C.green:C.red}`,
                     borderRadius:12, padding:18 }}>
-                    {/* Product image */}
+                    {/* Product image — contain: il flacone non va mai tagliato */}
                     {p.image_url && (
-                      <img src={p.image_url} alt={p.name}
-                        style={{ width:"100%", height:120, objectFit:"cover", borderRadius:8, marginBottom:12 }}
-                        onError={e=>e.target.style.display="none"}/>
+                      <div onClick={() => openSheet(p)} title={t("pdOpen")}
+                        style={{ cursor:"pointer", background:"#fff", borderRadius:8, marginBottom:12, overflow:"hidden" }}>
+                        <img src={p.image_url} alt={p.name}
+                          style={{ width:"100%", height:190, objectFit:"contain", display:"block" }}
+                          onError={e=>{ e.target.style.display="none"; }}/>
+                      </div>
                     )}
                     <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:8 }}>
-                      <div>
+                      <div onClick={() => openSheet(p)} style={{ cursor:"pointer" }}>
                         <div style={{ fontSize:14, fontWeight:700, color:C.text }}>{p.name}</div>
                         <div style={{ fontSize:11, color:C.textMuted, marginTop:2 }}>{p.sku} · {p.category}</div>
                       </div>
@@ -6590,7 +6695,10 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                       {moq > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.blue}10`, color:C.blue, border:`1px solid ${C.blue}25` }}>MOQ: {moq}</span>}
                       {multiple > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.purple}10`, color:"#a855f7", border:`1px solid #a855f740` }}>×{multiple}</span>}
                     </div>
-                    <button onClick={() => toggleWishlist(p.id)} style={{ width:"100%", marginBottom:8, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background: wishlist.includes(p.id)?`${C.red}15`:"transparent", border:`1px solid ${wishlist.includes(p.id)?C.red:C.border}`, color: wishlist.includes(p.id)?C.red:C.textMuted }}>{wishlist.includes(p.id) ? t("ddInWishlist") : t("ddAddWishlist")}</button><button onClick={() => openDistDocs(p)} style={{ width:"100%", marginBottom:12, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.gold}10`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>📎 {t("ckDocsTab")}</button>
+                    <button onClick={() => toggleWishlist(p.id)} style={{ width:"100%", marginBottom:8, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background: wishlist.includes(p.id)?`${C.red}15`:"transparent", border:`1px solid ${wishlist.includes(p.id)?C.red:C.border}`, color: wishlist.includes(p.id)?C.red:C.textMuted }}>{wishlist.includes(p.id) ? t("ddInWishlist") : t("ddAddWishlist")}</button><div style={{ display:"flex", gap:8, marginBottom:12 }}>
+                      <button onClick={() => openSheet(p)} style={{ flex:1, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.gold}10`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>{t("pdOpen")}</button>
+                      <button onClick={() => openDistDocs(p)} style={{ flex:1, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted }}>📎 {t("ckDocsTab")}</button>
+                    </div>
                     {(isManaged && resalePrice(p) == null) ? (
                       <div style={{ padding:"8px", borderRadius:7, textAlign:"center", background:`${C.blue}08`, border:`1px solid ${C.blue}25`, color:C.textMuted, fontSize:12 }}>{t("diNoPrice")}</div>
                     ) : stock > 0 ? (
@@ -6618,6 +6726,11 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                           {inCart > 0 ? `+ Add more` : `Add to cart`}
                         </button>
                       </div>
+                    ) : openLaunches[p.id] ? (
+                      <button onClick={() => openSheet(p)} style={{ width:"100%", padding:"9px 10px", borderRadius:7, cursor:"pointer", fontWeight:700, fontSize:12,
+                        background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>
+                        {t("pdPreorder")} · {multiple} {t("pdPcs")}
+                      </button>
                     ) : (
                       <div style={{ padding:"8px", borderRadius:7, textAlign:"center", background:`${C.red}08`, border:`1px solid ${C.red}20`, color:C.red, fontSize:12 }}>{t("diOutStock")}</div>
                     )}
@@ -7054,6 +7167,137 @@ const Modal = ({ title, onClose, onSave, children, saveLabel="Save" }) => {
   );
 };
 
+/* ---------------------------------------------------------------------------
+   SCHEDA PRODOTTO — una sola, uguale per tutti.
+   Regola di Andrea (12/10/2026): il catalogo si apre e il profumo si guarda,
+   che tu sia distributore, brand o amministratore. Chi la usa passa il prodotto
+   e, se serve, un blocco in fondo (es. il pre-ordine) come children.
+--------------------------------------------------------------------------- */
+const Piramide = ({ top, heart, base, lTop, lHeart, lBase }) => {
+  const tier = (etichetta, note, y) => (
+    <div style={{ display:"flex", gap:12, alignItems:"flex-start", minHeight:62 }}>
+      <div style={{ width:62, flexShrink:0, textAlign:"right", paddingTop:2 }}>
+        <div style={{ fontSize:10.5, fontWeight:800, letterSpacing:".12em", color:C.gold, textTransform:"uppercase" }}>{etichetta}</div>
+      </div>
+      <div style={{ width:1, alignSelf:"stretch", background:C.border }}/>
+      <div style={{ flex:1, fontSize:13, color:C.text, lineHeight:1.5, paddingTop:1 }}>{note || "—"}</div>
+    </div>
+  );
+  return (
+    <div style={{ display:"grid", gridTemplateColumns:"124px 1fr", gap:16, alignItems:"center" }}>
+      <svg viewBox="0 0 120 150" style={{ width:"100%", maxWidth:124 }} aria-hidden="true">
+        <polygon points="60,6 114,144 6,144" fill="none" stroke={C.gold} strokeWidth="1.2" opacity=".75"/>
+        <line x1="25" y1="52" x2="95" y2="52" stroke={C.gold} strokeWidth=".8" opacity=".45"/>
+        <line x1="15" y1="98" x2="105" y2="98" stroke={C.gold} strokeWidth=".8" opacity=".45"/>
+        <circle cx="60" cy="6" r="2.6" fill={C.gold}/>
+        <text x="60" y="38" textAnchor="middle" fontSize="9" fill={C.goldLight} letterSpacing="1.5">{lTop}</text>
+        <text x="60" y="82" textAnchor="middle" fontSize="9" fill={C.goldLight} letterSpacing="1.5">{lHeart}</text>
+        <text x="60" y="128" textAnchor="middle" fontSize="9" fill={C.goldLight} letterSpacing="1.5">{lBase}</text>
+      </svg>
+      <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
+        {tier(lTop, top)}
+        {tier(lHeart, heart)}
+        {tier(lBase, base)}
+      </div>
+    </div>
+  );
+};
+
+const ProductSheet = ({ product, brandName = "", onClose, children }) => {
+  const t = useT();
+  const [tab, setTab] = useState("desc");
+  const p = product || {};
+  const stock = p.inventory?.quantity_available ?? null;
+  const mult = p.order_multiple || 1;
+  const moq = p.min_order_qty || 1;
+  const haNote = !!(p.notes_top || p.notes_heart || p.notes_base || p.olfactory_family);
+  const riga = (k, v) => v ? (
+    <div key={k} style={{ display:"flex", gap:10, padding:"7px 0", borderBottom:`1px solid ${C.border}` }}>
+      <div style={{ width:150, flexShrink:0, fontSize:11, color:C.textDim, textTransform:"uppercase", letterSpacing:".05em", paddingTop:1 }}>{k}</div>
+      <div style={{ flex:1, fontSize:13, color:C.text }}>{v}</div>
+    </div>
+  ) : null;
+  const linguetta = (id, etichetta) => (
+    <button key={id} onClick={() => setTab(id)} style={{
+      background:"none", border:"none", cursor:"pointer", padding:"8px 0", marginRight:22,
+      fontSize:12.5, fontWeight: tab===id ? 800 : 600,
+      color: tab===id ? C.goldLight : C.textMuted,
+      borderBottom: `2px solid ${tab===id ? C.gold : "transparent"}` }}>{etichetta}</button>
+  );
+  return (
+    <Modal title={p.name || ""} onClose={onClose} onSave={onClose} saveLabel={t("pdClose")}>
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(min(260px,100%),1fr))", gap:20 }}>
+        <div>
+          {p.image_url ? (
+            <img src={p.image_url} alt={p.name}
+              style={{ width:"100%", background:"#fff", borderRadius:10, objectFit:"contain", maxHeight:360 }}
+              onError={e=>{ e.target.style.display="none"; }}/>
+          ) : (
+            <div style={{ height:200, borderRadius:10, background:C.surface2, border:`1px dashed ${C.border}`, display:"flex", alignItems:"center", justifyContent:"center", color:C.textDim, fontSize:28 }}>🫙</div>
+          )}
+          {Array.isArray(p.image_urls) && p.image_urls.length > 1 && (
+            <div style={{ display:"flex", gap:6, marginTop:8, flexWrap:"wrap" }}>
+              {p.image_urls.slice(0,6).map((u,i) => (
+                <img key={i} src={u} alt="" style={{ width:54, height:54, objectFit:"contain", background:"#fff", borderRadius:6, border:`1px solid ${C.border}` }}
+                  onError={e=>{ e.target.style.display="none"; }}/>
+              ))}
+            </div>
+          )}
+          <div style={{ marginTop:10, display:"flex", gap:8, flexWrap:"wrap" }}>
+            {brandName && <span style={{ fontSize:11, fontWeight:700, color:C.gold, background:`${C.gold}12`, border:`1px solid ${C.gold}35`, padding:"3px 9px", borderRadius:20 }}>{brandName}</span>}
+            {p.gender && <span style={{ fontSize:11, color:C.textMuted, background:C.surface2, border:`1px solid ${C.border}`, padding:"3px 9px", borderRadius:20 }}>{p.gender}</span>}
+            {p.size && <span style={{ fontSize:11, color:C.textMuted, background:C.surface2, border:`1px solid ${C.border}`, padding:"3px 9px", borderRadius:20 }}>{p.size}</span>}
+            {p.olfactory_family && <span style={{ fontSize:11, color:C.textMuted, background:C.surface2, border:`1px solid ${C.border}`, padding:"3px 9px", borderRadius:20 }}>{p.olfactory_family}</span>}
+          </div>
+        </div>
+
+        <div>
+          <div style={{ fontSize:11, color:C.textDim, fontFamily:"monospace", marginBottom:10 }}>{p.sku}</div>
+          <div style={{ borderBottom:`1px solid ${C.border}`, marginBottom:14, display:"flex", flexWrap:"wrap" }}>
+            {linguetta("desc", t("pdTabDesc"))}
+            {haNote && linguetta("note", t("pdTabNotes"))}
+            {linguetta("spec", t("pdTabSpecs"))}
+          </div>
+
+          {tab === "desc" && (
+            <div style={{ fontSize:13.5, lineHeight:1.65, color:C.text, whiteSpace:"pre-wrap" }}>
+              {p.description || t("pdNoDesc")}
+            </div>
+          )}
+
+          {tab === "note" && haNote && (
+            <div>
+              <div style={{ textAlign:"center", fontFamily:"'Fraunces', Georgia, serif", fontSize:15, color:C.goldLight, marginBottom:14 }}>
+                {t("pdPyramid")}
+              </div>
+              <Piramide top={p.notes_top} heart={p.notes_heart} base={p.notes_base}
+                lTop={t("pdTop")} lHeart={t("pdHeart")} lBase={t("pdBase")}/>
+              {p.olfactory_family && (
+                <div style={{ marginTop:14, fontSize:12, color:C.textMuted, textAlign:"center" }}>
+                  {t("pdFamily")}: <span style={{ color:C.text, fontWeight:600 }}>{p.olfactory_family}</span>
+                </div>
+              )}
+            </div>
+          )}
+
+          {tab === "spec" && (
+            <div>
+              {riga(t("pdConc"), p.concentration)}
+              {riga(t("pdFormat"), p.size)}
+              {riga(t("pdOrigin"), p.origin)}
+              {riga(t("pdMoq"), moq > 1 ? `${moq} ${t("pdPcs")}` : null)}
+              {riga(t("pdMultiple"), mult > 1 ? `×${mult}` : null)}
+              {riga(t("pdStock"), stock !== null ? `${stock} ${t("pdPcs")}` : null)}
+              {riga("SKU", p.sku)}
+            </div>
+          )}
+        </div>
+      </div>
+      {children}
+    </Modal>
+  );
+};
+
 
 /* I documenti sono nello storage: il percorso salvato va reso apribile in un clic. */
 /* Il secchio dei documenti e' privato: per aprirne uno serve un link firmato,
@@ -7132,6 +7376,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
   // Form states
   const [brandForm, setBrandForm] = useState({ name:"", origin:"", category:"", description:"" });
+  const [aSheet, setASheet] = useState(null);
   const [productForm, setProductForm] = useState({
     name:"", sku:"", category:"", size:"", price:"", brand_id:"",
     order_multiple:"", min_order_qty:"", max_order_qty:"", description:"",
@@ -8461,9 +8706,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                       <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted, whiteSpace:"nowrap" }}>{p.profiles?.company_name || "—"}</td>
                       <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{p.sku || "—"}</span></td>
                       <td style={{ padding:"11px 14px", whiteSpace:"nowrap" }}>
-                        <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-                          {p.image_url && <img src={p.image_url} alt="" style={{ width:32, height:32, objectFit:"cover", borderRadius:6, flexShrink:0 }} onError={e=>e.target.style.display="none"}/>}
-                          <span style={{ fontSize:13, fontWeight:600, color:C.text }}>{p.name}</span>
+                        <div onClick={() => setASheet(p)} title={t("pdOpen")} style={{ display:"flex", alignItems:"center", gap:10, cursor:"pointer" }}>
+                          {p.image_url && <img src={p.image_url} alt="" style={{ width:38, height:38, objectFit:"contain", background:"#fff", borderRadius:6, flexShrink:0 }} onError={e=>e.target.style.display="none"}/>}
+                          <span style={{ fontSize:13, fontWeight:600, color:C.text, textDecoration:"underline", textDecorationColor:C.border, textUnderlineOffset:3 }}>{p.name}</span>
                         </div>
                       </td>
                       <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>{p.category || "—"}</td>
@@ -10158,6 +10403,8 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           </div>
         </div>
       )}
+
+      {aSheet && <ProductSheet product={aSheet} brandName={aSheet.profiles?.company_name || ""} onClose={() => setASheet(null)}/>}
 
       {/* Add Brand Modal */}
       {showAddBrand && (
