@@ -1142,6 +1142,34 @@ Object.assign(T.de,{ ddMultiBrandErr:"Dein Warenkorb enthält Produkte verschied
 Object.assign(T.zh,{ ddMultiBrandErr:"你的购物车包含不同品牌的产品。请每次只下单一个品牌。" });
 Object.assign(T.ar,{ ddMultiBrandErr:"تحتوي سلتك على منتجات من علامات مختلفة. يرجى الطلب لعلامة واحدة في كل مرة." });
 
+/* Pre-ordine con acconto del 50% */
+Object.assign(T.en,{ accOra:"Deposit now", accSaldo:"Balance on delivery", accConferma:"Reserve and pay the deposit",
+  accComeFunziona:"The reservation becomes firm when the deposit reaches us. Balance before shipping.",
+  accPaga:"Pay the deposit to confirm", accSu:"of", accCausale:"Payment reference",
+  accNota:"Use that reference in the transfer: it is how we match your payment. As soon as it arrives your quantity is locked at this price." });
+Object.assign(T.it,{ accOra:"Acconto ora", accSaldo:"Saldo alla consegna", accConferma:"Prenota e paga l'acconto",
+  accComeFunziona:"La prenotazione diventa impegnativa quando l'acconto arriva. Il saldo prima della spedizione.",
+  accPaga:"Paga l'acconto per confermare", accSu:"su", accCausale:"Causale",
+  accNota:"Scriva quella causale nel bonifico: è così che riconosciamo il pagamento. Appena arriva, la sua quantità resta bloccata a questo prezzo." });
+Object.assign(T.fr,{ accOra:"Acompte maintenant", accSaldo:"Solde à la livraison", accConferma:"Réserver et payer l'acompte",
+  accComeFunziona:"La réservation devient ferme à réception de l'acompte. Le solde avant expédition.",
+  accPaga:"Payez l'acompte pour confirmer", accSu:"sur", accCausale:"Référence du virement",
+  accNota:"Indiquez cette référence dans le virement : c'est ainsi que nous identifions le paiement. Dès réception, votre quantité est bloquée à ce prix." });
+Object.assign(T.es,{ accOra:"Anticipo ahora", accSaldo:"Resto a la entrega", accConferma:"Reservar y pagar el anticipo",
+  accComeFunziona:"La reserva es firme cuando llega el anticipo. El resto antes del envío.",
+  accPaga:"Paga el anticipo para confirmar", accSu:"de", accCausale:"Concepto",
+  accNota:"Escriba ese concepto en la transferencia: así identificamos el pago. En cuanto llegue, su cantidad queda bloqueada a este precio." });
+Object.assign(T.de,{ accOra:"Anzahlung jetzt", accSaldo:"Rest bei Lieferung", accConferma:"Reservieren und anzahlen",
+  accComeFunziona:"Die Reservierung wird verbindlich, sobald die Anzahlung eingeht. Rest vor Versand.",
+  accPaga:"Anzahlung leisten zur Bestätigung", accSu:"von", accCausale:"Verwendungszweck",
+  accNota:"Bitte diesen Verwendungszweck angeben: nur so ordnen wir die Zahlung zu. Nach Eingang ist Ihre Menge zu diesem Preis gesichert." });
+Object.assign(T.zh,{ accOra:"现付定金", accSaldo:"交货时付清余款", accConferma:"预订并支付定金",
+  accComeFunziona:"收到定金后预订即生效，余款于发货前结清。", accPaga:"支付定金以确认", accSu:"／共", accCausale:"汇款备注",
+  accNota:"请在汇款时填写该备注：我们据此核对款项。款到后即按此价格为您锁定数量。" });
+Object.assign(T.ar,{ accOra:"العربون الآن", accSaldo:"الباقي عند التسليم", accConferma:"احجز وادفع العربون",
+  accComeFunziona:"يصبح الحجز ملزماً عند وصول العربون، والباقي قبل الشحن.", accPaga:"ادفع العربون للتأكيد", accSu:"من", accCausale:"مرجع التحويل",
+  accNota:"اكتب هذا المرجع في التحويل: به نطابق الدفعة. وفور وصولها تُحجز كميتك بهذا السعر." });
+
 /* Esaurito: la lista desideri diventa "avvisami quando arriva" */
 Object.assign(T.en,{ avvisami:"Notify me when it is back", avvisatoOk:"We will tell you first" });
 Object.assign(T.it,{ avvisami:"Avvisami quando arriva", avvisatoOk:"Sarai avvisato per primo" });
@@ -6205,16 +6233,37 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
     setPreQty(Math.max(p.min_order_qty || 1, p.order_multiple || 1));
     setPreNote("");
   };
+  /* Il prezzo del pre-ordine guarda la quantita' PRENOTATA, non il carrello:
+     chi prenota 48 pezzi ha diritto allo scaglione del cartone anche se il
+     carrello e' vuoto. */
+  const ACCONTO_PCT = 50;
+  const prezzoPreordine = (p, qta) => {
+    const base = basePrice(p);
+    const d = discPct(p && p.brand_id);
+    const lista = (tiers[p && p.brand_id] || []).filter(t => qta >= t.min_qty);
+    const s = lista.length ? Number(lista[lista.length - 1].discount_pct || 0) : 0;
+    return Math.round(base * (1 - d/100) * (1 - s/100) * 100) / 100;
+  };
   const confirmPreorder = async () => {
     const l = detailProduct && openLaunches[detailProduct.id];
     if (!l) return;
     setPreBusy(true);
     try {
       const { data: { user } } = await getUser();
-      const row = { launch_id: l.id, distributor_id: user.id, quantity: parseInt(preQty) || 0,
-                    note: preNote.trim() || null, status: "reserved" };
-      const { error } = await supabase.from("launch_reservations").insert(row);
-      if (!error) setMyPreorders(prev => ({ ...prev, [detailProduct.id]: row }));
+      const qta = parseInt(preQty) || 0;
+      const pu = prezzoPreordine(detailProduct, qta);
+      const tot = Math.round(pu * qta * 100) / 100;
+      const acconto = Math.round(tot * ACCONTO_PCT) / 100;
+      const row = { launch_id: l.id, distributor_id: user.id, quantity: qta,
+                    note: preNote.trim() || null, status: "reserved",
+                    unit_price: pu, total_amount: tot, currency: "EUR",
+                    deposit_pct: ACCONTO_PCT, deposit_amount: acconto,
+                    payment_status: "in_attesa", payment_method: "bonifico" };
+      const { data, error } = await supabase.from("launch_reservations").insert(row).select().single();
+      if (!error) {
+        const rif = "CNZ-" + String(data.id).replace(/-/g, "").slice(0, 6).toUpperCase();
+        setMyPreorders(prev => ({ ...prev, [detailProduct.id]: { ...data, rif } }));
+      }
     } catch (e) { console.error(e); }
     setPreBusy(false);
   };
@@ -6411,8 +6460,12 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
         const { data: { user } } = await getUser();
         if (!user) return;
         const { data: rs } = await supabase.from("launch_reservations")
-          .select("launch_id, quantity, status").eq("distributor_id", user.id);
-        const byLaunch = {}; (rs || []).forEach(r => { byLaunch[r.launch_id] = r; });
+          .select("id, launch_id, quantity, status, unit_price, total_amount, deposit_pct, deposit_amount, payment_status")
+          .eq("distributor_id", user.id);
+        const byLaunch = {};
+        (rs || []).forEach(r => {
+          byLaunch[r.launch_id] = { ...r, rif: "CNZ-" + String(r.id).replace(/-/g, "").slice(0, 6).toUpperCase() };
+        });
         const perProd = {};
         Object.entries(m).forEach(([pid, l]) => { if (byLaunch[l.id]) perProd[pid] = byLaunch[l.id]; });
         setMyPreorders(perProd);
@@ -6665,28 +6718,75 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                       <div style={{ fontSize:14, fontWeight:800, color:C.goldLight, marginBottom:4 }}>{t("pdPreorderOn")}</div>
                       <div style={{ fontSize:12.5, color:C.textMuted, lineHeight:1.55, marginBottom:14 }}>{t("pdPreorderSub")}</div>
                       {gia ? (
-                        <div style={{ padding:"10px 12px", borderRadius:8, background:`${C.green}12`, border:`1px solid ${C.green}40`, color:C.green, fontSize:13, fontWeight:600 }}>
-                          ✓ {t("pdAlready")} — {gia.quantity} {t("pdPcs")}
+                        <div>
+                          <div style={{ padding:"10px 12px", borderRadius:8, background:`${C.green}12`, border:`1px solid ${C.green}40`, color:C.green, fontSize:13, fontWeight:700, marginBottom:12 }}>
+                            ✓ {t("pdAlready")} — {gia.quantity} {t("pdPcs")}
+                          </div>
+                          {gia.deposit_amount > 0 && gia.payment_status !== "incassato" && (
+                            <div style={{ padding:14, borderRadius:10, background:C.surface2, border:`1px solid ${C.gold}40` }}>
+                              <div style={{ fontSize:13, fontWeight:800, color:C.goldLight, marginBottom:8 }}>{t("accPaga")}</div>
+                              <div style={{ fontSize:13, color:C.text, marginBottom:10 }}>
+                                <b style={{ fontSize:19, color:C.goldLight }}>€ {Number(gia.deposit_amount).toFixed(2)}</b>
+                                <span style={{ color:C.textMuted, fontSize:12 }}> — {t("accSu")} € {Number(gia.total_amount).toFixed(2)}</span>
+                              </div>
+                              {payCoords && (
+                                <div style={{ fontSize:12.5, color:C.text, lineHeight:1.75 }}>
+                                  <div>{payCoords.bonifico_holder}</div>
+                                  <div style={{ fontFamily:"monospace", color:C.goldLight }}>{payCoords.bonifico_iban}</div>
+                                  <div style={{ color:C.textMuted }}>{payCoords.bonifico_bank}</div>
+                                  <div style={{ marginTop:8 }}>{t("accCausale")}:
+                                    <b style={{ fontFamily:"monospace", color:C.goldLight, marginLeft:6 }}>
+                                      {gia.rif || ("CNZ-" + String(gia.id||"").replace(/-/g,"").slice(0,6).toUpperCase())}
+                                    </b>
+                                  </div>
+                                </div>
+                              )}
+                              <div style={{ fontSize:11.5, color:C.textDim, marginTop:10, lineHeight:1.5 }}>{t("accNota")}</div>
+                            </div>
+                          )}
                         </div>
-                      ) : (
+                      ) : (() => {
+                        const q = parseInt(preQty) || 0;
+                        const pu = prezzoPreordine(p, q);
+                        const tot = Math.round(pu * q * 100) / 100;
+                        const acc = Math.round(tot * ACCONTO_PCT) / 100;
+                        const sc = Math.round((1 - pu / Math.max(basePrice(p), 0.01)) * 100);
+                        return (
                         <>
                           <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:12, flexWrap:"wrap" }}>
-                            <button onClick={() => setPreQty(q => Math.max(mult, (parseInt(q)||0) - mult))}
+                            <button onClick={() => setPreQty(x => Math.max(mult, (parseInt(x)||0) - mult))}
                               style={{ width:36, height:36, borderRadius:8, cursor:"pointer", background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:18 }}>−</button>
                             <div style={{ minWidth:110, textAlign:"center", fontSize:17, fontWeight:800, color:C.goldLight }}>{preQty} {t("pdPcs")}</div>
-                            <button onClick={() => setPreQty(q => (parseInt(q)||0) + mult)}
+                            <button onClick={() => setPreQty(x => (parseInt(x)||0) + mult)}
                               style={{ width:36, height:36, borderRadius:8, cursor:"pointer", background:`${C.gold}20`, border:`1px solid ${C.gold}50`, color:C.goldLight, fontSize:18, fontWeight:700 }}>+</button>
                             <div style={{ fontSize:11, color:C.textDim }}>{t("pdMultiple")}: ×{mult}</div>
                           </div>
+
+                          <div style={{ background:C.surface2, border:`1px solid ${C.border}`, borderRadius:10, padding:"12px 14px", marginBottom:12 }}>
+                            <div style={{ display:"flex", justifyContent:"space-between", fontSize:12.5, color:C.textMuted, marginBottom:5 }}>
+                              <span>{q} × € {pu.toFixed(2)}{sc > 0 ? ` (−${sc}%)` : ""}</span>
+                              <span style={{ color:C.text }}>€ {tot.toFixed(2)}</span>
+                            </div>
+                            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", paddingTop:7, borderTop:`1px solid ${C.border}` }}>
+                              <span style={{ fontSize:13, fontWeight:700, color:C.goldLight }}>{t("accOra")} {ACCONTO_PCT}%</span>
+                              <span style={{ fontSize:20, fontWeight:800, color:C.goldLight }}>€ {acc.toFixed(2)}</span>
+                            </div>
+                            <div style={{ display:"flex", justifyContent:"space-between", fontSize:11.5, color:C.textDim, marginTop:3 }}>
+                              <span>{t("accSaldo")}</span><span>€ {(tot - acc).toFixed(2)}</span>
+                            </div>
+                          </div>
+
                           <input type="text" value={preNote} onChange={e => setPreNote(e.target.value)} placeholder={t("pdNote")}
                             style={{ width:"100%", padding:"9px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", marginBottom:12 }}/>
-                          <button disabled={preBusy || preQty < 1} onClick={confirmPreorder}
-                            style={{ width:"100%", padding:"11px", borderRadius:9, cursor: preBusy ? "wait" : "pointer", fontWeight:800, fontSize:13,
+                          <button disabled={preBusy || q < 1} onClick={confirmPreorder}
+                            style={{ width:"100%", padding:"12px", borderRadius:9, cursor: preBusy ? "wait" : "pointer", fontWeight:800, fontSize:13.5,
                               background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, opacity: preBusy ? .6 : 1 }}>
-                            {t("pdConfirmPre")}
+                            {t("accConferma")}
                           </button>
+                          <div style={{ fontSize:11, color:C.textDim, marginTop:8, textAlign:"center" }}>{t("accComeFunziona")}</div>
                         </>
-                      )}
+                        );
+                      })()}
                     </div>
                   )}
                 </ProductSheet>
