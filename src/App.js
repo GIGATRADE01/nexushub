@@ -1142,6 +1142,15 @@ Object.assign(T.de,{ ddMultiBrandErr:"Dein Warenkorb enthält Produkte verschied
 Object.assign(T.zh,{ ddMultiBrandErr:"你的购物车包含不同品牌的产品。请每次只下单一个品牌。" });
 Object.assign(T.ar,{ ddMultiBrandErr:"تحتوي سلتك على منتجات من علامات مختلفة. يرجى الطلب لعلامة واحدة في كل مرة." });
 
+/* Esaurito: la lista desideri diventa "avvisami quando arriva" */
+Object.assign(T.en,{ avvisami:"Notify me when it is back", avvisatoOk:"We will tell you first" });
+Object.assign(T.it,{ avvisami:"Avvisami quando arriva", avvisatoOk:"Sarai avvisato per primo" });
+Object.assign(T.fr,{ avvisami:"Prévenez-moi dès son retour", avvisatoOk:"Vous serez prévenu en premier" });
+Object.assign(T.es,{ avvisami:"Avisadme cuando vuelva", avvisatoOk:"Serás el primero en saberlo" });
+Object.assign(T.de,{ avvisami:"Benachrichtigen, sobald wieder da", avvisatoOk:"Sie erfahren es zuerst" });
+Object.assign(T.zh,{ avvisami:"到货后通知我", avvisatoOk:"我们会第一时间通知您" });
+Object.assign(T.ar,{ avvisami:"أبلغوني عند توفره", avvisatoOk:"ستكون أول من يعلم" });
+
 /* Scaglioni per quantita' */
 Object.assign(T.en,{ scTitle:"Volume pricing: the discount applies to the total pieces of this brand, mixed references welcome.", scApplied:"applied to your basket", scNext:"{n} more pieces and you reach −{d}%." });
 Object.assign(T.it,{ scTitle:"Sconti a quantità: valgono sul totale pezzi di questo brand, anche misti fra referenze.", scApplied:"applicato al tuo ordine", scNext:"Ancora {n} pezzi e arrivi a −{d}%." });
@@ -6766,7 +6775,26 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                       {moq > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.blue}10`, color:C.blue, border:`1px solid ${C.blue}25` }}>MOQ: {moq}</span>}
                       {multiple > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.purple}10`, color:"#a855f7", border:`1px solid #a855f740` }}>×{multiple}</span>}
                     </div>
-                    <button onClick={() => toggleWishlist(p.id)} style={{ width:"100%", marginBottom:8, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background: wishlist.includes(p.id)?`${C.red}15`:"transparent", border:`1px solid ${wishlist.includes(p.id)?C.red:C.border}`, color: wishlist.includes(p.id)?C.red:C.textMuted }}>{wishlist.includes(p.id) ? t("ddInWishlist") : t("ddAddWishlist")}</button><div style={{ display:"flex", gap:8, marginBottom:12 }}>
+                    {(() => {
+                      /* Su un prodotto esaurito e senza pre-ordine la lista desideri
+                         non e' un vezzo: e' la lista di chi vuole quella referenza,
+                         e il giorno che rientra si scrive a loro per primi. */
+                      const esaurito = stock === 0 && !openLaunches[p.id];
+                      const dentro = wishlist.includes(p.id);
+                      const col = esaurito ? (dentro ? C.green : C.gold) : (dentro ? C.red : C.border);
+                      return (
+                        <button onClick={() => toggleWishlist(p.id)} style={{ width:"100%", marginBottom:8,
+                          padding:"8px 10px", borderRadius:7, cursor:"pointer", fontSize:11.5,
+                          fontWeight: esaurito ? 700 : 600,
+                          background: dentro ? `${col}15` : (esaurito ? `${C.gold}12` : "transparent"),
+                          border:`1px solid ${dentro ? col : (esaurito ? `${C.gold}45` : C.border)}`,
+                          color: dentro ? col : (esaurito ? C.goldLight : C.textMuted) }}>
+                          {esaurito
+                            ? (dentro ? `✓ ${t("avvisatoOk")}` : t("avvisami"))
+                            : (dentro ? t("ddInWishlist") : t("ddAddWishlist"))}
+                        </button>
+                      );
+                    })()}<div style={{ display:"flex", gap:8, marginBottom:12 }}>
                       <button onClick={() => openSheet(p)} style={{ flex:1, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.gold}10`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>{t("pdOpen")}</button>
                       <button onClick={() => openDistDocs(p)} style={{ flex:1, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted }}>📎 {t("ckDocsTab")}</button>
                     </div>
