@@ -6733,7 +6733,17 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                                 <div style={{ fontSize:12.5, color:C.text, lineHeight:1.75 }}>
                                   <div>{payCoords.bonifico_holder}</div>
                                   <div style={{ fontFamily:"monospace", color:C.goldLight }}>{payCoords.bonifico_iban}</div>
+                                  {/* Il BIC non e' un di piu': senza, un bonifico da Albania, Kosovo,
+                                      Macedonia, Serbia, Bosnia, UK, Norvegia o Svizzera non parte. */}
+                                  {payCoords.bonifico_bic && (
+                                    <div style={{ color:C.textMuted }}>BIC/SWIFT <span style={{ fontFamily:"monospace", color:C.text }}>{payCoords.bonifico_bic}</span></div>
+                                  )}
                                   <div style={{ color:C.textMuted }}>{payCoords.bonifico_bank}</div>
+                                  {payCoords.company_address && (
+                                    <div style={{ color:C.textDim, fontSize:11.5 }}>
+                                      {payCoords.company_address}, {payCoords.company_zip} {payCoords.company_city} — {payCoords.company_country || "Italia"}
+                                    </div>
+                                  )}
                                   <div style={{ marginTop:8 }}>{t("accCausale")}:
                                     <b style={{ fontFamily:"monospace", color:C.goldLight, marginLeft:6 }}>
                                       {gia.rif || ("CNZ-" + String(gia.id||"").replace(/-/g,"").slice(0,6).toUpperCase())}
