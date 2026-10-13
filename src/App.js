@@ -1142,6 +1142,36 @@ Object.assign(T.de,{ ddMultiBrandErr:"Dein Warenkorb enthält Produkte verschied
 Object.assign(T.zh,{ ddMultiBrandErr:"你的购物车包含不同品牌的产品。请每次只下单一个品牌。" });
 Object.assign(T.ar,{ ddMultiBrandErr:"تحتوي سلتك على منتجات من علامات مختلفة. يرجى الطلب لعلامة واحدة في كل مرة." });
 
+/* Quanto ci guadagna chi compra */
+Object.assign(T.en,{ gdTab:"Your margin", gdPaghi:"You pay", gdPubblico:"Suggested retail, VAT incl.",
+  gdSeVendi:"If you sell at retail you make", gdRivendiNegozio:"Reselling to shops at", gdIlNegozio:"The shop then makes",
+  gdNotaIva:"Margins are calculated net of 22% Italian VAT. The retail price is a suggestion, not an imposition — you set your own.",
+  gdOrigine:"The brand's own retail price in its home market", gdNonDisp:"No suggested retail price for this reference yet." });
+Object.assign(T.it,{ gdTab:"Quanto ci guadagni", gdPaghi:"Lo paghi", gdPubblico:"Prezzo consigliato al pubblico, IVA inclusa",
+  gdSeVendi:"Vendendolo al pubblico guadagni", gdRivendiNegozio:"Rivendendolo ai negozi a", gdIlNegozio:"Il negozio poi guadagna",
+  gdNotaIva:"I margini sono calcolati al netto dell'IVA italiana al 22%. Il prezzo al pubblico è un consiglio, non un obbligo: lo decidete voi.",
+  gdOrigine:"Prezzo che il brand pratica nel suo paese", gdNonDisp:"Per questa referenza non c'è ancora un prezzo consigliato." });
+Object.assign(T.fr,{ gdTab:"Votre marge", gdPaghi:"Vous payez", gdPubblico:"Prix public conseillé, TVA comprise",
+  gdSeVendi:"En vendant au public vous gagnez", gdRivendiNegozio:"En revendant aux boutiques à", gdIlNegozio:"La boutique gagne ensuite",
+  gdNotaIva:"Marges calculées hors TVA italienne 22%. Le prix public est un conseil, pas une obligation : vous le fixez.",
+  gdOrigine:"Prix public pratiqué par la marque dans son pays", gdNonDisp:"Pas encore de prix public conseillé pour cette référence." });
+Object.assign(T.es,{ gdTab:"Cuánto ganas", gdPaghi:"Lo pagas", gdPubblico:"Precio recomendado al público, IVA incluido",
+  gdSeVendi:"Vendiéndolo al público ganas", gdRivendiNegozio:"Revendiéndolo a tiendas a", gdIlNegozio:"La tienda gana después",
+  gdNotaIva:"Márgenes calculados sin el IVA italiano del 22%. El precio al público es una recomendación, no una imposición: lo decidís vosotros.",
+  gdOrigine:"Precio que la marca practica en su país", gdNonDisp:"Aún no hay precio recomendado para esta referencia." });
+Object.assign(T.de,{ gdTab:"Ihre Marge", gdPaghi:"Sie zahlen", gdPubblico:"Empfohlener Endpreis, inkl. MwSt.",
+  gdSeVendi:"Im Verkauf an Endkunden verdienen Sie", gdRivendiNegozio:"Im Weiterverkauf an Läden zu", gdIlNegozio:"Der Laden verdient dann",
+  gdNotaIva:"Margen ohne 22% italienische MwSt. gerechnet. Der Endpreis ist eine Empfehlung, keine Vorgabe — Sie bestimmen ihn.",
+  gdOrigine:"Endpreis der Marke im Heimatmarkt", gdNonDisp:"Für diese Referenz gibt es noch keinen empfohlenen Endpreis." });
+Object.assign(T.zh,{ gdTab:"您的利润", gdPaghi:"您的进价", gdPubblico:"建议零售价（含税）",
+  gdSeVendi:"零售可赚", gdRivendiNegozio:"批发给门店价", gdIlNegozio:"门店再赚",
+  gdNotaIva:"利润按扣除意大利 22% 增值税后计算。零售价为建议价，非强制，由您决定。",
+  gdOrigine:"该品牌在本国的零售价", gdNonDisp:"此货号暂无建议零售价。" });
+Object.assign(T.ar,{ gdTab:"ربحك", gdPaghi:"سعرك", gdPubblico:"السعر المقترح للجمهور، شامل الضريبة",
+  gdSeVendi:"بالبيع للجمهور تربح", gdRivendiNegozio:"بإعادة البيع للمتاجر بسعر", gdIlNegozio:"ثم يربح المتجر",
+  gdNotaIva:"الهوامش محسوبة بعد خصم ضريبة القيمة المضافة الإيطالية 22%. السعر المقترح توصية لا إلزام: القرار لكم.",
+  gdOrigine:"سعر العلامة في بلدها", gdNonDisp:"لا يوجد بعد سعر مقترح لهذا الصنف." });
+
 /* Pre-ordine con acconto del 50% */
 Object.assign(T.en,{ accOra:"Deposit now", accSaldo:"Balance on delivery", accConferma:"Reserve and pay the deposit",
   accComeFunziona:"The reservation becomes firm when the deposit reaches us. Balance before shipping.",
@@ -6712,7 +6742,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
               const gia = myPreorders[p.id];
               const brandName = (dbBrands.find(b => b.id === p.brand_id) || {}).company_name || "";
               return (
-                <ProductSheet product={p} brandName={brandName} onClose={() => setDetailProduct(null)}>
+                <ProductSheet product={p} brandName={brandName} prezzoPagato={effPrice(p)} onClose={() => setDetailProduct(null)}>
                   {stock === 0 && lan && (
                     <div style={{ marginTop:18, padding:16, borderRadius:12, background:`${C.gold}0A`, border:`1px solid ${C.gold}35` }}>
                       <div style={{ fontSize:14, fontWeight:800, color:C.goldLight, marginBottom:4 }}>{t("pdPreorderOn")}</div>
@@ -7419,11 +7449,15 @@ const Piramide = ({ top, heart, base, lTop, lHeart, lBase }) => {
   );
 };
 
-const ProductSheet = ({ product, brandName = "", onClose, children }) => {
+const ProductSheet = ({ product, brandName = "", onClose, children, prezzoPagato = null }) => {
   const t = useT();
   const [tab, setTab] = useState("desc");
   const [idx, setIdx] = useState(0);
   const p = product || {};
+  /* Quanto paga CHI STA GUARDANDO: un distributore ha il suo sconto di conto,
+     un negozio paga il listino. Se non ce lo dicono, vale il listino. */
+  const prezzoMostrato = prezzoPagato != null ? Number(prezzoPagato) : Number(p.unit_price || 0);
+  const haGuadagno = Number(p.suggested_retail || 0) > 0;
   /* Tutte le foto del prodotto, senza doppioni: la copertina piu' le altre. */
   const galleria = [...new Set([p.image_url, ...(Array.isArray(p.image_urls) ? p.image_urls : [])].filter(Boolean))];
   const fotoGrande = galleria[idx] || galleria[0] || null;
@@ -7491,6 +7525,7 @@ const ProductSheet = ({ product, brandName = "", onClose, children }) => {
           <div style={{ borderBottom:`1px solid ${C.border}`, marginBottom:14, display:"flex", flexWrap:"wrap" }}>
             {linguetta("desc", t("pdTabDesc"))}
             {haNote && linguetta("note", t("pdTabNotes"))}
+            {haGuadagno && linguetta("guadagno", t("gdTab"))}
             {linguetta("spec", t("pdTabSpecs"))}
           </div>
 
@@ -7514,6 +7549,65 @@ const ProductSheet = ({ product, brandName = "", onClose, children }) => {
               )}
             </div>
           )}
+
+          {tab === "guadagno" && (() => {
+            /* Il compratore non vuole sapere quanto costa: vuole sapere quanto ci
+               guadagna. E se e' un distributore, prima di tutto quanto ci guadagna
+               rivendendo ai negozi - che e' il suo mestiere, non la vendita al
+               pubblico. Quindi si mostrano tutti e due i gradini. */
+            const mio = prezzoMostrato;
+            const pub = Number(p.suggested_retail || 0);
+            const netto = pub / 1.22;
+            const alNegozio = Number(p.unit_price || 0);
+            const margNeg = netto > 0 ? netto - alNegozio : 0;
+            const sonoDistrib = mio < alNegozio - 0.01;
+            const margRiv = alNegozio - mio;
+            const barra = (etichetta, valore, pct, colore) => (
+              <div style={{ marginBottom:12 }}>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", marginBottom:4 }}>
+                  <span style={{ fontSize:12.5, color:C.textMuted }}>{etichetta}</span>
+                  <span style={{ fontSize:16, fontWeight:800, color:colore }}>€ {valore.toFixed(2)}
+                    <span style={{ fontSize:11.5, fontWeight:600, color:C.textDim, marginLeft:6 }}>{pct}</span></span>
+                </div>
+              </div>
+            );
+            return (
+              <div>
+                {pub > 0 ? (
+                  <>
+                    <div style={{ background:C.surface2, border:`1px solid ${C.border}`, borderRadius:10, padding:"13px 15px", marginBottom:14 }}>
+                      <div style={{ display:"flex", justifyContent:"space-between", fontSize:12.5, color:C.textMuted, marginBottom:6 }}>
+                        <span>{t("gdPaghi")}</span><span style={{ color:C.text, fontWeight:700 }}>€ {mio.toFixed(2)}</span>
+                      </div>
+                      <div style={{ display:"flex", justifyContent:"space-between", fontSize:12.5, color:C.textMuted }}>
+                        <span>{t("gdPubblico")}</span><span style={{ color:C.goldLight, fontWeight:700 }}>€ {pub.toFixed(2)}</span>
+                      </div>
+                    </div>
+
+                    {sonoDistrib && margRiv > 0 && barra(t("gdRivendiNegozio") + " (€ " + alNegozio.toFixed(2) + ")",
+                      margRiv, "+" + Math.round(100 * margRiv / alNegozio) + "%", C.goldLight)}
+
+                    {barra(sonoDistrib ? t("gdIlNegozio") : t("gdSeVendi"),
+                      sonoDistrib ? margNeg : netto - mio,
+                      "+" + Math.round(100 * (sonoDistrib ? margNeg / netto : (netto - mio) / netto)) + "%",
+                      sonoDistrib ? C.textMuted : C.green)}
+
+                    <div style={{ fontSize:11.5, color:C.textDim, lineHeight:1.6, marginTop:4, paddingTop:10, borderTop:`1px solid ${C.border}` }}>
+                      {t("gdNotaIva")}
+                      {p.rrp_origin > 0 && (
+                        <div style={{ marginTop:6 }}>
+                          {t("gdOrigine")}: <b style={{ color:C.textMuted }}>{p.rrp_origin} {p.rrp_origin_ccy}</b>
+                          {" ≈ € " + (Number(p.rrp_origin) * 0.24311).toFixed(2)}
+                        </div>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <div style={{ fontSize:13, color:C.textMuted }}>{t("gdNonDisp")}</div>
+                )}
+              </div>
+            );
+          })()}
 
           {tab === "spec" && (
             <div>
