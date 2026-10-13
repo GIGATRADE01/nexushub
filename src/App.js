@@ -1142,6 +1142,15 @@ Object.assign(T.de,{ ddMultiBrandErr:"Dein Warenkorb enthält Produkte verschied
 Object.assign(T.zh,{ ddMultiBrandErr:"你的购物车包含不同品牌的产品。请每次只下单一个品牌。" });
 Object.assign(T.ar,{ ddMultiBrandErr:"تحتوي سلتك على منتجات من علامات مختلفة. يرجى الطلب لعلامة واحدة في كل مرة." });
 
+/* Scaglioni per quantita' */
+Object.assign(T.en,{ scTitle:"Volume pricing: the discount applies to the total pieces of this brand, mixed references welcome.", scApplied:"applied to your basket", scNext:"{n} more pieces and you reach −{d}%." });
+Object.assign(T.it,{ scTitle:"Sconti a quantità: valgono sul totale pezzi di questo brand, anche misti fra referenze.", scApplied:"applicato al tuo ordine", scNext:"Ancora {n} pezzi e arrivi a −{d}%." });
+Object.assign(T.fr,{ scTitle:"Remises sur quantité : calculées sur le total de pièces de cette marque, références mélangées acceptées.", scApplied:"appliquée à votre commande", scNext:"Encore {n} pièces et vous atteignez −{d}%." });
+Object.assign(T.es,{ scTitle:"Descuentos por cantidad: se calculan sobre el total de piezas de esta marca, referencias mezcladas incluidas.", scApplied:"aplicado a tu pedido", scNext:"Faltan {n} piezas para llegar al −{d}%." });
+Object.assign(T.de,{ scTitle:"Mengenrabatte: gelten für die Gesamtstückzahl dieser Marke, gemischte Referenzen möglich.", scApplied:"auf Ihre Bestellung angewendet", scNext:"Noch {n} Stück und Sie erreichen −{d}%." });
+Object.assign(T.zh,{ scTitle:"数量折扣：按该品牌的总件数计算，可混合不同货号。", scApplied:"已应用于您的订单", scNext:"再加 {n} 件即可享受 −{d}%。" });
+Object.assign(T.ar,{ scTitle:"خصومات الكمية: تُحتسب على إجمالي القطع لهذه العلامة، ويمكن خلط الأصناف.", scApplied:"مطبّق على طلبك", scNext:"{n} قطعة إضافية وتصل إلى −{d}%." });
+
 /* Scheda prodotto + pre-ordine */
 Object.assign(T.en,{ pdOpen:"Product sheet", pdPreorder:"Pre-order", pdPcs:"pcs", pdFamily:"Olfactory family", pdNotesTop:"Top notes", pdNotesHeart:"Heart notes", pdNotesBase:"Base notes", pdFormat:"Format", pdConc:"Concentration", pdOrigin:"Made in", pdMoq:"Minimum order", pdMultiple:"Order multiple", pdStock:"Stock in Turin hub", pdPreorderOn:"Pre-order open", pdPreorderSub:"Not in stock yet: reserve your quantity now and we confirm as soon as the lot is complete.", pdQty:"Quantity", pdConfirmPre:"Confirm pre-order", pdPreDone:"Pre-order registered", pdAlready:"Pre-order already registered", pdNoDesc:"No description available.", pdClose:"Close", pdNote:"Note for us (optional)" });
 Object.assign(T.it,{ pdOpen:"Scheda prodotto", pdPreorder:"Pre-ordina", pdPcs:"pz", pdFamily:"Famiglia olfattiva", pdNotesTop:"Note di testa", pdNotesHeart:"Note di cuore", pdNotesBase:"Note di fondo", pdFormat:"Formato", pdConc:"Concentrazione", pdOrigin:"Prodotto in", pdMoq:"Ordine minimo", pdMultiple:"Multiplo d'ordine", pdStock:"Stock hub di Torino", pdPreorderOn:"Pre-ordine aperto", pdPreorderSub:"Non ancora a stock: prenota ora la tua quantità, confermiamo appena il lotto è completo.", pdQty:"Quantità", pdConfirmPre:"Conferma pre-ordine", pdPreDone:"Pre-ordine registrato", pdAlready:"Pre-ordine già registrato", pdNoDesc:"Nessuna descrizione disponibile.", pdClose:"Chiudi", pdNote:"Nota per noi (facoltativa)" });
@@ -6162,6 +6171,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
   const [territoryCoverage, setTerritoryCoverage] = useState({});
   const [brandDiscounts, setBrandDiscounts] = useState({});
   const [realProducts, setRealProducts] = useState([]);
+  const [tiers, setTiers] = useState({});
   const [catSearch, setCatSearch] = useState("");
   const [bonificoInfo, setBonificoInfo] = useState(null);
   const [payCoords, setPayCoords] = useState(null);
@@ -6240,10 +6250,37 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
   const approvedBrandIds = Object.keys(accessRequests).filter(id => accessRequests[id] === "approved");
   const visibleProducts = realProducts.filter(p => approvedBrandIds.includes(p.brand_id));
   const discPct = (brandId) => Number(brandDiscounts[brandId] || 0);
+  /* Scaglioni per quantita': lo sconto guarda il TOTALE pezzi di quel brand nel
+     carrello, anche misti fra referenze diverse. Si compone con lo sconto di
+     conto (non si somma): 20% + 15% fa 32%, non 35%. */
+  const pezziBrand = (brandId) => Object.entries(cart).reduce((s,[pid,q]) => {
+    const it = realProducts.find(x => x.id === pid);
+    return s + (it && it.brand_id === brandId ? (q || 0) : 0);
+  }, 0);
+  const scaglione = (brandId, qta) => {
+    const lista = (tiers[brandId] || []).filter(t => qta >= t.min_qty);
+    return lista.length ? lista[lista.length - 1] : null;
+  };
+  const scaglionePct = (brandId) => {
+    const s = scaglione(brandId, pezziBrand(brandId));
+    return s ? Number(s.discount_pct || 0) : 0;
+  };
+  const prossimoScaglione = (brandId) => {
+    const qta = pezziBrand(brandId);
+    const su = (tiers[brandId] || []).filter(t => qta < t.min_qty);
+    return su.length ? { ...su[0], mancano: su[0].min_qty - qta } : null;
+  };
   const basePrice = (p) => { const cp = p && countryPrices[p.id]; return cp != null ? Number(cp) : Number((p && p.unit_price) || 0); };
   const isManaged = currentUser?.account_type === "chain" || currentUser?.account_type === "ecommerce";
   const resalePrice = (p) => { const rp = p && resalePrices[p.id]; return rp != null ? Number(rp) : null; };
-  const effPrice = (p) => { if (isManaged) { const rp = resalePrice(p); return rp != null ? rp : 0; } const base = basePrice(p); const d = discPct(p && p.brand_id); return d > 0 ? Math.round(base * (1 - d/100) * 100) / 100 : base; };
+  const effPrice = (p) => {
+    if (isManaged) { const rp = resalePrice(p); return rp != null ? rp : 0; }
+    const base = basePrice(p);
+    const d = discPct(p && p.brand_id);
+    const s = scaglionePct(p && p.brand_id);
+    const finale = base * (1 - d/100) * (1 - s/100);
+    return Math.round(finale * 100) / 100;
+  };
   const [distNotifs, setDistNotifs] = useState([]);
   const [distNotifPanel, setDistNotifPanel] = useState(false);
   const distUnread = distNotifs.filter(n => !n.read).length;
@@ -6345,6 +6382,15 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
       .eq("is_active", true)
       .order("created_at", { ascending: false })
       .then(({ data }) => setRealProducts(data || []));
+    // Scaglioni per quantita', raggruppati per brand e ordinati dal piu' basso
+    supabase.from("brand_quantity_tiers")
+      .select("brand_id, min_qty, discount_pct, label")
+      .order("min_qty", { ascending: true })
+      .then(({ data }) => {
+        const m = {};
+        (data || []).forEach(t => { (m[t.brand_id] = m[t.brand_id] || []).push(t); });
+        setTiers(m);
+      });
     // Pre-ordini aperti: lancio pubblicato con prenotazioni aperte, indicizzato per prodotto
     supabase.from("product_launches")
       .select("id, product_id, title, subtitle, launch_date, reservations_open")
@@ -6659,6 +6705,31 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                   <span style={{ fontSize:16, fontWeight:700, color:C.gold, fontFamily:"'Fraunces', Georgia, serif" }}>{bLabel}</span>
                   <span style={{ fontSize:11, color:C.textMuted, background:C.surface2, padding:"2px 8px", borderRadius:20 }}>{bprods.length} {t("diProducts")}</span>
                 </div>
+                {(tiers[bid] || []).length > 0 && (() => {
+                  const qta = pezziBrand(bid);
+                  const att = scaglione(bid, qta);
+                  const pros = prossimoScaglione(bid);
+                  return (
+                    <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:10, marginBottom:14,
+                      padding:"9px 13px", borderRadius:10, background:`${C.gold}0A`, border:`1px solid ${C.gold}30` }}>
+                      {att ? (
+                        <span style={{ fontSize:12, fontWeight:800, color:C.goldLight }}>
+                          ✓ {att.label} · −{att.discount_pct}% {t("scApplied")}
+                        </span>
+                      ) : (
+                        <span style={{ fontSize:12, color:C.textMuted }}>{t("scTitle")}</span>
+                      )}
+                      {pros && (
+                        <span style={{ fontSize:12, color:C.text }}>
+                          {t("scNext").replace("{n}", pros.mancano).replace("{d}", pros.discount_pct)}
+                        </span>
+                      )}
+                      <span style={{ fontSize:11, color:C.textDim, marginLeft:"auto" }}>
+                        {(tiers[bid] || []).map(x => `${x.min_qty}+ → −${x.discount_pct}%`).join("  ·  ")}
+                      </span>
+                    </div>
+                  );
+                })()}
                 <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(min(280px,100%), 1fr))", gap:14 }}>
                   {bprods.map(p => {
                 const stock = p.inventory?.quantity_available || 0;
