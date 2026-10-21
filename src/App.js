@@ -9206,7 +9206,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     try {
       const { data } = await supabase.from("orders")
         .select("*, order_items(*), profiles!orders_distributor_id_fkey(company_name), brand:profiles!orders_brand_id_fkey(company_name)")
-        .order("created_at", { ascending: false }).limit(50);
+        .order("created_at", { ascending: false }).limit(400);
       setOrders(data || []);
     } catch(e) { console.error(e); }
   };
@@ -9396,7 +9396,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "logistics") { loadProducts(); loadOrders(); }
     if (tab === "retail") { loadRetail(); loadBrands(); }
     if (tab === "compliance") { loadCompliance(); loadUsers(); }
-    if (tab === "margini") loadMargins();
+    if (tab === "margini") { loadMargins(); caricaConti(); }
     if (tab === "amazon") { loadAmazon(); loadBrands(); loadProducts(); }
     if (tab === "invoices") loadInvoices();
     if (tab === "contracts") { loadContracts(); loadBrands(); loadUsers(); }
@@ -9405,6 +9405,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "finanze") { loadOrders(); loadInvoices(); loadPaySplits(); }
     if (tab === "audit") loadAudit();
     if (tab === "issues") loadOrderIssues();
+    // i caricatori sono funzioni del componente: metterli fra le dipendenze
+    // rilancerebbe l'effetto a ogni disegno
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab]);
 
   // Approve / Reject user
@@ -9613,25 +9616,101 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
   // Update order status
   const [trackEdits, setTrackEdits] = useState({});
+  /* Contabilita', righe d'ordine aperte in logistica, e il lavoro in corso
+     (quale ordine sto spedendo o fatturando). */
+  const [conti, setConti] = useState([]);
+  const [contiMarchi, setContiMarchi] = useState([]);
+  const [contiMese, setContiMese] = useState(() => new Date().toISOString().slice(0, 7));
+  const [righeAperte, setRigheAperte] = useState({});
+  const [inCorso, setInCorso] = useState("");
+  /* Una sola porta per i documenti che escono verso il cliente: spedizione e
+     fattura. Il token dell'admin viaggia con la richiesta, il server lo
+     controlla e fa tutto lui. */
+  const chiamaDocumenti = async (corpo) => {
+    const { data: sess } = await supabase.auth.getSession();
+    const tok = sess?.session?.access_token;
+    if (!tok) throw new Error("sessione scaduta");
+    const r = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/documenti-cliente`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: process.env.REACT_APP_SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${tok}`,
+      },
+      body: JSON.stringify(corpo),
+    });
+    const e = await r.json().catch(() => ({}));
+    if (!r.ok || !e.ok) throw new Error(e.dettaglio || e.errore || "errore");
+    return e;
+  };
+
   const saveTracking = async (o) => {
     const e = trackEdits[o.id] || {};
     const courier = (e.courier || "").trim();
     const tracking = (e.tracking_number || "").trim();
     if (!tracking) { notify(t("auiEnterTracking"), "error"); return; }
-    const url = courier.toUpperCase().includes("BRT")
-      ? "https://vas.brt.it/vas/sped_numspe_par.htm?Nspediz=" + encodeURIComponent(tracking)
-      : "";
-    const newStatus = (o.status === "pending" || o.status === "confirmed") ? "shipped" : o.status;
-    await supabase.from("orders").update({
-      courier: courier || null,
-      tracking_number: tracking,
-      tracking_url: url || null,
-      shipped_at: o.shipped_at || new Date().toISOString(),
-      status: newStatus
-    }).eq("id", o.id);
-    notify(t("auiTrackingSaved"));
-    setTrackEdits(prev => { const n = { ...prev }; delete n[o.id]; return n; });
-    loadOrders();
+    if (!courier) { notify("Scrivi il corriere (BRT, DHL, UPS, GLS…)", "error"); return; }
+    setInCorso(o.id);
+    try {
+      /* Il server salva il tracking, costruisce il link del corriere e manda
+         l'email: il cliente lo sa prima che glielo diciamo noi. */
+      const esito = await chiamaDocumenti({
+        azione: "spedizione", order_id: o.id,
+        courier, tracking_number: tracking,
+      });
+      notify("Spedizione registrata — email mandata a " + esito.email);
+      setTrackEdits(prev => { const n = { ...prev }; delete n[o.id]; return n; });
+      loadOrders();
+    } catch (err) {
+      notify("Spedizione non registrata: " + err.message, "error");
+    } finally {
+      setInCorso("");
+    }
+  };
+
+  /* La fattura: numero progressivo dell'anno, IVA secondo il paese e la
+     partita IVA del cliente, dettaglio riga per riga, e parte via email. */
+  const emettiFattura = async (o) => {
+    setInCorso(o.id);
+    try {
+      const esito = await chiamaDocumenti({ azione: "fattura", order_id: o.id });
+      notify("Fattura " + esito.numero + " (" + esito.aliquota + "% IVA) mandata a " + esito.email);
+      loadInvoices();
+      loadOrders();
+    } catch (err) {
+      const spiega = {
+        ordine_senza_righe: "Questo ordine non ha righe: non c'è niente da fatturare.",
+        cliente_senza_email: "Il cliente non ha un'email in anagrafica.",
+      };
+      notify("Fattura non emessa: " + (spiega[err.message] || err.message), "error");
+    } finally {
+      setInCorso("");
+    }
+  };
+
+  /* Le righe di un ordine, per la lista di carico: si caricano solo quando
+     si apre l'ordine, non tutte insieme. */
+  const apriRighe = async (o) => {
+    if (righeAperte[o.id]) { setRigheAperte(r => { const n = { ...r }; delete n[o.id]; return n; }); return; }
+    if (Array.isArray(o.order_items) && o.order_items.length) {
+      setRigheAperte(r => ({ ...r, [o.id]: o.order_items }));
+      return;
+    }
+    const { data } = await supabase.from("order_items")
+      .select("id, product_name, sku, quantity, unit_price, total_price").eq("order_id", o.id);
+    setRigheAperte(r => ({ ...r, [o.id]: data || [] }));
+  };
+
+  /* La contabilita' vera: incassato, costo della merce, provvigione
+     dell'agente e margine. La vista sta sul server, qui si legge e basta. */
+  const caricaConti = async () => {
+    const { data, error } = await supabase.from("v_contabilita_ordini")
+      .select("*").order("created_at", { ascending: false }).limit(1000);
+    if (error) { notify("Contabilità non leggibile: " + error.message, "error"); return; }
+    setConti(data || []);
+    const { data: m } = await supabase.from("v_contabilita_marchi")
+      .select("*").order("margine", { ascending: false }).limit(300);
+    setContiMarchi(m || []);
   };
   const adjustTrust = async (u, sign) => {
     const amtStr = window.prompt((sign>0?(t("auiPtsAdd")+" "):(t("auiPtsRemove")+" "))+(u.company_name||u.email)+"?", "10");
@@ -10020,6 +10099,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                                 setShowUserModal(true);
                               }} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.blue}10`, border:`1px solid ${C.blue}30`, color:C.blue }}>✏️</button>
                               <button onClick={() => setImpersonating(u)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.purple}10`, border:`1px solid ${C.purple}30`, color:"#a855f7", whiteSpace:"nowrap" }} title={t("auImpersonate")}>👁️</button>
+                              {/* Scrivergli senza uscire dal pannello: l'indirizzo
+                                  e' gia' qui, cercarlo altrove e' tempo perso. */}
+                              <a href={`mailto:${u.email}`} title={u.email} style={{ padding:"4px 10px", borderRadius:6, fontSize:11, background:`${C.gold}10`, border:`1px solid ${C.gold}30`, color:C.goldLight, textDecoration:"none", whiteSpace:"nowrap" }}>✉</a>
                             </div>
                           </td>
                         </tr>
@@ -10363,6 +10445,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
         })()}
         {tab === "nexusai" && <NexusAI role="admin"/>}
         {tab === "margini" && (() => {
+          const eurC=(n)=>"€ "+Number(n||0).toLocaleString("it-IT",{minimumFractionDigits:2,maximumFractionDigits:2});
           const num=(x)=>Number(x||0);
           const rowCalc=(r)=>{ const gmv=num(r.total_amount); const fee=r.split?num(r.split.nexushub_amount):gmv*feeRate/100; const stripe=r.split?num(r.split.stripe_fee):0; const op=num(r.econ&&r.econ.operating_cost); const net=fee-stripe-op; return { gmv, fee, stripe, op, net, pct: gmv>0?net/gmv*100:0 }; };
           const tot=marginRows.reduce((a,r)=>{ const c=rowCalc(r); a.gmv+=c.gmv;a.fee+=c.fee;a.stripe+=c.stripe;a.op+=c.op;a.net+=c.net; return a; },{gmv:0,fee:0,stripe:0,op:0,net:0});
@@ -10371,9 +10454,135 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           return (
           <div>
             <div style={{ marginBottom:14 }}>
-              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>📈 {t("amrgTitle")}</h2>
-              <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("amrgSub")}</p>
+              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>📈 Contabilità</h2>
+              <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>
+                Quanto entra, quanto costa la merce, quanto va all'agente, cosa resta. Niente stime: se un costo manca, lo dice.
+              </p>
             </div>
+
+            {/* ===================== IL CONTO DEL MESE ===================== */}
+            {(() => {
+              const nelMese = conti.filter(r => String(r.paid_at || r.created_at).slice(0, 7) === contiMese && r.stato !== "cancelled");
+              const incassati = nelMese.filter(r => r.stato_pagamento === "paid");
+              const somma = (lista, campo) => lista.reduce((a, r) => a + Number(r[campo] || 0), 0);
+              const ric = somma(incassati, "incassato");
+              const cos = somma(incassati, "costo_merce");
+              const pro = somma(incassati, "provvigione_agente");
+              const mar = ric - cos - pro;
+              const attesa = somma(nelMese.filter(r => r.stato_pagamento !== "paid"), "incassato");
+              const buchi = nelMese.filter(r => Number(r.righe_senza_costo || 0) > 0).length;
+              const mesi = Array.from(new Set(conti.map(r => String(r.paid_at || r.created_at).slice(0, 7)))).sort().reverse();
+              const marchiMese = contiMarchi.filter(m => String(m.mese).slice(0, 7) === contiMese);
+              return (
+                <>
+                  <div style={{ display:"flex", gap:10, alignItems:"center", flexWrap:"wrap", marginBottom:16 }}>
+                    <select value={contiMese} onChange={e => setContiMese(e.target.value)}
+                      style={{ padding:"8px 11px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13 }}>
+                      {(mesi.length ? mesi : [contiMese]).map(m => <option key={m} value={m}>{m}</option>)}
+                    </select>
+                    <span style={{ fontSize:12, color:C.textDim }}>
+                      {incassati.length} ordini incassati su {nelMese.length} del mese
+                    </span>
+                    {buchi > 0 && (
+                      <span style={{ fontSize:12, color:C.red, background:`${C.red}10`, border:`1px solid ${C.red}35`, borderRadius:7, padding:"5px 10px" }}>
+                        ⚠ {buchi} ordini con righe senza prezzo d'acquisto: il margine è sovrastimato
+                      </span>
+                    )}
+                  </div>
+
+                  <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:20 }}>
+                    <Stat icon="💶" label="Incassato" value={eurC(ric)} accent={C.green}/>
+                    <Stat icon="📦" label="Costo merce" value={eurC(cos)} accent={C.red}/>
+                    <Stat icon="🤝" label="Provvigioni agenti" value={eurC(pro)} accent={C.gold}/>
+                    <Stat icon="✅" label="Margine" value={eurC(mar)} accent={mar >= 0 ? C.green : C.red}/>
+                    <Stat icon="📊" label="Margine %" value={(ric > 0 ? (mar / ric * 100) : 0).toFixed(1) + "%"} accent={C.blue}/>
+                    <Stat icon="⏳" label="Da incassare" value={eurC(attesa)} accent={C.textMuted}/>
+                  </div>
+
+                  {marchiMese.length > 0 && (
+                    <>
+                      <h3 style={{ fontSize:14, color:C.gold, letterSpacing:".08em", textTransform:"uppercase", marginBottom:10 }}>Per marchio</h3>
+                      <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}`, marginBottom:24 }}>
+                        <table style={{ width:"100%", borderCollapse:"collapse", minWidth:640 }}>
+                          <thead><tr style={{ background:C.surface2 }}>
+                            {["Marchio","Ordini","Pezzi","Venduto","Costo","Margine","%"].map((h,i) => (
+                              <th key={i} style={{ padding:"9px 13px", textAlign: i>0?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
+                            ))}
+                          </tr></thead>
+                          <tbody>
+                            {marchiMese.map((m, i) => {
+                              const pct = Number(m.venduto) > 0 ? Number(m.margine) / Number(m.venduto) * 100 : 0;
+                              return (
+                                <tr key={(m.brand_id || "") + i} style={{ background:i%2?C.surface2+"50":"transparent", borderTop:`1px solid ${C.border}` }}>
+                                  <td style={{ padding:"9px 13px", fontSize:13, fontWeight:600, color:C.text }}>
+                                    {m.marchio || "—"}
+                                    {Number(m.righe_senza_costo || 0) > 0 && <span style={{ color:C.red, fontSize:11 }}> ⚠ {m.righe_senza_costo} senza costo</span>}
+                                  </td>
+                                  <td style={{ padding:"9px 13px", fontSize:12.5, color:C.textMuted, textAlign:"right" }}>{m.ordini}</td>
+                                  <td style={{ padding:"9px 13px", fontSize:12.5, color:C.textMuted, textAlign:"right" }}>{m.pezzi}</td>
+                                  <td style={{ padding:"9px 13px", fontSize:12.5, color:C.text, textAlign:"right" }}>{eurC(m.venduto)}</td>
+                                  <td style={{ padding:"9px 13px", fontSize:12.5, color:C.textMuted, textAlign:"right" }}>{eurC(m.costo)}</td>
+                                  <td style={{ padding:"9px 13px", fontSize:13, fontWeight:700, textAlign:"right", color: Number(m.margine) >= 0 ? C.green : C.red }}>{eurC(m.margine)}</td>
+                                  <td style={{ padding:"9px 13px", fontSize:12.5, fontWeight:600, textAlign:"right", color: pct >= 0 ? C.green : C.red }}>{pct.toFixed(1)}%</td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </>
+                  )}
+
+                  <h3 style={{ fontSize:14, color:C.textMuted, letterSpacing:".08em", textTransform:"uppercase", marginBottom:10 }}>Ordine per ordine</h3>
+                  {nelMese.length === 0 ? (
+                    <div style={{ padding:22, background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, color:C.textMuted, fontSize:13, marginBottom:28 }}>
+                      Nessun ordine in {contiMese}.
+                    </div>
+                  ) : (
+                    <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}`, marginBottom:30 }}>
+                      <table style={{ width:"100%", borderCollapse:"collapse", minWidth:940 }}>
+                        <thead><tr style={{ background:C.surface2 }}>
+                          {["Ordine","Cliente","Paese","Agente","Incassato","Costo merce","Provvigione","Margine","%"].map((h,i) => (
+                            <th key={i} style={{ padding:"9px 13px", textAlign: i>=4?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
+                          ))}
+                        </tr></thead>
+                        <tbody>
+                          {nelMese.map((r, i) => (
+                            <tr key={r.id} style={{ background:i%2?C.surface2+"50":"transparent", borderTop:`1px solid ${C.border}`,
+                              opacity: r.stato_pagamento === "paid" ? 1 : .55 }}>
+                              <td style={{ padding:"9px 13px", fontSize:11, fontFamily:"monospace", color:C.gold, whiteSpace:"nowrap" }}>
+                                {r.order_number}
+                                {r.stato_pagamento !== "paid" && <div style={{ fontSize:10, color:C.gold, fontFamily:"inherit" }}>da incassare</div>}
+                              </td>
+                              <td style={{ padding:"9px 13px", fontSize:12.5, color:C.text }}>{r.cliente || "—"}</td>
+                              <td style={{ padding:"9px 13px", fontSize:12, color:C.textMuted }}>{r.paese || "—"}</td>
+                              <td style={{ padding:"9px 13px", fontSize:11.5, color: r.codice_agente ? C.goldLight : C.textDim }}>
+                                {r.codice_agente || "diretto"}
+                                {r.codice_agente && <span style={{ color:C.textDim }}> · {Number(r.pct_agente)}%</span>}
+                              </td>
+                              <td style={{ padding:"9px 13px", fontSize:12.5, color:C.text, textAlign:"right", whiteSpace:"nowrap" }}>{eurC(r.incassato)}</td>
+                              <td style={{ padding:"9px 13px", fontSize:12.5, textAlign:"right", whiteSpace:"nowrap",
+                                color: Number(r.righe_senza_costo || 0) > 0 ? C.red : C.textMuted }}>
+                                {eurC(r.costo_merce)}{Number(r.righe_senza_costo || 0) > 0 ? " ⚠" : ""}
+                              </td>
+                              <td style={{ padding:"9px 13px", fontSize:12.5, color:C.gold, textAlign:"right", whiteSpace:"nowrap" }}>{eurC(r.provvigione_agente)}</td>
+                              <td style={{ padding:"9px 13px", fontSize:13, fontWeight:700, textAlign:"right", whiteSpace:"nowrap",
+                                color: Number(r.margine) >= 0 ? C.green : C.red }}>{eurC(r.margine)}</td>
+                              <td style={{ padding:"9px 13px", fontSize:12.5, fontWeight:600, textAlign:"right",
+                                color: Number(r.margine_pct) >= 0 ? C.green : C.red }}>{Number(r.margine_pct).toFixed(1)}%</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </>
+              );
+            })()}
+
+            <h3 style={{ fontSize:14, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", marginBottom:10 }}>
+              Vecchio conto a commissione (modello marketplace)
+            </h3>
             <div style={{ display:"flex", alignItems:"center", gap:10, background:`${C.red}10`, border:`1px solid ${C.red}35`, borderRadius:10, padding:"10px 14px", marginBottom:20 }}>
               <span style={{ fontSize:18 }}>🔒</span>
               <span style={{ fontSize:12.5, color:C.text }}>{t("amrgLockPre")}<b>{t("amrgLockBold")}</b>{t("amrgLockPost")}</span>
@@ -10512,11 +10721,62 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
           const avgProb = retailTargets.length ? Math.round(retailTargets.reduce((a,t)=>a+Number(t.probability||0),0)/retailTargets.length) : 0;
           const fld = { padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:13, width:"100%", boxSizing:"border-box", outline:"none" };
           const lbl = { fontSize:11, color:C.textMuted, display:"block", marginBottom:5, marginTop:12 };
+          /* I negozi che gli agenti hanno portato: chi li ha portati, da
+             quando, quanto hanno comprato. E' la domanda che si fa davvero
+             guardando questa scheda. */
+          const sottoAgente = users.filter(u => u.procacciatore_id);
+          const ordiniDi = (id) => orders.filter(o => o.distributor_id === id && o.status !== "cancelled");
+          const eurR = (n) => "€ " + Number(n || 0).toLocaleString("it-IT", { minimumFractionDigits:2, maximumFractionDigits:2 });
           return (
           <div>
+            <div style={{ marginBottom:18 }}>
+              <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>🏬 Negozi portati dagli agenti</h2>
+              <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>
+                {sottoAgente.length} negozi agganciati a un codice agente. Sotto, la pipeline dei contatti retail.
+              </p>
+            </div>
+
+            {sottoAgente.length === 0 ? (
+              <div style={{ padding:22, background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, color:C.textMuted, fontSize:13, marginBottom:28 }}>
+                Nessun negozio sotto un agente per ora. Compaiono qui appena un agente ne registra uno o un negoziante si iscrive col suo codice.
+              </div>
+            ) : (
+              <div className="nx-panel" style={{ overflowX:"auto", borderRadius:12, border:`1px solid ${C.border}`, marginBottom:30 }}>
+                <table style={{ width:"100%", borderCollapse:"collapse", minWidth:820 }}>
+                  <thead><tr style={{ background:C.surface2 }}>
+                    {["Negozio","Email","Paese","Stato","Agente","Ordini","Comprato",""].map((h,i) => (
+                      <th key={i} style={{ padding:"9px 13px", textAlign: i===5||i===6?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".08em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
+                    ))}
+                  </tr></thead>
+                  <tbody>
+                    {sottoAgente.map((u, i) => {
+                      const suoi = ordiniDi(u.id);
+                      const tot = suoi.filter(o => o.payment_status === "paid").reduce((a, o) => a + Number(o.total_amount || 0), 0);
+                      const ag = users.find(z => z.id === u.procacciatore_id);
+                      return (
+                        <tr key={u.id} style={{ background:i%2?C.surface2+"50":"transparent", borderTop:`1px solid ${C.border}` }}>
+                          <td style={{ padding:"9px 13px", fontSize:13, fontWeight:600, color:C.text }}>{u.company_name || "—"}</td>
+                          <td style={{ padding:"9px 13px", fontSize:12 }}><a href={`mailto:${u.email}`} style={{ color:C.textMuted, textDecoration:"none" }}>{u.email}</a></td>
+                          <td style={{ padding:"9px 13px", fontSize:12, color:C.textMuted }}>{u.country || "—"}</td>
+                          <td style={{ padding:"9px 13px" }}><Badge status={u.status}/></td>
+                          <td style={{ padding:"9px 13px", fontSize:12, color:C.goldLight }}>{ag ? (ag.company_name || ag.email) : u.procacciatore_id.slice(0, 8)}</td>
+                          <td style={{ padding:"9px 13px", fontSize:12.5, color:C.textMuted, textAlign:"right" }}>{suoi.length}</td>
+                          <td style={{ padding:"9px 13px", fontSize:13, fontWeight:700, color:C.goldLight, textAlign:"right", whiteSpace:"nowrap" }}>{eurR(tot)}</td>
+                          <td style={{ padding:"9px 13px", whiteSpace:"nowrap" }}>
+                            {u.status !== "approved" && <button onClick={() => approveUser(u.id)} style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.green}15`, border:`1px solid ${C.green}40`, color:C.green, marginRight:5 }}>✓</button>}
+                            <button onClick={() => setImpersonating(u)} title="Entra nel suo conto" style={{ padding:"4px 10px", borderRadius:6, cursor:"pointer", fontSize:11, background:`${C.purple}10`, border:`1px solid ${C.purple}30`, color:"#a855f7" }}>👁️</button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:20, flexWrap:"wrap", gap:10 }}>
               <div>
-                <h2 style={{ fontSize:20, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>🏬 {t("aretTitle")}</h2>
+                <h2 style={{ fontSize:17, fontWeight:700, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>{t("aretTitle")}</h2>
                 <p style={{ color:C.textMuted, fontSize:13, margin:0 }}>{t("aretSub")}</p>
               </div>
               <button onClick={()=>openRetail(null)} style={{ padding:"10px 18px", borderRadius:9, cursor:"pointer", fontSize:13, fontWeight:700, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>+ {t("aretAdd")}</button>
@@ -10631,6 +10891,99 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               <Stat icon="✅" label={t("alogDelivered")} value={delivered.length} accent={C.green}/>
               <Stat icon="⚠️" label={t("alogLowOut")} value={low.length+out.length} accent={C.red}/>
             </div>
+
+            {/* ---------------------------------------------------------
+                IL BANCO: i pacchi da fare oggi. Lista di carico, corriere,
+                tracking, e l'email al cliente nello stesso gesto.
+                --------------------------------------------------------- */}
+            <h3 style={{ fontSize:14, color:C.gold, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>
+              📦 Da preparare ({orders.filter(o => o.status === "pending" || o.status === "confirmed").length})
+            </h3>
+            {orders.filter(o => o.status === "pending" || o.status === "confirmed").length === 0 ? (
+              <div style={{ padding:22, background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, color:C.textMuted, fontSize:13, marginBottom:28 }}>
+                Nessun pacco in attesa. Quando arriva un ordine compare qui.
+              </div>
+            ) : (
+              <div style={{ marginBottom:28 }}>
+                {orders.filter(o => o.status === "pending" || o.status === "confirmed").map(o => {
+                  const righe = righeAperte[o.id];
+                  const pezzi = (o.order_items || []).reduce((a, r) => a + Number(r.quantity || 0), 0);
+                  const mod = trackEdits[o.id] || {};
+                  const occupato = inCorso === o.id;
+                  return (
+                    <div key={o.id} style={{ background:C.surface, border:`1px solid ${C.border}`, borderRadius:12, padding:"15px 17px", marginBottom:10 }}>
+                      <div style={{ display:"flex", justifyContent:"space-between", gap:12, flexWrap:"wrap", alignItems:"flex-start" }}>
+                        <div>
+                          <div style={{ fontSize:14, fontWeight:700, color:C.text }}>
+                            {o.profiles?.company_name || "—"}
+                            <span style={{ fontFamily:"monospace", fontSize:11, color:C.gold, marginLeft:9 }}>{o.order_number}</span>
+                          </div>
+                          <div style={{ fontSize:11.5, color:C.textDim, marginTop:3 }}>
+                            {[o.shipping_address, o.shipping_zip, o.shipping_city, o.shipping_country].filter(Boolean).join(" · ") || "indirizzo non indicato"}
+                          </div>
+                          <div style={{ fontSize:11.5, color:C.textMuted, marginTop:3 }}>
+                            {pezzi} pezzi · {(o.order_items || []).length} referenze · {new Date(o.created_at).toLocaleDateString("it-IT")}
+                            {" · "}<span style={{ color: o.payment_status === "paid" ? C.green : C.gold }}>
+                              {o.payment_status === "paid" ? "pagato" : "da incassare"}</span>
+                          </div>
+                        </div>
+                        <div style={{ textAlign:"right" }}>
+                          <div style={{ fontSize:16, fontWeight:900, color:C.goldLight }}>€{Number(o.total_amount || 0).toLocaleString("it-IT", { minimumFractionDigits:2, maximumFractionDigits:2 })}</div>
+                          <button onClick={() => apriRighe(o)} style={{ marginTop:6, padding:"5px 11px", borderRadius:7, cursor:"pointer", fontSize:11.5, background:`${C.blue}12`, border:`1px solid ${C.blue}35`, color:C.blue }}>
+                            {righe ? "Chiudi" : "Lista di carico"}
+                          </button>
+                        </div>
+                      </div>
+
+                      {righe && (
+                        <div style={{ marginTop:12, background:C.surface2, border:`1px solid ${C.border}`, borderRadius:9, overflow:"hidden" }}>
+                          <table style={{ width:"100%", borderCollapse:"collapse" }}>
+                            <thead><tr>
+                              {["Prodotto","SKU","Pz","Unitario","Totale"].map((h,i) => (
+                                <th key={i} style={{ padding:"8px 11px", textAlign: i>=2?"right":"left", fontSize:10, color:C.textDim, letterSpacing:".07em", textTransform:"uppercase" }}>{h}</th>
+                              ))}
+                            </tr></thead>
+                            <tbody>
+                              {righe.length === 0 && <tr><td colSpan={5} style={{ padding:14, fontSize:12.5, color:C.textMuted }}>Questo ordine non ha righe.</td></tr>}
+                              {righe.map(r => (
+                                <tr key={r.id} style={{ borderTop:`1px solid ${C.border}` }}>
+                                  <td style={{ padding:"8px 11px", fontSize:12.5, color:C.text }}>{r.product_name}</td>
+                                  <td style={{ padding:"8px 11px", fontSize:11, fontFamily:"monospace", color:C.textDim }}>{r.sku || "—"}</td>
+                                  <td style={{ padding:"8px 11px", fontSize:13, fontWeight:800, color:C.goldLight, textAlign:"right" }}>{r.quantity}</td>
+                                  <td style={{ padding:"8px 11px", fontSize:12, color:C.textMuted, textAlign:"right" }}>€{Number(r.unit_price || 0).toFixed(2)}</td>
+                                  <td style={{ padding:"8px 11px", fontSize:12, color:C.text, textAlign:"right" }}>€{Number(r.total_price || 0).toFixed(2)}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      )}
+
+                      <div style={{ display:"flex", gap:8, marginTop:12, flexWrap:"wrap", alignItems:"center" }}>
+                        <select value={mod.courier || ""} onChange={ev => { const v = ev.target.value; setTrackEdits(p => ({ ...p, [o.id]: { ...p[o.id], courier: v } })); }}
+                          style={{ padding:"8px 10px", borderRadius:7, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12.5 }}>
+                          <option value="">corriere…</option>
+                          {["BRT","DHL","UPS","GLS","FEDEX","TNT","POSTE"].map(c => <option key={c} value={c}>{c}</option>)}
+                        </select>
+                        <input value={mod.tracking_number || ""} onChange={ev => { const v = ev.target.value; setTrackEdits(p => ({ ...p, [o.id]: { ...p[o.id], tracking_number: v } })); }}
+                          placeholder="numero di tracking"
+                          style={{ flex:"1 1 200px", padding:"8px 10px", borderRadius:7, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12.5 }}/>
+                        <button disabled={occupato} onClick={() => saveTracking(o)} style={{
+                          padding:"8px 16px", borderRadius:7, cursor: occupato ? "default" : "pointer", fontSize:12.5, fontWeight:700,
+                          background:`${C.green}18`, border:`1px solid ${C.green}50`, color:C.green }}>
+                          {occupato ? "…" : "🚚 Spedito — avvisa il cliente"}
+                        </button>
+                        <button disabled={occupato} onClick={() => emettiFattura(o)} style={{
+                          padding:"8px 16px", borderRadius:7, cursor: occupato ? "default" : "pointer", fontSize:12.5, fontWeight:700,
+                          background:`${C.gold}18`, border:`1px solid ${C.gold}50`, color:C.goldLight }}>
+                          🧾 Fattura
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
 
             <h3 style={{ fontSize:14, color:C.gold, letterSpacing:".08em", textTransform:"uppercase", marginBottom:12 }}>{t("alogPipeline")}</h3>
             {pipeline.length===0 ? (
@@ -11009,12 +11362,21 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         )}
                       </td>
                       <td style={{ padding:"11px 14px" }}>
-                        <select onChange={e => updateOrderStatus(o.id, e.target.value)} value={o.status}
-                          style={{ padding:"5px 8px", borderRadius:6, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:11, cursor:"pointer" }}>
-                          {["pending","confirmed","shipped","delivered","cancelled"].map(s => (
-                            <option key={s} value={s}>{s}</option>
-                          ))}
-                        </select>
+                        <div style={{ display:"flex", flexDirection:"column", gap:5 }}>
+                          <select onChange={e => updateOrderStatus(o.id, e.target.value)} value={o.status}
+                            style={{ padding:"5px 8px", borderRadius:6, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:11, cursor:"pointer" }}>
+                            {["pending","confirmed","shipped","delivered","cancelled"].map(s => (
+                              <option key={s} value={s}>{s}</option>
+                            ))}
+                          </select>
+                          {/* La fattura la fa il server: numero progressivo,
+                              IVA secondo il paese, dettaglio e invio. */}
+                          <button disabled={inCorso === o.id} onClick={() => emettiFattura(o)} style={{
+                            padding:"4px 9px", borderRadius:6, cursor: inCorso === o.id ? "default" : "pointer",
+                            fontSize:11, fontWeight:700, background:`${C.gold}14`, border:`1px solid ${C.gold}40`, color:C.goldLight, whiteSpace:"nowrap" }}>
+                            {inCorso === o.id ? "…" : "🧾 Fattura"}
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
