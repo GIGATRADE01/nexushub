@@ -6790,7 +6790,12 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
               const brandName = (dbBrands.find(b => b.id === p.brand_id) || {}).company_name || "";
               return (
                 <ProductSheet product={p} brandName={brandName} prezzoPagato={effPrice(p)} onClose={() => setDetailProduct(null)}>
-                  {stock === 0 && lan && (
+                  {/* Il pre-ordine non e' solo per la merce esaurita. NexusHub
+                      non tiene magazzino: un lancio in pre-ordine serve a
+                      raccogliere gli acconti PRIMA di comprare dal fornitore.
+                      Prima compariva solo con stock a zero e su una referenza
+                      con 35.000 pezzi disponibili non si sarebbe mai visto. */}
+                  {lan && (
                     <div style={{ marginTop:18, padding:16, borderRadius:12, background:`${C.gold}0A`, border:`1px solid ${C.gold}35` }}>
                       <div style={{ fontSize:14, fontWeight:800, color:C.goldLight, marginBottom:4 }}>{t("pdPreorderOn")}</div>
                       <div style={{ fontSize:12.5, color:C.textMuted, lineHeight:1.55, marginBottom:14 }}>{t("pdPreorderSub")}</div>
@@ -7000,6 +7005,16 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                       <button onClick={() => openSheet(p)} style={{ flex:1, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.gold}10`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>{t("pdOpen")}</button>
                       <button onClick={() => openDistDocs(p)} style={{ flex:1, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted }}>📎 {t("ckDocsTab")}</button>
                     </div>
+                    {/* Se c'e' un lancio aperto, il pre-ordine viene prima del
+                        carrello anche quando la merce c'e': e' il modo in cui
+                        si incassa l'acconto prima di comprarla. */}
+                    {openLaunches[p.id] && !senzaPrezzo(p) && (
+                      <button onClick={() => openSheet(p)} style={{ width:"100%", marginBottom:8,
+                        padding:"9px 10px", borderRadius:7, cursor:"pointer", fontWeight:800, fontSize:12,
+                        background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg }}>
+                        {t("pdPreorder")} · {multiple} {t("pdPcs")}
+                      </button>
+                    )}
                     {(isManaged && resalePrice(p) == null) || (senzaPrezzo(p) && countryPrices[p.id] == null) ? (
                       <div style={{ padding:"8px", borderRadius:7, textAlign:"center", background:`${C.blue}08`, border:`1px solid ${C.blue}25`, color:C.textMuted, fontSize:12 }}>{t("diNoPrice")}</div>
                     ) : stock > 0 ? (
