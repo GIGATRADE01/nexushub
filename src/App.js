@@ -1212,6 +1212,20 @@ Object.assign(T.ar,{ avvisami:"أبلغوني عند توفره", avvisatoOk:"س
 /* Scaglioni per quantita' */
 Object.assign(T.en,{ scTitle:"Volume pricing: the discount applies to the total pieces of this brand, mixed references welcome.", scApplied:"applied to your basket", scNext:"{n} more pieces and you reach −{d}%." });
 Object.assign(T.it,{ scTitle:"Sconti a quantità: valgono sul totale pezzi di questo brand, anche misti fra referenze.", scApplied:"applicato al tuo ordine", scNext:"Ancora {n} pezzi e arrivi a −{d}%." });
+Object.assign(T.en,{ pcSelTitle:"Selection", pcSelSub:"Three questions. We read these before the documents: they tell us in thirty seconds whether you already sell to shops.", pcQ1:"Which shops do you already sell to? Name them.", pcQ1Ph:"Shop name and city, one per line", pcQ2:"What do you sell them today?", pcQ2Ph:"e.g. selective perfumery, Arabic fragrances, cosmetics", pcQ3:"How many of them could place a 500 € order within 30 days?", pcVersion:"Version", pcVessFallback:"I specifically approve the clauses on absence of exclusivity, absence of representation, client attribution, commission chargeback, confidentiality and non-circumvention, withdrawal without indemnity, unilateral amendment and exclusive jurisdiction.", pcRegTitle:"Become a NexusHub introducer", pcRegSub:"Sell 548 references across 21 Arabic houses in your country. You get a commission on what your clients actually pay — 6% to 12%." });
+Object.assign(T.it,{ pcSelTitle:"Selezione", pcSelSub:"Tre domande. Le leggiamo prima dei documenti: dicono in trenta secondi se vendi già ai negozi.", pcQ1:"A quali negozi vendi già oggi? Fai i nomi.", pcQ1Ph:"Nome del negozio e città, uno per riga", pcQ2:"Cosa gli vendi adesso?", pcQ2Ph:"es. profumeria selettiva, profumi arabi, cosmetica", pcQ3:"Quanti di loro potrebbero fare un ordine da 500 € entro 30 giorni?", pcVersion:"Versione", pcVessFallback:"Approvo specificamente le clausole su assenza di esclusiva, assenza di rappresentanza, attribuzione dei clienti, storno delle provvigioni, riservatezza e non circonvenzione, recesso senza indennità, modifica unilaterale e foro esclusivo.", pcRegTitle:"Diventa procacciatore NexusHub", pcRegSub:"Vendi 548 referenze di 21 case arabe nel tuo paese. Prendi una provvigione su quello che i tuoi clienti pagano davvero — dal 6% al 12%." });
+Object.assign(T.en,{ pcPortal:"INTRODUCER", pcYourCode:"Your code:", pcTabEarn:"My earnings", pcTabClients:"My clients", pcTabOrders:"Orders", pcTabPre:"Pre-orders", pcThisMonth:"Collected this month", pcPaidOrders:"paid orders", pcYourRate:"Your rate", pcNoTier:"no tier yet", pcYourEarning:"Your commission", pcOnCollected:"on what has actually been collected", pcPending:"Awaiting payment", pcPendingNote:"not counted until paid", pcNextStep:"{n} more and you move to {d}%.", pcNextWhy:"The tier applies to the whole month, not just the new order: moving up is worth {v} more on what you have already sold.", pcTiers:"Commission tiers", pcTiersNote:"Calculated on what your clients actually pay, in the calendar month. Settled the following month.", pcYourClients:"Your clients", pcClientsNote:"These registered with your code {c}. A client registered without a code is not yours.", pcNoClients:"No clients yet.", pcNoOrders:"No orders yet.", pcPaid:"paid", pcAwaiting:"awaiting payment", pcPreNote:"References open for pre-order: your clients reserve with a deposit and lock the price.", pcNoPre:"No pre-orders open.", pcPendingTitle:"Application received", pcPendingMsg:"We are reviewing your application. You will receive an email as soon as it is approved, with your personal code." });
+Object.assign(T.it,{ pcPortal:"PROCACCIATORE", pcYourCode:"Il tuo codice:", pcTabEarn:"Il mio guadagno", pcTabClients:"I miei clienti", pcTabOrders:"Ordini", pcTabPre:"Pre-ordini", pcThisMonth:"Incassato questo mese", pcPaidOrders:"ordini pagati", pcYourRate:"La tua percentuale", pcNoTier:"nessuno scaglione ancora", pcYourEarning:"La tua provvigione", pcOnCollected:"su quello che è stato davvero incassato", pcPending:"In attesa di pagamento", pcPendingNote:"non conta finché non è pagato", pcNextStep:"Ancora {n} e passi al {d}%.", pcNextWhy:"Lo scaglione vale su tutto il mese, non solo sull'ordine nuovo: salire ti vale {v} in più su quello che hai già venduto.", pcTiers:"Scaglioni di provvigione", pcTiersNote:"Calcolata su quello che i tuoi clienti pagano davvero, nel mese solare. Liquidata il mese successivo.", pcYourClients:"I tuoi clienti", pcClientsNote:"Si sono registrati col tuo codice {c}. Un cliente registrato senza codice non è tuo.", pcNoClients:"Nessun cliente ancora.", pcNoOrders:"Nessun ordine ancora.", pcPaid:"pagato", pcAwaiting:"in attesa di pagamento", pcPreNote:"Referenze aperte in pre-ordine: i tuoi clienti prenotano con un acconto e bloccano il prezzo.", pcNoPre:"Nessun pre-ordine aperto.", pcPendingTitle:"Candidatura ricevuta", pcPendingMsg:"Stiamo esaminando la tua candidatura. Riceverai un'email appena è approvata, con il tuo codice personale." });
+Object.assign(T.fr,{ pcPortal:"APPORTEUR", pcYourCode:"Votre code :", pcTabEarn:"Mes gains", pcTabClients:"Mes clients", pcTabOrders:"Commandes", pcTabPre:"Pré-commandes", pcThisMonth:"Encaissé ce mois", pcPaidOrders:"commandes payées", pcYourRate:"Votre taux", pcNoTier:"aucun palier", pcYourEarning:"Votre commission", pcOnCollected:"sur ce qui a été réellement encaissé", pcPending:"En attente de paiement", pcPendingNote:"ne compte pas tant que ce n'est pas payé", pcNextStep:"Encore {n} et vous passez à {d}%.", pcNextWhy:"Le palier s'applique à tout le mois : monter vous rapporte {v} de plus.", pcTiers:"Paliers de commission", pcTiersNote:"Calculée sur ce que vos clients paient réellement.", pcYourClients:"Vos clients", pcClientsNote:"Ils se sont inscrits avec votre code {c}.", pcNoClients:"Aucun client.", pcNoOrders:"Aucune commande.", pcPaid:"payé", pcAwaiting:"en attente", pcPreNote:"Références ouvertes en pré-commande.", pcNoPre:"Aucune pré-commande.", pcPendingTitle:"Candidature reçue", pcPendingMsg:"Nous examinons votre candidature." });
+Object.assign(T.es,{ pcPortal:"CAPTADOR", pcYourCode:"Tu código:", pcTabEarn:"Mis ganancias", pcTabClients:"Mis clientes", pcTabOrders:"Pedidos", pcTabPre:"Prepedidos", pcThisMonth:"Cobrado este mes", pcPaidOrders:"pedidos pagados", pcYourRate:"Tu porcentaje", pcNoTier:"sin tramo", pcYourEarning:"Tu comisión", pcOnCollected:"sobre lo realmente cobrado", pcPending:"Pendiente de cobro", pcPendingNote:"no cuenta hasta que se paga", pcNextStep:"{n} más y pasas al {d}%.", pcNextWhy:"El tramo se aplica a todo el mes: subir te vale {v} más.", pcTiers:"Tramos de comisión", pcTiersNote:"Calculada sobre lo que tus clientes pagan de verdad.", pcYourClients:"Tus clientes", pcClientsNote:"Se registraron con tu código {c}.", pcNoClients:"Aún no hay clientes.", pcNoOrders:"Aún no hay pedidos.", pcPaid:"pagado", pcAwaiting:"pendiente", pcPreNote:"Referencias abiertas en prepedido.", pcNoPre:"No hay prepedidos.", pcPendingTitle:"Solicitud recibida", pcPendingMsg:"Estamos revisando tu solicitud." });
+Object.assign(T.de,{ pcPortal:"VERMITTLER", pcYourCode:"Ihr Code:", pcTabEarn:"Meine Einnahmen", pcTabClients:"Meine Kunden", pcTabOrders:"Bestellungen", pcTabPre:"Vorbestellungen", pcThisMonth:"Diesen Monat vereinnahmt", pcPaidOrders:"bezahlte Bestellungen", pcYourRate:"Ihr Satz", pcNoTier:"keine Stufe", pcYourEarning:"Ihre Provision", pcOnCollected:"auf tatsächlich Vereinnahmtes", pcPending:"Zahlung ausstehend", pcPendingNote:"zählt erst nach Zahlung", pcNextStep:"Noch {n} und Sie erreichen {d}%.", pcNextWhy:"Die Stufe gilt für den ganzen Monat: aufsteigen bringt {v} mehr.", pcTiers:"Provisionsstufen", pcTiersNote:"Berechnet auf das, was Ihre Kunden wirklich zahlen.", pcYourClients:"Ihre Kunden", pcClientsNote:"Sie haben sich mit Ihrem Code {c} registriert.", pcNoClients:"Noch keine Kunden.", pcNoOrders:"Noch keine Bestellungen.", pcPaid:"bezahlt", pcAwaiting:"ausstehend", pcPreNote:"Vorbestellbare Referenzen.", pcNoPre:"Keine Vorbestellungen.", pcPendingTitle:"Bewerbung erhalten", pcPendingMsg:"Wir prüfen Ihre Bewerbung." });
+Object.assign(T.zh,{ pcPortal:"业务介绍人", pcYourCode:"您的代码：", pcTabEarn:"我的收益", pcTabClients:"我的客户", pcTabOrders:"订单", pcTabPre:"预订", pcThisMonth:"本月已收款", pcPaidOrders:"已付款订单", pcYourRate:"您的比例", pcNoTier:"暂无档位", pcYourEarning:"您的佣金", pcOnCollected:"按实际收到的款项计算", pcPending:"待付款", pcPendingNote:"未付款不计入", pcNextStep:"再有 {n} 即可升至 {d}%。", pcNextWhy:"档位适用于整月：升档可多得 {v}。", pcTiers:"佣金档位", pcTiersNote:"按客户实际支付金额计算。", pcYourClients:"您的客户", pcClientsNote:"他们使用您的代码 {c} 注册。", pcNoClients:"暂无客户。", pcNoOrders:"暂无订单。", pcPaid:"已付款", pcAwaiting:"待付款", pcPreNote:"可预订的单品。", pcNoPre:"暂无预订。", pcPendingTitle:"已收到申请", pcPendingMsg:"我们正在审核您的申请。" });
+Object.assign(T.ar,{ pcPortal:"وسيط أعمال", pcYourCode:"رمزك:", pcTabEarn:"أرباحي", pcTabClients:"عملائي", pcTabOrders:"الطلبات", pcTabPre:"الطلب المسبق", pcThisMonth:"المحصل هذا الشهر", pcPaidOrders:"طلبات مدفوعة", pcYourRate:"نسبتك", pcNoTier:"لا توجد شريحة", pcYourEarning:"عمولتك", pcOnCollected:"على ما تم تحصيله فعليًا", pcPending:"بانتظار الدفع", pcPendingNote:"لا يُحتسب حتى الدفع", pcNextStep:"{n} إضافية وتنتقل إلى {d}%.", pcNextWhy:"تنطبق الشريحة على الشهر كله: الارتقاء يمنحك {v} إضافية.", pcTiers:"شرائح العمولة", pcTiersNote:"تُحسب على ما يدفعه عملاؤك فعليًا.", pcYourClients:"عملاؤك", pcClientsNote:"سجّلوا برمزك {c}.", pcNoClients:"لا يوجد عملاء بعد.", pcNoOrders:"لا توجد طلبات بعد.", pcPaid:"مدفوع", pcAwaiting:"بانتظار الدفع", pcPreNote:"مراجع متاحة للطلب المسبق.", pcNoPre:"لا توجد طلبات مسبقة.", pcPendingTitle:"تم استلام الطلب", pcPendingMsg:"نراجع طلبك حاليًا." });
+Object.assign(T.fr,{ pcSelTitle:"Sélection", pcSelSub:"Trois questions. Nous les lisons avant les documents.", pcQ1:"À quels magasins vendez-vous déjà ? Citez-les.", pcQ1Ph:"Nom du magasin et ville, un par ligne", pcQ2:"Que leur vendez-vous aujourd'hui ?", pcQ2Ph:"ex. parfumerie sélective, parfums arabes", pcQ3:"Combien d'entre eux pourraient passer une commande de 500 € sous 30 jours ?", pcVersion:"Version", pcVessFallback:"J'approuve spécifiquement les clauses indiquées au contrat.", pcRegTitle:"Devenez apporteur d'affaires NexusHub", pcRegSub:"Vendez 548 références de 21 maisons arabes dans votre pays. Commission de 6% à 12%." });
+Object.assign(T.es,{ pcSelTitle:"Selección", pcSelSub:"Tres preguntas. Las leemos antes que los documentos.", pcQ1:"¿A qué tiendas vendes ya? Nómbralas.", pcQ1Ph:"Nombre de la tienda y ciudad, una por línea", pcQ2:"¿Qué les vendes hoy?", pcQ2Ph:"ej. perfumería selectiva, perfumes árabes", pcQ3:"¿Cuántas podrían hacer un pedido de 500 € en 30 días?", pcVersion:"Versión", pcVessFallback:"Apruebo específicamente las cláusulas indicadas en el contrato.", pcRegTitle:"Conviértete en captador NexusHub", pcRegSub:"Vende 548 referencias de 21 casas árabes en tu país. Comisión del 6% al 12%." });
+Object.assign(T.de,{ pcSelTitle:"Auswahl", pcSelSub:"Drei Fragen. Wir lesen sie vor den Dokumenten.", pcQ1:"An welche Geschäfte verkaufen Sie bereits? Nennen Sie sie.", pcQ1Ph:"Name des Geschäfts und Stadt, eines pro Zeile", pcQ2:"Was verkaufen Sie ihnen heute?", pcQ2Ph:"z. B. selektive Parfümerie, arabische Düfte", pcQ3:"Wie viele davon könnten in 30 Tagen für 500 € bestellen?", pcVersion:"Version", pcVessFallback:"Ich genehmige ausdrücklich die im Vertrag genannten Klauseln.", pcRegTitle:"Werden Sie NexusHub-Vermittler", pcRegSub:"Verkaufen Sie 548 Referenzen von 21 arabischen Häusern. Provision 6% bis 12%." });
+Object.assign(T.zh,{ pcSelTitle:"筛选", pcSelSub:"三个问题。我们在看文件之前先看这些。", pcQ1:"您目前已向哪些店铺供货？请列出名称。", pcQ1Ph:"店名与城市，每行一个", pcQ2:"您现在卖给他们什么？", pcQ2Ph:"例如：精品香水、阿拉伯香水", pcQ3:"其中有多少家能在30天内下500欧元的订单？", pcVersion:"版本", pcVessFallback:"本人特别同意合同中所列条款。", pcRegTitle:"成为 NexusHub 业务介绍人", pcRegSub:"在您的国家销售21个阿拉伯香水品牌的548个单品。佣金6%至12%。" });
+Object.assign(T.ar,{ pcSelTitle:"الاختيار", pcSelSub:"ثلاثة أسئلة. نقرأها قبل المستندات.", pcQ1:"ما المتاجر التي تبيع لها بالفعل؟ اذكر الأسماء.", pcQ1Ph:"اسم المتجر والمدينة، واحد في كل سطر", pcQ2:"ماذا تبيع لهم اليوم؟", pcQ2Ph:"مثال: عطور انتقائية، عطور عربية", pcQ3:"كم منهم يمكنه تقديم طلب بقيمة 500 يورو خلال 30 يومًا؟", pcVersion:"الإصدار", pcVessFallback:"أوافق تحديدًا على البنود المذكورة في العقد.", pcRegTitle:"كن وسيط أعمال لدى NexusHub", pcRegSub:"بع 548 مرجعًا من 21 دار عطور عربية. عمولة من 6% إلى 12%." });
 Object.assign(T.en,{ ckNextTier:"{n} € more and you get −{d}% on the whole order.", ckFreeIt:"Free shipping in Italy included.", ckFreeEu:"Free shipping across Europe included.", ckTiersTitle:"Order discounts" });
 Object.assign(T.it,{ ckNextTier:"Ancora {n} € e arrivi a −{d}% su tutto l'ordine.", ckFreeIt:"Spedizione gratis in Italia inclusa.", ckFreeEu:"Spedizione gratis in Europa inclusa.", ckTiersTitle:"Sconti a scaglione" });
 Object.assign(T.fr,{ ckNextTier:"Encore {n} € et vous obtenez −{d}% sur toute la commande.", ckFreeIt:"Livraison gratuite en Italie incluse.", ckFreeEu:"Livraison gratuite en Europe incluse.", ckTiersTitle:"Remises par palier" });
@@ -2268,6 +2282,7 @@ const Login = ({ onLogin, lang, onLangChange }) => {
   if (view === "register-brand") return <RegisterScreen role="brand" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
   if (view === "register-dist") return <RegisterScreen role="distributor" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
   if (view === "register-chain") return <RegisterScreen role="distributor" accountType="chain" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
+  if (view === "register-agente") return <RegisterScreen role="procacciatore" lang={lang} onLangChange={onLangChange} onBack={() => setView("login")} />;
   if (view === "demo") return <DemoPresentation lang={lang} onLangChange={onLangChange} onSelectRole={(role) => { if (role === "back") setView("login"); else setView("register-" + role); }} />;
 
   if (view === "reset") return (
@@ -2553,9 +2568,242 @@ const NuovaPassword = ({ lang, onLangChange, onFatto, scaduto }) => {
   );
 };
 
+
+/* ============================================================
+   PORTALE PROCACCIATORE
+   ============================================================
+   Tre cose, in quest'ordine di importanza:
+   1. quanto sta guadagnando questo mese, che cresce a ogni ordine pagato
+   2. quanto gli manca al prossimo scaglione e quanto varrebbe
+   3. i suoi clienti, i loro ordini, i prodotti in pre-ordine
+
+   Il punto 2 e' quello che fa lavorare: lo scaglione e' retroattivo su tutto
+   il mese, quindi 300 euro in piu' a fine mese possono valergli centinaia di
+   euro di provvigione su quello che ha gia' venduto. */
+const PortaleProcacciatore = ({ onLogout, comeUtente = null }) => {
+  const t = useT();
+  /* Come nelle altre dashboard: se arriva `comeUtente` stiamo guardando il
+     portale di qualcun altro dall'amministrazione, non il proprio. */
+  const getUser = useCallback(async () => {
+    if (comeUtente) return { data: { user: { id: comeUtente } } };
+    return await supabase.auth.getUser();
+  }, [comeUtente]);
+  const [io_, setIo] = useState(null);
+  const [scaglioni, setScaglioni] = useState([]);
+  const [clienti, setClienti] = useState([]);
+  const [ordini, setOrdini] = useState([]);
+  const [lanci, setLanci] = useState([]);
+  const [tab, setTab] = useState("guadagno");
+  const [caricato, setCaricato] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const { data: { user } } = await getUser();
+      if (!user) return;
+      const [{ data: me }, { data: sc }, { data: cl }] = await Promise.all([
+        supabase.from("procacciatori").select("*").eq("id", user.id).maybeSingle(),
+        supabase.from("scaglioni_provvigione").select("*").eq("attivo", true).order("da_fatturato"),
+        supabase.from("profiles").select("id, company_name, email, country, created_at")
+          .eq("procacciatore_id", user.id).order("created_at", { ascending: false }),
+      ]);
+      setIo(me || null);
+      setScaglioni(sc || []);
+      setClienti(cl || []);
+      const ids = (cl || []).map(c => c.id);
+      if (ids.length) {
+        const { data: or } = await supabase.from("orders")
+          .select("id, order_number, distributor_id, total_amount, status, payment_status, paid_at, created_at")
+          .in("distributor_id", ids).order("created_at", { ascending: false });
+        setOrdini(or || []);
+      }
+      const { data: la } = await supabase.from("product_launches")
+        .select("id, title, subtitle, cover_url, product_id")
+        .eq("status", "published").eq("reservations_open", true).limit(60);
+      setLanci(la || []);
+      setCaricato(true);
+    })();
+  }, [getUser]);
+
+  const meseCorrente = new Date().toISOString().slice(0, 7);
+  const delMese = ordini.filter(o =>
+    o.payment_status === "paid" && o.status !== "cancelled" &&
+    String(o.paid_at || o.created_at).slice(0, 7) === meseCorrente);
+  const fatturato = delMese.reduce((a, o) => a + Number(o.total_amount || 0), 0);
+  const inArrivo = ordini.filter(o =>
+    o.payment_status !== "paid" && o.status !== "cancelled" &&
+    String(o.created_at).slice(0, 7) === meseCorrente)
+    .reduce((a, o) => a + Number(o.total_amount || 0), 0);
+
+  const scaglioneDi = (v) => {
+    const su = scaglioni.filter(x => v >= Number(x.da_fatturato));
+    return su.length ? su[su.length - 1] : null;
+  };
+  const mio = scaglioneDi(fatturato);
+  const pct = mio ? Number(mio.percentuale) : 0;
+  const guadagno = fatturato * pct / 100;
+  const prossimo = scaglioni.find(x => fatturato < Number(x.da_fatturato));
+  const mancano = prossimo ? Number(prossimo.da_fatturato) - fatturato : 0;
+  /* Quanto varrebbe salire: lo scaglione e' retroattivo, quindi si guadagna
+     la differenza su TUTTO il fatturato del mese, non solo sull'ordine nuovo. */
+  const valeSalire = prossimo
+    ? (Number(prossimo.da_fatturato) * Number(prossimo.percentuale) / 100) - guadagno
+    : 0;
+
+  const eur = (v) => "€ " + Number(v || 0).toLocaleString("it-IT", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const nomeCliente = (id) => (clienti.find(c => c.id === id) || {}).company_name || "—";
+
+  if (!caricato) return <div style={{ padding:40, color:C.textMuted }}>…</div>;
+
+  if (io_ && io_.stato !== "approvato") {
+    return (
+      <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", padding:20 }}>
+        <div style={{ maxWidth:460, textAlign:"center", background:C.surface, border:"1px solid "+C.border, borderRadius:16, padding:34 }}>
+          <div style={{ fontSize:34, marginBottom:10 }}>⏳</div>
+          <div style={{ fontSize:18, fontWeight:800, color:C.text, marginBottom:8 }}>{t("pcPendingTitle")}</div>
+          <div style={{ fontSize:13.5, color:C.textMuted, lineHeight:1.6 }}>{t("pcPendingMsg")}</div>
+          <button onClick={onLogout} style={{ marginTop:20, padding:"10px 18px", borderRadius:8, cursor:"pointer", background:"transparent", border:"1px solid "+C.border, color:C.textMuted, fontSize:13 }}>{t("logout")}</button>
+        </div>
+      </div>
+    );
+  }
+
+  const Scheda = ({ titolo, valore, nota, colore }) => (
+    <div style={{ flex:"1 1 180px", background:C.surface, border:"1px solid "+C.border, borderRadius:12, padding:"15px 17px" }}>
+      <div style={{ fontSize:11.5, color:C.textMuted, textTransform:"uppercase", letterSpacing:".05em", marginBottom:6 }}>{titolo}</div>
+      <div style={{ fontSize:23, fontWeight:900, color:colore || C.text }}>{valore}</div>
+      {nota && <div style={{ fontSize:11.5, color:C.textDim, marginTop:4 }}>{nota}</div>}
+    </div>
+  );
+
+  return (
+    <div style={{ minHeight:"100vh", background:C.bg }}>
+      <div style={{ display:"flex", alignItems:"center", gap:12, padding:"14px 20px", borderBottom:"1px solid "+C.border, background:C.surface }}>
+        <div style={{ width:32, height:32, borderRadius:8, background:"linear-gradient(135deg,"+C.gold+","+C.goldDim+")", display:"flex", alignItems:"center", justifyContent:"center", fontWeight:900, color:C.bg }}>N</div>
+        <div style={{ fontSize:16, fontWeight:800, color:C.text }}>NexusHub</div>
+        <span style={{ fontSize:10.5, padding:"3px 9px", borderRadius:20, background:C.gold+"18", color:C.goldLight, fontWeight:700, letterSpacing:".04em" }}>{t("pcPortal")}</span>
+        {io_ && <span style={{ fontSize:12, color:C.textMuted, marginLeft:4 }}>{t("pcYourCode")} <b style={{ color:C.goldLight }}>{io_.codice}</b></span>}
+        <button onClick={onLogout} style={{ marginLeft:"auto", padding:"7px 14px", borderRadius:7, cursor:"pointer", background:"transparent", border:"1px solid "+C.border, color:C.textMuted, fontSize:12.5 }}>{t("logout")}</button>
+      </div>
+
+      <div style={{ display:"flex", gap:6, padding:"12px 20px 0", flexWrap:"wrap" }}>
+        {[["guadagno", t("pcTabEarn")], ["clienti", t("pcTabClients")], ["ordini", t("pcTabOrders")], ["preordini", t("pcTabPre")]].map(([k, l]) => (
+          <button key={k} onClick={() => setTab(k)} style={{ padding:"8px 15px", borderRadius:8, cursor:"pointer", fontSize:13,
+            fontWeight: tab===k ? 800 : 600, background: tab===k ? C.gold+"1C" : "transparent",
+            border:"1px solid "+(tab===k ? C.gold : C.border), color: tab===k ? C.goldLight : C.textMuted }}>{l}</button>
+        ))}
+      </div>
+
+      <div style={{ padding:20 }}>
+        {tab === "guadagno" && (
+          <>
+            <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:16 }}>
+              <Scheda titolo={t("pcThisMonth")} valore={eur(fatturato)} nota={delMese.length + " " + t("pcPaidOrders")} />
+              <Scheda titolo={t("pcYourRate")} valore={pct + "%"} nota={mio ? mio.etichetta : t("pcNoTier")} />
+              <Scheda titolo={t("pcYourEarning")} valore={eur(guadagno)} colore={C.goldLight} nota={t("pcOnCollected")} />
+              <Scheda titolo={t("pcPending")} valore={eur(inArrivo)} nota={t("pcPendingNote")} />
+            </div>
+
+            {prossimo && (
+              <div style={{ background:C.gold+"0C", border:"1px solid "+C.gold+"40", borderRadius:12, padding:"15px 18px", marginBottom:16 }}>
+                <div style={{ fontSize:14, fontWeight:800, color:C.goldLight, marginBottom:5 }}>
+                  {t("pcNextStep").replace("{n}", eur(mancano)).replace("{d}", String(Number(prossimo.percentuale)))}
+                </div>
+                <div style={{ fontSize:12.5, color:C.textMuted, lineHeight:1.55 }}>
+                  {t("pcNextWhy").replace("{v}", eur(valeSalire))}
+                </div>
+                <div style={{ marginTop:10, height:7, borderRadius:20, background:C.surface2, overflow:"hidden" }}>
+                  <div style={{ height:"100%", borderRadius:20, background:"linear-gradient(90deg,"+C.gold+","+C.goldLight+")",
+                    width: Math.min(100, (fatturato / Number(prossimo.da_fatturato)) * 100) + "%" }}/>
+                </div>
+              </div>
+            )}
+
+            <div style={{ background:C.surface, border:"1px solid "+C.border, borderRadius:12, padding:"15px 18px" }}>
+              <div style={{ fontSize:13, fontWeight:700, color:C.text, marginBottom:10 }}>{t("pcTiers")}</div>
+              {scaglioni.map(x => {
+                const attivo = mio && mio.id === x.id;
+                return (
+                  <div key={x.id} style={{ display:"flex", justifyContent:"space-between", padding:"8px 11px", borderRadius:7, marginBottom:5,
+                    background: attivo ? C.gold+"14" : "transparent", border:"1px solid "+(attivo ? C.gold+"50" : "transparent") }}>
+                    <span style={{ fontSize:12.5, color: attivo ? C.goldLight : C.textMuted, fontWeight: attivo ? 700 : 500 }}>{x.etichetta}</span>
+                    <span style={{ fontSize:12.5, color: attivo ? C.goldLight : C.textMuted, fontWeight:800 }}>{Number(x.percentuale)}%</span>
+                  </div>
+                );
+              })}
+              <div style={{ fontSize:11.5, color:C.textDim, marginTop:8, lineHeight:1.5 }}>{t("pcTiersNote")}</div>
+            </div>
+          </>
+        )}
+
+        {tab === "clienti" && (
+          <div style={{ background:C.surface, border:"1px solid "+C.border, borderRadius:12, padding:"15px 18px" }}>
+            <div style={{ fontSize:13, fontWeight:700, color:C.text, marginBottom:4 }}>{t("pcYourClients")} ({clienti.length})</div>
+            <div style={{ fontSize:12, color:C.textDim, marginBottom:12, lineHeight:1.5 }}>{t("pcClientsNote").replace("{c}", io_ ? io_.codice : "")}</div>
+            {clienti.length === 0 && <div style={{ fontSize:13, color:C.textMuted, padding:"14px 0" }}>{t("pcNoClients")}</div>}
+            {clienti.map(c => {
+              const suoi = ordini.filter(o => o.distributor_id === c.id && o.payment_status === "paid");
+              const tot = suoi.reduce((a, o) => a + Number(o.total_amount || 0), 0);
+              return (
+                <div key={c.id} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"11px 0", borderTop:"1px solid "+C.border }}>
+                  <div>
+                    <div style={{ fontSize:13.5, fontWeight:700, color:C.text }}>{c.company_name || c.email}</div>
+                    <div style={{ fontSize:11.5, color:C.textDim }}>{c.country || "—"} · {suoi.length} {t("pcPaidOrders")}</div>
+                  </div>
+                  <div style={{ fontSize:14, fontWeight:800, color:C.goldLight }}>{eur(tot)}</div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {tab === "ordini" && (
+          <div style={{ background:C.surface, border:"1px solid "+C.border, borderRadius:12, padding:"15px 18px" }}>
+            <div style={{ fontSize:13, fontWeight:700, color:C.text, marginBottom:12 }}>{t("pcTabOrders")} ({ordini.length})</div>
+            {ordini.length === 0 && <div style={{ fontSize:13, color:C.textMuted }}>{t("pcNoOrders")}</div>}
+            {ordini.map(o => (
+              <div key={o.id} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"11px 0", borderTop:"1px solid "+C.border }}>
+                <div>
+                  <div style={{ fontSize:13, fontWeight:700, color:C.text }}>{nomeCliente(o.distributor_id)}</div>
+                  <div style={{ fontSize:11.5, color:C.textDim }}>{o.order_number} · {String(o.created_at).slice(0,10)}</div>
+                </div>
+                <div style={{ textAlign:"right" }}>
+                  <div style={{ fontSize:13.5, fontWeight:800, color: o.payment_status==="paid" ? C.green : C.textMuted }}>{eur(o.total_amount)}</div>
+                  <div style={{ fontSize:11, color: o.payment_status==="paid" ? C.green : C.gold }}>
+                    {o.payment_status === "paid" ? t("pcPaid") : t("pcAwaiting")}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {tab === "preordini" && (
+          <div>
+            <div style={{ fontSize:12.5, color:C.textMuted, marginBottom:12, lineHeight:1.5 }}>{t("pcPreNote")}</div>
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(230px,1fr))", gap:12 }}>
+              {lanci.map(l => (
+                <div key={l.id} style={{ background:C.surface, border:"1px solid "+C.border, borderRadius:12, overflow:"hidden" }}>
+                  {l.cover_url && <img src={l.cover_url} alt={l.title} loading="lazy"
+                    style={{ width:"100%", height:150, objectFit:"contain", background:"#fff" }}/>}
+                  <div style={{ padding:"11px 13px" }}>
+                    <div style={{ fontSize:13, fontWeight:700, color:C.text }}>{l.title}</div>
+                    <div style={{ fontSize:11.5, color:C.textMuted, marginTop:3, lineHeight:1.45 }}>{l.subtitle}</div>
+                  </div>
+                </div>
+              ))}
+              {lanci.length === 0 && <div style={{ fontSize:13, color:C.textMuted }}>{t("pcNoPre")}</div>}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
   const t = useT();
   const isBrand = role === "brand";
+  const isProc = role === "procacciatore";
   const isManaged = accountType === "chain" || accountType === "ecommerce";
   const [acctType, setAcctType] = useState(accountType || "distributor");
   const [step, setStep] = useState(1);
@@ -2580,11 +2828,30 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
   const [businessSize, setBusinessSize] = useState("");
   const [sdiCode, setSdiCode] = useState("");
   const [pecEmail, setPecEmail] = useState("");
+  /* Le tre domande di selezione del procacciatore. Filtrano meglio di
+     qualunque documento: chi non sa nominare dieci negozi non e' un
+     procacciatore, e' uno che spera. */
+  const [negozi, setNegozi] = useState("");
+  const [cosaVende, setCosaVende] = useState("");
+  const [clienti30, setClienti30] = useState("");
+  /* Artt. 1341-1342 c.c.: le clausole vessatorie vogliono un consenso
+     SEPARATO da quello generale, altrimenti sono inefficaci. */
+  const [vessatorie, setVessatorie] = useState(false);
+  const [contratto, setContratto] = useState(null);
+  useEffect(() => {
+    if (!isProc) return;
+    supabase.from("contratti_procacciatore")
+      .select("versione, titolo, testo, vessatorie").eq("attivo", true)
+      .order("creato_il", { ascending: false }).limit(1)
+      .then(({ data }) => setContratto((data || [])[0] || null));
+  }, [isProc]);
 
   /* Alla casa produttrice si chiede chi e' e dove incassa. Le carte della
      camera di commercio si chiedono al distributore, che e' quello che poi
      maneggia la merce sul territorio e va verificato. */
-  const docTypes = isBrand
+  const docTypes = isProc
+    ? ["visura_camerale","partita_iva","coordinate_bancarie"]
+    : isBrand
     ? ["partita_iva","coordinate_bancarie"]
     : ["visura_camerale","partita_iva"];
 
@@ -2662,6 +2929,13 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
             ? { iban, bank_name: bankName, account_holder: accountHolder, swift_bic: swiftBic }
             : { shipping_address: accountHolder, shipping_city: bankName, shipping_zip: iban, shipping_region: swiftBic }),
           agreement_version: "1.0",
+          ...(isProc ? {
+            negozi_gia_serviti: negozi,
+            cosa_vende_oggi: cosaVende,
+            clienti_in_30gg: clienti30,
+            vessatorie_accettate: vessatorie,
+            contratto_versione: contratto ? contratto.versione : "2026-10-v1",
+          } : {}),
           user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 300) : null,
           documenti,
         }),
@@ -2874,6 +3148,43 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
                 </label>
               ))}
             </div>
+            {isProc && (
+              <div style={{ marginTop:18 }}>
+                <div style={{ fontSize:12, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em", marginBottom:10 }}>{t("pcSelTitle")}</div>
+                <div style={{ fontSize:12, color:C.textDim, marginBottom:12, lineHeight:1.5 }}>{t("pcSelSub")}</div>
+                <label style={{ display:"block", fontSize:12.5, color:C.textMuted, marginBottom:5 }}>{t("pcQ1")}</label>
+                <textarea value={negozi} onChange={e=>setNegozi(e.target.value)} rows={3} required
+                  placeholder={t("pcQ1Ph")}
+                  style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:"1px solid "+C.border, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", marginBottom:12, fontFamily:"inherit", resize:"vertical" }}/>
+                <label style={{ display:"block", fontSize:12.5, color:C.textMuted, marginBottom:5 }}>{t("pcQ2")}</label>
+                <input type="text" value={cosaVende} onChange={e=>setCosaVende(e.target.value)} required
+                  placeholder={t("pcQ2Ph")}
+                  style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:"1px solid "+C.border, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", marginBottom:12 }}/>
+                <label style={{ display:"block", fontSize:12.5, color:C.textMuted, marginBottom:5 }}>{t("pcQ3")}</label>
+                <input type="number" min="0" max="9999" value={clienti30} onChange={e=>setClienti30(e.target.value)} required
+                  style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:"1px solid "+C.border, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box", marginBottom:16 }}/>
+
+                {contratto && (
+                  <div style={{ background:C.surface2, border:"1px solid "+C.border, borderRadius:10, padding:"12px 14px", marginBottom:12 }}>
+                    <div style={{ fontSize:13, fontWeight:700, color:C.goldLight, marginBottom:6 }}>{contratto.titolo}</div>
+                    <div style={{ maxHeight:170, overflowY:"auto", fontSize:11.5, color:C.textMuted, lineHeight:1.6, whiteSpace:"pre-wrap" }}>{contratto.testo}</div>
+                    <div style={{ fontSize:10.5, color:C.textDim, marginTop:6 }}>{t("pcVersion")} {contratto.versione}</div>
+                  </div>
+                )}
+                {/* Seconda spunta, separata: artt. 1341-1342 c.c. Senza, le
+                    clausole elencate sono inefficaci, e lo si scopre proprio
+                    il giorno che servono. */}
+                <label style={{ display:"flex", alignItems:"flex-start", gap:9, padding:"11px 13px", borderRadius:9,
+                  background: vessatorie ? C.gold+"0C" : "transparent",
+                  border:"1px solid "+(vessatorie ? C.gold : C.border), cursor:"pointer" }}>
+                  <input type="checkbox" checked={vessatorie} onChange={e=>setVessatorie(e.target.checked)}
+                    style={{ marginTop:3, accentColor:C.gold, width:16, height:16, cursor:"pointer" }}/>
+                  <span style={{ fontSize:11.5, color:C.textMuted, lineHeight:1.55, whiteSpace:"pre-wrap" }}>
+                    {contratto ? contratto.vessatorie : t("pcVessFallback")}
+                  </span>
+                </label>
+              </div>
+            )}
             <label style={{ display:"flex", alignItems:"flex-start", gap:9, margin:"14px 0 4px", cursor:"pointer" }}>
               <input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)}
                 style={{ marginTop:3, accentColor:C.gold, width:16, height:16, cursor:"pointer" }}/>
@@ -2891,7 +3202,7 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
             </label>
             <div style={{ display:"flex", gap:10 }}>
               <button type="button" onClick={() => setStep(1)} style={{ padding:"12px 18px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13 }}>{t("rgBack")}</button>
-              <button type="submit" disabled={loading || !consent} style={{ flex:1, padding:"13px", borderRadius:10, cursor:(loading||!consent)?"not-allowed":"pointer", background:(loading||!consent)?C.goldDim:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, opacity:(loading||!consent)?0.6:1 }}>
+              <button type="submit" disabled={loading || !consent || (isProc && !vessatorie)} style={{ flex:1, padding:"13px", borderRadius:10, cursor:(loading||!consent||(isProc&&!vessatorie))?"not-allowed":"pointer", background:(loading||!consent||(isProc&&!vessatorie))?C.goldDim:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, opacity:(loading||!consent||(isProc&&!vessatorie))?0.6:1 }}>
                 {loading ? t("sending") : t("submitRequest")}
               </button>
             </div>
@@ -11142,6 +11453,9 @@ export default function App() {
         {screen === "app" && userRole === "distributor" && (userStatus === "approved"
           ? <DistributorDashboard {...dashboardProps}/>
           : <PendingScreen status={userStatus} onLogout={handleLogout} lang={lang} onLangChange={setLang}/>
+        )}
+        {screen === "app" && userRole === "procacciatore" && (
+          <PortaleProcacciatore onLogout={handleLogout}/>
         )}
       </div>
     </LangCtx.Provider>

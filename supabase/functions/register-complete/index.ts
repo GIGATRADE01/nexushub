@@ -1,4 +1,5 @@
-/* Completa la registrazione di un brand o di un distributore.
+/* Completa la registrazione di un brand, di un distributore o di un
+   procacciatore d'affari.
 
    Perche' esiste: il browser di chi si registra non ha ancora una sessione
    (Supabase la rilascia solo dopo la conferma dell'email), quindi ogni
@@ -42,7 +43,9 @@ serve(async (req) => {
   // ------------------------------------------------------------ controlli
   const email = testo(b.email, 160)?.toLowerCase();
   const password = typeof b.password === "string" ? b.password : "";
-  const role = b.role === "brand" ? "brand" : b.role === "distributor" ? "distributor" : null;
+  const role = b.role === "brand" ? "brand"
+    : b.role === "distributor" ? "distributor"
+    : b.role === "procacciatore" ? "procacciatore" : null;
   const accountType = ["distributor", "chain", "ecommerce"].includes(b.account_type) ? b.account_type : "distributor";
 
   if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return risposta({ errore: "email" }, 400);
@@ -94,6 +97,7 @@ serve(async (req) => {
 
   // -------------------------------------------------------- dati azienda
   const isBrand = role === "brand";
+  const isProc = role === "procacciatore";
   const { error: errProf } = await admin.from("profiles").upsert({
     id: uid,
     email,
@@ -123,7 +127,7 @@ serve(async (req) => {
     vat_number: testo(b.vat_number, 40),
     sdi_code: testo(b.sdi_code, 20),
     pec_email: testo(b.pec_email, 160),
-    ...(isBrand ? {
+    ...((isBrand || isProc) ? {
       iban: testo(b.iban, 40),
       bank_name: testo(b.bank_name),
       account_holder: testo(b.account_holder),
@@ -136,13 +140,46 @@ serve(async (req) => {
   const { error: errFirma } = await admin.from("agreement_acceptances").insert({
     user_id: uid,
     role,
-    agreement_type: isBrand ? "brand_agreement" : "distributor_terms",
+    agreement_type: isProc ? "procacciatore_agreement"
+      : isBrand ? "brand_agreement" : "distributor_terms",
     agreement_version: testo(b.agreement_version, 10) || "1.0",
     accepted_name: testo(b.full_name),
     company_name: testo(b.company_name),
     user_agent: testo(b.user_agent, 300),
   });
   if (errFirma) return await annulla("firma", errFirma);
+
+  /* Il procacciatore: codice personale, dati per la liquidazione e le tre
+     domande che filtrano meglio di qualunque documento. Nasce IN ATTESA: non
+     vede nulla e non porta nessuno finche' Andrea non lo approva a mano.
+
+     Le due accettazioni sono separate apposta. Gli artt. 1341-1342 c.c.
+     vogliono un'approvazione SPECIFICA per le clausole vessatorie — recesso
+     senza indennita, storno, non circonvenzione, foro esclusivo. Senza quella
+     seconda spunta sono inefficaci, e si scopre quando servono. */
+  if (isProc) {
+    if (!b.vessatorie_accettate) return await annulla("vessatorie", "non approvate");
+    const codice = "NX-" + (testo(b.country, 2) || "EU").toUpperCase() +
+      "-" + uid.replace(/-/g, "").slice(0, 6).toUpperCase();
+    const { error: errProc } = await admin.from("procacciatori").insert({
+      id: uid,
+      codice,
+      stato: "in_attesa",
+      piva: testo(b.vat_number, 40),
+      paese: testo(b.country, 80),
+      iban: testo(b.iban, 40),
+      intestatario_conto: testo(b.account_holder) || testo(b.company_name),
+      negozi_gia_serviti: testo(b.negozi_gia_serviti, 1500),
+      cosa_vende_oggi: testo(b.cosa_vende_oggi, 1000),
+      clienti_in_30gg: Number.isFinite(Number(b.clienti_in_30gg))
+        ? Math.max(0, Math.min(9999, Math.round(Number(b.clienti_in_30gg)))) : null,
+      contratto_versione: testo(b.contratto_versione, 20) || "2026-10-v1",
+      contratto_accettato_il: new Date().toISOString(),
+      contratto_ip: testo(req.headers.get("x-forwarded-for"), 60),
+      vessatorie_accettate_il: new Date().toISOString(),
+    });
+    if (errProc) return await annulla("procacciatore", errProc);
+  }
 
   // ------------------------------------------------------- i documenti
   const documenti = Array.isArray(b.documenti) ? b.documenti.slice(0, 6) : [];
