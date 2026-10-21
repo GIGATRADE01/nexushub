@@ -1212,6 +1212,13 @@ Object.assign(T.ar,{ avvisami:"أبلغوني عند توفره", avvisatoOk:"س
 /* Scaglioni per quantita' */
 Object.assign(T.en,{ scTitle:"Volume pricing: the discount applies to the total pieces of this brand, mixed references welcome.", scApplied:"applied to your basket", scNext:"{n} more pieces and you reach −{d}%." });
 Object.assign(T.it,{ scTitle:"Sconti a quantità: valgono sul totale pezzi di questo brand, anche misti fra referenze.", scApplied:"applicato al tuo ordine", scNext:"Ancora {n} pezzi e arrivi a −{d}%." });
+Object.assign(T.en,{ ckNextTier:"{n} € more and you get −{d}% on the whole order.", ckFreeIt:"Free shipping in Italy included.", ckFreeEu:"Free shipping across Europe included.", ckTiersTitle:"Order discounts" });
+Object.assign(T.it,{ ckNextTier:"Ancora {n} € e arrivi a −{d}% su tutto l'ordine.", ckFreeIt:"Spedizione gratis in Italia inclusa.", ckFreeEu:"Spedizione gratis in Europa inclusa.", ckTiersTitle:"Sconti a scaglione" });
+Object.assign(T.fr,{ ckNextTier:"Encore {n} € et vous obtenez −{d}% sur toute la commande.", ckFreeIt:"Livraison gratuite en Italie incluse.", ckFreeEu:"Livraison gratuite en Europe incluse.", ckTiersTitle:"Remises par palier" });
+Object.assign(T.es,{ ckNextTier:"{n} € más y obtienes −{d}% en todo el pedido.", ckFreeIt:"Envío gratis en Italia incluido.", ckFreeEu:"Envío gratis en Europa incluido.", ckTiersTitle:"Descuentos por volumen" });
+Object.assign(T.de,{ ckNextTier:"Noch {n} € und Sie erhalten −{d}% auf die ganze Bestellung.", ckFreeIt:"Kostenloser Versand in Italien inklusive.", ckFreeEu:"Kostenloser Versand in Europa inklusive.", ckTiersTitle:"Mengenrabatte" });
+Object.assign(T.zh,{ ckNextTier:"再加 {n} €，整单可享 −{d}%。", ckFreeIt:"含意大利境内免运费。", ckFreeEu:"含欧洲境内免运费。", ckTiersTitle:"订单折扣" });
+Object.assign(T.ar,{ ckNextTier:"أضف {n} € واحصل على خصم {d}% على الطلب كامل.", ckFreeIt:"يشمل الشحن المجاني داخل إيطاليا.", ckFreeEu:"يشمل الشحن المجاني في أوروبا.", ckTiersTitle:"خصومات الطلب" });
 Object.assign(T.fr,{ scTitle:"Remises sur quantité : calculées sur le total de pièces de cette marque, références mélangées acceptées.", scApplied:"appliquée à votre commande", scNext:"Encore {n} pièces et vous atteignez −{d}%." });
 Object.assign(T.es,{ scTitle:"Descuentos por cantidad: se calculan sobre el total de piezas de esta marca, referencias mezcladas incluidas.", scApplied:"aplicado a tu pedido", scNext:"Faltan {n} piezas para llegar al −{d}%." });
 Object.assign(T.de,{ scTitle:"Mengenrabatte: gelten für die Gesamtstückzahl dieser Marke, gemischte Referenzen möglich.", scApplied:"auf Ihre Bestellung angewendet", scNext:"Noch {n} Stück und Sie erreichen −{d}%." });
@@ -6332,6 +6339,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
   const [currentUser, setCurrentUser] = useState(null);
   const [countryPrices, setCountryPrices] = useState({});
   const [resalePrices, setResalePrices] = useState({});
+  const [scontiOrdine, setScontiOrdine] = useState([]);
   const [distContracts, setDistContracts] = useState([]);
   const [distInvoices, setDistInvoices] = useState([]);
   const [invoiceView, setInvoiceView] = useState(null);
@@ -6366,6 +6374,18 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
     const su = (tiers[brandId] || []).filter(t => qta < t.min_qty);
     return su.length ? { ...su[0], mancano: su[0].min_qty - qta } : null;
   };
+  /* Sconto sul VALORE dell'ordine, non sui pezzi di un brand. Si applica sul
+     totale del carrello, dopo gli sconti di brand e gli scaglioni a quantita'.
+     E' la leva che fa salire l'ordine: il distributore vede quanto gli manca
+     per il gradino dopo, e quasi sempre ci arriva. */
+  const scagliOrdine = (valore) => {
+    const su = scontiOrdine.filter(s => valore >= Number(s.da_valore));
+    return su.length ? su[su.length - 1] : null;
+  };
+  const prossimoScagliOrdine = (valore) => {
+    const su = scontiOrdine.filter(s => valore < Number(s.da_valore));
+    return su.length ? { ...su[0], mancano: Number(su[0].da_valore) - valore } : null;
+  };
   const basePrice = (p) => { const cp = p && countryPrices[p.id]; return cp != null ? Number(cp) : Number((p && p.unit_price) || 0); };
   const isManaged = currentUser?.account_type === "chain" || currentUser?.account_type === "ecommerce";
   const resalePrice = (p) => { const rp = p && resalePrices[p.id]; return rp != null ? Number(rp) : null; };
@@ -6393,10 +6413,17 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
   };
 
   const cartCount = Object.values(cart).reduce((a,b)=>a+b,0);
-  const cartValue = Object.entries(cart).reduce((s,[pid,qty]) => {
+  /* Valore della merce, prima dello sconto a scaglione sull'ordine. */
+  const cartMerce = Object.entries(cart).reduce((s,[pid,qty]) => {
     const item = realProducts.find(p=>p.id===pid);
     return s + (item ? effPrice(item) * qty : 0);
   }, 0);
+  const scagliCarrello = scagliOrdine(cartMerce);
+  const scontoCarrelloPct = scagliCarrello ? Number(scagliCarrello.sconto_pct || 0) : 0;
+  const scontoCarrelloEur = cartMerce * scontoCarrelloPct / 100;
+  /* cartValue resta quello che il distributore paga davvero: e' il numero che
+     finisce nell'ordine, nel bonifico e in fattura. */
+  const cartValue = Math.round((cartMerce - scontoCarrelloEur) * 100) / 100;
 
   const BONIFICO_ONLY_THRESHOLD = 15000;
   const onlyBonifico = cartValue > BONIFICO_ONLY_THRESHOLD;
@@ -6406,9 +6433,14 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
     setOrderLoading(true);
     try {
       const { data: { user } } = await getUser();
+      /* Lo sconto a scaglione si spalma sulle righe, non si toglie solo dal
+         totale: altrimenti la fattura ha righe che non fanno la somma, e il
+         distributore se ne accorge prima del commercialista. */
+      const sc = 1 - scontoCarrelloPct / 100;
       const items = Object.entries(cart).filter(([,qty])=>qty>0).map(([pid,qty]) => {
         const product = realProducts.find(p=>p.id===pid);
-        return { product_id:pid, quantity:qty, product_name:product?.name||"", sku:product?.sku||"", unit_price:effPrice(product) };
+        return { product_id:pid, quantity:qty, product_name:product?.name||"", sku:product?.sku||"",
+                 unit_price: Math.round(effPrice(product) * sc * 100) / 100 };
       });
       const total = items.reduce((s,i)=>s+(i.unit_price*i.quantity),0);
       const cartBrands = [...new Set(items.map(i => realProducts.find(p=>p.id===i.product_id)?.brand_id).filter(Boolean))];
@@ -6479,6 +6511,13 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
       .order("created_at", { ascending: false })
       .then(({ data }) => setRealProducts(data || []));
     // Scaglioni per quantita', raggruppati per brand e ordinati dal piu' basso
+    // La scala di sconti per valore d'ordine: il distributore la deve vedere
+    // PRIMA di ordinare, altrimenti non lo invoglia a salire di scaglione.
+    supabase.from("sconti_ordine")
+      .select("da_valore, a_valore, sconto_pct, sped_gratis_it, sped_gratis_eu, etichetta")
+      .eq("attivo", true)
+      .order("da_valore", { ascending: true })
+      .then(({ data }) => setScontiOrdine(data || []));
     supabase.from("brand_quantity_tiers")
       .select("brand_id, min_qty, discount_pct, label")
       .order("min_qty", { ascending: true })
@@ -7294,6 +7333,34 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
               );
             })}
           </div>
+
+          {/* Scaglione raggiunto e quanto manca al prossimo. Si mostra prima del
+              totale perche' e' li' che il distributore decide se aggiungere
+              qualcosa: a 60 euro dal gradino, quasi sempre li aggiunge. */}
+          {scontiOrdine.length > 0 && (() => {
+            const pros = prossimoScagliOrdine(cartMerce);
+            return (
+              <div style={{ marginBottom:12 }}>
+                {scontoCarrelloPct > 0 && (
+                  <div style={{ display:"flex", justifyContent:"space-between", fontSize:13,
+                    padding:"7px 0", color:C.green, fontWeight:700 }}>
+                    <span>✓ {scagliCarrello.etichetta || `−${scontoCarrelloPct}%`}</span>
+                    <span>−€{scontoCarrelloEur.toLocaleString("it-IT",{minimumFractionDigits:2})}</span>
+                  </div>
+                )}
+                {pros && (
+                  <div style={{ padding:"9px 12px", borderRadius:8, fontSize:12.5,
+                    background:`${C.gold}0C`, border:`1px solid ${C.gold}30`, color:C.goldLight }}>
+                    {t("ckNextTier")
+                      .replace("{n}", pros.mancano.toLocaleString("it-IT",{maximumFractionDigits:0}))
+                      .replace("{d}", String(Number(pros.sconto_pct)))}
+                    {(pros.sped_gratis_it || pros.sped_gratis_eu) &&
+                      ` ${t(pros.sped_gratis_eu ? "ckFreeEu" : "ckFreeIt")}`}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           {/* Total */}
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center",
