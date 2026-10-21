@@ -60,6 +60,20 @@ serve(async (req) => {
   const gestito = accountType === "chain" || accountType === "ecommerce";
   if (gestito && !testo(b.website, 200)) return risposta({ errore: "sito_obbligatorio" }, 400);
 
+  /* Il codice dell'agente. Due strade: lo digita il negoziante che si iscrive
+     da solo, oppure e' l'agente stesso a registrare il negozio dal suo portale
+     (iPad in giro per i negozi). In entrambi i casi il negozio nasce IN ATTESA
+     e l'aggancio si vede nella scheda di approvazione: e' Andrea che decide. */
+  let procacciatoreId: string | null = null;
+  const codiceAgente = testo(b.procacciatore_codice, 30)?.toUpperCase();
+  if (codiceAgente && role === "distributor") {
+    const { data: ag } = await admin.from("procacciatori")
+      .select("id, stato").eq("codice", codiceAgente).maybeSingle();
+    if (!ag) return risposta({ errore: "codice_agente_sconosciuto" }, 400);
+    if (ag.stato !== "approvato") return risposta({ errore: "codice_agente_non_attivo" }, 400);
+    procacciatoreId = ag.id;
+  }
+
   const { data: aperte } = await admin.rpc("registrations_open");
   if (aperte === false) return risposta({ errore: "registrazioni_chiuse" }, 403);
 
@@ -112,6 +126,10 @@ serve(async (req) => {
     // per gli e-commerce. Serve a decidere che listino fargli.
     business_size: testo(b.business_size, 60),
     preferred_lang: testo(b.preferred_lang, 5) || "en",
+    ...(procacciatoreId ? {
+      procacciatore_id: procacciatoreId,
+      procacciatore_dal: new Date().toISOString(),
+    } : {}),
     ...(isBrand ? {} : {
       shipping_address: testo(b.shipping_address),
       shipping_city: testo(b.shipping_city, 80),
