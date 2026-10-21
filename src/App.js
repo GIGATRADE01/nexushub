@@ -1250,6 +1250,15 @@ Object.assign(T.de,{ registerAgente:"Als Vermittler bewerben" });
 Object.assign(T.zh,{ registerAgente:"申请成为业务介绍人" });
 Object.assign(T.ar,{ registerAgente:"قدّم طلبك كوسيط أعمال" });
 
+/* L'avviso promozionale che compare mentre si compra. */
+Object.assign(T.en,{ apQuasi:"Only {n} more and you get −{d}%", apPreso:"You've got −{d}% — it's yours", apMisto:"Any brand counts towards the total." });
+Object.assign(T.it,{ apQuasi:"Ancora {n} e prendi il −{d}%", apPreso:"Hai preso il −{d}% — è tuo", apMisto:"Vale il totale, qualsiasi marchio." });
+Object.assign(T.fr,{ apQuasi:"Encore {n} et vous obtenez −{d}%", apPreso:"Vous avez −{d}% — c'est acquis", apMisto:"Toutes les marques comptent dans le total." });
+Object.assign(T.es,{ apQuasi:"Solo {n} más y consigues −{d}%", apPreso:"Tienes el −{d}% — es tuyo", apMisto:"Cuenta el total, de cualquier marca." });
+Object.assign(T.de,{ apQuasi:"Nur noch {n} und Sie erhalten −{d}%", apPreso:"Sie haben −{d}% — gesichert", apMisto:"Alle Marken zählen zur Summe." });
+Object.assign(T.zh,{ apQuasi:"\u518d\u6ee1 {n} \u5373\u4eab −{d}%", apPreso:"\u5df2\u83b7\u5f97 −{d}%", apMisto:"\u4efb\u610f\u54c1\u724c\u5747\u8ba1\u5165\u603b\u989d\u3002" });
+Object.assign(T.ar,{ apQuasi:"\u0623\u0636\u0641 {n} \u0641\u0642\u0637 \u0644\u062a\u062d\u0635\u0644 \u0639\u0644\u0649 −{d}%", apPreso:"\u062d\u0635\u0644\u062a \u0639\u0644\u0649 −{d}%", apMisto:"\u062c\u0645\u064a\u0639 \u0627\u0644\u0639\u0644\u0627\u0645\u0627\u062a \u062a\u064f\u062d\u062a\u0633\u0628 \u0641\u064a \u0627\u0644\u0625\u062c\u0645\u0627\u0644\u064a." });
+
 /* La scala dell'ordine in cima al catalogo: quanto spendi, quanto risparmi,
    quando la spedizione e' nostra. */
 Object.assign(T.en,{ soTitolo:"The more you load, the less you pay", soMisto:"Mixed basket: brands and references add up together.", soDa:"from", soNessunoSconto:"minimum order", soSpedIt:"free shipping in Italy", soSpedEu:"free shipping in Europe", soCarrello:"Your basket:", soGiaTuo:"already yours", soMancano:"{n} more and you get −{d}%", soMassimo:"Top tier reached" });
@@ -7084,6 +7093,11 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
   const [countryPrices, setCountryPrices] = useState({});
   const [resalePrices, setResalePrices] = useState({});
   const [scontiOrdine, setScontiOrdine] = useState([]);
+  /* L'avviso promozionale che compare mentre si compra. `visti` tiene
+     quello che gli abbiamo gia' detto: ripeterlo lo farebbe solo
+     chiudere il sito. */
+  const [avvisoPromo, setAvvisoPromo] = useState(null);
+  const promoVisti = useRef({});
   const [distContracts, setDistContracts] = useState([]);
   const [distInvoices, setDistInvoices] = useState([]);
   const [invoiceView, setInvoiceView] = useState(null);
@@ -7168,6 +7182,46 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
   /* cartValue resta quello che il distributore paga davvero: e' il numero che
      finisce nell'ordine, nel bonifico e in fattura. */
   const cartValue = Math.round((cartMerce - scontoCarrelloEur) * 100) / 100;
+
+  /* L'avviso che invoglia: scatta a due terzi di strada dal gradino dopo
+     ("ancora X e prendi il -Y%") e di nuovo quando il gradino e' preso.
+     Guarda il valore del carrello, quindi funziona mentre si gira fra i
+     cataloghi, non solo alla cassa. */
+  useEffect(() => {
+    if (!scontiOrdine.length || cartMerce <= 0) return;
+    const presi = scontiOrdine.filter(x => cartMerce >= Number(x.da_valore));
+    const ora = presi.length ? presi[presi.length - 1] : null;
+    const poi = scontiOrdine.filter(x => cartMerce < Number(x.da_valore))[0] || null;
+    const eurA = (n) => "€ " + Number(n || 0).toLocaleString("it-IT", { maximumFractionDigits: 0 });
+    const sped = (x) => x.sped_gratis_eu ? t("soSpedEu") : x.sped_gratis_it ? t("soSpedIt") : "";
+
+    if (ora && Number(ora.sconto_pct) > 0 && !promoVisti.current["preso" + ora.id]) {
+      promoVisti.current["preso" + ora.id] = true;
+      const extra = sped(ora);
+      setAvvisoPromo({
+        tipo: "preso",
+        testo: t("apPreso").replace("{d}", String(Number(ora.sconto_pct))) + (extra ? " + " + extra : ""),
+      });
+      return;
+    }
+    if (poi && cartMerce >= Number(poi.da_valore) * 0.66 && !promoVisti.current["quasi" + poi.id]) {
+      promoVisti.current["quasi" + poi.id] = true;
+      const extra = sped(poi);
+      setAvvisoPromo({
+        tipo: "quasi",
+        testo: t("apQuasi").replace("{n}", eurA(Number(poi.da_valore) - cartMerce))
+          .replace("{d}", String(Number(poi.sconto_pct))) + (extra ? " + " + extra : ""),
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartMerce, scontiOrdine]);
+
+  /* Sette secondi: il tempo di leggerlo, non quello di dar fastidio. */
+  useEffect(() => {
+    if (!avvisoPromo) return;
+    const timer = setTimeout(() => setAvvisoPromo(null), 7000);
+    return () => clearTimeout(timer);
+  }, [avvisoPromo]);
 
   const BONIFICO_ONLY_THRESHOLD = 15000;
   const onlyBonifico = cartValue > BONIFICO_ONLY_THRESHOLD;
@@ -7414,6 +7468,32 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
     <div style={{ minHeight:"100vh", background:C.bg, color:C.text }}>
       <Navbar name="Distributor Portal" badge="distributor" onLogout={onLogout} lang={lang} onLangChange={onLangChange}
         onNotifications={() => setDistNotifPanel(p=>!p)} notifCount={distUnread}/>
+
+      {/* L'AVVISO CHE INVOGLIA. Non aspetta la cassa: arriva mentre si gira
+          fra i cataloghi, quando il carrello si avvicina al gradino dopo. */}
+      {avvisoPromo && (
+        <div onClick={() => setAvvisoPromo(null)} style={{
+          position:"fixed", top:72, right:16, zIndex:4000, maxWidth:330, cursor:"pointer",
+          borderRadius:13, padding:"14px 16px",
+          background: avvisoPromo.tipo === "preso"
+            ? `linear-gradient(135deg,${C.green}28,${C.green}10)`
+            : `linear-gradient(135deg,${C.gold}2A,${C.gold}0C)`,
+          border:`1px solid ${avvisoPromo.tipo === "preso" ? C.green : C.gold}70`,
+          backdropFilter:"blur(10px)",
+          boxShadow:"0 14px 40px rgba(0,0,0,.55)",
+          animation:"nxEntra .3s ease" }}>
+          <div style={{ display:"flex", gap:11, alignItems:"flex-start" }}>
+            <span style={{ fontSize:22, lineHeight:1 }}>{avvisoPromo.tipo === "preso" ? "🎉" : "🎁"}</span>
+            <div>
+              <div style={{ fontSize:13.5, fontWeight:800, lineHeight:1.45,
+                color: avvisoPromo.tipo === "preso" ? C.green : C.goldLight }}>
+                {avvisoPromo.testo}
+              </div>
+              <div style={{ fontSize:11, color:C.textDim, marginTop:4 }}>{t("apMisto")}</div>
+            </div>
+          </div>
+        </div>
+      )}
       {viewContract && (
         <ContractModal
           contract={viewContract}
@@ -12600,6 +12680,9 @@ const injectGlobalCSS = () => {
     "::-webkit-scrollbar-thumb:hover { background: #454a63; background-clip: content-box; }",
     ".nx-panel { box-shadow: 0 2px 12px rgba(0,0,0,.35); }",
     "@keyframes nxFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }",
+    /* L'avviso promozionale entra da destra: deve farsi notare senza
+       coprire quello che si sta guardando. */
+    "@keyframes nxEntra { from { opacity: 0; transform: translateX(26px); } to { opacity: 1; transform: none; } }",
     ".nx-panel { animation: nxFade .28s cubic-bezier(.16,1,.3,1) both; }",
     ".nx-card { transition: transform .16s cubic-bezier(.16,1,.3,1), box-shadow .16s ease; }",
     ".nx-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,.5); }",
