@@ -1242,6 +1242,16 @@ Object.assign(T.zh,{ pcClosed:"\u5df2\u7ed3\u7b97\u6708\u4efd", pcPaidOut:"\u5df
 Object.assign(T.ar,{ pcClosed:"\u0627\u0644\u0623\u0634\u0647\u0631 \u0627\u0644\u0645\u0633\u0648\u0651\u0627\u0629", pcPaidOut:"\u0645\u062f\u0641\u0648\u0639\u0629", pcApproved:"\u0645\u0639\u062a\u0645\u062f\u0629 \u2014 \u0642\u064a\u062f \u0627\u0644\u062f\u0641\u0639", pcToApprove:"\u0642\u064a\u062f \u0627\u0644\u0645\u0631\u0627\u062c\u0639\u0629" });
 
 
+/* La fascia in fondo durante la prova: dice che pannello si sta guardando
+   e che non si salva niente. */
+Object.assign(T.en,{ demoBanner:"DEMO — you're exploring the {r} dashboard. Read-only: nothing you click is saved.", demoRoleBrand:"Brand", demoRoleDist:"Distributor", demoRoleAgente:"Agent" });
+Object.assign(T.it,{ demoBanner:"DEMO — stai guardando il pannello {r}. Sola lettura: niente di quello che clicchi viene salvato.", demoRoleBrand:"Brand", demoRoleDist:"Distributore", demoRoleAgente:"Agente" });
+Object.assign(T.fr,{ demoBanner:"DÉMO — vous explorez le tableau de bord {r}. Lecture seule : rien n'est enregistré.", demoRoleBrand:"Marque", demoRoleDist:"Distributeur", demoRoleAgente:"Agent" });
+Object.assign(T.es,{ demoBanner:"DEMO — estás viendo el panel {r}. Solo lectura: nada de lo que pulses se guarda.", demoRoleBrand:"Marca", demoRoleDist:"Distribuidor", demoRoleAgente:"Agente" });
+Object.assign(T.de,{ demoBanner:"DEMO — Sie sehen das {r}-Dashboard. Nur Lesen: nichts wird gespeichert.", demoRoleBrand:"Marken", demoRoleDist:"Distributoren", demoRoleAgente:"Agenten" });
+Object.assign(T.zh,{ demoBanner:"\u6f14\u793a \u2014 \u60a8\u6b63\u5728\u67e5\u770b{r}\u9762\u677f\u3002\u4ec5\u4f9b\u6d4f\u89c8\uff0c\u6240\u6709\u64cd\u4f5c\u4e0d\u4f1a\u4fdd\u5b58\u3002", demoRoleBrand:"\u54c1\u724c", demoRoleDist:"\u7ecf\u9500\u5546", demoRoleAgente:"\u4ee3\u7406" });
+Object.assign(T.ar,{ demoBanner:"\u0639\u0631\u0636 \u2014 \u0623\u0646\u062a \u062a\u0633\u062a\u0639\u0631\u0636 \u0644\u0648\u062d\u0629 {r}. \u0644\u0644\u0642\u0631\u0627\u0621\u0629 \u0641\u0642\u0637: \u0644\u0627 \u064a\u064f\u062d\u0641\u0638 \u0634\u064a\u0621.", demoRoleBrand:"\u0627\u0644\u0639\u0644\u0627\u0645\u0629", demoRoleDist:"\u0627\u0644\u0645\u0648\u0632\u0639", demoRoleAgente:"\u0627\u0644\u0648\u0643\u064a\u0644" });
+
 /* La dimostrazione per gli agenti: niente percentuali, solo i motivi per
    cui conviene. Le condizioni si concordano al colloquio. */
 Object.assign(T.en,{ lgDemoAgente:"Try as an agent", pcDemoRate:"agreed when we talk", pcDemoTitle:"What you get as a NexusHub agent", pcDemoSub:"These numbers are an example. What is real is how the work is set up.", pcDemoV1t:"The catalogue is already there", pcDemoV1b:"Over 570 references from 21 Gulf houses, stock in our Turin hub, 48-72h to the shop. You sell what is on the shelf today, not a promise.", pcDemoV2t:"You buy nothing", pcDemoV2b:"No stock to finance, no unsold boxes, no money of yours tied up. You bring the order, we ship and invoice.", pcDemoV3t:"The shop stays yours", pcDemoV3b:"Every shop registered with your code is yours for as long as it buys — not just on the first order.", pcDemoV4t:"You order from your phone", pcDemoV4b:"Standing in the shop you open their account and place the order yourself. The shopkeeper signs nothing and waits for nothing.", pcDemoV5t:"Paid every month", pcDemoV5b:"We issue the self-billed invoice for you and pay to your IBAN. You see what you have earned grow with every order that gets paid.", pcDemoV6t:"All of Europe", pcDemoV6b:"No assigned area, no exclusivity, no obligation. You work where you already have the relationships.", pcDemoCta:"Apply as an agent", pcDemoCtaNote:"We read every application: what you already sell, which shops you serve, how many you can bring in thirty days. Who we take on, we take on seriously." });
@@ -3221,11 +3231,18 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
   const [contratto, setContratto] = useState(null);
   useEffect(() => {
     if (!isProc) return;
+    /* Il contratto nella lingua che sta leggendo. Un francese che firma un
+       testo italiano non lo sta leggendo, e le clausole vessatorie per
+       essere efficaci devono essere capite. Se la lingua manca si torna
+       all'italiano, che e' comunque il testo che fa fede. */
     supabase.from("contratti_procacciatore")
-      .select("versione, titolo, testo, vessatorie").eq("attivo", true)
-      .order("creato_il", { ascending: false }).limit(1)
-      .then(({ data }) => setContratto((data || [])[0] || null));
-  }, [isProc]);
+      .select("versione, titolo, testo, vessatorie, lingua").eq("attivo", true)
+      .in("lingua", [lang, "it"])
+      .then(({ data }) => {
+        const righe = data || [];
+        setContratto(righe.find(r => r.lingua === lang) || righe.find(r => r.lingua === "it") || null);
+      });
+  }, [isProc, lang]);
 
   /* Alla casa produttrice si chiede chi e' e dove incassa. Le carte della
      camera di commercio si chiedono al distributore, che e' quello che poi
@@ -12617,7 +12634,17 @@ export default function App() {
             display:"flex", alignItems:"center", justifyContent:"center", gap:14, flexWrap:"wrap",
             padding:"9px 16px", fontFamily:"'DM Sans',sans-serif" }}>
             <span style={{ color:"#e2bc6a", fontSize:12.5, fontWeight:700, textAlign:"center" }}>
-              🎛️ DEMO — you're exploring the Brand dashboard. Read-only: nothing you click is saved.
+              {/* Diceva "Brand" a chiunque: un agente in prova leggeva di
+                  stare guardando il pannello di un marchio. Qui il testo si
+                  prende dalla tabella, non da useT: siamo noi a fornire il
+                  contesto della lingua, quindi sopra non esiste ancora. */}
+              🎛️ {(() => {
+                const D = T[lang] || T.en;
+                const chi = userRole === "brand" ? (D.demoRoleBrand || T.en.demoRoleBrand)
+                  : userRole === "procacciatore" ? (D.demoRoleAgente || T.en.demoRoleAgente)
+                  : (D.demoRoleDist || T.en.demoRoleDist);
+                return (D.demoBanner || T.en.demoBanner).replace("{r}", chi);
+              })()}
             </span>
             <button onClick={exitDemo} style={{ padding:"6px 14px", borderRadius:8, cursor:"pointer",
               background:"#c9a84c", border:"none", color:"#0b0b0d", fontSize:12, fontWeight:800 }}>
