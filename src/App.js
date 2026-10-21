@@ -1242,6 +1242,14 @@ Object.assign(T.zh,{ pcClosed:"\u5df2\u7ed3\u7b97\u6708\u4efd", pcPaidOut:"\u5df
 Object.assign(T.ar,{ pcClosed:"\u0627\u0644\u0623\u0634\u0647\u0631 \u0627\u0644\u0645\u0633\u0648\u0651\u0627\u0629", pcPaidOut:"\u0645\u062f\u0641\u0648\u0639\u0629", pcApproved:"\u0645\u0639\u062a\u0645\u062f\u0629 \u2014 \u0642\u064a\u062f \u0627\u0644\u062f\u0641\u0639", pcToApprove:"\u0642\u064a\u062f \u0627\u0644\u0645\u0631\u0627\u062c\u0639\u0629" });
 
 
+Object.assign(T.en,{ registerAgente:"Apply as an agent" });
+Object.assign(T.it,{ registerAgente:"Candidati come agente" });
+Object.assign(T.fr,{ registerAgente:"Devenir apporteur d'affaires" });
+Object.assign(T.es,{ registerAgente:"Hazte captador de negocios" });
+Object.assign(T.de,{ registerAgente:"Als Vermittler bewerben" });
+Object.assign(T.zh,{ registerAgente:"申请成为业务介绍人" });
+Object.assign(T.ar,{ registerAgente:"قدّم طلبك كوسيط أعمال" });
+
 /* La fascia in fondo durante la prova: dice che pannello si sta guardando
    e che non si salva niente. */
 Object.assign(T.en,{ demoBanner:"DEMO — you're exploring the {r} dashboard. Read-only: nothing you click is saved.", demoRoleBrand:"Brand", demoRoleDist:"Distributor", demoRoleAgente:"Agent" });
@@ -3395,7 +3403,9 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
         </div>
 
         <h2 style={{ fontSize:22, fontWeight:700, color:C.text, fontFamily:"'Fraunces', Georgia, serif", margin:"0 0 4px" }}>
-          {isBrand ? t("registerBrand") : isManaged ? t("registerChain") : t("registerDist")}
+          {/* Un agente leggeva "registrati come distributore": e' il primo
+              pezzo di testo che vede, e diceva la cosa sbagliata. */}
+          {isBrand ? t("registerBrand") : isProc ? t("registerAgente") : isManaged ? t("registerChain") : t("registerDist")}
         </h2>
         <p style={{ color:C.textMuted, fontSize:13, margin:"0 0 24px" }}>{step===1 ? t("step1") : t("step2")}</p>
 
