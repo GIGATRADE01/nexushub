@@ -9582,7 +9582,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const loadOrders = async () => {
     try {
       const { data } = await supabase.from("orders")
-        .select("*, order_items(*), profiles!orders_distributor_id_fkey(company_name), brand:profiles!orders_brand_id_fkey(company_name)")
+        .select("*, order_items(*), profiles!orders_distributor_id_fkey(company_name, email, country, shipping_address, shipping_city, shipping_zip), brand:profiles!orders_brand_id_fkey(company_name)")
         .order("created_at", { ascending: false }).limit(400);
       setOrders(data || []);
     } catch(e) { console.error(e); }
@@ -11329,8 +11329,15 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                             {o.profiles?.company_name || "—"}
                             <span style={{ fontFamily:"monospace", fontSize:11, color:C.gold, marginLeft:9 }}>{o.order_number}</span>
                           </div>
+                          {/* L'indirizzo dell'ordine se c'e', altrimenti quello
+                              in anagrafica del negozio: chi prepara il pacco
+                              non deve andarselo a cercare. */}
                           <div style={{ fontSize:11.5, color:C.textDim, marginTop:3 }}>
-                            {[o.shipping_address, o.shipping_zip, o.shipping_city, o.shipping_country].filter(Boolean).join(" · ") || "indirizzo non indicato"}
+                            {[o.shipping_address || o.profiles?.shipping_address,
+                              o.shipping_zip || o.profiles?.shipping_zip,
+                              o.shipping_city || o.profiles?.shipping_city,
+                              o.shipping_country || o.profiles?.country].filter(Boolean).join(" · ")
+                              || "indirizzo non indicato — chiedilo al cliente prima di spedire"}
                           </div>
                           <div style={{ fontSize:11.5, color:C.textMuted, marginTop:3 }}>
                             {pezzi} pezzi · {(o.order_items || []).length} referenze · {new Date(o.created_at).toLocaleDateString("it-IT")}

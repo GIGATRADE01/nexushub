@@ -76,6 +76,17 @@ const LOCALE: Record<string, string> = {
 const esc = (v: unknown) =>
   String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+/* L'email parte e la richiesta non la aspetta: il worker ha un tetto di CPU
+   e il collegamento SMTP se lo mangia quasi tutto. waitUntil tiene vivo il
+   worker quel tanto che basta senza bloccare la risposta. */
+const spedisci = (p: Promise<unknown>, che: string) => {
+  const lavoro = p
+    .then((e: any) => { if (e && e.ok === false) console.error("email non spedita:", che, e.errore); })
+    .catch((e) => console.error("email, errore di invio:", che, String(e?.message || e)));
+  const runtime = (globalThis as any).EdgeRuntime;
+  if (runtime?.waitUntil) runtime.waitUntil(lavoro);
+};
+
 const risposta = (corpo: unknown, stato = 200) =>
   new Response(JSON.stringify(corpo), { status: stato, headers: { ...CORS, "Content-Type": "application/json" } });
 
@@ -178,8 +189,12 @@ serve(async (req) => {
       ${link ? `<div style="text-align:center;margin:22px 0"><a href="${link}" style="display:inline-block;padding:13px 28px;background:#c9a84c;color:#1a1a22;text-decoration:none;border-radius:9px;font-weight:700;font-size:14px">${esc(F.spedBottone)}</a></div>` : ""}
       <p style="font-size:13px;color:#6b6b7b;line-height:1.6">${esc(F.spedNota)}</p>`, rtl);
 
-    await invia(destinatario, `${F.spedOggetto} ${ordine.order_number}`, html,
-      { replyTo: REPLY_TO, mittente: MITTENTE }).catch((e) => console.error("email spedizione", e));
+    /* L'invio SMTP consuma piu' CPU di quanta ne abbia un worker dentro una
+       richiesta: aspettarlo faceva uccidere la funzione con "CPU Time
+       exceeded" DOPO aver gia' aggiornato l'ordine. Si risponde subito e si
+       lascia proseguire l'invio, come fa send-email. */
+    spedisci(invia(destinatario, `${F.spedOggetto} ${ordine.order_number}`, html,
+      { replyTo: REPLY_TO, mittente: MITTENTE }), "spedizione");
 
     return risposta({ ok: true, tracking_url: link, email: destinatario, lingua: lg });
   }
@@ -283,8 +298,8 @@ serve(async (req) => {
     <p style="font-size:12px;color:#6b6b7b;background:#f7f7fa;border-${rtl ? "right" : "left"}:3px solid #c9a84c;padding:11px 13px;margin:18px 0 0;line-height:1.6">${esc(notaIva)}</p>
     <p style="font-size:12px;color:#9a9aab;margin-top:14px">${esc(F.fatPiede.replace("{noi}", NOI_RIGA))}</p>`, rtl);
 
-  await invia(destinatario, `${F.fatOggetto} ${numero} — ${F.fatOrdine} ${ordine.order_number}`, html,
-    { replyTo: REPLY_TO, mittente: MITTENTE }).catch((e) => console.error("email fattura", e));
+  spedisci(invia(destinatario, `${F.fatOggetto} ${numero} — ${F.fatOrdine} ${ordine.order_number}`, html,
+    { replyTo: REPLY_TO, mittente: MITTENTE }), "fattura");
 
   return risposta({
     ok: true, numero, imponibile, aliquota: iva.aliquota, imposta, totale,
