@@ -24,6 +24,7 @@ const supabase = createClient(
 // ============================================================
 const DEMO_BRAND = { email: "brand-demo@nexushub.trade", password: "LattafaDemo2026" };
 const DEMO_DIST = { email: "demo-dist-de@nexushub.trade", password: "DemoDist2026" };
+const DEMO_AGENTE = { email: "agente-demo@nexushub.trade", password: "AgenteDemo2026" };
 let DEMO_MODE = typeof window !== "undefined" && window.sessionStorage.getItem("nx_demo") === "1";
 const isDemo = () => DEMO_MODE;
 const setDemoMode = (v) => {
@@ -1240,6 +1241,17 @@ Object.assign(T.de,{ pcClosed:"Bereits abgerechnete Monate", pcPaidOut:"bezahlt"
 Object.assign(T.zh,{ pcClosed:"\u5df2\u7ed3\u7b97\u6708\u4efd", pcPaidOut:"\u5df2\u652f\u4ed8", pcApproved:"\u5df2\u6279\u51c6 \u2014 \u6b63\u5728\u51c6\u5907\u4ed8\u6b3e", pcToApprove:"\u6838\u5bf9\u4e2d" });
 Object.assign(T.ar,{ pcClosed:"\u0627\u0644\u0623\u0634\u0647\u0631 \u0627\u0644\u0645\u0633\u0648\u0651\u0627\u0629", pcPaidOut:"\u0645\u062f\u0641\u0648\u0639\u0629", pcApproved:"\u0645\u0639\u062a\u0645\u062f\u0629 \u2014 \u0642\u064a\u062f \u0627\u0644\u062f\u0641\u0639", pcToApprove:"\u0642\u064a\u062f \u0627\u0644\u0645\u0631\u0627\u062c\u0639\u0629" });
 
+
+/* La dimostrazione per gli agenti: niente percentuali, solo i motivi per
+   cui conviene. Le condizioni si concordano al colloquio. */
+Object.assign(T.en,{ lgDemoAgente:"Try as an agent", pcDemoRate:"agreed when we talk", pcDemoTitle:"What you get as a NexusHub agent", pcDemoSub:"These numbers are an example. What is real is how the work is set up.", pcDemoV1t:"The catalogue is already there", pcDemoV1b:"Over 570 references from 21 Gulf houses, stock in our Turin hub, 48-72h to the shop. You sell what is on the shelf today, not a promise.", pcDemoV2t:"You buy nothing", pcDemoV2b:"No stock to finance, no unsold boxes, no money of yours tied up. You bring the order, we ship and invoice.", pcDemoV3t:"The shop stays yours", pcDemoV3b:"Every shop registered with your code is yours for as long as it buys — not just on the first order.", pcDemoV4t:"You order from your phone", pcDemoV4b:"Standing in the shop you open their account and place the order yourself. The shopkeeper signs nothing and waits for nothing.", pcDemoV5t:"Paid every month", pcDemoV5b:"We issue the self-billed invoice for you and pay to your IBAN. You see what you have earned grow with every order that gets paid.", pcDemoV6t:"All of Europe", pcDemoV6b:"No assigned area, no exclusivity, no obligation. You work where you already have the relationships.", pcDemoCta:"Apply as an agent", pcDemoCtaNote:"We read every application: what you already sell, which shops you serve, how many you can bring in thirty days. Who we take on, we take on seriously." });
+Object.assign(T.it,{ lgDemoAgente:"Prova come agente", pcDemoRate:"si concorda a voce", pcDemoTitle:"Cosa ti dà fare l'agente per NexusHub", pcDemoSub:"I numeri qui sopra sono un esempio. Quello che è vero è come è fatto il lavoro.", pcDemoV1t:"Il catalogo c'è già", pcDemoV1b:"Oltre 570 referenze di 21 case del Golfo, merce nel nostro hub di Torino, 48-72 ore al negozio. Vendi quello che c'è a scaffale oggi, non una promessa.", pcDemoV2t:"Non compri niente", pcDemoV2b:"Nessuna merce da finanziare, nessun cartone invenduto, nessun soldo tuo fermo. Tu porti l'ordine, noi spediamo e fatturiamo.", pcDemoV3t:"Il negozio resta tuo", pcDemoV3b:"Ogni negozio registrato col tuo codice è tuo per tutto il tempo in cui compra, non solo sul primo ordine.", pcDemoV4t:"Ordini dal telefono", pcDemoV4b:"Mentre sei in negozio entri nel suo conto e fai tu l'ordine. Il negoziante non firma niente e non aspetta niente.", pcDemoV5t:"Pagato ogni mese", pcDemoV5b:"L'autofattura la emettiamo noi per te e paghiamo sul tuo IBAN. Vedi crescere il guadagno a ogni ordine incassato.", pcDemoV6t:"Tutta Europa", pcDemoV6b:"Nessuna zona assegnata, nessuna esclusiva, nessun obbligo. Lavori dove hai già i rapporti.", pcDemoCta:"Candidati come agente", pcDemoCtaNote:"Leggiamo tutte le candidature: cosa vendi già, quali negozi servi, quanti ne porti in trenta giorni. Chi prendiamo, lo prendiamo sul serio." });
+Object.assign(T.fr,{ lgDemoAgente:"Essayer comme agent", pcDemoRate:"convenu de vive voix", pcDemoTitle:"Ce que vous apporte le rôle d'agent NexusHub", pcDemoSub:"Les chiffres ci-dessus sont un exemple. Ce qui est réel, c'est la façon dont le travail est organisé.", pcDemoV1t:"Le catalogue existe déjà", pcDemoV1b:"Plus de 570 références de 21 maisons du Golfe, stock dans notre hub de Turin, 48-72h jusqu'au magasin.", pcDemoV2t:"Vous n'achetez rien", pcDemoV2b:"Aucun stock à financer, aucun carton invendu, aucun argent à vous immobilisé. Vous apportez la commande, nous expédions et facturons.", pcDemoV3t:"Le magasin reste le vôtre", pcDemoV3b:"Chaque magasin inscrit avec votre code vous appartient tant qu'il achète, pas seulement sur la première commande.", pcDemoV4t:"Vous commandez depuis le téléphone", pcDemoV4b:"Sur place, vous entrez dans son compte et passez la commande vous-même.", pcDemoV5t:"Payé chaque mois", pcDemoV5b:"Nous émettons l'autofacture pour vous et payons sur votre IBAN.", pcDemoV6t:"Toute l'Europe", pcDemoV6b:"Pas de zone imposée, pas d'exclusivité, pas d'obligation. Vous travaillez là où vous avez déjà vos relations.", pcDemoCta:"Poser sa candidature", pcDemoCtaNote:"Nous lisons chaque candidature : ce que vous vendez déjà, quels magasins vous servez, combien vous pouvez en amener en trente jours." });
+Object.assign(T.es,{ lgDemoAgente:"Probar como agente", pcDemoRate:"se acuerda hablando", pcDemoTitle:"Qué te da ser agente de NexusHub", pcDemoSub:"Las cifras de arriba son un ejemplo. Lo real es cómo está montado el trabajo.", pcDemoV1t:"El catálogo ya está", pcDemoV1b:"Más de 570 referencias de 21 casas del Golfo, mercancía en nuestro hub de Turín, 48-72h hasta la tienda.", pcDemoV2t:"No compras nada", pcDemoV2b:"Sin stock que financiar, sin cajas sin vender, sin dinero tuyo inmovilizado. Tú traes el pedido, nosotros enviamos y facturamos.", pcDemoV3t:"La tienda sigue siendo tuya", pcDemoV3b:"Cada tienda registrada con tu código es tuya mientras compre, no solo en el primer pedido.", pcDemoV4t:"Pides desde el móvil", pcDemoV4b:"Estando en la tienda entras en su cuenta y haces tú el pedido.", pcDemoV5t:"Cobras cada mes", pcDemoV5b:"Emitimos la autofactura por ti y pagamos a tu IBAN.", pcDemoV6t:"Toda Europa", pcDemoV6b:"Sin zona asignada, sin exclusividad, sin obligación. Trabajas donde ya tienes las relaciones.", pcDemoCta:"Presentar candidatura", pcDemoCtaNote:"Leemos todas las candidaturas: qué vendes ya, a qué tiendas sirves, cuántas puedes traer en treinta días." });
+Object.assign(T.de,{ lgDemoAgente:"Als Agent testen", pcDemoRate:"wird im Gespräch vereinbart", pcDemoTitle:"Was Ihnen die Arbeit als NexusHub-Agent bringt", pcDemoSub:"Die Zahlen oben sind ein Beispiel. Echt ist, wie die Arbeit aufgebaut ist.", pcDemoV1t:"Der Katalog steht bereits", pcDemoV1b:"Über 570 Artikel von 21 Häusern aus dem Golf, Ware in unserem Lager in Turin, 48-72 Stunden bis ins Geschäft.", pcDemoV2t:"Sie kaufen nichts", pcDemoV2b:"Kein Lager zu finanzieren, keine unverkauften Kartons, kein eigenes Geld gebunden. Sie bringen die Bestellung, wir liefern und fakturieren.", pcDemoV3t:"Das Geschäft bleibt Ihres", pcDemoV3b:"Jedes mit Ihrem Code angemeldete Geschäft gehört Ihnen, solange es kauft, nicht nur bei der ersten Bestellung.", pcDemoV4t:"Bestellen vom Telefon", pcDemoV4b:"Im Laden öffnen Sie dessen Konto und geben die Bestellung selbst auf.", pcDemoV5t:"Monatlich bezahlt", pcDemoV5b:"Wir stellen die Gutschrift für Sie aus und zahlen auf Ihre IBAN.", pcDemoV6t:"Ganz Europa", pcDemoV6b:"Kein zugewiesenes Gebiet, keine Exklusivität, keine Verpflichtung. Sie arbeiten dort, wo Sie die Kontakte schon haben.", pcDemoCta:"Als Agent bewerben", pcDemoCtaNote:"Wir lesen jede Bewerbung: was Sie heute verkaufen, welche Geschäfte Sie beliefern, wie viele Sie in dreißig Tagen gewinnen können." });
+Object.assign(T.zh,{ lgDemoAgente:"\u4ee5\u4ee3\u7406\u8eab\u4efd\u4f53\u9a8c", pcDemoRate:"\u9762\u8c08\u65f6\u7ea6\u5b9a", pcDemoTitle:"\u6210\u4e3a NexusHub \u4ee3\u7406\u7684\u6536\u83b7", pcDemoSub:"\u4ee5\u4e0a\u6570\u5b57\u4e3a\u793a\u4f8b\uff0c\u771f\u5b9e\u7684\u662f\u8fd9\u5957\u5de5\u4f5c\u65b9\u5f0f\u3002", pcDemoV1t:"\u8d27\u5355\u5df2\u5c31\u7eea", pcDemoV1b:"21 \u5bb6\u6d77\u6e7e\u9999\u6c34\u5c4b\u7684 570 \u591a\u4e2a\u5355\u54c1\uff0c\u5e93\u5b58\u5728\u90fd\u705e\u4ed3\uff0c48-72 \u5c0f\u65f6\u9001\u8fbe\u95e8\u5e97\u3002", pcDemoV2t:"\u65e0\u9700\u8fdb\u8d27", pcDemoV2b:"\u4e0d\u7528\u538b\u8d27\uff0c\u4e0d\u7528\u5760\u8d44\u91d1\u3002\u60a8\u62ff\u8ba2\u5355\uff0c\u6211\u4eec\u53d1\u8d27\u5f00\u7968\u3002", pcDemoV3t:"\u5ba2\u6237\u59cb\u7ec8\u5f52\u60a8", pcDemoV3b:"\u51e1\u7528\u60a8\u4ee3\u7801\u6ce8\u518c\u7684\u95e8\u5e97\uff0c\u53ea\u8981\u4e0b\u5355\u5c31\u4e00\u76f4\u662f\u60a8\u7684\u3002", pcDemoV4t:"\u624b\u673a\u4e0a\u4e0b\u5355", pcDemoV4b:"\u5728\u5e97\u91cc\u5c31\u80fd\u8fdb\u5165\u5bf9\u65b9\u8d26\u6237\u4ee3\u4e3a\u4e0b\u5355\u3002", pcDemoV5t:"\u6bcf\u6708\u7ed3\u7b97", pcDemoV5b:"\u6211\u4eec\u4ee3\u5f00\u53d1\u7968\u5e76\u6253\u5165\u60a8\u7684 IBAN \u8d26\u6237\u3002", pcDemoV6t:"\u8986\u76d6\u5168\u6b27\u6d32", pcDemoV6b:"\u4e0d\u5212\u533a\u57df\uff0c\u4e0d\u8bbe\u72ec\u5bb6\uff0c\u4e0d\u5f3a\u5236\u6307\u6807\u3002", pcDemoCta:"\u7533\u8bf7\u6210\u4e3a\u4ee3\u7406", pcDemoCtaNote:"\u6bcf\u4efd\u7533\u8bf7\u6211\u4eec\u90fd\u4f1a\u8ba4\u771f\u9605\u8bfb\u3002" });
+Object.assign(T.ar,{ lgDemoAgente:"\u062c\u0631\u0651\u0628 \u0643\u0648\u0643\u064a\u0644", pcDemoRate:"\u064a\u064f\u062a\u0641\u0642 \u0639\u0644\u064a\u0647\u0627 \u0641\u064a \u0627\u0644\u0645\u0642\u0627\u0628\u0644\u0629", pcDemoTitle:"\u0645\u0627 \u062a\u0643\u0633\u0628\u0647 \u0643\u0648\u0643\u064a\u0644 \u0644\u0640 NexusHub", pcDemoSub:"\u0627\u0644\u0623\u0631\u0642\u0627\u0645 \u0623\u0639\u0644\u0627\u0647 \u0645\u062c\u0631\u062f \u0645\u062b\u0627\u0644\u061b \u0627\u0644\u062d\u0642\u064a\u0642\u064a \u0647\u0648 \u0637\u0631\u064a\u0642\u0629 \u0627\u0644\u0639\u0645\u0644.", pcDemoV1t:"\u0627\u0644\u0643\u062a\u0627\u0644\u0648\u062c \u062c\u0627\u0647\u0632", pcDemoV1b:"\u0623\u0643\u062b\u0631 \u0645\u0646 570 \u0635\u0646\u0641\u064b\u0627 \u0645\u0646 21 \u062f\u0627\u0631 \u062e\u0644\u064a\u062c\u064a\u0629\u060c \u0627\u0644\u0628\u0636\u0627\u0639\u0629 \u0641\u064a \u0645\u0633\u062a\u0648\u062f\u0639\u0646\u0627 \u0628\u062a\u0648\u0631\u064a\u0646\u060c \u0648\u0627\u0644\u062a\u0633\u0644\u064a\u0645 48-72 \u0633\u0627\u0639\u0629.", pcDemoV2t:"\u0644\u0627 \u062a\u0634\u062a\u0631\u064a \u0634\u064a\u0626\u064b\u0627", pcDemoV2b:"\u0644\u0627 \u0645\u062e\u0632\u0648\u0646 \u062a\u0645\u0648\u0651\u0644\u0647 \u0648\u0644\u0627 \u0645\u0627\u0644 \u0645\u062c\u0645\u0651\u062f. \u0623\u0646\u062a \u062a\u062c\u0644\u0628 \u0627\u0644\u0637\u0644\u0628\u060c \u0648\u0646\u062d\u0646 \u0646\u0634\u062d\u0646 \u0648\u0646\u0641\u0648\u062a\u0631.", pcDemoV3t:"\u0627\u0644\u0645\u062a\u062c\u0631 \u064a\u0628\u0642\u0649 \u0644\u0643", pcDemoV3b:"\u0643\u0644 \u0645\u062a\u062c\u0631 \u064a\u064f\u0633\u062c\u0651\u0644 \u0628\u0631\u0645\u0632\u0643 \u064a\u0638\u0644 \u0644\u0643 \u0637\u0627\u0644\u0645\u0627 \u064a\u0634\u062a\u0631\u064a.", pcDemoV4t:"\u062a\u0637\u0644\u0628 \u0645\u0646 \u0627\u0644\u0647\u0627\u062a\u0641", pcDemoV4b:"\u062f\u0627\u062e\u0644 \u0627\u0644\u0645\u062a\u062c\u0631 \u062a\u062f\u062e\u0644 \u0625\u0644\u0649 \u062d\u0633\u0627\u0628\u0647 \u0648\u062a\u0646\u0641\u0651\u0630 \u0627\u0644\u0637\u0644\u0628 \u0628\u0646\u0641\u0633\u0643.", pcDemoV5t:"\u062a\u064f\u062f\u0641\u0639 \u0634\u0647\u0631\u064a\u064b\u0627", pcDemoV5b:"\u0646\u0635\u062f\u0631 \u0627\u0644\u0641\u0627\u062a\u0648\u0631\u0629 \u0646\u064a\u0627\u0628\u0629 \u0639\u0646\u0643 \u0648\u0646\u062f\u0641\u0639 \u0639\u0644\u0649 \u062d\u0633\u0627\u0628\u0643.", pcDemoV6t:"\u0643\u0644 \u0623\u0648\u0631\u0648\u0628\u0627", pcDemoV6b:"\u0644\u0627 \u0645\u0646\u0637\u0642\u0629 \u0645\u062d\u062f\u062f\u0629 \u0648\u0644\u0627 \u062d\u0635\u0631\u064a\u0629 \u0648\u0644\u0627 \u0627\u0644\u062a\u0632\u0627\u0645.", pcDemoCta:"\u0642\u062f\u0651\u0645 \u0637\u0644\u0628\u0643", pcDemoCtaNote:"\u0646\u0642\u0631\u0623 \u0643\u0644 \u0637\u0644\u0628 \u0628\u0639\u0646\u0627\u064a\u0629." });
+
 /* La scheda "Agenti" del pannello: una parola, sette lingue. */
 Object.assign(T.en,{ atabAgents:"Agents" });
 Object.assign(T.it,{ atabAgents:"Agenti" });
@@ -2285,6 +2297,22 @@ const Login = ({ onLogin, lang, onLangChange }) => {
     }
   };
 
+  const handleDemoAgente = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      setDemoMode(true);
+      const { data, error: authError } = await supabase.auth.signInWithPassword(DEMO_AGENTE);
+      if (authError) throw authError;
+      onLogin("procacciatore", "approved", data.user);
+    } catch (err) {
+      setDemoMode(false);
+      setError(t("loginError"));
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleDemoDist = async () => {
     setLoading(true);
     setError("");
@@ -2306,6 +2334,16 @@ const Login = ({ onLogin, lang, onLangChange }) => {
      e senza dover cercare il pulsante. La lingua si puo' forzare con &lang=fr. */
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
+    /* Link diretto alla candidatura, da mettere nei messaggi:
+       nexushub.trade/?register=agente apre il modulo, senza cercarlo. */
+    const reg = (p.get("register") || "").toLowerCase();
+    if (reg === "agente" || reg === "agent") {
+      const l0 = (p.get("lang") || "").toLowerCase();
+      if (l0 && onLangChange) onLangChange(l0);
+      window.history.replaceState({}, "", window.location.pathname);
+      setView("register-agente");
+      return;
+    }
     const d = (p.get("demo") || "").toLowerCase();
     if (!d) return;
     const l = (p.get("lang") || "").toLowerCase();
@@ -2313,6 +2351,7 @@ const Login = ({ onLogin, lang, onLangChange }) => {
     window.history.replaceState({}, "", window.location.pathname);
     if (d === "brand") handleDemoBrand();
     else if (d === "distributor" || d === "dist") handleDemoDist();
+    else if (d === "agente" || d === "agent") handleDemoAgente();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -2448,6 +2487,10 @@ const Login = ({ onLogin, lang, onLangChange }) => {
                 <span>📦</span> {t("lgDemoDist")}
               </button>
             </div>
+            <button onClick={handleDemoAgente} disabled={loading}
+              style={{ width:"100%", marginTop:9, padding:"12px", borderRadius:10, cursor:"pointer", background:`${C.gold}14`, border:`1px solid ${C.gold}55`, color:C.goldLight, fontSize:13, fontWeight:800, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
+              <span>🤝</span> {t("lgDemoAgente")}
+            </button>
             <button onClick={() => setView("demo")}
               style={{ width:"100%", marginTop:9, padding:"11px", borderRadius:10, cursor:"pointer", background:`${C.purple}10`, border:`1px solid ${C.purple}40`, color:"#c084fc", fontSize:12.5, fontWeight:600, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
               <span>▶</span> {t("watchDemo") || "Watch Platform Demo"}
@@ -2863,14 +2906,47 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
       <div style={{ padding:20 }}>
         {tab === "guadagno" && (
           <>
+            {/* Nella dimostrazione le percentuali e l'importo della
+                provvigione restano coperti: le condizioni si concordano a
+                voce, non si pubblicano a chiunque apra la pagina. Al loro
+                posto, i motivi per cui conviene. */}
             <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:16 }}>
               <Scheda titolo={t("pcThisMonth")} valore={eur(fatturato)} nota={delMese.length + " " + t("pcPaidOrders")} />
-              <Scheda titolo={t("pcYourRate")} valore={pct + "%"} nota={mio ? mio.etichetta : t("pcNoTier")} />
-              <Scheda titolo={t("pcYourEarning")} valore={eur(guadagno)} colore={C.goldLight} nota={t("pcOnCollected")} />
+              {!isDemo() && <Scheda titolo={t("pcYourRate")} valore={pct + "%"} nota={mio ? mio.etichetta : t("pcNoTier")} />}
+              {!isDemo() && <Scheda titolo={t("pcYourEarning")} valore={eur(guadagno)} colore={C.goldLight} nota={t("pcOnCollected")} />}
+              {isDemo() && <Scheda titolo={t("pcYourEarning")} valore={"🔒"} colore={C.goldLight} nota={t("pcDemoRate")} />}
               <Scheda titolo={t("pcPending")} valore={eur(inArrivo)} nota={t("pcPendingNote")} />
             </div>
 
-            {prossimo && (
+            {isDemo() && (
+              <div style={{ background:C.surface, border:"1px solid "+C.gold+"40", borderRadius:14, padding:"20px 22px", marginBottom:16 }}>
+                <div style={{ fontSize:17, fontWeight:800, color:C.goldLight, marginBottom:4 }}>{t("pcDemoTitle")}</div>
+                <div style={{ fontSize:13, color:C.textMuted, marginBottom:16, lineHeight:1.6 }}>{t("pcDemoSub")}</div>
+                <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(250px,1fr))", gap:12 }}>
+                  {[["📦", t("pcDemoV1t"), t("pcDemoV1b")],
+                    ["💸", t("pcDemoV2t"), t("pcDemoV2b")],
+                    ["🔒", t("pcDemoV3t"), t("pcDemoV3b")],
+                    ["📱", t("pcDemoV4t"), t("pcDemoV4b")],
+                    ["🧾", t("pcDemoV5t"), t("pcDemoV5b")],
+                    ["🇪🇺", t("pcDemoV6t"), t("pcDemoV6b")]].map(([ic, tit, testo], i) => (
+                    <div key={i} style={{ background:C.surface2, border:"1px solid "+C.border, borderRadius:11, padding:"14px 15px" }}>
+                      <div style={{ fontSize:20, marginBottom:7 }}>{ic}</div>
+                      <div style={{ fontSize:13.5, fontWeight:700, color:C.text, marginBottom:5 }}>{tit}</div>
+                      <div style={{ fontSize:12.5, color:C.textMuted, lineHeight:1.55 }}>{testo}</div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ marginTop:16, paddingTop:14, borderTop:"1px solid "+C.border, display:"flex", justifyContent:"space-between", alignItems:"center", gap:12, flexWrap:"wrap" }}>
+                  <div style={{ fontSize:12.5, color:C.textMuted, lineHeight:1.55, flex:"1 1 260px" }}>{t("pcDemoCtaNote")}</div>
+                  <a href="/?register=agente" style={{ padding:"11px 22px", borderRadius:9, textDecoration:"none",
+                    background:"linear-gradient(135deg,"+C.gold+","+C.goldDim+")", color:C.bg, fontSize:13.5, fontWeight:800, whiteSpace:"nowrap" }}>
+                    {t("pcDemoCta")}
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {prossimo && !isDemo() && (
               <div style={{ background:C.gold+"0C", border:"1px solid "+C.gold+"40", borderRadius:12, padding:"15px 18px", marginBottom:16 }}>
                 <div style={{ fontSize:14, fontWeight:800, color:C.goldLight, marginBottom:5 }}>
                   {t("pcNextStep").replace("{n}", eur(mancano)).replace("{d}", String(Number(prossimo.percentuale)))}
@@ -2885,7 +2961,7 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
               </div>
             )}
 
-            <div style={{ background:C.surface, border:"1px solid "+C.border, borderRadius:12, padding:"15px 18px" }}>
+            <div style={{ background:C.surface, border:"1px solid "+C.border, borderRadius:12, padding:"15px 18px", display: isDemo() ? "none" : "block" }}>
               <div style={{ fontSize:13, fontWeight:700, color:C.text, marginBottom:10 }}>{t("pcTiers")}</div>
               {scaglioni.map(x => {
                 const attivo = mio && mio.id === x.id;
