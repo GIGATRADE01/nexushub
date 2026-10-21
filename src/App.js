@@ -1250,6 +1250,15 @@ Object.assign(T.de,{ registerAgente:"Als Vermittler bewerben" });
 Object.assign(T.zh,{ registerAgente:"申请成为业务介绍人" });
 Object.assign(T.ar,{ registerAgente:"قدّم طلبك كوسيط أعمال" });
 
+/* L'andamento dell'agente: la sua contabilita' in piccolo. */
+Object.assign(T.en,{ pcTabTrend:"My months", pcTrendTitolo:"Month by month", pcTrendNota:"Taken from your own clients' paid orders. The official settlement is done by NexusHub at the start of the following month.", pcTrendTot:"Collected (12 months)", pcTrendGuad:"Your commission", pcTrendMedia:"Monthly average", pcTrendMediaNota:"on the months with orders", pcTrendMeglio:"Best month", pcTrendMesi:"months", pcTrendOra:"in progress", pcTrendVuoto:"No paid orders yet. The month you open your first shop, this page starts filling up." });
+Object.assign(T.it,{ pcTabTrend:"I miei mesi", pcTrendTitolo:"Mese per mese", pcTrendNota:"Presi dagli ordini pagati dei tuoi clienti. La chiusura ufficiale la fa NexusHub all'inizio del mese dopo.", pcTrendTot:"Incassato (12 mesi)", pcTrendGuad:"La tua provvigione", pcTrendMedia:"Media al mese", pcTrendMediaNota:"sui mesi con ordini", pcTrendMeglio:"Mese migliore", pcTrendMesi:"mesi", pcTrendOra:"in corso", pcTrendVuoto:"Ancora nessun ordine pagato. Dal mese in cui apri il primo negozio questa pagina comincia a riempirsi." });
+Object.assign(T.fr,{ pcTabTrend:"Mes mois", pcTrendTitolo:"Mois par mois", pcTrendNota:"D'après les commandes payées de vos clients. Le décompte officiel est fait par NexusHub au début du mois suivant.", pcTrendTot:"Encaissé (12 mois)", pcTrendGuad:"Votre commission", pcTrendMedia:"Moyenne mensuelle", pcTrendMediaNota:"sur les mois avec commandes", pcTrendMeglio:"Meilleur mois", pcTrendMesi:"mois", pcTrendOra:"en cours", pcTrendVuoto:"Aucune commande payée pour l'instant." });
+Object.assign(T.es,{ pcTabTrend:"Mis meses", pcTrendTitolo:"Mes a mes", pcTrendNota:"Tomado de los pedidos pagados de tus clientes. La liquidación oficial la hace NexusHub al principio del mes siguiente.", pcTrendTot:"Cobrado (12 meses)", pcTrendGuad:"Tu comisión", pcTrendMedia:"Media mensual", pcTrendMediaNota:"sobre los meses con pedidos", pcTrendMeglio:"Mejor mes", pcTrendMesi:"meses", pcTrendOra:"en curso", pcTrendVuoto:"Aún no hay pedidos pagados." });
+Object.assign(T.de,{ pcTabTrend:"Meine Monate", pcTrendTitolo:"Monat für Monat", pcTrendNota:"Aus den bezahlten Bestellungen Ihrer Kunden. Die offizielle Abrechnung macht NexusHub zu Beginn des Folgemonats.", pcTrendTot:"Vereinnahmt (12 Monate)", pcTrendGuad:"Ihre Provision", pcTrendMedia:"Monatsdurchschnitt", pcTrendMediaNota:"über die Monate mit Bestellungen", pcTrendMeglio:"Bester Monat", pcTrendMesi:"Monate", pcTrendOra:"laufend", pcTrendVuoto:"Noch keine bezahlten Bestellungen." });
+Object.assign(T.zh,{ pcTabTrend:"\u6211\u7684\u6708\u5ea6", pcTrendTitolo:"\u9010\u6708\u660e\u7ec6", pcTrendNota:"\u6765\u81ea\u60a8\u5ba2\u6237\u7684\u5df2\u4ed8\u6b3e\u8ba2\u5355\u3002\u6b63\u5f0f\u7ed3\u7b97\u7531 NexusHub \u4e8e\u6b21\u6708\u521d\u5b8c\u6210\u3002", pcTrendTot:"\u5df2\u6536\u6b3e\uff0812 \u4e2a\u6708\uff09", pcTrendGuad:"\u60a8\u7684\u4f63\u91d1", pcTrendMedia:"\u6708\u5747", pcTrendMediaNota:"\u6309\u6709\u8ba2\u5355\u7684\u6708\u4efd\u8ba1", pcTrendMeglio:"\u6700\u4f73\u6708\u4efd", pcTrendMesi:"\u4e2a\u6708", pcTrendOra:"\u8fdb\u884c\u4e2d", pcTrendVuoto:"\u6682\u65e0\u5df2\u4ed8\u6b3e\u8ba2\u5355\u3002" });
+Object.assign(T.ar,{ pcTabTrend:"\u0623\u0634\u0647\u0631\u064a", pcTrendTitolo:"\u0634\u0647\u0631\u064b\u0627 \u0628\u0634\u0647\u0631", pcTrendNota:"\u0645\u0623\u062e\u0648\u0630\u0629 \u0645\u0646 \u0637\u0644\u0628\u0627\u062a \u0639\u0645\u0644\u0627\u0626\u0643 \u0627\u0644\u0645\u062f\u0641\u0648\u0639\u0629. \u0627\u0644\u062a\u0633\u0648\u064a\u0629 \u0627\u0644\u0631\u0633\u0645\u064a\u0629 \u062a\u062a\u0645 \u0645\u0637\u0644\u0639 \u0627\u0644\u0634\u0647\u0631 \u0627\u0644\u062a\u0627\u0644\u064a.", pcTrendTot:"\u0627\u0644\u0645\u062d\u0635\u0644 (12 \u0634\u0647\u0631\u064b\u0627)", pcTrendGuad:"\u0639\u0645\u0648\u0644\u062a\u0643", pcTrendMedia:"\u0627\u0644\u0645\u062a\u0648\u0633\u0637 \u0627\u0644\u0634\u0647\u0631\u064a", pcTrendMediaNota:"\u0639\u0644\u0649 \u0627\u0644\u0623\u0634\u0647\u0631 \u0630\u0627\u062a \u0627\u0644\u0637\u0644\u0628\u0627\u062a", pcTrendMeglio:"\u0623\u0641\u0636\u0644 \u0634\u0647\u0631", pcTrendMesi:"\u0623\u0634\u0647\u0631", pcTrendOra:"\u062c\u0627\u0631\u064d", pcTrendVuoto:"\u0644\u0627 \u062a\u0648\u062c\u062f \u0637\u0644\u0628\u0627\u062a \u0645\u062f\u0641\u0648\u0639\u0629 \u0628\u0639\u062f." });
+
 /* L'avviso promozionale che compare mentre si compra. */
 Object.assign(T.en,{ apQuasi:"Only {n} more and you get −{d}%", apPreso:"You've got −{d}% — it's yours", apMisto:"Any brand counts towards the total." });
 Object.assign(T.it,{ apQuasi:"Ancora {n} e prendi il −{d}%", apPreso:"Hai preso il −{d}% — è tuo", apMisto:"Vale il totale, qualsiasi marchio." });
@@ -2933,7 +2942,7 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
       </div>
 
       <div style={{ display:"flex", gap:6, padding:"12px 20px 0", flexWrap:"wrap" }}>
-        {[["guadagno", t("pcTabEarn")], ["clienti", t("pcTabClients")], ["ordini", t("pcTabOrders")], ["preordini", t("pcTabPre")]].map(([k, l]) => (
+        {[["guadagno", t("pcTabEarn")], ["andamento", t("pcTabTrend")], ["clienti", t("pcTabClients")], ["ordini", t("pcTabOrders")], ["preordini", t("pcTabPre")]].map(([k, l]) => (
           <button key={k} onClick={() => setTab(k)} style={{ padding:"8px 15px", borderRadius:8, cursor:"pointer", fontSize:13,
             fontWeight: tab===k ? 800 : 600, background: tab===k ? C.gold+"1C" : "transparent",
             border:"1px solid "+(tab===k ? C.gold : C.border), color: tab===k ? C.goldLight : C.textMuted }}>{l}</button>
@@ -3038,6 +3047,84 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
             )}
           </>
         )}
+
+        {tab === "andamento" && (() => {
+          /* Mese per mese, dai suoi stessi ordini. Non e' la chiusura
+             ufficiale (quella la fa l'amministrazione): e' lo specchio che
+             gli serve per sapere se sta andando meglio o peggio. */
+          const perMese = {};
+          ordini.filter(o => o.payment_status === "paid" && o.status !== "cancelled").forEach(o => {
+            const m = String(o.paid_at || o.created_at).slice(0, 7);
+            if (!perMese[m]) perMese[m] = { mese: m, incassato: 0, ordini: 0 };
+            perMese[m].incassato += Number(o.total_amount || 0);
+            perMese[m].ordini += 1;
+          });
+          const mesi = Object.values(perMese).sort((a, b) => b.mese.localeCompare(a.mese)).slice(0, 12);
+          mesi.forEach(m => {
+            const su = scaglioni.filter(x => m.incassato >= Number(x.da_fatturato));
+            m.pct = su.length ? Number(su[su.length - 1].percentuale) : 0;
+            m.provvigione = m.incassato * m.pct / 100;
+          });
+          const massimo = Math.max(1, ...mesi.map(m => m.incassato));
+          const totale = mesi.reduce((a, m) => a + m.incassato, 0);
+          const guadagnato = mesi.reduce((a, m) => a + m.provvigione, 0);
+          const migliore = mesi.reduce((a, m) => (!a || m.incassato > a.incassato ? m : a), null);
+          const mesiNome = (m) => {
+            const [anno, mm] = m.split("-");
+            return new Date(Number(anno), Number(mm) - 1, 1)
+              .toLocaleDateString(undefined, { month: "short", year: "numeric" });
+          };
+
+          if (mesi.length === 0) {
+            return <div style={{ background:C.surface, border:"1px solid "+C.border, borderRadius:12, padding:"22px 20px", fontSize:13, color:C.textMuted }}>
+              {t("pcTrendVuoto")}
+            </div>;
+          }
+
+          return (
+            <>
+              <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:16 }}>
+                <Scheda titolo={t("pcTrendTot")} valore={eur(totale)} nota={mesi.length + " " + t("pcTrendMesi")} />
+                <Scheda titolo={t("pcTrendGuad")} valore={eur(guadagnato)} colore={C.goldLight} nota={t("pcOnCollected")} />
+                <Scheda titolo={t("pcTrendMedia")} valore={eur(totale / mesi.length)} nota={t("pcTrendMediaNota")} />
+                {migliore && <Scheda titolo={t("pcTrendMeglio")} valore={eur(migliore.incassato)} nota={mesiNome(migliore.mese)} />}
+              </div>
+
+              <div style={{ background:C.surface, border:"1px solid "+C.border, borderRadius:12, padding:"16px 18px" }}>
+                <div style={{ fontSize:13, fontWeight:700, color:C.text, marginBottom:4 }}>{t("pcTrendTitolo")}</div>
+                <div style={{ fontSize:12, color:C.textDim, marginBottom:14, lineHeight:1.5 }}>{t("pcTrendNota")}</div>
+                {mesi.map((m, i) => {
+                  const corrente = m.mese === meseCorrente;
+                  const su = scaglioni.filter(x => m.incassato < Number(x.da_fatturato));
+                  const dopo = su.length ? su[0] : null;
+                  return (
+                    <div key={m.mese} style={{ padding:"11px 0", borderTop: i === 0 ? "none" : "1px solid "+C.border }}>
+                      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", gap:10, flexWrap:"wrap" }}>
+                        <span style={{ fontSize:13, fontWeight: corrente ? 800 : 600, color: corrente ? C.goldLight : C.text }}>
+                          {mesiNome(m.mese)}{corrente ? " · " + t("pcTrendOra") : ""}
+                        </span>
+                        <span style={{ fontSize:12, color:C.textDim }}>
+                          {m.ordini} {t("pcPaidOrders")} · {m.pct}%
+                        </span>
+                        <span style={{ fontSize:13.5, fontWeight:800, color:C.text }}>{eur(m.incassato)}</span>
+                        <span style={{ fontSize:13, fontWeight:800, color:C.goldLight, minWidth:92, textAlign:"right" }}>{eur(m.provvigione)}</span>
+                      </div>
+                      <div style={{ marginTop:6, height:8, borderRadius:20, background:C.surface2, overflow:"hidden" }}>
+                        <div style={{ height:"100%", borderRadius:20, width: Math.max(2, (m.incassato / massimo) * 100) + "%",
+                          background: corrente ? "linear-gradient(90deg,"+C.gold+","+C.goldLight+")" : C.goldDim }}/>
+                      </div>
+                      {corrente && dopo && (
+                        <div style={{ fontSize:11.5, color:C.gold, marginTop:5 }}>
+                          {t("pcNextStep").replace("{n}", eur(Number(dopo.da_fatturato) - m.incassato)).replace("{d}", String(Number(dopo.percentuale)))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          );
+        })()}
 
         {tab === "clienti" && (
           <div style={{ background:C.surface, border:"1px solid "+C.border, borderRadius:12, padding:"15px 18px" }}>
@@ -10745,7 +10832,12 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
               const pro = somma(incassati, "provvigione_agente");
               const mar = ric - cos - pro;
               const attesa = somma(nelMese.filter(r => r.stato_pagamento !== "paid"), "incassato");
-              const buchi = nelMese.filter(r => Number(r.righe_senza_costo || 0) > 0).length;
+              /* Quanto di quello che ho incassato NON ha un costo d'acquisto
+                 attaccato. Finche' questo numero e' grosso, il margine qui
+                 sotto non e' un margine: e' un'illusione. */
+              const ciechi = incassati.filter(r => r.costo_incerto);
+              const incCieco = somma(ciechi, "incassato");
+              const quotaCieca = ric > 0 ? (incCieco / ric * 100) : 0;
               const mesi = Array.from(new Set(conti.map(r => String(r.paid_at || r.created_at).slice(0, 7)))).sort().reverse();
               const marchiMese = contiMarchi.filter(m => String(m.mese).slice(0, 7) === contiMese);
               return (
@@ -10758,19 +10850,32 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                     <span style={{ fontSize:12, color:C.textDim }}>
                       {incassati.length} ordini incassati su {nelMese.length} del mese
                     </span>
-                    {buchi > 0 && (
-                      <span style={{ fontSize:12, color:C.red, background:`${C.red}10`, border:`1px solid ${C.red}35`, borderRadius:7, padding:"5px 10px" }}>
-                        ⚠ {buchi} ordini con righe senza prezzo d'acquisto: il margine è sovrastimato
-                      </span>
-                    )}
                   </div>
+
+                  {ciechi.length > 0 && (
+                    <div style={{ background:`${C.red}0E`, border:`1px solid ${C.red}40`, borderRadius:11,
+                      padding:"12px 15px", marginBottom:16, fontSize:12.5, color:C.text, lineHeight:1.6 }}>
+                      <b style={{ color:C.red }}>⚠ {ciechi.length} ordini su {incassati.length} non hanno un costo d'acquisto.</b>{" "}
+                      Sono <b>{eurC(incCieco)}</b> di incassato su {eurC(ric)} ({quotaCieca.toFixed(0)}%):
+                      per quella parte il margine qui sotto è gonfiato di tutto il costo della merce.
+                      {quotaCieca >= 50 && <> <b>Finché resta così, il margine totale non è un margine.</b></>}
+                      <div style={{ color:C.textDim, fontSize:11.5, marginTop:5 }}>
+                        Succede quando l'ordine non ha righe, o quando una referenza non è agganciata per EAN al listino del fornitore.
+                      </div>
+                    </div>
+                  )}
 
                   <div style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:20 }}>
                     <Stat icon="💶" label="Incassato" value={eurC(ric)} accent={C.green}/>
                     <Stat icon="📦" label="Costo merce" value={eurC(cos)} accent={C.red}/>
                     <Stat icon="🤝" label="Provvigioni agenti" value={eurC(pro)} accent={C.gold}/>
-                    <Stat icon="✅" label="Margine" value={eurC(mar)} accent={mar >= 0 ? C.green : C.red}/>
-                    <Stat icon="📊" label="Margine %" value={(ric > 0 ? (mar / ric * 100) : 0).toFixed(1) + "%"} accent={C.blue}/>
+                    <Stat icon="✅" label={quotaCieca > 0 ? "Margine (parziale)" : "Margine"}
+                      value={quotaCieca >= 50 ? "—" : eurC(mar)}
+                      sub={quotaCieca > 0 ? "su " + eurC(ric - incCieco) + " con costo noto" : null}
+                      accent={quotaCieca >= 50 ? C.textDim : (mar >= 0 ? C.green : C.red)}/>
+                    <Stat icon="📊" label="Margine %"
+                      value={quotaCieca >= 50 ? "—" : (ric > 0 ? (mar / ric * 100) : 0).toFixed(1) + "%"}
+                      accent={quotaCieca >= 50 ? C.textDim : C.blue}/>
                     <Stat icon="⏳" label="Da incassare" value={eurC(attesa)} accent={C.textMuted}/>
                   </div>
 
@@ -10837,14 +10942,22 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                               </td>
                               <td style={{ padding:"9px 13px", fontSize:12.5, color:C.text, textAlign:"right", whiteSpace:"nowrap" }}>{eurC(r.incassato)}</td>
                               <td style={{ padding:"9px 13px", fontSize:12.5, textAlign:"right", whiteSpace:"nowrap",
-                                color: Number(r.righe_senza_costo || 0) > 0 ? C.red : C.textMuted }}>
-                                {eurC(r.costo_merce)}{Number(r.righe_senza_costo || 0) > 0 ? " ⚠" : ""}
+                                color: r.costo_incerto ? C.red : C.textMuted }}>
+                                {r.costo_incerto
+                                  ? (Number(r.righe || 0) === 0 ? "nessuna riga ⚠" : eurC(r.costo_merce) + " ⚠")
+                                  : eurC(r.costo_merce)}
                               </td>
                               <td style={{ padding:"9px 13px", fontSize:12.5, color:C.gold, textAlign:"right", whiteSpace:"nowrap" }}>{eurC(r.provvigione_agente)}</td>
+                              {/* Senza costo non c'e' margine da scrivere: un trattino
+                                  e' piu' onesto di un numero verde. */}
                               <td style={{ padding:"9px 13px", fontSize:13, fontWeight:700, textAlign:"right", whiteSpace:"nowrap",
-                                color: Number(r.margine) >= 0 ? C.green : C.red }}>{eurC(r.margine)}</td>
+                                color: r.costo_incerto ? C.textDim : (Number(r.margine) >= 0 ? C.green : C.red) }}>
+                                {r.costo_incerto ? "—" : eurC(r.margine)}
+                              </td>
                               <td style={{ padding:"9px 13px", fontSize:12.5, fontWeight:600, textAlign:"right",
-                                color: Number(r.margine_pct) >= 0 ? C.green : C.red }}>{Number(r.margine_pct).toFixed(1)}%</td>
+                                color: r.costo_incerto ? C.textDim : (Number(r.margine_pct) >= 0 ? C.green : C.red) }}>
+                                {r.costo_incerto ? "—" : Number(r.margine_pct).toFixed(1) + "%"}
+                              </td>
                             </tr>
                           ))}
                         </tbody>
