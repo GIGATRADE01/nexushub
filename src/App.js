@@ -1250,6 +1250,14 @@ Object.assign(T.de,{ registerAgente:"Als Vermittler bewerben" });
 Object.assign(T.zh,{ registerAgente:"申请成为业务介绍人" });
 Object.assign(T.ar,{ registerAgente:"قدّم طلبك كوسيط أعمال" });
 
+Object.assign(T.en,{ registerAgenteSub:"You bring the shops, we ship and invoice. No stock to buy." });
+Object.assign(T.it,{ registerAgenteSub:"Tu porti i negozi, noi spediamo e fatturiamo. Nessuna merce da comprare." });
+Object.assign(T.fr,{ registerAgenteSub:"Vous amenez les magasins, nous expédions et facturons. Aucun stock à acheter." });
+Object.assign(T.es,{ registerAgenteSub:"Tú traes las tiendas, nosotros enviamos y facturamos. Sin stock que comprar." });
+Object.assign(T.de,{ registerAgenteSub:"Sie bringen die Geschäfte, wir liefern und fakturieren. Kein Lager zu kaufen." });
+Object.assign(T.zh,{ registerAgenteSub:"您带来门店，我们发货开票。无需进货。" });
+Object.assign(T.ar,{ registerAgenteSub:"أنت تجلب المتاجر، ونحن نشحن ونفوتر. لا بضاعة تشتريها." });
+
 /* L'andamento dell'agente: la sua contabilita' in piccolo. */
 Object.assign(T.en,{ pcTabTrend:"My months", pcTrendTitolo:"Month by month", pcTrendNota:"Taken from your own clients' paid orders. The official settlement is done by NexusHub at the start of the following month.", pcTrendTot:"Collected (12 months)", pcTrendGuad:"Your commission", pcTrendMedia:"Monthly average", pcTrendMediaNota:"on the months with orders", pcTrendMeglio:"Best month", pcTrendMesi:"months", pcTrendOra:"in progress", pcTrendVuoto:"No paid orders yet. The month you open your first shop, this page starts filling up." });
 Object.assign(T.it,{ pcTabTrend:"I miei mesi", pcTrendTitolo:"Mese per mese", pcTrendNota:"Presi dagli ordini pagati dei tuoi clienti. La chiusura ufficiale la fa NexusHub all'inizio del mese dopo.", pcTrendTot:"Incassato (12 mesi)", pcTrendGuad:"La tua provvigione", pcTrendMedia:"Media al mese", pcTrendMediaNota:"sui mesi con ordini", pcTrendMeglio:"Mese migliore", pcTrendMesi:"mesi", pcTrendOra:"in corso", pcTrendVuoto:"Ancora nessun ordine pagato. Dal mese in cui apri il primo negozio questa pagina comincia a riempirsi." });
@@ -2601,6 +2609,21 @@ const Login = ({ onLogin, lang, onLangChange }) => {
             </button>
           </div>
           <button onClick={() => setView("register-chain")} style={{ width:"100%", marginTop:10, padding:"10px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:12.5 }}>{t("registerChain")}</button>
+
+          {/* La terza porta: chi non compra e non produce, ma porta i negozi.
+              C'era la rotta e c'era la dimostrazione, mancava il bottone -
+              cioe' l'unica cosa che uno trova se non gli mandi il link. */}
+          <button onClick={() => setView("register-agente")} className="nx-card" style={{
+            width:"100%", marginTop:10, padding:"13px 14px", borderRadius:11, cursor:"pointer",
+            background:`${C.gold}0E`, border:`1px solid ${C.gold}50`,
+            display:"flex", alignItems:"center", gap:11, textAlign:"left" }}>
+            <span style={{ fontSize:19, lineHeight:1 }}>🤝</span>
+            <span style={{ flex:1 }}>
+              <span style={{ display:"block", fontSize:13, fontWeight:700, color:C.goldLight }}>{t("registerAgente")}</span>
+              <span style={{ display:"block", fontSize:11.5, color:C.textMuted, marginTop:2, lineHeight:1.4 }}>{t("registerAgenteSub")}</span>
+            </span>
+            <span style={{ fontSize:14, color:C.gold }}>→</span>
+          </button>
 
           <div style={{ marginTop:24, paddingTop:14, borderTop:`1px solid ${C.border}`, textAlign:"center", fontSize:11, color:C.textDim, lineHeight:1.7 }}>
             <a href="/privacy.html" target="_blank" rel="noreferrer" style={{ color:C.textMuted, textDecoration:"none" }}>{t("ftPrivacy")}</a>
