@@ -1250,6 +1250,16 @@ Object.assign(T.de,{ registerAgente:"Als Vermittler bewerben" });
 Object.assign(T.zh,{ registerAgente:"申请成为业务介绍人" });
 Object.assign(T.ar,{ registerAgente:"قدّم طلبك كوسيط أعمال" });
 
+/* La scala dell'ordine in cima al catalogo: quanto spendi, quanto risparmi,
+   quando la spedizione e' nostra. */
+Object.assign(T.en,{ soTitolo:"The more you load, the less you pay", soMisto:"Mixed basket: brands and references add up together.", soDa:"from", soNessunoSconto:"minimum order", soSpedIt:"free shipping in Italy", soSpedEu:"free shipping in Europe", soCarrello:"Your basket:", soGiaTuo:"already yours", soMancano:"{n} more and you get −{d}%", soMassimo:"Top tier reached" });
+Object.assign(T.it,{ soTitolo:"Più carichi, meno paghi", soMisto:"Carrello misto: marchi e referenze si sommano fra loro.", soDa:"da", soNessunoSconto:"ordine minimo", soSpedIt:"spedizione gratis in Italia", soSpedEu:"spedizione gratis in Europa", soCarrello:"Il tuo carrello:", soGiaTuo:"già tuo", soMancano:"ancora {n} e prendi il −{d}%", soMassimo:"Hai raggiunto lo scaglione più alto" });
+Object.assign(T.fr,{ soTitolo:"Plus vous chargez, moins vous payez", soMisto:"Panier mixte : les marques et les références s'additionnent.", soDa:"à partir de", soNessunoSconto:"commande minimum", soSpedIt:"livraison offerte en Italie", soSpedEu:"livraison offerte en Europe", soCarrello:"Votre panier :", soGiaTuo:"déjà acquis", soMancano:"encore {n} et vous obtenez −{d}%", soMassimo:"Palier maximum atteint" });
+Object.assign(T.es,{ soTitolo:"Cuanto más cargas, menos pagas", soMisto:"Carrito mixto: las marcas y las referencias se suman.", soDa:"desde", soNessunoSconto:"pedido mínimo", soSpedIt:"envío gratis en Italia", soSpedEu:"envío gratis en Europa", soCarrello:"Tu carrito:", soGiaTuo:"ya es tuyo", soMancano:"{n} más y consigues −{d}%", soMassimo:"Has alcanzado el tramo más alto" });
+Object.assign(T.de,{ soTitolo:"Je mehr Sie laden, desto weniger zahlen Sie", soMisto:"Gemischter Warenkorb: Marken und Artikel zählen zusammen.", soDa:"ab", soNessunoSconto:"Mindestbestellung", soSpedIt:"Versand frei in Italien", soSpedEu:"Versand frei in Europa", soCarrello:"Ihr Warenkorb:", soGiaTuo:"bereits erreicht", soMancano:"noch {n} und Sie erhalten −{d}%", soMassimo:"Höchste Stufe erreicht" });
+Object.assign(T.zh,{ soTitolo:"装得越多，付得越少", soMisto:"可混装：不同品牌与单品合计。", soDa:"满", soNessunoSconto:"起订量", soSpedIt:"意大利境内包邮", soSpedEu:"欧洲包邮", soCarrello:"您的购物车：", soGiaTuo:"已获得", soMancano:"再满 {n} 即享 −{d}%", soMassimo:"已达最高档位" });
+Object.assign(T.ar,{ soTitolo:"كلما زادت الكمية قلّ السعر", soMisto:"سلة مختلطة: تُجمع العلامات والأصناف معًا.", soDa:"من", soNessunoSconto:"الحد الأدنى للطلب", soSpedIt:"شحن مجاني داخل إيطاليا", soSpedEu:"شحن مجاني داخل أوروبا", soCarrello:"سلتك:", soGiaTuo:"مُحقّق", soMancano:"أضف {n} لتحصل على −{d}%", soMassimo:"بلغت أعلى شريحة" });
+
 /* La fascia in fondo durante la prova: dice che pannello si sta guardando
    e che non si salva niente. */
 Object.assign(T.en,{ demoBanner:"DEMO — you're exploring the {r} dashboard. Read-only: nothing you click is saved.", demoRoleBrand:"Brand", demoRoleDist:"Distributor", demoRoleAgente:"Agent" });
@@ -7623,6 +7633,80 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                 <input type="text" value={catSearch} onChange={e => setCatSearch(e.target.value)} placeholder={t("diSearchPh")} style={{ width:"100%", maxWidth:360, padding:"10px 14px", borderRadius:10, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none" }}/>
               </div>
             )}
+            {/* ---------------------------------------------------------
+                LA SCALA DELL'ORDINE. Sta qui e non nel riepilogo di
+                pagamento: quando uno e' al riepilogo ha gia' deciso.
+                --------------------------------------------------------- */}
+            {scontiOrdine.length > 0 && (() => {
+              const ora = scagliCarrello;
+              const poi = prossimoScagliOrdine(cartMerce);
+              const traguardo = poi ? Number(poi.da_valore) : (ora ? Number(ora.da_valore) : 1);
+              const avanzamento = Math.min(100, (cartMerce / traguardo) * 100);
+              const eurB = (n) => "€ " + Number(n || 0).toLocaleString("it-IT", { maximumFractionDigits: 0 });
+              return (
+                <div style={{ marginBottom:18, borderRadius:13, overflow:"hidden",
+                  border:`1px solid ${C.gold}45`, background:`linear-gradient(135deg,${C.gold}14,${C.gold}05)` }}>
+                  <div style={{ padding:"13px 16px 11px" }}>
+                    <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", gap:10, flexWrap:"wrap" }}>
+                      <span style={{ fontSize:13.5, fontWeight:800, color:C.goldLight }}>
+                        🎁 {t("soTitolo")}
+                      </span>
+                      <span style={{ fontSize:11.5, color:C.textMuted }}>{t("soMisto")}</span>
+                    </div>
+
+                    {/* I gradini, sempre tutti: si vede dove si arriva, non solo dove si e'. */}
+                    <div style={{ display:"flex", gap:7, flexWrap:"wrap", marginTop:11 }}>
+                      {scontiOrdine.map(sc => {
+                        const preso = cartMerce >= Number(sc.da_valore);
+                        const prossimo = poi && poi.id === sc.id;
+                        return (
+                          <div key={sc.id} style={{
+                            flex:"1 1 150px", padding:"9px 11px", borderRadius:9,
+                            background: preso ? `${C.green}18` : prossimo ? `${C.gold}1C` : C.surface2,
+                            border:`1px solid ${preso ? C.green + "55" : prossimo ? C.gold + "70" : C.border}` }}>
+                            <div style={{ fontSize:11, color: preso ? C.green : prossimo ? C.goldLight : C.textDim, fontWeight:700 }}>
+                              {preso ? "✓ " : ""}{t("soDa")} {eurB(sc.da_valore)}
+                            </div>
+                            <div style={{ fontSize:13.5, fontWeight:900, color: preso ? C.green : prossimo ? C.goldLight : C.textMuted, marginTop:2 }}>
+                              {Number(sc.sconto_pct) > 0 ? "−" + Number(sc.sconto_pct) + "%" : t("soNessunoSconto")}
+                            </div>
+                            {(sc.sped_gratis_it || sc.sped_gratis_eu) && (
+                              <div style={{ fontSize:11, color: preso ? C.green : C.gold, marginTop:3 }}>
+                                🚚 {sc.sped_gratis_eu ? t("soSpedEu") : t("soSpedIt")}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Dove sei adesso e quanto manca: un numero solo, grosso. */}
+                    {cartMerce > 0 && (
+                      <div style={{ marginTop:12 }}>
+                        <div style={{ display:"flex", justifyContent:"space-between", fontSize:12, marginBottom:5, flexWrap:"wrap", gap:8 }}>
+                          <span style={{ color:C.text }}>
+                            {t("soCarrello")} <b style={{ color:C.goldLight }}>{eurB(cartMerce)}</b>
+                            {scontoCarrelloPct > 0 && <span style={{ color:C.green, fontWeight:700 }}> · −{scontoCarrelloPct}% {t("soGiaTuo")}</span>}
+                          </span>
+                          {poi && (
+                            <span style={{ color:C.goldLight, fontWeight:700 }}>
+                              {t("soMancano").replace("{n}", eurB(Number(poi.da_valore) - cartMerce)).replace("{d}", String(Number(poi.sconto_pct)))}
+                              {(poi.sped_gratis_it || poi.sped_gratis_eu) ? " + " + (poi.sped_gratis_eu ? t("soSpedEu") : t("soSpedIt")) : ""}
+                            </span>
+                          )}
+                          {!poi && <span style={{ color:C.green, fontWeight:700 }}>✓ {t("soMassimo")}</span>}
+                        </div>
+                        <div style={{ height:7, borderRadius:20, background:C.surface2, overflow:"hidden" }}>
+                          <div style={{ height:"100%", borderRadius:20, width: avanzamento + "%",
+                            background:`linear-gradient(90deg,${C.gold},${C.goldLight})`, transition:"width .25s" }}/>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })()}
+
             {/* Barra di selezione brand: Tutti + un chip per ogni brand approvato con prodotti */}
             {approvedBrandIds.length > 1 && (
               <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:18 }}>
@@ -9508,6 +9592,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     if (tab === "finanze") { loadOrders(); loadInvoices(); loadPaySplits(); }
     if (tab === "audit") loadAudit();
     if (tab === "issues") loadOrderIssues();
+    /* Il numero sulla scheda Agenti: si legge sempre, non solo quando la
+       scheda e' aperta, altrimenti una candidatura resta li' a marcire. */
+    supabase.from("procacciatori").select("id", { count: "exact", head: true })
+      .eq("stato", "in_attesa")
+      .then(({ count }) => setAgentiInAttesa(count || 0));
     // i caricatori sono funzioni del componente: metterli fra le dipendenze
     // rilancerebbe l'effetto a ogni disegno
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -9721,6 +9810,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   const [trackEdits, setTrackEdits] = useState({});
   /* Contabilita', righe d'ordine aperte in logistica, e il lavoro in corso
      (quale ordine sto spedendo o fatturando). */
+  const [agentiInAttesa, setAgentiInAttesa] = useState(0);
   const [conti, setConti] = useState([]);
   const [contiMarchi, setContiMarchi] = useState([]);
   const [contiMese, setContiMese] = useState(() => new Date().toISOString().slice(0, 7));
@@ -9891,7 +9981,7 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
     { key:"overview", icon:"◈", label:t("atabOverview") },
     { key:"users", icon:"👥", label:t("atabUsers"), badge: pendingUsers.length },
     { key:"keyaccount", icon:"🔑", label:t("atabKeyAccount"), badge: managedUsers.filter(u=>u.status==="pending").length },
-    { key:"agenti", icon:"🤝", label:t("atabAgents") },
+    { key:"agenti", icon:"🤝", label:t("atabAgents"), badge: agentiInAttesa },
     { key:"brands", icon:"🏛️", label:t("atabBrands") },
     { key:"catalog", icon:"📦", label:t("atabCatalog") },
     { key:"inventory", icon:"🏭", label:t("atabInventory") },
@@ -10023,7 +10113,9 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
 
       <div style={{ padding:"22px 18px", maxWidth:1400, margin:"0 auto" }}>
         {/* Tab Nav */}
-        <div style={{ display:"flex", gap:2, marginBottom:16, borderBottom:`1px solid ${C.border}`, overflowX:"auto", overflowY:"hidden", WebkitOverflowScrolling:"touch", paddingBottom:2 }}>
+        {/* A capo, non di lato: con ventidue schede quello che finiva oltre
+            il bordo non lo trovava piu' nessuno. */}
+        <div style={{ display:"flex", gap:2, marginBottom:16, borderBottom:`1px solid ${C.border}`, flexWrap:"wrap", paddingBottom:2 }}>
           {tabs.map(tb => (
             <button key={tb.key} onClick={() => setTab(tb.key)} style={{
               padding:"7px 12px", cursor:"pointer",
