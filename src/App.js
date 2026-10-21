@@ -7095,7 +7095,6 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
             {detailProduct && (() => {
               const p = detailProduct;
               const lan = openLaunches[p.id];
-              const stock = p.inventory?.quantity_available || 0;
               const mult = p.order_multiple || 1;
               const gia = myPreorders[p.id];
               const brandName = (dbBrands.find(b => b.id === p.brand_id) || {}).company_name || "";
