@@ -6240,6 +6240,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
   const [realProducts, setRealProducts] = useState([]);
   const [tiers, setTiers] = useState({});
   const [catSearch, setCatSearch] = useState("");
+  const [catBrandFilter, setCatBrandFilter] = useState(null); // null = tutti i brand; id = solo quel brand
   const [bonificoInfo, setBonificoInfo] = useState(null);
   const [payCoords, setPayCoords] = useState(null);
   const [myData, setMyData] = useState({ company_name:"", phone:"", shipping_address:"", shipping_city:"", shipping_zip:"", shipping_region:"", vat_number:"" });
@@ -6683,7 +6684,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                       );
                     })()}
                     {status==="approved" ? (
-                      <div style={{ display:"flex", flexDirection:"column", gap:8 }}><button onClick={() => setTab("catalog")} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:`${C.gold}20`, border:`1px solid ${C.gold}50`, color:C.goldLight, fontSize:13, fontWeight:600 }}>{t("viewCatalogBtn")}</button>{(() => { const ctr = distContracts.find(c => c.brand_id === brand.id); if (!ctr) return null; const sg = !!ctr.signed_at; return (<button onClick={() => setViewContract(ctr)} style={{ width:"100%", padding:"10px", borderRadius:8, cursor:"pointer", background: sg?`${C.green}12`:`${C.blue}12`, border:`1px solid ${sg?C.green:C.blue}40`, color: sg?C.green:C.blue, fontSize:12.5, fontWeight:600 }}>{sg ? t("ddViewAgreement") : t("ddSignAgreement")}</button>); })()}</div>
+                      <div style={{ display:"flex", flexDirection:"column", gap:8 }}><button onClick={() => { setCatBrandFilter(brand.id); setTab("catalog"); }} style={{ width:"100%", padding:"11px", borderRadius:8, cursor:"pointer", background:`${C.gold}20`, border:`1px solid ${C.gold}50`, color:C.goldLight, fontSize:13, fontWeight:600 }}>{t("viewCatalogBtn")}</button>{(() => { const ctr = distContracts.find(c => c.brand_id === brand.id); if (!ctr) return null; const sg = !!ctr.signed_at; return (<button onClick={() => setViewContract(ctr)} style={{ width:"100%", padding:"10px", borderRadius:8, cursor:"pointer", background: sg?`${C.green}12`:`${C.blue}12`, border:`1px solid ${sg?C.green:C.blue}40`, color: sg?C.green:C.blue, fontSize:12.5, fontWeight:600 }}>{sg ? t("ddViewAgreement") : t("ddSignAgreement")}</button>); })()}</div>
                     ) : status==="pending" ? (
                       <div style={{ width:"100%", padding:"11px", borderRadius:8, textAlign:"center", background:`${C.blue}10`, border:`1px solid ${C.blue}30`, color:C.blue, fontSize:13 }}>{t("requestSentMsg")}</div>
                     ) : status==="blocked" ? (
@@ -6838,12 +6839,27 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                 <input type="text" value={catSearch} onChange={e => setCatSearch(e.target.value)} placeholder={t("diSearchPh")} style={{ width:"100%", maxWidth:360, padding:"10px 14px", borderRadius:10, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none" }}/>
               </div>
             )}
+            {/* Barra di selezione brand: Tutti + un chip per ogni brand approvato con prodotti */}
+            {approvedBrandIds.length > 1 && (
+              <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:18 }}>
+                <button onClick={() => setCatBrandFilter(null)} style={{ padding:"7px 14px", borderRadius:20, cursor:"pointer", fontSize:12.5, fontWeight:600, background: !catBrandFilter ? C.gold : C.surface2, color: !catBrandFilter ? "#141414" : C.text, border:`1px solid ${!catBrandFilter ? C.gold : C.border}` }}>Tutti i brand</button>
+                {approvedBrandIds.map(bid => {
+                  const bi = dbBrands.find(b => b.id === bid);
+                  const nome = (bi && (bi.company_name || bi.email)) || "Brand";
+                  const att = catBrandFilter === bid;
+                  if (!visibleProducts.some(p => p.brand_id === bid)) return null;
+                  return (
+                    <button key={bid} onClick={() => setCatBrandFilter(bid)} style={{ padding:"7px 14px", borderRadius:20, cursor:"pointer", fontSize:12.5, fontWeight:600, background: att ? C.gold : C.surface2, color: att ? "#141414" : C.text, border:`1px solid ${att ? C.gold : C.border}` }}>{nome}</button>
+                  );
+                })}
+              </div>
+            )}
             {/* Products grouped by brand */}
             {visibleProducts.length === 0 ? (
                 <div style={{ gridColumn:"1/-1", textAlign:"center", padding:40, color:C.textMuted }}>
                   Non hai ancora accesso a nessun brand. Vai su "Marketplace Brand" e richiedi l'accesso per vedere i prodotti.
                 </div>
-              ) : approvedBrandIds.map(bid => {
+              ) : (catBrandFilter ? approvedBrandIds.filter(id => id === catBrandFilter) : approvedBrandIds).map(bid => {
               const bprods = visibleProducts.filter(p => p.brand_id === bid && (!catSearch || (p.name||"").toLowerCase().includes(catSearch.toLowerCase()) || (p.sku||"").toLowerCase().includes(catSearch.toLowerCase())));
               if (bprods.length === 0) return null;
               const bInfo = dbBrands.find(b => b.id === bid);
