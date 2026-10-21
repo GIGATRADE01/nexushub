@@ -1036,13 +1036,13 @@ Object.assign(T.es,{ kaPrices:"Precios", kaHidePrices:"Cerrar precios", kaNoProd
 Object.assign(T.de,{ kaPrices:"Preise", kaHidePrices:"Preise schließen", kaNoProducts:"Keine Produkte für diese Marke.", kaBrandPrice:"Markenpreis", kaResaleHint:"Lege den Preis fest, den dieses Konto sieht und an NexusHub zahlt. Ohne Preis ist das Produkt nicht bestellbar.", kaSavePrice:"Speichern", kaPriceSaved:"Preis gespeichert", kaPriceCleared:"Preis entfernt" });
 Object.assign(T.zh,{ kaPrices:"价格", kaHidePrices:"关闭价格", kaNoProducts:"该品牌没有产品。", kaBrandPrice:"品牌价格", kaResaleHint:"设置此客户看到并支付给 NexusHub 的价格。没有价格则无法下单。", kaSavePrice:"保存", kaPriceSaved:"价格已保存", kaPriceCleared:"价格已删除" });
 Object.assign(T.ar,{ kaPrices:"الأسعار", kaHidePrices:"إغلاق الأسعار", kaNoProducts:"لا توجد منتجات لهذه العلامة.", kaBrandPrice:"سعر العلامة", kaResaleHint:"حدد السعر الذي يراه هذا الحساب ويدفعه إلى NexusHub. بدون سعر لا يمكن طلب المنتج.", kaSavePrice:"حفظ", kaPriceSaved:"تم حفظ السعر", kaPriceCleared:"تم حذف السعر" });
-Object.assign(T.en,{ diNoPrice:"Price not available" });
-Object.assign(T.it,{ diNoPrice:"Prezzo non disponibile" });
-Object.assign(T.fr,{ diNoPrice:"Prix non disponible" });
-Object.assign(T.es,{ diNoPrice:"Precio no disponible" });
-Object.assign(T.de,{ diNoPrice:"Preis nicht verfügbar" });
-Object.assign(T.zh,{ diNoPrice:"价格不可用" });
-Object.assign(T.ar,{ diNoPrice:"السعر غير متوفر" });
+Object.assign(T.en,{ diNoPrice:"Price on request" });
+Object.assign(T.it,{ diNoPrice:"Prezzo su richiesta" });
+Object.assign(T.fr,{ diNoPrice:"Prix sur demande" });
+Object.assign(T.es,{ diNoPrice:"Precio a consultar" });
+Object.assign(T.de,{ diNoPrice:"Preis auf Anfrage" });
+Object.assign(T.zh,{ diNoPrice:"价格请询" });
+Object.assign(T.ar,{ diNoPrice:"السعر عند الطلب" });
 Object.assign(T.en,{ kaViesCheck:"Check VIES", kaViesChecking:"Checking VAT on VIES…", kaViesValid:"VAT valid on VIES", kaViesInvalid:"VAT not valid on VIES", kaViesError:"VIES check failed" });
 Object.assign(T.it,{ kaViesCheck:"Verifica VIES", kaViesChecking:"Verifica P.IVA su VIES…", kaViesValid:"P.IVA valida su VIES", kaViesInvalid:"P.IVA non valida su VIES", kaViesError:"Verifica VIES fallita" });
 Object.assign(T.fr,{ kaViesCheck:"Vérifier VIES", kaViesChecking:"Vérification TVA sur VIES…", kaViesValid:"TVA valide sur VIES", kaViesInvalid:"TVA non valide sur VIES", kaViesError:"Échec de la vérification VIES" });
@@ -6338,6 +6338,13 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
   const [viewContract, setViewContract] = useState(null);
   const approvedBrandIds = Object.keys(accessRequests).filter(id => accessRequests[id] === "approved");
   const visibleProducts = realProducts.filter(p => approvedBrandIds.includes(p.brand_id));
+  /* Un prodotto a zero NON e' un prodotto gratis: e' un prodotto di cui il
+     prezzo non e' ancora stato deciso. Mostrava "€0.00" e si poteva mettere nel
+     carrello: un distributore avrebbe ordinato a zero e l'ordine sarebbe stato
+     da annullare a mano. Cosi' il catalogo si puo' tenere visibile mentre i
+     prezzi si studiano, che e' esattamente il caso delle 548 referenze del
+     listino fornitore caricate il 21/10/2026. */
+  const senzaPrezzo = (p) => !(Number(p && p.unit_price) > 0);
   const discPct = (brandId) => Number(brandDiscounts[brandId] || 0);
   /* Scaglioni per quantita': lo sconto guarda il TOTALE pezzi di quel brand nel
      carrello, anche misti fra referenze diverse. Si compone con lo sconto di
@@ -6909,7 +6916,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                     {p.image_url && (
                       <div onClick={() => openSheet(p)} title={t("pdOpen")}
                         style={{ cursor:"pointer", background:"#fff", borderRadius:8, marginBottom:12, overflow:"hidden" }}>
-                        <img src={p.image_url} alt={p.name}
+                        <img src={p.image_url} alt={p.name} loading="lazy" decoding="async"
                           style={{ width:"100%", height:190, objectFit:"contain", display:"block" }}
                           onError={e=>{ e.target.style.display="none"; }}/>
                       </div>
@@ -6919,7 +6926,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                         <div style={{ fontSize:14, fontWeight:700, color:C.text }}>{p.name}</div>
                         <div style={{ fontSize:11, color:C.textMuted, marginTop:2 }}>{p.sku} · {p.category}</div>
                       </div>
-                      <div style={{ textAlign:"right" }}>{(() => { if (isManaged) { const rp = resalePrice(p); return rp != null ? (<div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€{rp.toFixed(2)}</div>) : (<div style={{ fontSize:12, color:C.textDim }}>{t("diNoPrice")}</div>); } const lp = basePrice(p); const ep = effPrice(p); const d = discPct(p.brand_id); const hasC = countryPrices[p.id] != null && Number(countryPrices[p.id]) !== Number(p.unit_price||0); return (<div>{d > 0 && <div style={{ fontSize:11, color:C.textMuted, textDecoration:"line-through" }}>€{lp.toFixed(2)}</div>}<div style={{ fontSize:16, fontWeight:800, color:d>0?C.green:C.goldLight }}>€{ep.toFixed(2)}</div>{d > 0 && <div style={{ fontSize:10, color:C.green, fontWeight:700 }}>-{d}%</div>}{hasC && <div style={{ fontSize:9, color:C.blue, fontWeight:700 }}>listino {(currentUser?.country||"").toUpperCase()}</div>}</div>); })()}</div>
+                      <div style={{ textAlign:"right" }}>{(() => { if (isManaged) { const rp = resalePrice(p); return rp != null ? (<div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€{rp.toFixed(2)}</div>) : (<div style={{ fontSize:12, color:C.textDim }}>{t("diNoPrice")}</div>); } if (senzaPrezzo(p) && countryPrices[p.id] == null) { return (<div style={{ fontSize:12, color:C.textDim }}>{t("diNoPrice")}</div>); } const lp = basePrice(p); const ep = effPrice(p); const d = discPct(p.brand_id); const hasC = countryPrices[p.id] != null && Number(countryPrices[p.id]) !== Number(p.unit_price||0); return (<div>{d > 0 && <div style={{ fontSize:11, color:C.textMuted, textDecoration:"line-through" }}>€{lp.toFixed(2)}</div>}<div style={{ fontSize:16, fontWeight:800, color:d>0?C.green:C.goldLight }}>€{ep.toFixed(2)}</div>{d > 0 && <div style={{ fontSize:10, color:C.green, fontWeight:700 }}>-{d}%</div>}{hasC && <div style={{ fontSize:9, color:C.blue, fontWeight:700 }}>listino {(currentUser?.country||"").toUpperCase()}</div>}</div>); })()}</div>
                     </div>
                     <div style={{ display:"flex", gap:8, marginBottom:12, flexWrap:"wrap" }}>
                       <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, fontWeight:600,
@@ -6954,7 +6961,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                       <button onClick={() => openSheet(p)} style={{ flex:1, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:`${C.gold}10`, border:`1px solid ${C.gold}35`, color:C.goldLight }}>{t("pdOpen")}</button>
                       <button onClick={() => openDistDocs(p)} style={{ flex:1, padding:"7px 10px", borderRadius:7, cursor:"pointer", fontSize:11, fontWeight:600, background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted }}>📎 {t("ckDocsTab")}</button>
                     </div>
-                    {(isManaged && resalePrice(p) == null) ? (
+                    {(isManaged && resalePrice(p) == null) || (senzaPrezzo(p) && countryPrices[p.id] == null) ? (
                       <div style={{ padding:"8px", borderRadius:7, textAlign:"center", background:`${C.blue}08`, border:`1px solid ${C.blue}25`, color:C.textMuted, fontSize:12 }}>{t("diNoPrice")}</div>
                     ) : stock > 0 ? (
                       <div style={{ display:"flex", alignItems:"center", gap:8 }}>
