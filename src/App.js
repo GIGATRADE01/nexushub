@@ -1,4 +1,4 @@
-import { useState, createContext, useContext, useEffect, useRef, useCallback } from "react";
+import { useState, createContext, useContext, useEffect, useRef, useCallback, Fragment } from "react";
 import { createClient } from "@supabase/supabase-js";
 /* Legge gli Excel veri. Senza questa, un .xlsx letto come testo e'
    una sfilza di byte: e' il motivo per cui l'import di prima non
@@ -11750,8 +11750,18 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                 </thead>
                 <tbody>
                   {orders.map((o,i) => (
-                    <tr key={o.id} style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
-                      <td style={{ padding:"11px 14px" }}><span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{o.order_number}</span></td>
+                    <Fragment key={o.id}>
+                    <tr style={{ background:i%2===0?"transparent":C.surface2+"50", borderTop:`1px solid ${C.border}` }}>
+                      <td style={{ padding:"11px 14px" }}>
+                        {/* Un clic apre il contenuto dell'ordine: senza, qui
+                            si vede solo un totale e si deve cambiare scheda. */}
+                        <button onClick={() => apriRighe(o)} style={{ background:"none", border:"none", padding:0, cursor:"pointer", textAlign:"left" }}>
+                          <span style={{ fontFamily:"monospace", fontSize:11, color:C.gold }}>{o.order_number}</span>
+                          <div style={{ fontSize:10.5, color:C.textDim }}>
+                            {righeAperte[o.id] ? "▾ chiudi" : "▸ " + ((o.order_items || []).length) + " referenze"}
+                          </div>
+                        </button>
+                      </td>
                       <td style={{ padding:"11px 14px", fontSize:13, color:C.text }}>{o.profiles?.company_name||"—"}</td>
                       <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>—</td>
                       <td style={{ padding:"11px 14px", fontSize:12, color:C.textMuted }}>
@@ -11797,6 +11807,31 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
                         </div>
                       </td>
                     </tr>
+                    {righeAperte[o.id] && (
+                      <tr key={o.id + "-righe"}>
+                        <td colSpan={9} style={{ padding:"0 14px 12px", background:C.surface2+"40" }}>
+                          <table style={{ width:"100%", borderCollapse:"collapse" }}>
+                            <tbody>
+                              {righeAperte[o.id].length === 0 && (
+                                <tr><td style={{ padding:"9px 0", fontSize:12, color:C.red }}>
+                                  Questo ordine non ha righe: non si puo' fatturare né preparare.
+                                </td></tr>
+                              )}
+                              {righeAperte[o.id].map(r => (
+                                <tr key={r.id}>
+                                  <td style={{ padding:"5px 0", fontSize:12, color:C.text }}>{r.product_name}</td>
+                                  <td style={{ padding:"5px 8px", fontSize:11, fontFamily:"monospace", color:C.textDim }}>{r.sku || "—"}</td>
+                                  <td style={{ padding:"5px 8px", fontSize:12.5, fontWeight:800, color:C.goldLight, textAlign:"right", width:60 }}>{r.quantity}</td>
+                                  <td style={{ padding:"5px 8px", fontSize:12, color:C.textMuted, textAlign:"right", width:90 }}>€{Number(r.unit_price || 0).toFixed(2)}</td>
+                                  <td style={{ padding:"5px 0", fontSize:12, color:C.text, textAlign:"right", width:100 }}>€{Number(r.total_price || 0).toFixed(2)}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    )}
+                    </Fragment>
                   ))}
                   {orders.length === 0 && (
                     <tr><td colSpan={7} style={{ padding:40, textAlign:"center", color:C.textMuted }}>{t("aordNoOrders")}</td></tr>
