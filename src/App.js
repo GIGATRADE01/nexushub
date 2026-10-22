@@ -1267,6 +1267,15 @@ Object.assign(T.de,{ pcTabTrend:"Meine Monate", pcTrendTitolo:"Monat für Monat"
 Object.assign(T.zh,{ pcTabTrend:"\u6211\u7684\u6708\u5ea6", pcTrendTitolo:"\u9010\u6708\u660e\u7ec6", pcTrendNota:"\u6765\u81ea\u60a8\u5ba2\u6237\u7684\u5df2\u4ed8\u6b3e\u8ba2\u5355\u3002\u6b63\u5f0f\u7ed3\u7b97\u7531 NexusHub \u4e8e\u6b21\u6708\u521d\u5b8c\u6210\u3002", pcTrendTot:"\u5df2\u6536\u6b3e\uff0812 \u4e2a\u6708\uff09", pcTrendGuad:"\u60a8\u7684\u4f63\u91d1", pcTrendMedia:"\u6708\u5747", pcTrendMediaNota:"\u6309\u6709\u8ba2\u5355\u7684\u6708\u4efd\u8ba1", pcTrendMeglio:"\u6700\u4f73\u6708\u4efd", pcTrendMesi:"\u4e2a\u6708", pcTrendOra:"\u8fdb\u884c\u4e2d", pcTrendVuoto:"\u6682\u65e0\u5df2\u4ed8\u6b3e\u8ba2\u5355\u3002" });
 Object.assign(T.ar,{ pcTabTrend:"\u0623\u0634\u0647\u0631\u064a", pcTrendTitolo:"\u0634\u0647\u0631\u064b\u0627 \u0628\u0634\u0647\u0631", pcTrendNota:"\u0645\u0623\u062e\u0648\u0630\u0629 \u0645\u0646 \u0637\u0644\u0628\u0627\u062a \u0639\u0645\u0644\u0627\u0626\u0643 \u0627\u0644\u0645\u062f\u0641\u0648\u0639\u0629. \u0627\u0644\u062a\u0633\u0648\u064a\u0629 \u0627\u0644\u0631\u0633\u0645\u064a\u0629 \u062a\u062a\u0645 \u0645\u0637\u0644\u0639 \u0627\u0644\u0634\u0647\u0631 \u0627\u0644\u062a\u0627\u0644\u064a.", pcTrendTot:"\u0627\u0644\u0645\u062d\u0635\u0644 (12 \u0634\u0647\u0631\u064b\u0627)", pcTrendGuad:"\u0639\u0645\u0648\u0644\u062a\u0643", pcTrendMedia:"\u0627\u0644\u0645\u062a\u0648\u0633\u0637 \u0627\u0644\u0634\u0647\u0631\u064a", pcTrendMediaNota:"\u0639\u0644\u0649 \u0627\u0644\u0623\u0634\u0647\u0631 \u0630\u0627\u062a \u0627\u0644\u0637\u0644\u0628\u0627\u062a", pcTrendMeglio:"\u0623\u0641\u0636\u0644 \u0634\u0647\u0631", pcTrendMesi:"\u0623\u0634\u0647\u0631", pcTrendOra:"\u062c\u0627\u0631\u064d", pcTrendVuoto:"\u0644\u0627 \u062a\u0648\u062c\u062f \u0637\u0644\u0628\u0627\u062a \u0645\u062f\u0641\u0648\u0639\u0629 \u0628\u0639\u062f." });
 
+/* La ricerca che mette tutti i risultati insieme. */
+Object.assign(T.en,{ diRisultati:"Results for" });
+Object.assign(T.it,{ diRisultati:"Risultati per" });
+Object.assign(T.fr,{ diRisultati:"R\u00e9sultats pour" });
+Object.assign(T.es,{ diRisultati:"Resultados de" });
+Object.assign(T.de,{ diRisultati:"Ergebnisse f\u00fcr" });
+Object.assign(T.zh,{ diRisultati:"\u641c\u7d22\u7ed3\u679c\uff1a" });
+Object.assign(T.ar,{ diRisultati:"\u0646\u062a\u0627\u0626\u062c \u0627\u0644\u0628\u062d\u062b \u0639\u0646" });
+
 /* L'occhietto della password. */
 Object.assign(T.en,{ pwMostra:"Show password", pwNascondi:"Hide password" });
 Object.assign(T.it,{ pwMostra:"Mostra la password", pwNascondi:"Nascondi la password" });
@@ -7957,18 +7966,34 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                 <div style={{ gridColumn:"1/-1", textAlign:"center", padding:40, color:C.textMuted }}>
                   Non hai ancora accesso a nessun brand. Vai su "Marketplace Brand" e richiedi l'accesso per vedere i prodotti.
                 </div>
-              ) : (catBrandFilter ? approvedBrandIds.filter(id => id === catBrandFilter) : approvedBrandIds).map(bid => {
-              const bprods = visibleProducts.filter(p => p.brand_id === bid && (!catSearch || (p.name||"").toLowerCase().includes(catSearch.toLowerCase()) || (p.sku||"").toLowerCase().includes(catSearch.toLowerCase())));
+              ) : (() => {
+                /* Quando si cerca, i risultati vanno in UN blocco solo: chi
+                   scrive "Yara" vuole tutti gli Yara davanti, non divisi per
+                   casa. Senza ricerca si torna ai blocchi per marchio. */
+                const cerca = (catSearch || "").trim().toLowerCase();
+                if (cerca) return ["__cerca__"];
+                return catBrandFilter ? approvedBrandIds.filter(id => id === catBrandFilter) : approvedBrandIds;
+              })().map(bid => {
+              const cerca = (catSearch || "").trim().toLowerCase();
+              const combacia = (p) => !cerca
+                || (p.name || "").toLowerCase().includes(cerca)
+                || (p.sku || "").toLowerCase().includes(cerca)
+                || (p.barcode || "").toLowerCase().includes(cerca);
+              const bprods = bid === "__cerca__"
+                ? visibleProducts.filter(combacia)
+                : visibleProducts.filter(p => p.brand_id === bid && combacia(p));
               if (bprods.length === 0) return null;
               const bInfo = dbBrands.find(b => b.id === bid);
-              const bLabel = (bInfo && (bInfo.company_name || bInfo.email)) || "Brand";
+              const bLabel = bid === "__cerca__"
+                ? `${t("diRisultati")} "${catSearch.trim()}"`
+                : ((bInfo && (bInfo.company_name || bInfo.email)) || "Brand");
               return (
               <div key={bid} style={{ marginBottom:28 }}>
                 <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:12, paddingBottom:8, borderBottom:`1px solid ${C.border}` }}>
                   <span style={{ fontSize:16, fontWeight:700, color:C.gold, fontFamily:"'Fraunces', Georgia, serif" }}>{bLabel}</span>
                   <span style={{ fontSize:11, color:C.textMuted, background:C.surface2, padding:"2px 8px", borderRadius:20 }}>{bprods.length} {t("diProducts")}</span>
                 </div>
-                {(tiers[bid] || []).length > 0 && (() => {
+                {bid !== "__cerca__" && (tiers[bid] || []).length > 0 && (() => {
                   const qta = pezziBrand(bid);
                   const att = scaglione(bid, qta);
                   const pros = prossimoScaglione(bid);
@@ -7999,6 +8024,9 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                 const inCart = cart[p.id] || 0;
                 const moq = p.min_order_qty || 1;
                 const multiple = p.order_multiple || 1;
+                const casaDi = bid === "__cerca__"
+                  ? ((dbBrands.find(b => b.id === p.brand_id) || {}).company_name || "")
+                  : "";
                 return (
                   <div key={p.id} className="nx-card" style={{ background:C.surface, border:`1px solid ${inCart>0?C.gold:C.border}`,
                     borderTop:`2px solid ${inCart>0?C.gold:stock>0?C.green:C.red}`,
@@ -8015,6 +8043,9 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                     <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:8 }}>
                       <div onClick={() => openSheet(p)} style={{ cursor:"pointer" }}>
                         <div style={{ fontSize:14, fontWeight:700, color:C.text }}>{p.name}</div>
+                        {/* Nella ricerca mista la casa va scritta: senza, due
+                            profumi con lo stesso nome sono indistinguibili. */}
+                        {casaDi && <div style={{ fontSize:11, color:C.gold, marginTop:1 }}>{casaDi}</div>}
                         <div style={{ fontSize:11, color:C.textMuted, marginTop:2 }}>{p.sku} · {p.category}</div>
                       </div>
                       <div style={{ textAlign:"right" }}>{(() => { if (isManaged) { const rp = resalePrice(p); return rp != null ? (<div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€{rp.toFixed(2)}</div>) : (<div style={{ fontSize:12, color:C.textDim }}>{t("diNoPrice")}</div>); } if (senzaPrezzo(p) && countryPrices[p.id] == null) { return (<div style={{ fontSize:12, color:C.textDim }}>{t("diNoPrice")}</div>); } const lp = basePrice(p); const ep = effPrice(p); const d = discPct(p.brand_id); const hasC = countryPrices[p.id] != null && Number(countryPrices[p.id]) !== Number(p.unit_price||0); return (<div>{d > 0 && <div style={{ fontSize:11, color:C.textMuted, textDecoration:"line-through" }}>€{lp.toFixed(2)}</div>}<div style={{ fontSize:16, fontWeight:800, color:d>0?C.green:C.goldLight }}>€{ep.toFixed(2)}</div>{d > 0 && <div style={{ fontSize:10, color:C.green, fontWeight:700 }}>-{d}%</div>}{hasC && <div style={{ fontSize:9, color:C.blue, fontWeight:700 }}>listino {(currentUser?.country||"").toUpperCase()}</div>}</div>); })()}</div>
