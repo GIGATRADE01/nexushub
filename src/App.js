@@ -19,6 +19,24 @@ const supabase = createClient(
   process.env.REACT_APP_SUPABASE_ANON_KEY
 );
 
+/* Supabase restituisce al massimo 1000 righe per chiamata, in silenzio: oltre
+   quella soglia non arriva un errore, arriva una lista tagliata. Col catalogo
+   oltre le 1400 referenze questo faceva sparire dalla vetrina i prodotti piu'
+   vecchi - quelli che i clienti conoscono a memoria.
+   Si passa una funzione che costruisce la query, e si chiama a pagine finche'
+   il server smette di dare righe. */
+const PAGINA_SUPABASE = 1000;
+async function tutteLePagine(costruisci) {
+  const tutte = [];
+  for (let da = 0; ; da += PAGINA_SUPABASE) {
+    const { data, error } = await costruisci().range(da, da + PAGINA_SUPABASE - 1);
+    if (error || !data || data.length === 0) break;
+    tutte.push(...data);
+    if (data.length < PAGINA_SUPABASE) break;
+  }
+  return tutte;
+}
+
 // ============================================================
 // DEMO MODE — public read-only brand demo (dedicated sandbox account)
 // ============================================================
@@ -4524,7 +4542,7 @@ const NexusAI = ({ role }) => {
         return "Ordini per stato:\n" + countByStatus(o);
       }},
       { chip:"Prodotti sotto scorta", keys:["scort","magazzino","esaurit","stock"], run: async () => {
-        const { data:p } = await supabase.from("products").select("name, inventory(*)");
+        const p = await tutteLePagine(() => supabase.from("products").select("name, inventory(*)"));
         const low=(p||[]).filter(x=>qa(x.inventory)<50);
         if(!low.length) return "Tutti i prodotti hanno scorte sopra le 50 unita.";
         return "Sotto le 50 unita:\n" + low.map(x=>"• "+x.name+": "+qa(x.inventory)+" pz").join("\n");
@@ -4574,7 +4592,7 @@ const NexusAI = ({ role }) => {
         return t("aiBRating").replace("{avg}",avg.toFixed(2)).replace("{n}",o.length);
       }},
       { chip:t("aiBChipProducts"), keys:["prodott","catalog","scort","stock"], run: async () => {
-        const { data:p } = await supabase.from("products").select("name,is_active,inventory(*)");
+        const p = await tutteLePagine(() => supabase.from("products").select("name,is_active,inventory(*)"));
         const act=(p||[]).filter(x=>x.is_active).length;
         const low=(p||[]).filter(x=>qa(x.inventory)<50);
         return t("aiBProducts").replace("{act}",act).replace("{tot}",(p||[]).length) + (low.length?"\n"+t("aiBLow").replace("{list}",low.map(x=>x.name).join(", ")):"\n"+t("aiBStockOk"));
@@ -4599,8 +4617,11 @@ const NexusAI = ({ role }) => {
         return t("aiDWish").replace("{n}",(w||[]).length);
       }},
       { chip:t("aiDChipCatalog"), keys:["catalog","prodott","disponib"], run: async () => {
-        const { data:p } = await supabase.from("products").select("id").eq("is_active",true);
-        return t("aiDCatalog").replace("{n}",(p||[]).length);
+        /* Solo il numero: si chiede al server di contare, cosi' non si inciampa
+           nel tetto delle 1000 righe. */
+        const { count } = await supabase.from("products")
+          .select("id", { count: "exact", head: true }).eq("is_active",true);
+        return t("aiDCatalog").replace("{n}", count || 0);
       }}
     ]
   };
@@ -7461,12 +7482,18 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
           });
       }
     });
-    // Load real products from Supabase
-    supabase.from("products")
+    /* Il catalogo si carica a PAGINE. Supabase ne restituisce al massimo 1000
+       per chiamata: con 1401 referenze attive, una chiamata sola tornava le
+       1000 piu' recenti e tagliava via le ~400 piu' vecchie. Siccome l'ordine
+       e' per data di creazione decrescente, le tagliate erano proprio le prime
+       caricate - i Lattafa storici (Asad Collection, Yara...) - che quindi
+       sparivano dalla vetrina pur essendo accese a database.
+       Chi guarda il catalogo non deve sapere che esiste un tetto di 1000. */
+    tutteLePagine(() => supabase.from("products")
       .select("*, inventory(*)")
       .eq("is_active", true)
       .order("created_at", { ascending: false })
-      .then(({ data }) => setRealProducts(data || []));
+    ).then(setRealProducts);
     // Scaglioni per quantita', raggruppati per brand e ordinati dal piu' basso
     // La scala di sconti per valore d'ordine: il distributore la deve vedere
     // PRIMA di ordinare, altrimenti non lo invoglia a salire di scaglione.
@@ -9541,9 +9568,11 @@ const AdminDashboard = ({ onLogout, lang, onLangChange }) => {
   };
   const loadProducts = async () => {
     try {
-      const { data } = await supabase.from("products")
+      /* A pagine: oltre le 1000 referenze l'admin vedeva solo le piu' recenti
+         e quelle vecchie sembravano cancellate. */
+      const data = await tutteLePagine(() => supabase.from("products")
         .select("*, inventory(*), profiles!products_brand_id_fkey(company_name)")
-        .order("created_at", { ascending: false });
+        .order("created_at", { ascending: false }));
       setProducts(data || []);
     } catch(e) { console.error(e); }
   };
