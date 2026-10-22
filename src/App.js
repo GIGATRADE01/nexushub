@@ -1267,6 +1267,15 @@ Object.assign(T.de,{ pcTabTrend:"Meine Monate", pcTrendTitolo:"Monat für Monat"
 Object.assign(T.zh,{ pcTabTrend:"\u6211\u7684\u6708\u5ea6", pcTrendTitolo:"\u9010\u6708\u660e\u7ec6", pcTrendNota:"\u6765\u81ea\u60a8\u5ba2\u6237\u7684\u5df2\u4ed8\u6b3e\u8ba2\u5355\u3002\u6b63\u5f0f\u7ed3\u7b97\u7531 NexusHub \u4e8e\u6b21\u6708\u521d\u5b8c\u6210\u3002", pcTrendTot:"\u5df2\u6536\u6b3e\uff0812 \u4e2a\u6708\uff09", pcTrendGuad:"\u60a8\u7684\u4f63\u91d1", pcTrendMedia:"\u6708\u5747", pcTrendMediaNota:"\u6309\u6709\u8ba2\u5355\u7684\u6708\u4efd\u8ba1", pcTrendMeglio:"\u6700\u4f73\u6708\u4efd", pcTrendMesi:"\u4e2a\u6708", pcTrendOra:"\u8fdb\u884c\u4e2d", pcTrendVuoto:"\u6682\u65e0\u5df2\u4ed8\u6b3e\u8ba2\u5355\u3002" });
 Object.assign(T.ar,{ pcTabTrend:"\u0623\u0634\u0647\u0631\u064a", pcTrendTitolo:"\u0634\u0647\u0631\u064b\u0627 \u0628\u0634\u0647\u0631", pcTrendNota:"\u0645\u0623\u062e\u0648\u0630\u0629 \u0645\u0646 \u0637\u0644\u0628\u0627\u062a \u0639\u0645\u0644\u0627\u0626\u0643 \u0627\u0644\u0645\u062f\u0641\u0648\u0639\u0629. \u0627\u0644\u062a\u0633\u0648\u064a\u0629 \u0627\u0644\u0631\u0633\u0645\u064a\u0629 \u062a\u062a\u0645 \u0645\u0637\u0644\u0639 \u0627\u0644\u0634\u0647\u0631 \u0627\u0644\u062a\u0627\u0644\u064a.", pcTrendTot:"\u0627\u0644\u0645\u062d\u0635\u0644 (12 \u0634\u0647\u0631\u064b\u0627)", pcTrendGuad:"\u0639\u0645\u0648\u0644\u062a\u0643", pcTrendMedia:"\u0627\u0644\u0645\u062a\u0648\u0633\u0637 \u0627\u0644\u0634\u0647\u0631\u064a", pcTrendMediaNota:"\u0639\u0644\u0649 \u0627\u0644\u0623\u0634\u0647\u0631 \u0630\u0627\u062a \u0627\u0644\u0637\u0644\u0628\u0627\u062a", pcTrendMeglio:"\u0623\u0641\u0636\u0644 \u0634\u0647\u0631", pcTrendMesi:"\u0623\u0634\u0647\u0631", pcTrendOra:"\u062c\u0627\u0631\u064d", pcTrendVuoto:"\u0644\u0627 \u062a\u0648\u062c\u062f \u0637\u0644\u0628\u0627\u062a \u0645\u062f\u0641\u0648\u0639\u0629 \u0628\u0639\u062f." });
 
+/* L'occhietto della password. */
+Object.assign(T.en,{ pwMostra:"Show password", pwNascondi:"Hide password" });
+Object.assign(T.it,{ pwMostra:"Mostra la password", pwNascondi:"Nascondi la password" });
+Object.assign(T.fr,{ pwMostra:"Afficher le mot de passe", pwNascondi:"Masquer le mot de passe" });
+Object.assign(T.es,{ pwMostra:"Mostrar la contrase\u00f1a", pwNascondi:"Ocultar la contrase\u00f1a" });
+Object.assign(T.de,{ pwMostra:"Passwort anzeigen", pwNascondi:"Passwort verbergen" });
+Object.assign(T.zh,{ pwMostra:"\u663e\u793a\u5bc6\u7801", pwNascondi:"\u9690\u85cf\u5bc6\u7801" });
+Object.assign(T.ar,{ pwMostra:"\u0625\u0638\u0647\u0627\u0631 \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631", pwNascondi:"\u0625\u062e\u0641\u0627\u0621 \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631" });
+
 /* L'avviso promozionale che compare mentre si compra. */
 Object.assign(T.en,{ apQuasi:"Only {n} more and you get −{d}%", apPreso:"You've got −{d}% — it's yours", apMisto:"Any brand counts towards the total." });
 Object.assign(T.it,{ apQuasi:"Ancora {n} e prendi il −{d}%", apPreso:"Hai preso il −{d}% — è tuo", apMisto:"Vale il totale, qualsiasi marchio." });
@@ -2575,8 +2584,8 @@ const Login = ({ onLogin, lang, onLangChange }) => {
               </div>
               <div>
                 <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{t("passwordLabel")}</label>
-                <input type="password" value={password} onChange={e=>setPassword(e.target.value)} required
-                  style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:16, outline:"none", boxSizing:"border-box" }}/>
+                <CampoPassword value={password} onChange={e=>setPassword(e.target.value)}
+                  autoComplete="current-password" stile={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:16, outline:"none", boxSizing:"border-box" }}/>
               </div>
               <button type="submit" disabled={loading} style={{ padding:"13px", borderRadius:10, cursor:"pointer", background:loading?C.goldDim:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, marginTop:4 }}>
                 {loading ? t("loggingIn") : t("loginBtn")}
@@ -2699,11 +2708,11 @@ const NuovaPassword = ({ lang, onLangChange, onFatto, scaduto }) => {
             )}
             <div>
               <label style={etichetta}>{t("passwordLabel")}</label>
-              <input type="password" value={pwd} onChange={e=>setPwd(e.target.value)} required style={campo}/>
+              <CampoPassword value={pwd} onChange={e=>setPwd(e.target.value)} autoComplete="new-password" stile={campo}/>
             </div>
             <div>
               <label style={etichetta}>{t("confirmPassword")}</label>
-              <input type="password" value={conferma} onChange={e=>setConferma(e.target.value)} required style={campo}/>
+              <CampoPassword value={conferma} onChange={e=>setConferma(e.target.value)} autoComplete="new-password" stile={campo}/>
             </div>
             <button type="submit" disabled={attesa}
               style={{ padding:"13px", borderRadius:10, cursor:"pointer", background: attesa ? C.goldDim : `linear-gradient(135deg,${C.gold},${C.goldDim})`,
@@ -3324,6 +3333,32 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
   );
 };
 
+/* Il campo della password con l'occhietto.
+   Una lettera sbagliata su una tastiera non tua e non entri, senza capire
+   perche'. L'occhio sta DENTRO il campo, a destra, e non copre il testo. */
+const CampoPassword = ({ value, onChange, placeholder, required = true, stile = null, autoComplete }) => {
+  const t = useT();
+  const [visibile, setVisibile] = useState(false);
+  const base = stile || { width:"100%", padding:"12px 14px", borderRadius:8,
+    background:C.surface2, border:`1px solid ${C.border}`, color:C.text,
+    fontSize:16, outline:"none", boxSizing:"border-box" };
+  return (
+    <div style={{ position:"relative" }}>
+      <input type={visibile ? "text" : "password"} value={value} onChange={onChange}
+        required={required} placeholder={placeholder} autoComplete={autoComplete}
+        style={{ ...base, paddingRight:44 }}/>
+      <button type="button" onClick={() => setVisibile(v => !v)}
+        title={visibile ? t("pwNascondi") : t("pwMostra")}
+        aria-label={visibile ? t("pwNascondi") : t("pwMostra")}
+        style={{ position:"absolute", right:6, top:"50%", transform:"translateY(-50%)",
+          background:"none", border:"none", cursor:"pointer", padding:"6px 8px",
+          color:C.textMuted, fontSize:15, lineHeight:1 }}>
+        {visibile ? "🙈" : "👁"}
+      </button>
+    </div>
+  );
+};
+
 const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
   const t = useT();
   const isBrand = role === "brand";
@@ -3578,8 +3613,13 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
             ].map(({label,val,set,type}) => (
               <div key={label}>
                 <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{label}</label>
-                <input type={type} value={val} onChange={e=>set(e.target.value)} required
-                  style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:16, outline:"none", boxSizing:"border-box" }}/>
+                {type === "password" ? (
+                  <CampoPassword value={val} onChange={e=>set(e.target.value)}
+                    autoComplete="new-password"/>
+                ) : (
+                  <input type={type} value={val} onChange={e=>set(e.target.value)} required
+                    style={{ width:"100%", padding:"12px 14px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:16, outline:"none", boxSizing:"border-box" }}/>
+                )}
               </div>
             ))}
             <button type="submit" style={{ padding:"13px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:14, fontWeight:700, marginTop:4 }}>{t("rgContinue")}</button>
