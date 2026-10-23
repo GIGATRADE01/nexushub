@@ -832,6 +832,24 @@ Object.assign(T.es, { rgEmailUsed:"Este correo ya está registrado. Prueba a ini
 Object.assign(T.de, { rgEmailUsed:"Diese E-Mail-Adresse ist bereits registriert. Melden Sie sich an oder setzen Sie das Passwort zurück.", rgTooMany:"Zu viele Registrierungen in der letzten Stunde. Bitte versuchen Sie es gleich noch einmal.", rgBadEmail:"Bitte prüfen Sie die E-Mail-Adresse.", rgDocTooBig:"Jedes Dokument muss kleiner als 5 MB sein.", rgSaveFailed:"Die Registrierung konnte nicht abgeschlossen werden. Es wurde nichts gespeichert — bitte erneut versuchen oder an info@nexushub.trade schreiben." });
 Object.assign(T.zh, { rgEmailUsed:"该邮箱已注册。请尝试登录，或找回密码。", rgTooMany:"过去一小时内注册过多，请稍后再试。", rgBadEmail:"请检查邮箱地址。", rgDocTooBig:"每份文件需小于 5 MB。", rgSaveFailed:"注册未能完成，且未保存任何内容。请重试，或发邮件至 info@nexushub.trade。" });
 Object.assign(T.ar, { rgEmailUsed:"هذا البريد مسجّل مسبقًا. جرّب تسجيل الدخول أو استعادة كلمة المرور.", rgTooMany:"عدد كبير من التسجيلات خلال الساعة الماضية. أعد المحاولة بعد قليل.", rgBadEmail:"تحقق من عنوان البريد.", rgDocTooBig:"يجب أن يكون حجم كل مستند أقل من 5 ميجابايت.", rgSaveFailed:"تعذّر إتمام التسجيل، ولم يُحفظ شيء. أعد المحاولة أو اكتب إلى info@nexushub.trade." });
+/* QUELLO CHE CONVINCE UNA PROFUMERIA A COMPRARE.
+   Non e' lo sconto: e' quanto ci guadagna rivendendo. Il catalogo mostrava il
+   prezzo e la percentuale di sconto, cioe' quanto SPENDE. Adesso mostra anche
+   quanto INCASSA: prezzo consigliato al pubblico e margine del negozio, che
+   sono dati veri (1.390 referenze su 1.396 hanno suggested_retail, in media
+   29,87 EUR contro i 16,17 che paga il negozio).
+   E il risparmio in euro accanto alla percentuale, perche' "risparmi 4,70 EUR"
+   si capisce e "-20%" si legge e basta.
+   La scarsita' e' quella vera, letta dalla giacenza: "ultimi 12" compare solo
+   quando i pezzi sono davvero dodici. Niente urgenza inventata. */
+Object.assign(T.en, { cgPubblico:"Retail price", cgMargine:"your margin", cgRisparmi:"you save", cgUltimi:"only {n} left", cgTetto:"max 20% of the order" });
+Object.assign(T.it, { cgPubblico:"Prezzo al pubblico", cgMargine:"il tuo margine", cgRisparmi:"risparmi", cgUltimi:"ultimi {n}", cgTetto:"max 20% dell'ordine" });
+Object.assign(T.fr, { cgPubblico:"Prix public", cgMargine:"votre marge", cgRisparmi:"vous économisez", cgUltimi:"plus que {n}", cgTetto:"max 20% de la commande" });
+Object.assign(T.es, { cgPubblico:"Precio al público", cgMargine:"tu margen", cgRisparmi:"ahorras", cgUltimi:"últimas {n}", cgTetto:"máx 20% del pedido" });
+Object.assign(T.de, { cgPubblico:"Verkaufspreis", cgMargine:"Ihre Marge", cgRisparmi:"Sie sparen", cgUltimi:"nur noch {n}", cgTetto:"max. 20% der Bestellung" });
+Object.assign(T.zh, { cgPubblico:"建议零售价", cgMargine:"您的毛利", cgRisparmi:"节省", cgUltimi:"仅剩 {n} 件", cgTetto:"最多占订单20%" });
+Object.assign(T.ar, { cgPubblico:"سعر البيع للجمهور", cgMargine:"هامشك", cgRisparmi:"توفّر", cgUltimi:"بقي {n} فقط", cgTetto:"بحد أقصى 20% من الطلب" });
+
 /* LA VETRINA DI CHI NON E' ANCORA REGISTRATO.
    Prima qui c'era solo una tesi sul mercato: tre paragrafi da leggere e due
    bottoni che dicevano "leggi la pagina". Un grossista che arriva dalle email
@@ -8221,8 +8239,31 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                         {casaDi && <div style={{ fontSize:11, color:C.gold, marginTop:1 }}>{casaDi}</div>}
                         <div style={{ fontSize:11, color:C.textMuted, marginTop:2 }}>{p.sku} · {p.category}</div>
                       </div>
-                      <div style={{ textAlign:"right" }}>{(() => { if (isManaged) { const rp = resalePrice(p); return rp != null ? (<div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€{rp.toFixed(2)}</div>) : (<div style={{ fontSize:12, color:C.textDim }}>{t("diNoPrice")}</div>); } if (senzaPrezzo(p) && countryPrices[p.id] == null) { return (<div style={{ fontSize:12, color:C.textDim }}>{t("diNoPrice")}</div>); } const lp = basePrice(p); const ep = effPrice(p); const d = discPct(p.brand_id); const hasC = countryPrices[p.id] != null && Number(countryPrices[p.id]) !== Number(p.unit_price||0); return (<div>{d > 0 && <div style={{ fontSize:11, color:C.textMuted, textDecoration:"line-through" }}>€{lp.toFixed(2)}</div>}<div style={{ fontSize:16, fontWeight:800, color:d>0?C.green:C.goldLight }}>€{ep.toFixed(2)}</div>{d > 0 && <div style={{ fontSize:10, color:C.green, fontWeight:700 }}>-{d}%</div>}{hasC && <div style={{ fontSize:9, color:C.blue, fontWeight:700 }}>listino {(currentUser?.country||"").toUpperCase()}</div>}</div>); })()}</div>
+                      <div style={{ textAlign:"right" }}>{(() => { if (isManaged) { const rp = resalePrice(p); return rp != null ? (<div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€{rp.toFixed(2)}</div>) : (<div style={{ fontSize:12, color:C.textDim }}>{t("diNoPrice")}</div>); } if (senzaPrezzo(p) && countryPrices[p.id] == null) { return (<div style={{ fontSize:12, color:C.textDim }}>{t("diNoPrice")}</div>); } const lp = basePrice(p); const ep = effPrice(p); const d = discPct(p.brand_id); const hasC = countryPrices[p.id] != null && Number(countryPrices[p.id]) !== Number(p.unit_price||0); return (<div>{d > 0 && <div style={{ fontSize:11, color:C.textMuted, textDecoration:"line-through" }}>€{lp.toFixed(2)}</div>}<div style={{ fontSize:16, fontWeight:800, color:d>0?C.green:C.goldLight }}>€{ep.toFixed(2)}</div>{d > 0 && <div style={{ fontSize:10, color:C.green, fontWeight:700, whiteSpace:"nowrap" }}>-{d}% · {t("cgRisparmi")} €{(lp-ep).toFixed(2)}</div>}{hasC && <div style={{ fontSize:9, color:C.blue, fontWeight:700 }}>listino {(currentUser?.country||"").toUpperCase()}</div>}</div>); })()}</div>
                     </div>
+                    {/* QUANTO CI GUADAGNA IL NEGOZIO.
+                        E' la riga che fa comprare: il prezzo dice quanto spende,
+                        questa dice quanto incassa. Il consigliato al pubblico e'
+                        un dato vero, non un moltiplicatore inventato a schermo. */}
+                    {(() => {
+                      if (isManaged) return null;
+                      const pubblico = Number(p.suggested_retail) || 0;
+                      const paga = effPrice(p);
+                      if (!(pubblico > paga && paga > 0)) return null;
+                      const marg = Math.round(100 * (pubblico - paga) / pubblico);
+                      return (
+                        <div style={{ display:"flex", alignItems:"baseline", justifyContent:"space-between",
+                                      gap:8, margin:"0 0 10px", padding:"7px 10px", borderRadius:8,
+                                      background:`${C.green}0f`, border:`1px solid ${C.green}2e` }}>
+                          <span style={{ fontSize:11, color:C.textMuted }}>
+                            {t("cgPubblico")} <b style={{ color:C.text }}>€{pubblico.toFixed(2)}</b>
+                          </span>
+                          <span style={{ fontSize:12, fontWeight:800, color:C.green, whiteSpace:"nowrap" }}>
+                            +{marg}% <span style={{ fontSize:10, fontWeight:600, opacity:.85 }}>{t("cgMargine")}</span>
+                          </span>
+                        </div>
+                      );
+                    })()}
                     <div style={{ display:"flex", gap:8, marginBottom:12, flexWrap:"wrap" }}>
                       <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, fontWeight:600,
                         background:stock>50?`${C.green}15`:stock>0?`${C.gold}15`:`${C.red}15`,
@@ -8230,6 +8271,22 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                         border:`1px solid ${stock>50?C.green:stock>0?C.gold:C.red}30` }}>
                         {stock>0 ? `${stock} in stock` : "Out of stock"}
                       </span>
+                      {/* Scarsita' vera: compare solo quando i pezzi sono davvero
+                          pochi. Su 1.396 referenze oggi sono ventitre'. */}
+                      {stock > 0 && stock <= 24 && (
+                        <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, fontWeight:800,
+                          background:`${C.red}18`, color:C.red, border:`1px solid ${C.red}45` }}>
+                          🔥 {t("cgUltimi").replace("{n}", String(stock))}
+                        </span>
+                      )}
+                      {/* Il tetto sui best-seller: e' una regola dell'ordine e il
+                          negozio la deve sapere prima di riempire il carrello. */}
+                      {p.escludi_sconti && (
+                        <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, fontWeight:600,
+                          background:`${C.gold}12`, color:C.gold, border:`1px solid ${C.gold}35` }}>
+                          {t("cgTetto")}
+                        </span>
+                      )}
                       {moq > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.blue}10`, color:C.blue, border:`1px solid ${C.blue}25` }}>MOQ: {moq}</span>}
                       {multiple > 1 && <span style={{ padding:"3px 8px", borderRadius:5, fontSize:11, background:`${C.purple}10`, color:"#a855f7", border:`1px solid #a855f740` }}>×{multiple}</span>}
                     </div>
