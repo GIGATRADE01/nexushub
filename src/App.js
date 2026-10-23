@@ -832,6 +832,21 @@ Object.assign(T.es, { rgEmailUsed:"Este correo ya está registrado. Prueba a ini
 Object.assign(T.de, { rgEmailUsed:"Diese E-Mail-Adresse ist bereits registriert. Melden Sie sich an oder setzen Sie das Passwort zurück.", rgTooMany:"Zu viele Registrierungen in der letzten Stunde. Bitte versuchen Sie es gleich noch einmal.", rgBadEmail:"Bitte prüfen Sie die E-Mail-Adresse.", rgDocTooBig:"Jedes Dokument muss kleiner als 5 MB sein.", rgSaveFailed:"Die Registrierung konnte nicht abgeschlossen werden. Es wurde nichts gespeichert — bitte erneut versuchen oder an info@nexushub.trade schreiben." });
 Object.assign(T.zh, { rgEmailUsed:"该邮箱已注册。请尝试登录，或找回密码。", rgTooMany:"过去一小时内注册过多，请稍后再试。", rgBadEmail:"请检查邮箱地址。", rgDocTooBig:"每份文件需小于 5 MB。", rgSaveFailed:"注册未能完成，且未保存任何内容。请重试，或发邮件至 info@nexushub.trade。" });
 Object.assign(T.ar, { rgEmailUsed:"هذا البريد مسجّل مسبقًا. جرّب تسجيل الدخول أو استعادة كلمة المرور.", rgTooMany:"عدد كبير من التسجيلات خلال الساعة الماضية. أعد المحاولة بعد قليل.", rgBadEmail:"تحقق من عنوان البريد.", rgDocTooBig:"يجب أن يكون حجم كل مستند أقل من 5 ميجابايت.", rgSaveFailed:"تعذّر إتمام التسجيل، ولم يُحفظ شيء. أعد المحاولة أو اكتب إلى info@nexushub.trade." });
+/* LA VETRINA DI CHI NON E' ANCORA REGISTRATO.
+   Prima qui c'era solo una tesi sul mercato: tre paragrafi da leggere e due
+   bottoni che dicevano "leggi la pagina". Un grossista che arriva dalle email
+   vuole vedere la merce, non una spiegazione. Adesso vede venti bottiglie vere
+   con la foto, il marchio e la scritta "pronta a Torino" - e il prezzo coperto.
+   Il prezzo non e' coperto per finta: la vista v_vetrina_pubblica non ha la
+   colonna del prezzo, quindi non c'e' niente da far trapelare. */
+Object.assign(T.en, { vtOcchiello:"FROM DUBAI TO YOUR SHELF", vtTitolo:"We are the bridge between Europe and Arabian fragrance.", vtSotto:"The bottles leave the Gulf houses and land in our hub in Turin. From there they reach you in 48-72 hours, with an Italian invoice and no container to wait for.", vtPronte:"references ready in Turin", vtMarchi:"Gulf houses", vtConsegna:"48-72h", vtConsegnaSub:"anywhere in the EU", vtMinimo:"€250", vtMinimoSub:"minimum order", vtPrezzo:"Sign up to see the price", vtPronta:"Ready in Turin", vtCta:"See the prices — free sign-up", vtNota:"Prices are reserved for registered businesses. Sign-up takes two minutes and costs nothing." });
+Object.assign(T.it, { vtOcchiello:"DA DUBAI AL TUO SCAFFALE", vtTitolo:"Siamo il ponte fra l'Europa e la profumeria araba.", vtSotto:"Le bottiglie partono dalle case del Golfo e arrivano nel nostro hub di Torino. Da lì sono da te in 48-72 ore, con fattura italiana e senza nessun container da aspettare.", vtPronte:"referenze pronte a Torino", vtMarchi:"case del Golfo", vtConsegna:"48-72h", vtConsegnaSub:"in tutta l'Unione Europea", vtMinimo:"250 €", vtMinimoSub:"ordine minimo", vtPrezzo:"Registrati per vedere il prezzo", vtPronta:"Pronta a Torino", vtCta:"Vedi i prezzi — registrazione gratuita", vtNota:"I prezzi sono riservati alle aziende registrate. La registrazione richiede due minuti e non costa nulla." });
+Object.assign(T.fr, { vtOcchiello:"DE DUBAÏ À VOTRE RAYON", vtTitolo:"Nous sommes le pont entre l'Europe et la parfumerie arabe.", vtSotto:"Les flacons partent des maisons du Golfe et arrivent dans notre hub de Turin. De là ils sont chez vous en 48-72 heures, avec facture italienne et sans aucun conteneur à attendre.", vtPronte:"références prêtes à Turin", vtMarchi:"maisons du Golfe", vtConsegna:"48-72h", vtConsegnaSub:"partout dans l'UE", vtMinimo:"250 €", vtMinimoSub:"commande minimum", vtPrezzo:"Inscrivez-vous pour voir le prix", vtPronta:"Prêt à Turin", vtCta:"Voir les prix — inscription gratuite", vtNota:"Les prix sont réservés aux entreprises inscrites. L'inscription prend deux minutes et ne coûte rien." });
+Object.assign(T.es, { vtOcchiello:"DE DUBÁI A TU ESTANTERÍA", vtTitolo:"Somos el puente entre Europa y la perfumería árabe.", vtSotto:"Los frascos salen de las casas del Golfo y llegan a nuestro hub de Turín. Desde allí los tienes en 48-72 horas, con factura italiana y sin ningún contenedor que esperar.", vtPronte:"referencias listas en Turín", vtMarchi:"casas del Golfo", vtConsegna:"48-72h", vtConsegnaSub:"en toda la UE", vtMinimo:"250 €", vtMinimoSub:"pedido mínimo", vtPrezzo:"Regístrate para ver el precio", vtPronta:"Listo en Turín", vtCta:"Ver los precios — registro gratuito", vtNota:"Los precios están reservados a empresas registradas. El registro lleva dos minutos y no cuesta nada." });
+Object.assign(T.de, { vtOcchiello:"VON DUBAI IN IHR REGAL", vtTitolo:"Wir sind die Brücke zwischen Europa und arabischer Parfümerie.", vtSotto:"Die Flakons verlassen die Häuser am Golf und kommen in unserem Hub in Turin an. Von dort sind sie in 48-72 Stunden bei Ihnen, mit italienischer Rechnung und ohne Container-Wartezeit.", vtPronte:"Artikel sofort ab Turin", vtMarchi:"Häuser am Golf", vtConsegna:"48-72 Std.", vtConsegnaSub:"in der gesamten EU", vtMinimo:"250 €", vtMinimoSub:"Mindestbestellung", vtPrezzo:"Registrieren, um den Preis zu sehen", vtPronta:"Sofort ab Turin", vtCta:"Preise ansehen — kostenlose Registrierung", vtNota:"Preise sind registrierten Unternehmen vorbehalten. Die Registrierung dauert zwei Minuten und kostet nichts." });
+Object.assign(T.zh, { vtOcchiello:"从迪拜到您的货架", vtTitolo:"我们是欧洲与阿拉伯香水之间的桥梁。", vtSotto:"香水从海湾各大香氛世家出发，抵达我们位于都灵的物流中心。从那里，48-72小时内送达您手中，附意大利发票，无需等待集装箱。", vtPronte:"款都灵现货", vtMarchi:"海湾香氛世家", vtConsegna:"48-72小时", vtConsegnaSub:"覆盖全欧盟", vtMinimo:"250 €", vtMinimoSub:"最低起订", vtPrezzo:"注册后查看价格", vtPronta:"都灵现货", vtCta:"查看价格 — 免费注册", vtNota:"价格仅向已注册企业开放。注册只需两分钟，完全免费。" });
+Object.assign(T.ar, { vtOcchiello:"من دبي إلى رفّك", vtTitolo:"نحن الجسر بين أوروبا والعطور العربية.", vtSotto:"تغادر العبوات دور العطور الخليجية لتصل إلى مركزنا اللوجستي في تورينو. ومن هناك تصلك خلال 48-72 ساعة، بفاتورة إيطالية ودون انتظار أي حاوية.", vtPronte:"صنفاً جاهزاً في تورينو", vtMarchi:"دار عطور خليجية", vtConsegna:"48-72 ساعة", vtConsegnaSub:"في جميع أنحاء الاتحاد الأوروبي", vtMinimo:"250 €", vtMinimoSub:"الحد الأدنى للطلب", vtPrezzo:"سجّل لعرض السعر", vtPronta:"جاهز في تورينو", vtCta:"اعرض الأسعار — التسجيل مجاني", vtNota:"الأسعار مخصّصة للشركات المسجّلة. التسجيل يستغرق دقيقتين وهو مجاني." });
+
 Object.assign(T.en, { lgHeroA:"The Gulf houses produce in the Middle East.", lgHeroB:"The market is in Europe.", lgHeroSub:"NexusHub is the bridge: the brand's stock enters a logistics hub in Italy and from there reaches European distributors in 48-72 hours, at the official price and with protected territory. The brand decides who represents it. The distributor stops waiting for containers.", lgFrom:"Where are you coming from?", lgChainVia:"I am a retail chain or an e-commerce — I buy for several points of sale", lgDemoLab:"Step inside and look around — no sign-up", lgDemoBrand:"Live Brand demo", lgDemoDist:"Live Distributor demo", lgHave:"I already have an account — Sign in" });
 Object.assign(T.it, { lgHeroA:"Le case del Golfo producono in Medio Oriente.", lgHeroB:"Il mercato però è in Europa.", lgHeroSub:"NexusHub è il ponte: la merce del brand entra in un polo logistico in Italia e da lì raggiunge i distributori europei in 48-72 ore, a prezzo ufficiale e con territorio protetto. Il brand decide chi lo rappresenta. Il distributore smette di aspettare i container.", lgFrom:"Da dove arrivi?", lgChainVia:"Sono una catena o un e-commerce — acquisto per più punti vendita", lgDemoLab:"Entra e guarda, senza registrarti", lgDemoBrand:"Demo Brand dal vivo", lgDemoDist:"Demo Distributore dal vivo", lgHave:"Ho già un account — Accedi" });
 Object.assign(T.fr, { lgHeroA:"Les maisons du Golfe produisent au Moyen-Orient.", lgHeroB:"Le marché, lui, est en Europe.", lgHeroSub:"NexusHub est le pont : la marchandise de la marque entre dans un pôle logistique en Italie et atteint de là les distributeurs européens en 48-72 heures, au prix officiel et avec un territoire protégé. La marque choisit qui la représente. Le distributeur cesse d'attendre les conteneurs.", lgFrom:"D'où venez-vous ?", lgChainVia:"Je suis une chaîne ou un e-commerce — j'achète pour plusieurs points de vente", lgDemoLab:"Entrez et regardez, sans inscription", lgDemoBrand:"Démo Marque en direct", lgDemoDist:"Démo Distributeur en direct", lgHave:"J'ai déjà un compte — Se connecter" });
@@ -2352,6 +2367,35 @@ const Login = ({ onLogin, lang, onLangChange }) => {
   const [resetLoading, setResetLoading] = useState(false);
   const [formAperto, setFormAperto] = useState(false); // solo su telefono
 
+  /* La vetrina di chi non e' registrato. Legge v_vetrina_pubblica, che espone
+     marca, nome, foto e "pronta" e NON ha la colonna del prezzo: la RLS sui
+     prodotti resta intatta e non c'e' nessun prezzo da proteggere a mano.
+     Se la chiamata fallisce la vetrina semplicemente non compare: la pagina
+     deve funzionare anche senza. */
+  const [vetrina, setVetrina] = useState([]);
+  const [vetrinaQuante, setVetrinaQuante] = useState(0);
+  const [vetrinaMarchi, setVetrinaMarchi] = useState(0);
+  useEffect(() => {
+    let vivo = true;
+    supabase.from("v_vetrina_pubblica").select("id,marca,nome,foto,pronta", { count: "exact" })
+      .eq("pronta", true).limit(300)
+      .then(({ data, count }) => {
+        if (!vivo || !data || !data.length) return;
+        // I numeri che si vedono sopra la vetrina sono contati, non scritti a
+        // mano: il giorno che il fornitore ne toglie cento, la pagina lo dice.
+        setVetrinaQuante(count || data.length);
+        setVetrinaMarchi(new Set(data.map(x => x.marca).filter(Boolean)).size);
+        // Mescolate, cosi' chi torna sul sito non vede sempre le stesse venti.
+        const m = data.slice();
+        for (let i = m.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [m[i], m[j]] = [m[j], m[i]];
+        }
+        setVetrina(m.slice(0, 12));
+      });
+    return () => { vivo = false; };
+  }, []);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -2542,6 +2586,79 @@ const Login = ({ onLogin, lang, onLangChange }) => {
             {t("lgHeroA")}<br/><span style={{ color:C.goldLight }}>{t("lgHeroB")}</span>
           </h1>
           <p style={{ fontSize:14, color:C.textMuted, lineHeight:1.65, margin:"0 0 26px", maxWidth:620 }}>{t("lgHeroSub")}</p>
+
+          {/* ------------------------------------------------------ la vetrina
+              Chi arriva da un'email vuole vedere la merce, non leggere una
+              spiegazione. Venti bottiglie vere, la foto, il marchio, "pronta a
+              Torino" - e il prezzo coperto, che e' il motivo per registrarsi. */}
+          {vetrina.length > 0 && (
+            <div style={{ margin:"0 0 30px", padding:"20px 18px 18px", borderRadius:15,
+                          background:`linear-gradient(155deg, ${C.gold}12, ${C.gold}03)`,
+                          border:`1px solid ${C.gold}33` }}>
+              <div style={{ ...etich, color:C.gold, margin:"0 0 8px" }}>✈️ {t("vtOcchiello")}</div>
+              <div style={{ fontFamily:"'Fraunces', Georgia, serif", fontSize:19, fontWeight:800,
+                            color:C.text, lineHeight:1.3, margin:"0 0 8px" }}>{t("vtTitolo")}</div>
+              <p style={{ fontSize:13, color:C.textMuted, lineHeight:1.6, margin:"0 0 16px", maxWidth:620 }}>
+                {t("vtSotto")}
+              </p>
+
+              {/* i quattro numeri: contati dal catalogo, non scritti a mano */}
+              <div style={{ display:"flex", flexWrap:"wrap", gap:18, margin:"0 0 16px",
+                            paddingBottom:15, borderBottom:`1px solid ${C.gold}22` }}>
+                {[[String(vetrinaQuante), t("vtPronte")],
+                  [String(vetrinaMarchi), t("vtMarchi")],
+                  [t("vtConsegna"), t("vtConsegnaSub")],
+                  [t("vtMinimo"), t("vtMinimoSub")]].map(([n, lab], i) => (
+                  <div key={i}>
+                    <div style={{ fontSize:19, fontWeight:900, color:C.goldLight, lineHeight:1.1 }}>{n}</div>
+                    <div style={{ fontSize:10.5, color:C.textMuted, marginTop:2 }}>{lab}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="vt-griglia">
+                {vetrina.map(p => (
+                  <div key={p.id} style={{ borderRadius:11, overflow:"hidden",
+                                           background:"rgba(255,255,255,.028)",
+                                           border:`1px solid ${C.border}` }}>
+                    <div style={{ position:"relative", aspectRatio:"1 / 1", background:"#ffffff0a" }}>
+                      <img src={p.foto} alt={p.nome} loading="lazy"
+                           style={{ width:"100%", height:"100%", objectFit:"contain", padding:7 }}
+                           onError={e => { e.currentTarget.style.visibility = "hidden"; }}/>
+                      <div style={{ position:"absolute", top:6, left:6, padding:"2px 7px", borderRadius:20,
+                                    background:`${C.green}22`, border:`1px solid ${C.green}55`,
+                                    fontSize:8.5, fontWeight:800, color:C.green, letterSpacing:".03em" }}>
+                        ● {t("vtPronta")}
+                      </div>
+                    </div>
+                    <div style={{ padding:"8px 9px 10px" }}>
+                      <div style={{ fontSize:9, color:C.gold, fontWeight:800, letterSpacing:".06em",
+                                    textTransform:"uppercase", whiteSpace:"nowrap", overflow:"hidden",
+                                    textOverflow:"ellipsis" }}>{p.marca}</div>
+                      <div style={{ fontSize:11.5, color:C.text, fontWeight:600, lineHeight:1.3,
+                                    margin:"2px 0 7px", height:29, overflow:"hidden" }}>{p.nome}</div>
+                      {/* Il prezzo non e' nascosto con la grafica: la vista
+                          pubblica non ce l'ha proprio. Non c'e' niente da leggere
+                          nel codice della pagina. */}
+                      <div style={{ fontSize:9.5, color:C.textDim, display:"flex", alignItems:"center", gap:4 }}>
+                        <span>🔒</span><span>{t("vtPrezzo")}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <button onClick={() => setView("register-dist")}
+                style={{ width:"100%", marginTop:15, padding:"13px", borderRadius:11, cursor:"pointer",
+                         background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none",
+                         color:C.bg, fontSize:14, fontWeight:800 }}>
+                {t("vtCta")} →
+              </button>
+              <div style={{ fontSize:10.5, color:C.textDim, textAlign:"center", marginTop:9, lineHeight:1.5 }}>
+                {t("vtNota")}
+              </div>
+            </div>
+          )}
 
           <div style={etich}>{t("lgFrom")}</div>
           <div className="lg-vie">
@@ -12997,6 +13114,10 @@ const injectGlobalCSS = () => {
     ".lg-sx { order:3; padding:24px 20px 0; }",
     ".lg-coda { order:4; padding:0 20px 24px; }",
     ".lg-vie { display:grid; grid-template-columns:1fr; gap:11px; }",
+    /* La vetrina: due colonne sul telefono, quattro sullo schermo grande.
+       Dodici bottiglie bastano a far capire che c'e' merce vera dietro. */
+    ".vt-griglia { display:grid; grid-template-columns:repeat(2,1fr); gap:9px; }",
+    "@media (min-width: 560px) { .vt-griglia { grid-template-columns:repeat(3,1fr); } }",
     ".lg-h1 { font-size:23px; }",
     ".lg-acc { display:none; }",
     ".lg-mform { display:none; padding-top:16px; }",
