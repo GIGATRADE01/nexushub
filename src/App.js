@@ -8137,9 +8137,24 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                 || (p.name || "").toLowerCase().includes(cerca)
                 || (p.sku || "").toLowerCase().includes(cerca)
                 || (p.barcode || "").toLowerCase().includes(cerca);
-              const bprods = bid === "__cerca__"
+              /* L'ordine del catalogo. Prima arrivava dal database per data di
+                 creazione, quindi gli esauriti finivano in cima e la merce che
+                 si puo' comprare stava sotto: il contrario di quello che serve
+                 a chi deve fare un ordine.
+                 Adesso: prima quello che c'e', poi gli esauriti in fondo, e
+                 dentro ogni gruppo in ordine alfabetico. localeCompare con
+                 numeric mette "Oud 10" dopo "Oud 9" invece che prima. */
+              const inMagazzino = (p) => (p.inventory?.quantity_available || 0) > 0;
+              const perScaffale = (a, b) => {
+                const da = inMagazzino(a), db = inMagazzino(b);
+                if (da !== db) return da ? -1 : 1;
+                return (a.name || "").localeCompare(b.name || "", undefined,
+                                                    { sensitivity: "base", numeric: true });
+              };
+              const bprods = (bid === "__cerca__"
                 ? visibleProducts.filter(combacia)
-                : visibleProducts.filter(p => p.brand_id === bid && combacia(p));
+                : visibleProducts.filter(p => p.brand_id === bid && combacia(p))
+              ).slice().sort(perScaffale);
               if (bprods.length === 0) return null;
               const bInfo = dbBrands.find(b => b.id === bid);
               const bLabel = bid === "__cerca__"
