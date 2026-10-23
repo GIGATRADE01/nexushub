@@ -7356,9 +7356,23 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
     const item = realProducts.find(p=>p.id===pid);
     return s + (item ? effPrice(item) * qty : 0);
   }, 0);
+  /* Base scontabile: le referenze a margine sottile (products.escludi_sconti)
+     contano per RAGGIUNGERE lo scaglione ma non vengono scontate.
+     Perche': lo scaglione arriva al -8% e si applicava a tutto il carrello.
+     Su Khamrah, che il fornitore ci fa a 16,50 mentre l'esclusivista italiano
+     lo vende al negozio a 16,80, un prezzo pensato per lasciare 2,40 diventava
+     0,89 sull'ordine da cinquemila euro - e su qualche referenza andava sotto
+     il costo. L'alternativa era alzare il prezzo per difendersi dal proprio
+     sconto, che e' un autogol: il negozio quel prezzo lo confronta.
+     Contano comunque per la soglia, cosi' chi mette un best-seller nel carrello
+     non viene punito: arriva allo scaglione e lo prende su tutto il resto. */
   const scagliCarrello = scagliOrdine(cartMerce);
   const scontoCarrelloPct = scagliCarrello ? Number(scagliCarrello.sconto_pct || 0) : 0;
-  const scontoCarrelloEur = cartMerce * scontoCarrelloPct / 100;
+  const cartScontabile = Object.entries(cart).reduce((s,[pid,qty]) => {
+    const item = realProducts.find(p=>p.id===pid);
+    return s + (item && !item.escludi_sconti ? effPrice(item) * qty : 0);
+  }, 0);
+  const scontoCarrelloEur = cartScontabile * scontoCarrelloPct / 100;
   /* cartValue resta quello che il distributore paga davvero: e' il numero che
      finisce nell'ordine, nel bonifico e in fattura. */
   const cartValue = Math.round((cartMerce - scontoCarrelloEur) * 100) / 100;
