@@ -1415,13 +1415,13 @@ Object.assign(T.es,{ pcSelTitle:"Selección", pcSelSub:"Tres preguntas. Las leem
 Object.assign(T.de,{ pcSelTitle:"Auswahl", pcSelSub:"Drei Fragen. Wir lesen sie vor den Dokumenten.", pcQ1:"An welche Geschäfte verkaufen Sie bereits? Nennen Sie sie.", pcQ1Ph:"Name des Geschäfts und Stadt, eines pro Zeile", pcQ2:"Was verkaufen Sie ihnen heute?", pcQ2Ph:"z. B. selektive Parfümerie, arabische Düfte", pcQ3:"Wie viele davon könnten in 30 Tagen für 500 € bestellen?", pcVersion:"Version", pcVessFallback:"Ich genehmige ausdrücklich die im Vertrag genannten Klauseln.", pcRegTitle:"Werden Sie NexusHub-Vermittler", pcRegSub:"Verkaufen Sie 548 Referenzen von 21 arabischen Häusern. Provision 6% bis 12%." });
 Object.assign(T.zh,{ pcSelTitle:"筛选", pcSelSub:"三个问题。我们在看文件之前先看这些。", pcQ1:"您目前已向哪些店铺供货？请列出名称。", pcQ1Ph:"店名与城市，每行一个", pcQ2:"您现在卖给他们什么？", pcQ2Ph:"例如：精品香水、阿拉伯香水", pcQ3:"其中有多少家能在30天内下500欧元的订单？", pcVersion:"版本", pcVessFallback:"本人特别同意合同中所列条款。", pcRegTitle:"成为 NexusHub 业务介绍人", pcRegSub:"在您的国家销售21个阿拉伯香水品牌的548个单品。佣金6%至12%。" });
 Object.assign(T.ar,{ pcSelTitle:"الاختيار", pcSelSub:"ثلاثة أسئلة. نقرأها قبل المستندات.", pcQ1:"ما المتاجر التي تبيع لها بالفعل؟ اذكر الأسماء.", pcQ1Ph:"اسم المتجر والمدينة، واحد في كل سطر", pcQ2:"ماذا تبيع لهم اليوم؟", pcQ2Ph:"مثال: عطور انتقائية، عطور عربية", pcQ3:"كم منهم يمكنه تقديم طلب بقيمة 500 يورو خلال 30 يومًا؟", pcVersion:"الإصدار", pcVessFallback:"أوافق تحديدًا على البنود المذكورة في العقد.", pcRegTitle:"كن وسيط أعمال لدى NexusHub", pcRegSub:"بع 548 مرجعًا من 21 دار عطور عربية. عمولة من 6% إلى 12%." });
-Object.assign(T.en,{ ckNextTier:"{n} € more and you get −{d}% on the whole order.", ckFreeIt:"Free shipping in Italy included.", ckFreeEu:"Free shipping across Europe included.", ckTiersTitle:"Order discounts" });
-Object.assign(T.it,{ ckNextTier:"Ancora {n} € e arrivi a −{d}% su tutto l'ordine.", ckFreeIt:"Spedizione gratis in Italia inclusa.", ckFreeEu:"Spedizione gratis in Europa inclusa.", ckTiersTitle:"Sconti a scaglione" });
-Object.assign(T.fr,{ ckNextTier:"Encore {n} € et vous obtenez −{d}% sur toute la commande.", ckFreeIt:"Livraison gratuite en Italie incluse.", ckFreeEu:"Livraison gratuite en Europe incluse.", ckTiersTitle:"Remises par palier" });
-Object.assign(T.es,{ ckNextTier:"{n} € más y obtienes −{d}% en todo el pedido.", ckFreeIt:"Envío gratis en Italia incluido.", ckFreeEu:"Envío gratis en Europa incluido.", ckTiersTitle:"Descuentos por volumen" });
-Object.assign(T.de,{ ckNextTier:"Noch {n} € und Sie erhalten −{d}% auf die ganze Bestellung.", ckFreeIt:"Kostenloser Versand in Italien inklusive.", ckFreeEu:"Kostenloser Versand in Europa inklusive.", ckTiersTitle:"Mengenrabatte" });
-Object.assign(T.zh,{ ckNextTier:"再加 {n} €，整单可享 −{d}%。", ckFreeIt:"含意大利境内免运费。", ckFreeEu:"含欧洲境内免运费。", ckTiersTitle:"订单折扣" });
-Object.assign(T.ar,{ ckNextTier:"أضف {n} € واحصل على خصم {d}% على الطلب كامل.", ckFreeIt:"يشمل الشحن المجاني داخل إيطاليا.", ckFreeEu:"يشمل الشحن المجاني في أوروبا.", ckTiersTitle:"خصومات الطلب" });
+Object.assign(T.en,{ ckNextTier:"Add {n} € and you get −{d}% on the whole order: {e} € off. Those {n} € of goods cost you {c} € net.", ckFreeIt:"Free shipping in Italy included.", ckFreeEu:"Free shipping across Europe included.", ckTiersTitle:"Order discounts" });
+Object.assign(T.it,{ ckNextTier:"Ancora {n} € e prendi −{d}% su TUTTO l'ordine: sono {e} € di sconto. Quei {n} € di merce te ne costano {c} netti.", ckFreeIt:"Spedizione gratis in Italia inclusa.", ckFreeEu:"Spedizione gratis in Europa inclusa.", ckTiersTitle:"Sconti a scaglione" });
+Object.assign(T.fr,{ ckNextTier:"Encore {n} € et vous obtenez −{d}% sur TOUTE la commande : {e} € de remise. Ces {n} € de marchandise vous coûtent {c} € nets.", ckFreeIt:"Livraison gratuite en Italie incluse.", ckFreeEu:"Livraison gratuite en Europe incluse.", ckTiersTitle:"Remises par palier" });
+Object.assign(T.es,{ ckNextTier:"Añade {n} € y obtienes −{d}% en TODO el pedido: {e} € de descuento. Esos {n} € de mercancía te cuestan {c} € netos.", ckFreeIt:"Envío gratis en Italia incluido.", ckFreeEu:"Envío gratis en Europa incluido.", ckTiersTitle:"Descuentos por volumen" });
+Object.assign(T.de,{ ckNextTier:"Noch {n} € und Sie erhalten −{d}% auf die GESAMTE Bestellung: {e} € Rabatt. Diese {n} € Ware kosten Sie netto {c} €.", ckFreeIt:"Kostenloser Versand in Italien inklusive.", ckFreeEu:"Kostenloser Versand in Europa inklusive.", ckTiersTitle:"Mengenrabatte" });
+Object.assign(T.zh,{ ckNextTier:"再加 {n} €，整单享 −{d}%：省 {e} €。那 {n} € 的货实际只花 {c} €。", ckFreeIt:"含意大利境内免运费。", ckFreeEu:"含欧洲境内免运费。", ckTiersTitle:"订单折扣" });
+Object.assign(T.ar,{ ckNextTier:"أضف {n} € واحصل على خصم {d}% على الطلب كامل: خصم {e} €. هذه الـ {n} € من البضاعة تكلفك {c} € صافية.", ckFreeIt:"يشمل الشحن المجاني داخل إيطاليا.", ckFreeEu:"يشمل الشحن المجاني في أوروبا.", ckTiersTitle:"خصومات الطلب" });
 Object.assign(T.fr,{ scTitle:"Remises sur quantité : calculées sur le total de pièces de cette marque, références mélangées acceptées.", scApplied:"appliquée à votre commande", scNext:"Encore {n} pièces et vous atteignez −{d}%." });
 Object.assign(T.es,{ scTitle:"Descuentos por cantidad: se calculan sobre el total de piezas de esta marca, referencias mezcladas incluidas.", scApplied:"aplicado a tu pedido", scNext:"Faltan {n} piezas para llegar al −{d}%." });
 Object.assign(T.de,{ scTitle:"Mengenrabatte: gelten für die Gesamtstückzahl dieser Marke, gemischte Referenzen möglich.", scApplied:"auf Ihre Bestellung angewendet", scNext:"Noch {n} Stück und Sie erreichen −{d}%." });
@@ -8697,16 +8697,32 @@ return (<div><div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€
                     <span>−€{scontoCarrelloEur.toLocaleString("it-IT",{minimumFractionDigits:2})}</span>
                   </div>
                 )}
-                {pros && (
-                  <div style={{ padding:"9px 12px", borderRadius:8, fontSize:12.5,
-                    background:`${C.gold}0C`, border:`1px solid ${C.gold}30`, color:C.goldLight }}>
-                    {t("ckNextTier")
-                      .replace("{n}", pros.mancano.toLocaleString("it-IT",{maximumFractionDigits:0}))
-                      .replace("{d}", String(Number(pros.sconto_pct)))}
-                    {(pros.sped_gratis_it || pros.sped_gratis_eu) &&
-                      ` ${t(pros.sped_gratis_eu ? "ckFreeEu" : "ckFreeIt")}`}
-                  </div>
-                )}
+                {pros && (() => {
+                  /* La soglia detta in euro, non in percentuale.
+                     "-3%" suona piccolo; "75 euro di sconto, quindi quei 380 di
+                     merce te ne costano 305" e' lo stesso fatto nella lingua di
+                     chi sta facendo il conto. Lo sconto nuovo si applica a TUTTO
+                     il carrello, non solo alla merce aggiunta: e' li' che sta la
+                     convenienza, e senza scriverla non la vede nessuno. */
+                  const d = Number(pros.sconto_pct) || 0;
+                  const manca = Number(pros.mancano) || 0;
+                  const scontoDopo = (cartScontabile + manca) * d / 100;
+                  const guadagno = Math.max(0, scontoDopo - scontoCarrelloEur);
+                  const costoNetto = Math.max(0, manca - guadagno);
+                  const eur = (v) => v.toLocaleString("it-IT", { maximumFractionDigits:0 });
+                  return (
+                    <div style={{ padding:"9px 12px", borderRadius:8, fontSize:12.5,
+                      background:`${C.gold}0C`, border:`1px solid ${C.gold}30`, color:C.goldLight }}>
+                      {t("ckNextTier")
+                        .replace(/\{n\}/g, eur(manca))
+                        .replace("{d}", String(d))
+                        .replace("{e}", eur(guadagno))
+                        .replace("{c}", eur(costoNetto))}
+                      {(pros.sped_gratis_it || pros.sped_gratis_eu) &&
+                        ` ${t(pros.sped_gratis_eu ? "ckFreeEu" : "ckFreeIt")}`}
+                    </div>
+                  );
+                })()}
               </div>
             );
           })()}
