@@ -847,7 +847,13 @@ Object.assign(T.ar, { rgEmailUsed:"هذا البريد مسجّل مسبقًا. 
    accanto a quello che paga. Sono dati veri (1.390 referenze su 1.396 hanno
    il consigliato), quindi non e' una promessa: e' il conto che il negoziante
    farebbe comunque, fatto per lui mentre decide se aggiungere un pezzo. */
-Object.assign(T.en, { cgPubblico:"Retail price", cgMargine:"your margin", cgRisparmi:"you save", cgUltimi:"only {n} left", cgTetto:"max 20% of the order", ckRivendi:"Reselling this order you take in", ckRivendiSub:"at recommended retail · {m} gross on what you pay" });
+Object.assign(T.en, { cgPubblico:"Retail price", cgMargine:"your margin", cgRisparmi:"you save", cgUltimi:"only {n} left", cgTetto:"max 20% of the order", ckRivendi:"Reselling this order you take in", ckRivendiSub:"at recommended retail · {m} gross on what you pay", cgDaPezzi:"from {n} pcs:", cgGiaTuo:"already yours:" });
+Object.assign(T.it, { cgDaPezzi:"da {n} pz:", cgGiaTuo:"già tuo:" });
+Object.assign(T.fr, { cgDaPezzi:"dès {n} pcs :", cgGiaTuo:"déjà acquis :" });
+Object.assign(T.es, { cgDaPezzi:"desde {n} uds:", cgGiaTuo:"ya tuyo:" });
+Object.assign(T.de, { cgDaPezzi:"ab {n} Stk.:", cgGiaTuo:"bereits Ihrer:" });
+Object.assign(T.zh, { cgDaPezzi:"{n} 件起：", cgGiaTuo:"已享：" });
+Object.assign(T.ar, { cgDaPezzi:"من {n} قطعة:", cgGiaTuo:"حاصل عليه:" });
 Object.assign(T.it, { ckRivendi:"Rivendendo questo ordine incassi", ckRivendiSub:"ai prezzi consigliati al pubblico · {m} lordo su quello che paghi" });
 Object.assign(T.fr, { ckRivendi:"En revendant cette commande vous encaissez", ckRivendiSub:"aux prix publics conseillés · {m} brut sur ce que vous payez" });
 Object.assign(T.es, { ckRivendi:"Revendiendo este pedido ingresas", ckRivendiSub:"a precios recomendados · {m} bruto sobre lo que pagas" });
@@ -8250,7 +8256,16 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                         {casaDi && <div style={{ fontSize:11, color:C.gold, marginTop:1 }}>{casaDi}</div>}
                         <div style={{ fontSize:11, color:C.textMuted, marginTop:2 }}>{p.sku} · {p.category}</div>
                       </div>
-                      <div style={{ textAlign:"right" }}>{(() => { if (isManaged) { const rp = resalePrice(p); return rp != null ? (<div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€{rp.toFixed(2)}</div>) : (<div style={{ fontSize:12, color:C.textDim }}>{t("diNoPrice")}</div>); } if (senzaPrezzo(p) && countryPrices[p.id] == null) { return (<div style={{ fontSize:12, color:C.textDim }}>{t("diNoPrice")}</div>); } const lp = basePrice(p); const ep = effPrice(p); const d = discPct(p.brand_id); const hasC = countryPrices[p.id] != null && Number(countryPrices[p.id]) !== Number(p.unit_price||0); return (<div>{d > 0 && <div style={{ fontSize:11, color:C.textMuted, textDecoration:"line-through" }}>€{lp.toFixed(2)}</div>}<div style={{ fontSize:16, fontWeight:800, color:d>0?C.green:C.goldLight }}>€{ep.toFixed(2)}</div>{d > 0 && <div style={{ fontSize:10, color:C.green, fontWeight:700, whiteSpace:"nowrap" }}>-{d}% · {t("cgRisparmi")} €{(lp-ep).toFixed(2)}</div>}{hasC && <div style={{ fontSize:9, color:C.blue, fontWeight:700 }}>listino {(currentUser?.country||"").toUpperCase()}</div>}</div>); })()}</div>
+                      <div style={{ textAlign:"right" }}>{(() => { if (isManaged) { const rp = resalePrice(p); return rp != null ? (<div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€{rp.toFixed(2)}</div>) : (<div style={{ fontSize:12, color:C.textDim }}>{t("diNoPrice")}</div>); } if (senzaPrezzo(p) && countryPrices[p.id] == null) { return (<div style={{ fontSize:12, color:C.textDim }}>{t("diNoPrice")}</div>); } const lp = basePrice(p); const ep = effPrice(p); const d = discPct(p.brand_id); const hasC = countryPrices[p.id] != null && Number(countryPrices[p.id]) !== Number(p.unit_price||0); /* Il prezzo barrato e' sparito il 24/10. Era il listino pieno, e il listino
+   pieno non lo paga piu' nessuno: lo sconto distributore parte dal 20% di
+   serie. Un prezzo di riferimento che nessuno paga e' pubblicita' ingannevole
+   anche fra aziende (Dir. 2006/114), ed e' lo stesso vizio delle "48-72 ore".
+   Al suo posto due cose vere: il prezzo a cartone dove gli scaglioni per
+   quantita' esistono davvero, e lo sconto d'ordine che il distributore in
+   questo momento ha gia' maturato. */
+const qt = (tiers[p.brand_id] || []); const primo = qt.length ? qt[0] : null;
+const scOrd = (!p.escludi_sconti && scontoCarrelloPct > 0) ? scontoCarrelloPct : 0;
+return (<div><div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€{ep.toFixed(2)}</div>{primo && <div style={{ fontSize:10, color:C.green, fontWeight:700, whiteSpace:"nowrap" }}>{t("cgDaPezzi").replace("{n}", String(primo.min_qty))} €{(ep*(1-Number(primo.discount_pct||0)/100)).toFixed(2)}</div>}{!primo && scOrd > 0 && <div style={{ fontSize:10, color:C.green, fontWeight:700, whiteSpace:"nowrap" }}>−{scOrd}% {t("cgGiaTuo")} €{(ep*(1-scOrd/100)).toFixed(2)}</div>}{hasC && <div style={{ fontSize:9, color:C.blue, fontWeight:700 }}>listino {(currentUser?.country||"").toUpperCase()}</div>}</div>); })()}</div>
                     </div>
                     {/* QUANTO CI GUADAGNA IL NEGOZIO.
                         E' la riga che fa comprare: il prezzo dice quanto spende,
