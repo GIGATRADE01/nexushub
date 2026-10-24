@@ -842,7 +842,18 @@ Object.assign(T.ar, { rgEmailUsed:"هذا البريد مسجّل مسبقًا. 
    si capisce e "-20%" si legge e basta.
    La scarsita' e' quella vera, letta dalla giacenza: "ultimi 12" compare solo
    quando i pezzi sono davvero dodici. Niente urgenza inventata. */
-Object.assign(T.en, { cgPubblico:"Retail price", cgMargine:"your margin", cgRisparmi:"you save", cgUltimi:"only {n} left", cgTetto:"max 20% of the order" });
+/* La riga che tiene aperto il carrello: non quanto spende, quanto RIPORTA.
+   Somma i prezzi consigliati al pubblico di quello che ha dentro e li mette
+   accanto a quello che paga. Sono dati veri (1.390 referenze su 1.396 hanno
+   il consigliato), quindi non e' una promessa: e' il conto che il negoziante
+   farebbe comunque, fatto per lui mentre decide se aggiungere un pezzo. */
+Object.assign(T.en, { cgPubblico:"Retail price", cgMargine:"your margin", cgRisparmi:"you save", cgUltimi:"only {n} left", cgTetto:"max 20% of the order", ckRivendi:"Reselling this order you take in", ckRivendiSub:"at recommended retail · {m} gross on what you pay" });
+Object.assign(T.it, { ckRivendi:"Rivendendo questo ordine incassi", ckRivendiSub:"ai prezzi consigliati al pubblico · {m} lordo su quello che paghi" });
+Object.assign(T.fr, { ckRivendi:"En revendant cette commande vous encaissez", ckRivendiSub:"aux prix publics conseillés · {m} brut sur ce que vous payez" });
+Object.assign(T.es, { ckRivendi:"Revendiendo este pedido ingresas", ckRivendiSub:"a precios recomendados · {m} bruto sobre lo que pagas" });
+Object.assign(T.de, { ckRivendi:"Mit dem Weiterverkauf nehmen Sie ein", ckRivendiSub:"zu empfohlenen Verkaufspreisen · {m} brutto auf Ihren Einkauf" });
+Object.assign(T.zh, { ckRivendi:"转售这笔订单您可收入", ckRivendiSub:"按建议零售价 · 相对您的采购价毛利 {m}" });
+Object.assign(T.ar, { ckRivendi:"بإعادة بيع هذا الطلب تحصّل", ckRivendiSub:"بأسعار البيع الموصى بها · ربح إجمالي {m} على ما تدفعه" });
 Object.assign(T.it, { cgPubblico:"Prezzo al pubblico", cgMargine:"il tuo margine", cgRisparmi:"risparmi", cgUltimi:"ultimi {n}", cgTetto:"max 20% dell'ordine" });
 Object.assign(T.fr, { cgPubblico:"Prix public", cgMargine:"votre marge", cgRisparmi:"vous économisez", cgUltimi:"plus que {n}", cgTetto:"max 20% de la commande" });
 Object.assign(T.es, { cgPubblico:"Precio al público", cgMargine:"tu margen", cgRisparmi:"ahorras", cgUltimi:"últimas {n}", cgTetto:"máx 20% del pedido" });
@@ -8681,6 +8692,35 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                       ` ${t(pros.sped_gratis_eu ? "ckFreeEu" : "ckFreeIt")}`}
                   </div>
                 )}
+              </div>
+            );
+          })()}
+
+          {/* Quanto riporta il carrello, non quanto costa.
+              E' il numero che fa aggiungere l'ultimo pezzo: il negoziante vede
+              in una riga che quello che sta per pagare torna quasi doppio allo
+              scaffale. Si calcola solo sui prodotti che hanno il consigliato,
+              e se mancasse il dato la riga non compare. */}
+          {(() => {
+            const pubblico = Object.entries(cart).reduce((s, [pid, qty]) => {
+              const it = realProducts.find(p => p.id === pid);
+              return s + (it ? (Number(it.suggested_retail) || 0) * qty : 0);
+            }, 0);
+            if (!(pubblico > cartValue && cartValue > 0)) return null;
+            const su = Math.round(100 * (pubblico - cartValue) / cartValue);
+            return (
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center",
+                            gap:10, padding:"11px 13px", borderRadius:10, marginBottom:12,
+                            background:`${C.green}10`, border:`1px solid ${C.green}33` }}>
+                <div>
+                  <div style={{ fontSize:12.5, color:C.text, fontWeight:700 }}>{t("ckRivendi")}</div>
+                  <div style={{ fontSize:10.5, color:C.textMuted, marginTop:2 }}>
+                    {t("ckRivendiSub").replace("{m}", "+" + su + "%")}
+                  </div>
+                </div>
+                <span style={{ fontSize:19, fontWeight:900, color:C.green, whiteSpace:"nowrap" }}>
+                  €{pubblico.toLocaleString("it-IT", { minimumFractionDigits:2, maximumFractionDigits:2 })}
+                </span>
               </div>
             );
           })()}
