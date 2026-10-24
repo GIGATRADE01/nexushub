@@ -849,6 +849,13 @@ Object.assign(T.ar, { rgEmailUsed:"هذا البريد مسجّل مسبقًا. 
    farebbe comunque, fatto per lui mentre decide se aggiungere un pezzo. */
 Object.assign(T.en, { cgPubblico:"Retail price", cgMargine:"your margin", cgRisparmi:"you save", cgUltimi:"only {n} left", cgTetto:"max 20% of the order", ckRivendi:"Reselling this order you take in", ckRivendiSub:"at recommended retail · {m} gross on what you pay", cgDaPezzi:"from {n} pcs:", cgGiaTuo:"already yours:" });
 Object.assign(T.it, { cgDaPezzi:"da {n} pz:", cgGiaTuo:"già tuo:" });
+Object.assign(T.en, { ckMinimo:"{n} € to go to reach the {m} € minimum order." });
+Object.assign(T.it, { ckMinimo:"Ti mancano {n} € per l'ordine minimo di {m} €." });
+Object.assign(T.fr, { ckMinimo:"Il manque {n} € pour atteindre la commande minimum de {m} €." });
+Object.assign(T.es, { ckMinimo:"Faltan {n} € para el pedido mínimo de {m} €." });
+Object.assign(T.de, { ckMinimo:"Noch {n} € bis zum Mindestbestellwert von {m} €." });
+Object.assign(T.zh, { ckMinimo:"还差 {n} €，即可达到 {m} € 的起订金额。" });
+Object.assign(T.ar, { ckMinimo:"يتبقى {n} € للوصول إلى الحد الأدنى للطلب {m} €." });
 Object.assign(T.fr, { cgDaPezzi:"dès {n} pcs :", cgGiaTuo:"déjà acquis :" });
 Object.assign(T.es, { cgDaPezzi:"desde {n} uds:", cgGiaTuo:"ya tuyo:" });
 Object.assign(T.de, { cgDaPezzi:"ab {n} Stk.:", cgGiaTuo:"bereits Ihrer:" });
@@ -8713,13 +8720,65 @@ return (<div><div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€
                   return (
                     <div style={{ padding:"9px 12px", borderRadius:8, fontSize:12.5,
                       background:`${C.gold}0C`, border:`1px solid ${C.gold}30`, color:C.goldLight }}>
-                      {t("ckNextTier")
-                        .replace(/\{n\}/g, eur(manca))
-                        .replace("{d}", String(d))
-                        .replace("{e}", eur(guadagno))
-                        .replace("{c}", eur(costoNetto))}
+                      {/* Il primo scaglione non e' uno sconto, e' l'ordine
+                          minimo: li' lo sconto vale zero e la frase diventava
+                          "aggiungi 25 euro e prendi -0%, 0 euro di sconto".
+                          Quando non c'e' sconto si dice la cosa vera. */}
+                      {d > 0
+                        ? t("ckNextTier")
+                            .replace(/\{n\}/g, eur(manca))
+                            .replace("{d}", String(d))
+                            .replace("{e}", eur(guadagno))
+                            .replace("{c}", eur(costoNetto))
+                        : t("ckMinimo")
+                            .replace("{n}", eur(manca))
+                            .replace("{m}", eur(Number(pros.da_valore) || 0))}
                       {(pros.sped_gratis_it || pros.sped_gratis_eu) &&
                         ` ${t(pros.sped_gratis_eu ? "ckFreeEu" : "ckFreeIt")}`}
+                      {/* Dire quanto manca senza dire COME arrivarci lascia il
+                          lavoro al cliente. Qui sotto ci sono referenze che
+                          puo' davvero comprare: giacenza vera, multiplo
+                          d'ordine gia' rispettato, un tocco e sono dentro.
+                          Prima quelle dei marchi che ha gia' nel carrello,
+                          perche' una profumeria compone lo scaffale per casa. */}
+                      {(() => {
+                        const marcheNelCarrello = new Set(Object.keys(cart)
+                          .map(id => (realProducts.find(p => p.id === id) || {}).brand_id)
+                          .filter(Boolean));
+                        const propone = visibleProducts
+                          .filter(p => !cart[p.id]
+                                    && (p.inventory?.quantity_available || 0) > 0
+                                    && !p.escludi_sconti
+                                    && !senzaPrezzo(p))
+                          .sort((a, b) => {
+                            const ma = marcheNelCarrello.has(a.brand_id) ? 0 : 1;
+                            const mb = marcheNelCarrello.has(b.brand_id) ? 0 : 1;
+                            if (ma !== mb) return ma - mb;
+                            return (b.inventory?.quantity_available || 0) - (a.inventory?.quantity_available || 0);
+                          })
+                          .slice(0, 4);
+                        if (!propone.length) return null;
+                        return (
+                          <div style={{ display:"flex", flexWrap:"wrap", gap:7, marginTop:9 }}>
+                            {propone.map(p => {
+                              const q = Math.max(p.min_order_qty || 1, p.order_multiple || 1);
+                              const qta = Math.min(q, p.inventory?.quantity_available || q);
+                              return (
+                                <button key={p.id}
+                                  onClick={() => setCart(c => ({ ...c, [p.id]: qta }))}
+                                  style={{ padding:"6px 10px", borderRadius:7, cursor:"pointer",
+                                           background:"rgba(255,255,255,.04)", border:`1px solid ${C.gold}40`,
+                                           color:C.text, fontSize:11, textAlign:"left", lineHeight:1.35 }}>
+                                  <div style={{ fontWeight:700 }}>+ {p.name.slice(0, 26)}</div>
+                                  <div style={{ color:C.goldLight, fontSize:10.5 }}>
+                                    {qta} pz · €{(effPrice(p) * qta).toFixed(2)}
+                                  </div>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        );
+                      })()}
                     </div>
                   );
                 })()}
