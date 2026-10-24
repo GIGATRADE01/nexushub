@@ -7576,8 +7576,16 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
     return () => clearTimeout(timer);
   }, [avvisoPromo]);
 
-  const BONIFICO_ONLY_THRESHOLD = 15000;
-  const onlyBonifico = cartValue > BONIFICO_ONLY_THRESHOLD;
+  /* SOLO BONIFICO (ordine di Andrea, 24/10/2026).
+     La carta costava l'1,5% + 0,25: su un ordine da mille euro sono 15,25, che
+     e' il 5,7% di quello che resta in tasca - non del fatturato, dell'utile.
+     Sopra gli ottomila diventavano 120 euro. In un ingrosso B2B il bonifico e'
+     gia' il modo normale di pagare, quindi quel 6% si pagava per un comodo che
+     nessuno aveva chiesto.
+     La carta resta nel codice, pronta: basta rimettere qui una soglia (era
+     15.000) per riaccenderla sopra o sotto quella cifra. */
+  const SOLO_BONIFICO = true;
+  const onlyBonifico = SOLO_BONIFICO || cartValue > 15000;
   const effPay = onlyBonifico ? "bonifico" : selectedPayment;
   const payWithStripe = async (method) => {
     if (cartCount === 0) return;
@@ -8846,7 +8854,10 @@ return (<div><div style={{ fontSize:16, fontWeight:800, color:C.goldLight }}>€
                 </div>
                 {(selectedPayment==="bonifico"||onlyBonifico) && (
                   <div style={{ padding:"10px 12px", background:`${C.gold}10`, border:`1px solid ${C.gold}25`, borderRadius:8, fontSize:11, color:C.gold, lineHeight:1.5 }}>
-                    {onlyBonifico ? t("ckOnlyBonifico") : t("ckBonificoInfo")}
+                    {/* Il testo "sopra i 15.000 solo bonifico" non ha piu' senso
+                        ora che il bonifico e' l'unico metodo: si spiega solo
+                        come funziona. */}
+                    {t("ckBonificoInfo")}
                   </div>
                 )}
               </div>
