@@ -875,27 +875,77 @@ Object.assign(T.zh, { cgPubblico:"建议零售价", cgMargine:"您的毛利", cg
 Object.assign(T.ar, { cgPubblico:"سعر البيع للجمهور", cgMargine:"هامشك", cgRisparmi:"توفّر", cgUltimi:"بقي {n} فقط", cgTetto:"بحد أقصى 20% من الطلب" });
 
 /* LA VETRINA DI CHI NON E' ANCORA REGISTRATO.
-   Prima qui c'era solo una tesi sul mercato: tre paragrafi da leggere e due
-   bottoni che dicevano "leggi la pagina". Un grossista che arriva dalle email
-   vuole vedere la merce, non una spiegazione. Adesso vede venti bottiglie vere
-   con la foto, il marchio e la scritta "pronta a Torino" - e il prezzo coperto.
-   Il prezzo non e' coperto per finta: la vista v_vetrina_pubblica non ha la
-   colonna del prezzo, quindi non c'e' niente da far trapelare. */
-Object.assign(T.en, { vtOcchiello:"FROM DUBAI TO YOUR SHELF", vtTitolo:"We are the bridge between Europe and Arabian fragrance.", vtSotto:"The bottles leave the Gulf houses and pass through our hub in Turin. From there they reach you in 5-7 working days, with an Italian invoice, no container to wait for and no cartons of 48.", vtPronte:"references ready in Turin", vtMarchi:"Gulf houses", vtConsegna:"5-7 days", vtConsegnaSub:"working days, EU-wide", vtMinimo:"€250", vtMinimoSub:"minimum order", vtPrezzo:"Sign up to see the price", vtPronta:"Available", vtCta:"See the prices — free sign-up", vtNota:"Prices are reserved for registered businesses. Sign-up takes two minutes and costs nothing." });
-Object.assign(T.it, { vtOcchiello:"DA DUBAI AL TUO SCAFFALE", vtTitolo:"Siamo il ponte fra l'Europa e la profumeria araba.", vtSotto:"Le bottiglie partono dalle case del Golfo e passano dal nostro hub di Torino. Da lì arrivano da te in 5-7 giorni lavorativi, con fattura italiana, senza container da aspettare e senza cartoni da 48 pezzi.", vtPronte:"referenze pronte a Torino", vtMarchi:"case del Golfo", vtConsegna:"5-7 giorni", vtConsegnaSub:"lavorativi, in tutta l'UE", vtMinimo:"250 €", vtMinimoSub:"ordine minimo", vtPrezzo:"Registrati per vedere il prezzo", vtPronta:"Disponibile", vtCta:"Vedi i prezzi — registrazione gratuita", vtNota:"I prezzi sono riservati alle aziende registrate. La registrazione richiede due minuti e non costa nulla." });
-Object.assign(T.fr, { vtOcchiello:"DE DUBAÏ À VOTRE RAYON", vtTitolo:"Nous sommes le pont entre l'Europe et la parfumerie arabe.", vtSotto:"Les flacons partent des maisons du Golfe et passent par notre hub de Turin. De là ils arrivent chez vous en 5-7 jours ouvrables, avec facture italienne, sans conteneur à attendre et sans cartons de 48.", vtPronte:"références prêtes à Turin", vtMarchi:"maisons du Golfe", vtConsegna:"5-7 jours", vtConsegnaSub:"ouvrables, dans toute l'UE", vtMinimo:"250 €", vtMinimoSub:"commande minimum", vtPrezzo:"Inscrivez-vous pour voir le prix", vtPronta:"Disponible", vtCta:"Voir les prix — inscription gratuite", vtNota:"Les prix sont réservés aux entreprises inscrites. L'inscription prend deux minutes et ne coûte rien." });
-Object.assign(T.es, { vtOcchiello:"DE DUBÁI A TU ESTANTERÍA", vtTitolo:"Somos el puente entre Europa y la perfumería árabe.", vtSotto:"Los frascos salen de las casas del Golfo y pasan por nuestro hub de Turín. Desde allí llegan en 5-7 días laborables, con factura italiana, sin contenedor que esperar y sin cajas de 48.", vtPronte:"referencias listas en Turín", vtMarchi:"casas del Golfo", vtConsegna:"5-7 días", vtConsegnaSub:"laborables, en toda la UE", vtMinimo:"250 €", vtMinimoSub:"pedido mínimo", vtPrezzo:"Regístrate para ver el precio", vtPronta:"Disponible", vtCta:"Ver los precios — registro gratuito", vtNota:"Los precios están reservados a empresas registradas. El registro lleva dos minutos y no cuesta nada." });
-Object.assign(T.de, { vtOcchiello:"VON DUBAI IN IHR REGAL", vtTitolo:"Wir sind die Brücke zwischen Europa und arabischer Parfümerie.", vtSotto:"Die Flakons verlassen die Häuser am Golf und laufen über unseren Hub in Turin. Von dort sind sie in 5-7 Werktagen bei Ihnen, mit italienischer Rechnung, ohne Container-Wartezeit und ohne 48er-Kartons.", vtPronte:"Artikel sofort ab Turin", vtMarchi:"Häuser am Golf", vtConsegna:"5-7 Tage", vtConsegnaSub:"Werktage, EU-weit", vtMinimo:"250 €", vtMinimoSub:"Mindestbestellung", vtPrezzo:"Registrieren, um den Preis zu sehen", vtPronta:"Verfügbar", vtCta:"Preise ansehen — kostenlose Registrierung", vtNota:"Preise sind registrierten Unternehmen vorbehalten. Die Registrierung dauert zwei Minuten und kostet nichts." });
-Object.assign(T.zh, { vtOcchiello:"从迪拜到您的货架", vtTitolo:"我们是欧洲与阿拉伯香水之间的桥梁。", vtSotto:"香水从海湾各大香氛世家出发，抵达我们位于都灵的物流中心。从那里，5-7个工作日内送达您手中，附意大利发票，无需等待集装箱，也无需整的48支起订。", vtPronte:"款都灵现货", vtMarchi:"海湾香氛世家", vtConsegna:"5-7个工作日", vtConsegnaSub:"覆盖全欧盟", vtMinimo:"250 €", vtMinimoSub:"最低起订", vtPrezzo:"注册后查看价格", vtPronta:"有货", vtCta:"查看价格 — 免费注册", vtNota:"价格仅向已注册企业开放。注册只需两分钟，完全免费。" });
-Object.assign(T.ar, { vtOcchiello:"من دبي إلى رفّك", vtTitolo:"نحن الجسر بين أوروبا والعطور العربية.", vtSotto:"تغادر العبوات دور العطور الخليجية لتصل إلى مركزنا اللوجستي في تورينو. ومن هناك تصلك خلال 5-7 أيام عمل، بفاتورة إيطالية، دون انتظار أي حاوية ودون كراتين من 48 قطعة.", vtPronte:"صنفاً جاهزاً في تورينو", vtMarchi:"دار عطور خليجية", vtConsegna:"5-7 أيام", vtConsegnaSub:"أيام عمل، في جميع أنحاء الاتحاد الأوروبي", vtMinimo:"250 €", vtMinimoSub:"الحد الأدنى للطلب", vtPrezzo:"سجّل لعرض السعر", vtPronta:"متوفر", vtCta:"اعرض الأسعار — التسجيل مجاني", vtNota:"الأسعار مخصّصة للشركات المسجّلة. التسجيل يستغرق دقيقتين وهو مجاني." });
+   Prima qui c'era una tesi sul mercato, poi venti bottiglie col prezzo coperto.
+   Il 25/10/2026 i tre cervelli l'hanno riscritta insieme, e hanno detto le
+   stesse sei cose senza essersi parlati. Chi legge questa pagina e' un titolare
+   di profumeria fra i 45 e i 60 anni che compra da due grossisti da anni, non
+   ha nessun problema urgente, e nel profumo e' abituato a essere chiamato da
+   parallelisti che spariscono dopo tre mesi.
 
-Object.assign(T.en, { lgHeroA:"The Gulf houses produce in the Middle East.", lgHeroB:"The market is in Europe.", lgHeroSub:"NexusHub is the bridge between Europe and the Gulf perfume houses. The goods leave Dubai, pass through our hub in Turin and reach you with an Italian invoice — no container to wait for, no cartons of 48, no minimum you cannot meet. The brand keeps control of who represents it.", lgFrom:"Where are you coming from?", lgChainVia:"I am a retail chain or an e-commerce — I buy for several points of sale", lgDemoLab:"Step inside and look around — no sign-up", lgDemoBrand:"Live Brand demo", lgDemoDist:"Live Distributor demo", lgHave:"I already have an account — Sign in" });
-Object.assign(T.it, { lgHeroA:"Le case del Golfo producono in Medio Oriente.", lgHeroB:"Il mercato però è in Europa.", lgHeroSub:"NexusHub è il ponte: la merce del brand entra in un polo logistico in Italia e da lì raggiunge i distributori europei con fattura italiana, a prezzo ufficiale e con territorio protetto. Il brand decide chi lo rappresenta. Il distributore smette di aspettare i container.", lgFrom:"Da dove arrivi?", lgChainVia:"Sono una catena o un e-commerce — acquisto per più punti vendita", lgDemoLab:"Entra e guarda, senza registrarti", lgDemoBrand:"Demo Brand dal vivo", lgDemoDist:"Demo Distributore dal vivo", lgHave:"Ho già un account — Accedi" });
-Object.assign(T.fr, { lgHeroA:"Les maisons du Golfe produisent au Moyen-Orient.", lgHeroB:"Le marché, lui, est en Europe.", lgHeroSub:"NexusHub est le pont : la marchandise de la marque entre dans un pôle logistique en Italie et atteint de là les distributeurs européens avec facture italienne, au prix officiel et avec un territoire protégé. La marque choisit qui la représente. Le distributeur cesse d'attendre les conteneurs.", lgFrom:"D'où venez-vous ?", lgChainVia:"Je suis une chaîne ou un e-commerce — j'achète pour plusieurs points de vente", lgDemoLab:"Entrez et regardez, sans inscription", lgDemoBrand:"Démo Marque en direct", lgDemoDist:"Démo Distributeur en direct", lgHave:"J'ai déjà un compte — Se connecter" });
-Object.assign(T.es, { lgHeroA:"Las casas del Golfo producen en Oriente Medio.", lgHeroB:"El mercado, en cambio, está en Europa.", lgHeroSub:"NexusHub es el puente: la mercancía de la marca entra en un centro logístico en Italia y desde allí llega a los distribuidores europeos con factura italiana, a precio oficial y con territorio protegido. La marca decide quién la representa. El distribuidor deja de esperar los contenedores.", lgFrom:"¿De dónde vienes?", lgChainVia:"Soy una cadena o un e-commerce — compro para varios puntos de venta", lgDemoLab:"Entra y mira, sin registrarte", lgDemoBrand:"Demo Marca en vivo", lgDemoDist:"Demo Distribuidor en vivo", lgHave:"Ya tengo una cuenta — Iniciar sesión" });
-Object.assign(T.de, { lgHeroA:"Die Häuser am Golf produzieren im Nahen Osten.", lgHeroB:"Der Markt aber liegt in Europa.", lgHeroSub:"NexusHub ist die Brücke: Die Ware der Marke kommt in ein Logistikzentrum in Italien und erreicht von dort die europäischen Distributoren mit italienischer Rechnung, zum offiziellen Preis und mit geschütztem Gebiet. Die Marke entscheidet, wer sie vertritt. Der Distributor wartet nicht mehr auf Container.", lgFrom:"Woher kommen Sie?", lgChainVia:"Ich bin eine Kette oder ein E-Commerce — ich kaufe für mehrere Verkaufsstellen", lgDemoLab:"Reinschauen, ohne Registrierung", lgDemoBrand:"Live-Demo Marke", lgDemoDist:"Live-Demo Distributor", lgHave:"Ich habe bereits ein Konto — Anmelden" });
-Object.assign(T.zh, { lgHeroA:"海湾香水世家在中东生产。", lgHeroB:"但市场在欧洲。", lgHeroSub:"NexusHub 就是这座桥：品牌的货物进入意大利的物流中心，再从那里凭意大利发票送达欧洲经销商，按官方价格、并享有受保护的区域。品牌自己决定由谁代表。经销商不必再等集装箱。", lgFrom:"您来自哪一方？", lgChainVia:"我是连锁或电商——为多个销售点采购", lgDemoLab:"无需注册，直接进入查看", lgDemoBrand:"品牌端实时演示", lgDemoDist:"经销商端实时演示", lgHave:"我已有账户——登录" });
-Object.assign(T.ar, { lgHeroA:"بيوت العطور في الخليج تُنتج في الشرق الأوسط.", lgHeroB:"لكنّ السوق في أوروبا.", lgHeroSub:"نكسس هَب هو الجسر: تدخل بضاعة العلامة إلى مركز لوجستي في إيطاليا، ومنه تصل إلى الموزّعين الأوروبيين بفاتورة إيطالية، بالسعر الرسمي ومع منطقة محمية. العلامة تقرّر من يمثّلها، والموزّع يتوقّف عن انتظار الحاويات.", lgFrom:"من أي طرف أنت؟", lgChainVia:"أنا سلسلة متاجر أو متجر إلكتروني — أشتري لعدة نقاط بيع", lgDemoLab:"ادخل وشاهد، دون تسجيل", lgDemoBrand:"عرض حي لواجهة العلامة", lgDemoDist:"عرض حي لواجهة الموزّع", lgHave:"لديّ حساب بالفعل — تسجيل الدخول" });
+   1. NON SI CHIEDE IL BONIFICO. Si chiede la proforma. Nessuno manda 250 euro
+      a uno sconosciuto da una pagina web; manda una partita IVA per farsi
+      fare un documento, e paga quando l'IBAN e la ragione sociale coincidono
+      con la visura.
+   2. "NON CAMBIARE I TUOI GROSSISTI." Il frame giusto e' affianca, non
+      sostituisci: abbassa la decisione da "cambio fornitore" a "faccio una
+      prova". Mille mail hanno chiesto la cosa sbagliata.
+   3. IL DIFETTO SI DICE PRIMA. Niente magazzino nostro, 5-7 giorni e non 48
+      ore, solo bonifico. Scritto nella prima schermata, dove un parallelista
+      non lo metterebbe mai: il truffatore non si auto-denuncia. E' la leva
+      piu' forte che abbiamo e costa zero.
+   4. AL POSTO DELLA RIPROVA SOCIALE, LA VERIFICABILITA'. Clienti da mostrare
+      non ce ne sono. Ci sono P.IVA, sede, visura, VIES, un nome e un numero
+      di telefono: cose che il lettore controlla da solo in trenta secondi,
+      senza fidarsi di noi.
+   5. NUMERI, NON AGGETTIVI. "548 referenze", "21 case", "da 6 pezzi",
+      "250 euro". Un professionista legge gli aggettivi come rumore.
+   6. NIENTE TRUCCHI DA E-COMMERCE. Nessun countdown, nessun "solo 3 rimasti",
+      nessuna recensione, nessun logo di clienti che non abbiamo. Li riconosce
+      in tre secondi e ci declassa a dilettanti.
+
+   Sul "praticante notaio" i tre si sono divisi: uno lo userebbe come garanzia,
+   un altro dice che su un sito di profumi suona come un travestimento. Non
+   c'e': restano il nome, il numero e la visura, che sono verificabili. */
+Object.assign(T.en, { vtOcchiello:"B2B WHOLESALE · TRADE ONLY", vtTitolo:"Lattafa, Armaf, Maison Alhambra wholesale. From 6 units, not cartons of 48.", vtSotto:"Shipped from Turin on an Italian invoice, 5-7 working days across the EU. First order from €250. You do not have to drop your current wholesalers — add us alongside them.", vtPronte:"references you can order", vtMarchi:"Gulf houses", vtConsegna:"5-7 days", vtConsegnaSub:"working days, EU-wide", vtMinimo:"€250", vtMinimoSub:"first order", vtPrezzo:"Trade price on the pro-forma", vtPronta:"Available", vtCta:"Ask for a pro-forma", vtCtaSotto:"No registration needed. Send your VAT number and the references you want.", vtCtaAlt:"or register to browse every price", vtNota:"Prices shown on the pro-forma are net, VAT excluded, and are not an offer to the public.",
+  vtCondiz1:"Italian invoice: no customs, no import paperwork for your accountant.", vtCondiz2:"From 6 units per reference, not cartons of 48 — test twelve fragrances instead of three.", vtCondiz3:"We hold no warehouse of our own: we buy to order. That is why 5-7 days and not 48 hours.", vtCondiz4:"You get the pro-forma before you pay, with every line re-confirmed with the supplier.",
+  vtAffiancaT:"We are not asking you to change wholesaler.", vtAffiancaP:"Keep the two you have. Use us for the thing they will not let you do: order 6 pieces of twelve references instead of 48 of three. The only thing you are testing on a first order is whether we ship and whether the invoice books cleanly.",
+  vtComeT:"How a first order works", vtCome1:"You tell us the references — from 6 units each, €250 total.", vtCome2:"We re-confirm every line with the supplier and send you a pro-forma. If something is missing you know before you pay, not after.", vtCome3:"Bank transfer to the account held by GIGA TRADE S.R.L.S. — same name as the company register.", vtCome4:"Goods leave Turin within 5-7 working days, with an Italian invoice and tracking.",
+  vtRimborso:"If we have not shipped within 10 working days of your payment clearing, we refund the full amount to the same account within 5 working days.",
+  vtVerifica:"Check us before you pay: company register, VAT number, VIES.", vtNienteT:"What we will not pretend", vtNiente:"No previous orders to show you, no customer logos, no reviews. We started this year. Everything above is a condition you can hold us to, not a promise about how good we are." });
+Object.assign(T.it, { vtOcchiello:"FORNITURA B2B · SOLO RIVENDITORI", vtTitolo:"Lattafa, Armaf, Maison Alhambra all'ingrosso. Da 6 pezzi, non cartoni da 48.", vtSotto:"Spedizione da Torino con fattura italiana, 5-7 giorni lavorativi in tutta l'UE. Primo ordine da 250 €. Non devi lasciare i tuoi grossisti: affiancaci a loro.", vtPronte:"referenze ordinabili", vtMarchi:"case del Golfo", vtConsegna:"5-7 giorni", vtConsegnaSub:"lavorativi, in tutta l'UE", vtMinimo:"250 €", vtMinimoSub:"primo ordine", vtPrezzo:"Prezzo rivenditore in proforma", vtPronta:"Disponibile", vtCta:"Chiedi la proforma", vtCtaSotto:"Senza registrazione. Mandaci la partita IVA e le referenze che ti interessano.", vtCtaAlt:"oppure registrati per vedere tutti i prezzi", vtNota:"I prezzi in proforma sono netti, IVA esclusa, e non sono un'offerta al pubblico.",
+  vtCondiz1:"Fattura italiana: nessuna dogana e nessuna pratica di importazione per il tuo commercialista.", vtCondiz2:"Da 6 pezzi per referenza, non cartoni da 48 — provi dodici profumi invece di tre.", vtCondiz3:"Non abbiamo un magazzino nostro: compriamo sull'ordine. Per questo 5-7 giorni e non 48 ore.", vtCondiz4:"La proforma arriva prima del pagamento, con ogni riga riconfermata col fornitore.",
+  vtAffiancaT:"Non ti chiediamo di cambiare grossista.", vtAffiancaP:"Tieni i due che hai. Usaci per quello che loro non ti lasciano fare: ordinare 6 pezzi di dodici referenze invece di 48 di tre. Al primo ordine l'unica cosa che stai provando e' se spediamo e se la fattura si registra senza problemi.",
+  vtComeT:"Come funziona il primo ordine", vtCome1:"Ci dici le referenze — da 6 pezzi ciascuna, 250 € di totale.", vtCome2:"Riconfermiamo ogni riga col fornitore e ti mandiamo la proforma. Se manca qualcosa lo sai prima di pagare, non dopo.", vtCome3:"Bonifico sul conto intestato a GIGA TRADE S.R.L.S. — la stessa ragione sociale che leggi in visura.", vtCome4:"La merce parte da Torino entro 5-7 giorni lavorativi, con fattura italiana e tracking.",
+  vtRimborso:"Se non abbiamo spedito entro 10 giorni lavorativi dall'accredito, ti riaccreditiamo l'intero importo sullo stesso conto entro 5 giorni lavorativi.",
+  vtVerifica:"Controllaci prima di pagare: Registro Imprese, partita IVA, VIES.", vtNienteT:"Quello che non ti raccontiamo", vtNiente:"Non abbiamo ordini precedenti da mostrarti, ne' loghi di clienti, ne' recensioni. Abbiamo iniziato quest'anno. Tutto quello che sta scritto qui sopra e' una condizione su cui ci puoi inchiodare, non una promessa su quanto siamo bravi." });
+Object.assign(T.fr, { vtOcchiello:"FOURNITURE B2B · PROFESSIONNELS", vtTitolo:"Lattafa, Armaf, Maison Alhambra en gros. À partir de 6 pièces, pas de cartons de 48.", vtSotto:"Expédié de Turin avec facture italienne, 5-7 jours ouvrables dans toute l'UE. Première commande à partir de 250 €. Vous n'avez pas à quitter vos grossistes : ajoutez-nous à côté.", vtPronte:"références commandables", vtMarchi:"maisons du Golfe", vtConsegna:"5-7 jours", vtConsegnaSub:"ouvrables, dans toute l'UE", vtMinimo:"250 €", vtMinimoSub:"première commande", vtPrezzo:"Prix revendeur sur la proforma", vtPronta:"Disponible", vtCta:"Demander une proforma", vtCtaSotto:"Sans inscription. Envoyez votre numéro de TVA et les références qui vous intéressent.", vtCtaAlt:"ou inscrivez-vous pour voir tous les prix", vtNota:"Les prix de la proforma sont nets, hors TVA, et ne constituent pas une offre au public.",
+  vtCondiz1:"Facture italienne : pas de douane, aucune formalité d'importation pour votre comptable.", vtCondiz2:"À partir de 6 pièces par référence, pas de cartons de 48 — testez douze parfums au lieu de trois.", vtCondiz3:"Nous n'avons pas d'entrepôt propre : nous achetons sur commande. D'où les 5-7 jours et non 48 heures.", vtCondiz4:"Vous recevez la proforma avant de payer, chaque ligne reconfirmée auprès du fournisseur.",
+  vtAffiancaT:"Nous ne vous demandons pas de changer de grossiste.", vtAffiancaP:"Gardez les deux que vous avez. Utilisez-nous pour ce qu'ils ne vous permettent pas : commander 6 pièces de douze références au lieu de 48 de trois. Sur une première commande, la seule chose que vous testez, c'est si nous expédions et si la facture s'enregistre proprement.",
+  vtComeT:"Comment se passe une première commande", vtCome1:"Vous nous indiquez les références — 6 pièces minimum chacune, 250 € au total.", vtCome2:"Nous reconfirmons chaque ligne auprès du fournisseur et vous envoyons la proforma. S'il manque quelque chose, vous le savez avant de payer.", vtCome3:"Virement sur le compte au nom de GIGA TRADE S.R.L.S. — le même nom qu'au registre des sociétés.", vtCome4:"La marchandise part de Turin sous 5-7 jours ouvrables, avec facture italienne et suivi.",
+  vtRimborso:"Si nous n'avons pas expédié dans les 10 jours ouvrables suivant l'encaissement, nous remboursons l'intégralité sur le même compte sous 5 jours ouvrables.",
+  vtVerifica:"Vérifiez-nous avant de payer : registre des sociétés, numéro de TVA, VIES.", vtNienteT:"Ce que nous ne prétendons pas", vtNiente:"Aucune commande passée à vous montrer, aucun logo client, aucun avis. Nous avons commencé cette année. Tout ce qui précède est une condition dont vous pouvez nous tenir responsables, pas une promesse sur nos qualités." });
+Object.assign(T.es, { vtOcchiello:"SUMINISTRO B2B · SOLO PROFESIONALES", vtTitolo:"Lattafa, Armaf, Maison Alhambra al por mayor. Desde 6 piezas, no cajas de 48.", vtSotto:"Enviado desde Turín con factura italiana, 5-7 días laborables en toda la UE. Primer pedido desde 250 €. No tienes que dejar a tus mayoristas: súmanos a ellos.", vtPronte:"referencias que puedes pedir", vtMarchi:"casas del Golfo", vtConsegna:"5-7 días", vtConsegnaSub:"laborables, en toda la UE", vtMinimo:"250 €", vtMinimoSub:"primer pedido", vtPrezzo:"Precio de distribuidor en la proforma", vtPronta:"Disponible", vtCta:"Pide una proforma", vtCtaSotto:"Sin registro. Envíanos tu NIF/CIF y las referencias que te interesan.", vtCtaAlt:"o regístrate para ver todos los precios", vtNota:"Los precios de la proforma son netos, sin IVA, y no son una oferta al público.",
+  vtCondiz1:"Factura italiana: sin aduana y sin papeleo de importación para tu asesor.", vtCondiz2:"Desde 6 piezas por referencia, no cajas de 48 — prueba doce perfumes en vez de tres.", vtCondiz3:"No tenemos almacén propio: compramos contra pedido. Por eso 5-7 días y no 48 horas.", vtCondiz4:"Recibes la proforma antes de pagar, con cada línea reconfirmada con el proveedor.",
+  vtAffiancaT:"No te pedimos que cambies de mayorista.", vtAffiancaP:"Quédate con los dos que tienes. Úsanos para lo que ellos no te dejan hacer: pedir 6 piezas de doce referencias en vez de 48 de tres. En un primer pedido lo único que estás probando es si enviamos y si la factura se registra sin problemas.",
+  vtComeT:"Cómo funciona el primer pedido", vtCome1:"Nos dices las referencias — desde 6 piezas cada una, 250 € de total.", vtCome2:"Reconfirmamos cada línea con el proveedor y te enviamos la proforma. Si falta algo lo sabes antes de pagar, no después.", vtCome3:"Transferencia a la cuenta a nombre de GIGA TRADE S.R.L.S. — la misma razón social que figura en el registro.", vtCome4:"La mercancía sale de Turín en 5-7 días laborables, con factura italiana y seguimiento.",
+  vtRimborso:"Si no hemos enviado en 10 días laborables desde el abono, te devolvemos el importe completo a la misma cuenta en 5 días laborables.",
+  vtVerifica:"Compruébanos antes de pagar: registro mercantil, NIF, VIES.", vtNienteT:"Lo que no te vamos a contar", vtNiente:"No tenemos pedidos anteriores que mostrarte, ni logos de clientes, ni reseñas. Empezamos este año. Todo lo de arriba es una condición que puedes exigirnos, no una promesa sobre lo buenos que somos." });
+Object.assign(T.de, { vtOcchiello:"B2B-BELIEFERUNG · NUR HÄNDLER", vtTitolo:"Lattafa, Armaf, Maison Alhambra im Großhandel. Ab 6 Stück, keine 48er-Kartons.", vtSotto:"Versand ab Turin mit italienischer Rechnung, 5-7 Werktage EU-weit. Erstbestellung ab 250 €. Sie müssen Ihre Großhändler nicht wechseln — nehmen Sie uns dazu.", vtPronte:"bestellbare Artikel", vtMarchi:"Häuser am Golf", vtConsegna:"5-7 Tage", vtConsegnaSub:"Werktage, EU-weit", vtMinimo:"250 €", vtMinimoSub:"Erstbestellung", vtPrezzo:"Händlerpreis auf der Proforma", vtPronta:"Verfügbar", vtCta:"Proforma anfordern", vtCtaSotto:"Ohne Registrierung. Senden Sie uns Ihre USt-IdNr. und die gewünschten Artikel.", vtCtaAlt:"oder registrieren, um alle Preise zu sehen", vtNota:"Die Preise der Proforma sind Nettopreise ohne USt. und stellen kein öffentliches Angebot dar.",
+  vtCondiz1:"Italienische Rechnung: kein Zoll, kein Einfuhrvorgang für Ihren Steuerberater.", vtCondiz2:"Ab 6 Stück pro Artikel, keine 48er-Kartons — testen Sie zwölf Düfte statt drei.", vtCondiz3:"Wir haben kein eigenes Lager: wir kaufen auf Bestellung. Daher 5-7 Tage und nicht 48 Stunden.", vtCondiz4:"Sie erhalten die Proforma vor der Zahlung, jede Position beim Lieferanten neu bestätigt.",
+  vtAffiancaT:"Wir bitten Sie nicht, den Großhändler zu wechseln.", vtAffiancaP:"Behalten Sie Ihre beiden. Nutzen Sie uns für das, was die Ihnen nicht erlauben: 6 Stück von zwölf Artikeln statt 48 von drei. Bei einer Erstbestellung prüfen Sie nur eines — ob wir liefern und ob die Rechnung sauber zu verbuchen ist.",
+  vtComeT:"So läuft eine Erstbestellung", vtCome1:"Sie nennen uns die Artikel — ab 6 Stück je Artikel, 250 € Gesamtwert.", vtCome2:"Wir bestätigen jede Position beim Lieferanten und senden Ihnen die Proforma. Fehlt etwas, wissen Sie es vor der Zahlung, nicht danach.", vtCome3:"Überweisung auf das Konto von GIGA TRADE S.R.L.S. — derselbe Name wie im Handelsregister.", vtCome4:"Die Ware geht innerhalb von 5-7 Werktagen ab Turin raus, mit italienischer Rechnung und Sendungsverfolgung.",
+  vtRimborso:"Haben wir nicht innerhalb von 10 Werktagen nach Zahlungseingang versandt, erstatten wir den vollen Betrag innerhalb von 5 Werktagen auf dasselbe Konto.",
+  vtVerifica:"Prüfen Sie uns vor der Zahlung: Handelsregister, USt-IdNr., VIES.", vtNienteT:"Was wir nicht behaupten", vtNiente:"Keine früheren Bestellungen zum Zeigen, keine Kundenlogos, keine Bewertungen. Wir haben dieses Jahr angefangen. Alles oben ist eine Bedingung, an der Sie uns festhalten können — kein Versprechen darüber, wie gut wir sind." });
+Object.assign(T.zh, { vtOcchiello:"B2B 批发 · 仅限经销商", vtTitolo:"Lattafa、Armaf、Maison Alhambra 批发。每款起订 6 支，无需整箱 48 支。", vtSotto:"从都灵发货，附意大利发票，欧盟境内 5-7 个工作日。首单 250 欧元起。无需更换现有批发商——把我们加进来即可。", vtPronte:"款可订购", vtMarchi:"海湾香氛世家", vtConsegna:"5-7 个工作日", vtConsegnaSub:"覆盖全欧盟", vtMinimo:"250 €", vtMinimoSub:"首单", vtPrezzo:"经销价见形式发票", vtPronta:"有货", vtCta:"索取形式发票", vtCtaSotto:"无需注册。把您的税号和想要的货号发给我们即可。", vtCtaAlt:"或注册后查看全部价格", vtNota:"形式发票上的价格为不含税净价，不构成对公众的报价。" });
+Object.assign(T.ar, { vtOcchiello:"توريد للشركات · للتجّار فقط", vtTitolo:"لطافة وأرماف وميزون الحمراء بالجملة. من 6 قطع، لا كراتين من 48.", vtSotto:"يُشحن من تورينو بفاتورة إيطالية، 5-7 أيام عمل في جميع أنحاء الاتحاد الأوروبي. أول طلب من 250 يورو. لا حاجة لترك موزّعيك الحاليين — أضِفنا إليهم.", vtPronte:"صنفاً متاحاً للطلب", vtMarchi:"دار عطور خليجية", vtConsegna:"5-7 أيام", vtConsegnaSub:"أيام عمل، في جميع أنحاء الاتحاد الأوروبي", vtMinimo:"250 €", vtMinimoSub:"أول طلب", vtPrezzo:"سعر التاجر في الفاتورة المبدئية", vtPronta:"متوفر", vtCta:"اطلب فاتورة مبدئية", vtCtaSotto:"دون تسجيل. أرسل لنا رقمك الضريبي والأصناف التي تريدها.", vtCtaAlt:"أو سجّل لعرض جميع الأسعار", vtNota:"أسعار الفاتورة المبدئية صافية بدون ضريبة، وليست عرضاً للجمهور." });
+
+Object.assign(T.en, { lgHeroA:"The Gulf houses produce in the Middle East.", lgHeroB:"The market is in Europe.", lgHeroSub:"We are an Italian wholesaler of Arabian fragrance. The goods ship from Turin on an Italian invoice and reach the whole EU in 5-7 working days — no container to wait for and no cartons of 48. Brands decide who represents them.", lgFrom:"Where are you coming from?", lgChainVia:"I am a retail chain or an e-commerce — I buy for several points of sale", lgDemoLab:"Step inside and look around — no sign-up", lgDemoBrand:"Live Brand demo", lgDemoDist:"Live Distributor demo", lgHave:"I already have an account — Sign in" });
+Object.assign(T.it, { lgHeroA:"Le case del Golfo producono in Medio Oriente.", lgHeroB:"Il mercato però è in Europa.", lgHeroSub:"Siamo un grossista italiano di profumeria araba. La merce parte da Torino con fattura italiana e arriva in tutta l'UE in 5-7 giorni lavorativi — senza container da aspettare e senza cartoni da 48 pezzi. I brand decidono chi li rappresenta.", lgFrom:"Da dove arrivi?", lgChainVia:"Sono una catena o un e-commerce — acquisto per più punti vendita", lgDemoLab:"Entra e guarda, senza registrarti", lgDemoBrand:"Demo Brand dal vivo", lgDemoDist:"Demo Distributore dal vivo", lgHave:"Ho già un account — Accedi" });
+Object.assign(T.fr, { lgHeroA:"Les maisons du Golfe produisent au Moyen-Orient.", lgHeroB:"Le marché, lui, est en Europe.", lgHeroSub:"Nous sommes un grossiste italien de parfumerie arabe. La marchandise part de Turin avec facture italienne et atteint toute l'UE en 5-7 jours ouvrables — sans conteneur à attendre et sans cartons de 48. Les marques choisissent qui les représente.", lgFrom:"D'où venez-vous ?", lgChainVia:"Je suis une chaîne ou un e-commerce — j'achète pour plusieurs points de vente", lgDemoLab:"Entrez et regardez, sans inscription", lgDemoBrand:"Démo Marque en direct", lgDemoDist:"Démo Distributeur en direct", lgHave:"J'ai déjà un compte — Se connecter" });
+Object.assign(T.es, { lgHeroA:"Las casas del Golfo producen en Oriente Medio.", lgHeroB:"El mercado, en cambio, está en Europa.", lgHeroSub:"Somos un mayorista italiano de perfumería árabe. La mercancía sale de Turín con factura italiana y llega a toda la UE en 5-7 días laborables — sin contenedor que esperar y sin cajas de 48. Las marcas deciden quién las representa.", lgFrom:"¿De dónde vienes?", lgChainVia:"Soy una cadena o un e-commerce — compro para varios puntos de venta", lgDemoLab:"Entra y mira, sin registrarte", lgDemoBrand:"Demo Marca en vivo", lgDemoDist:"Demo Distribuidor en vivo", lgHave:"Ya tengo una cuenta — Iniciar sesión" });
+Object.assign(T.de, { lgHeroA:"Die Häuser am Golf produzieren im Nahen Osten.", lgHeroB:"Der Markt aber liegt in Europa.", lgHeroSub:"Wir sind ein italienischer Großhändler für arabische Parfümerie. Die Ware geht ab Turin mit italienischer Rechnung raus und erreicht die ganze EU in 5-7 Werktagen — ohne Container-Wartezeit und ohne 48er-Kartons. Die Marken entscheiden, wer sie vertritt.", lgFrom:"Woher kommen Sie?", lgChainVia:"Ich bin eine Kette oder ein E-Commerce — ich kaufe für mehrere Verkaufsstellen", lgDemoLab:"Reinschauen, ohne Registrierung", lgDemoBrand:"Live-Demo Marke", lgDemoDist:"Live-Demo Distributor", lgHave:"Ich habe bereits ein Konto — Anmelden" });
+Object.assign(T.zh, { lgHeroA:"海湾香水世家在中东生产。", lgHeroB:"但市场在欧洲。", lgHeroSub:"我们是意大利的阿拉伯香水批发商。货品从都灵发出，附意大利发票，5-7 个工作日内送达欧盟各地——无需等待集装箱，也无需整箱 48 支。由品牌自己决定谁来代理。", lgFrom:"您来自哪一方？", lgChainVia:"我是连锁或电商——为多个销售点采购", lgDemoLab:"无需注册，直接进入查看", lgDemoBrand:"品牌端实时演示", lgDemoDist:"经销商端实时演示", lgHave:"我已有账户——登录" });
+Object.assign(T.ar, { lgHeroA:"بيوت العطور في الخليج تُنتج في الشرق الأوسط.", lgHeroB:"لكنّ السوق في أوروبا.", lgHeroSub:"نحن تاجر جملة إيطالي للعطور العربية. تنطلق البضاعة من تورينو بفاتورة إيطالية وتصل إلى جميع أنحاء الاتحاد الأوروبي خلال 5-7 أيام عمل — دون انتظار أي حاوية ودون كراتين من 48 قطعة. والعلامات هي التي تقرّر من يمثّلها.", lgFrom:"من أي طرف أنت؟", lgChainVia:"أنا سلسلة متاجر أو متجر إلكتروني — أشتري لعدة نقاط بيع", lgDemoLab:"ادخل وشاهد، دون تسجيل", lgDemoBrand:"عرض حي لواجهة العلامة", lgDemoDist:"عرض حي لواجهة الموزّع", lgHave:"لديّ حساب بالفعل — تسجيل الدخول" });
 Object.assign(T.en, { dlpTitle:"Are you a distributor or a wholesaler?", dlpBody:"In Europe the price of your fragrances is decided by someone else. 22 Gulf houses in one basket, ordered in multiples of 6 — not cartons of 48 — with live stock and one invoice.", dlpCta:"Read the page for distributors" });
 Object.assign(T.it, { dlpTitle:"Sei un distributore o un grossista?", dlpBody:"In Europa il prezzo dei tuoi profumi lo decide qualcun altro. 22 case del Golfo in un carrello solo, ordinate a multipli di 6 — non a cartoni da 48 — con giacenza vera e una fattura sola.", dlpCta:"Leggi la pagina per i distributori" });
 Object.assign(T.fr, { dlpTitle:"Vous \u00eates distributeur ou grossiste ?", dlpBody:"En Europe, le prix de vos parfums est décidé par quelqu'un d'autre. 22 maisons du Golfe dans un seul panier, par multiples de 6 — pas par cartons de 48 — avec stock réel et une seule facture.", dlpCta:"Lire la page pour les distributeurs" });
@@ -2627,7 +2677,15 @@ const Login = ({ onLogin, lang, onLangChange }) => {
           <h1 className="lg-h1" style={{ fontFamily:"'Fraunces', Georgia, serif", fontWeight:800, lineHeight:1.25, margin:"0 0 12px", color:C.text }}>
             {t("lgHeroA")}<br/><span style={{ color:C.goldLight }}>{t("lgHeroB")}</span>
           </h1>
-          <p style={{ fontSize:14, color:C.textMuted, lineHeight:1.65, margin:"0 0 26px", maxWidth:620 }}>{t("lgHeroSub")}</p>
+          {/* Il paragrafo sotto il titolo e' stato tolto il 25/10: diceva le
+              stesse cose del riquadro qui sotto (Torino, fattura italiana,
+              5-7 giorni, niente cartoni da 48), e sul telefono quelle sei
+              righe spingevano il bottone sotto la piega. Il titolo aggancia,
+              il riquadro vende. Due volte la stessa frase non convince il
+              doppio: occupa solo lo schermo che serve al bottone.
+              La chiave lgHeroSub resta nei dizionari, pronta se un giorno
+              questa pagina torna a parlare ai brand invece che ai negozi. */}
+          <div style={{ height:18 }}/>
 
           {/* ------------------------------------------------------ la vetrina
               Chi arriva da un'email vuole vedere la merce, non leggere una
@@ -2658,6 +2716,49 @@ const Login = ({ onLogin, lang, onLangChange }) => {
                 ))}
               </div>
 
+              {/* LE QUATTRO CONDIZIONI. Le prime due sono il vantaggio, le
+                  ultime due sono il difetto - e stanno qui, nella prima
+                  schermata, non in un "chi siamo" in fondo. Se il negoziante
+                  scopre dopo che non abbiamo magazzino e' una fregatura; se lo
+                  legge subito e' una condizione. Il parallelista non lo
+                  scriverebbe mai, ed e' esattamente per questo che funziona. */}
+              <div style={{ margin:"0 0 15px", display:"flex", flexDirection:"column", gap:7 }}>
+                {["vtCondiz1","vtCondiz2","vtCondiz3","vtCondiz4"].map((k, i) => (
+                  <div key={k} style={{ display:"flex", gap:8, alignItems:"flex-start" }}>
+                    <span style={{ color:i < 2 ? C.green : C.textDim, fontSize:12, lineHeight:1.5,
+                                   flexShrink:0, fontWeight:800 }}>{i < 2 ? "✓" : "·"}</span>
+                    <span style={{ fontSize:12, color:i < 2 ? C.text : C.textMuted, lineHeight:1.5 }}>
+                      {t(k)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* IL BOTTONE NON CHIEDE DI REGISTRARSI. Chiede la proforma, che
+                  e' il documento con cui questo cliente compra gia' oggi dai
+                  suoi due grossisti. Nessuno manda 250 euro a uno sconosciuto
+                  da una pagina web: manda una partita IVA per farsi fare un
+                  documento, e paga quando l'IBAN e la ragione sociale
+                  coincidono con la visura. La registrazione resta, ma sotto,
+                  come link di testo: chi vuole guardare tutto guarda. */}
+              <a href={`mailto:andrea@nexushub.trade?subject=${encodeURIComponent(t("vtCta"))}&body=${encodeURIComponent(t("vtCtaSotto"))}`}
+                style={{ display:"block", width:"100%", padding:"13px", borderRadius:11, cursor:"pointer",
+                         background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none",
+                         color:C.bg, fontSize:14, fontWeight:800, textAlign:"center",
+                         textDecoration:"none", boxSizing:"border-box" }}>
+                {t("vtCta")} →
+              </a>
+              <div style={{ fontSize:11, color:C.textMuted, textAlign:"center", marginTop:8, lineHeight:1.5 }}>
+                {t("vtCtaSotto")}
+              </div>
+              <div style={{ textAlign:"center", margin:"8px 0 16px" }}>
+                <button onClick={() => setView("register-dist")}
+                  style={{ background:"none", border:"none", cursor:"pointer", padding:4,
+                           color:C.gold, fontSize:11.5, textDecoration:"underline" }}>
+                  {t("vtCtaAlt")}
+                </button>
+              </div>
+
               <div className="vt-griglia">
                 {vetrina.map(p => (
                   <div key={p.id} style={{ borderRadius:11, overflow:"hidden",
@@ -2681,23 +2782,85 @@ const Login = ({ onLogin, lang, onLangChange }) => {
                                     margin:"2px 0 7px", height:29, overflow:"hidden" }}>{p.nome}</div>
                       {/* Il prezzo non e' nascosto con la grafica: la vista
                           pubblica non ce l'ha proprio. Non c'e' niente da leggere
-                          nel codice della pagina. */}
-                      <div style={{ fontSize:9.5, color:C.textDim, display:"flex", alignItems:"center", gap:4 }}>
-                        <span>🔒</span><span>{t("vtPrezzo")}</span>
+                          nel codice della pagina.
+                          Il LUCCHETTO pero' e' via: tutti e tre i cervelli lo
+                          hanno chiamato "il gesto del parallelista" - raccogliere
+                          partite IVA prima di aver dato qualcosa. Al suo posto
+                          c'e' dove il prezzo si trova davvero, cioe' la
+                          proforma, che e' anche il bottone qui sopra. */}
+                      <div style={{ fontSize:9.5, color:C.textDim, lineHeight:1.4 }}>
+                        {t("vtPrezzo")}
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <button onClick={() => setView("register-dist")}
-                style={{ width:"100%", marginTop:15, padding:"13px", borderRadius:11, cursor:"pointer",
-                         background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none",
-                         color:C.bg, fontSize:14, fontWeight:800 }}>
-                {t("vtCta")} →
-              </button>
-              <div style={{ fontSize:10.5, color:C.textDim, textAlign:"center", marginTop:9, lineHeight:1.5 }}>
+              <div style={{ fontSize:10.5, color:C.textDim, textAlign:"center", marginTop:12, lineHeight:1.5 }}>
                 {t("vtNota")}
+              </div>
+
+              {/* I TRE BLOCCHI CHE CHIUDONO LE OBIEZIONI VERE, nell'ordine in
+                  cui gli vengono in mente - non in quello che fa comodo a noi.
+                    1. "perche' dovrei cambiare fornitore" -> non devi
+                    2. "e se mi fregate i 250 euro" -> la proforma e il rimborso
+                    3. "chi siete" -> non ci sono clienti da mostrare, ci sono
+                       documenti da controllare
+                  Mille email hanno chiesto a un negoziante di cambiare
+                  grossista. Nessuno cambia grossista per una email: si prova
+                  un fornitore in piu'. Era la domanda sbagliata. */}
+              <div style={{ marginTop:18, paddingTop:16, borderTop:`1px solid ${C.gold}22`,
+                            display:"flex", flexDirection:"column", gap:16 }}>
+
+                <div>
+                  <div style={{ fontSize:13.5, fontWeight:800, color:C.text, margin:"0 0 5px" }}>
+                    {t("vtAffiancaT")}
+                  </div>
+                  <p style={{ fontSize:12, color:C.textMuted, lineHeight:1.6, margin:0 }}>
+                    {t("vtAffiancaP")}
+                  </p>
+                </div>
+
+                <div>
+                  <div style={{ fontSize:13.5, fontWeight:800, color:C.text, margin:"0 0 7px" }}>
+                    {t("vtComeT")}
+                  </div>
+                  <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+                    {["vtCome1","vtCome2","vtCome3","vtCome4"].map((k, i) => (
+                      <div key={k} style={{ display:"flex", gap:9, alignItems:"flex-start" }}>
+                        <span style={{ flexShrink:0, width:17, height:17, borderRadius:20,
+                                       background:`${C.gold}1f`, color:C.goldLight, fontSize:9.5,
+                                       fontWeight:900, display:"flex", alignItems:"center",
+                                       justifyContent:"center", marginTop:1 }}>{i + 1}</span>
+                        <span style={{ fontSize:12, color:C.textMuted, lineHeight:1.55 }}>{t(k)}</span>
+                      </div>
+                    ))}
+                  </div>
+                  {/* Il rimborso e' una clausola con dei giorni dentro, non un
+                      bollino "soddisfatti o rimborsati": e' tenibile solo
+                      perche' la disponibilita' si riconferma col fornitore
+                      PRIMA di emettere la proforma. */}
+                  <div style={{ marginTop:9, padding:"9px 11px", borderRadius:9,
+                                background:`${C.green}10`, border:`1px solid ${C.green}33` }}>
+                    <div style={{ fontSize:11.5, color:C.text, lineHeight:1.55 }}>{t("vtRimborso")}</div>
+                  </div>
+                </div>
+
+                <div>
+                  <div style={{ fontSize:13.5, fontWeight:800, color:C.text, margin:"0 0 5px" }}>
+                    {t("vtNienteT")}
+                  </div>
+                  <p style={{ fontSize:12, color:C.textMuted, lineHeight:1.6, margin:"0 0 9px" }}>
+                    {t("vtNiente")}
+                  </p>
+                  {/* L'identita' esce dal footer: e' il controllo che fa
+                      comunque, dal telefono, prima di premere invio in banca.
+                      Tanto vale dargli i dati per farlo. */}
+                  <div style={{ fontSize:11, color:C.textDim, lineHeight:1.6 }}>
+                    {t("vtVerifica")}<br/>
+                    <span style={{ color:C.textMuted }}>{NOI}</span>
+                  </div>
+                </div>
               </div>
             </div>
           )}
