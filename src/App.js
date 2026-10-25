@@ -3545,6 +3545,28 @@ const CampoPassword = ({ value, onChange, placeholder, required = true, stile = 
   );
 };
 
+/* I paesi che serviamo, col codice ISO a due lettere.
+   Era un campo di testo libero: chi si iscriveva da Monaco scriveva
+   "Deutschland", chi da Madrid "Espana", e a valle il codice legge le prime
+   due lettere come se fossero un codice ISO - "De", "Es", "Ge" da "Germany".
+   Su quella lettura si decide la nota IVA dell'autofattura dell'agente
+   (inversione contabile intra-UE o fuori campo) e il listino del paese: due
+   cose che non si possono appoggiare su come un negoziante scrive il nome
+   del suo stato. Qui si sceglie da un elenco, e nel database entra "DE".
+   I nomi non sono tradotti a mano: li da' il browser nella lingua scelta. */
+const PAESI_SERVITI = ["IT","AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR",
+  "HU","IE","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE",
+  // fuori UE ma dentro il raggio del corriere: li serviamo davvero
+  "CH","NO","GB","AL","RS","ME","MK","BA","XK","MD","UA","TR"];
+
+const nomePaese = (codice, lingua) => {
+  try {
+    return new Intl.DisplayNames([lingua || "en"], { type: "region" }).of(codice) || codice;
+  } catch (e) {
+    return codice;   // browser vecchio: resta il codice, che e' comunque il dato giusto
+  }
+};
+
 const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
   const t = useT();
   const isBrand = role === "brand";
@@ -3819,16 +3841,24 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
                 {label:t("fullName"),val:fullName,set:setFullName},
                 {label:t("companyName"),val:companyName,set:setCompanyName},
                 {label:t("phone"),val:phone,set:setPhone},
-                {label:t("country"),val:country,set:setCountry},
+                {label:t("country"),val:country,set:setCountry,opzioni:PAESI_SERVITI,required:true},
                 /* Obbligatorio per catene ed e-commerce, che serviamo noi
                    direttamente e di cui dobbiamo sapere subito l'entita'.
                    Consigliato a brand e distributori: chiesto, non preteso. */
                 {label:t("rgWebsite")+" · "+(isManaged?t("rgWebReq"):t("rgWebSug")),val:website,set:setWebsite,placeholder:"www.esempio.com",required:isManaged},
-              ].map(({label,val,set,placeholder,required}) => (
+              ].map(({label,val,set,placeholder,required,opzioni}) => (
                 <div key={label}>
                   <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:6 }}>{label}</label>
-                  <input type="text" value={val} onChange={e=>set(e.target.value)} placeholder={placeholder} required={!!required}
-                    style={{ width:"100%", padding:"11px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${required && !val ? C.gold : C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+                  {opzioni ? (
+                    <select value={val} onChange={e=>set(e.target.value)} required={!!required}
+                      style={{ width:"100%", padding:"11px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${required && !val ? C.gold : C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}>
+                      <option value="">—</option>
+                      {opzioni.map(cc => <option key={cc} value={cc}>{nomePaese(cc, lang)}</option>)}
+                    </select>
+                  ) : (
+                    <input type="text" value={val} onChange={e=>set(e.target.value)} placeholder={placeholder} required={!!required}
+                      style={{ width:"100%", padding:"11px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${required && !val ? C.gold : C.border}`, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+                  )}
                 </div>
               ))}
             </div>
@@ -9320,18 +9350,25 @@ const AdminAgenti = ({ onVedi }) => {
     const p = String(paese || "").trim().toUpperCase();
     const italiano = p === "IT" || p === "ITALIA" || p === "ITALY";
     if (italiano) return { aliquota: 22, nota: "IVA 22% — autofattura ex art. 21 c.2 lett. n) DPR 633/72" };
-    const ue = PAESI_UE.includes(p.slice(0, 2));
-    return ue
-      ? { aliquota: 0, nota: "Inversione contabile — art. 7-ter DPR 633/72, servizio B2B intra-UE" }
-      : { aliquota: 0, nota: "Fuori campo IVA — art. 7-ter DPR 633/72" };
+    /* Solo un codice ISO a due lettere decide la nota: prima si leggevano le
+       prime due lettere di qualunque cosa ci fosse scritto, e "Germany"
+       diventava "GE", cioe' un agente tedesco finiva fuori campo IVA invece
+       che in inversione contabile. L'imposta e' zero in entrambi i casi, ma
+       la nota su un'autofattura e' un riferimento di legge, non un'etichetta.
+       Se il paese non e' un codice, lo si dice e la fattura si ferma. */
+    const ue = p.length === 2 && PAESI_UE.includes(p);
+    if (ue) return { aliquota: 0, nota: "Inversione contabile — art. 7-ter DPR 633/72, servizio B2B intra-UE" };
+    if (p.length !== 2) return { aliquota: 0, nota: "", incerto: "Il paese dell'agente è \"" + paese + "\": non è un codice ISO, quindi non so se applicare l'inversione contabile. Correggilo nella scheda dell'agente prima di emettere l'autofattura." };
+    return { aliquota: 0, nota: "Fuori campo IVA — art. 7-ter DPR 633/72" };
   };
 
   const approvaProvvigione = async (riga) => {
     const ag = agenti.find(a => a.id === riga.procacciatore_id);
     const pf = profili[riga.procacciatore_id] || {};
     if (!ag) return;
-    setLavoro("pv" + riga.id);
     const f = fiscalita(ag.paese);
+    if (f.incerto) { alert(f.incerto); return; }
+    setLavoro("pv" + riga.id);
     const imponibile = Number(riga.provvigione || 0);
     const iva = Math.round(imponibile * f.aliquota) / 100;
     const numero = "AUTO-" + String(riga.mese).slice(0, 7) + "-" + (ag.codice || riga.procacciatore_id.slice(0, 6));
