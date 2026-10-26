@@ -2897,6 +2897,32 @@ const Login = ({ onLogin, lang, onLangChange }) => {
                     <span style={{ color:C.textMuted }}>{NOI}</span>
                   </div>
                 </div>
+
+                {/* LE PAGINE PER MARCHIO, collegate da qui.
+                    Non e' un menu per il visitatore: e' il collegamento che
+                    serve a Google. Una pagina senza nessun link che la punti
+                    e' una pagina orfana, e un motore la considera meno
+                    importante o non la trova affatto. Sono anche le uniche
+                    pagine che intercettano come cerca davvero un negoziante -
+                    "lattafa ingrosso", non "piattaforma B2B" - quindi devono
+                    essere raggiungibili dalla home, non solo dalla sitemap.
+                    L'elenco e' scritto a mano perche' le pagine sono tre e le
+                    genera uno script: il giorno che diventano dieci, questo
+                    blocco si fa leggere dalla sitemap. */}
+                <div style={{ paddingTop:14, borderTop:`1px solid ${C.border}`,
+                              fontSize:11.5, color:C.textDim, lineHeight:1.9 }}>
+                  {[["lattafa-ingrosso.html", "Lattafa all'ingrosso"],
+                    ["maison-alhambra-ingrosso.html", "Maison Alhambra all'ingrosso"],
+                    ["armaf-ingrosso.html", "Armaf all'ingrosso"],
+                    ["caneza.html", "Canéza — esclusiva europea"]].map(([f, testo], i) => (
+                    <span key={f}>
+                      {i > 0 && <span style={{ color:C.border }}> · </span>}
+                      <a href={"/" + f} style={{ color:C.textMuted, textDecoration:"none" }}>
+                        {testo}
+                      </a>
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           )}
