@@ -3,8 +3,26 @@
   Le pagine pubbliche di NexusHub. Sono file HTML statici, quindi i motori le
   leggono per intero: la piattaforma vera vive dietro l'accesso e non va
   indicizzata.
+  Dal 26/10/2026 ci sono anche le pagine per marchio, generate da
+  genera_pagine_marchio.py: sono quelle che un negoziante trova cercando
+  "lattafa ingrosso" invece del nome della piattaforma.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://nexushub.trade/lattafa-ingrosso.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nexushub.trade/maison-alhambra-ingrosso.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nexushub.trade/armaf-ingrosso.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
   <url>
     <loc>https://nexushub.trade/</loc>
     <changefreq>weekly</changefreq>
@@ -19,6 +37,31 @@
     <loc>https://nexushub.trade/distributori.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nexushub.trade/caneza.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nexushub.trade/caneza-en.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nexushub.trade/caneza-fr.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nexushub.trade/caneza-de.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nexushub.trade/caneza-es.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://nexushub.trade/privacy.html</loc>
