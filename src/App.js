@@ -1554,6 +1554,20 @@ Object.assign(T.ar,{ scTitle:"خصومات الكمية: تُحتسب على إ�
 Object.assign(T.en,{ pdOpen:"Product sheet", pdPreorder:"Pre-order", pdPcs:"pcs", pdFamily:"Olfactory family", pdNotesTop:"Top notes", pdNotesHeart:"Heart notes", pdNotesBase:"Base notes", pdFormat:"Format", pdConc:"Concentration", pdOrigin:"Made in", pdMoq:"Minimum order", pdMultiple:"Order multiple", pdStock:"Stock in Turin hub", pdPreorderOn:"Pre-order open", pdPreorderSub:"Not in stock yet: reserve your quantity now and we confirm as soon as the lot is complete.", pdQty:"Quantity", pdConfirmPre:"Confirm pre-order", pdPreDone:"Pre-order registered", pdAlready:"Pre-order already registered", pdNoDesc:"No description available.", pdClose:"Close", pdNote:"Note for us (optional)" });
 Object.assign(T.it,{ pdOpen:"Scheda prodotto", pdPreorder:"Pre-ordina", pdPcs:"pz", pdFamily:"Famiglia olfattiva", pdNotesTop:"Note di testa", pdNotesHeart:"Note di cuore", pdNotesBase:"Note di fondo", pdFormat:"Formato", pdConc:"Concentrazione", pdOrigin:"Prodotto in", pdMoq:"Ordine minimo", pdMultiple:"Multiplo d'ordine", pdStock:"Stock hub di Torino", pdPreorderOn:"Pre-ordine aperto", pdPreorderSub:"Non ancora a stock: prenota ora la tua quantità, confermiamo appena il lotto è completo.", pdQty:"Quantità", pdConfirmPre:"Conferma pre-ordine", pdPreDone:"Pre-ordine registrato", pdAlready:"Pre-ordine già registrato", pdNoDesc:"Nessuna descrizione disponibile.", pdClose:"Chiudi", pdNote:"Nota per noi (facoltativa)" });
 Object.assign(T.fr,{ pdOpen:"Fiche produit", pdPreorder:"Précommander", pdPcs:"pcs", pdFamily:"Famille olfactive", pdNotesTop:"Notes de tête", pdNotesHeart:"Notes de cœur", pdNotesBase:"Notes de fond", pdFormat:"Format", pdConc:"Concentration", pdOrigin:"Fabriqué en", pdMoq:"Commande minimum", pdMultiple:"Multiple de commande", pdStock:"Stock hub de Turin", pdPreorderOn:"Précommande ouverte", pdPreorderSub:"Pas encore en stock : réservez votre quantité, nous confirmons dès que le lot est complet.", pdQty:"Quantité", pdConfirmPre:"Confirmer la précommande", pdPreDone:"Précommande enregistrée", pdAlready:"Précommande déjà enregistrée", pdNoDesc:"Aucune description disponible.", pdClose:"Fermer", pdNote:"Note pour nous (facultatif)" });
+/* Il filtro "solo disponibili" del catalogo distributore (26/10/2026).
+   Il catalogo mostrava TUTTE le referenze attive, 1.389, di cui solo 547 con
+   giacenza: il 60% diceva "Out of stock". La vetrina pubblica, invece, ne
+   mostra 546 tutte comprabili. Risultato: il negozio sembrava piu' VUOTO
+   dopo esserti registrato di quanto non fosse prima. Cinque iscritti, zero
+   ordini. Adesso si parte da quello che si puo' comprare davvero, e il
+   pre-ordine si vede con un clic. */
+Object.assign(T.en,{ cfOnly:"In stock only", cfAll:"Show pre-orders too", cfHidden:"{n} more on pre-order" });
+Object.assign(T.it,{ cfOnly:"Solo disponibili", cfAll:"Mostra anche i pre-ordini", cfHidden:"altre {n} in pre-ordine" });
+Object.assign(T.fr,{ cfOnly:"En stock seulement", cfAll:"Afficher aussi les precommandes", cfHidden:"{n} autres en precommande" });
+Object.assign(T.es,{ cfOnly:"Solo disponibles", cfAll:"Mostrar tambien las reservas", cfHidden:"otras {n} en reserva" });
+Object.assign(T.de,{ cfOnly:"Nur verfuegbar", cfAll:"Auch Vorbestellungen zeigen", cfHidden:"{n} weitere auf Vorbestellung" });
+Object.assign(T.zh,{ cfOnly:"仅显示有货", cfAll:"显示预订商品", cfHidden:"另有 {n} 件可预订" });
+Object.assign(T.ar,{ cfOnly:"المتوفر فقط", cfAll:"عرض الطلب المسبق أيضا", cfHidden:"{n} أخرى بالطلب المسبق" });
 Object.assign(T.es,{ pdOpen:"Ficha de producto", pdPreorder:"Reservar", pdPcs:"uds", pdFamily:"Familia olfativa", pdNotesTop:"Notas de salida", pdNotesHeart:"Notas de corazón", pdNotesBase:"Notas de fondo", pdFormat:"Formato", pdConc:"Concentración", pdOrigin:"Fabricado en", pdMoq:"Pedido mínimo", pdMultiple:"Múltiplo de pedido", pdStock:"Stock hub de Turín", pdPreorderOn:"Reserva abierta", pdPreorderSub:"Aún sin stock: reserva tu cantidad y confirmamos en cuanto el lote esté completo.", pdQty:"Cantidad", pdConfirmPre:"Confirmar reserva", pdPreDone:"Reserva registrada", pdAlready:"Reserva ya registrada", pdNoDesc:"Sin descripción disponible.", pdClose:"Cerrar", pdNote:"Nota para nosotros (opcional)" });
 Object.assign(T.de,{ pdOpen:"Produktblatt", pdPreorder:"Vorbestellen", pdPcs:"Stk", pdFamily:"Duftfamilie", pdNotesTop:"Kopfnoten", pdNotesHeart:"Herznoten", pdNotesBase:"Basisnoten", pdFormat:"Format", pdConc:"Konzentration", pdOrigin:"Hergestellt in", pdMoq:"Mindestbestellung", pdMultiple:"Bestellvielfaches", pdStock:"Bestand Hub Turin", pdPreorderOn:"Vorbestellung offen", pdPreorderSub:"Noch nicht auf Lager: Menge jetzt reservieren, wir bestätigen sobald das Los vollständig ist.", pdQty:"Menge", pdConfirmPre:"Vorbestellung bestätigen", pdPreDone:"Vorbestellung erfasst", pdAlready:"Vorbestellung bereits erfasst", pdNoDesc:"Keine Beschreibung verfügbar.", pdClose:"Schließen", pdNote:"Hinweis für uns (optional)" });
 Object.assign(T.zh,{ pdOpen:"产品详情", pdPreorder:"预订", pdPcs:"件", pdFamily:"香调家族", pdNotesTop:"前调", pdNotesHeart:"中调", pdNotesBase:"后调", pdFormat:"规格", pdConc:"浓度", pdOrigin:"产地", pdMoq:"最低起订量", pdMultiple:"订购倍数", pdStock:"都灵仓库库存", pdPreorderOn:"预订已开放", pdPreorderSub:"暂无现货：现在预留数量，整批凑齐后我们立即确认。", pdQty:"数量", pdConfirmPre:"确认预订", pdPreDone:"预订已登记", pdAlready:"已登记预订", pdNoDesc:"暂无描述。", pdClose:"关闭", pdNote:"给我们的备注（选填）" });
@@ -7647,6 +7661,11 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
   const [realProducts, setRealProducts] = useState([]);
   const [tiers, setTiers] = useState({});
   const [catSearch, setCatSearch] = useState("");
+  /* Si parte da quello che si puo' comprare. Vedi la nota accanto alle
+     etichette cfOnly/cfAll: il catalogo mostrava 1.389 referenze di cui 842
+     esaurite, e chi si registrava trovava un negozio piu' vuoto della vetrina
+     pubblica che lo aveva convinto a registrarsi. */
+  const [soloPronti, setSoloPronti] = useState(true);
   const [catBrandFilter, setCatBrandFilter] = useState(null); // null = tutti i brand; id = solo quel brand
   const [bonificoInfo, setBonificoInfo] = useState(null);
   const [payCoords, setPayCoords] = useState(null);
@@ -7751,6 +7770,10 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
   const [viewContract, setViewContract] = useState(null);
   const approvedBrandIds = Object.keys(accessRequests).filter(id => accessRequests[id] === "approved");
   const visibleProducts = realProducts.filter(p => approvedBrandIds.includes(p.brand_id));
+  /* Quello che si puo' comprare davvero, e la lista da cui parte il catalogo.
+     Il pre-ordine non si cancella: si rivede con un clic sull'interruttore. */
+  const haGiacenza = (p) => (p.inventory?.quantity_available || 0) > 0;
+  const prodottiCat = soloPronti ? visibleProducts.filter(haGiacenza) : visibleProducts;
   /* Un prodotto a zero NON e' un prodotto gratis: e' un prodotto di cui il
      prezzo non e' ancora stato deciso. Mostrava "€0.00" e si poteva mettere nel
      carrello: un distributore avrebbe ordinato a zero e l'ordine sarebbe stato
@@ -8465,6 +8488,28 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
               );
             })()}
 
+            {/* L'interruttore disponibili / pre-ordini */}
+            {(() => {
+              const nascoste = visibleProducts.filter(p => !haGiacenza(p)).length;
+              if (!nascoste) return null;
+              return (
+                <div style={{ display:"flex", flexWrap:"wrap", alignItems:"center", gap:10, marginBottom:14 }}>
+                  <button onClick={() => setSoloPronti(s => !s)} style={{
+                    padding:"7px 14px", borderRadius:20, cursor:"pointer", fontSize:12.5, fontWeight:700,
+                    background: soloPronti ? C.green : C.surface2,
+                    color: soloPronti ? "#0b0b0b" : C.text,
+                    border:`1px solid ${soloPronti ? C.green : C.border}` }}>
+                    {soloPronti ? `✓ ${t("cfOnly")}` : t("cfAll")}
+                  </button>
+                  {soloPronti && (
+                    <span style={{ fontSize:12, color:C.textMuted }}>
+                      {t("cfHidden").replace("{n}", nascoste)}
+                    </span>
+                  )}
+                </div>
+              );
+            })()}
+
             {/* Barra di selezione brand: Tutti + un chip per ogni brand approvato con prodotti */}
             {approvedBrandIds.length > 1 && (
               <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:18 }}>
@@ -8473,7 +8518,7 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                   const bi = dbBrands.find(b => b.id === bid);
                   const nome = (bi && (bi.company_name || bi.email)) || "Brand";
                   const att = catBrandFilter === bid;
-                  if (!visibleProducts.some(p => p.brand_id === bid)) return null;
+                  if (!prodottiCat.some(p => p.brand_id === bid)) return null;
                   return (
                     <button key={bid} onClick={() => setCatBrandFilter(bid)} style={{ padding:"7px 14px", borderRadius:20, cursor:"pointer", fontSize:12.5, fontWeight:600, background: att ? C.gold : C.surface2, color: att ? "#141414" : C.text, border:`1px solid ${att ? C.gold : C.border}` }}>{nome}</button>
                   );
@@ -8513,8 +8558,8 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                                                     { sensitivity: "base", numeric: true });
               };
               const bprods = (bid === "__cerca__"
-                ? visibleProducts.filter(combacia)
-                : visibleProducts.filter(p => p.brand_id === bid && combacia(p))
+                ? prodottiCat.filter(combacia)
+                : prodottiCat.filter(p => p.brand_id === bid && combacia(p))
               ).slice().sort(perScaffale);
               if (bprods.length === 0) return null;
               const bInfo = dbBrands.find(b => b.id === bid);
