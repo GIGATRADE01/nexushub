@@ -13667,7 +13667,35 @@ export default function App() {
   const [screen, setScreen] = useState("loading");
   const [userRole, setUserRole] = useState(null);
   const [userStatus, setUserStatus] = useState(null);
-  const [lang, setLang] = useState("en");
+  /* La lingua del visitatore, non la nostra. Fino al 26/10/2026 il sito si
+     apriva SEMPRE in inglese: un negoziante di Bergamo cercava "ingrosso
+     profumi arabi", leggeva un annuncio in italiano, cliccava, e atterrava
+     su una pagina in inglese. Quel clic lo paghiamo noi, e una buona parte
+     se ne andava senza leggere.
+     Si guarda il browser, si tiene solo se e' una delle sette che parliamo,
+     e la scelta fatta a mano vince sempre su tutto (localStorage). */
+  const [lang, setLang] = useState(() => {
+    if (typeof window === "undefined") return "en";
+    const noti = LANGS.map(l => l.key);
+    try {
+      const scelta = window.localStorage.getItem("nh_lang");
+      if (scelta && noti.includes(scelta)) return scelta;
+    } catch (e) { /* finestra anonima: si tira dritto col browser */ }
+    const dal = (window.navigator.languages || [window.navigator.language || ""]);
+    for (const l of dal) {
+      const due = String(l).slice(0, 2).toLowerCase();
+      if (noti.includes(due)) return due;
+    }
+    return "en";
+  });
+
+  /* Quando la cambia a mano, quella e' la sua: non gliela ripeschiamo noi
+     dal browser al giro dopo. */
+  const cambiaLingua = useCallback((nuova) => {
+    setLang(nuova);
+    try { window.localStorage.setItem("nh_lang", nuova); } catch (e) { /* amen */ }
+  }, []);
+
   /* Chi arriva dal tasto dell'email di recupero porta con se' una sessione
      temporanea: va mandato alla schermata della nuova password, non al
      pannello. Il segnale sta nell'indirizzo e, subito dopo, nell'evento. */
@@ -13747,7 +13775,7 @@ export default function App() {
   if (recupero) return (
     <LangCtx.Provider value={{ lang, t, dir }}>
       <div dir={dir} style={{ fontFamily, WebkitFontSmoothing:"antialiased" }}>
-        <NuovaPassword lang={lang} onLangChange={setLang} scaduto={recuperoScaduto} onFatto={async () => {
+        <NuovaPassword lang={lang} onLangChange={cambiaLingua} scaduto={recuperoScaduto} onFatto={async () => {
           window.history.replaceState({}, "", window.location.pathname);
           setRecupero(false);
           await handleLogout();
@@ -13756,7 +13784,7 @@ export default function App() {
     </LangCtx.Provider>
   );
 
-  const dashboardProps = { onLogout: handleLogout, lang, onLangChange: setLang };
+  const dashboardProps = { onLogout: handleLogout, lang, onLangChange: cambiaLingua };
 
   return (
     <LangCtx.Provider value={{ lang, t, dir }}>
@@ -13786,18 +13814,18 @@ export default function App() {
             </button>
           </div>
         )}
-        {screen === "login" && <Login onLogin={handleLogin} lang={lang} onLangChange={setLang}/>}
+        {screen === "login" && <Login onLogin={handleLogin} lang={lang} onLangChange={cambiaLingua}/>}
         {screen === "app" && userRole === "admin" && <AdminDashboard {...dashboardProps}/>}
         {screen === "app" && userRole === "brand" && (userStatus === "approved"
           ? <BrandDashboard {...dashboardProps}/>
-          : <PendingScreen status={userStatus} onLogout={handleLogout} lang={lang} onLangChange={setLang}/>
+          : <PendingScreen status={userStatus} onLogout={handleLogout} lang={lang} onLangChange={cambiaLingua}/>
         )}
         {screen === "app" && userRole === "distributor" && (userStatus === "approved"
           ? <DistributorDashboard {...dashboardProps}/>
-          : <PendingScreen status={userStatus} onLogout={handleLogout} lang={lang} onLangChange={setLang}/>
+          : <PendingScreen status={userStatus} onLogout={handleLogout} lang={lang} onLangChange={cambiaLingua}/>
         )}
         {screen === "app" && userRole === "procacciatore" && (
-          <PortaleProcacciatore onLogout={handleLogout} lang={lang} onLangChange={setLang}
+          <PortaleProcacciatore onLogout={handleLogout} lang={lang} onLangChange={cambiaLingua}
             Negozio={DistributorDashboard}/>
         )}
       </div>
