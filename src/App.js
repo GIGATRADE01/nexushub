@@ -915,6 +915,56 @@ Object.assign(T.ar, { cgPubblico:"سعر البيع للجمهور", cgMargine:"
    un altro dice che su un sito di profumi suona come un travestimento. Non
    c'e': restano il nome, il numero e la visura, che sono verificabili. */
 
+/* ------------------------------------------------- il tracciamento di Google
+   Google Ads ottimizza su quello che riesce a MISURARE. Senza queste due
+   righe vede solo i clic, e l'unica cosa che puo' cercare e' "piu' clic
+   possibili" - cioe' esattamente il traffico che non serve. Con dentro il
+   valore degli ordini smette di contare visite e comincia a cercare chi
+   spende: due negozi da 250 euro valgono meno di uno da duemila, ma lui lo
+   capisce solo se glielo diciamo.
+
+   DUE EVENTI, non uno:
+     registrazione   una nuova azienda ha finito l'iscrizione
+     ordine          un ordine e' stato creato, col suo valore in euro
+
+   UN LIMITE DA SAPERE, perche' un domani non inganni nessuno: si paga con
+   BONIFICO, quindi l'ordine e' davvero fatto quando i soldi arrivano, non
+   quando viene creato. L'evento scatta alla creazione - va bene per insegnare
+   a Google che tipo di azienda cercare, ma il conto dei soldi incassati resta
+   il registro vero, non questo.
+
+   L'identificativo sta in una variabile d'ambiente e non nel codice: finche'
+   non c'e', queste funzioni non fanno niente e non rompono niente. Il giorno
+   che l'account Google e' pronto si mette REACT_APP_GADS_ID (formato
+   AW-0000000000) e REACT_APP_GADS_REG / REACT_APP_GADS_ORD con le etichette
+   delle due conversioni, e si ripubblica. */
+const GADS_ID = process.env.REACT_APP_GADS_ID || "";
+
+const gadsAvvia = () => {
+  if (!GADS_ID || typeof window === "undefined" || window.__gads) return;
+  window.__gads = true;
+  const s = document.createElement("script");
+  s.async = true;
+  s.src = "https://www.googletagmanager.com/gtag/js?id=" + GADS_ID;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag("js", new Date());
+  window.gtag("config", GADS_ID);
+};
+
+const gadsConversione = (etichetta, valore) => {
+  try {
+    if (!GADS_ID || !etichetta || typeof window === "undefined" || !window.gtag) return;
+    const dati = { send_to: GADS_ID + "/" + etichetta };
+    if (valore) { dati.value = Number(valore) || 0; dati.currency = "EUR"; }
+    window.gtag("event", "conversion", dati);
+  } catch (e) {
+    /* una conversione non tracciata non deve mai far saltare una
+       registrazione o un ordine: il cliente viene prima della statistica */
+  }
+};
+
 /* Il formato del prezzo in vetrina. Ne esistono gia' tre, uno per componente,
    ma sono tutti chiusi dentro il loro: questa pagina la vede chi non ha
    ancora un account, e vive fuori da quelli. Il nome e' lungo apposta, cosi'
@@ -3960,6 +4010,9 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
       }
 
       await sendEmail("pending", email, companyName || email, role);
+      // Una nuova azienda ha finito l'iscrizione: e' la prima delle due cose
+      // che Google deve imparare a cercare.
+      gadsConversione(process.env.REACT_APP_GADS_REG);
       setSuccess(true);
     } catch (err) {
       setError(err.message || t("rgSaveFailed"));
@@ -7870,6 +7923,9 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
       }).select().single();
       if (!order) throw new Error("order");
       await supabase.from("order_items").insert(items.map(i=>({ ...i, order_id: order.id })));
+      // L'ordine col suo valore: e' questo che fa smettere a Google di
+      // contare i clic e lo fa cercare chi spende davvero.
+      gadsConversione(process.env.REACT_APP_GADS_ORD, total);
       if (method === "bonifico") {
         setBonificoInfo({ order_number: order.order_number, amount: total });
         setCart({}); setShowCheckout(false); setOrderLoading(false);
@@ -13628,6 +13684,11 @@ export default function App() {
   const fontFamily = lang==="ar" ? "'Segoe UI', Tahoma, Arial, sans-serif"
                    : lang==="zh" ? "'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif"
                    : "'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+
+  // Il tag di Google, una volta sola all'apertura. Se REACT_APP_GADS_ID non
+  // c'e' non carica niente: nessuno script di terzi finisce sul sito finche'
+  // non serve davvero.
+  useEffect(() => { gadsAvvia(); }, []);
 
   useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange((evento) => {
