@@ -1556,6 +1556,17 @@ Object.assign(T.es,{ pcShopSdi:"Código SDI (factura electrónica)", pcShopSdiHi
 Object.assign(T.de,{ pcShopSdi:"SDI-Code (E-Rechnung)", pcShopSdiHint:"Nötig für die italienische E-Rechnung. Sieben Zeichen; leer lassen, wenn der Laden ein zertifiziertes Postfach nutzt." });
 Object.assign(T.zh,{ pcShopSdi:"电子发票代码 (SDI)", pcShopSdiHint:"用于开具意大利电子发票。七位字符；若商店使用认证邮箱则留空。" });
 Object.assign(T.ar,{ pcShopSdi:"رمز الفوترة الإلكترونية (SDI)", pcShopSdiHint:"مطلوب للفاتورة الإلكترونية الإيطالية. سبعة أحرف؛ اتركه فارغًا إذا كان المتجر يستخدم بريدًا معتمدًا." });
+/* "I dati per la tua fattura": la fattura della provvigione la emette
+   l'AGENTE a GIGA TRADE, non il contrario. Qui trova tutto quello che gli
+   serve per scriverla senza chiamare l'amministrazione. L'intestazione legale
+   e' quella canonica (campagna.py), mai riscritta a memoria. */
+Object.assign(T.it,{ pcFattDati:"Dati per la fattura", pcFattTitolo:"La tua fattura per il mese", pcFattSpiega:"La fattura la emetti tu a noi. Qui sotto trovi tutto quello che ti serve per scriverla: a chi intestarla, cosa scrivere nella voce, l'imponibile e il regime IVA.", pcFattA:"Intestala a", pcFattVoceHdr:"Descrizione della voce", pcFattVoce:"Provvigione di procacciamento d'affari — mese {m} — {n} ordini incassati per {f}, aliquota {p}%", pcFattImponibile:"Imponibile", pcFattRegime:"IVA", pcFattIva22:"IVA 22%, da addebitare in fattura.", pcFattReverse:"Inversione contabile, art. 7-ter DPR 633/72 — servizio B2B intra-UE: fattura senza IVA, con la dicitura \"inversione contabile\".", pcFattFuori:"Fuori campo IVA, art. 7-ter DPR 633/72 — operazione non soggetta.", pcFattIban:"Pagheremo su questo IBAN:", pcFattIbanVuoto:"nessun IBAN inserito — mettilo in «Il mio profilo»" });
+Object.assign(T.en,{ pcFattDati:"Invoice details", pcFattTitolo:"Your invoice for", pcFattSpiega:"You issue the invoice to us. Below is everything you need to write it: who to address it to, the line description, the taxable amount and the VAT treatment.", pcFattA:"Bill it to", pcFattVoceHdr:"Line description", pcFattVoce:"Business introduction commission — month {m} — {n} orders collected for {f}, rate {p}%", pcFattImponibile:"Taxable amount", pcFattRegime:"VAT", pcFattIva22:"22% Italian VAT, to be charged on the invoice.", pcFattReverse:"Reverse charge, art. 7-ter DPR 633/72 — intra-EU B2B service: invoice without VAT, stating \"reverse charge\".", pcFattFuori:"Outside the scope of Italian VAT, art. 7-ter DPR 633/72.", pcFattIban:"We will pay to this IBAN:", pcFattIbanVuoto:"no IBAN on file — add it under \"My profile\"" });
+Object.assign(T.fr,{ pcFattDati:"Données de facturation", pcFattTitolo:"Votre facture pour", pcFattSpiega:"C'est vous qui nous facturez. Vous trouverez ci-dessous tout le nécessaire : destinataire, libellé, base imposable et régime de TVA.", pcFattA:"À facturer à", pcFattVoceHdr:"Libellé", pcFattVoce:"Commission d'apport d'affaires — mois {m} — {n} commandes encaissées pour {f}, taux {p}%", pcFattImponibile:"Base imposable", pcFattRegime:"TVA", pcFattIva22:"TVA italienne 22 %, à facturer.", pcFattReverse:"Autoliquidation, art. 7-ter DPR 633/72 — prestation B2B intra-UE : facture sans TVA, mention \"autoliquidation\".", pcFattFuori:"Hors champ de la TVA italienne, art. 7-ter DPR 633/72.", pcFattIban:"Nous paierons sur cet IBAN :", pcFattIbanVuoto:"aucun IBAN enregistré — ajoutez-le dans « Mon profil »" });
+Object.assign(T.es,{ pcFattDati:"Datos para la factura", pcFattTitolo:"Tu factura del mes", pcFattSpiega:"La factura la emites tú a nosotros. Aquí tienes todo lo necesario: a quién dirigirla, el concepto, la base imponible y el régimen de IVA.", pcFattA:"Emítela a", pcFattVoceHdr:"Concepto", pcFattVoce:"Comisión por captación de negocio — mes {m} — {n} pedidos cobrados por {f}, tipo {p}%", pcFattImponibile:"Base imponible", pcFattRegime:"IVA", pcFattIva22:"IVA italiano 22%, a repercutir en factura.", pcFattReverse:"Inversión del sujeto pasivo, art. 7-ter DPR 633/72 — servicio B2B intracomunitario: factura sin IVA.", pcFattFuori:"No sujeta al IVA italiano, art. 7-ter DPR 633/72.", pcFattIban:"Pagaremos a este IBAN:", pcFattIbanVuoto:"no hay IBAN registrado — añádelo en «Mi perfil»" });
+Object.assign(T.de,{ pcFattDati:"Rechnungsdaten", pcFattTitolo:"Ihre Rechnung für", pcFattSpiega:"Die Rechnung stellen Sie uns. Unten finden Sie alles dafür: Empfänger, Leistungsbezeichnung, Nettobetrag und Umsatzsteuerbehandlung.", pcFattA:"Rechnungsempfänger", pcFattVoceHdr:"Leistungsbezeichnung", pcFattVoce:"Vermittlungsprovision — Monat {m} — {n} vereinnahmte Bestellungen über {f}, Satz {p}%", pcFattImponibile:"Nettobetrag", pcFattRegime:"USt", pcFattIva22:"22% italienische USt, in Rechnung zu stellen.", pcFattReverse:"Reverse Charge, Art. 7-ter DPR 633/72 — innergemeinschaftliche B2B-Leistung: Rechnung ohne USt.", pcFattFuori:"Nicht im Anwendungsbereich der italienischen USt, Art. 7-ter DPR 633/72.", pcFattIban:"Wir zahlen auf diese IBAN:", pcFattIbanVuoto:"keine IBAN hinterlegt — bitte unter „Mein Profil“ eintragen" });
+Object.assign(T.zh,{ pcFattDati:"开票信息", pcFattTitolo:"您当月的发票", pcFattSpiega:"发票由您开给我们。以下是开票所需的全部信息：抬头、项目说明、计税金额和增值税处理方式。", pcFattA:"抬头开给", pcFattVoceHdr:"项目说明", pcFattVoce:"业务介绍佣金 — {m} 月 — {n} 笔已收款订单，共 {f}，费率 {p}%", pcFattImponibile:"计税金额", pcFattRegime:"增值税", pcFattIva22:"意大利增值税 22%，需在发票中计收。", pcFattReverse:"反向征收，第 7-ter 条 DPR 633/72 — 欧盟内 B2B 服务：发票不含增值税。", pcFattFuori:"不属于意大利增值税范围，第 7-ter 条 DPR 633/72。", pcFattIban:"我们将付款至此 IBAN：", pcFattIbanVuoto:"未填写 IBAN — 请在“我的资料”中添加" });
+Object.assign(T.ar,{ pcFattDati:"بيانات الفاتورة", pcFattTitolo:"فاتورتك عن شهر", pcFattSpiega:"الفاتورة تصدرها أنت إلينا. تجد هنا كل ما تحتاجه لكتابتها: جهة الفاتورة، وصف البند، المبلغ الخاضع للضريبة ومعالجة ضريبة القيمة المضافة.", pcFattA:"الفاتورة باسم", pcFattVoceHdr:"وصف البند", pcFattVoce:"عمولة وساطة أعمال — شهر {m} — {n} طلبات محصّلة بقيمة {f}، بنسبة {p}%", pcFattImponibile:"المبلغ الخاضع للضريبة", pcFattRegime:"ضريبة القيمة المضافة", pcFattIva22:"ضريبة إيطالية 22%، تُحتسب في الفاتورة.", pcFattReverse:"الاحتساب العكسي، المادة 7-ter من المرسوم 633/72 — خدمة B2B داخل الاتحاد الأوروبي: فاتورة بدون ضريبة.", pcFattFuori:"خارج نطاق الضريبة الإيطالية، المادة 7-ter من المرسوم 633/72.", pcFattIban:"سندفع على هذا الآيبان:", pcFattIbanVuoto:"لا يوجد آيبان — أضفه في «ملفي»" });
 /* La scheda "Il mio profilo" nel portale dell'agente. */
 Object.assign(T.it,{ pcTabProfilo:"Il mio profilo", pcProfState:"Stato incarico", pcProfAzienda:"I tuoi dati", pcShopProv:"Provincia", pcProfSave:"Salva i miei dati", pcProfSaving:"Salvataggio…", pcProfSaved:"Dati salvati.", pcProfFail:"Non sono riuscito a salvare. Riprova.", pcProfSdiNota:"Serve per la fattura elettronica delle tue provvigioni.", pcProfIbanNota:"È il conto su cui ti arriva il bonifico. Controllalo bene." });
 Object.assign(T.en,{ pcTabProfilo:"My profile", pcProfState:"Status", pcProfAzienda:"Your details", pcShopProv:"Province / region", pcProfSave:"Save my details", pcProfSaving:"Saving…", pcProfSaved:"Details saved.", pcProfFail:"Could not save. Please try again.", pcProfSdiNota:"Used for the e-invoice of your commission.", pcProfIbanNota:"This is the account your transfer lands in. Check it carefully." });
@@ -3378,6 +3389,7 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
   };
   const [profilo, setProfilo] = useState(null);
   const [salvoProfilo, setSalvoProfilo] = useState("");
+  const [riepilogo, setRiepilogo] = useState(null);
   /* L'agente corregge da solo i dati con cui lo paghiamo e gli fatturiamo.
      Niente che tocchi il suo codice o lo stato dell'incarico: quelli non sono
      suoi da cambiare. Un IBAN sbagliato, finche' stava solo
@@ -3726,16 +3738,68 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                         {l.ordini} · {eur(l.fatturato_incassato)} · {Number(l.percentuale)}%
                       </div>
                     </div>
-                    <div style={{ textAlign:"right" }}>
-                      <div style={{ fontSize:14, fontWeight:800, color:C.goldLight }}>{eur(l.provvigione)}</div>
-                      <div style={{ fontSize:11, color: l.stato === "pagata" ? C.green : C.gold }}>
-                        {l.stato === "pagata"
-                          ? t("pcPaidOut") + (l.pagata_il ? " " + String(l.pagata_il).slice(0, 10) : "")
-                          : l.stato === "approvata" ? t("pcApproved") : t("pcToApprove")}
+                    <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+                      <div style={{ textAlign:"right" }}>
+                        <div style={{ fontSize:14, fontWeight:800, color:C.goldLight }}>{eur(l.provvigione)}</div>
+                        <div style={{ fontSize:11, color: l.stato === "pagata" ? C.green : C.gold }}>
+                          {l.stato === "pagata"
+                            ? t("pcPaidOut") + (l.pagata_il ? " " + String(l.pagata_il).slice(0, 10) : "")
+                            : l.stato === "approvata" ? t("pcApproved") : t("pcToApprove")}
+                        </div>
                       </div>
+                      {/* La fattura la emette LUI a noi: qui trova tutto quello
+                          che gli serve per scriverla, numeri e intestazione,
+                          senza chiamare l'amministrazione. */}
+                      <button onClick={() => setRiepilogo(riepilogo === l.id ? null : l.id)}
+                        style={{ padding:"7px 13px", borderRadius:7, cursor:"pointer", fontSize:12, fontWeight:700,
+                          background:"transparent", border:"1px solid "+C.border, color:C.textMuted }}>
+                        🧾 {t("pcFattDati")}
+                      </button>
                     </div>
                   </div>
                 ))}
+                {liquidate.filter(l => l.id === riepilogo).map(l => {
+                  const p = profilo || {};
+                  const ita = italiano(p.country);
+                  const regime = ita
+                    ? t("pcFattIva22")
+                    : (io_ && PAESI_UE.includes(String(io_.paese || "").toUpperCase().slice(0, 2)))
+                      ? t("pcFattReverse") : t("pcFattFuori");
+                  const voce = t("pcFattVoce")
+                    .replace("{m}", String(l.mese).slice(0, 7))
+                    .replace("{n}", l.ordini)
+                    .replace("{f}", eur(l.fatturato_incassato))
+                    .replace("{p}", Number(l.percentuale));
+                  return (
+                    <div key={"r" + l.id} style={{ marginTop:12, padding:"14px 16px", background:C.surface2, border:"1px solid "+C.gold+"40", borderRadius:10 }}>
+                      <div style={{ fontSize:13, fontWeight:800, color:C.goldLight, marginBottom:4 }}>{t("pcFattTitolo")} {String(l.mese).slice(0, 7)}</div>
+                      <div style={{ fontSize:12, color:C.textDim, marginBottom:12, lineHeight:1.5 }}>{t("pcFattSpiega")}</div>
+
+                      <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".07em", marginBottom:5 }}>{t("pcFattA")}</div>
+                      <div style={{ fontSize:13, color:C.text, lineHeight:1.65, marginBottom:12 }}>
+                        GIGA TRADE S.R.L.S.<br/>Via Ottavio Revel 6, 10121 Torino, Italia<br/>P.IVA IT13105910015
+                      </div>
+
+                      <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".07em", marginBottom:5 }}>{t("pcFattVoceHdr")}</div>
+                      <div style={{ fontSize:13, color:C.text, lineHeight:1.65, marginBottom:12 }}>{voce}</div>
+
+                      <div style={{ display:"flex", flexWrap:"wrap", gap:22, marginBottom:12 }}>
+                        <div>
+                          <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".07em" }}>{t("pcFattImponibile")}</div>
+                          <div style={{ fontSize:17, fontWeight:900, color:C.goldLight }}>{eur(l.provvigione)}</div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".07em" }}>{t("pcFattRegime")}</div>
+                          <div style={{ fontSize:13, color:C.text, maxWidth:420, lineHeight:1.5 }}>{regime}</div>
+                        </div>
+                      </div>
+
+                      <div style={{ fontSize:11.5, color:C.textDim, lineHeight:1.55 }}>
+                        {t("pcFattIban")} <b style={{ color:C.textMuted }}>{p.iban || t("pcFattIbanVuoto")}</b>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </>
