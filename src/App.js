@@ -1537,6 +1537,25 @@ Object.assign(T.es,{ pcSelTitle:"Selección", pcSelSub:"Tres preguntas. Las leem
 Object.assign(T.de,{ pcSelTitle:"Auswahl", pcSelSub:"Drei Fragen. Wir lesen sie vor den Dokumenten.", pcQ1:"An welche Geschäfte verkaufen Sie bereits? Nennen Sie sie.", pcQ1Ph:"Name des Geschäfts und Stadt, eines pro Zeile", pcQ2:"Was verkaufen Sie ihnen heute?", pcQ2Ph:"z. B. selektive Parfümerie, arabische Düfte", pcQ3:"Wie viele davon könnten in 30 Tagen für 500 € bestellen?", pcVersion:"Version", pcVessFallback:"Ich genehmige ausdrücklich die im Vertrag genannten Klauseln.", pcRegTitle:"Werden Sie NexusHub-Vermittler", pcRegSub:"Verkaufen Sie 548 Referenzen von 21 arabischen Häusern. Provision 6% bis 10%, auf den im Monat vereinnahmten Umsatz." });
 Object.assign(T.zh,{ pcSelTitle:"筛选", pcSelSub:"三个问题。我们在看文件之前先看这些。", pcQ1:"您目前已向哪些店铺供货？请列出名称。", pcQ1Ph:"店名与城市，每行一个", pcQ2:"您现在卖给他们什么？", pcQ2Ph:"例如：精品香水、阿拉伯香水", pcQ3:"其中有多少家能在30天内下500欧元的订单？", pcVersion:"版本", pcVessFallback:"本人特别同意合同中所列条款。", pcRegTitle:"成为 NexusHub 业务介绍人", pcRegSub:"在您的国家销售21个阿拉伯香水品牌的548个单品。佣金6%至10%，按当月实收计算。" });
 Object.assign(T.ar,{ pcSelTitle:"الاختيار", pcSelSub:"ثلاثة أسئلة. نقرأها قبل المستندات.", pcQ1:"ما المتاجر التي تبيع لها بالفعل؟ اذكر الأسماء.", pcQ1Ph:"اسم المتجر والمدينة، واحد في كل سطر", pcQ2:"ماذا تبيع لهم اليوم؟", pcQ2Ph:"مثال: عطور انتقائية، عطور عربية", pcQ3:"كم منهم يمكنه تقديم طلب بقيمة 500 يورو خلال 30 يومًا؟", pcVersion:"الإصدار", pcVessFallback:"أوافق تحديدًا على البنود المذكورة في العقد.", pcRegTitle:"كن وسيط أعمال لدى NexusHub", pcRegSub:"بع 548 مرجعًا من 21 دار عطور عربية. عمولة من 6% إلى 10%، على المحصّل شهريًا." });
+/* La riga sopra il modulo prometteva "lo approva NexusHub dopo il controllo
+   dei documenti": i documenti non si chiedono piu', e una promessa che non
+   manteniamo e' peggio di nessuna promessa. */
+Object.assign(T.it,{ pcNewShopNote:"Il negozio nasce sotto il tuo codice {c}. Parte in attesa e lo approviamo noi, di solito in giornata. Ogni ordine che fa conta per la tua provvigione." });
+Object.assign(T.en,{ pcNewShopNote:"The shop is created under your code {c}. It starts as pending and we approve it, usually the same day. Every order it places counts towards your commission." });
+Object.assign(T.fr,{ pcNewShopNote:"Le magasin est créé sous votre code {c}. Il démarre en attente et nous l'approuvons, en général le jour même. Chaque commande compte pour votre commission." });
+Object.assign(T.es,{ pcNewShopNote:"La tienda se crea bajo tu código {c}. Empieza pendiente y la aprobamos nosotros, normalmente el mismo día. Cada pedido cuenta para tu comisión." });
+Object.assign(T.de,{ pcNewShopNote:"Das Geschäft entsteht unter Ihrem Code {c}. Es startet als offen und wird von uns freigegeben, meist noch am selben Tag. Jede Bestellung zählt für Ihre Provision." });
+Object.assign(T.zh,{ pcNewShopNote:"门店将归在您的代码 {c} 下。初始为待审核，我们通常当天通过。它的每一笔订单都计入您的佣金。" });
+Object.assign(T.ar,{ pcNewShopNote:"يُنشأ المتجر تحت رمزك {c}، ويبدأ قيد المراجعة ونعتمده عادةً في اليوم نفسه. كل طلب يقدّمه يُحتسب في عمولتك." });
+/* Il codice univoco della fattura elettronica, nel modulo con cui l'agente
+   registra un negozio. Compare solo per l'Italia. */
+Object.assign(T.it,{ pcShopSdi:"Codice univoco (SDI)", pcShopSdiHint:"Serve per mandargli la fattura elettronica. Sette caratteri; se il negozio usa la PEC al posto del codice, lascia vuoto e lo sistemiamo noi." });
+Object.assign(T.en,{ pcShopSdi:"e-invoicing code (SDI)", pcShopSdiHint:"Needed to send Italian electronic invoices. Seven characters; leave empty if the shop uses a certified mailbox instead." });
+Object.assign(T.fr,{ pcShopSdi:"Code SDI (facturation électronique)", pcShopSdiHint:"Nécessaire pour la facture électronique italienne. Sept caractères ; laissez vide si la boutique utilise une boîte certifiée." });
+Object.assign(T.es,{ pcShopSdi:"Código SDI (factura electrónica)", pcShopSdiHint:"Necesario para la factura electrónica italiana. Siete caracteres; déjalo vacío si la tienda usa buzón certificado." });
+Object.assign(T.de,{ pcShopSdi:"SDI-Code (E-Rechnung)", pcShopSdiHint:"Nötig für die italienische E-Rechnung. Sieben Zeichen; leer lassen, wenn der Laden ein zertifiziertes Postfach nutzt." });
+Object.assign(T.zh,{ pcShopSdi:"电子发票代码 (SDI)", pcShopSdiHint:"用于开具意大利电子发票。七位字符；若商店使用认证邮箱则留空。" });
+Object.assign(T.ar,{ pcShopSdi:"رمز الفوترة الإلكترونية (SDI)", pcShopSdiHint:"مطلوب للفاتورة الإلكترونية الإيطالية. سبعة أحرف؛ اتركه فارغًا إذا كان المتجر يستخدم بريدًا معتمدًا." });
 /* Il tasto che apre il cambio password dentro il portale dell'agente. */
 Object.assign(T.it,{ pcPwdBtn:"Password" });
 Object.assign(T.en,{ pcPwdBtn:"Password" });
@@ -1922,7 +1941,46 @@ const Navbar = ({ name, badge, onLogout, lang, onLangChange, onNotifications, no
   const t = useT();
   const bCol = { brand:C.gold, distributor:C.blue, admin:C.purple };
   const bLabel = { brand:t("portalBrand"), distributor:t("portalDistributor"), admin:t("portalAdmin") };
+  /* Il cambio password per chi e' gia' dentro (27/10/2026). Prima esisteva
+     solo la strada del link di recupero via email, e quella strada si rompe
+     in due casi che capitano davvero: il negozio registrato dall'agente, che
+     riceve una password scelta da lei e nessun modo di cambiarla; e chi si
+     iscrive con una PEC, che la posta ordinaria la scarta. Qui la sessione e'
+     gia' aperta, quindi non serve nessun collegamento.
+     Il riquadro e' a posizione fissa perche' la barra ha overflow:hidden e
+     qualsiasi cosa gli cresca dentro viene tagliata. */
+  const [cambioPwd, setCambioPwd] = useState(false);
+  const [pwdNuova, setPwdNuova] = useState("");
+  const [pwdConferma, setPwdConferma] = useState("");
+  const [pwdEsito, setPwdEsito] = useState("");
+  const salvaPassword = async () => {
+    if (pwdNuova.length < 8) { setPwdEsito(t("passwordShort")); return; }
+    if (pwdNuova !== pwdConferma) { setPwdEsito(t("passwordMismatch")); return; }
+    setPwdEsito(t("npSaving"));
+    const { error } = await supabase.auth.updateUser({ password: pwdNuova });
+    if (error) { setPwdEsito(t("npFail")); return; }
+    setPwdNuova(""); setPwdConferma(""); setPwdEsito(t("npDone"));
+  };
   return (
+    <>
+    {cambioPwd && (
+      <div style={{ position:"fixed", top:62, right:14, zIndex:400, width:290, background:C.surface,
+                    border:`1px solid ${C.border}`, borderRadius:12, padding:"14px 15px",
+                    boxShadow:"0 14px 40px rgba(0,0,0,.45)" }}>
+        <div style={{ fontSize:13, fontWeight:700, color:C.goldLight, marginBottom:10 }}>{t("npTitle")}</div>
+        <input type="password" value={pwdNuova} onChange={e => setPwdNuova(e.target.value)}
+          placeholder={t("password")} autoComplete="new-password"
+          style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none", boxSizing:"border-box", marginBottom:8 }}/>
+        <input type="password" value={pwdConferma} onChange={e => setPwdConferma(e.target.value)}
+          placeholder={t("confirmPassword")} autoComplete="new-password"
+          style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:14, outline:"none", boxSizing:"border-box", marginBottom:10 }}/>
+        <div style={{ display:"flex", gap:8, alignItems:"center" }}>
+          <button onClick={salvaPassword} style={{ padding:"9px 15px", borderRadius:8, cursor:"pointer", border:"none", background:C.gold, color:C.bg, fontSize:12.5, fontWeight:800 }}>{t("npSave")}</button>
+          <button onClick={() => { setCambioPwd(false); setPwdEsito(""); }} style={{ padding:"9px 13px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:12.5 }}>{t("pcCancel")}</button>
+        </div>
+        {pwdEsito && <div style={{ fontSize:12, color:C.textMuted, marginTop:9, lineHeight:1.45 }}>{pwdEsito}</div>}
+      </div>
+    )}
     <div className="nx-topbar" style={{ background:C.surface, borderBottom:`1px solid ${C.border}`, padding:"0 16px", display:"flex", alignItems:"center", height:56, position:"sticky", top:0, zIndex:200, gap:10, flexWrap:"nowrap", WebkitBackdropFilter:"blur(10px)", overflow:"hidden" }}>
       {/* Logo */}
       <div style={{ width:30, height:30, borderRadius:8, background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:13, fontWeight:900, color:C.bg, flexShrink:0 }}>N</div>
@@ -1946,11 +2004,17 @@ const Navbar = ({ name, badge, onLogout, lang, onLangChange, onNotifications, no
           )}
         </button>
       )}
+      {/* Cambio password */}
+      <button onClick={() => { setCambioPwd(v => !v); setPwdEsito(""); }} title={t("npTitle")}
+        style={{ padding:"7px 11px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:13, flexShrink:0 }}>
+        🔑
+      </button>
       {/* Logout */}
       <button onClick={onLogout} className="nav-out" style={{ padding:"7px 13px", borderRadius:8, cursor:"pointer", background:"transparent", border:`1px solid ${C.border}`, color:C.textMuted, fontSize:12, fontWeight:500, flexShrink:0, whiteSpace:"nowrap" }}>
         {t("logout")}
       </button>
     </div>
+    </>
   );
 };
 
@@ -3242,6 +3306,15 @@ const NuovaPassword = ({ lang, onLangChange, onFatto, scaduto }) => {
    Il punto 2 e' quello che fa lavorare: lo scaglione e' retroattivo su tutto
    il mese, quindi 300 euro in piu' a fine mese possono valergli centinaia di
    euro di provvigione su quello che ha gia' venduto. */
+/* Il paese nel modulo dell'agente e' testo libero: lo scrive lui mentre e' in
+   negozio, e ogni volta lo scrive un po' diverso. Qui basta sapere una cosa
+   sola — se siamo in Italia, perche' il codice univoco per la fattura
+   elettronica esiste solo qui. */
+function italiano(paese) {
+  const p = String(paese || "").trim().toLowerCase();
+  return p === "it" || p.startsWith("ital");
+}
+
 const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange, Negozio = null }) => {
   const t = useT();
   /* Come nelle altre dashboard: se arriva `comeUtente` stiamo guardando il
@@ -3262,10 +3335,10 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
      panni in questo momento. */
   const [comeNegozio, setComeNegozio] = useState(null);
   const VUOTO = { company_name:"", full_name:"", email:"", password:"", phone:"",
-                  country:"", shipping_city:"", shipping_address:"", shipping_zip:"", vat_number:"" };
+                  country:"", shipping_city:"", shipping_address:"", shipping_zip:"",
+                  vat_number:"", sdi_code:"" };
   const [modulo, setModulo] = useState(false);
   const [nuovo, setNuovo] = useState(VUOTO);
-  const [allegati, setAllegati] = useState({});
   const [salvo, setSalvo] = useState(false);
   const [esito, setEsito] = useState("");
   const [prenoto, setPrenoto] = useState({});
@@ -3323,31 +3396,21 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
 
   useEffect(() => { carica(); }, [carica]);
 
-  /* Un allegato diventa testo, per partire insieme al resto in una chiamata
-     sola: dal campo, con la rete del telefono, due giri sono uno di troppo. */
-  const inBase64 = (file) => new Promise((ris, no) => {
-    const r = new FileReader();
-    r.onload = () => ris(String(r.result).split(",")[1] || "");
-    r.onerror = no;
-    r.readAsDataURL(file);
-  });
-
   /* Registra il negozio passando dalla stessa funzione lato server che usa
-     l'iscrizione pubblica: stesso controllo, stessi documenti, stesso stato
-     iniziale. L'unica differenza e' il codice dell'agente, che aggancia il
-     negozio a lui. */
+     l'iscrizione pubblica: stesso controllo, stesso stato iniziale. L'unica
+     differenza e' il codice dell'agente, che aggancia il negozio a lui.
+
+     NIENTE ALLEGATI (27/10/2026, ordine di Andrea). Si chiedevano visura
+     camerale, certificato di attribuzione P.IVA e documento del titolare, tre
+     PDF da farsi mandare dal negoziante: l'agente e' in piedi dentro un
+     negozio col telefono in mano, quei tre file non li ha e non li avra' mai
+     li' per li'. Il risultato era che il negozio non veniva registrato
+     affatto. Per fatturare servono la partita IVA e, in Italia, il codice
+     univoco: il resto si chiede dopo, se serve. */
   const registraNegozio = async (e) => {
     e.preventDefault();
     setSalvo(true); setEsito("");
     try {
-      const documenti = [];
-      for (const tipo of ["visura", "partita_iva", "documento_identita"]) {
-        const f = allegati[tipo];
-        if (!f) continue;
-        if (f.size > 5 * 1024 * 1024) { setEsito(t("pcDocBig")); setSalvo(false); return; }
-        documenti.push({ doc_type: tipo, file_name: f.name,
-          content_type: f.type || "application/pdf", base64: await inBase64(f) });
-      }
       const risp = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/register-complete`, {
         method: "POST",
         headers: {
@@ -3360,8 +3423,11 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
           role: "distributor", account_type: "distributor",
           preferred_lang: lang || "en", agreement_version: "1.0",
           procacciatore_codice: io_ ? io_.codice : null,
+          /* Il codice univoco vale solo in Italia: fuori non esiste proprio,
+             e mandarlo sporcherebbe la scheda di un negozio estero. */
+          sdi_code: italiano(nuovo.country) ? (nuovo.sdi_code || null) : null,
           user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 300) : null,
-          documenti,
+          documenti: [],
         }),
       });
       const es = await risp.json().catch(() => ({}));
@@ -3370,7 +3436,7 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
         setSalvo(false);
         return;
       }
-      setModulo(false); setNuovo(VUOTO); setAllegati({});
+      setModulo(false); setNuovo(VUOTO);
       setEsito(t("pcShopSaved"));
       await carica();
     } catch (err) {
@@ -3735,19 +3801,13 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                   {campo(t("pcShopCity"), "shipping_city")}
                   {campo(t("pcShopAddr"), "shipping_address")}
                   {campo(t("pcShopZip"), "shipping_zip")}
+                  {/* Il codice univoco compare solo quando il paese e' l'Italia:
+                      serve alla fattura elettronica, che altrove non esiste. */}
+                  {italiano(nuovo.country) && campo(t("pcShopSdi"), "sdi_code")}
                 </div>
-
-                <div style={{ fontSize:11.5, color:C.textMuted, margin:"14px 0 6px" }}>{t("pcShopDocs")}</div>
-                <div style={{ display:"flex", flexWrap:"wrap", gap:10 }}>
-                  {[["visura", t("pcDocReg")], ["partita_iva", t("pcDocVat")], ["documento_identita", t("pcDocId")]].map(([k, l]) => (
-                    <label key={k} style={{ flex:"1 1 200px", fontSize:11.5, color:C.textDim }}>
-                      <span style={{ display:"block", marginBottom:4 }}>{l}</span>
-                      <input type="file" accept="application/pdf,image/jpeg,image/png"
-                        onChange={e => { const f = e.target.files && e.target.files[0]; setAllegati(a => ({ ...a, [k]: f || null })); }}
-                        style={{ width:"100%", fontSize:11.5, color:C.textMuted }}/>
-                    </label>
-                  ))}
-                </div>
+                {italiano(nuovo.country) && (
+                  <div style={{ fontSize:11.5, color:C.textDim, marginTop:8, lineHeight:1.5 }}>{t("pcShopSdiHint")}</div>
+                )}
 
                 <button type="submit" disabled={salvo} style={{
                   marginTop:14, padding:"10px 20px", borderRadius:8, cursor: salvo ? "default" : "pointer",
