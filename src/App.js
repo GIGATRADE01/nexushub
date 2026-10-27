@@ -1537,6 +1537,15 @@ Object.assign(T.es,{ pcSelTitle:"Selección", pcSelSub:"Tres preguntas. Las leem
 Object.assign(T.de,{ pcSelTitle:"Auswahl", pcSelSub:"Drei Fragen. Wir lesen sie vor den Dokumenten.", pcQ1:"An welche Geschäfte verkaufen Sie bereits? Nennen Sie sie.", pcQ1Ph:"Name des Geschäfts und Stadt, eines pro Zeile", pcQ2:"Was verkaufen Sie ihnen heute?", pcQ2Ph:"z. B. selektive Parfümerie, arabische Düfte", pcQ3:"Wie viele davon könnten in 30 Tagen für 500 € bestellen?", pcVersion:"Version", pcVessFallback:"Ich genehmige ausdrücklich die im Vertrag genannten Klauseln.", pcRegTitle:"Werden Sie NexusHub-Vermittler", pcRegSub:"Verkaufen Sie 548 Referenzen von 21 arabischen Häusern. Provision 6% bis 10%, auf den im Monat vereinnahmten Umsatz." });
 Object.assign(T.zh,{ pcSelTitle:"筛选", pcSelSub:"三个问题。我们在看文件之前先看这些。", pcQ1:"您目前已向哪些店铺供货？请列出名称。", pcQ1Ph:"店名与城市，每行一个", pcQ2:"您现在卖给他们什么？", pcQ2Ph:"例如：精品香水、阿拉伯香水", pcQ3:"其中有多少家能在30天内下500欧元的订单？", pcVersion:"版本", pcVessFallback:"本人特别同意合同中所列条款。", pcRegTitle:"成为 NexusHub 业务介绍人", pcRegSub:"在您的国家销售21个阿拉伯香水品牌的548个单品。佣金6%至10%，按当月实收计算。" });
 Object.assign(T.ar,{ pcSelTitle:"الاختيار", pcSelSub:"ثلاثة أسئلة. نقرأها قبل المستندات.", pcQ1:"ما المتاجر التي تبيع لها بالفعل؟ اذكر الأسماء.", pcQ1Ph:"اسم المتجر والمدينة، واحد في كل سطر", pcQ2:"ماذا تبيع لهم اليوم؟", pcQ2Ph:"مثال: عطور انتقائية، عطور عربية", pcQ3:"كم منهم يمكنه تقديم طلب بقيمة 500 يورو خلال 30 يومًا؟", pcVersion:"الإصدار", pcVessFallback:"أوافق تحديدًا على البنود المذكورة في العقد.", pcRegTitle:"كن وسيط أعمال لدى NexusHub", pcRegSub:"بع 548 مرجعًا من 21 دار عطور عربية. عمولة من 6% إلى 10%، على المحصّل شهريًا." });
+/* Al procacciatore non chiediamo allegati all'iscrizione: questa riga prende
+   il posto del riquadro dei documenti e dice quando glieli chiederemo. */
+Object.assign(T.it,{ pcNoDocs:"Nessun documento da caricare adesso. Visura e IBAN te li chiediamo quando c'è la prima provvigione da pagarti." });
+Object.assign(T.en,{ pcNoDocs:"Nothing to upload now. We'll ask for your company registration and bank details when there is a first commission to pay you." });
+Object.assign(T.fr,{ pcNoDocs:"Rien à téléverser maintenant. Nous vous demanderons l'extrait d'immatriculation et l'IBAN quand il y aura une première commission à vous verser." });
+Object.assign(T.es,{ pcNoDocs:"Nada que subir ahora. Te pediremos el registro mercantil y el IBAN cuando haya una primera comisión que pagarte." });
+Object.assign(T.de,{ pcNoDocs:"Jetzt nichts hochladen. Handelsregisterauszug und IBAN fragen wir ab, sobald die erste Provision an Sie fällig wird." });
+Object.assign(T.zh,{ pcNoDocs:"现在无需上传任何文件。等到有第一笔佣金要支付给您时，我们再索取营业执照和银行账号。" });
+Object.assign(T.ar,{ pcNoDocs:"لا مستندات للرفع الآن. سنطلب السجل التجاري والآيبان عند استحقاق أول عمولة لك." });
 Object.assign(T.en,{ ckNextTier:"Add {n} € and you get −{d}% on the whole order: {e} € off. Those {n} € of goods cost you {c} € net.", ckFreeIt:"Free shipping in Italy included.", ckFreeEu:"Free shipping across Europe included.", ckTiersTitle:"Order discounts" });
 Object.assign(T.it,{ ckNextTier:"Ancora {n} € e prendi −{d}% su TUTTO l'ordine: sono {e} € di sconto. Quei {n} € di merce te ne costano {c} netti.", ckFreeIt:"Spedizione gratis in Italia inclusa.", ckFreeEu:"Spedizione gratis in Europa inclusa.", ckTiersTitle:"Sconti a scaglione" });
 Object.assign(T.fr,{ ckNextTier:"Encore {n} € et vous obtenez −{d}% sur TOUTE la commande : {e} € de remise. Ces {n} € de marchandise vous coûtent {c} € nets.", ckFreeIt:"Livraison gratuite en Italie incluse.", ckFreeEu:"Livraison gratuite en Europe incluse.", ckTiersTitle:"Remises par palier" });
@@ -3927,9 +3936,20 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
 
   /* Alla casa produttrice si chiede chi e' e dove incassa. Le carte della
      camera di commercio si chiedono al distributore, che e' quello che poi
-     maneggia la merce sul territorio e va verificato. */
+     maneggia la merce sul territorio e va verificato.
+
+     Al procacciatore non si chiede NIENTE da caricare. Il 27/10/2026 la
+     prima agente si e' fermata davanti a tre allegati — visura, partita IVA
+     e coordinate bancarie da cercare, scansionare e caricare dal telefono —
+     prima ancora di aver visto un listino. Nel codice erano gia'
+     facoltativi: il muro era l'intestazione "documenti richiesti", che
+     nessuno legge come un invito a saltarli. Visura e IBAN servono al primo
+     pagamento, non all'iscrizione: si chiedono allora, quando c'e' una
+     provvigione da incassare e tutta la voglia di darceli. A selezionare
+     bastano le tre domande qui sotto, che filtrano meglio di qualunque
+     allegato. */
   const docTypes = isProc
-    ? ["visura_camerale","partita_iva","coordinate_bancarie"]
+    ? []
     : isBrand
     ? ["partita_iva","coordinate_bancarie"]
     : ["visura_camerale","partita_iva"];
@@ -4246,6 +4266,12 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
               </div>
             )}
 
+            {isProc && (
+              <div style={{ padding:"11px 13px", background:C.surface2, border:`1px solid ${C.border}`, borderRadius:9, fontSize:12, color:C.textMuted, lineHeight:1.55 }}>
+                {t("pcNoDocs")}
+              </div>
+            )}
+            {docTypes.length > 0 && (
             <div>
               <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:10 }}>{t("docsRequired")}</div>
               {docTypes.map(docType => (
@@ -4260,6 +4286,7 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
                 </label>
               ))}
             </div>
+            )}
             {isProc && (
               <div style={{ marginTop:18 }}>
                 <div style={{ fontSize:12, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em", marginBottom:10 }}>{t("pcSelTitle")}</div>
