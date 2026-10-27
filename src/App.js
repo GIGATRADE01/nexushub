@@ -1560,6 +1560,15 @@ Object.assign(T.ar,{ pcShopSdi:"رمز الفوترة الإلكترونية (SD
    l'AGENTE a GIGA TRADE, non il contrario. Qui trova tutto quello che gli
    serve per scriverla senza chiamare l'amministrazione. L'intestazione legale
    e' quella canonica (campagna.py), mai riscritta a memoria. */
+/* Quando sono state contate le giacenze: "esaurito" senza una data non si sa
+   se e' di stamattina o di tre settimane fa. */
+Object.assign(T.it,{ cfAgg:"Giacenze aggiornate il", cfAlle:"alle" });
+Object.assign(T.en,{ cfAgg:"Stock updated on", cfAlle:"at" });
+Object.assign(T.fr,{ cfAgg:"Stocks mis à jour le", cfAlle:"à" });
+Object.assign(T.es,{ cfAgg:"Existencias actualizadas el", cfAlle:"a las" });
+Object.assign(T.de,{ cfAgg:"Bestände aktualisiert am", cfAlle:"um" });
+Object.assign(T.zh,{ cfAgg:"库存更新于", cfAlle:"" });
+Object.assign(T.ar,{ cfAgg:"تم تحديث المخزون في", cfAlle:"الساعة" });
 Object.assign(T.it,{ pcFattSdiNostro:"Codice destinatario:" });
 Object.assign(T.en,{ pcFattSdiNostro:"Recipient code (SDI):" });
 Object.assign(T.fr,{ pcFattSdiNostro:"Code destinataire (SDI) :" });
@@ -3606,13 +3615,28 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
 
   /* Una funzione, non un componente: un componente dichiarato qui dentro
      verrebbe ricreato a ogni battuta e il campo perderebbe il cursore. */
-  const campo = (etichetta, chiave, obbligatorio = false, tipo = "text") => (
+  /* Il paese era un campo libero, e questo rompeva il codice univoco: compare
+     solo se il paese e' l'Italia, ma l'agente scriveva "ITA", "it.", "Italy",
+     oppure lo compilava per ultimo — e il campo non si apriva mai. Adesso e'
+     una tendina: un codice ISO certo, cosi' il resto del modulo sa sempre
+     dove siamo. */
+  const campo = (etichetta, chiave, obbligatorio = false, tipo = "text", opzioni = null) => (
     <label key={chiave} style={{ display:"block", flex:"1 1 220px" }}>
       <span style={{ fontSize:11.5, color:C.textMuted, display:"block", marginBottom:4 }}>{etichetta}</span>
-      <input type={tipo} required={obbligatorio} value={nuovo[chiave]}
-        onChange={e => { const v = e.target.value; setNuovo(n => ({ ...n, [chiave]: v })); }}
-        style={{ width:"100%", padding:"9px 11px", borderRadius:8, fontSize:13,
-          background:C.surface2, border:"1px solid "+C.border, color:C.text, boxSizing:"border-box" }}/>
+      {opzioni ? (
+        <select required={obbligatorio} value={nuovo[chiave]}
+          onChange={e => { const v = e.target.value; setNuovo(n => ({ ...n, [chiave]: v })); }}
+          style={{ width:"100%", padding:"9px 11px", borderRadius:8, fontSize:13,
+            background:C.surface2, border:"1px solid "+C.border, color:C.text, boxSizing:"border-box" }}>
+          <option value="">—</option>
+          {opzioni.map(cc => <option key={cc} value={cc}>{nomePaese(cc, lang)}</option>)}
+        </select>
+      ) : (
+        <input type={tipo} required={obbligatorio} value={nuovo[chiave]}
+          onChange={e => { const v = e.target.value; setNuovo(n => ({ ...n, [chiave]: v })); }}
+          style={{ width:"100%", padding:"9px 11px", borderRadius:8, fontSize:13,
+            background:C.surface2, border:"1px solid "+C.border, color:C.text, boxSizing:"border-box" }}/>
+      )}
     </label>
   );
 
@@ -4004,7 +4028,7 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                   {campo(t("pcShopPwd"), "password", true, "password")}
                   {campo(t("pcShopVat"), "vat_number", true)}
                   {campo(t("pcShopPhone"), "phone")}
-                  {campo(t("pcShopCountry"), "country", true)}
+                  {campo(t("pcShopCountry"), "country", true, "text", PAESI_SERVITI)}
                   {campo(t("pcShopCity"), "shipping_city")}
                   {campo(t("pcShopAddr"), "shipping_address")}
                   {campo(t("pcShopZip"), "shipping_zip")}
@@ -8879,6 +8903,23 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                   <span style={{ fontSize:12, color:C.textMuted }}>
                     {t("cfHidden").replace("{n}", nascoste)}
                   </span>
+                  {/* QUANDO sono state contate. Senza questa riga non si capisce
+                      se "esaurito" e' la verita' di stamattina o una fotografia
+                      di tre settimane fa, e un agente davanti a un negoziante
+                      non sa se fidarsi di quello che legge. */}
+                  {(() => {
+                    const q = visibleProducts
+                      .map(p => p.inventory && p.inventory.updated_at)
+                      .filter(Boolean).sort();
+                    if (!q.length) return null;
+                    const d = new Date(q[q.length - 1]);
+                    const oggi = new Date().toDateString() === d.toDateString();
+                    return (
+                      <span style={{ fontSize:12, color: oggi ? C.green : C.gold }}>
+                        {t("cfAgg")} {d.toLocaleDateString("it-IT")} {t("cfAlle")} {d.toLocaleTimeString("it-IT", { hour:"2-digit", minute:"2-digit" })}
+                      </span>
+                    );
+                  })()}
                 </div>
               );
             })()}
