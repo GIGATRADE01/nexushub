@@ -1556,6 +1556,23 @@ Object.assign(T.es,{ pcShopSdi:"Código SDI (factura electrónica)", pcShopSdiHi
 Object.assign(T.de,{ pcShopSdi:"SDI-Code (E-Rechnung)", pcShopSdiHint:"Nötig für die italienische E-Rechnung. Sieben Zeichen; leer lassen, wenn der Laden ein zertifiziertes Postfach nutzt." });
 Object.assign(T.zh,{ pcShopSdi:"电子发票代码 (SDI)", pcShopSdiHint:"用于开具意大利电子发票。七位字符；若商店使用认证邮箱则留空。" });
 Object.assign(T.ar,{ pcShopSdi:"رمز الفوترة الإلكترونية (SDI)", pcShopSdiHint:"مطلوب للفاتورة الإلكترونية الإيطالية. سبعة أحرف؛ اتركه فارغًا إذا كان المتجر يستخدم بريدًا معتمدًا." });
+/* La scheda "Il mio profilo" nel portale dell'agente. */
+Object.assign(T.it,{ pcTabProfilo:"Il mio profilo", pcProfState:"Stato incarico", pcProfAzienda:"I tuoi dati", pcShopProv:"Provincia", pcProfSave:"Salva i miei dati", pcProfSaving:"Salvataggio…", pcProfSaved:"Dati salvati.", pcProfFail:"Non sono riuscito a salvare. Riprova.", pcProfSdiNota:"Serve per la fattura elettronica delle tue provvigioni.", pcProfIbanNota:"È il conto su cui ti arriva il bonifico. Controllalo bene." });
+Object.assign(T.en,{ pcTabProfilo:"My profile", pcProfState:"Status", pcProfAzienda:"Your details", pcShopProv:"Province / region", pcProfSave:"Save my details", pcProfSaving:"Saving…", pcProfSaved:"Details saved.", pcProfFail:"Could not save. Please try again.", pcProfSdiNota:"Used for the e-invoice of your commission.", pcProfIbanNota:"This is the account your transfer lands in. Check it carefully." });
+Object.assign(T.fr,{ pcTabProfilo:"Mon profil", pcProfState:"Statut", pcProfAzienda:"Vos informations", pcShopProv:"Département / région", pcProfSave:"Enregistrer mes informations", pcProfSaving:"Enregistrement…", pcProfSaved:"Informations enregistrées.", pcProfFail:"Enregistrement impossible. Réessayez.", pcProfSdiNota:"Sert à la facture électronique de vos commissions.", pcProfIbanNota:"C'est le compte qui reçoit le virement. Vérifiez-le bien." });
+Object.assign(T.es,{ pcTabProfilo:"Mi perfil", pcProfState:"Estado", pcProfAzienda:"Tus datos", pcShopProv:"Provincia / región", pcProfSave:"Guardar mis datos", pcProfSaving:"Guardando…", pcProfSaved:"Datos guardados.", pcProfFail:"No se pudo guardar. Inténtalo de nuevo.", pcProfSdiNota:"Se usa para la factura electrónica de tus comisiones.", pcProfIbanNota:"Es la cuenta donde recibes la transferencia. Revísala bien." });
+Object.assign(T.de,{ pcTabProfilo:"Mein Profil", pcProfState:"Status", pcProfAzienda:"Ihre Daten", pcShopProv:"Provinz / Region", pcProfSave:"Meine Daten speichern", pcProfSaving:"Speichern…", pcProfSaved:"Daten gespeichert.", pcProfFail:"Speichern nicht möglich. Bitte erneut versuchen.", pcProfSdiNota:"Wird für die E-Rechnung Ihrer Provision verwendet.", pcProfIbanNota:"Auf dieses Konto geht die Überweisung. Bitte genau prüfen." });
+Object.assign(T.zh,{ pcTabProfilo:"我的资料", pcProfState:"状态", pcProfAzienda:"您的资料", pcShopProv:"省 / 地区", pcProfSave:"保存我的资料", pcProfSaving:"保存中…", pcProfSaved:"已保存。", pcProfFail:"保存失败，请重试。", pcProfSdiNota:"用于您佣金的电子发票。", pcProfIbanNota:"这是收款账户，请仔细核对。" });
+Object.assign(T.ar,{ pcTabProfilo:"ملفي", pcProfState:"الحالة", pcProfAzienda:"بياناتك", pcShopProv:"المحافظة / المنطقة", pcProfSave:"حفظ بياناتي", pcProfSaving:"جارٍ الحفظ…", pcProfSaved:"تم الحفظ.", pcProfFail:"تعذر الحفظ. حاول مرة أخرى.", pcProfSdiNota:"يُستخدم للفاتورة الإلكترونية لعمولتك.", pcProfIbanNota:"هذا هو الحساب الذي يصلك عليه التحويل. تحقق منه جيدًا." });
+/* I campi bancari dell'agente: a lui non si chiede dove spedire, si chiede
+   dove incassare. */
+Object.assign(T.it,{ rgBankHdrAgente:"Dove ti paghiamo le provvigioni", rgBankInfoAgente:"L'IBAN serve a pagarti: lo usiamo per il bonifico della provvigione, liquidata il mese successivo all'incasso. Puoi cambiarlo quando vuoi dal tuo portale." });
+Object.assign(T.en,{ rgBankHdrAgente:"Where we pay your commission", rgBankInfoAgente:"We use this IBAN to pay you: the commission is transferred the month after the customer pays. You can change it any time from your portal." });
+Object.assign(T.fr,{ rgBankHdrAgente:"Où nous versons votre commission", rgBankInfoAgente:"Cet IBAN sert à vous payer : la commission est virée le mois suivant l'encaissement. Modifiable à tout moment depuis votre portail." });
+Object.assign(T.es,{ rgBankHdrAgente:"Dónde te pagamos la comisión", rgBankInfoAgente:"Usamos este IBAN para pagarte: la comisión se transfiere el mes siguiente al cobro. Puedes cambiarlo cuando quieras desde tu portal." });
+Object.assign(T.de,{ rgBankHdrAgente:"Wohin wir Ihre Provision zahlen", rgBankInfoAgente:"Diese IBAN dient der Auszahlung: die Provision wird im Monat nach dem Zahlungseingang überwiesen. Jederzeit im Portal änderbar." });
+Object.assign(T.zh,{ rgBankHdrAgente:"佣金支付账户", rgBankInfoAgente:"我们用此 IBAN 向您付款：佣金在客户付款的次月转出。您可随时在门户中修改。" });
+Object.assign(T.ar,{ rgBankHdrAgente:"أين ندفع لك عمولتك", rgBankInfoAgente:"نستخدم هذا الآيبان للدفع لك: تُحوَّل العمولة في الشهر التالي للتحصيل. يمكنك تغييره في أي وقت من بوابتك." });
 /* Il tasto che apre il cambio password dentro il portale dell'agente. */
 Object.assign(T.it,{ pcPwdBtn:"Password" });
 Object.assign(T.en,{ pcPwdBtn:"Password" });
@@ -3359,6 +3376,32 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
     if (error) { setPwdEsito(t("npFail")); return; }
     setPwdNuova(""); setPwdConferma(""); setPwdEsito(t("npDone"));
   };
+  const [profilo, setProfilo] = useState(null);
+  const [salvoProfilo, setSalvoProfilo] = useState("");
+  /* L'agente corregge da solo i dati con cui lo paghiamo e gli fatturiamo.
+     Niente che tocchi il suo codice o lo stato dell'incarico: quelli non sono
+     suoi da cambiare. Un IBAN sbagliato, finche' stava solo
+     nell'amministrazione, si scopriva il giorno del bonifico. */
+  const salvaProfilo = async () => {
+    setSalvoProfilo(t("pcProfSaving"));
+    const { data: { user } } = await getUser();
+    const p = profilo || {};
+    const { error: e1 } = await supabase.from("profiles").update({
+      company_name: p.company_name || null, full_name: p.full_name || null,
+      phone: p.phone || null,
+      shipping_address: p.shipping_address || null, shipping_city: p.shipping_city || null,
+      shipping_zip: p.shipping_zip || null, shipping_region: p.shipping_region || null,
+    }).eq("id", user.id);
+    const { error: e2 } = await supabase.from("profile_billing").upsert({
+      id: user.id, vat_number: p.vat_number || null, sdi_code: p.sdi_code || null,
+      pec_email: p.pec_email || null,
+      iban: (p.iban || "").replace(/\s+/g, "").toUpperCase() || null,
+      bank_name: p.bank_name || null, account_holder: p.account_holder || null,
+      swift_bic: p.swift_bic || null,
+    }, { onConflict: "id" });
+    setSalvoProfilo((e1 || e2) ? t("pcProfFail") : t("pcProfSaved"));
+    if (!e1 && !e2) carica();
+  };
 
   const carica = useCallback(async () => {
     const { data: { user } } = await getUser();
@@ -3391,6 +3434,19 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
       .select("id, mese, fatturato_incassato, percentuale, provvigione, ordini, stato, pagata_il")
       .eq("procacciatore_id", user.id).order("mese", { ascending: false }).limit(24);
     setLiquidate(lq || []);
+    /* La sua scheda: chi e', dove lo paghiamo, con che dati gli facciamo la
+       fattura. Finche' questi dati stavano solo nell'amministrazione, l'agente
+       non aveva modo di correggere un IBAN sbagliato — e un IBAN sbagliato si
+       scopre il giorno del bonifico. */
+    const [{ data: mioProfilo }, { data: mieFatturazione }] = await Promise.all([
+      supabase.from("profiles")
+        .select("company_name, full_name, email, phone, country, shipping_address, shipping_city, shipping_zip, shipping_region")
+        .eq("id", user.id).maybeSingle(),
+      supabase.from("profile_billing")
+        .select("vat_number, sdi_code, pec_email, iban, bank_name, account_holder, swift_bic")
+        .eq("id", user.id).maybeSingle(),
+    ]);
+    setProfilo({ ...(mioProfilo || {}), ...(mieFatturazione || {}) });
     setCaricato(true);
   }, [getUser]);
 
@@ -3579,7 +3635,7 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
       )}
 
       <div style={{ display:"flex", gap:6, padding:"12px 20px 0", flexWrap:"wrap" }}>
-        {[["guadagno", t("pcTabEarn")], ["andamento", t("pcTabTrend")], ["clienti", t("pcTabClients")], ["ordini", t("pcTabOrders")], ["preordini", t("pcTabPre")]].map(([k, l]) => (
+        {[["guadagno", t("pcTabEarn")], ["andamento", t("pcTabTrend")], ["clienti", t("pcTabClients")], ["ordini", t("pcTabOrders")], ["preordini", t("pcTabPre")], ["profilo", t("pcTabProfilo")]].map(([k, l]) => (
           <button key={k} onClick={() => setTab(k)} style={{ padding:"8px 15px", borderRadius:8, cursor:"pointer", fontSize:13,
             fontWeight: tab===k ? 800 : 600, background: tab===k ? C.gold+"1C" : "transparent",
             border:"1px solid "+(tab===k ? C.gold : C.border), color: tab===k ? C.goldLight : C.textMuted }}>{l}</button>
@@ -3762,6 +3818,81 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
             </>
           );
         })()}
+
+        {/* IL MIO PROFILO — la scheda dell'agente (27/10/2026).
+            Prima qui c'era solo il tasto Esci: l'agente vedeva i guadagni ma
+            non i propri dati, non poteva correggere l'IBAN con cui lo
+            paghiamo ne' cambiare la password di primo accesso. */}
+        {tab === "profilo" && (
+          <div style={{ background:C.surface, border:"1px solid "+C.border, borderRadius:12, padding:"15px 18px", maxWidth:760 }}>
+            {(() => {
+              const p = profilo || {};
+              const agg = (k) => (e) => setProfilo(v => ({ ...(v || {}), [k]: e.target.value }));
+              const campoP = (etichetta, chiave, segnaposto, nota) => (
+                <div key={chiave} style={{ flex:"1 1 230px" }}>
+                  <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".07em", display:"block", marginBottom:5 }}>{etichetta}</label>
+                  <input type="text" value={p[chiave] || ""} onChange={agg(chiave)} placeholder={segnaposto || ""}
+                    style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:"1px solid "+C.border, color:C.text, fontSize:13, outline:"none", boxSizing:"border-box" }}/>
+                  {nota && <div style={{ fontSize:11, color:C.textDim, marginTop:4 }}>{nota}</div>}
+                </div>
+              );
+              const riga = { display:"flex", flexWrap:"wrap", gap:12, marginBottom:14 };
+              return (
+                <>
+                  {/* Quello che non si cambia da qui: identita' dell'incarico. */}
+                  <div style={{ display:"flex", flexWrap:"wrap", gap:18, padding:"12px 14px", background:C.surface2, border:"1px solid "+C.border, borderRadius:10, marginBottom:16 }}>
+                    <div>
+                      <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".07em" }}>{t("pcYourCode")}</div>
+                      <div style={{ fontSize:15, fontWeight:800, color:C.goldLight }}>{io_ ? io_.codice : "—"}</div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".07em" }}>{t("emailLabel")}</div>
+                      <div style={{ fontSize:14, color:C.text }}>{p.email || "—"}</div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".07em" }}>{t("pcProfState")}</div>
+                      <div style={{ fontSize:14, color: (io_ && io_.stato === "approvato") ? C.green : C.textMuted }}>
+                        {io_ ? io_.stato : "—"}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ fontSize:12, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em", marginBottom:10 }}>{t("pcProfAzienda")}</div>
+                  <div style={riga}>
+                    {campoP(t("pcShopCompany"), "company_name")}
+                    {campoP(t("pcShopName"), "full_name")}
+                    {campoP(t("pcShopPhone"), "phone")}
+                  </div>
+                  <div style={riga}>
+                    {campoP(t("pcShopAddr"), "shipping_address")}
+                    {campoP(t("pcShopCity"), "shipping_city")}
+                    {campoP(t("pcShopZip"), "shipping_zip")}
+                    {campoP(t("pcShopProv"), "shipping_region")}
+                  </div>
+
+                  <div style={{ fontSize:12, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em", marginBottom:10 }}>🧾 {t("rgFiscalHdr")}</div>
+                  <div style={riga}>
+                    {campoP(t("pcShopVat"), "vat_number")}
+                    {italiano(p.country) && campoP(t("pcShopSdi"), "sdi_code", "XXXXXXX", t("pcProfSdiNota"))}
+                    {italiano(p.country) && campoP("PEC", "pec_email")}
+                  </div>
+
+                  <div style={{ fontSize:12, color:C.textMuted, textTransform:"uppercase", letterSpacing:".06em", marginBottom:10 }}>💳 {t("rgBankHdrAgente")}</div>
+                  <div style={riga}>
+                    {campoP(t("rgIbanLbl"), "iban", "IT60 X054 2811 1010 0000 0123 456", t("pcProfIbanNota"))}
+                    {campoP(t("rgAcctHolder"), "account_holder")}
+                    {campoP(t("rgBank"), "bank_name")}
+                  </div>
+
+                  <div style={{ display:"flex", gap:10, alignItems:"center", flexWrap:"wrap" }}>
+                    <button onClick={salvaProfilo} style={{ padding:"11px 22px", borderRadius:8, cursor:"pointer", border:"none", background:"linear-gradient(135deg,"+C.gold+","+C.goldDim+")", color:C.bg, fontSize:13, fontWeight:800 }}>{t("pcProfSave")}</button>
+                    {salvoProfilo && <span style={{ fontSize:12.5, color:C.textMuted }}>{salvoProfilo}</span>}
+                  </div>
+                </>
+              );
+            })()}
+          </div>
+        )}
 
         {tab === "clienti" && (
           <div style={{ background:C.surface, border:"1px solid "+C.border, borderRadius:12, padding:"15px 18px" }}>
@@ -4037,25 +4168,27 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
       });
   }, [isProc, lang]);
 
-  /* Alla casa produttrice si chiede chi e' e dove incassa. Le carte della
-     camera di commercio si chiedono al distributore, che e' quello che poi
-     maneggia la merce sul territorio e va verificato.
+  /* Alla casa produttrice si chiede chi e' e dove incassa. A nessun altro si
+     chiede piu' niente da caricare.
 
-     Al procacciatore non si chiede NIENTE da caricare. Il 27/10/2026 la
-     prima agente si e' fermata davanti a tre allegati — visura, partita IVA
-     e coordinate bancarie da cercare, scansionare e caricare dal telefono —
-     prima ancora di aver visto un listino. Nel codice erano gia'
-     facoltativi: il muro era l'intestazione "documenti richiesti", che
-     nessuno legge come un invito a saltarli. Visura e IBAN servono al primo
-     pagamento, non all'iscrizione: si chiedono allora, quando c'e' una
-     provvigione da incassare e tutta la voglia di darceli. A selezionare
-     bastano le tre domande qui sotto, che filtrano meglio di qualunque
-     allegato. */
-  const docTypes = isProc
+     Il 27/10/2026 la prima agente si e' fermata davanti a tre allegati —
+     visura, partita IVA e coordinate bancarie da cercare, scansionare e
+     caricare dal telefono — prima ancora di aver visto un listino. Nel
+     codice erano gia' facoltativi: il muro era l'intestazione "documenti
+     richiesti", che nessuno legge come un invito a saltarli.
+
+     Lo stesso giorno la regola e' stata estesa al NEGOZIO che si iscrive da
+     solo, per ordine di Andrea: via visura camerale e certificato di
+     attribuzione della partita IVA. Restano tutti gli altri campi, e in
+     Italia si chiede il codice univoco, che serve davvero perche' senza non
+     parte la fattura elettronica.
+
+     Il NUMERO di partita IVA resta obbligatorio per tutti, ed e' il
+     controllo che conta: il VIES dice se quell'azienda esiste davvero, un
+     PDF dice solo che qualcuno sa fotografare un foglio. */
+  const docTypes = (isProc || !isBrand)
     ? []
-    : isBrand
-    ? ["partita_iva","coordinate_bancarie"]
-    : ["visura_camerale","partita_iva"];
+    : ["partita_iva","coordinate_bancarie"];
 
   /* Il nome della pratica cambia da paese a paese: una casa di Dubai non ha
      una visura camerale, ha una trade licence. E' lo stesso documento. */
@@ -4128,7 +4261,7 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
           procacciatore_codice: codiceAgente.trim() ? codiceAgente.trim().toUpperCase() : null,
           sdi_code: isItaly ? sdiCode : null,
           pec_email: isItaly ? pecEmail : null,
-          ...(isBrand
+          ...((isBrand || isProc)
             ? { iban, bank_name: bankName, account_holder: accountHolder, swift_bic: swiftBic }
             : { shipping_address: accountHolder, shipping_city: bankName, shipping_zip: iban, shipping_region: swiftBic }),
           agreement_version: "1.0",
@@ -4289,13 +4422,22 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
                 </div>
               ))}
             </div>
-            {/* Banking fields - for both brand and distributor */}
+            {/* I quattro campi cambiano significato col ruolo.
+
+                Fino al 27/10/2026 erano due casi soli: al brand si chiedeva
+                il conto, a tutti gli altri l'indirizzo di spedizione. Il
+                procacciatore finiva nel secondo gruppo, e cosi' l'unica
+                persona che dobbiamo PAGARE era l'unica a cui non chiedevamo
+                l'IBAN: i suoi quattro valori partivano come indirizzo di
+                consegna di una merce che non ricevera' mai. L'IBAN si
+                rincorreva poi a mano, il giorno della prima provvigione.
+                Adesso l'agente sta col brand: gli si chiede dove incassa. */}
             <div style={{ marginBottom:14 }}>
               <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:10 }}>
-                💳 {isBrand ? t("rgBankHdrBrand") : t("rgBankHdrDist")}
+                💳 {isBrand ? t("rgBankHdrBrand") : isProc ? t("rgBankHdrAgente") : t("rgBankHdrDist")}
               </div>
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
-                {(!isBrand ? [
+                {((!isBrand && !isProc) ? [
                   { label:t("rgAddr"), val:accountHolder, set:setAccountHolder, placeholder:t("rgAddrPh") },
                   { label:t("rgCity"), val:bankName, set:setBankName, placeholder:t("rgCityPh") },
                   { label:t("rgZip"), val:iban, set:setIban, placeholder:t("rgZipPh") },
@@ -4314,7 +4456,7 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
                 ))}
               </div>
               <div style={{ marginTop:8, padding:"8px 12px", background:`${C.gold}08`, border:`1px solid ${C.gold}20`, borderRadius:8, fontSize:11, color:C.textMuted }}>
-                💡 {isBrand ? t("rgBankInfoBrand") : t("rgBankInfoDist")}
+                💡 {isBrand ? t("rgBankInfoBrand") : isProc ? t("rgBankInfoAgente") : t("rgBankInfoDist")}
               </div>
             </div>
 
@@ -9750,10 +9892,20 @@ const AdminAgenti = ({ onVedi }) => {
 
     const ids = (ag || []).map(a => a.id);
     if (ids.length) {
-      const { data: pf } = await supabase.from("profiles")
-        .select("id, company_name, email, full_name, country, phone, created_at").in("id", ids);
+      /* Si prende anche la fatturazione: l'autofattura di una provvigione
+         vuole il codice univoco e la PEC dell'agente per partire davvero, e
+         l'IBAN per sapere dove finisce il bonifico. Finche' quei dati
+         stavano solo nella sua scheda, la fattura nasceva monca e qualcuno
+         doveva andarseli a cercare a mano il giorno del pagamento. */
+      const [{ data: pf }, { data: fb }] = await Promise.all([
+        supabase.from("profiles")
+          .select("id, company_name, email, full_name, country, phone, created_at").in("id", ids),
+        supabase.from("profile_billing")
+          .select("id, vat_number, sdi_code, pec_email, iban, bank_name, account_holder").in("id", ids),
+      ]);
       const m = {};
       (pf || []).forEach(p => { m[p.id] = p; });
+      (fb || []).forEach(b => { m[b.id] = { ...(m[b.id] || {}), ...b }; });
       setProfili(m);
     }
     const idNegozi = (ng || []).map(n => n.id);
@@ -9849,6 +10001,12 @@ const AdminAgenti = ({ onVedi }) => {
     if (!ag) return;
     const f = fiscalita(ag.paese);
     if (f.incerto) { alert(f.incerto); return; }
+    /* Senza IBAN il documento nasce, ma nessuno sa dove mandare i soldi: si
+       chiede conferma invece di scoprirlo in banca. */
+    if (!ag.iban && !pf.iban && !window.confirm(
+      "Questo agente non ha un IBAN in archivio: l'autofattura verra' emessa senza il conto di " +
+      "pagamento, e il bonifico non si potra' fare finche' non lo inserisce dal suo portale. Procedo lo stesso?"
+    )) return;
     setLavoro("pv" + riga.id);
     const imponibile = Number(riga.provvigione || 0);
     const iva = Math.round(imponibile * f.aliquota) / 100;
@@ -9872,9 +10030,20 @@ const AdminAgenti = ({ onVedi }) => {
         commission_rate: Number(riga.percentuale || 0),
         commission_amount: imponibile,
         status: "issued",
+        /* Dove si paga e come si trasmette, dentro il documento. L'IBAN sta
+           sulla scheda dell'agente (procacciatori.iban), codice univoco e PEC
+           sulla sua fatturazione: qui si fotografano al momento
+           dell'emissione, perche' se lui li cambia dopo, la fattura gia'
+           emessa deve continuare a dire dove i soldi sono andati. */
+        beneficiario_iban: ag.iban || pf.iban || null,
+        beneficiario_nome: ag.intestatario_conto || pf.account_holder || pf.company_name || null,
+        beneficiario_sdi: pf.sdi_code || null,
+        beneficiario_pec: pf.pec_email || null,
         notes: "Provvigione di procacciamento " + String(riga.mese).slice(0, 7) +
           " — " + riga.ordini + " ordini incassati per " + eur(riga.fatturato_incassato) +
-          " — " + f.nota,
+          " — " + f.nota +
+          " — Pagamento su " + (ag.iban || pf.iban || "IBAN MANCANTE") +
+          (ag.intestatario_conto ? " (" + ag.intestatario_conto + ")" : ""),
       });
       if (errF) { setLavoro(""); alert("Autofattura non creata: " + errF.message); return; }
     }
