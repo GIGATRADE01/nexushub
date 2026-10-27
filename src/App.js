@@ -1560,6 +1560,13 @@ Object.assign(T.ar,{ pcShopSdi:"رمز الفوترة الإلكترونية (SD
    l'AGENTE a GIGA TRADE, non il contrario. Qui trova tutto quello che gli
    serve per scriverla senza chiamare l'amministrazione. L'intestazione legale
    e' quella canonica (campagna.py), mai riscritta a memoria. */
+Object.assign(T.it,{ pcFattSdiNostro:"Codice destinatario:" });
+Object.assign(T.en,{ pcFattSdiNostro:"Recipient code (SDI):" });
+Object.assign(T.fr,{ pcFattSdiNostro:"Code destinataire (SDI) :" });
+Object.assign(T.es,{ pcFattSdiNostro:"Código destinatario (SDI):" });
+Object.assign(T.de,{ pcFattSdiNostro:"Empfängercode (SDI):" });
+Object.assign(T.zh,{ pcFattSdiNostro:"收件方代码 (SDI)：" });
+Object.assign(T.ar,{ pcFattSdiNostro:"رمز المستلم (SDI):" });
 Object.assign(T.it,{ pcFattDati:"Dati per la fattura", pcFattTitolo:"La tua fattura per il mese", pcFattSpiega:"La fattura la emetti tu a noi. Qui sotto trovi tutto quello che ti serve per scriverla: a chi intestarla, cosa scrivere nella voce, l'imponibile e il regime IVA.", pcFattA:"Intestala a", pcFattVoceHdr:"Descrizione della voce", pcFattVoce:"Provvigione di procacciamento d'affari — mese {m} — {n} ordini incassati per {f}, aliquota {p}%", pcFattImponibile:"Imponibile", pcFattRegime:"IVA", pcFattIva22:"IVA 22%, da addebitare in fattura.", pcFattReverse:"Inversione contabile, art. 7-ter DPR 633/72 — servizio B2B intra-UE: fattura senza IVA, con la dicitura \"inversione contabile\".", pcFattFuori:"Fuori campo IVA, art. 7-ter DPR 633/72 — operazione non soggetta.", pcFattIban:"Pagheremo su questo IBAN:", pcFattIbanVuoto:"nessun IBAN inserito — mettilo in «Il mio profilo»" });
 Object.assign(T.en,{ pcFattDati:"Invoice details", pcFattTitolo:"Your invoice for", pcFattSpiega:"You issue the invoice to us. Below is everything you need to write it: who to address it to, the line description, the taxable amount and the VAT treatment.", pcFattA:"Bill it to", pcFattVoceHdr:"Line description", pcFattVoce:"Business introduction commission — month {m} — {n} orders collected for {f}, rate {p}%", pcFattImponibile:"Taxable amount", pcFattRegime:"VAT", pcFattIva22:"22% Italian VAT, to be charged on the invoice.", pcFattReverse:"Reverse charge, art. 7-ter DPR 633/72 — intra-EU B2B service: invoice without VAT, stating \"reverse charge\".", pcFattFuori:"Outside the scope of Italian VAT, art. 7-ter DPR 633/72.", pcFattIban:"We will pay to this IBAN:", pcFattIbanVuoto:"no IBAN on file — add it under \"My profile\"" });
 Object.assign(T.fr,{ pcFattDati:"Données de facturation", pcFattTitolo:"Votre facture pour", pcFattSpiega:"C'est vous qui nous facturez. Vous trouverez ci-dessous tout le nécessaire : destinataire, libellé, base imposable et régime de TVA.", pcFattA:"À facturer à", pcFattVoceHdr:"Libellé", pcFattVoce:"Commission d'apport d'affaires — mois {m} — {n} commandes encaissées pour {f}, taux {p}%", pcFattImponibile:"Base imposable", pcFattRegime:"TVA", pcFattIva22:"TVA italienne 22 %, à facturer.", pcFattReverse:"Autoliquidation, art. 7-ter DPR 633/72 — prestation B2B intra-UE : facture sans TVA, mention \"autoliquidation\".", pcFattFuori:"Hors champ de la TVA italienne, art. 7-ter DPR 633/72.", pcFattIban:"Nous paierons sur cet IBAN :", pcFattIbanVuoto:"aucun IBAN enregistré — ajoutez-le dans « Mon profil »" });
@@ -3776,8 +3783,13 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                       <div style={{ fontSize:12, color:C.textDim, marginBottom:12, lineHeight:1.5 }}>{t("pcFattSpiega")}</div>
 
                       <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".07em", marginBottom:5 }}>{t("pcFattA")}</div>
+                      {/* Il codice destinatario serve a chi ci fattura: senza,
+                          la fattura elettronica non sa dove arrivare e finisce
+                          nel cassetto fiscale invece che da noi. */}
                       <div style={{ fontSize:13, color:C.text, lineHeight:1.65, marginBottom:12 }}>
-                        GIGA TRADE S.R.L.S.<br/>Via Ottavio Revel 6, 10121 Torino, Italia<br/>P.IVA IT13105910015
+                        GIGA TRADE S.R.L.S.<br/>Via Ottavio Revel 6, 10121 Torino, Italia<br/>
+                        P.IVA IT13105910015<br/>
+                        {t("pcFattSdiNostro")} <b style={{ color:C.goldLight }}>USAL8PV</b>
                       </div>
 
                       <div style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:".07em", marginBottom:5 }}>{t("pcFattVoceHdr")}</div>
