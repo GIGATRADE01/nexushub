@@ -1537,6 +1537,14 @@ Object.assign(T.es,{ pcSelTitle:"Selección", pcSelSub:"Tres preguntas. Las leem
 Object.assign(T.de,{ pcSelTitle:"Auswahl", pcSelSub:"Drei Fragen. Wir lesen sie vor den Dokumenten.", pcQ1:"An welche Geschäfte verkaufen Sie bereits? Nennen Sie sie.", pcQ1Ph:"Name des Geschäfts und Stadt, eines pro Zeile", pcQ2:"Was verkaufen Sie ihnen heute?", pcQ2Ph:"z. B. selektive Parfümerie, arabische Düfte", pcQ3:"Wie viele davon könnten in 30 Tagen für 500 € bestellen?", pcVersion:"Version", pcVessFallback:"Ich genehmige ausdrücklich die im Vertrag genannten Klauseln.", pcRegTitle:"Werden Sie NexusHub-Vermittler", pcRegSub:"Verkaufen Sie 548 Referenzen von 21 arabischen Häusern. Provision 6% bis 10%, auf den im Monat vereinnahmten Umsatz." });
 Object.assign(T.zh,{ pcSelTitle:"筛选", pcSelSub:"三个问题。我们在看文件之前先看这些。", pcQ1:"您目前已向哪些店铺供货？请列出名称。", pcQ1Ph:"店名与城市，每行一个", pcQ2:"您现在卖给他们什么？", pcQ2Ph:"例如：精品香水、阿拉伯香水", pcQ3:"其中有多少家能在30天内下500欧元的订单？", pcVersion:"版本", pcVessFallback:"本人特别同意合同中所列条款。", pcRegTitle:"成为 NexusHub 业务介绍人", pcRegSub:"在您的国家销售21个阿拉伯香水品牌的548个单品。佣金6%至10%，按当月实收计算。" });
 Object.assign(T.ar,{ pcSelTitle:"الاختيار", pcSelSub:"ثلاثة أسئلة. نقرأها قبل المستندات.", pcQ1:"ما المتاجر التي تبيع لها بالفعل؟ اذكر الأسماء.", pcQ1Ph:"اسم المتجر والمدينة، واحد في كل سطر", pcQ2:"ماذا تبيع لهم اليوم؟", pcQ2Ph:"مثال: عطور انتقائية، عطور عربية", pcQ3:"كم منهم يمكنه تقديم طلب بقيمة 500 يورو خلال 30 يومًا؟", pcVersion:"الإصدار", pcVessFallback:"أوافق تحديدًا على البنود المذكورة في العقد.", pcRegTitle:"كن وسيط أعمال لدى NexusHub", pcRegSub:"بع 548 مرجعًا من 21 دار عطور عربية. عمولة من 6% إلى 10%، على المحصّل شهريًا." });
+/* Il tasto che apre il cambio password dentro il portale dell'agente. */
+Object.assign(T.it,{ pcPwdBtn:"Password" });
+Object.assign(T.en,{ pcPwdBtn:"Password" });
+Object.assign(T.fr,{ pcPwdBtn:"Mot de passe" });
+Object.assign(T.es,{ pcPwdBtn:"Contraseña" });
+Object.assign(T.de,{ pcPwdBtn:"Passwort" });
+Object.assign(T.zh,{ pcPwdBtn:"密码" });
+Object.assign(T.ar,{ pcPwdBtn:"كلمة المرور" });
 /* Al procacciatore non chiediamo allegati all'iscrizione: questa riga prende
    il posto del riquadro dei documenti e dice quando glieli chiederemo. */
 Object.assign(T.it,{ pcNoDocs:"Nessun documento da caricare adesso. Visura e IBAN te li chiediamo quando c'è la prima provvigione da pagarti." });
@@ -3262,6 +3270,22 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
   const [esito, setEsito] = useState("");
   const [prenoto, setPrenoto] = useState({});
   const [liquidate, setLiquidate] = useState([]);
+  /* Il cambio password da dentro il pannello. Prima si poteva solo dal link
+     dell'email di recupero, e chi si iscrive con una PEC quel link non lo
+     riceve mai: le caselle certificate scartano la posta ordinaria. Qui la
+     sessione e' gia' aperta, quindi non serve nessun collegamento. */
+  const [cambioPwd, setCambioPwd] = useState(false);
+  const [pwdNuova, setPwdNuova] = useState("");
+  const [pwdConferma, setPwdConferma] = useState("");
+  const [pwdEsito, setPwdEsito] = useState("");
+  const salvaPassword = async () => {
+    if (pwdNuova.length < 8) { setPwdEsito(t("passwordShort")); return; }
+    if (pwdNuova !== pwdConferma) { setPwdEsito(t("passwordMismatch")); return; }
+    setPwdEsito(t("npSaving"));
+    const { error } = await supabase.auth.updateUser({ password: pwdNuova });
+    if (error) { setPwdEsito(t("npFail")); return; }
+    setPwdNuova(""); setPwdConferma(""); setPwdEsito(t("npDone"));
+  };
 
   const carica = useCallback(async () => {
     const { data: { user } } = await getUser();
@@ -3466,8 +3490,27 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
         <div style={{ fontSize:16, fontWeight:800, color:C.text }}>NexusHub</div>
         <span style={{ fontSize:10.5, padding:"3px 9px", borderRadius:20, background:C.gold+"18", color:C.goldLight, fontWeight:700, letterSpacing:".04em" }}>{t("pcPortal")}</span>
         {io_ && <span style={{ fontSize:12, color:C.textMuted, marginLeft:4 }}>{t("pcYourCode")} <b style={{ color:C.goldLight }}>{io_.codice}</b></span>}
-        <button onClick={onLogout} style={{ marginLeft:"auto", padding:"7px 14px", borderRadius:7, cursor:"pointer", background:"transparent", border:"1px solid "+C.border, color:C.textMuted, fontSize:12.5 }}>{t("logout")}</button>
+        <button onClick={() => { setCambioPwd(v => !v); setPwdEsito(""); }}
+          style={{ marginLeft:"auto", padding:"7px 14px", borderRadius:7, cursor:"pointer", background:"transparent", border:"1px solid "+C.border, color:C.textMuted, fontSize:12.5 }}>🔑 {t("pcPwdBtn")}</button>
+        <button onClick={onLogout} style={{ padding:"7px 14px", borderRadius:7, cursor:"pointer", background:"transparent", border:"1px solid "+C.border, color:C.textMuted, fontSize:12.5 }}>{t("logout")}</button>
       </div>
+
+      {cambioPwd && (
+        <div style={{ padding:"14px 20px", borderBottom:"1px solid "+C.border, background:C.surface2 }}>
+          <div style={{ fontSize:13, fontWeight:700, color:C.goldLight, marginBottom:10 }}>{t("npTitle")}</div>
+          <div style={{ display:"flex", gap:10, flexWrap:"wrap", alignItems:"center" }}>
+            <input type="password" value={pwdNuova} onChange={e => setPwdNuova(e.target.value)}
+              placeholder={t("password")} autoComplete="new-password"
+              style={{ padding:"10px 12px", borderRadius:8, background:C.surface, border:"1px solid "+C.border, color:C.text, fontSize:14, outline:"none", minWidth:210 }}/>
+            <input type="password" value={pwdConferma} onChange={e => setPwdConferma(e.target.value)}
+              placeholder={t("confirmPassword")} autoComplete="new-password"
+              style={{ padding:"10px 12px", borderRadius:8, background:C.surface, border:"1px solid "+C.border, color:C.text, fontSize:14, outline:"none", minWidth:210 }}/>
+            <button onClick={salvaPassword}
+              style={{ padding:"10px 18px", borderRadius:8, cursor:"pointer", border:"none", background:C.gold, color:C.bg, fontSize:13, fontWeight:800 }}>{t("npSave")}</button>
+            {pwdEsito && <span style={{ fontSize:12.5, color:C.textMuted }}>{pwdEsito}</span>}
+          </div>
+        </div>
+      )}
 
       <div style={{ display:"flex", gap:6, padding:"12px 20px 0", flexWrap:"wrap" }}>
         {[["guadagno", t("pcTabEarn")], ["andamento", t("pcTabTrend")], ["clienti", t("pcTabClients")], ["ordini", t("pcTabOrders")], ["preordini", t("pcTabPre")]].map(([k, l]) => (
