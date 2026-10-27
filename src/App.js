@@ -2645,7 +2645,19 @@ const Login = ({ onLogin, lang, onLangChange }) => {
     if (reg === "agente" || reg === "agent") {
       const l0 = (p.get("lang") || "").toLowerCase();
       if (l0 && onLangChange) onLangChange(l0);
-      window.history.replaceState({}, "", window.location.pathname);
+      /* Si ripulisce l'indirizzo MA si tiene il gclid (e i suoi fratelli
+         gbraid/wbraid). E' l'identificativo del clic: senza, Google non sa
+         che quella candidatura viene da un suo annuncio e la campagna
+         ottimizza al buio. Lo script del tag si carica in modo asincrono,
+         quindi cancellare la query qui poteva togliergli il parametro da
+         sotto i piedi prima che lo leggesse. (27/10/2026) */
+      const tieni = new URLSearchParams();
+      for (const k of ["gclid", "gbraid", "wbraid"]) {
+        const v = p.get(k);
+        if (v) tieni.set(k, v);
+      }
+      const coda = tieni.toString();
+      window.history.replaceState({}, "", window.location.pathname + (coda ? "?" + coda : ""));
       setView("register-agente");
       return;
     }
