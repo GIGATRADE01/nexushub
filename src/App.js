@@ -1593,6 +1593,18 @@ Object.assign(T.de,{ pcTabCatalogo:"Katalog", pcCatCerca:"Duft, Marke oder Code 
 Object.assign(T.zh,{ pcTabCatalogo:"产品目录", pcCatCerca:"搜索香水、品牌或编码…", pcCatQuante:"{t} 个中的 {n} 个", pcCatTutti:"全部品牌", pcCatPronti:"现货 {n}", pcCatOrdinazione:"可订货", pcCatTroppi:"另有 {n} 个：请细化搜索或选择品牌。", pcCatNiente:"没有符合条件的产品。" });
 Object.assign(T.ar,{ pcTabCatalogo:"الكتالوج", pcCatCerca:"ابحث عن عطر أو علامة أو رمز…", pcCatQuante:"{n} من {t} مرجعًا", pcCatTutti:"كل العلامات", pcCatPronti:"{n} متوفر", pcCatOrdinazione:"حسب الطلب", pcCatTroppi:"و{n} أخرى: ضيّق البحث أو اختر علامة.", pcCatNiente:"لا توجد مراجع بهذه المرشحات." });
 /* La scheda "Il mio profilo" nel portale dell'agente. */
+/* Ordinare DAL catalogo (27/10/2026). Il tasto "ordina per" stava solo nella
+   scheda Clienti: l'agente che sfoglia il catalogo in profumeria doveva uscire,
+   cambiare scheda e ritrovare il negozio. Qui scegli il negozio e ordini da
+   dove stai guardando la merce. */
+Object.assign(T.it,{ pcCatPerChi:"Ordina per il negozio…", pcCatOrdina:"Entra e ordina", pcCatServeCliente:"Per battere un ordine ti serve un cliente approvato: registralo nella scheda Clienti, noi lo approviamo e poi torni qui." });
+Object.assign(T.en,{ pcCatPerChi:"Order for the shop…", pcCatOrdina:"Open and order", pcCatServeCliente:"To place an order you need an approved client: register one in the Clients tab, we approve it, then come back here." });
+Object.assign(T.fr,{ pcCatPerChi:"Commander pour la boutique…", pcCatOrdina:"Entrer et commander", pcCatServeCliente:"Pour passer une commande il vous faut un client approuvé : enregistrez-le dans l'onglet Clients, nous l'approuvons, puis revenez ici." });
+Object.assign(T.es,{ pcCatPerChi:"Pedir para la tienda…", pcCatOrdina:"Entrar y pedir", pcCatServeCliente:"Para hacer un pedido necesitas un cliente aprobado: regístralo en la pestaña Clientes, lo aprobamos y vuelves aquí." });
+Object.assign(T.de,{ pcCatPerChi:"Bestellen für das Geschäft…", pcCatOrdina:"Öffnen und bestellen", pcCatServeCliente:"Für eine Bestellung brauchen Sie einen freigegebenen Kunden: im Tab Kunden anmelden, wir geben ihn frei, dann hierher zurück." });
+Object.assign(T.zh,{ pcCatPerChi:"为门店下单…", pcCatOrdina:"进入并下单", pcCatServeCliente:"下单前需要一个已通过审核的客户：在“客户”标签中注册，我们审核后再回到这里。" });
+Object.assign(T.ar,{ pcCatPerChi:"اطلب لصالح المتجر…", pcCatOrdina:"ادخل واطلب", pcCatServeCliente:"لتسجيل طلب تحتاج إلى عميل معتمد: سجّله في تبويب العملاء، نعتمده، ثم عد إلى هنا." });
+
 Object.assign(T.it,{ pcTabProfilo:"Il mio profilo", pcProfState:"Stato incarico", pcProfAzienda:"I tuoi dati", pcShopProv:"Provincia", pcProfSave:"Salva i miei dati", pcProfSaving:"Salvataggio…", pcProfSaved:"Dati salvati.", pcProfFail:"Non sono riuscito a salvare. Riprova.", pcProfSdiNota:"Serve per la fattura elettronica delle tue provvigioni.", pcProfIbanNota:"È il conto su cui ti arriva il bonifico. Controllalo bene." });
 Object.assign(T.en,{ pcTabProfilo:"My profile", pcProfState:"Status", pcProfAzienda:"Your details", pcShopProv:"Province / region", pcProfSave:"Save my details", pcProfSaving:"Saving…", pcProfSaved:"Details saved.", pcProfFail:"Could not save. Please try again.", pcProfSdiNota:"Used for the e-invoice of your commission.", pcProfIbanNota:"This is the account your transfer lands in. Check it carefully." });
 Object.assign(T.fr,{ pcTabProfilo:"Mon profil", pcProfState:"Statut", pcProfAzienda:"Vos informations", pcShopProv:"Département / région", pcProfSave:"Enregistrer mes informations", pcProfSaving:"Enregistrement…", pcProfSaved:"Informations enregistrées.", pcProfFail:"Enregistrement impossible. Réessayez.", pcProfSdiNota:"Sert à la facture électronique de vos commissions.", pcProfIbanNota:"C'est le compte qui reçoit le virement. Vérifiez-le bien." });
@@ -3419,6 +3431,8 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
   const [marchi, setMarchi] = useState({});
   const [cercaCat, setCercaCat] = useState("");
   const [marchioCat, setMarchioCat] = useState(null);
+  /* Il negozio per cui si sta per ordinare, scelto dal catalogo. */
+  const [perChi, setPerChi] = useState("");
   /* L'agente corregge da solo i dati con cui lo paghiamo e gli fatturiamo.
      Niente che tocchi il suo codice o lo stato dell'incarico: quelli non sono
      suoi da cambiare. Un IBAN sbagliato, finche' stava solo
@@ -3981,6 +3995,45 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                   {t("pcCatQuante").replace("{n}", visti.length).replace("{t}", catalogo.length)}
                 </span>
               </div>
+              {/* Dal catalogo all'ordine senza cambiare scheda: si sceglie il
+                  negozio e si entra nel suo conto, che e' la stessa strada
+                  della scheda Clienti — un solo checkout, con gli sconti e le
+                  giacenze che valgono per tutti. */}
+              {Negozio && (() => {
+                const attivi = clienti.filter(c => c.status === "approved");
+                if (attivi.length === 0) {
+                  return (
+                    <div style={{ fontSize:12, color:C.textDim, background:C.surface2,
+                      border:"1px solid "+C.border, borderRadius:8, padding:"9px 11px", marginBottom:12 }}>
+                      {t("pcCatServeCliente")}
+                    </div>
+                  );
+                }
+                return (
+                  <div style={{ display:"flex", gap:8, flexWrap:"wrap", alignItems:"center", marginBottom:12 }}>
+                    <select value={perChi} onChange={e => setPerChi(e.target.value)}
+                      style={{ flex:"1 1 200px", padding:"9px 11px", borderRadius:8, background:C.surface2,
+                        border:"1px solid "+C.border, color:C.text, fontSize:13, outline:"none" }}>
+                      <option value="">{t("pcCatPerChi")}</option>
+                      {attivi.map(c => (
+                        <option key={c.id} value={c.id}>{c.company_name || c.email}</option>
+                      ))}
+                    </select>
+                    <button disabled={!perChi}
+                      onClick={() => {
+                        const c = attivi.find(x => x.id === perChi);
+                        if (c) setComeNegozio(c);
+                      }}
+                      style={{ padding:"9px 16px", borderRadius:8, fontSize:12.5, fontWeight:800,
+                        cursor: perChi ? "pointer" : "default", whiteSpace:"nowrap",
+                        background: perChi ? "linear-gradient(135deg,"+C.gold+","+C.goldDim+")" : C.surface2,
+                        border: perChi ? "none" : "1px solid "+C.border,
+                        color: perChi ? C.bg : C.textMuted }}>
+                      🛒 {t("pcCatOrdina")}
+                    </button>
+                  </div>
+                );
+              })()}
               <div style={{ display:"flex", gap:6, flexWrap:"wrap", marginBottom:14 }}>
                 <button onClick={() => setMarchioCat(null)} style={{
                   padding:"6px 12px", borderRadius:20, cursor:"pointer", fontSize:12,
