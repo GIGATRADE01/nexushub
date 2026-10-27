@@ -1583,6 +1583,15 @@ Object.assign(T.es,{ pcFattDati:"Datos para la factura", pcFattTitolo:"Tu factur
 Object.assign(T.de,{ pcFattDati:"Rechnungsdaten", pcFattTitolo:"Ihre Rechnung für", pcFattSpiega:"Die Rechnung stellen Sie uns. Unten finden Sie alles dafür: Empfänger, Leistungsbezeichnung, Nettobetrag und Umsatzsteuerbehandlung.", pcFattA:"Rechnungsempfänger", pcFattVoceHdr:"Leistungsbezeichnung", pcFattVoce:"Vermittlungsprovision — Monat {m} — {n} vereinnahmte Bestellungen über {f}, Satz {p}%", pcFattImponibile:"Nettobetrag", pcFattRegime:"USt", pcFattIva22:"22% italienische USt, in Rechnung zu stellen.", pcFattReverse:"Reverse Charge, Art. 7-ter DPR 633/72 — innergemeinschaftliche B2B-Leistung: Rechnung ohne USt.", pcFattFuori:"Nicht im Anwendungsbereich der italienischen USt, Art. 7-ter DPR 633/72.", pcFattIban:"Wir zahlen auf diese IBAN:", pcFattIbanVuoto:"keine IBAN hinterlegt — bitte unter „Mein Profil“ eintragen" });
 Object.assign(T.zh,{ pcFattDati:"开票信息", pcFattTitolo:"您当月的发票", pcFattSpiega:"发票由您开给我们。以下是开票所需的全部信息：抬头、项目说明、计税金额和增值税处理方式。", pcFattA:"抬头开给", pcFattVoceHdr:"项目说明", pcFattVoce:"业务介绍佣金 — {m} 月 — {n} 笔已收款订单，共 {f}，费率 {p}%", pcFattImponibile:"计税金额", pcFattRegime:"增值税", pcFattIva22:"意大利增值税 22%，需在发票中计收。", pcFattReverse:"反向征收，第 7-ter 条 DPR 633/72 — 欧盟内 B2B 服务：发票不含增值税。", pcFattFuori:"不属于意大利增值税范围，第 7-ter 条 DPR 633/72。", pcFattIban:"我们将付款至此 IBAN：", pcFattIbanVuoto:"未填写 IBAN — 请在“我的资料”中添加" });
 Object.assign(T.ar,{ pcFattDati:"بيانات الفاتورة", pcFattTitolo:"فاتورتك عن شهر", pcFattSpiega:"الفاتورة تصدرها أنت إلينا. تجد هنا كل ما تحتاجه لكتابتها: جهة الفاتورة، وصف البند، المبلغ الخاضع للضريبة ومعالجة ضريبة القيمة المضافة.", pcFattA:"الفاتورة باسم", pcFattVoceHdr:"وصف البند", pcFattVoce:"عمولة وساطة أعمال — شهر {m} — {n} طلبات محصّلة بقيمة {f}، بنسبة {p}%", pcFattImponibile:"المبلغ الخاضع للضريبة", pcFattRegime:"ضريبة القيمة المضافة", pcFattIva22:"ضريبة إيطالية 22%، تُحتسب في الفاتورة.", pcFattReverse:"الاحتساب العكسي، المادة 7-ter من المرسوم 633/72 — خدمة B2B داخل الاتحاد الأوروبي: فاتورة بدون ضريبة.", pcFattFuori:"خارج نطاق الضريبة الإيطالية، المادة 7-ter من المرسوم 633/72.", pcFattIban:"سندفع على هذا الآيبان:", pcFattIbanVuoto:"لا يوجد آيبان — أضفه في «ملفي»" });
+/* Il catalogo dentro il portale dell'agente: lo vede sempre, anche prima di
+   aver registrato il primo cliente. */
+Object.assign(T.it,{ pcTabCatalogo:"Catalogo", pcCatCerca:"Cerca un profumo, un marchio, un codice…", pcCatQuante:"{n} referenze su {t}", pcCatTutti:"Tutti i marchi", pcCatPronti:"{n} pronti", pcCatOrdinazione:"su ordinazione", pcCatTroppi:"Altre {n}: restringi con la ricerca o scegli un marchio.", pcCatNiente:"Nessuna referenza con questi filtri." });
+Object.assign(T.en,{ pcTabCatalogo:"Catalogue", pcCatCerca:"Search a fragrance, a brand, a code…", pcCatQuante:"{n} of {t} references", pcCatTutti:"All brands", pcCatPronti:"{n} in stock", pcCatOrdinazione:"on request", pcCatTroppi:"{n} more: narrow the search or pick a brand.", pcCatNiente:"No reference matches these filters." });
+Object.assign(T.fr,{ pcTabCatalogo:"Catalogue", pcCatCerca:"Chercher un parfum, une marque, un code…", pcCatQuante:"{n} références sur {t}", pcCatTutti:"Toutes les marques", pcCatPronti:"{n} en stock", pcCatOrdinazione:"sur commande", pcCatTroppi:"{n} autres : affinez la recherche ou choisissez une marque.", pcCatNiente:"Aucune référence avec ces filtres." });
+Object.assign(T.es,{ pcTabCatalogo:"Catálogo", pcCatCerca:"Busca un perfume, una marca, un código…", pcCatQuante:"{n} referencias de {t}", pcCatTutti:"Todas las marcas", pcCatPronti:"{n} en stock", pcCatOrdinazione:"bajo pedido", pcCatTroppi:"Otras {n}: afina la búsqueda o elige una marca.", pcCatNiente:"Ninguna referencia con estos filtros." });
+Object.assign(T.de,{ pcTabCatalogo:"Katalog", pcCatCerca:"Duft, Marke oder Code suchen…", pcCatQuante:"{n} von {t} Referenzen", pcCatTutti:"Alle Marken", pcCatPronti:"{n} auf Lager", pcCatOrdinazione:"auf Bestellung", pcCatTroppi:"{n} weitere: Suche eingrenzen oder Marke wählen.", pcCatNiente:"Keine Referenz mit diesen Filtern." });
+Object.assign(T.zh,{ pcTabCatalogo:"产品目录", pcCatCerca:"搜索香水、品牌或编码…", pcCatQuante:"{t} 个中的 {n} 个", pcCatTutti:"全部品牌", pcCatPronti:"现货 {n}", pcCatOrdinazione:"可订货", pcCatTroppi:"另有 {n} 个：请细化搜索或选择品牌。", pcCatNiente:"没有符合条件的产品。" });
+Object.assign(T.ar,{ pcTabCatalogo:"الكتالوج", pcCatCerca:"ابحث عن عطر أو علامة أو رمز…", pcCatQuante:"{n} من {t} مرجعًا", pcCatTutti:"كل العلامات", pcCatPronti:"{n} متوفر", pcCatOrdinazione:"حسب الطلب", pcCatTroppi:"و{n} أخرى: ضيّق البحث أو اختر علامة.", pcCatNiente:"لا توجد مراجع بهذه المرشحات." });
 /* La scheda "Il mio profilo" nel portale dell'agente. */
 Object.assign(T.it,{ pcTabProfilo:"Il mio profilo", pcProfState:"Stato incarico", pcProfAzienda:"I tuoi dati", pcShopProv:"Provincia", pcProfSave:"Salva i miei dati", pcProfSaving:"Salvataggio…", pcProfSaved:"Dati salvati.", pcProfFail:"Non sono riuscito a salvare. Riprova.", pcProfSdiNota:"Serve per la fattura elettronica delle tue provvigioni.", pcProfIbanNota:"È il conto su cui ti arriva il bonifico. Controllalo bene." });
 Object.assign(T.en,{ pcTabProfilo:"My profile", pcProfState:"Status", pcProfAzienda:"Your details", pcShopProv:"Province / region", pcProfSave:"Save my details", pcProfSaving:"Saving…", pcProfSaved:"Details saved.", pcProfFail:"Could not save. Please try again.", pcProfSdiNota:"Used for the e-invoice of your commission.", pcProfIbanNota:"This is the account your transfer lands in. Check it carefully." });
@@ -3406,6 +3415,10 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
   const [profilo, setProfilo] = useState(null);
   const [salvoProfilo, setSalvoProfilo] = useState("");
   const [riepilogo, setRiepilogo] = useState(null);
+  const [catalogo, setCatalogo] = useState([]);
+  const [marchi, setMarchi] = useState({});
+  const [cercaCat, setCercaCat] = useState("");
+  const [marchioCat, setMarchioCat] = useState(null);
   /* L'agente corregge da solo i dati con cui lo paghiamo e gli fatturiamo.
      Niente che tocchi il suo codice o lo stato dell'incarico: quelli non sono
      suoi da cambiare. Un IBAN sbagliato, finche' stava solo
@@ -3475,6 +3488,31 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
         .eq("id", user.id).maybeSingle(),
     ]);
     setProfilo({ ...(mioProfilo || {}), ...(mieFatturazione || {}) });
+
+    /* Il catalogo intero, anche senza un solo cliente registrato. Prima la
+       regola di accesso diceva "il procacciatore vede il catalogo dei suoi
+       negozi": chi non aveva ancora aperto un cliente non vedeva niente, ed e'
+       il contrario di come lavora un agente — entra in profumeria col catalogo
+       in mano, ed e' il catalogo che gli apre il cliente.
+       Si pagina a mano perche' PostgREST si ferma a 1000 righe e le referenze
+       sono quasi 1.400: un catalogo tagliato a tre quarti e' peggio di nessun
+       catalogo, perche' non sai cosa ti manca. */
+    const pezzi = [];
+    for (let da = 0; da < 3000; da += 500) {
+      const { data: lotto } = await supabase.from("products")
+        .select("id,name,sku,size,unit_price,image_url,brand_id,inventory(quantity_available,updated_at)")
+        .eq("is_active", true).order("name").range(da, da + 499);
+      pezzi.push(...(lotto || []));
+      if (!lotto || lotto.length < 500) break;
+    }
+    setCatalogo(pezzi);
+    const idMarchi = [...new Set(pezzi.map(x => x.brand_id).filter(Boolean))];
+    if (idMarchi.length) {
+      const { data: mk } = await supabase.from("profiles")
+        .select("id, company_name").in("id", idMarchi);
+      const m = {}; (mk || []).forEach(x => { m[x.id] = x.company_name; });
+      setMarchi(m);
+    }
     setCaricato(true);
   }, [getUser]);
 
@@ -3678,7 +3716,7 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
       )}
 
       <div style={{ display:"flex", gap:6, padding:"12px 20px 0", flexWrap:"wrap" }}>
-        {[["guadagno", t("pcTabEarn")], ["andamento", t("pcTabTrend")], ["clienti", t("pcTabClients")], ["ordini", t("pcTabOrders")], ["preordini", t("pcTabPre")], ["profilo", t("pcTabProfilo")]].map(([k, l]) => (
+        {[["guadagno", t("pcTabEarn")], ["catalogo", t("pcTabCatalogo")], ["andamento", t("pcTabTrend")], ["clienti", t("pcTabClients")], ["ordini", t("pcTabOrders")], ["preordini", t("pcTabPre")], ["profilo", t("pcTabProfilo")]].map(([k, l]) => (
           <button key={k} onClick={() => setTab(k)} style={{ padding:"8px 15px", borderRadius:8, cursor:"pointer", fontSize:13,
             fontWeight: tab===k ? 800 : 600, background: tab===k ? C.gold+"1C" : "transparent",
             border:"1px solid "+(tab===k ? C.gold : C.border), color: tab===k ? C.goldLight : C.textMuted }}>{l}</button>
@@ -3916,6 +3954,75 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                 })}
               </div>
             </>
+          );
+        })()}
+
+        {/* IL CATALOGO, sempre, anche senza un solo cliente (27/10/2026).
+            E' il foglio che l'agente apre davanti al negoziante: prezzo che il
+            negozio paga davvero, giacenza di stamattina, niente carrello —
+            ordinare resta legato a un cliente vero. */}
+        {tab === "catalogo" && (() => {
+          const q = cercaCat.trim().toLowerCase();
+          const visti = catalogo.filter(p =>
+            (!marchioCat || p.brand_id === marchioCat) &&
+            (!q || (p.name || "").toLowerCase().includes(q) ||
+                   (marchi[p.brand_id] || "").toLowerCase().includes(q) ||
+                   (p.sku || "").toLowerCase().includes(q)));
+          const pezziDi = (p) => (p.inventory && p.inventory.quantity_available) || 0;
+          const usati = [...new Set(catalogo.map(p => p.brand_id).filter(b => marchi[b]))]
+            .sort((a, b) => (marchi[a] || "").localeCompare(marchi[b] || ""));
+          return (
+            <div style={{ background:C.surface, border:"1px solid "+C.border, borderRadius:12, padding:"15px 18px" }}>
+              <div style={{ display:"flex", gap:10, flexWrap:"wrap", alignItems:"center", marginBottom:12 }}>
+                <input value={cercaCat} onChange={e => setCercaCat(e.target.value)}
+                  placeholder={t("pcCatCerca")}
+                  style={{ flex:"1 1 240px", padding:"10px 12px", borderRadius:8, background:C.surface2, border:"1px solid "+C.border, color:C.text, fontSize:13, outline:"none" }}/>
+                <span style={{ fontSize:12.5, color:C.textMuted }}>
+                  {t("pcCatQuante").replace("{n}", visti.length).replace("{t}", catalogo.length)}
+                </span>
+              </div>
+              <div style={{ display:"flex", gap:6, flexWrap:"wrap", marginBottom:14 }}>
+                <button onClick={() => setMarchioCat(null)} style={{
+                  padding:"6px 12px", borderRadius:20, cursor:"pointer", fontSize:12,
+                  background: marchioCat ? "transparent" : C.gold+"1C",
+                  border:"1px solid "+(marchioCat ? C.border : C.gold),
+                  color: marchioCat ? C.textMuted : C.goldLight }}>{t("pcCatTutti")}</button>
+                {usati.map(b => (
+                  <button key={b} onClick={() => setMarchioCat(marchioCat === b ? null : b)} style={{
+                    padding:"6px 12px", borderRadius:20, cursor:"pointer", fontSize:12,
+                    background: marchioCat === b ? C.gold+"1C" : "transparent",
+                    border:"1px solid "+(marchioCat === b ? C.gold : C.border),
+                    color: marchioCat === b ? C.goldLight : C.textMuted }}>{marchi[b]}</button>
+                ))}
+              </div>
+              {visti.slice(0, 400).map(p => {
+                const n = pezziDi(p);
+                return (
+                  <div key={p.id} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", gap:10, flexWrap:"wrap", padding:"9px 0", borderTop:"1px solid "+C.border }}>
+                    <div style={{ minWidth:0 }}>
+                      <div style={{ fontSize:13.5, fontWeight:700, color:C.text }}>{p.name}</div>
+                      <div style={{ fontSize:11.5, color:C.textDim }}>
+                        {marchi[p.brand_id] || ""}{p.size ? " · " + p.size : ""}
+                      </div>
+                    </div>
+                    <div style={{ textAlign:"right" }}>
+                      <div style={{ fontSize:14, fontWeight:800, color:C.goldLight }}>{eur(p.unit_price)}</div>
+                      <div style={{ fontSize:11, color: n > 0 ? C.green : C.textDim }}>
+                        {n > 0 ? t("pcCatPronti").replace("{n}", n) : t("pcCatOrdinazione")}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+              {visti.length > 400 && (
+                <div style={{ fontSize:12, color:C.textDim, paddingTop:12 }}>
+                  {t("pcCatTroppi").replace("{n}", visti.length - 400)}
+                </div>
+              )}
+              {visti.length === 0 && (
+                <div style={{ fontSize:13, color:C.textMuted, padding:"14px 0" }}>{t("pcCatNiente")}</div>
+              )}
+            </div>
           );
         })()}
 
