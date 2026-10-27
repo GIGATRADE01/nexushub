@@ -7803,11 +7803,23 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
   const [realProducts, setRealProducts] = useState([]);
   const [tiers, setTiers] = useState({});
   const [catSearch, setCatSearch] = useState("");
-  /* Si parte da quello che si puo' comprare. Vedi la nota accanto alle
-     etichette cfOnly/cfAll: il catalogo mostrava 1.389 referenze di cui 842
-     esaurite, e chi si registrava trovava un negozio piu' vuoto della vetrina
-     pubblica che lo aveva convinto a registrarsi. */
-  const [soloPronti, setSoloPronti] = useState(true);
+  /* Si parte dal catalogo INTERO, esaurite comprese (27/10/2026).
+
+     Dal 26/10 si partiva da "solo disponibili": il negozio appena registrato
+     trovava 1.389 referenze di cui 842 esaurite e sembrava piu' vuoto della
+     vetrina pubblica che lo aveva convinto a iscriversi. Il filtro risolveva
+     quello e ne apriva uno peggiore: spariva tutto cio' che non e' a terra
+     oggi — Canéza per intero (29 referenze su 29), 242 Lattafa, 153 Maison
+     Alhambra, i deodoranti. Ordine di Andrea: "ricarica anche le cose che non
+     sono disponibili ora, ma almeno sia l'agente che il cliente le possono
+     vedere".
+
+     Ha ragione, e il motivo e' commerciale prima che tecnico: l'agente entra
+     in profumeria e deve far vedere la gamma della casa, non l'inventario del
+     martedi'. Un profumo esaurito si ordina lo stesso, arriva col lotto dopo.
+     Chi vuole vedere solo cio' che parte domani preme il tasto: il filtro
+     resta, cambia solo da che parte si parte. */
+  const [soloPronti, setSoloPronti] = useState(false);
   const [catBrandFilter, setCatBrandFilter] = useState(null); // null = tutti i brand; id = solo quel brand
   const [bonificoInfo, setBonificoInfo] = useState(null);
   const [payCoords, setPayCoords] = useState(null);
@@ -8641,13 +8653,14 @@ const DistributorDashboard = ({ onLogout, lang, onLangChange, comeUtente = null 
                     background: soloPronti ? C.green : C.surface2,
                     color: soloPronti ? "#0b0b0b" : C.text,
                     border:`1px solid ${soloPronti ? C.green : C.border}` }}>
-                    {soloPronti ? `✓ ${t("cfOnly")}` : t("cfAll")}
+                    {soloPronti ? `✓ ${t("cfOnly")}` : t("cfOnly")}
                   </button>
-                  {soloPronti && (
-                    <span style={{ fontSize:12, color:C.textMuted }}>
-                      {t("cfHidden").replace("{n}", nascoste)}
-                    </span>
-                  )}
+                  {/* Acceso: quante ne sta nascondendo. Spento: quante di quelle
+                      che vede sono da pre-ordinare, cosi' sa cosa sta guardando
+                      prima di proporle a un negozio. */}
+                  <span style={{ fontSize:12, color:C.textMuted }}>
+                    {t("cfHidden").replace("{n}", nascoste)}
+                  </span>
                 </div>
               );
             })()}
