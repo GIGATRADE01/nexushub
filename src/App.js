@@ -1511,6 +1511,18 @@ Object.assign(T.de,{ pcNewShopNote:"Das Gesch\u00e4ft entsteht unter Ihrem Code 
 Object.assign(T.zh,{ pcNewShopNote:"\u5e97\u94fa\u5728\u60a8\u7684\u4ee3\u7801 {c} \u4e0b\u521b\u5efa\uff0c\u5e76\u7acb\u5373\u751f\u6548\uff1a\u4eca\u5929\u5c31\u53ef\u4ee5\u767b\u5f55\u4e0b\u5355\u3002", pcShopSaved:"\u5e97\u94fa\u5df2\u6ce8\u518c\u5e76\u6fc0\u6d3b\u3002\u8bf7\u544a\u77e5\u90ae\u7bb1\u548c\u4e34\u65f6\u5bc6\u7801\uff0c\u53ef\u7acb\u5373\u4e0b\u5355\u3002" });
 Object.assign(T.ar,{ pcNewShopNote:"\u064a\u064f\u0646\u0634\u0623 \u0627\u0644\u0645\u062a\u062c\u0631 \u062a\u062d\u062a \u0631\u0645\u0632\u0643 {c} \u0648\u064a\u0635\u0628\u062d \u0646\u0634\u0637\u064b\u0627 \u0641\u0648\u0631\u064b\u0627: \u064a\u0645\u0643\u0646\u0647 \u0627\u0644\u062f\u062e\u0648\u0644 \u0648\u0627\u0644\u0637\u0644\u0628 \u0627\u0644\u064a\u0648\u0645.", pcShopSaved:"\u062a\u0645 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u0645\u062a\u062c\u0631 \u0648\u062a\u0641\u0639\u064a\u0644\u0647. \u0627\u0645\u0646\u062d\u0647 \u0627\u0644\u0628\u0631\u064a\u062f \u0648\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631 \u0627\u0644\u0645\u0624\u0642\u062a\u0629." });
 
+/* 28/10/2026: l'indirizzo era uno solo e serviva a due cose diverse. Quello
+   che va stampato in fattura e' la sede legale, che spesso non e' il negozio
+   dove scarica il corriere. Se la sede resta vuota, in fattura si usa
+   l'indirizzo di consegna. */
+Object.assign(T.en,{ pcShopBillAddr:"Registered address (invoice)", pcShopBillCity:"Registered office \u2014 city", pcShopBillZip:"Registered office \u2014 ZIP", rgBillAddr:"Registered address (for invoicing)", rgBillAddrPh:"Leave empty if it is the same as the delivery address", rgBillCity:"Registered office \u2014 city", rgBillZip:"Registered office \u2014 ZIP" });
+Object.assign(T.it,{ pcShopBillAddr:"Sede legale (per la fattura)", pcShopBillCity:"Sede legale \u2014 citt\u00e0", pcShopBillZip:"Sede legale \u2014 CAP", rgBillAddr:"Sede legale (per la fattura)", rgBillAddrPh:"Lascia vuoto se coincide con l'indirizzo di consegna", rgBillCity:"Sede legale \u2014 citt\u00e0", rgBillZip:"Sede legale \u2014 CAP" });
+Object.assign(T.fr,{ pcShopBillAddr:"Si\u00e8ge social (facture)", pcShopBillCity:"Si\u00e8ge \u2014 ville", pcShopBillZip:"Si\u00e8ge \u2014 code postal", rgBillAddr:"Si\u00e8ge social (pour la facture)", rgBillAddrPh:"Laissez vide si identique \u00e0 l'adresse de livraison", rgBillCity:"Si\u00e8ge \u2014 ville", rgBillZip:"Si\u00e8ge \u2014 code postal" });
+Object.assign(T.es,{ pcShopBillAddr:"Domicilio fiscal (factura)", pcShopBillCity:"Domicilio fiscal \u2014 ciudad", pcShopBillZip:"Domicilio fiscal \u2014 C.P.", rgBillAddr:"Domicilio fiscal (para la factura)", rgBillAddrPh:"D\u00e9jalo vac\u00edo si coincide con la direcci\u00f3n de entrega", rgBillCity:"Domicilio fiscal \u2014 ciudad", rgBillZip:"Domicilio fiscal \u2014 C.P." });
+Object.assign(T.de,{ pcShopBillAddr:"Firmensitz (Rechnung)", pcShopBillCity:"Firmensitz \u2014 Stadt", pcShopBillZip:"Firmensitz \u2014 PLZ", rgBillAddr:"Firmensitz (f\u00fcr die Rechnung)", rgBillAddrPh:"Leer lassen, wenn identisch mit der Lieferadresse", rgBillCity:"Firmensitz \u2014 Stadt", rgBillZip:"Firmensitz \u2014 PLZ" });
+Object.assign(T.zh,{ pcShopBillAddr:"\u6ce8\u518c\u5730\u5740\uff08\u53d1\u7968\uff09", pcShopBillCity:"\u6ce8\u518c\u5730\u2014\u2014\u57ce\u5e02", pcShopBillZip:"\u6ce8\u518c\u5730\u2014\u2014\u90ae\u7f16", rgBillAddr:"\u6ce8\u518c\u5730\u5740\uff08\u7528\u4e8e\u5f00\u7968\uff09", rgBillAddrPh:"\u82e5\u4e0e\u6536\u8d27\u5730\u5740\u76f8\u540c\u5219\u7559\u7a7a", rgBillCity:"\u6ce8\u518c\u5730\u2014\u2014\u57ce\u5e02", rgBillZip:"\u6ce8\u518c\u5730\u2014\u2014\u90ae\u7f16" });
+Object.assign(T.ar,{ pcShopBillAddr:"\u0627\u0644\u0639\u0646\u0648\u0627\u0646 \u0627\u0644\u0645\u0633\u062c\u0644 (\u0627\u0644\u0641\u0627\u062a\u0648\u0631\u0629)", pcShopBillCity:"\u0627\u0644\u0645\u0642\u0631 \u2014 \u0627\u0644\u0645\u062f\u064a\u0646\u0629", pcShopBillZip:"\u0627\u0644\u0645\u0642\u0631 \u2014 \u0627\u0644\u0631\u0645\u0632 \u0627\u0644\u0628\u0631\u064a\u062f\u064a", rgBillAddr:"\u0627\u0644\u0639\u0646\u0648\u0627\u0646 \u0627\u0644\u0645\u0633\u062c\u0644 (\u0644\u0644\u0641\u0627\u062a\u0648\u0631\u0629)", rgBillAddrPh:"\u0627\u062a\u0631\u0643\u0647 \u0641\u0627\u0631\u063a\u064b\u0627 \u0625\u0646 \u0643\u0627\u0646 \u0645\u0637\u0627\u0628\u0642\u064b\u0627 \u0644\u0639\u0646\u0648\u0627\u0646 \u0627\u0644\u062a\u0633\u0644\u064a\u0645", rgBillCity:"\u0627\u0644\u0645\u0642\u0631 \u2014 \u0627\u0644\u0645\u062f\u064a\u0646\u0629", rgBillZip:"\u0627\u0644\u0645\u0642\u0631 \u2014 \u0627\u0644\u0631\u0645\u0632 \u0627\u0644\u0628\u0631\u064a\u062f\u064a" });
+
 /* L'occhietto della password. */
 Object.assign(T.en,{ pwMostra:"Show password", pwNascondi:"Hide password" });
 Object.assign(T.it,{ pwMostra:"Mostra la password", pwNascondi:"Nascondi la password" });
@@ -3457,7 +3469,8 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
   const [comeNegozio, setComeNegozio] = useState(null);
   const VUOTO = { company_name:"", full_name:"", email:"", password:"", phone:"",
                   country:"", shipping_city:"", shipping_address:"", shipping_zip:"",
-                  vat_number:"", tax_code:"", sdi_code:"", delivery_notes:"" };
+                  vat_number:"", tax_code:"", sdi_code:"", delivery_notes:"",
+                  billing_address:"", billing_city:"", billing_zip:"" };
   const [modulo, setModulo] = useState(false);
   const [nuovo, setNuovo] = useState(VUOTO);
   const [salvo, setSalvo] = useState(false);
@@ -4321,8 +4334,16 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                       vuole e la partita IVA non basta. */}
                   {campo(t("pcShopTax"), "tax_code")}
                   {campo(t("pcShopPhone"), "phone")}
-                  {campo(t("pcShopCity"), "shipping_city")}
+                  {/* SEDE LEGALE, separata dalla consegna (28/10/2026). Quella
+                      che va stampata in fattura spesso non e' il negozio: e'
+                      la sede della societa' o il domicilio del titolare. Con
+                      un campo solo la fattura usciva con l'indirizzo del
+                      negozio, che e' sbagliato. Se coincidono si lascia vuota. */}
+                  {campo(t("pcShopBillAddr"), "billing_address")}
+                  {campo(t("pcShopBillCity"), "billing_city")}
+                  {campo(t("pcShopBillZip"), "billing_zip")}
                   {campo(t("pcShopAddr"), "shipping_address")}
+                  {campo(t("pcShopCity"), "shipping_city")}
                   {campo(t("pcShopZip"), "shipping_zip")}
                   {/* Il codice univoco serve alla fattura elettronica, che
                       fuori dall'Italia non esiste. Prima compariva SOLO con il
@@ -4547,6 +4568,10 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
   const [vatNumber, setVatNumber] = useState("");
   const [taxCode, setTaxCode] = useState("");
   const [deliveryNotes, setDeliveryNotes] = useState("");
+  /* Sede legale: quella che finisce in fattura. Spesso non e' il negozio. */
+  const [billingAddress, setBillingAddress] = useState("");
+  const [billingCity, setBillingCity] = useState("");
+  const [billingZip, setBillingZip] = useState("");
   /* Chi arriva mandato da un agente scrive qui il suo codice: e' l'unico
      modo che ha l'agente di prendersi anche i negozi che si iscrivono da
      soli dopo una sua visita. */
@@ -4672,6 +4697,9 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
           vat_number: vatNumber,
           tax_code: taxCode || null,
           delivery_notes: deliveryNotes || null,
+          billing_address: billingAddress || null,
+          billing_city: billingCity || null,
+          billing_zip: billingZip || null,
           procacciatore_codice: codiceAgente.trim() ? codiceAgente.trim().toUpperCase() : null,
           sdi_code: isItaly ? sdiCode : null,
           pec_email: isItaly ? pecEmail : null,
@@ -4908,6 +4936,17 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
                     placeholder={t("rgTaxCodePh")}
                     style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, outline:"none", boxSizing:"border-box" }}/>
                 </div>
+                {/* Sede legale: e' quella che va in fattura, e spesso non e'
+                    il negozio dove arriva la merce. Vuota = si usa quello. */}
+                {[{ l:t("rgBillAddr"), v:billingAddress, s:setBillingAddress, ph:t("rgBillAddrPh"), full:true },
+                  { l:t("rgBillCity"), v:billingCity, s:setBillingCity, ph:"" },
+                  { l:t("rgBillZip"), v:billingZip, s:setBillingZip, ph:"" }].map(({l,v,s,ph,full}) => (
+                  <div key={l} style={full ? { gridColumn:"1/-1" } : undefined}>
+                    <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:5 }}>{l}</label>
+                    <input type="text" value={v} onChange={e=>s(e.target.value)} placeholder={ph}
+                      style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, outline:"none", boxSizing:"border-box" }}/>
+                  </div>
+                ))}
                 {/* SDI solo per Italia */}
                 {(country === "Italia" || country === "Italy" || country === "IT") && (
                   <>

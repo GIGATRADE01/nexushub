@@ -177,6 +177,11 @@ serve(async (req) => {
     /* Codice fiscale: su una ditta individuale la fattura lo vuole e la
        partita IVA non basta. */
     tax_code: testo(b.tax_code, 40),
+    /* Sede legale: va in fattura e spesso non e' il negozio. Se non la danno
+       resta vuota e in fattura si usa l'indirizzo di consegna. */
+    billing_address: testo(b.billing_address),
+    billing_city: testo(b.billing_city, 80),
+    billing_zip: testo(b.billing_zip, 20),
     sdi_code: testo(b.sdi_code, 20),
     pec_email: testo(b.pec_email, 160),
     ...((isBrand || isProc) ? {
