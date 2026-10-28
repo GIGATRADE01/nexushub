@@ -4301,9 +4301,14 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                   {campo(t("pcShopCity"), "shipping_city")}
                   {campo(t("pcShopAddr"), "shipping_address")}
                   {campo(t("pcShopZip"), "shipping_zip")}
-                  {/* Il codice univoco compare solo quando il paese e' l'Italia:
-                      serve alla fattura elettronica, che altrove non esiste. */}
-                  {italiano(nuovo.country) && campo(t("pcShopSdi"), "sdi_code")}
+                  {/* Il codice univoco serve alla fattura elettronica, che
+                      fuori dall'Italia non esiste. Prima compariva SOLO con il
+                      paese gia' scelto, e il paese quasi nessuno lo compila per
+                      primo: il campo non si vedeva e si registrava un negozio
+                      italiano senza codice univoco, che poi la fattura non sa
+                      dove mandare. Ora c'e' finche' il paese e' vuoto o e'
+                      l'Italia, e sparisce solo se si sceglie davvero l'estero. */}
+                  {(!nuovo.country || italiano(nuovo.country)) && campo(t("pcShopSdi"), "sdi_code")}
                 </div>
                 {/* Orari, interno, citofono: le sa solo il negozio, e un
                     corriere che trova chiuso costa una seconda spedizione.
@@ -4318,7 +4323,7 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                       background:C.surface2, border:"1px solid "+C.border, color:C.text,
                       boxSizing:"border-box", resize:"vertical", fontFamily:"inherit" }}/>
                 </label>
-                {italiano(nuovo.country) && (
+                {(!nuovo.country || italiano(nuovo.country)) && (
                   <div style={{ fontSize:11.5, color:C.textDim, marginTop:8, lineHeight:1.5 }}>{t("pcShopSdiHint")}</div>
                 )}
 
