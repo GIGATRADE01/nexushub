@@ -4345,14 +4345,12 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                   {campo(t("pcShopAddr"), "shipping_address")}
                   {campo(t("pcShopCity"), "shipping_city")}
                   {campo(t("pcShopZip"), "shipping_zip")}
-                  {/* Il codice univoco serve alla fattura elettronica, che
-                      fuori dall'Italia non esiste. Prima compariva SOLO con il
-                      paese gia' scelto, e il paese quasi nessuno lo compila per
-                      primo: il campo non si vedeva e si registrava un negozio
-                      italiano senza codice univoco, che poi la fattura non sa
-                      dove mandare. Ora c'e' finche' il paese e' vuoto o e'
-                      l'Italia, e sparisce solo se si sceglie davvero l'estero. */}
-                  {(!nuovo.country || italiano(nuovo.country)) && campo(t("pcShopSdi"), "sdi_code")}
+                  {/* Il codice univoco serve alla fattura elettronica italiana
+                      e fuori dall'Italia non esiste: a un negozio spagnolo non
+                      si chiede. Compare solo con l'Italia selezionata — e non
+                      e' piu' un problema che si nasconda, perche' il paese ora
+                      e' il terzo campo del modulo e si sceglie subito. */}
+                  {italiano(nuovo.country) && campo(t("pcShopSdi"), "sdi_code")}
                 </div>
                 {/* Orari, interno, citofono: le sa solo il negozio, e un
                     corriere che trova chiuso costa una seconda spedizione.
@@ -4367,7 +4365,7 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                       background:C.surface2, border:"1px solid "+C.border, color:C.text,
                       boxSizing:"border-box", resize:"vertical", fontFamily:"inherit" }}/>
                 </label>
-                {(!nuovo.country || italiano(nuovo.country)) && (
+                {italiano(nuovo.country) && (
                   <div style={{ fontSize:11.5, color:C.textDim, marginTop:8, lineHeight:1.5 }}>{t("pcShopSdiHint")}</div>
                 )}
 
