@@ -4652,7 +4652,11 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
       const { data: regOk } = await supabase.rpc("registrations_open");
       if (regOk === false) { setError(t("regClosedMsg")); setLoading(false); return; }
 
-      const isItaly = country === "Italia" || country === "Italy" || country === "IT";
+      /* Una regola sola per i due moduli: `italiano()` e' la stessa che usa il
+         portale dell'agente. Prima qui c'era un elenco di tre scritture e li'
+         un'altra funzione, e due regole per la stessa domanda prima o poi
+         rispondono diverso. */
+      const isItaly = italiano(country);
 
       /* Senza sito, una catena o un e-commerce non si registra: e' il solo
          dato che ci dice, prima di spedirgli merce, con chi abbiamo a che
@@ -4694,10 +4698,10 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
           billing_address: billingAddress || null,
           procacciatore_codice: codiceAgente.trim() ? codiceAgente.trim().toUpperCase() : null,
           sdi_code: isItaly ? sdiCode : null,
-          pec_email: isItaly ? pecEmail : null,
+          pec_email: (isItaly && (isBrand || isProc)) ? pecEmail : null,
           ...((isBrand || isProc)
             ? { iban, bank_name: bankName, account_holder: accountHolder, swift_bic: swiftBic }
-            : { shipping_address: accountHolder, shipping_city: bankName, shipping_zip: iban, shipping_region: swiftBic }),
+            : { shipping_address: accountHolder, shipping_city: bankName, shipping_zip: iban }),
           agreement_version: "1.0",
           ...(isProc ? {
             negozi_gia_serviti: negozi,
@@ -4875,7 +4879,10 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
                   { label:t("rgAddr"), val:accountHolder, set:setAccountHolder, placeholder:t("rgAddrPh") },
                   { label:t("rgCity"), val:bankName, set:setBankName, placeholder:t("rgCityPh") },
                   { label:t("rgZip"), val:iban, set:setIban, placeholder:t("rgZipPh") },
-                  { label:t("rgProvince"), val:swiftBic, set:setSwiftBic, placeholder:t("rgProvincePh") },
+                  /* 28/10/2026: la provincia non c'e' piu'. Il modulo che usa
+                     l'agente dentro il negozio non la chiede, e il CAP la dice
+                     da solo: era un campo in piu' da riempire che non aggiunge
+                     un dato. I due moduli ora chiedono le stesse cose. */
                 ] : [
                   { label:t("rgAcctHolder"), val:accountHolder, set:setAccountHolder, placeholder:t("rgAcctHolderPh") },
                   { label:t("rgBank"), val:bankName, set:setBankName, placeholder:t("rgBankPh") },
@@ -4937,7 +4944,7 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
                     style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, outline:"none", boxSizing:"border-box" }}/>
                 </div>
                 {/* SDI solo per Italia */}
-                {(country === "Italia" || country === "Italy" || country === "IT") && (
+                {italiano(country) && (
                   <>
                     <div>
                       <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:5 }}>{t("rgSdi")}</label>
@@ -4945,12 +4952,21 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
                         placeholder={t("rgSdiPh")}
                         style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, outline:"none", boxSizing:"border-box" }}/>
                     </div>
+                    {/* La PEC la chiediamo solo a chi dobbiamo PAGARE (brand e
+                        agenti): li' e' il recapito della fattura che ci mandano
+                        loro. Al negozio no: per fatturargli basta il codice
+                        univoco, e senza nemmeno quello la fattura esce a
+                        0000000 e lui la ritira dal portale dell'Agenzia. Un
+                        campo che non cambia niente, su un modulo che deve
+                        essere corto, e' un campo che fa abbandonare. */}
+                    {(isBrand || isProc) && (
                     <div style={{ gridColumn:"1/-1" }}>
                       <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:5 }}>{t("rgPec")}</label>
                       <input type="email" value={pecEmail} onChange={e=>setPecEmail(e.target.value)}
                         placeholder={t("rgPecPh")}
                         style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, outline:"none", boxSizing:"border-box" }}/>
                     </div>
+                    )}
                   </>
                 )}
               </div>
