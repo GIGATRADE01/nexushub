@@ -2978,7 +2978,14 @@ const Login = ({ onLogin, lang, onLangChange }) => {
                   documento, e paga quando l'IBAN e la ragione sociale
                   coincidono con la visura. La registrazione resta, ma sotto,
                   come link di testo: chi vuole guardare tutto guarda. */}
-              <a href={`mailto:andrea@nexushub.trade?subject=${encodeURIComponent(t("vtCta"))}&body=${encodeURIComponent(t("vtCtaSotto"))}`}
+              {/* La conversione che mancava (28/10/2026). Registrazione e ordine
+                  stanno in fondo all'imbuto: con diciannove clic Google non ha
+                  mai avuto niente da imparare, e la campagna ha smesso di
+                  servire. Questo invece e' il gesto che un negozio fa davvero
+                  al primo contatto — chiedere la proforma — ed e' l'unico
+                  segnale commerciale che arriva in tempo utile. */}
+              <a onClick={() => gadsConversione(process.env.REACT_APP_GADS_PRO)}
+                href={`mailto:andrea@nexushub.trade?subject=${encodeURIComponent(t("vtCta"))}&body=${encodeURIComponent(t("vtCtaSotto"))}`}
                 style={{ display:"block", width:"100%", padding:"13px", borderRadius:11, cursor:"pointer",
                          background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none",
                          color:C.bg, fontSize:14, fontWeight:800, textAlign:"center",
