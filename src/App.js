@@ -1466,6 +1466,39 @@ Object.assign(T.de,{ diRisultati:"Ergebnisse f\u00fcr" });
 Object.assign(T.zh,{ diRisultati:"\u641c\u7d22\u7ed3\u679c\uff1a" });
 Object.assign(T.ar,{ diRisultati:"\u0646\u062a\u0627\u0626\u062c \u0627\u0644\u0628\u062d\u062b \u0639\u0646" });
 
+/* Modulo dell'agente (28/10/2026): la mail dell'agente al posto di quella del
+   negozio, e la password che gliela diamo noi invece di fargliela inventare. */
+Object.assign(T.en,{ pcShopMailMia:"That is your own email address — the browser filled it in. Write the shop's email instead, otherwise the account would be created in your name.", pcShopPwdNota:"We generate it for you — read it out to the shop. They can change it from the key icon once inside." });
+Object.assign(T.it,{ pcShopMailMia:"Questa \u00e8 la tua email \u2014 l'ha messa il browser da solo. Scrivi quella del negozio, altrimenti l'account nascerebbe a tuo nome.", pcShopPwdNota:"La generiamo noi: dettala al negozio. Potr\u00e0 cambiarla dal tasto con la chiave appena entra." });
+Object.assign(T.fr,{ pcShopMailMia:"C'est votre propre adresse e-mail \u2014 le navigateur l'a remplie. Saisissez celle du magasin, sinon le compte serait cr\u00e9\u00e9 \u00e0 votre nom.", pcShopPwdNota:"Nous la g\u00e9n\u00e9rons : dictez-la au magasin. Il pourra la changer via l'ic\u00f4ne cl\u00e9 une fois connect\u00e9." });
+Object.assign(T.es,{ pcShopMailMia:"Ese es tu propio correo \u2014 lo ha rellenado el navegador. Escribe el de la tienda, o la cuenta se crear\u00eda a tu nombre.", pcShopPwdNota:"La generamos nosotros: d\u00edctala a la tienda. Podr\u00e1 cambiarla con el icono de la llave al entrar." });
+Object.assign(T.de,{ pcShopMailMia:"Das ist Ihre eigene E-Mail-Adresse \u2014 der Browser hat sie eingetragen. Bitte die des Gesch\u00e4fts eingeben, sonst entsteht das Konto auf Ihren Namen.", pcShopPwdNota:"Wir erzeugen sie f\u00fcr Sie \u2014 diktieren Sie sie dem Gesch\u00e4ft. \u00c4nderung sp\u00e4ter \u00fcber das Schl\u00fcssel-Symbol." });
+Object.assign(T.zh,{ pcShopMailMia:"\u8fd9\u662f\u60a8\u81ea\u5df1\u7684\u90ae\u7bb1\uff0c\u662f\u6d4f\u89c8\u5668\u81ea\u52a8\u586b\u5165\u7684\u3002\u8bf7\u586b\u5e97\u94fa\u7684\u90ae\u7bb1\uff0c\u5426\u5219\u8d26\u6237\u5c06\u5efa\u5728\u60a8\u540d\u4e0b\u3002", pcShopPwdNota:"\u7531\u6211\u4eec\u751f\u6210\uff1a\u8bf7\u544a\u77e5\u5e97\u94fa\u3002\u767b\u5f55\u540e\u53ef\u901a\u8fc7\u94a5\u5319\u56fe\u6807\u4fee\u6539\u3002" });
+Object.assign(T.ar,{ pcShopMailMia:"\u0647\u0630\u0627 \u0628\u0631\u064a\u062f\u0643 \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u2014 \u0627\u0644\u0645\u062a\u0635\u0641\u062d \u0645\u0644\u0623\u0647 \u062a\u0644\u0642\u0627\u0626\u064a\u064b\u0627. \u0627\u0643\u062a\u0628 \u0628\u0631\u064a\u062f \u0627\u0644\u0645\u062a\u062c\u0631 \u0628\u062f\u0644\u0627\u064b \u0645\u0646 \u0630\u0644\u0643.", pcShopPwdNota:"\u0646\u062d\u0646 \u0646\u064f\u0646\u0634\u0626\u0647\u0627: \u0627\u0645\u0644\u0647\u0627 \u0639\u0644\u0649 \u0627\u0644\u0645\u062a\u062c\u0631. \u064a\u0645\u0643\u0646\u0647 \u062a\u063a\u064a\u064a\u0631\u0647\u0627 \u0645\u0646 \u0631\u0645\u0632 \u0627\u0644\u0645\u0641\u062a\u0627\u062d." });
+
+/* 28/10/2026 — ordine di Andrea: codice fiscale (serve alla fattura), una
+   casella per le note di consegna (orari, interno, citofono) in TUTTI E DUE i
+   moduli, e la password detta per quello che e': PROVVISORIA, la cambia il
+   negozio. Questo blocco sovrascrive pcShopPwd definito piu' sopra. */
+Object.assign(T.en,{ pcShopPwd:"Temporary password \u2014 the shop changes it", pcShopTax:"Tax code (if different from VAT)", pcShopNotes:"Delivery notes", pcShopNotesPh:"Opening hours, unit number, buzzer, anything the courier needs", rgTaxCode:"Tax code", rgTaxCodePh:"If different from your VAT number", rgDelivNotes:"Delivery notes (optional)", rgDelivNotesPh:"Opening hours, unit number, buzzer \u2014 anything the courier needs to find you" });
+Object.assign(T.it,{ pcShopPwd:"Password provvisoria \u2014 la cambier\u00e0 il negozio", pcShopTax:"Codice fiscale (se diverso dalla P.IVA)", pcShopNotes:"Note per la consegna", pcShopNotesPh:"Orari di apertura, interno, citofono, quello che serve al corriere", rgTaxCode:"Codice fiscale", rgTaxCodePh:"Se diverso dalla partita IVA", rgDelivNotes:"Note per la consegna (facoltativo)", rgDelivNotesPh:"Orari di apertura, interno, citofono \u2014 quello che serve al corriere per trovarti" });
+Object.assign(T.fr,{ pcShopPwd:"Mot de passe provisoire \u2014 le magasin le changera", pcShopTax:"Num\u00e9ro fiscal (si diff\u00e9rent de la TVA)", pcShopNotes:"Notes de livraison", pcShopNotesPh:"Horaires, \u00e9tage, interphone, ce qu'il faut au transporteur", rgTaxCode:"Num\u00e9ro fiscal", rgTaxCodePh:"Si diff\u00e9rent de votre num\u00e9ro de TVA", rgDelivNotes:"Notes de livraison (facultatif)", rgDelivNotesPh:"Horaires, \u00e9tage, interphone \u2014 ce qu'il faut au transporteur pour vous trouver" });
+Object.assign(T.es,{ pcShopPwd:"Contrase\u00f1a provisional \u2014 la cambiar\u00e1 la tienda", pcShopTax:"NIF (si difiere del IVA)", pcShopNotes:"Notas de entrega", pcShopNotesPh:"Horario, planta, portero, lo que necesite el transportista", rgTaxCode:"NIF", rgTaxCodePh:"Si difiere de tu n\u00famero de IVA", rgDelivNotes:"Notas de entrega (opcional)", rgDelivNotesPh:"Horario, planta, portero \u2014 lo que necesite el transportista para encontrarte" });
+Object.assign(T.de,{ pcShopPwd:"Vorl\u00e4ufiges Passwort \u2014 das Gesch\u00e4ft \u00e4ndert es", pcShopTax:"Steuernummer (falls abweichend)", pcShopNotes:"Lieferhinweise", pcShopNotesPh:"\u00d6ffnungszeiten, Etage, Klingel \u2014 was der Fahrer braucht", rgTaxCode:"Steuernummer", rgTaxCodePh:"Falls abweichend von der USt-IdNr.", rgDelivNotes:"Lieferhinweise (optional)", rgDelivNotesPh:"\u00d6ffnungszeiten, Etage, Klingel \u2014 was der Fahrer braucht, um Sie zu finden" });
+Object.assign(T.zh,{ pcShopPwd:"\u4e34\u65f6\u5bc6\u7801\uff0c\u5e97\u94fa\u53ef\u81ea\u884c\u4fee\u6539", pcShopTax:"\u7a0e\u53f7\uff08\u5982\u4e0e\u589e\u503c\u7a0e\u53f7\u4e0d\u540c\uff09", pcShopNotes:"\u914d\u9001\u5907\u6ce8", pcShopNotesPh:"\u8425\u4e1a\u65f6\u95f4\u3001\u95e8\u724c\u53f7\u3001\u95e8\u94c3\u7b49", rgTaxCode:"\u7a0e\u53f7", rgTaxCodePh:"\u5982\u4e0e\u589e\u503c\u7a0e\u53f7\u4e0d\u540c", rgDelivNotes:"\u914d\u9001\u5907\u6ce8\uff08\u9009\u586b\uff09", rgDelivNotesPh:"\u8425\u4e1a\u65f6\u95f4\u3001\u95e8\u724c\u53f7\u3001\u95e8\u94c3\u2014\u2014\u5feb\u9012\u5458\u9700\u8981\u7684\u4fe1\u606f" });
+Object.assign(T.ar,{ pcShopPwd:"\u0643\u0644\u0645\u0629 \u0645\u0631\u0648\u0631 \u0645\u0624\u0642\u062a\u0629 \u2014 \u064a\u063a\u064a\u0631\u0647\u0627 \u0627\u0644\u0645\u062a\u062c\u0631", pcShopTax:"\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u0636\u0631\u064a\u0628\u064a", pcShopNotes:"\u0645\u0644\u0627\u062d\u0637\u0627\u062a \u0627\u0644\u062a\u0648\u0635\u064a\u0644", pcShopNotesPh:"\u0633\u0627\u0639\u0627\u062a \u0627\u0644\u0639\u0645\u0644\u060c \u0627\u0644\u0637\u0627\u0628\u0642\u060c \u0627\u0644\u062c\u0631\u0633", rgTaxCode:"\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u0636\u0631\u064a\u0628\u064a", rgTaxCodePh:"\u0625\u0646 \u0643\u0627\u0646 \u0645\u062e\u062a\u0644\u0641\u064b\u0627 \u0639\u0646 \u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u0636\u0631\u064a\u0628\u064a", rgDelivNotes:"\u0645\u0644\u0627\u062d\u0637\u0627\u062a \u0627\u0644\u062a\u0648\u0635\u064a\u0644 (\u0627\u062e\u062a\u064a\u0627\u0631\u064a)", rgDelivNotesPh:"\u0633\u0627\u0639\u0627\u062a \u0627\u0644\u0639\u0645\u0644\u060c \u0627\u0644\u0637\u0627\u0628\u0642\u060c \u0627\u0644\u062c\u0631\u0633 \u2014 \u0645\u0627 \u064a\u062d\u062a\u0627\u062c\u0647 \u0627\u0644\u0645\u0646\u062f\u0648\u0628" });
+
+/* 28/10/2026: il portale dell'agente mostrava tre puntini su fondo scuro
+   finche' non aveva caricato anche le 1.400 referenze. Analia ci ha visto una
+   pagina bianca e ha smesso di aspettare. Ora si apre subito e lo dice. */
+Object.assign(T.en,{ pcCaricamento:"Opening your portal\u2026", pcCatCarico:"Loading the catalogue \u2014 1,400 references, it takes a few seconds." });
+Object.assign(T.it,{ pcCaricamento:"Apro il tuo portale\u2026", pcCatCarico:"Sto caricando il catalogo \u2014 sono 1.400 referenze, ci vuole qualche secondo." });
+Object.assign(T.fr,{ pcCaricamento:"Ouverture de votre portail\u2026", pcCatCarico:"Chargement du catalogue \u2014 1 400 r\u00e9f\u00e9rences, quelques secondes." });
+Object.assign(T.es,{ pcCaricamento:"Abriendo tu portal\u2026", pcCatCarico:"Cargando el cat\u00e1logo \u2014 1.400 referencias, tarda unos segundos." });
+Object.assign(T.de,{ pcCaricamento:"Ihr Portal wird ge\u00f6ffnet\u2026", pcCatCarico:"Katalog wird geladen \u2014 1.400 Artikel, das dauert ein paar Sekunden." });
+Object.assign(T.zh,{ pcCaricamento:"\u6b63\u5728\u6253\u5f00\u60a8\u7684\u95e8\u6237\u2026", pcCatCarico:"\u6b63\u5728\u52a0\u8f7d\u76ee\u5f55\u2014\u20141400 \u4e2a\u5546\u54c1\uff0c\u9700\u8981\u51e0\u79d2\u949f\u3002" });
+Object.assign(T.ar,{ pcCaricamento:"\u062c\u0627\u0631\u064d \u0641\u062a\u062d \u0628\u0648\u0627\u0628\u062a\u0643\u2026", pcCatCarico:"\u062c\u0627\u0631\u064d \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0643\u062a\u0627\u0644\u0648\u062c \u2014 1400 \u0635\u0646\u0641\u060c \u064a\u0633\u062a\u063a\u0631\u0642 \u062b\u0648\u0627\u0646\u064d." });
+
 /* L'occhietto della password. */
 Object.assign(T.en,{ pwMostra:"Show password", pwNascondi:"Hide password" });
 Object.assign(T.it,{ pwMostra:"Mostra la password", pwNascondi:"Nascondi la password" });
@@ -3402,13 +3435,17 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
   const [lanci, setLanci] = useState([]);
   const [tab, setTab] = useState("guadagno");
   const [caricato, setCaricato] = useState(false);
+  /* Il catalogo arriva dopo il resto: serve alla sua scheda e basta, e sono
+     1.400 righe. Finche' non c'e', quella scheda lo dice invece di mostrare
+     un elenco vuoto, che si legge come "non abbiamo niente". */
+  const [catalogoPronto, setCatalogoPronto] = useState(false);
   /* L'agente gira con l'iPad in mano: apre il negozio, entra nel suo conto e
      batte l'ordine lui. `comeNegozio` e' il negozio di cui sta indossando i
      panni in questo momento. */
   const [comeNegozio, setComeNegozio] = useState(null);
   const VUOTO = { company_name:"", full_name:"", email:"", password:"", phone:"",
                   country:"", shipping_city:"", shipping_address:"", shipping_zip:"",
-                  vat_number:"", sdi_code:"" };
+                  vat_number:"", tax_code:"", sdi_code:"", delivery_notes:"" };
   const [modulo, setModulo] = useState(false);
   const [nuovo, setNuovo] = useState(VUOTO);
   const [salvo, setSalvo] = useState(false);
@@ -3518,23 +3555,34 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
        Si pagina a mano perche' PostgREST si ferma a 1000 righe e le referenze
        sono quasi 1.400: un catalogo tagliato a tre quarti e' peggio di nessun
        catalogo, perche' non sai cosa ti manca. */
-    const pezzi = [];
-    for (let da = 0; da < 3000; da += 500) {
-      const { data: lotto } = await supabase.from("products")
-        .select("id,name,sku,size,unit_price,image_url,brand_id,inventory(quantity_available,updated_at)")
-        .eq("is_active", true).order("name").range(da, da + 499);
-      pezzi.push(...(lotto || []));
-      if (!lotto || lotto.length < 500) break;
-    }
-    setCatalogo(pezzi);
-    const idMarchi = [...new Set(pezzi.map(x => x.brand_id).filter(Boolean))];
-    if (idMarchi.length) {
-      const { data: mk } = await supabase.from("profiles")
-        .select("id, company_name").in("id", idMarchi);
-      const m = {}; (mk || []).forEach(x => { m[x.id] = x.company_name; });
-      setMarchi(m);
-    }
+    /* IL PORTALE SI APRE QUI, non in fondo (28/10/2026). Prima il catalogo —
+       tre chiamate da 500 righe con le giacenze agganciate — stava DENTRO
+       l'attesa, e finche' non finiva la schermata era quella di riga 3674:
+       uno sfondo scuro con tre puntini. Analia ci ha visto una pagina bianca,
+       e aveva ragione: su una connessione di negozio sono dieci-venti secondi
+       in cui non c'e' niente da guardare e niente che dica di aspettare.
+       Il catalogo serve a una scheda sola, quindi si carica dopo, da solo. */
     setCaricato(true);
+
+    (async () => {
+      const pezzi = [];
+      for (let da = 0; da < 3000; da += 500) {
+        const { data: lotto } = await supabase.from("products")
+          .select("id,name,sku,size,unit_price,image_url,brand_id,inventory(quantity_available,updated_at)")
+          .eq("is_active", true).order("name").range(da, da + 499);
+        pezzi.push(...(lotto || []));
+        if (!lotto || lotto.length < 500) break;
+      }
+      setCatalogo(pezzi);
+      const idMarchi = [...new Set(pezzi.map(x => x.brand_id).filter(Boolean))];
+      if (idMarchi.length) {
+        const { data: mk } = await supabase.from("profiles")
+          .select("id, company_name").in("id", idMarchi);
+        const m = {}; (mk || []).forEach(x => { m[x.id] = x.company_name; });
+        setMarchi(m);
+      }
+      setCatalogoPronto(true);
+    })();
   }, [getUser]);
 
   useEffect(() => { carica(); }, [carica]);
@@ -3550,10 +3598,28 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
      li' per li'. Il risultato era che il negozio non veniva registrato
      affatto. Per fatturare servono la partita IVA e, in Italia, il codice
      univoco: il resto si chiede dopo, se serve. */
+  /* La password non la inventa l'agente: gliela diamo noi, leggibile, perche'
+     deve dettarla al negozio. Prima la scriveva lei, e una password scelta da
+     chi non la usera' finisce per essere sempre la stessa su tutti i clienti.
+     Il negozio poi se la cambia dal tasto 🔑 nella sua barra. */
+  const generaPassword = () => {
+    const alfabeto = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // via I, O, 0, 1: si dettano male
+    const pezzo = (n) => Array.from({ length: n },
+      () => alfabeto[Math.floor(Math.random() * alfabeto.length)]).join("");
+    return "Nexus-" + pezzo(4) + "-" + pezzo(4);
+  };
+
   const registraNegozio = async (e) => {
     e.preventDefault();
     setSalvo(true); setEsito("");
     try {
+      /* Rete di sicurezza contro il riempimento automatico del browser: se la
+         mail del negozio e' quella dell'agente, l'account nascerebbe suo e
+         quell'indirizzo resterebbe inutilizzabile per sempre. */
+      const miaMail = ((profilo && profilo.email) || "").trim().toLowerCase();
+      if (miaMail && (nuovo.email || "").trim().toLowerCase() === miaMail) {
+        setEsito(t("pcShopMailMia")); setSalvo(false); return;
+      }
       const risp = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/register-complete`, {
         method: "POST",
         headers: {
@@ -3631,7 +3697,17 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
   const eur = (v) => "€ " + Number(v || 0).toLocaleString("it-IT", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const nomeCliente = (id) => (clienti.find(c => c.id === id) || {}).company_name || "—";
 
-  if (!caricato) return <div style={{ padding:40, color:C.textMuted }}>…</div>;
+  /* Non piu' tre puntini su fondo scuro: a chi aspetta sembrava una pagina
+     bianca e chiudeva. Logo, nome e una frase che dice cosa sta succedendo. */
+  if (!caricato) return (
+    <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center",
+                  justifyContent:"center", flexDirection:"column", gap:14, padding:30 }}>
+      <div style={{ width:44, height:44, borderRadius:11, background:"linear-gradient(135deg,"+C.gold+","+C.goldDim+")",
+                    display:"flex", alignItems:"center", justifyContent:"center", fontWeight:900, color:C.bg, fontSize:19 }}>N</div>
+      <div style={{ fontSize:15, fontWeight:700, color:C.text }}>NexusHub</div>
+      <div style={{ fontSize:13, color:C.textMuted }}>{t("pcCaricamento")}</div>
+    </div>
+  );
 
   if (io_ && io_.stato !== "approvato") {
     return (
@@ -3691,10 +3767,19 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
           {opzioni.map(cc => <option key={cc} value={cc}>{nomePaese(cc, lang)}</option>)}
         </select>
       ) : (
-        <input type={tipo} required={obbligatorio} value={nuovo[chiave]}
+        /* name inventato e autoComplete spento: senza questi, Chrome vede un
+           campo email e uno password e ci mette le credenziali SALVATE
+           DELL'AGENTE. Il negozio nasceva con la mail di lei, e quella mail
+           restava bruciata perche' al secondo tentativo il server risponde
+           email_gia_usata. Sul tipo password serve "new-password", che e' il
+           solo valore che i browser rispettano davvero. */
+        <input type={tipo === "password" ? "text" : tipo} required={obbligatorio}
+          value={nuovo[chiave]} name={"nx-nuovo-" + chiave}
+          autoComplete={tipo === "password" ? "new-password" : "off"}
           onChange={e => { const v = e.target.value; setNuovo(n => ({ ...n, [chiave]: v })); }}
           style={{ width:"100%", padding:"9px 11px", borderRadius:8, fontSize:13,
-            background:C.surface2, border:"1px solid "+C.border, color:C.text, boxSizing:"border-box" }}/>
+            background:C.surface2, border:"1px solid "+C.border, color:C.text, boxSizing:"border-box",
+            fontFamily: tipo === "password" ? "ui-monospace, Menlo, monospace" : "inherit" }}/>
       )}
     </label>
   );
@@ -3982,6 +4067,12 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
             E' il foglio che l'agente apre davanti al negoziante: prezzo che il
             negozio paga davvero, giacenza di stamattina, niente carrello —
             ordinare resta legato a un cliente vero. */}
+        {/* Il catalogo arriva qualche secondo dopo il resto. Finche' non c'e'
+            si dice, altrimenti un elenco vuoto si legge come "non abbiamo
+            niente da vendere" proprio mentre l'agente lo mostra a un negozio. */}
+        {tab === "catalogo" && !catalogoPronto && catalogo.length === 0 && (
+          <div style={{ padding:"30px 0", fontSize:13.5, color:C.textMuted }}>{t("pcCatCarico")}</div>
+        )}
         {tab === "catalogo" && (() => {
           const q = cercaCat.trim().toLowerCase();
           const visti = catalogo.filter(p =>
@@ -4168,7 +4259,7 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                 <div style={{ fontSize:13, fontWeight:700, color:C.text, marginBottom:4 }}>{t("pcYourClients")} ({clienti.length})</div>
                 <div style={{ fontSize:12, color:C.textDim, marginBottom:12, lineHeight:1.5 }}>{t("pcClientsNote").replace("{c}", io_ ? io_.codice : "")}</div>
               </div>
-              <button onClick={() => { setModulo(m => !m); setEsito(""); }} style={{
+              <button onClick={() => { setModulo(m => { const ap = !m; if (ap) setNuovo(n => ({ ...n, password: generaPassword() })); return ap; }); setEsito(""); }} style={{
                 padding:"9px 16px", borderRadius:8, cursor:"pointer", fontSize:13, fontWeight:700,
                 background: modulo ? "transparent" : C.gold+"1C",
                 border:"1px solid "+(modulo ? C.border : C.gold), color: modulo ? C.textMuted : C.goldLight }}>
@@ -4192,8 +4283,19 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                   {campo(t("pcShopCompany"), "company_name", true)}
                   {campo(t("pcShopName"), "full_name", true)}
                   {campo(t("pcShopEmail"), "email", true, "email")}
-                  {campo(t("pcShopPwd"), "password", true, "password")}
+                  <div style={{ flex:"1 1 220px" }}>
+                    {campo(t("pcShopPwd"), "password", true, "password")}
+                    <div style={{ display:"flex", gap:8, alignItems:"baseline", marginTop:4 }}>
+                      <span style={{ fontSize:11, color:C.textDim, lineHeight:1.4, flex:1 }}>{t("pcShopPwdNota")}</span>
+                      <button type="button" onClick={() => setNuovo(n => ({ ...n, password: generaPassword() }))}
+                        style={{ padding:"4px 9px", borderRadius:6, cursor:"pointer", background:"transparent",
+                          border:"1px solid "+C.border, color:C.textMuted, fontSize:11, whiteSpace:"nowrap" }}>↻</button>
+                    </div>
+                  </div>
                   {campo(t("pcShopVat"), "vat_number", true)}
+                  {/* Codice fiscale: su una ditta individuale la fattura lo
+                      vuole e la partita IVA non basta. */}
+                  {campo(t("pcShopTax"), "tax_code")}
                   {campo(t("pcShopPhone"), "phone")}
                   {campo(t("pcShopCountry"), "country", true, "text", PAESI_SERVITI)}
                   {campo(t("pcShopCity"), "shipping_city")}
@@ -4203,6 +4305,19 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                       serve alla fattura elettronica, che altrove non esiste. */}
                   {italiano(nuovo.country) && campo(t("pcShopSdi"), "sdi_code")}
                 </div>
+                {/* Orari, interno, citofono: le sa solo il negozio, e un
+                    corriere che trova chiuso costa una seconda spedizione.
+                    Larghezza piena perche' e' una frase, non un dato. */}
+                <label style={{ display:"block", marginTop:10 }}>
+                  <span style={{ fontSize:11.5, color:C.textMuted, display:"block", marginBottom:4 }}>{t("pcShopNotes")}</span>
+                  <textarea value={nuovo.delivery_notes} rows={2}
+                    name="nx-nuovo-delivery_notes" autoComplete="off"
+                    placeholder={t("pcShopNotesPh")}
+                    onChange={e => { const v = e.target.value; setNuovo(n => ({ ...n, delivery_notes: v })); }}
+                    style={{ width:"100%", padding:"9px 11px", borderRadius:8, fontSize:13,
+                      background:C.surface2, border:"1px solid "+C.border, color:C.text,
+                      boxSizing:"border-box", resize:"vertical", fontFamily:"inherit" }}/>
+                </label>
                 {italiano(nuovo.country) && (
                   <div style={{ fontSize:11.5, color:C.textDim, marginTop:8, lineHeight:1.5 }}>{t("pcShopSdiHint")}</div>
                 )}
@@ -4402,6 +4517,8 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
   const [accountHolder, setAccountHolder] = useState("");
   const [swiftBic, setSwiftBic] = useState("");
   const [vatNumber, setVatNumber] = useState("");
+  const [taxCode, setTaxCode] = useState("");
+  const [deliveryNotes, setDeliveryNotes] = useState("");
   /* Chi arriva mandato da un agente scrive qui il suo codice: e' l'unico
      modo che ha l'agente di prendersi anche i negozi che si iscrivono da
      soli dopo una sua visita. */
@@ -4525,6 +4642,8 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
           business_size: businessSize || null,
           preferred_lang: lang,
           vat_number: vatNumber,
+          tax_code: taxCode || null,
+          delivery_notes: deliveryNotes || null,
           procacciatore_codice: codiceAgente.trim() ? codiceAgente.trim().toUpperCase() : null,
           sdi_code: isItaly ? sdiCode : null,
           pec_email: isItaly ? pecEmail : null,
@@ -4722,6 +4841,17 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
                   </div>
                 ))}
               </div>
+              {/* Note per la consegna: orari, interno, citofono. Il corriere
+                  che trova chiuso costa una seconda spedizione, e il negozio
+                  queste cose le sa solo lui. Solo per chi riceve merce. */}
+              {!isBrand && !isProc && (
+                <div style={{ marginTop:10 }}>
+                  <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:5 }}>{t("rgDelivNotes")}</label>
+                  <textarea value={deliveryNotes} onChange={e=>setDeliveryNotes(e.target.value)}
+                    placeholder={t("rgDelivNotesPh")} rows={2}
+                    style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, outline:"none", boxSizing:"border-box", resize:"vertical", fontFamily:"inherit" }}/>
+                </div>
+              )}
               <div style={{ marginTop:8, padding:"8px 12px", background:`${C.gold}08`, border:`1px solid ${C.gold}20`, borderRadius:8, fontSize:11, color:C.textMuted }}>
                 💡 {isBrand ? t("rgBankInfoBrand") : isProc ? t("rgBankInfoAgente") : t("rgBankInfoDist")}
               </div>
@@ -4739,6 +4869,15 @@ const RegisterScreen = ({ role, accountType, lang, onLangChange, onBack }) => {
                   </label>
                   <input type="text" value={vatNumber} onChange={e=>setVatNumber(e.target.value)}
                     placeholder={t("rgVatPh")}
+                    style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, outline:"none", boxSizing:"border-box" }}/>
+                </div>
+                {/* Codice fiscale: su una ditta individuale la fattura lo vuole
+                    e la partita IVA non basta. Non e' obbligatorio perche'
+                    per una societa' coincide con la P.IVA. */}
+                <div>
+                  <label style={{ fontSize:11, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", display:"block", marginBottom:5 }}>{t("rgTaxCode")}</label>
+                  <input type="text" value={taxCode} onChange={e=>setTaxCode(e.target.value)}
+                    placeholder={t("rgTaxCodePh")}
                     style={{ width:"100%", padding:"10px 12px", borderRadius:8, background:C.surface2, border:`1px solid ${C.border}`, color:C.text, fontSize:12, outline:"none", boxSizing:"border-box" }}/>
                 </div>
                 {/* SDI solo per Italia */}

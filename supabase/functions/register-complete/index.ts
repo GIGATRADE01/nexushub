@@ -135,6 +135,9 @@ serve(async (req) => {
       shipping_city: testo(b.shipping_city, 80),
       shipping_zip: testo(b.shipping_zip, 20),
       shipping_region: testo(b.shipping_region, 80),
+      /* Orari, interno, citofono. Finche' non c'era questo campo finivano
+         dentro l'indirizzo o in nessun posto, e il corriere trovava chiuso. */
+      delivery_notes: testo(b.delivery_notes, 500),
     }),
   }, { onConflict: "id" });
   if (errProf) return await annulla("profilo", errProf);
@@ -143,6 +146,9 @@ serve(async (req) => {
   const { error: errFisc } = await admin.from("profile_billing").upsert({
     id: uid,
     vat_number: testo(b.vat_number, 40),
+    /* Codice fiscale: su una ditta individuale la fattura lo vuole e la
+       partita IVA non basta. */
+    tax_code: testo(b.tax_code, 40),
     sdi_code: testo(b.sdi_code, 20),
     pec_email: testo(b.pec_email, 160),
     ...((isBrand || isProc) ? {
