@@ -74,6 +74,32 @@ serve(async (req) => {
     procacciatoreId = ag.id;
   }
 
+  /* ABILITAZIONE IMMEDIATA, ma solo se a registrare e' DAVVERO l'agente
+     (28/10/2026, ordine di Andrea: il negozio deve poter comprare subito).
+
+     Non basta il codice dell'agente: quello lo digita anche il negoziante nel
+     modulo pubblico, e chi lo copia da un biglietto da visita si
+     auto-approverebbe. Quindi si chiede il gettone della sessione e lo si
+     verifica qui: deve appartenere a un procacciatore approvato. Un campo
+     booleano mandato dal browser non servirebbe a niente, lo cambia chiunque
+     apra la console.
+
+     Chi si iscrive da solo resta IN ATTESA come prima: li' non c'e' nessuno
+     che risponde del negozio. */
+  let daAgente = false;
+  const gettone = testo(b.agente_token, 4000);
+  if (gettone && role === "distributor") {
+    const { data: chi } = await admin.auth.getUser(gettone);
+    if (chi?.user) {
+      const { data: ag } = await admin.from("procacciatori")
+        .select("id, stato").eq("id", chi.user.id).maybeSingle();
+      if (ag && ag.stato === "approvato") {
+        daAgente = true;
+        procacciatoreId = ag.id;   // vale la sessione, non il codice digitato
+      }
+    }
+  }
+
   const { data: aperte } = await admin.rpc("registrations_open");
   if (aperte === false) return risposta({ errore: "registrazioni_chiuse" }, 403);
 
@@ -126,6 +152,8 @@ serve(async (req) => {
     // per gli e-commerce. Serve a decidere che listino fargli.
     business_size: testo(b.business_size, 60),
     preferred_lang: testo(b.preferred_lang, 5) || "en",
+    // Aperto subito se lo porta un agente, altrimenti 'pending' per difetto.
+    ...(daAgente ? { status: "approved" } : {}),
     ...(procacciatoreId ? {
       procacciatore_id: procacciatoreId,
       procacciatore_dal: new Date().toISOString(),

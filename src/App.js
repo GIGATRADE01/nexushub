@@ -1499,6 +1499,18 @@ Object.assign(T.de,{ pcCaricamento:"Ihr Portal wird ge\u00f6ffnet\u2026", pcCatC
 Object.assign(T.zh,{ pcCaricamento:"\u6b63\u5728\u6253\u5f00\u60a8\u7684\u95e8\u6237\u2026", pcCatCarico:"\u6b63\u5728\u52a0\u8f7d\u76ee\u5f55\u2014\u20141400 \u4e2a\u5546\u54c1\uff0c\u9700\u8981\u51e0\u79d2\u949f\u3002" });
 Object.assign(T.ar,{ pcCaricamento:"\u062c\u0627\u0631\u064d \u0641\u062a\u062d \u0628\u0648\u0627\u0628\u062a\u0643\u2026", pcCatCarico:"\u062c\u0627\u0631\u064d \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0643\u062a\u0627\u0644\u0648\u062c \u2014 1400 \u0635\u0646\u0641\u060c \u064a\u0633\u062a\u063a\u0631\u0642 \u062b\u0648\u0627\u0646\u064d." });
 
+/* 28/10/2026: il negozio aperto dall'agente e' ATTIVO SUBITO (il server lo
+   approva solo se a registrarlo e' davvero una sessione d'agente). Questi due
+   testi promettevano l'attesa e l'approvazione: vanno riscritti, non c'e' piu'
+   niente da aspettare. */
+Object.assign(T.en,{ pcNewShopNote:"The shop is created under your code {c} and is active immediately: it can sign in and order today. Every order it places counts towards your commission.", pcShopSaved:"Shop registered and active. Give them the email and the temporary password \u2014 they can order right away." });
+Object.assign(T.it,{ pcNewShopNote:"Il negozio nasce sotto il tuo codice {c} ed \u00e8 attivo subito: pu\u00f2 entrare e ordinare oggi stesso. Ogni ordine che fa conta per la tua provvigione.", pcShopSaved:"Negozio registrato e attivo. Dagli la mail e la password provvisoria: pu\u00f2 ordinare subito." });
+Object.assign(T.fr,{ pcNewShopNote:"Le magasin est cr\u00e9\u00e9 sous votre code {c} et il est actif imm\u00e9diatement : il peut se connecter et commander aujourd'hui.", pcShopSaved:"Magasin enregistr\u00e9 et actif. Donnez-lui l'e-mail et le mot de passe provisoire : il peut commander tout de suite." });
+Object.assign(T.es,{ pcNewShopNote:"La tienda se crea bajo tu c\u00f3digo {c} y est\u00e1 activa de inmediato: puede entrar y pedir hoy mismo.", pcShopSaved:"Tienda registrada y activa. Dale el correo y la contrase\u00f1a provisional: ya puede pedir." });
+Object.assign(T.de,{ pcNewShopNote:"Das Gesch\u00e4ft entsteht unter Ihrem Code {c} und ist sofort aktiv: es kann sich heute noch anmelden und bestellen.", pcShopSaved:"Gesch\u00e4ft angelegt und aktiv. Geben Sie E-Mail und vorl\u00e4ufiges Passwort weiter \u2014 es kann sofort bestellen." });
+Object.assign(T.zh,{ pcNewShopNote:"\u5e97\u94fa\u5728\u60a8\u7684\u4ee3\u7801 {c} \u4e0b\u521b\u5efa\uff0c\u5e76\u7acb\u5373\u751f\u6548\uff1a\u4eca\u5929\u5c31\u53ef\u4ee5\u767b\u5f55\u4e0b\u5355\u3002", pcShopSaved:"\u5e97\u94fa\u5df2\u6ce8\u518c\u5e76\u6fc0\u6d3b\u3002\u8bf7\u544a\u77e5\u90ae\u7bb1\u548c\u4e34\u65f6\u5bc6\u7801\uff0c\u53ef\u7acb\u5373\u4e0b\u5355\u3002" });
+Object.assign(T.ar,{ pcNewShopNote:"\u064a\u064f\u0646\u0634\u0623 \u0627\u0644\u0645\u062a\u062c\u0631 \u062a\u062d\u062a \u0631\u0645\u0632\u0643 {c} \u0648\u064a\u0635\u0628\u062d \u0646\u0634\u0637\u064b\u0627 \u0641\u0648\u0631\u064b\u0627: \u064a\u0645\u0643\u0646\u0647 \u0627\u0644\u062f\u062e\u0648\u0644 \u0648\u0627\u0644\u0637\u0644\u0628 \u0627\u0644\u064a\u0648\u0645.", pcShopSaved:"\u062a\u0645 \u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u0645\u062a\u062c\u0631 \u0648\u062a\u0641\u0639\u064a\u0644\u0647. \u0627\u0645\u0646\u062d\u0647 \u0627\u0644\u0628\u0631\u064a\u062f \u0648\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631 \u0627\u0644\u0645\u0624\u0642\u062a\u0629." });
+
 /* L'occhietto della password. */
 Object.assign(T.en,{ pwMostra:"Show password", pwNascondi:"Hide password" });
 Object.assign(T.it,{ pwMostra:"Mostra la password", pwNascondi:"Nascondi la password" });
@@ -3620,6 +3632,11 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
       if (miaMail && (nuovo.email || "").trim().toLowerCase() === miaMail) {
         setEsito(t("pcShopMailMia")); setSalvo(false); return;
       }
+      /* Il gettone della sessione dell'agente: e' quello che fa aprire il
+         negozio subito invece di lasciarlo in attesa. Il server lo verifica,
+         quindi non basta copiare un codice agente da un biglietto. */
+      const { data: { session } } = await supabase.auth.getSession();
+
       const risp = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/register-complete`, {
         method: "POST",
         headers: {
@@ -3629,6 +3646,7 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
         },
         body: JSON.stringify({
           ...nuovo,
+          agente_token: session ? session.access_token : null,
           role: "distributor", account_type: "distributor",
           preferred_lang: lang || "en", agreement_version: "1.0",
           procacciatore_codice: io_ ? io_.codice : null,
@@ -4282,6 +4300,12 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                 <div style={{ display:"flex", flexWrap:"wrap", gap:10 }}>
                   {campo(t("pcShopCompany"), "company_name", true)}
                   {campo(t("pcShopName"), "full_name", true)}
+                  {/* IL PAESE PER TERZO, non in mezzo al modulo (28/10/2026).
+                      Decide due cose che compaiono piu' sotto — il codice
+                      univoco e la sua nota — e un campo che appare a meta'
+                      compilazione non lo nota nessuno. Chiesto da chi lo usa:
+                      si sceglie il paese subito e il resto si adatta. */}
+                  {campo(t("pcShopCountry"), "country", true, "text", PAESI_SERVITI)}
                   {campo(t("pcShopEmail"), "email", true, "email")}
                   <div style={{ flex:"1 1 220px" }}>
                     {campo(t("pcShopPwd"), "password", true, "password")}
@@ -4297,7 +4321,6 @@ const PortaleProcacciatore = ({ onLogout, comeUtente = null, lang, onLangChange,
                       vuole e la partita IVA non basta. */}
                   {campo(t("pcShopTax"), "tax_code")}
                   {campo(t("pcShopPhone"), "phone")}
-                  {campo(t("pcShopCountry"), "country", true, "text", PAESI_SERVITI)}
                   {campo(t("pcShopCity"), "shipping_city")}
                   {campo(t("pcShopAddr"), "shipping_address")}
                   {campo(t("pcShopZip"), "shipping_zip")}
