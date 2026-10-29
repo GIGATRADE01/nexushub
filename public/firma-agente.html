@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>NexusHub — Firma del contratto di procacciamento</title>
+<meta name="robots" content="noindex,nofollow"/>
+<meta name="description" content="Pagina riservata: firma del contratto di procacciamento d'affari NexusHub."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08080f; --surface:#12131c; --surface2:#191b26; --border:#252838;
+    --text:#ede9e3; --muted:#8890aa; --dim:#5a6079;
+    --gold:#c9a84c; --goldLight:#e2bc6a; --goldDim:#7a5e28; --green:#27ae60; --red:#c0392b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',-apple-system,Segoe UI,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.65}
+  .wrap{max-width:760px;margin:0 auto;padding:0 22px}
+  h1,h2{font-family:'Fraunces',Georgia,serif;font-weight:700;line-height:1.2;margin:0}
+  a{color:var(--goldLight)}
+  header{border-bottom:1px solid var(--border);padding:16px 0}
+  .logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
+  .mark{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--gold),var(--goldDim));display:grid;place-items:center;font-weight:900;color:#08080f;font-size:19px}
+  .logo b{font-family:'Fraunces',serif;font-size:17px}
+  .hero{padding:44px 0 10px}
+  .hero h1{font-size:clamp(26px,4.4vw,38px);letter-spacing:-.02em}
+  .lead{color:var(--muted);margin:16px 0 0}
+  .chi{display:inline-block;margin-top:18px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.36);
+       color:var(--goldLight);border-radius:100px;padding:7px 15px;font-size:13px;font-weight:700}
+  .doc{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:22px;margin-top:26px}
+  .doc h2{font-size:19px;margin-bottom:14px}
+  pre.testo{white-space:pre-wrap;font-family:inherit;font-size:14.5px;color:var(--text);margin:0;
+            max-height:46vh;overflow:auto;padding-right:8px;line-height:1.7}
+  .vess{background:var(--surface2);border:1px solid var(--goldDim);border-radius:11px;padding:18px;margin-top:20px}
+  .vess pre{white-space:pre-wrap;font-family:inherit;font-size:14px;color:var(--text);margin:0;line-height:1.7}
+  label.flag{display:flex;gap:12px;align-items:flex-start;background:var(--surface2);border:1px solid var(--border);
+             border-radius:11px;padding:15px;margin-top:14px;cursor:pointer;font-size:14.5px}
+  label.flag.on{border-color:var(--gold);background:rgba(201,168,76,.07)}
+  label.flag input{margin-top:3px;width:18px;height:18px;accent-color:var(--gold);cursor:pointer;flex:none}
+  .btn{display:block;width:100%;margin-top:22px;padding:16px;border-radius:11px;border:none;cursor:pointer;
+       font-family:inherit;font-weight:700;font-size:15.5px;background:linear-gradient(135deg,var(--gold),var(--goldDim));color:#08080f}
+  .btn[disabled]{opacity:.45;cursor:not-allowed}
+  .nota{color:var(--dim);font-size:12.5px;margin-top:14px}
+  .msg{margin-top:20px;padding:16px;border-radius:11px;font-size:14.5px;display:none}
+  .msg.ok{display:block;background:rgba(39,174,96,.12);border:1px solid var(--green);color:#9fe3bd}
+  .msg.ko{display:block;background:rgba(192,57,43,.12);border:1px solid var(--red);color:#f0b2ab}
+  footer{border-top:1px solid var(--border);margin-top:46px;padding:22px 0 40px;color:var(--dim);font-size:12.5px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="logo" href="https://nexushub.trade"><span class="mark">N</span><b>NexusHub</b></a></div></header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>Il contratto da firmare</h1>
+    <p class="lead">Lo legga, metta le due spunte in fondo e lo confermi. Non serve stampare
+      niente e non serve nessun documento: restano registrati la data, l'ora e il suo indirizzo IP,
+      e le arriva copia del testo per email.</p>
+    <div class="chi" id="chi" style="display:none"></div>
+  </div>
+
+  <div id="corpo" style="display:none">
+    <div class="doc">
+      <h2 id="titolo">Contratto</h2>
+      <pre class="testo" id="testo"></pre>
+    </div>
+
+    <!-- Artt. 1341-1342 c.c.: le clausole vessatorie vogliono un consenso SEPARATO
+         da quello generale, altrimenti sono inefficaci. Due spunte, non una. -->
+    <div class="vess">
+      <strong style="color:var(--goldLight);font-size:14px">Approvazione specifica delle clausole (artt. 1341-1342 c.c.)</strong>
+      <pre id="vessatorie" style="margin-top:10px"></pre>
+    </div>
+
+    <label class="flag" id="l1"><input type="checkbox" id="c1">
+      <span>Ho letto e <b>accetto il contratto</b> di procacciamento d'affari nel testo qui sopra.</span></label>
+    <label class="flag" id="l2"><input type="checkbox" id="c2">
+      <span><b>Approvo specificamente</b> le clausole elencate qui sopra ai sensi degli artt. 1341-1342 c.c.</span></label>
+
+    <button class="btn" id="invia" disabled>Firma il contratto</button>
+    <p class="nota">Firmando non assume nessun obbligo di attivarsi, nessuna zona e nessuna esclusiva:
+      il rapporto è di procacciamento occasionale e si interrompe quando vuole, senza indennità.</p>
+  </div>
+
+  <div class="msg" id="msg"></div>
+</div>
+
+<footer><div class="wrap">
+  GIGA TRADE S.R.L.S. · Via Ottavio Revel 6, 10121 Torino, Italia · P.IVA IT13105910015 ·
+  <a href="https://nexushub.trade/privacy.html">Informativa privacy</a>
+</div></footer>
+
+<script>
+/* La funzione sta su Supabase e non chiede JWT: chi deve firmare non ha una
+   sessione aperta e spesso non ha mai fatto il login. Il gettone nel link e'
+   l'unica credenziale, ed e' monouso. */
+var API = "https://krojimmlbizxkzbulspm.supabase.co/functions/v1/firma-contratto";
+var token = new URLSearchParams(location.search).get("token") || "";
+var msg = document.getElementById("msg");
+
+function errore(t){ msg.className = "msg ko"; msg.textContent = t; }
+function bene(t){ msg.className = "msg ok"; msg.textContent = t; }
+
+function aggiorna(){
+  var a = document.getElementById("c1").checked, b = document.getElementById("c2").checked;
+  document.getElementById("l1").className = "flag" + (a ? " on" : "");
+  document.getElementById("l2").className = "flag" + (b ? " on" : "");
+  document.getElementById("invia").disabled = !(a && b);
+}
+document.getElementById("c1").addEventListener("change", aggiorna);
+document.getElementById("c2").addEventListener("change", aggiorna);
+
+if (!token) {
+  errore("Questo link non è completo. Apra il link che le è arrivato per email, intero.");
+} else {
+  fetch(API + "?token=" + encodeURIComponent(token))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d.gia_firmato) {
+        bene("Il contratto risulta già firmato il " + new Date(d.firmato_il).toLocaleString("it-IT") + ". Non serve fare altro.");
+        return;
+      }
+      if (d.errore || !d.contratto) {
+        errore(d.errore === "link_non_valido"
+          ? "Questo link non è più valido: può essere già stato usato. Ci scriva e glielo rifacciamo."
+          : "Non riesco a caricare il contratto. Ci scriva a andrea@nexushub.trade.");
+        return;
+      }
+      document.getElementById("titolo").textContent = d.contratto.titolo || "Contratto";
+      document.getElementById("testo").textContent = d.contratto.testo || "";
+      document.getElementById("vessatorie").textContent = d.contratto.vessatorie || "";
+      if (d.chi) {
+        var chi = document.getElementById("chi");
+        chi.textContent = d.chi + (d.codice ? " · " + d.codice : "");
+        chi.style.display = "inline-block";
+      }
+      document.getElementById("corpo").style.display = "block";
+      window.__lingua = d.contratto.lingua || "it";
+    })
+    .catch(function(){ errore("Connessione non riuscita. Riprovi fra un minuto."); });
+}
+
+document.getElementById("invia").addEventListener("click", function(){
+  var b = document.getElementById("invia");
+  b.disabled = true; b.textContent = "Registro la firma…";
+  fetch(API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token: token, contratto: true, vessatorie: true, lingua: window.__lingua || "it" })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if (d.ok || d.gia_firmato) {
+      document.getElementById("corpo").style.display = "none";
+      bene("Firmato. Abbiamo registrato data, ora e IP: il contratto è valido da adesso, e la versione è la " + (d.versione || "corrente") + ".");
+    } else {
+      b.disabled = false; b.textContent = "Firma il contratto";
+      errore("Non è andata: " + (d.errore || "errore sconosciuto") + ". Ci scriva a andrea@nexushub.trade.");
+    }
+  })
+  .catch(function(){
+    b.disabled = false; b.textContent = "Firma il contratto";
+    errore("Connessione non riuscita. Riprovi fra un minuto.");
+  });
+});
+</script>
+</body>
+</html>
