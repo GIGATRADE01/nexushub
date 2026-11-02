@@ -1004,6 +1004,20 @@ Object.assign(T.de, { vtOcchiello:"B2B-BELIEFERUNG · NUR HÄNDLER", vtTitolo:"L
 Object.assign(T.zh, { vtOcchiello:"B2B 批发 · 仅限经销商", vtTitolo:"Lattafa、Armaf、Maison Alhambra 批发。每款起订 6 支，无需整箱 48 支。", vtSotto:"从都灵发货，附意大利发票，欧盟境内 5-7 个工作日。首单 250 欧元起。无需更换现有批发商——把我们加进来即可。", vtPronte:"款可订购", vtMarchi:"海湾香氛世家", vtConsegna:"5-7 个工作日", vtConsegnaSub:"覆盖全欧盟", vtMinimo:"250 €", vtMinimoSub:"首单", vtPrezzo:"经销价见形式发票", vtTuPaghi:"您的价格", vtInVetrina:"零售价", vtPronta:"有货", vtCta:"索取形式发票", vtCtaSotto:"无需注册。把您的税号和想要的货号发给我们即可。", vtCtaAlt:"或注册后查看全部价格", vtNota:"经销价，不含税，每款起订 6 支。此非面向公众的报价：建议零售价仅供参考，由您自行决定。" });
 Object.assign(T.ar, { vtOcchiello:"توريد للشركات · للتجّار فقط", vtTitolo:"لطافة وأرماف وميزون الحمراء بالجملة. من 6 قطع، لا كراتين من 48.", vtSotto:"يُشحن من تورينو بفاتورة إيطالية، 5-7 أيام عمل في جميع أنحاء الاتحاد الأوروبي. أول طلب من 250 يورو. لا حاجة لترك موزّعيك الحاليين — أضِفنا إليهم.", vtPronte:"صنفاً متاحاً للطلب", vtMarchi:"دار عطور خليجية", vtConsegna:"5-7 أيام", vtConsegnaSub:"أيام عمل، في جميع أنحاء الاتحاد الأوروبي", vtMinimo:"250 €", vtMinimoSub:"أول طلب", vtPrezzo:"سعر التاجر في الفاتورة المبدئية", vtTuPaghi:"سعرك", vtInVetrina:"سعر البيع", vtPronta:"متوفر", vtCta:"اطلب فاتورة مبدئية", vtCtaSotto:"دون تسجيل. أرسل لنا رقمك الضريبي والأصناف التي تريدها.", vtCtaAlt:"أو سجّل لعرض جميع الأسعار", vtNota:"أسعار للتجّار، بدون ضريبة، من 6 قطع لكل صنف. ليست عرضاً للجمهور: السعر المقترح مجرد اقتراح، وأنت من يحدّده." });
 
+/* IL MODULO DELLA PROFORMA (02/11/2026). Sostituisce il mailto: della vetrina,
+   che su telefono — da dove arriva il 91% dei clic — apriva un'app di posta
+   vuota e perdeva il contatto. Quattro campi e nient'altro: a un negoziante
+   che ci vede per la prima volta non si chiede di registrarsi, gli si chiede
+   la partita IVA. Telefono e messaggio restano facoltativi apposta: ogni
+   campo obbligatorio in piu' e' gente che se ne va. */
+Object.assign(T.en, { pfT:"Ask for a pro-forma", pfSub:"Tell us what you need. We reply with trade prices and availability, usually within a few hours.", pfAzienda:"Company", pfPiva:"VAT number", pfEmail:"Email", pfTel:"Phone (optional)", pfCosa:"What you need (optional)", pfCosaPh:"Brands or references you are after, and rough quantities.", pfInvia:"Send the request", pfInvio:"Sending...", pfFattoT:"Request received.", pfFattoX:"We will write to you with prices and availability. Check your spam folder too, just in case.", pfErrore:"We could not send it. Please try again, or write to andrea@nexushub.trade.", pfVuoto:"Company and email are required.", pfChiudi:"Close" });
+Object.assign(T.it, { pfT:"Chiedi la proforma", pfSub:"Dicci cosa ti serve. Ti rispondiamo con i prezzi al rivenditore e la disponibilità, di solito entro poche ore.", pfAzienda:"Azienda", pfPiva:"Partita IVA", pfEmail:"Email", pfTel:"Telefono (facoltativo)", pfCosa:"Cosa ti serve (facoltativo)", pfCosaPh:"Marchi o referenze che ti interessano, e le quantità indicative.", pfInvia:"Invia la richiesta", pfInvio:"Invio in corso...", pfFattoT:"Richiesta ricevuta.", pfFattoX:"Ti scriviamo con prezzi e disponibilità. Controlla anche la posta indesiderata, per sicurezza.", pfErrore:"Non siamo riusciti a inviarla. Riprova, oppure scrivici a andrea@nexushub.trade.", pfVuoto:"Azienda ed email sono obbligatorie.", pfChiudi:"Chiudi" });
+Object.assign(T.fr, { pfT:"Demander une proforma", pfSub:"Dites-nous ce qu'il vous faut. Nous répondons avec les prix revendeur et la disponibilité, en général sous quelques heures.", pfAzienda:"Société", pfPiva:"Numéro de TVA", pfEmail:"E-mail", pfTel:"Téléphone (facultatif)", pfCosa:"Ce qu'il vous faut (facultatif)", pfCosaPh:"Marques ou références qui vous intéressent, et quantités indicatives.", pfInvia:"Envoyer la demande", pfInvio:"Envoi en cours...", pfFattoT:"Demande reçue.", pfFattoX:"Nous vous écrivons avec les prix et la disponibilité. Pensez à vérifier vos indésirables.", pfErrore:"Nous n'avons pas pu l'envoyer. Réessayez, ou écrivez à andrea@nexushub.trade.", pfVuoto:"La société et l'e-mail sont obligatoires.", pfChiudi:"Fermer" });
+Object.assign(T.es, { pfT:"Pide una proforma", pfSub:"Dinos qué necesitas. Respondemos con precios de distribuidor y disponibilidad, normalmente en pocas horas.", pfAzienda:"Empresa", pfPiva:"NIF / CIF", pfEmail:"Email", pfTel:"Teléfono (opcional)", pfCosa:"Qué necesitas (opcional)", pfCosaPh:"Marcas o referencias que te interesan, y cantidades aproximadas.", pfInvia:"Enviar la solicitud", pfInvio:"Enviando...", pfFattoT:"Solicitud recibida.", pfFattoX:"Te escribimos con precios y disponibilidad. Revisa también la carpeta de spam.", pfErrore:"No hemos podido enviarla. Inténtalo de nuevo o escríbenos a andrea@nexushub.trade.", pfVuoto:"La empresa y el email son obligatorios.", pfChiudi:"Cerrar" });
+Object.assign(T.de, { pfT:"Proforma anfordern", pfSub:"Sagen Sie uns, was Sie brauchen. Wir antworten mit Händlerpreisen und Verfügbarkeit, meist innerhalb weniger Stunden.", pfAzienda:"Firma", pfPiva:"USt-IdNr.", pfEmail:"E-Mail", pfTel:"Telefon (optional)", pfCosa:"Was Sie brauchen (optional)", pfCosaPh:"Marken oder Artikel, die Sie interessieren, und ungefähre Mengen.", pfInvia:"Anfrage senden", pfInvio:"Wird gesendet...", pfFattoT:"Anfrage erhalten.", pfFattoX:"Wir melden uns mit Preisen und Verfügbarkeit. Schauen Sie sicherheitshalber auch in den Spam-Ordner.", pfErrore:"Wir konnten sie nicht senden. Bitte erneut versuchen oder an andrea@nexushub.trade schreiben.", pfVuoto:"Firma und E-Mail sind Pflichtfelder.", pfChiudi:"Schließen" });
+Object.assign(T.zh, { pfT:"索取形式发票", pfSub:"告诉我们您需要什么。我们会回复经销价和库存情况，通常在几小时内。", pfAzienda:"公司名称", pfPiva:"税号", pfEmail:"电子邮箱", pfTel:"电话（选填）", pfCosa:"您需要什么（选填）", pfCosaPh:"您感兴趣的品牌或货号，以及大致数量。", pfInvia:"提交请求", pfInvio:"提交中...", pfFattoT:"已收到您的请求。", pfFattoX:"我们会把价格和库存发送给您。请一并查看垃圾邮件文件夹。", pfErrore:"提交失败。请重试，或发邮件至 andrea@nexushub.trade。", pfVuoto:"公司名称和邮箱为必填项。", pfChiudi:"关闭" });
+Object.assign(T.ar, { pfT:"اطلب فاتورة مبدئية", pfSub:"أخبرنا بما تحتاجه. نردّ عليك بأسعار التجّار والتوفّر، عادةً خلال ساعات قليلة.", pfAzienda:"الشركة", pfPiva:"الرقم الضريبي", pfEmail:"البريد الإلكتروني", pfTel:"الهاتف (اختياري)", pfCosa:"ما الذي تحتاجه (اختياري)", pfCosaPh:"الماركات أو الأصناف التي تهمّك، والكميات التقريبية.", pfInvia:"إرسال الطلب", pfInvio:"جارٍ الإرسال...", pfFattoT:"تم استلام طلبك.", pfFattoX:"سنراسلك بالأسعار والتوفّر. تحقّق أيضاً من مجلد البريد غير المرغوب فيه.", pfErrore:"تعذّر الإرسال. حاول مرة أخرى أو راسلنا على andrea@nexushub.trade.", pfVuoto:"الشركة والبريد الإلكتروني حقلان إلزاميان.", pfChiudi:"إغلاق" });
+
 Object.assign(T.en, { lgHeroA:"The Gulf houses produce in the Middle East.", lgHeroB:"The market is in Europe.", lgHeroSub:"We are an Italian wholesaler of Arabian fragrance. The goods ship from Turin on an Italian invoice and reach the whole EU in 5-7 working days — no container to wait for and no cartons of 48. Brands decide who represents them.", lgFrom:"Where are you coming from?", lgChainVia:"I am a retail chain or an e-commerce — I buy for several points of sale", lgDemoLab:"Step inside and look around — no sign-up", lgDemoBrand:"Live Brand demo", lgDemoDist:"Live Distributor demo", lgHave:"I already have an account — Sign in" });
 Object.assign(T.it, { lgHeroA:"Le case del Golfo producono in Medio Oriente.", lgHeroB:"Il mercato però è in Europa.", lgHeroSub:"Siamo un grossista italiano di profumeria araba. La merce parte da Torino con fattura italiana e arriva in tutta l'UE in 5-7 giorni lavorativi — senza container da aspettare e senza cartoni da 48 pezzi. I brand decidono chi li rappresenta.", lgFrom:"Da dove arrivi?", lgChainVia:"Sono una catena o un e-commerce — acquisto per più punti vendita", lgDemoLab:"Entra e guarda, senza registrarti", lgDemoBrand:"Demo Brand dal vivo", lgDemoDist:"Demo Distributore dal vivo", lgHave:"Ho già un account — Accedi" });
 Object.assign(T.fr, { lgHeroA:"Les maisons du Golfe produisent au Moyen-Orient.", lgHeroB:"Le marché, lui, est en Europe.", lgHeroSub:"Nous sommes un grossiste italien de parfumerie arabe. La marchandise part de Turin avec facture italienne et atteint toute l'UE en 5-7 jours ouvrables — sans conteneur à attendre et sans cartons de 48. Les marques choisissent qui les représente.", lgFrom:"D'où venez-vous ?", lgChainVia:"Je suis une chaîne ou un e-commerce — j'achète pour plusieurs points de vente", lgDemoLab:"Entrez et regardez, sans inscription", lgDemoBrand:"Démo Marque en direct", lgDemoDist:"Démo Distributeur en direct", lgHave:"J'ai déjà un compte — Se connecter" });
@@ -2741,6 +2755,49 @@ const Login = ({ onLogin, lang, onLangChange }) => {
   const [resetLoading, setResetLoading] = useState(false);
   const [formAperto, setFormAperto] = useState(false); // solo su telefono
 
+  /* IL MODULO DELLA PROFORMA (02/11/2026).
+     Prima qui c'era un mailto:. Google ne contava i clic come conversioni —
+     due — ma in casella non e' mai arrivato niente: il 91% di chi clicca viene
+     da telefono, dove un mailto apre un'app di posta vuota e il negoziante
+     lascia perdere. Due negozi ci hanno cercati e li abbiamo persi senza
+     saperlo.
+     Ora: quattro campi, la richiesta va a database prima di ogni email, e la
+     conversione si manda all'INVIO RIUSCITO, non al clic. Cosi' Google impara
+     su un contatto vero e noi sappiamo chi ci ha scritto anche se la posta
+     fa i capricci. */
+  const [pfAperto, setPfAperto] = useState(false);
+  const [pf, setPf] = useState({ azienda:"", piva:"", email:"", telefono:"", messaggio:"", sito_web_hp:"" });
+  const [pfStato, setPfStato] = useState(""); // "" | invio | fatto | errore
+
+  const inviaProforma = async () => {
+    if (!pf.azienda.trim() || !pf.email.trim()) { setPfStato("vuoto"); return; }
+    setPfStato("invio");
+    try {
+      const r = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/richiesta-proforma`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: process.env.REACT_APP_SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({
+          ...pf,
+          lingua: lang || "it",
+          /* Da dove arriva: serve a sapere se il modulo lo riempiono quelli
+             degli annunci o chi ci trova da solo. gclid lo mette Google. */
+          origine: (typeof window !== "undefined" && window.location.search.includes("gclid"))
+            ? "gads" : "diretto",
+        }),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok || !d.ok) { setPfStato("errore"); return; }
+      setPfStato("fatto");
+      gadsConversione(process.env.REACT_APP_GADS_PRO);
+    } catch (e) {
+      setPfStato("errore");
+    }
+  };
+
   /* La vetrina di chi non e' registrato. Legge v_vetrina_pubblica, che espone
      marca, nome, foto e "pronta" e NON ha la colonna del prezzo: la RLS sui
      prodotti resta intatta e non c'e' nessun prezzo da proteggere a mano.
@@ -3041,17 +3098,91 @@ const Login = ({ onLogin, lang, onLangChange }) => {
                   servire. Questo invece e' il gesto che un negozio fa davvero
                   al primo contatto — chiedere la proforma — ed e' l'unico
                   segnale commerciale che arriva in tempo utile. */}
-              <a onClick={() => gadsConversione(process.env.REACT_APP_GADS_PRO)}
-                href={`mailto:andrea@nexushub.trade?subject=${encodeURIComponent(t("vtCta"))}&body=${encodeURIComponent(t("vtCtaSotto"))}`}
+              {/* Era un mailto:. Google ne contava i clic come conversioni (due)
+                  ma in casella non arrivava niente: il 91% di chi clicca viene
+                  da telefono, dove un mailto apre un'app di posta vuota. Ora
+                  apre il modulo qui sotto, e la conversione parte solo quando
+                  la richiesta e' davvero arrivata. */}
+              <button onClick={() => { setPfAperto(true); setPfStato(""); }}
                 style={{ display:"block", width:"100%", padding:"13px", borderRadius:11, cursor:"pointer",
                          background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none",
                          color:C.bg, fontSize:14, fontWeight:800, textAlign:"center",
-                         textDecoration:"none", boxSizing:"border-box" }}>
+                         boxSizing:"border-box" }}>
                 {t("vtCta")} →
-              </a>
+              </button>
               <div style={{ fontSize:11, color:C.textMuted, textAlign:"center", marginTop:8, lineHeight:1.5 }}>
                 {t("vtCtaSotto")}
               </div>
+
+              {pfAperto && (
+                <div style={{ marginTop:14, padding:16, borderRadius:12,
+                              background:"rgba(255,255,255,.035)", border:`1px solid ${C.gold}40` }}>
+                  {pfStato === "fatto" ? (
+                    <div style={{ textAlign:"center", padding:"10px 0" }}>
+                      <div style={{ fontSize:26, marginBottom:8 }}>✓</div>
+                      <div style={{ fontSize:15, fontWeight:800, color:C.gold, marginBottom:6 }}>
+                        {t("pfFattoT")}
+                      </div>
+                      <div style={{ fontSize:12.5, color:C.textMuted, lineHeight:1.6 }}>
+                        {t("pfFattoX")}
+                      </div>
+                      <button onClick={() => setPfAperto(false)}
+                        style={{ marginTop:14, background:"none", border:`1px solid ${C.border}`,
+                                 borderRadius:9, padding:"8px 18px", color:C.textMuted,
+                                 fontSize:12, cursor:"pointer" }}>
+                        {t("pfChiudi")}
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <div style={{ fontSize:15, fontWeight:800, marginBottom:4 }}>{t("pfT")}</div>
+                      <div style={{ fontSize:11.5, color:C.textMuted, lineHeight:1.55, marginBottom:12 }}>
+                        {t("pfSub")}
+                      </div>
+
+                      {/* Il campo che nessun umano vede: lo riempiono solo i robot.
+                          Nascosto con la posizione e non con display:none, che
+                          alcuni riempitori automatici saltano apposta. */}
+                      <input tabIndex={-1} autoComplete="off" aria-hidden="true"
+                        value={pf.sito_web_hp}
+                        onChange={e => setPf({ ...pf, sito_web_hp:e.target.value })}
+                        style={{ position:"absolute", left:"-9999px", width:1, height:1, opacity:0 }} />
+
+                      {[["azienda", t("pfAzienda"), "text"],
+                        ["piva", t("pfPiva"), "text"],
+                        ["email", t("pfEmail"), "email"],
+                        ["telefono", t("pfTel"), "tel"]].map(([k, etichetta, tipo]) => (
+                        <input key={k} type={tipo} placeholder={etichetta}
+                          value={pf[k]} onChange={e => setPf({ ...pf, [k]:e.target.value })}
+                          style={{ width:"100%", boxSizing:"border-box", marginBottom:8, padding:"11px 12px",
+                                   borderRadius:9, border:`1px solid ${C.border}`,
+                                   background:"rgba(0,0,0,.25)", color:C.text, fontSize:13.5 }} />
+                      ))}
+                      <textarea rows={3} placeholder={t("pfCosaPh")}
+                        value={pf.messaggio} onChange={e => setPf({ ...pf, messaggio:e.target.value })}
+                        style={{ width:"100%", boxSizing:"border-box", marginBottom:10, padding:"11px 12px",
+                                 borderRadius:9, border:`1px solid ${C.border}`, resize:"vertical",
+                                 background:"rgba(0,0,0,.25)", color:C.text, fontSize:13.5,
+                                 fontFamily:"inherit" }} />
+
+                      {(pfStato === "vuoto" || pfStato === "errore") && (
+                        <div style={{ fontSize:12, color:C.red, marginBottom:10, lineHeight:1.5 }}>
+                          {pfStato === "vuoto" ? t("pfVuoto") : t("pfErrore")}
+                        </div>
+                      )}
+
+                      <button onClick={inviaProforma} disabled={pfStato === "invio"}
+                        style={{ width:"100%", padding:"12px", borderRadius:10, border:"none",
+                                 background:`linear-gradient(135deg,${C.gold},${C.goldDim})`,
+                                 color:C.bg, fontSize:14, fontWeight:800,
+                                 cursor: pfStato === "invio" ? "default" : "pointer",
+                                 opacity: pfStato === "invio" ? .6 : 1 }}>
+                        {pfStato === "invio" ? t("pfInvio") : t("pfInvia")}
+                      </button>
+                    </>
+                  )}
+                </div>
+              )}
               <div style={{ textAlign:"center", margin:"8px 0 16px" }}>
                 <button onClick={() => setView("register-dist")}
                   style={{ background:"none", border:"none", cursor:"pointer", padding:4,
