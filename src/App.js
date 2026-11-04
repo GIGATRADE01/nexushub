@@ -1227,6 +1227,14 @@ Object.assign(T.es,{ registerChain:"Cadena / E-commerce europeo", rgAccTypeLabel
 Object.assign(T.de,{ registerChain:"Kette / Europäischer E-Commerce", rgAccTypeLabel:"Art des Unternehmens", rgAccChain:"Einzelhandelskette", rgAccEcom:"Großer E-Commerce" });
 Object.assign(T.zh,{ registerChain:"连锁 / 欧洲电商", rgAccTypeLabel:"业务类型", rgAccChain:"零售连锁", rgAccEcom:"大型电商" });
 Object.assign(T.ar,{ registerChain:"سلسلة متاجر / تجارة إلكترونية أوروبية", rgAccTypeLabel:"نوع النشاط", rgAccChain:"سلسلة متاجر", rgAccEcom:"تجارة إلكترونية كبيرة" });
+// Barra fissa di registrazione (appare allo scroll della pagina d'ingresso)
+Object.assign(T.en, { lgRegisterNow: "Register free — 2 minutes" });
+Object.assign(T.it, { lgRegisterNow: "Registrati gratis — 2 minuti" });
+Object.assign(T.fr, { lgRegisterNow: "Inscription gratuite — 2 minutes" });
+Object.assign(T.es, { lgRegisterNow: "Regístrate gratis — 2 minutos" });
+Object.assign(T.de, { lgRegisterNow: "Kostenlos registrieren — 2 Minuten" });
+Object.assign(T.zh, { lgRegisterNow: "免费注册——2 分钟" });
+Object.assign(T.ar, { lgRegisterNow: "سجّل مجانًا — دقيقتان" });
 Object.assign(T.en,{ atabKeyAccount:"Key Account", kaTitle:"Key Accounts — Chains & E-commerce", kaSubtitle:"Manage chains and large e-commerce supplied directly by NexusHub", kaEmpty:"No chains or e-commerce registered yet.", kaApprove:"Approve account", kaManageBrands:"Manage brands", kaHideBrands:"Hide", kaAuthorizeBrands:"Authorize brand sales", kaNoBrands:"No brands available.", kaAuthorize:"Authorize", kaRevoke:"Revoke", kaAccessGranted:"Brand authorized", kaAccessRevoked:"Authorization revoked" });
 Object.assign(T.it,{ atabKeyAccount:"Key Account", kaTitle:"Key Account — Catene & E-commerce", kaSubtitle:"Gestisci catene e grandi e-commerce riforniti direttamente da NexusHub", kaEmpty:"Nessuna catena o e-commerce registrato al momento.", kaApprove:"Approva account", kaManageBrands:"Gestisci brand", kaHideBrands:"Nascondi", kaAuthorizeBrands:"Autorizza alla vendita dei brand", kaNoBrands:"Nessun brand disponibile.", kaAuthorize:"Autorizza", kaRevoke:"Revoca", kaAccessGranted:"Brand autorizzato", kaAccessRevoked:"Autorizzazione revocata" });
 Object.assign(T.fr,{ atabKeyAccount:"Grands comptes", kaTitle:"Grands comptes — Chaînes & E-commerce", kaSubtitle:"Gérez les chaînes et grands e-commerce approvisionnés directement par NexusHub", kaEmpty:"Aucune chaîne ou e-commerce enregistré pour le moment.", kaApprove:"Approuver le compte", kaManageBrands:"Gérer les marques", kaHideBrands:"Masquer", kaAuthorizeBrands:"Autoriser la vente des marques", kaNoBrands:"Aucune marque disponible.", kaAuthorize:"Autoriser", kaRevoke:"Révoquer", kaAccessGranted:"Marque autorisée", kaAccessRevoked:"Autorisation révoquée" });
@@ -2754,6 +2762,14 @@ const Login = ({ onLogin, lang, onLangChange }) => {
   const [resetSent, setResetSent] = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
   const [formAperto, setFormAperto] = useState(false); // solo su telefono
+  // La pagina e' lunga e il modulo sta in fondo: appena l'utente scorre, una
+  // barra fissa in alto gli tiene la registrazione a un tocco (lead Ads da telefono).
+  const [ctaFisso, setCtaFisso] = useState(false);
+  useEffect(() => {
+    const suScroll = () => setCtaFisso(window.scrollY > 420);
+    window.addEventListener("scroll", suScroll, { passive: true });
+    return () => window.removeEventListener("scroll", suScroll);
+  }, []);
 
   /* IL MODULO DELLA PROFORMA (02/11/2026).
      Prima qui c'era un mailto:. Google ne contava i clic come conversioni —
@@ -3008,6 +3024,15 @@ const Login = ({ onLogin, lang, onLangChange }) => {
   return (
     <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", backgroundImage:`radial-gradient(ellipse at 18% 45%,${C.gold}08 0%,transparent 62%)`, padding:"20px 12px", overflowY:"auto" }}>
       <div className="lg-split">
+
+        {ctaFisso && (
+          <div style={{ position:"fixed", top:0, left:0, right:0, zIndex:90, padding:"9px 12px", background:"rgba(9,12,18,.93)", backdropFilter:"blur(8px)", borderBottom:`1px solid ${C.gold}40`, display:"flex", justifyContent:"center" }}>
+            <button type="button" onClick={() => { window.scrollTo(0, 0); setView("register-dist"); }}
+              style={{ maxWidth:420, width:"100%", padding:"12px 16px", borderRadius:10, cursor:"pointer", background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none", color:C.bg, fontSize:13.5, fontWeight:800, boxShadow:"0 6px 18px rgba(0,0,0,.4)" }}>
+              ✨ {t("lgRegisterNow")}
+            </button>
+          </div>
+        )}
 
         {/* --------------------------------------------------- marchio e lingua */}
         <div className="lg-testa">
