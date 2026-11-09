@@ -1013,6 +1013,13 @@ Object.assign(T.ar, { vtOcchiello:"توريد للشركات · للتجّار �
 Object.assign(T.en, { pfT:"Ask for a pro-forma", pfSub:"Tell us what you need. We reply with trade prices and availability, usually within a few hours.", pfAzienda:"Company", pfPiva:"VAT number", pfEmail:"Email", pfTel:"Phone (optional)", pfCosa:"What you need (optional)", pfCosaPh:"Brands or references you are after, and rough quantities.", pfInvia:"Send the request", pfInvio:"Sending...", pfFattoT:"Request received.", pfFattoX:"We will write to you with prices and availability. Check your spam folder too, just in case.", pfErrore:"We could not send it. Please try again, or write to andrea@nexushub.trade.", pfVuoto:"Company and email are required.", pfChiudi:"Close" });
 Object.assign(T.it, { pfT:"Chiedi la proforma", pfSub:"Dicci cosa ti serve. Ti rispondiamo con i prezzi al rivenditore e la disponibilità, di solito entro poche ore.", pfAzienda:"Azienda", pfPiva:"Partita IVA", pfEmail:"Email", pfTel:"Telefono (facoltativo)", pfCosa:"Cosa ti serve (facoltativo)", pfCosaPh:"Marchi o referenze che ti interessano, e le quantità indicative.", pfInvia:"Invia la richiesta", pfInvio:"Invio in corso...", pfFattoT:"Richiesta ricevuta.", pfFattoX:"Ti scriviamo con prezzi e disponibilità. Controlla anche la posta indesiderata, per sicurezza.", pfErrore:"Non siamo riusciti a inviarla. Riprova, oppure scrivici a andrea@nexushub.trade.", pfVuoto:"Azienda ed email sono obbligatorie.", pfChiudi:"Chiudi" });
 Object.assign(T.fr, { pfT:"Demander une proforma", pfSub:"Dites-nous ce qu'il vous faut. Nous répondons avec les prix revendeur et la disponibilité, en général sous quelques heures.", pfAzienda:"Société", pfPiva:"Numéro de TVA", pfEmail:"E-mail", pfTel:"Téléphone (facultatif)", pfCosa:"Ce qu'il vous faut (facultatif)", pfCosaPh:"Marques ou références qui vous intéressent, et quantités indicatives.", pfInvia:"Envoyer la demande", pfInvio:"Envoi en cours...", pfFattoT:"Demande reçue.", pfFattoX:"Nous vous écrivons avec les prix et la disponibilité. Pensez à vérifier vos indésirables.", pfErrore:"Nous n'avons pas pu l'envoyer. Réessayez, ou écrivez à andrea@nexushub.trade.", pfVuoto:"La société et l'e-mail sont obligatoires.", pfChiudi:"Fermer" });
+/* Le box pronte: testi in cinque lingue. Le cifre NON stanno qui: arrivano dal
+   database ogni mattina, cosi' nessun testo invecchia. */
+Object.assign(T.it, { bxOcchiello:"BOX PRONTE · AGGIORNATE OGNI MATTINA", bxTitolo:"Non hai tempo di sfogliare 1.400 referenze? Scegli una box.", bxSotto:"Tre assortimenti già composti con referenze disponibili oggi, 6 pezzi per referenza. Chiedi la proforma della box: paghi quando la ricevi, la merce parte da Torino.", bxNomeA:"Best seller", bxDescA:"I nomi che i clienti chiedono già in negozio. La box per partire.", bxNomeB:"Il giro del Golfo", bxDescB:"Una referenza per casa: scopri cosa gira nel tuo negozio prima di riordinare.", bxNomeC:"Natale", bxDescC:"Cofanetti regalo e best seller per le feste. Da ordinare entro la prima settimana di dicembre.", bxPezzi:"pezzi", bxIva:"IVA esclusa", bxCta:"Chiedi la proforma della box", bxNota:"Prezzi al rivenditore. La composizione segue le disponibilità del giorno: se una referenza finisce, in proforma ti proponiamo un'equivalente, o la togli.", bxRichiesta:"Vorrei la box «{box}»" });
+Object.assign(T.en, { bxOcchiello:"READY BOXES · UPDATED EVERY MORNING", bxTitolo:"No time to browse 1,400 references? Pick a box.", bxSotto:"Three assortments already put together from references available today, 6 units each. Ask for the box pro-forma: you pay once you receive it, and the goods ship from Turin.", bxNomeA:"Best sellers", bxDescA:"The names your customers already ask for. The box to start with.", bxNomeB:"Around the Gulf", bxDescB:"One reference per house: find out what sells in your shop before you reorder.", bxNomeC:"Christmas", bxDescC:"Gift sets and best sellers for the holidays. Order by the first week of December.", bxPezzi:"units", bxIva:"VAT excl.", bxCta:"Ask for the box pro-forma", bxNota:"Trade prices. The box follows today's availability: if a reference sells out, the pro-forma offers an equivalent, or you drop it.", bxRichiesta:"I would like the «{box}» box" });
+Object.assign(T.fr, { bxOcchiello:"BOX PRÊTES · MISES À JOUR CHAQUE MATIN", bxTitolo:"Pas le temps de parcourir 1 400 références ? Choisissez une box.", bxSotto:"Trois assortiments déjà composés avec des références disponibles aujourd'hui, 6 pièces par référence. Demandez la proforma de la box : vous payez à réception, la marchandise part de Turin.", bxNomeA:"Best-sellers", bxDescA:"Les noms que vos clients demandent déjà. La box pour démarrer.", bxNomeB:"Le tour du Golfe", bxDescB:"Une référence par maison : voyez ce qui marche dans votre boutique avant de recommander.", bxNomeC:"Noël", bxDescC:"Coffrets cadeaux et best-sellers pour les fêtes. À commander avant la première semaine de décembre.", bxPezzi:"pièces", bxIva:"HT", bxCta:"Demander la proforma de la box", bxNota:"Prix revendeur. La composition suit les disponibilités du jour : si une référence est épuisée, la proforma propose un équivalent, ou vous la retirez.", bxRichiesta:"Je voudrais la box « {box} »" });
+Object.assign(T.es, { bxOcchiello:"CAJAS LISTAS · ACTUALIZADAS CADA MAÑANA", bxTitolo:"¿Sin tiempo para mirar 1.400 referencias? Elige una caja.", bxSotto:"Tres surtidos ya compuestos con referencias disponibles hoy, 6 piezas por referencia. Pide la proforma de la caja: pagas al recibirla y la mercancía sale de Turín.", bxNomeA:"Más vendidos", bxDescA:"Los nombres que tus clientes ya piden. La caja para empezar.", bxNomeB:"La vuelta al Golfo", bxDescB:"Una referencia por casa: descubre qué se vende en tu tienda antes de repetir.", bxNomeC:"Navidad", bxDescC:"Estuches de regalo y más vendidos para las fiestas. Pídela antes de la primera semana de diciembre.", bxPezzi:"piezas", bxIva:"sin IVA", bxCta:"Pide la proforma de la caja", bxNota:"Precios de distribuidor. La caja sigue la disponibilidad del día: si una referencia se agota, la proforma te propone una equivalente, o la quitas.", bxRichiesta:"Quisiera la caja «{box}»" });
+Object.assign(T.de, { bxOcchiello:"FERTIGE BOXEN · JEDEN MORGEN AKTUALISIERT", bxTitolo:"Keine Zeit, 1.400 Artikel durchzusehen? Wählen Sie eine Box.", bxSotto:"Drei fertige Sortimente aus heute verfügbaren Artikeln, 6 Stück pro Artikel. Fordern Sie die Proforma der Box an: Sie zahlen nach Erhalt, die Ware geht ab Turin raus.", bxNomeA:"Bestseller", bxDescA:"Die Namen, nach denen Ihre Kunden schon fragen. Die Box zum Start.", bxNomeB:"Rund um den Golf", bxDescB:"Ein Artikel pro Haus: Finden Sie heraus, was in Ihrem Geschäft läuft, bevor Sie nachbestellen.", bxNomeC:"Weihnachten", bxDescC:"Geschenksets und Bestseller für die Feiertage. Bestellung bis zur ersten Dezemberwoche.", bxPezzi:"Stück", bxIva:"zzgl. USt.", bxCta:"Proforma der Box anfordern", bxNota:"Händlerpreise. Die Box folgt der Tagesverfügbarkeit: Ist ein Artikel ausverkauft, schlägt die Proforma einen gleichwertigen vor, oder Sie streichen ihn.", bxRichiesta:"Ich möchte die Box „{box}“" });
 Object.assign(T.es, { pfT:"Pide una proforma", pfSub:"Dinos qué necesitas. Respondemos con precios de distribuidor y disponibilidad, normalmente en pocas horas.", pfAzienda:"Empresa", pfPiva:"NIF / CIF", pfEmail:"Email", pfTel:"Teléfono (opcional)", pfCosa:"Qué necesitas (opcional)", pfCosaPh:"Marcas o referencias que te interesan, y cantidades aproximadas.", pfInvia:"Enviar la solicitud", pfInvio:"Enviando...", pfFattoT:"Solicitud recibida.", pfFattoX:"Te escribimos con precios y disponibilidad. Revisa también la carpeta de spam.", pfErrore:"No hemos podido enviarla. Inténtalo de nuevo o escríbenos a andrea@nexushub.trade.", pfVuoto:"La empresa y el email son obligatorios.", pfChiudi:"Cerrar" });
 Object.assign(T.de, { pfT:"Proforma anfordern", pfSub:"Sagen Sie uns, was Sie brauchen. Wir antworten mit Händlerpreisen und Verfügbarkeit, meist innerhalb weniger Stunden.", pfAzienda:"Firma", pfPiva:"USt-IdNr.", pfEmail:"E-Mail", pfTel:"Telefon (optional)", pfCosa:"Was Sie brauchen (optional)", pfCosaPh:"Marken oder Artikel, die Sie interessieren, und ungefähre Mengen.", pfInvia:"Anfrage senden", pfInvio:"Wird gesendet...", pfFattoT:"Anfrage erhalten.", pfFattoX:"Wir melden uns mit Preisen und Verfügbarkeit. Schauen Sie sicherheitshalber auch in den Spam-Ordner.", pfErrore:"Wir konnten sie nicht senden. Bitte erneut versuchen oder an andrea@nexushub.trade schreiben.", pfVuoto:"Firma und E-Mail sind Pflichtfelder.", pfChiudi:"Schließen" });
 Object.assign(T.zh, { pfT:"索取形式发票", pfSub:"告诉我们您需要什么。我们会回复经销价和库存情况，通常在几小时内。", pfAzienda:"公司名称", pfPiva:"税号", pfEmail:"电子邮箱", pfTel:"电话（选填）", pfCosa:"您需要什么（选填）", pfCosaPh:"您感兴趣的品牌或货号，以及大致数量。", pfInvia:"提交请求", pfInvio:"提交中...", pfFattoT:"已收到您的请求。", pfFattoX:"我们会把价格和库存发送给您。请一并查看垃圾邮件文件夹。", pfErrore:"提交失败。请重试，或发邮件至 andrea@nexushub.trade。", pfVuoto:"公司名称和邮箱为必填项。", pfChiudi:"关闭" });
@@ -2783,6 +2790,39 @@ const Login = ({ onLogin, lang, onLangChange }) => {
      fa i capricci. */
   const [pfAperto, setPfAperto] = useState(false);
   const [pf, setPf] = useState({ azienda:"", piva:"", email:"", telefono:"", messaggio:"", sito_web_hp:"" });
+
+  /* LE BOX PRONTE (09/11/2026). Il catalogo da 1.400 righe chiede al negozio
+     di scegliere, e chi deve scegliere rimanda. La box e' una decisione sola:
+     guardi, chiedi la proforma, paghi. Le compone il database ogni mattina
+     alle 6:40 (componi_box) dal listino del fornitore delle 6: solo referenze
+     disponibili e con margine vero, quindi quello che c'e' scritto qui e'
+     ordinabile oggi. Multimarca: per questo passa dalla proforma e non dal
+     carrello, che accetta un marchio per ordine. ?box=A apre la box giusta
+     direttamente dal link nelle email. */
+  const [boxes, setBoxes] = useState([]);
+  const [boxScelta, setBoxScelta] = useState("");
+  const pfRef = useRef(null);
+  useEffect(() => {
+    let vivo = true;
+    supabase.from("v_box_pubbliche").select("codice,ordine,righe,pezzi,totale,aggiornata_il").order("ordine")
+      .then(({ data }) => { if (vivo && data) setBoxes(data.filter(b => b.pezzi > 0)); });
+    return () => { vivo = false; };
+  }, []);
+  const ordinaBox = (b) => {
+    const fmtEuro = (v) => "€ " + Number(v || 0).toLocaleString("it-IT", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const righe = (b.righe || []).map(r => `- ${r.marca} · ${r.nome} × ${r.qty}`).join("\n");
+    setBoxScelta(b.codice);
+    setPf(prev => ({ ...prev, messaggio: `${t("bxRichiesta").replace("{box}", t("bxNome" + b.codice))} (${b.pezzi} ${t("bxPezzi")}, ${fmtEuro(b.totale)} ${t("bxIva")})\n${righe}` }));
+    setPfAperto(true); setPfStato("");
+    setTimeout(() => { pfRef.current && pfRef.current.scrollIntoView({ behavior:"smooth", block:"center" }); }, 60);
+  };
+  useEffect(() => {
+    const q = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("box") : null;
+    if (!q || !boxes.length) return;
+    const b = boxes.find(x => x.codice === q.toUpperCase());
+    if (b) ordinaBox(b);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [boxes]);
   const [pfStato, setPfStato] = useState(""); // "" | invio | fatto | errore
 
   const inviaProforma = async () => {
@@ -3128,6 +3168,53 @@ const Login = ({ onLogin, lang, onLangChange }) => {
                   da telefono, dove un mailto apre un'app di posta vuota. Ora
                   apre il modulo qui sotto, e la conversione parte solo quando
                   la richiesta e' davvero arrivata. */}
+              {/* LE TRE BOX PRONTE: una decisione invece di 1.400 righe. */}
+              {boxes.length > 0 && (
+                <div style={{ margin:"0 0 18px" }}>
+                  <div style={{ ...etich, color:C.gold, margin:"0 0 6px" }}>📦 {t("bxOcchiello")}</div>
+                  <div style={{ fontSize:15, fontWeight:800, color:C.text, margin:"0 0 4px" }}>{t("bxTitolo")}</div>
+                  <div style={{ fontSize:12, color:C.textMuted, lineHeight:1.55, margin:"0 0 12px" }}>{t("bxSotto")}</div>
+                  <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(210px, 1fr))", gap:10 }}>
+                    {boxes.map(b => (
+                      <div key={b.codice} style={{ padding:"13px 13px 12px", borderRadius:12,
+                                                   background: boxScelta === b.codice ? `${C.gold}18` : "rgba(255,255,255,.03)",
+                                                   border:`1px solid ${boxScelta === b.codice ? C.gold : C.border}`,
+                                                   display:"flex", flexDirection:"column" }}>
+                        <div style={{ fontSize:14, fontWeight:800, color:C.goldLight }}>{t("bxNome" + b.codice)}</div>
+                        <div style={{ fontSize:11, color:C.textMuted, lineHeight:1.45, margin:"3px 0 9px" }}>{t("bxDesc" + b.codice)}</div>
+                        <div style={{ display:"flex", gap:4, margin:"0 0 9px" }}>
+                          {(b.righe || []).slice(0, 5).map((r, i) => (
+                            <img key={i} src={r.foto} alt={r.nome} loading="lazy"
+                                 style={{ width:38, height:38, objectFit:"contain", borderRadius:6, background:"#ffffff0d", padding:2 }}
+                                 onError={e => { e.currentTarget.style.visibility = "hidden"; }}/>
+                          ))}
+                        </div>
+                        <div style={{ fontSize:11, color:C.text, lineHeight:1.5, margin:"0 0 10px", flex:1 }}>
+                          {(b.righe || []).map((r, i) => (
+                            <div key={i} style={{ whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>
+                              <span style={{ color:C.textMuted }}>{r.qty}×</span> {r.nome} <span style={{ color:C.textDim }}>· {r.marca}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div style={{ display:"flex", alignItems:"baseline", justifyContent:"space-between", margin:"0 0 9px" }}>
+                          <span style={{ fontSize:19, fontWeight:900, color:C.text }}>
+                            € {Number(b.totale).toLocaleString("it-IT", { maximumFractionDigits:0 })}
+                          </span>
+                          <span style={{ fontSize:10.5, color:C.textMuted }}>{b.pezzi} {t("bxPezzi")} · {t("bxIva")}</span>
+                        </div>
+                        <button onClick={() => ordinaBox(b)}
+                          style={{ width:"100%", padding:"10px", borderRadius:9, cursor:"pointer", border:"none",
+                                   background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, color:C.bg,
+                                   fontSize:12.5, fontWeight:800 }}>
+                          {t("bxCta")} →
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ fontSize:10.5, color:C.textDim, lineHeight:1.5, marginTop:8 }}>{t("bxNota")}</div>
+                </div>
+              )}
+
               <button onClick={() => { setPfAperto(true); setPfStato(""); }}
                 style={{ display:"block", width:"100%", padding:"13px", borderRadius:11, cursor:"pointer",
                          background:`linear-gradient(135deg,${C.gold},${C.goldDim})`, border:"none",
@@ -3140,7 +3227,7 @@ const Login = ({ onLogin, lang, onLangChange }) => {
               </div>
 
               {pfAperto && (
-                <div style={{ marginTop:14, padding:16, borderRadius:12,
+                <div ref={pfRef} style={{ marginTop:14, padding:16, borderRadius:12,
                               background:"rgba(255,255,255,.035)", border:`1px solid ${C.gold}40` }}>
                   {pfStato === "fatto" ? (
                     <div style={{ textAlign:"center", padding:"10px 0" }}>
