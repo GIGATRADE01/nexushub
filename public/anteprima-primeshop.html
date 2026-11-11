@@ -681,7 +681,7 @@ function disegnaCarrello() {
   document.getElementById('tot').textContent = euro(s) + (n ? ' · ' + n + (n === 1 ? ' pezzo' : ' pezzi') : '');
   const manca = SOGLIA - s;
   document.getElementById('sped').textContent = n === 0 ? '' :
-    (manca > 0 ? 'Ti mancano ' + euro(manca) + ' alla spedizione gratis'
+    (manca > 0 ? euro(manca) + ' alla spedizione gratis'
                : 'Spedizione gratuita inclusa');
   document.getElementById('progI').style.width = Math.min(100, s / SOGLIA * 100) + '%';
   document.getElementById('barra').classList.toggle('on', n > 0);
