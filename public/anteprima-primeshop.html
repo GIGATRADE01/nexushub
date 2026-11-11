@@ -103,10 +103,14 @@ section{padding:54px 0}
 .vol{display:inline-block;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);
   border:1px solid rgba(200,145,63,.35);padding:3px 7px;margin-bottom:8px}
 .card p{font-size:12px;color:var(--dim);margin-bottom:12px;flex:1}
-.riga{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.pz{font-family:'Cormorant Garamond',serif;font-size:25px;color:var(--amberL);white-space:nowrap}
-.agg{background:var(--amber);color:#06060a;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  padding:0 14px;height:44px;min-width:92px;transition:filter .25s}
+/* sul telefono il prezzo sta sopra e il bottone prende tutta la larghezza:
+   in due colonne un bottone affiancato si taglia */
+.riga{display:block;text-align:center}
+@media(min-width:760px){.riga{display:flex;align-items:center;justify-content:space-between;gap:8px}}
+.pz{display:block;font-family:'Cormorant Garamond',serif;font-size:25px;color:var(--amberL);white-space:nowrap}
+.agg{background:var(--amber);color:#06060a;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  padding:0 12px;height:44px;width:100%;margin-top:6px;transition:filter .25s}
+@media(min-width:760px){.agg{width:auto;min-width:96px;margin-top:0}}
 .agg:active{filter:brightness(.85)}
 .agg.fatto{background:#2f7d4f;color:#fff}
 .dett{margin-top:9px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#7d7367;
