@@ -3,194 +3,204 @@
 <head>
 <meta name="robots" content="noindex,nofollow">
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Prime Shop</title>
+<meta name="theme-color" content="#06060a">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#06060a;--amber:#c8913f;--amberL:#edd3a0;--cream:#f2ebe0;--dim:#8c8275;--linea:#1b1710}
+:root{--ink:#06060a;--amber:#c8913f;--amberL:#edd3a0;--cream:#f2ebe0;--dim:#8c8275;--linea:#1b1710;
+  --barra:calc(68px + env(safe-area-inset-bottom))}
 *{margin:0;padding:0;box-sizing:border-box}
-html{scrollbar-width:none;scroll-behavior:smooth}html::-webkit-scrollbar{display:none}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--ink);color:var(--cream);font-family:'Inter',sans-serif;font-weight:300;
-  line-height:1.6;overflow-x:hidden;cursor:none}
+  line-height:1.6;overflow-x:hidden}
 h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:300}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1340px;margin:0 auto;padding:0 34px}
-.cur{position:fixed;width:8px;height:8px;border-radius:50%;background:var(--amberL);
-  pointer-events:none;z-index:999;transform:translate(-50%,-50%);mix-blend-mode:difference}
-.cur2{position:fixed;width:40px;height:40px;border:1px solid rgba(200,145,63,.5);border-radius:50%;
-  pointer-events:none;z-index:998;transform:translate(-50%,-50%);transition:width .35s,height .35s,background .35s}
-.cur2.big{width:84px;height:84px;background:rgba(200,145,63,.12)}
-@media(pointer:coarse){.cur,.cur2{display:none}body{cursor:auto}}
+button{font-family:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.wrap{max-width:1340px;margin:0 auto;padding:0 18px}
+@media(min-width:760px){.wrap{padding:0 34px}}
 
-/* ---------- flacone sospeso in 3D ---------- */
-.obj{position:relative;perspective:1400px;display:inline-block}
-.obj .in{position:relative;transform-style:preserve-3d;
-  transition:transform .5s cubic-bezier(.2,.8,.2,1);will-change:transform}
-.obj img{display:block;position:relative;z-index:2;
-  filter:drop-shadow(0 30px 40px rgba(0,0,0,.8)) drop-shadow(0 0 54px rgba(237,211,160,.17))}
-.obj .alo{position:absolute;left:50%;top:50%;width:170%;aspect-ratio:1;
-  transform:translate(-50%,-50%) translateZ(-150px);
-  background:radial-gradient(circle,rgba(237,211,160,.3),rgba(200,145,63,.09) 42%,transparent 68%);
-  filter:blur(20px);z-index:1;pointer-events:none;transition:transform .5s}
-.obj .lum{position:absolute;inset:0;z-index:3;pointer-events:none;mix-blend-mode:screen;opacity:.8;
-  background:linear-gradient(112deg,transparent 34%,rgba(255,246,222,.6) 47%,rgba(255,246,222,.16) 53%,transparent 64%);
-  background-size:280% 280%;animation:lumi 7s linear infinite;
-  -webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
-  -webkit-mask-position:center;mask-position:center}
+/* ---------- flacone sospeso ---------- */
+.obj{position:relative;perspective:1200px;width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center}
+.obj .in{position:relative;transform-style:preserve-3d;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.obj img{display:block;position:relative;z-index:2;max-height:100%;width:auto;
+  filter:drop-shadow(0 22px 30px rgba(0,0,0,.85))}
+.obj .alo{position:absolute;left:50%;top:50%;width:150%;aspect-ratio:1;
+  transform:translate(-50%,-50%) translateZ(-120px);
+  background:radial-gradient(circle,rgba(237,211,160,.26),rgba(200,145,63,.07) 42%,transparent 68%);
+  filter:blur(18px);z-index:1;pointer-events:none}
+.obj .lum{position:absolute;inset:0;z-index:3;pointer-events:none;mix-blend-mode:screen;opacity:.75;
+  background:linear-gradient(112deg,transparent 36%,rgba(255,246,222,.5) 48%,transparent 62%);
+  background-size:280% 280%;animation:lumi 8s linear infinite}
 @keyframes lumi{0%{background-position:165% 0}100%{background-position:-65% 0}}
-.obj .rif{position:absolute;left:0;right:0;top:100%;height:38%;z-index:1;pointer-events:none;
-  transform:scaleY(-1);opacity:.15;filter:blur(4px);
-  -webkit-mask-image:linear-gradient(#000,transparent 72%);mask-image:linear-gradient(#000,transparent 72%)}
-.obj .rif img{filter:none;width:100%;height:100%;object-fit:contain;object-position:top}
-.obj.fluttua .in{animation:flut 7s ease-in-out infinite alternate}
-@keyframes flut{from{transform:translateY(0) rotate(-.6deg)}to{transform:translateY(-15px) rotate(.6deg)}}
 
-#sipario{position:fixed;inset:0;z-index:200;background:#06060a;display:flex;align-items:center;
-  justify-content:center;transition:opacity 1s ease .2s}
-#sipario.via{opacity:0;pointer-events:none}
-#scroller{position:fixed;top:0;left:0;width:100%;will-change:transform}
-.nota{background:#140f0a;border-bottom:1px solid #241c13;color:#a0917c;font-size:12.5px;padding:11px 20px;text-align:center}
-.nota b{color:var(--amberL)}
-.ann{background:#000;color:var(--amber);font-size:10px;letter-spacing:.3em;text-transform:uppercase;text-align:center;padding:11px}
-header{position:fixed;top:36px;left:0;right:0;z-index:90;mix-blend-mode:difference}
-.hd{display:flex;align-items:center;justify-content:space-between}
-.mark{font-family:'Cormorant Garamond',serif;font-size:19px;letter-spacing:.36em;text-transform:uppercase}
-nav ul{display:flex;gap:34px;list-style:none}
-nav a{font-size:10px;letter-spacing:.26em;text-transform:uppercase;position:relative}
-nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-6px;height:1px;background:var(--amberL);transition:right .45s cubic-bezier(.2,.8,.2,1)}
-nav a:hover::after{right:0}
-@media(max-width:980px){nav{display:none}header{top:24px}}
+header{position:sticky;top:0;z-index:80;background:rgba(6,6,10,.86);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--linea)}
+.hd{display:flex;align-items:center;justify-content:space-between;height:56px}
+.mark{font-family:'Cormorant Garamond',serif;font-size:17px;letter-spacing:.3em;text-transform:uppercase}
+nav ul{display:none;gap:30px;list-style:none}
+@media(min-width:980px){nav ul{display:flex}.hd{height:68px}}
+nav a{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#9b9184}
+nav a:hover{color:var(--amberL)}
+.carr{display:flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--amberL);padding:9px 14px;border:1px solid var(--linea)}
+.carr b{font-weight:500}
+.ann{background:#000;color:var(--amber);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;
+  text-align:center;padding:9px 14px;line-height:1.5}
 
-/* ---------- apertura: spruzzo + liquido, nessun prodotto ---------- */
-.hero{height:100vh;min-height:660px;position:relative;overflow:hidden;
+/* ---------- apertura ---------- */
+.hero{height:86vh;min-height:520px;position:relative;overflow:hidden;
   display:flex;align-items:center;justify-content:center;text-align:center}
 .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  filter:saturate(.8) brightness(.62);will-change:transform}
-.vig{position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 46%,transparent,rgba(6,6,10,.8) 72%,#06060a 100%)}
+  filter:saturate(.8) brightness(.6)}
+.vig{position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 46%,transparent,rgba(6,6,10,.82) 70%,#06060a 100%)}
 #spruzzo{position:absolute;inset:0;z-index:3;pointer-events:none}
 .hero .wrap{position:relative;z-index:6}
-.kick{font-size:9.5px;letter-spacing:.46em;text-transform:uppercase;color:var(--amber);margin-bottom:26px}
-.logoSvg{width:min(86vw,840px);height:auto;display:block;margin:0 auto 18px}
-.logoSvg text{font-family:'Cormorant Garamond',serif;font-weight:300;letter-spacing:.04em}
-.hero p.sott{max-width:46ch;margin:0 auto 38px;color:#c6bbac;font-size:16px}
-.btn{display:inline-block;border:1px solid var(--amber);color:var(--amberL);font-size:10px;letter-spacing:.28em;
-  text-transform:uppercase;padding:17px 42px;position:relative;overflow:hidden;isolation:isolate}
-.btn span{position:relative;z-index:2;transition:color .4s}
-.btn::before{content:"";position:absolute;inset:0;background:var(--amber);transform:translateY(101%);
-  transition:transform .5s cubic-bezier(.2,.8,.2,1);z-index:1}
-.btn:hover::before{transform:translateY(0)}.btn:hover span{color:#06060a}
-.btn.pieno{margin-right:10px}.btn.pieno::before{transform:translateY(0)}.btn.pieno span{color:#06060a}
-.btn.pieno:hover::before{transform:translateY(-101%)}.btn.pieno:hover span{color:var(--amberL)}
-.btn.mini{padding:12px 26px;letter-spacing:.2em}
-.scrollg{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:6;font-size:9px;
-  letter-spacing:.32em;text-transform:uppercase;color:#8a7f70;text-align:center}
-.scrollg i{display:block;width:1px;height:48px;background:linear-gradient(var(--amber),transparent);margin:12px auto 0;animation:pulse 2.4s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:.25;transform:scaleY(.65)}50%{opacity:1;transform:scaleY(1)}}
+.kick{font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--amber);margin-bottom:20px}
+.logoSvg{width:min(92vw,840px);height:auto;display:block;margin:0 auto 14px}
+.hero p.sott{max-width:40ch;margin:0 auto 28px;color:#c6bbac;font-size:14.5px}
+.azioni{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;border:1px solid var(--amber);color:var(--amberL);font-size:10px;
+  letter-spacing:.24em;text-transform:uppercase;padding:16px 30px;min-height:48px}
+.btn.pieno{background:var(--amber);color:#06060a}
+.salta{position:absolute;right:16px;top:16px;z-index:7;font-size:9px;letter-spacing:.22em;
+  text-transform:uppercase;color:#8a7f70;border:1px solid var(--linea);padding:9px 13px;background:rgba(6,6,10,.5)}
 
 /* ---------- categorie ---------- */
-.cats{border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);background:#08070b}
-.cats ul{display:flex;list-style:none;justify-content:center;flex-wrap:wrap}
-.cats li{flex:1 1 0;min-width:150px;text-align:center;border-right:1px solid var(--linea)}
-.cats li:last-child{border-right:0}
-.cats a{display:block;padding:26px 14px;font-size:10px;letter-spacing:.26em;text-transform:uppercase;
-  color:#9b9184;transition:color .35s,background .35s}
-.cats a:hover{color:var(--amberL);background:#0d0b10}
-.cats em{display:block;font-style:normal;font-family:'Cormorant Garamond',serif;font-size:25px;
-  letter-spacing:0;text-transform:none;color:var(--cream);margin-bottom:5px}
+.cats{border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);background:#08070b;
+  overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cats ul{display:flex;list-style:none;min-width:max-content}
+.cats li{flex:1 0 auto;text-align:center;border-right:1px solid var(--linea)}
+.cats a{display:block;padding:16px 20px;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#9b9184}
+.cats em{display:block;font-style:normal;font-family:'Cormorant Garamond',serif;font-size:20px;
+  letter-spacing:0;text-transform:none;color:var(--cream);margin-bottom:2px}
 
-/* ---------- blocco marchio ---------- */
-section{padding:112px 0}
-.testata{display:flex;align-items:flex-end;justify-content:space-between;gap:26px;
-  border-bottom:1px solid var(--linea);padding-bottom:22px;margin-bottom:54px;flex-wrap:wrap}
-.testata h2{font-size:clamp(40px,5.6vw,76px);line-height:.95}
-.testata .meta{text-align:right;font-size:12px;color:var(--dim);max-width:40ch}
+/* ---------- griglia prodotti ---------- */
+section{padding:54px 0}
+@media(min-width:760px){section{padding:96px 0}}
+.testata{border-bottom:1px solid var(--linea);padding-bottom:16px;margin-bottom:26px}
+.testata h2{font-size:clamp(32px,8vw,64px);line-height:1}
+.testata .meta{font-size:12px;color:var(--dim);margin-top:8px;max-width:52ch}
 .testata .meta b{color:var(--amberL);font-weight:400}
-.griglia{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:26px}
+.griglia{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(min-width:760px){.griglia{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}}
 .card{border:1px solid var(--linea);background:linear-gradient(180deg,#0b0a0e,#08070b);
-  display:flex;flex-direction:column;transition:border-color .45s,transform .45s}
-.card:hover{border-color:rgba(200,145,63,.45);transform:translateY(-7px)}
-.card .im{height:320px;display:flex;align-items:center;justify-content:center;padding:26px 26px 10px}
-.card .im img{max-height:272px;width:auto}
-.card .tx{padding:0 24px 26px;text-align:center}
-.card h4{font-size:23px;margin-bottom:6px}
-.card .vol{display:inline-block;font-size:9px;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--amber);border:1px solid rgba(200,145,63,.4);padding:4px 10px;margin-bottom:12px}
-.card p{font-size:13.5px;color:var(--dim);margin-bottom:18px;min-height:62px}
-.riga{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.pz{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--amberL)}
+  display:flex;flex-direction:column;overflow:hidden}
+.card .im{position:relative;height:190px;padding:16px;cursor:pointer}
+@media(min-width:760px){.card .im{height:280px;padding:24px}}
+.aura{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.5;
+  -webkit-mask-image:radial-gradient(circle at 50% 46%,transparent 24%,#000 62%);
+  mask-image:radial-gradient(circle at 50% 46%,transparent 24%,#000 62%)}
+.aura.vuota{background:radial-gradient(circle at 50% 40%,rgba(200,145,63,.12),transparent 60%);opacity:1}
+.card .tx{padding:0 14px 14px;text-align:center;display:flex;flex-direction:column;flex:1}
+@media(min-width:760px){.card .tx{padding:0 20px 20px}}
+.mk{font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--amber);margin-bottom:4px}
+.card h4{font-size:18px;line-height:1.15;margin-bottom:5px;cursor:pointer}
+@media(min-width:760px){.card h4{font-size:22px}}
+.vol{display:inline-block;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);
+  border:1px solid rgba(200,145,63,.35);padding:3px 7px;margin-bottom:8px}
+.card p{font-size:12px;color:var(--dim);margin-bottom:12px;flex:1}
+.riga{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.pz{font-family:'Cormorant Garamond',serif;font-size:25px;color:var(--amberL);white-space:nowrap}
+.agg{background:var(--amber);color:#06060a;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  padding:0 14px;height:44px;min-width:92px;transition:filter .25s}
+.agg:active{filter:brightness(.85)}
+.agg.fatto{background:#2f7d4f;color:#fff}
+.dett{margin-top:9px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#7d7367;
+  border-top:1px solid var(--linea);padding-top:9px;width:100%}
 
-/* Afnan: blocco tipografico, foto in arrivo */
-.listone{list-style:none;border-top:1px solid var(--linea)}
-.listone li{display:flex;align-items:center;gap:22px;padding:22px 6px;border-bottom:1px solid var(--linea);
-  transition:background .35s,padding-left .35s}
-.listone li:hover{background:#0b0a0e;padding-left:18px}
-.listone .n{flex:1;font-family:'Cormorant Garamond',serif;font-size:27px}
-.listone .v{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);white-space:nowrap}
-.listone .p{font-family:'Cormorant Garamond',serif;font-size:25px;color:var(--amberL);width:96px;text-align:right}
-@media(max-width:620px){.listone li{flex-wrap:wrap;gap:8px}.listone .n{flex:1 0 100%}}
+.oriz{display:flex;gap:12px;overflow-x:auto;padding:0 18px 18px;scroll-snap-type:x mandatory}
+.oriz .card{flex:0 0 72vw;max-width:280px;scroll-snap-align:center}
+@media(min-width:760px){.oriz{padding:0 34px 22px}.oriz .card{flex:0 0 280px}}
+.eyebrow{font-size:9px;letter-spacing:.36em;text-transform:uppercase;color:var(--amber);text-align:center;margin-bottom:10px}
+.tt{font-size:clamp(30px,7vw,54px);text-align:center;line-height:1.05;margin-bottom:10px}
+.sub{text-align:center;color:var(--dim);max-width:52ch;margin:0 auto 32px;font-size:14px;padding:0 18px}
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--linea);border:1px solid var(--linea)}
+@media(min-width:860px){.nums{grid-template-columns:repeat(4,1fr)}}
+.nums div{background:#06060a;padding:30px 16px;text-align:center}
+.nums .v{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--amberL);line-height:1}
+.nums .l{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-top:8px}
+footer{border-top:1px solid var(--linea);padding:34px 0 calc(34px + var(--barra));color:#6b6155;font-size:12.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.rev{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s cubic-bezier(.2,.8,.2,1)}
+.rev.on{opacity:1;transform:none}
 
-.oriz{display:flex;gap:24px;overflow-x:auto;padding:0 34px 24px;scroll-snap-type:x mandatory}
-.oriz::-webkit-scrollbar{height:2px}.oriz::-webkit-scrollbar-thumb{background:#2a2118}
-.gcard{flex:0 0 300px;scroll-snap-align:center;border:1px solid var(--linea);background:#0b0a0e;
-  transition:border-color .45s,transform .45s}
-.gcard:hover{border-color:rgba(200,145,63,.45);transform:translateY(-7px)}
-.gcard .gim{height:272px;display:flex;align-items:center;justify-content:center;padding:26px}
-.gcard .gim img{max-height:218px;width:auto}
-.gcard .gt{padding:0 20px 24px;text-align:center}
-.gcard h4{font-size:19px;margin-bottom:6px}
-.gcard .gp{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--amberL)}
+/* ---------- scheda prodotto che sale dal basso ---------- */
+#velo{position:fixed;inset:0;background:rgba(2,2,4,.72);backdrop-filter:blur(3px);z-index:98;
+  opacity:0;pointer-events:none;transition:opacity .35s}
+#velo.on{opacity:1;pointer-events:auto}
+#foglio{position:fixed;left:0;right:0;bottom:0;z-index:99;background:#0a0910;
+  border-top:1px solid rgba(200,145,63,.4);max-height:92vh;overflow-y:auto;
+  transform:translateY(101%);transition:transform .45s cubic-bezier(.2,.8,.2,1);
+  padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+#foglio.on{transform:none}
+@media(min-width:900px){#foglio{left:auto;top:0;width:520px;max-height:100vh;border-left:1px solid rgba(200,145,63,.4);
+  transform:translateX(101%)}#foglio.on{transform:none}}
+.maniglia{width:42px;height:4px;border-radius:3px;background:#2a2219;margin:10px auto 0}
+.chiudi{position:absolute;top:12px;right:14px;font-size:22px;line-height:1;color:#7d7367;
+  width:44px;height:44px}
+.fg{padding:16px 18px 0}
+.gal{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;margin-bottom:14px}
+.gal img{flex:0 0 74%;max-width:300px;scroll-snap-align:center;background:#fff;border:1px solid var(--linea);
+  aspect-ratio:1;object-fit:contain}
+.fg .mk{text-align:left}
+.fg h3{font-size:29px;line-height:1.1;margin-bottom:6px}
+.fg .prezzoG{font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--amberL);margin:8px 0 2px}
+.fg .iva{font-size:11px;color:var(--dim);margin-bottom:14px}
+.fg .testo{font-size:13.5px;color:#b5aa9b;margin-bottom:18px}
+.pir{border:1px solid var(--linea);margin-bottom:16px}
+.pir .p1{display:flex;gap:12px;padding:13px 14px;border-bottom:1px solid var(--linea)}
+.pir .p1:last-child{border-bottom:0}
+.pir .et{flex:0 0 74px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);padding-top:3px}
+.pir .va{font-size:13.5px;color:var(--cream)}
+.fonte{font-size:10.5px;color:#5f564a;margin-bottom:16px}
+.comp{display:flex;gap:10px;align-items:stretch;margin-bottom:14px}
+.qta{display:flex;align-items:center;border:1px solid var(--linea)}
+.qta button{width:44px;height:52px;font-size:19px;color:var(--amberL)}
+.qta span{width:34px;text-align:center;font-size:15px}
+.comp .agg{flex:1;height:52px;font-size:11px}
+.rass{display:grid;gap:7px;font-size:12px;color:var(--dim);margin-bottom:20px}
+.rass b{color:var(--cream);font-weight:400}
 
-.eyebrow{font-size:9.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--amber);text-align:center;margin-bottom:14px}
-.tt{font-size:clamp(34px,4.6vw,60px);text-align:center;line-height:1.05;margin-bottom:14px}
-.sub{text-align:center;color:var(--dim);max-width:54ch;margin:0 auto 62px;font-size:15px}
-.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--linea);border:1px solid var(--linea)}
-.nums div{background:#06060a;padding:48px 24px;text-align:center}
-.nums .v{font-family:'Cormorant Garamond',serif;font-size:56px;color:var(--amberL);line-height:1}
-.nums .l{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);margin-top:11px}
-@media(max-width:860px){.nums{grid-template-columns:1fr 1fr}}
-footer{border-top:1px solid var(--linea);padding:56px 0;color:#6b6155;font-size:13px}
-footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.rev{clip-path:inset(0 0 100% 0);transform:translateY(26px);opacity:0;
-  transition:clip-path 1s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1),opacity .8s}
-.rev.on{clip-path:inset(0 0 0 0);transform:none;opacity:1}
-
-.pop{position:fixed;left:28px;bottom:28px;width:336px;background:rgba(8,7,11,.96);
-  border:1px solid rgba(200,145,63,.45);padding:25px;z-index:95;backdrop-filter:blur(10px);
-  transform:translateY(160%);transition:transform 1s cubic-bezier(.2,.8,.2,1)}
-.pop.on{transform:none}
-.pop .k{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
-.pop h4{font-size:23px;margin-bottom:10px}
-.bar{height:2px;background:var(--linea);margin-bottom:14px;position:relative}
-.bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--amber);transition:width 1.6s .4s}
-.pop.on .bar i{width:80%}
-.pop p{font-size:13px;color:var(--dim);margin-bottom:17px}
-.pop .btn{display:block;text-align:center;padding:13px}
-.pop .chiudi{position:absolute;top:10px;right:13px;color:#5d5549;font-size:17px;cursor:pointer}
-@media(max-width:620px){.pop{left:12px;right:12px;width:auto}}
+/* ---------- barra fissa dell'acquisto ---------- */
+#barra{position:fixed;left:0;right:0;bottom:0;z-index:97;background:rgba(8,7,11,.97);
+  border-top:1px solid rgba(200,145,63,.4);backdrop-filter:blur(12px);
+  transform:translateY(140%);transition:transform .4s cubic-bezier(.2,.8,.2,1);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+#barra.on{transform:none}
+.bb{display:flex;align-items:center;gap:12px;max-width:1340px;margin:0 auto}
+.bb .info{flex:1;min-width:0}
+.bb .tot{font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--amberL)}
+.bb .sped{font-size:10.5px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bb .vai{background:var(--amber);color:#06060a;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  padding:0 20px;height:48px;white-space:nowrap}
+.prog{height:2px;background:var(--linea);margin:7px 0 0;position:relative;max-width:1340px;margin-inline:auto}
+.prog i{position:absolute;inset:0 auto 0 0;background:var(--amber);width:0;transition:width .5s}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}
+  .rev{opacity:1;transform:none}}
 </style>
 </head>
 <body>
-<div class="cur"></div><div class="cur2"></div>
-<div id="sipario"><canvas id="tela"></canvas></div>
 
 <header><div class="wrap hd">
   <div class="mark">Prime Shop</div>
-  <nav><ul><li><a href="#lattafa">Lattafa</a></li><li><a href="#afnan">Afnan</a></li>
+  <nav><ul>
+    <li><a href="#lattafa">Lattafa</a></li><li><a href="#afnan">Afnan</a></li>
     <li><a href="#armaf">Armaf</a></li><li><a href="#cofanetti">Cofanetti</a></li>
-    <li><a href="#">Uomo</a></li><li><a href="#">Donna</a></li></ul></nav>
-  <div style="font-size:13px">⌕ &nbsp; ⛉</div>
+  </ul></nav>
+  <button class="carr" id="btnCarr">Carrello <b id="nCarr">0</b></button>
 </div></header>
 
-<div id="scroller">
-<div class="nota"><b>v6.</b> Apertura senza prodotto: spruzzo e liquido sulla scritta.
-Catalogo diviso per marchio e ordinato sui volumi veri di Amazon Italia. Flaconi ritagliati, scatole tolte,
-sospesi in 3D: passaci sopra il mouse.</div>
 <div class="ann">Spedizione tracciata 24/48h dall'Italia · gratuita sopra 69 € · reso entro 14 giorni</div>
 
 <div class="hero">
-  <video id="vid" autoplay muted loop playsinline data-p="0.1" src="https://d8j0ntlcm91z4.cloudfront.net/user_3F6OiE1cVkungOxqJ1Tl5xj5mKN/hf_20261111_140752_dce6596e-36a1-4cee-b968-adc270f3e7ba.mp4"></video>
+  <video id="vid" autoplay muted loop playsinline src="https://d8j0ntlcm91z4.cloudfront.net/user_3F6OiE1cVkungOxqJ1Tl5xj5mKN/hf_20261111_140752_dce6596e-36a1-4cee-b968-adc270f3e7ba.mp4"></video>
   <div class="vig"></div>
   <canvas id="spruzzo"></canvas>
+  <button class="salta" id="salta">Salta l'animazione</button>
   <div class="wrap">
     <div class="kick">Lattafa · Afnan · Armaf</div>
     <svg class="logoSvg" viewBox="0 0 900 190" xmlns="http://www.w3.org/2000/svg">
@@ -203,407 +213,630 @@ sospesi in 3D: passaci sopra il mouse.</div>
           <text x="450" y="168" text-anchor="middle" font-size="90" font-family="Cormorant Garamond, Georgia, serif" letter-spacing="14">SHOP</text>
         </clipPath>
       </defs>
-      <!-- contorno -->
-      <text x="450" y="86" text-anchor="middle" font-size="90" letter-spacing="14"
+      <text x="450" y="86" text-anchor="middle" font-size="90" letter-spacing="14" font-family="Cormorant Garamond, Georgia, serif"
             fill="none" stroke="rgba(237,211,160,.32)" stroke-width="1">PRIME</text>
-      <text x="450" y="168" text-anchor="middle" font-size="90" letter-spacing="14"
+      <text x="450" y="168" text-anchor="middle" font-size="90" letter-spacing="14" font-family="Cormorant Garamond, Georgia, serif"
             fill="none" stroke="rgba(237,211,160,.32)" stroke-width="1">SHOP</text>
-      <!-- liquido che sale dentro le lettere -->
       <g clip-path="url(#ritaglio)">
         <rect x="0" y="0" width="900" height="190" fill="rgba(200,145,63,.07)"/>
-        <g id="onda">
-          <path id="o1" d="" fill="url(#oro)" opacity=".95"/>
-          <path id="o2" d="" fill="url(#oro)" opacity=".5"/>
-        </g>
+        <path id="o1" d="" fill="url(#oro)" opacity=".95"/>
+        <path id="o2" d="" fill="url(#oro)" opacity=".5"/>
       </g>
     </svg>
     <p class="sott">Profumi arabi originali. Tre marchi, consegna in 24/48 ore dall'Italia,
       fattura italiana e reso entro 14 giorni.</p>
-    <a href="#lattafa" class="btn pieno"><span>Entra nel catalogo</span></a>
-    <a href="#cofanetti" class="btn"><span>Idee regalo</span></a>
+    <div class="azioni">
+      <a href="#lattafa" class="btn pieno">Entra nel catalogo</a>
+      <a href="#cofanetti" class="btn">Idee regalo</a>
+    </div>
   </div>
-  <div class="scrollg">Scorri<i></i></div>
 </div>
 
 <div class="cats"><ul>
-  <li><a href="#lattafa"><em>Lattafa</em>34 referenze</a></li>
+  <li><a href="#lattafa"><em>Lattafa</em>4 referenze</a></li>
   <li><a href="#afnan"><em>Afnan</em>12 referenze</a></li>
   <li><a href="#armaf"><em>Armaf</em>6 referenze</a></li>
   <li><a href="#cofanetti"><em>Cofanetti</em>Natale</a></li>
-  <li><a href="#"><em>Uomo</em>Legni e spezie</a></li>
-  <li><a href="#"><em>Donna</em>Vaniglia e fiori</a></li>
 </ul></div>
 
 <section id="lattafa"><div class="wrap">
-  <div class="testata rev">
-    <h2>Lattafa</h2>
-    <div class="meta">Il marchio piu' cercato d'Italia: <b>circa 8.400 pezzi al mese</b>
-      sui soli nomi che seguiamo. Ordinati per volume misurato.</div>
+  <div class="testata rev"><h2>Lattafa</h2>
+    <div class="meta">Il marchio piu' cercato d'Italia: <b>circa 8.400 pezzi al mese</b> sui nomi che seguiamo.</div>
   </div>
-  <div class="griglia"><article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/lat-khamrah.webp" alt="Khamrah"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Khamrah</h4><span class="vol">1.100 pz / mese</span>
-    <p>Datteri, cannella e vaniglia calda. Sulla sciarpa dura due giorni.</p>
+  <div class="griglia"><article class="card rev" data-k="lat-khamrah">
+  <div class="im" data-apri="lat-khamrah"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/lat-khamrah.webp" alt="Khamrah"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Lattafa</div>
+    <h4 data-apri="lat-khamrah">Khamrah</h4><span class="vol">1.100 pz / mese</span>
+    <p>Il profumo arabo piu' cercato d'Italia.</p>
     <div class="riga"><span class="pz">29,00&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="lat-khamrah">Aggiungi</button></div>
+    <button class="dett" data-apri="lat-khamrah">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/lat-asad.webp" alt="Asad"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Asad</h4><span class="vol">600 pz / mese</span>
-    <p>Tabacco, ananas e vaniglia. Si riconosce dall'altra parte della stanza.</p>
+<article class="card rev" data-k="lat-asad">
+  <div class="im" data-apri="lat-asad"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/lat-asad.webp" alt="Asad"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Lattafa</div>
+    <h4 data-apri="lat-asad">Asad</h4><span class="vol">600 pz / mese</span>
+    <p>Si riconosce dall'altra parte della stanza.</p>
     <div class="riga"><span class="pz">25,00&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="lat-asad">Aggiungi</button></div>
+    <button class="dett" data-apri="lat-asad">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/lat-yara.webp" alt="Yara Elixir"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Yara Elixir</h4><span class="vol">200 pz / mese</span>
-    <p>Vaniglia, gelsomino e frutta bianca su ambra. Cremosa, persistente.</p>
+<article class="card rev" data-k="lat-yara">
+  <div class="im" data-apri="lat-yara"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/lat-yara.webp" alt="Yara Elixir"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Lattafa</div>
+    <h4 data-apri="lat-yara">Yara Elixir</h4><span class="vol">200 pz / mese</span>
+    <p>Cremosa e persistente, da giorno e da sera.</p>
     <div class="riga"><span class="pz">27,00&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="lat-yara">Aggiungi</button></div>
+    <button class="dett" data-apri="lat-yara">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/lat-badee.webp" alt="Badee al Oud Noble Blush"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Badee al Oud Noble Blush</h4><span class="vol">200 pz / mese</span>
-    <p>Rosa, oud e muschio bianco. La piu' portata delle Badee.</p>
+<article class="card rev" data-k="lat-badee">
+  <div class="im" data-apri="lat-badee"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/lat-badee.webp" alt="Badee al Oud Noble Blush"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Lattafa</div>
+    <h4 data-apri="lat-badee">Badee al Oud Noble Blush</h4><span class="vol">200 pz / mese</span>
+    <p>La piu' portata della famiglia Badee.</p>
     <div class="riga"><span class="pz">24,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="lat-badee">Aggiungi</button></div>
+    <button class="dett" data-apri="lat-badee">Note e dettagli</button>
+  </div>
 </article></div>
 </div></section>
 
 <section id="afnan" style="background:#08070b;border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)">
 <div class="wrap">
-  <div class="testata rev">
-    <h2>Afnan</h2>
+  <div class="testata rev"><h2>Afnan</h2>
     <div class="meta">Secondo marchio d'Italia per volume: <b>circa 4.900 pezzi al mese</b>.
-      La linea 9 PM da sola vale quanto Khamrah. Fotografie ufficiali del marchio.</div>
+      Fotografie e note olfattive ufficiali del marchio.</div>
   </div>
-  <div class="griglia"><article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/afn-elixir.webp" alt="9 PM Elixir"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>9 PM Elixir</h4><span class="vol">1.100 pz / mese</span>
-    <p>Cuoio, spezie e ambra. Extrait: la concentrazione piu' alta della linea.</p>
+  <div class="griglia"><article class="card rev" data-k="afn-elixir">
+  <div class="im" data-apri="afn-elixir"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/afn-elixir.webp" alt="9 Pm Elixir"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Afnan</div>
+    <h4 data-apri="afn-elixir">9 Pm Elixir</h4><span class="vol">1.100 pz / mese</span>
+    <p>Extrait: la concentrazione piu' alta della linea.</p>
     <div class="riga"><span class="pz">39,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="afn-elixir">Aggiungi</button></div>
+    <button class="dett" data-apri="afn-elixir">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/afn-9pm.webp" alt="9 PM"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>9 PM</h4><span class="vol">800 pz / mese</span>
-    <p>Speziato e fruttato. E' il nome con cui Afnan si e' fatta conoscere in Italia.</p>
+<article class="card rev" data-k="afn-9pm">
+  <div class="im" data-apri="afn-9pm"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/afn-9pm.webp" alt="9 Pm"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Afnan</div>
+    <h4 data-apri="afn-9pm">9 Pm</h4><span class="vol">800 pz / mese</span>
+    <p>Il nome con cui Afnan si e' fatta conoscere in Italia.</p>
     <div class="riga"><span class="pz">32,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="afn-9pm">Aggiungi</button></div>
+    <button class="dett" data-apri="afn-9pm">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/afn-rebel.webp" alt="9 PM Rebel"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>9 PM Rebel</h4><span class="vol">800 pz / mese</span>
-    <p>Ambra e frutta. Piu' dolce e piu' giovane del 9 PM.</p>
+<article class="card rev" data-k="afn-rebel">
+  <div class="im" data-apri="afn-rebel"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/afn-rebel.webp" alt="9 Pm Rebel"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Afnan</div>
+    <h4 data-apri="afn-rebel">9 Pm Rebel</h4><span class="vol">800 pz / mese</span>
+    <p>Piu' dolce e piu' giovane del 9 PM.</p>
     <div class="riga"><span class="pz">39,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="afn-rebel">Aggiungi</button></div>
+    <button class="dett" data-apri="afn-rebel">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/afn-nightout.webp" alt="9 PM Night Out"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>9 PM Night Out</h4>
-    <p>Speziato, ambrato, fruttato. Extrait, da sera.</p>
-    <div class="riga"><span class="pz">48,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
-</article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/afn-silver.webp" alt="Supremacy Silver"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Supremacy Silver</h4><span class="vol">300 pz / mese</span>
-    <p>Legnoso e fresco. Il piu' facile da portare di giorno.</p>
+<article class="card rev" data-k="afn-silver">
+  <div class="im" data-apri="afn-silver"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/afn-silver.webp" alt="Supremacy Silver"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Afnan</div>
+    <h4 data-apri="afn-silver">Supremacy Silver</h4><span class="vol">300 pz / mese</span>
+    <p>Il piu' facile da portare di giorno.</p>
     <div class="riga"><span class="pz">36,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="afn-silver">Aggiungi</button></div>
+    <button class="dett" data-apri="afn-silver">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/afn-notonly.webp" alt="Supremacy Not Only Intense"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Supremacy Not Only Intense</h4>
-    <p>Ambra e frutta in extrait. Scia lunga, serata intera.</p>
+<article class="card rev" data-k="afn-notonly">
+  <div class="im" data-apri="afn-notonly"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/afn-notonly.webp" alt="Supremacy Not Only Intense"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Afnan</div>
+    <h4 data-apri="afn-notonly">Supremacy Not Only Intense</h4>
+    <p>Serata intera, senza rinnovare.</p>
     <div class="riga"><span class="pz">44,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="afn-notonly">Aggiungi</button></div>
+    <button class="dett" data-apri="afn-notonly">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/afn-inoud.webp" alt="Supremacy in Oud"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Supremacy in Oud</h4>
-    <p>Oud, muschio e spezie. Luxury Collection.</p>
+<article class="card rev" data-k="afn-nightout">
+  <div class="im" data-apri="afn-nightout"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/afn-nightout.webp" alt="9 Pm Night Out"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Afnan</div>
+    <h4 data-apri="afn-nightout">9 Pm Night Out</h4>
+    <p>Extrait da sera, scia lunga.</p>
+    <div class="riga"><span class="pz">48,90&nbsp;€</span>
+      <button class="agg" data-agg="afn-nightout">Aggiungi</button></div>
+    <button class="dett" data-apri="afn-nightout">Note e dettagli</button>
+  </div>
+</article>
+<article class="card rev" data-k="afn-inoud">
+  <div class="im" data-apri="afn-inoud"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/afn-inoud.webp" alt="Supremacy In Oud"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Afnan</div>
+    <h4 data-apri="afn-inoud">Supremacy In Oud</h4>
+    <p>Luxury Collection: oud vero.</p>
     <div class="riga"><span class="pz">42,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="afn-inoud">Aggiungi</button></div>
+    <button class="dett" data-apri="afn-inoud">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/afn-gold.webp" alt="Supremacy Gold"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Supremacy Gold</h4>
-    <p>Floreale, muschiato, legnoso. Da donna.</p>
-    <div class="riga"><span class="pz">29,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
-</article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/afn-carbon.webp" alt="Rare Carbon"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Rare Carbon</h4>
-    <p>Cuoio, legni e ambra.</p>
+<article class="card rev" data-k="afn-carbon">
+  <div class="im" data-apri="afn-carbon"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/afn-carbon.webp" alt="Rare Carbon"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Afnan</div>
+    <h4 data-apri="afn-carbon">Rare Carbon</h4>
+    <p>Cuoio e legni, da uomo.</p>
     <div class="riga"><span class="pz">32,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="afn-carbon">Aggiungi</button></div>
+    <button class="dett" data-apri="afn-carbon">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/afn-electric.webp" alt="Turathi Electric"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Turathi Electric</h4>
-    <p>Fresco e fruttato. Il piu' estivo dei Turathi.</p>
+<article class="card rev" data-k="afn-electric">
+  <div class="im" data-apri="afn-electric"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/afn-electric.webp" alt="Turathi Electric"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Afnan</div>
+    <h4 data-apri="afn-electric">Turathi Electric</h4>
+    <p>Il piu' estivo dei Turathi.</p>
     <div class="riga"><span class="pz">36,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="afn-electric">Aggiungi</button></div>
+    <button class="dett" data-apri="afn-electric">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/afn-blue.webp" alt="Turathi Blue"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Turathi Blue</h4>
-    <p>Fresco, speziato, legnoso. Da uomo.</p>
+<article class="card rev" data-k="afn-blue">
+  <div class="im" data-apri="afn-blue"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/afn-blue.webp" alt="Turathi Blue"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Afnan</div>
+    <h4 data-apri="afn-blue">Turathi Blue</h4>
+    <p>Fresco e speziato, da uomo.</p>
     <div class="riga"><span class="pz">42,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="afn-blue">Aggiungi</button></div>
+    <button class="dett" data-apri="afn-blue">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/afn-doria.webp" alt="Historic Doria"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Historic Doria</h4>
-    <p>Floreale e muschiato. Da donna.</p>
+<article class="card rev" data-k="afn-gold">
+  <div class="im" data-apri="afn-gold"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/afn-gold.webp" alt="Supremacy Gold"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Afnan</div>
+    <h4 data-apri="afn-gold">Supremacy Gold</h4>
+    <p>Da donna, floreale e cipriato.</p>
+    <div class="riga"><span class="pz">29,90&nbsp;€</span>
+      <button class="agg" data-agg="afn-gold">Aggiungi</button></div>
+    <button class="dett" data-apri="afn-gold">Note e dettagli</button>
+  </div>
+</article>
+<article class="card rev" data-k="afn-doria">
+  <div class="im" data-apri="afn-doria"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/afn-doria.webp" alt="Historic Doria"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Afnan</div>
+    <h4 data-apri="afn-doria">Historic Doria</h4>
+    <p>Floreale e muschiato, da donna.</p>
     <div class="riga"><span class="pz">34,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="afn-doria">Aggiungi</button></div>
+    <button class="dett" data-apri="afn-doria">Note e dettagli</button>
+  </div>
 </article></div>
 </div></section>
 
 <section id="armaf"><div class="wrap">
-  <div class="testata rev">
-    <h2>Armaf</h2>
+  <div class="testata rev"><h2>Armaf</h2>
     <div class="meta">Club de Nuit Intense e' il profumo da uomo piu' venduto del gruppo:
       <b>800 pezzi al mese</b> da anni, senza calare.</div>
   </div>
-  <div class="griglia"><article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/arm-intense.webp" alt="Club de Nuit Intense Man"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Club de Nuit Intense Man</h4><span class="vol">800 pz / mese</span>
-    <p>Ananas in testa, betulla sotto. Da anni il piu' venduto fra gli uomini.</p>
+  <div class="griglia"><article class="card rev" data-k="arm-intense">
+  <div class="im" data-apri="arm-intense"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/arm-intense.webp" alt="Club de Nuit Intense Man"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Armaf</div>
+    <h4 data-apri="arm-intense">Club de Nuit Intense Man</h4><span class="vol">800 pz / mese</span>
+    <p>Da anni il profumo da uomo piu' venduto del gruppo.</p>
     <div class="riga"><span class="pz">29,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="arm-intense">Aggiungi</button></div>
+    <button class="dett" data-apri="arm-intense">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/arm-sillage.webp" alt="Club de Nuit Sillage"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Club de Nuit Sillage</h4><span class="vol">200 pz / mese</span>
-    <p>Bergamotto e pepe su legni. Scia lunga, tenuta da sera.</p>
+<article class="card rev" data-k="arm-sillage">
+  <div class="im" data-apri="arm-sillage"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/arm-sillage.webp" alt="Club de Nuit Sillage"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Armaf</div>
+    <h4 data-apri="arm-sillage">Club de Nuit Sillage</h4><span class="vol">200 pz / mese</span>
+    <p>Scia lunga, tenuta da sera.</p>
     <div class="riga"><span class="pz">34,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="arm-sillage">Aggiungi</button></div>
+    <button class="dett" data-apri="arm-sillage">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/arm-urban.webp" alt="Urban Man Elixir"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Urban Man Elixir</h4><span class="vol">200 pz / mese</span>
-    <p>Mela verde e lavanda su ambra scura. Versatile, giorno e sera.</p>
+<article class="card rev" data-k="arm-urban">
+  <div class="im" data-apri="arm-urban"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/arm-urban.webp" alt="Club de Nuit Urban Man Elixir"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Armaf</div>
+    <h4 data-apri="arm-urban">Club de Nuit Urban Man Elixir</h4><span class="vol">200 pz / mese</span>
+    <p>Versatile, giorno e sera.</p>
     <div class="riga"><span class="pz">28,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="arm-urban">Aggiungi</button></div>
+    <button class="dett" data-apri="arm-urban">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/arm-untold.webp" alt="Club de Nuit Red Untold"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Club de Nuit Red Untold</h4><span class="vol">100 pz / mese</span>
-    <p>Frutti rossi e zafferano. Il piu' dolce della famiglia.</p>
+<article class="card rev" data-k="arm-untold">
+  <div class="im" data-apri="arm-untold"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/arm-untold.webp" alt="Club de Nuit Red Untold"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Armaf</div>
+    <h4 data-apri="arm-untold">Club de Nuit Red Untold</h4><span class="vol">100 pz / mese</span>
+    <p>Il piu' dolce della famiglia.</p>
     <div class="riga"><span class="pz">36,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="arm-untold">Aggiungi</button></div>
+    <button class="dett" data-apri="arm-untold">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/arm-woman.webp" alt="Club de Nuit Intense Woman"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Club de Nuit Intense Woman</h4>
-    <p>Ribes nero e pesca su patchouli. Il gemello femminile dell'Intense.</p>
+<article class="card rev" data-k="arm-woman">
+  <div class="im" data-apri="arm-woman"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/arm-woman.webp" alt="Club de Nuit Intense Woman"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Armaf</div>
+    <h4 data-apri="arm-woman">Club de Nuit Intense Woman</h4>
+    <p>Il gemello femminile dell'Intense.</p>
     <div class="riga"><span class="pz">28,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="arm-woman">Aggiungi</button></div>
+    <button class="dett" data-apri="arm-woman">Note e dettagli</button>
+  </div>
 </article>
-<article class="card">
-  <div class="im"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/arm-milestone.webp" alt="Club de Nuit Milestone"><div class="lum"></div></div></div></div>
-  <div class="tx"><h4>Club de Nuit Milestone</h4>
-    <p>Pompelmo e vaniglia su ambra chiara. Fresco in apertura, caldo in fondo.</p>
+<article class="card rev" data-k="arm-milestone">
+  <div class="im" data-apri="arm-milestone"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/arm-milestone.webp" alt="Club de Nuit Milestone"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Armaf</div>
+    <h4 data-apri="arm-milestone">Club de Nuit Milestone</h4>
+    <p>Fresco in apertura, caldo in fondo.</p>
     <div class="riga"><span class="pz">31,90&nbsp;€</span>
-      <a href="#" class="btn mini"><span>Aggiungi</span></a></div></div>
+      <button class="agg" data-agg="arm-milestone">Aggiungi</button></div>
+    <button class="dett" data-apri="arm-milestone">Note e dettagli</button>
+  </div>
 </article></div>
 </div></section>
 
 <section id="cofanetti" style="background:#08070b;border-top:1px solid var(--linea)">
   <div class="eyebrow rev">Dicembre</div><h2 class="tt rev">Cofanetti</h2>
   <p class="sub rev">Trascina di lato. Gia' pronti da incartare.</p>
-  <div class="oriz"><a class="gcard"><div class="gim"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/set-asad.webp" alt="Asad Collection 4 x 25 ml"><div class="lum"></div></div></div></div><div class="gt"><h4>Asad Collection 4 x 25 ml</h4><div class="gp">34,90&nbsp;€</div></div></a>
-<a class="gcard"><div class="gim"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/set-haya.webp" alt="Haya + hairmist"><div class="lum"></div></div></div></div><div class="gt"><h4>Haya + hairmist</h4><div class="gp">40,90&nbsp;€</div></div></a>
-<a class="gcard"><div class="gim"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/set-badee.webp" alt="Badee Noble Blush + hairmist"><div class="lum"></div></div></div></div><div class="gt"><h4>Badee Noble Blush + hairmist</h4><div class="gp">40,90&nbsp;€</div></div></a>
-<a class="gcard"><div class="gim"><div class="obj " data-3d><div class="alo"></div><div class="in"><img src="https://nexushub.trade/ps/set-opulent.webp" alt="Opulent Collection 4 x 25 ml"><div class="lum"></div></div></div></div><div class="gt"><h4>Opulent Collection 4 x 25 ml</h4><div class="gp">25,90&nbsp;€</div></div></a></div>
+  <div class="oriz"><article class="card rev" data-k="set-asad">
+  <div class="im" data-apri="set-asad"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/set-asad.webp" alt="Asad Collection 4 x 25 ml"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Cofanetto</div>
+    <h4 data-apri="set-asad">Asad Collection 4 x 25 ml</h4>
+    <p>Gia' pronto da incartare.</p>
+    <div class="riga"><span class="pz">34,90&nbsp;€</span>
+      <button class="agg" data-agg="set-asad">Aggiungi</button></div>
+    <button class="dett" data-apri="set-asad">Note e dettagli</button>
+  </div>
+</article>
+<article class="card rev" data-k="set-haya">
+  <div class="im" data-apri="set-haya"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/set-haya.webp" alt="Haya + hairmist"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Cofanetto</div>
+    <h4 data-apri="set-haya">Haya + hairmist</h4>
+    <p>Gia' pronto da incartare.</p>
+    <div class="riga"><span class="pz">40,90&nbsp;€</span>
+      <button class="agg" data-agg="set-haya">Aggiungi</button></div>
+    <button class="dett" data-apri="set-haya">Note e dettagli</button>
+  </div>
+</article>
+<article class="card rev" data-k="set-badee">
+  <div class="im" data-apri="set-badee"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/set-badee.webp" alt="Badee Noble Blush + hairmist"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Cofanetto</div>
+    <h4 data-apri="set-badee">Badee Noble Blush + hairmist</h4>
+    <p>Gia' pronto da incartare.</p>
+    <div class="riga"><span class="pz">40,90&nbsp;€</span>
+      <button class="agg" data-agg="set-badee">Aggiungi</button></div>
+    <button class="dett" data-apri="set-badee">Note e dettagli</button>
+  </div>
+</article>
+<article class="card rev" data-k="set-opulent">
+  <div class="im" data-apri="set-opulent"><div class="aura vuota"></div>
+    <div class="obj"><div class="alo"></div><div class="in">
+      <img loading="lazy" src="https://nexushub.trade/ps/set-opulent.webp" alt="Opulent Collection 4 x 25 ml"><div class="lum"></div></div></div>
+  </div>
+  <div class="tx">
+    <div class="mk">Cofanetto</div>
+    <h4 data-apri="set-opulent">Opulent Collection 4 x 25 ml</h4>
+    <p>Gia' pronto da incartare.</p>
+    <div class="riga"><span class="pz">25,90&nbsp;€</span>
+      <button class="agg" data-agg="set-opulent">Aggiungi</button></div>
+    <button class="dett" data-apri="set-opulent">Note e dettagli</button>
+  </div>
+</article></div>
 </section>
 
-<section class="wrap"><div class="nums">
-  <div class="rev"><div class="v" data-n="46">0</div><div class="l">referenze a catalogo</div></div>
-  <div class="rev"><div class="v" data-n="3">0</div><div class="l">marchi originali</div></div>
-  <div class="rev"><div class="v" data-n="48">0</div><div class="l">ore di consegna</div></div>
-  <div class="rev"><div class="v" data-n="14">0</div><div class="l">giorni per il reso</div></div>
-</div></section>
+<section><div class="wrap"><div class="nums rev">
+  <div><div class="v" data-n="46">0</div><div class="l">referenze a catalogo</div></div>
+  <div><div class="v" data-n="3">0</div><div class="l">marchi originali</div></div>
+  <div><div class="v" data-n="48">0</div><div class="l">ore di consegna</div></div>
+  <div><div class="v" data-n="14">0</div><div class="l">giorni per il reso</div></div>
+</div></div></section>
 
 <footer><div class="wrap">
-  <div>GIGA TRADE S.R.L.S. · Torino · P.IVA IT13105910015</div>
+  <div>Prime Shop · GIGA TRADE S.R.L.S. · P.IVA 12938320015</div>
   <div>Spedizioni · Recesso · Privacy</div>
 </div></footer>
-</div>
 
-<div class="pop" id="pop"><span class="chiudi" onclick="this.parentNode.classList.remove('on')">×</span>
-  <div class="k">Spedizione</div><h4>Ti mancano 14 €</h4>
-  <div class="bar"><i></i></div>
-  <p>Sopra 69 € la spedizione la paghiamo noi. Un cofanetto e ci sei.</p>
-  <a href="#cofanetti" class="btn"><span>Vedi i cofanetti</span></a></div>
+<div id="velo"></div>
+<aside id="foglio" aria-hidden="true">
+  <div class="maniglia"></div><button class="chiudi" id="chiudi">×</button>
+  <div class="fg" id="fgCorpo"></div>
+</aside>
+
+<div id="barra"><div class="bb">
+  <div class="info"><div class="tot" id="tot">0,00 €</div><div class="sped" id="sped"></div></div>
+  <button class="vai">Vai alla cassa</button>
+</div><div class="prog"><i id="progI"></i></div></div>
 
 <script>
-/* il bagliore e il riflesso prendono la sagoma dalla stessa immagine */
-document.querySelectorAll('.obj').forEach(o=>{
-  const img=o.querySelector('img');if(!img)return;
-  const u='url("'+img.getAttribute('src')+'")';
-  const l=o.querySelector('.lum');
-  if(l){l.style.webkitMaskImage=u;l.style.maskImage=u;}
-  const r=document.createElement('div');r.className='rif';
-  r.innerHTML='<img src="'+img.getAttribute('src')+'">';o.appendChild(r);
-  o.classList.add('fluttua');
-});
-/* inclinazione sui due assi col mouse */
-document.querySelectorAll('[data-3d]').forEach(o=>{
-  const inn=o.querySelector('.in'),alo=o.querySelector('.alo');
-  const zona=o.closest('.card,.gcard')||o;
-  zona.addEventListener('mousemove',e=>{
-    const r=zona.getBoundingClientRect();
-    const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
-    inn.style.transition='transform .1s linear';
-    inn.style.transform='rotateY('+(x*28)+'deg) rotateX('+(-y*22)+'deg) translateZ(34px) scale(1.06)';
-    if(alo)alo.style.transform='translate(-50%,-50%) translateZ(-150px) translate('+(-x*46)+'px,'+(-y*36)+'px)';
-    o.classList.remove('fluttua');
-  });
-  zona.addEventListener('mouseleave',()=>{
-    inn.style.transition='transform .9s cubic-bezier(.2,.8,.2,1)';inn.style.transform='';
-    if(alo)alo.style.transform='translate(-50%,-50%) translateZ(-150px)';
-    setTimeout(()=>o.classList.add('fluttua'),900);
-  });
-});
+const DATI = {"lat-khamrah": {"n": "Khamrah", "m": "Lattafa", "p": "29,00", "v": "1.100 pz / mese", "f": "Il profumo arabo piu' cercato d'Italia.", "d": "", "t": "", "c": "", "b": "", "g": ["https://krojimmlbizxkzbulspm.supabase.co/storage/v1/object/public/product-images/fornitore/LAT-KHAMRAH-100ML.jpg"], "fo": "", "a": 0}, "lat-asad": {"n": "Asad", "m": "Lattafa", "p": "25,00", "v": "600 pz / mese", "f": "Si riconosce dall'altra parte della stanza.", "d": "", "t": "pepe nero, ananas, tabacco", "c": "caffe', iris, patchouli", "b": "ambra, vaniglia, legni secchi, benzoino, labdano", "g": ["https://krojimmlbizxkzbulspm.supabase.co/storage/v1/object/public/product-images/lattafa/LAT-ASAD-100-1.jpg", "https://krojimmlbizxkzbulspm.supabase.co/storage/v1/object/public/product-images/lattafa/LAT-ASAD-100-2.jpg", "https://krojimmlbizxkzbulspm.supabase.co/storage/v1/object/public/product-images/lattafa/LAT-ASAD-100-3.jpg"], "fo": "database NexusHub", "a": 0}, "lat-yara": {"n": "Yara Elixir", "m": "Lattafa", "p": "27,00", "v": "200 pz / mese", "f": "Cremosa e persistente, da giorno e da sera.", "d": "", "t": "", "c": "", "b": "", "g": ["https://krojimmlbizxkzbulspm.supabase.co/storage/v1/object/public/product-images/fornitore/LAT-YARA-ELIXIR.jpg"], "fo": "", "a": 0}, "lat-badee": {"n": "Badee al Oud Noble Blush", "m": "Lattafa", "p": "24,90", "v": "200 pz / mese", "f": "La piu' portata della famiglia Badee.", "d": "", "t": "latte di rosa", "c": "mandorla, meringa", "b": "sandalo, vaniglia, muschio", "g": ["https://krojimmlbizxkzbulspm.supabase.co/storage/v1/object/public/product-images/lattafa/LAT-BADEE-AL-OUD-NOBLE-BLUSH-100-1.jpg", "https://krojimmlbizxkzbulspm.supabase.co/storage/v1/object/public/product-images/lattafa/LAT-BADEE-AL-OUD-NOBLE-BLUSH-100-2.jpg", "https://krojimmlbizxkzbulspm.supabase.co/storage/v1/object/public/product-images/lattafa/LAT-BADEE-AL-OUD-NOBLE-BLUSH-100-3.jpg"], "fo": "database NexusHub", "a": 0}, "afn-elixir": {"n": "9 Pm Elixir", "m": "Afnan", "p": "39,90", "v": "1.100 pz / mese", "f": "Extrait: la concentrazione piu' alta della linea.", "d": "9PM Elixir\nè una sinfonia avvolgente di calore, profondità e fascino raffinato. Si apre con una speziatura luminosa, vibrante e misteriosa al tempo stesso, che imposta immediatamente il tono di una fragranza capace di catturare l’attenzione. Il suo debutto, caldo e speziato, evolve in un cuore morbido e leggermente aromatico, avvolto da un’eleganza fumosa e discreta. Nel drydown emergono sfumature ricche e cremose, lasciando una scia profonda, sensuale e magnetica. Sofisticata e irresistibile, questa fragranza è pensata per chi vive la sera con disinvoltura e sicurezza, lasciando ovunque un’impronta indelebile.", "t": "Noce moscata, Elemi, Cardamomo", "c": "Peperoncino dolce (Pimento), Lavandino, Pelle", "b": "Cisto, Labdano, Patchouli, Vaniglia", "g": ["https://cdn.shopify.com/s/files/1/0712/7613/4629/files/9PM_ELIXIR-1.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/9PM_ELIXIR-2.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/9PM_ELIXIR-3.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/STILL_ELIXIR_SQUARE_02_2048x2048_9fc4cf80-8259-4520-827b-0c494e69e4b6.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/STILL_ELIXIR_SQUARE_03_2048x2048_b7c98d7c-d2b7-4746-834a-9625bb943b0b.png"], "fo": "it.afnan.com", "a": 0}, "afn-9pm": {"n": "9 Pm", "m": "Afnan", "p": "32,90", "v": "800 pz / mese", "f": "Il nome con cui Afnan si e' fatta conoscere in Italia.", "d": "Una fragranza audace e provocatoria che emana mascolinità e sensualità. Si apre con un'esplosione di freschezza, con note di testa di bergamotto e pera, che forniscono un'introduzione frizzante e rinvigorente. Man mano che il profumo si sviluppa rivela le note di cuore di menta, lavanda e cannella, aggiungendo profondità e complessità alla composizione. Nel complesso, 9PM Black è una fragranza potente e raffinata allo stesso tempo, perfetta per l'uomo moderno che vuole dare un'impressione forte. Il suo mix distintivo di note fresche e speziate fa sì che si distingua dalla massa, rendendolo un classico senza tempo nel mondo delle fragranze mas", "t": "Bergamotto, Lavandino, Cannella e Mela", "c": "Muguet e Fiori d'Arancio", "b": "Patchouli, Ambra, Vaniglia e Fava di Tonka", "g": ["https://cdn.shopify.com/s/files/1/0712/7613/4629/files/9PM-Product-01_ac1d61da-68bc-4cf8-8086-8cdc3accfbdf.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/9PM-Product-02_d126191d-c5db-4607-b51c-d00be87fba3a.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/03_9PM_4a939ec1-6ca1-4efb-9943-2956a7cf1311.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/24_9PM_75e8fcca-46ac-4379-8d94-e6d82d3788b7.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/28_9PM_61f33b16-a7a4-4541-b48a-7ca0abd41923.jpg"], "fo": "it.afnan.com", "a": 0}, "afn-rebel": {"n": "9 Pm Rebel", "m": "Afnan", "p": "39,90", "v": "800 pz / mese", "f": "Piu' dolce e piu' giovane del 9 PM.", "d": "Lasciatevi conquistare dal fascino accattivante di 9PM Rebel, una fragranza che aggiunge una nuova dimensione all'iconica 9 Collection. Questa squisita creazione emana un'eleganza raffinata grazie alle sue note fruttate, legnose e ambrate, offrendo un'esperienza profumata giovane e sofisticata.", "t": "Mandarino, Ananas e Granny Smith", "c": "Legno di Cedro, Muschio di Quercia e Vaniglia", "b": "Caramello, Legni Secchi, Ambra Grigia e Muschio", "g": ["https://cdn.shopify.com/s/files/1/0712/7613/4629/files/Untitled_design_51.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/Untitled_design_52_863842d1-4965-4301-bffd-31177178344e.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/Untitled_design_-_2024-12-31T113526.184.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/Untitled_design_57.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/Untitled_design_58.png"], "fo": "it.afnan.com", "a": 0}, "afn-nightout": {"n": "9 Pm Night Out", "m": "Afnan", "p": "48,90", "v": "", "f": "Extrait da sera, scia lunga.", "d": "9PM Night Out\nè una dichiarazione di sicurezza, creata per le notti destinate a lasciare il segno. Fin dal primo istante trasmette energia e raffinatezza: luminoso, vibrante e immediatamente accattivante, dà il tono a tutto ciò che verrà. Con il suo sviluppo, la fragranza svela un calore morbido e moderno, impreziosito da un’eleganza decisa. Al cuore emerge una sensualità raffinata – sicura, stilosa e magnetica – che bilancia freschezza e profondità con naturalezza, in una firma olfattiva contemporanea e senza sforzo. Quando si adagia sulla pelle, il profumo si fa più intenso e profondo, avvolgendosi in una scia calda e ricca che persiste a l", "t": "", "c": "", "b": "", "g": ["https://cdn.shopify.com/s/files/1/0712/7613/4629/files/72.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/73.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/74.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/250903_AFNAN.EDPHASEONE369167-6cropped.bootle_1.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/1_2_f6a0599f-2b6b-4c1a-b6d7-f84372906625.png"], "fo": "it.afnan.com", "a": 0}, "afn-silver": {"n": "Supremacy Silver", "m": "Afnan", "p": "36,90", "v": "300 pz / mese", "f": "Il piu' facile da portare di giorno.", "d": "Fate sentire la vostra presenza con Supremacy Silver, un profumo ipnotico che emana splendore e fascino. Questa fragranza offre un'esperienza sensoriale arricchente che la rende una scelta perfetta per un'occasione speciale o un'uscita serale.", "t": "Mela, Bergamotto e Muschio di Quercia", "c": "Ananas, Patchouli e Gelsomino", "b": "Muschio, Ambra Grigia e Betulla", "g": ["https://cdn.shopify.com/s/files/1/0712/7613/4629/files/SupremacySilver-Product-01.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/SupremacySilver-Product-02.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/19_SupremacySilver.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/10_SupremacySilver.jpg"], "fo": "it.afnan.com", "a": 0}, "afn-notonly": {"n": "Supremacy Not Only Intense", "m": "Afnan", "p": "44,90", "v": "", "f": "Serata intera, senza rinnovare.", "d": "Celebrate la confidenza e la forza con Supremacy Not Only Intense, una fragranza eccezionale per chi osa essere diverso. Abbracciate l'individualità e lasciate un'impronta indelebile con questo profumo potente e audace.", "t": "Bergamotto, Mela e Ribes Nero", "c": "Lavanda, Patchouli e Muschio di Quercia", "b": "Zafferano, Muschio e Ambra Grigia", "g": ["https://cdn.shopify.com/s/files/1/0712/7613/4629/files/SupremacyIntense-Product-01.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/SupremacyIntense-Product-02.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/Box-Intense.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/BoxOpen-Intense.png"], "fo": "it.afnan.com", "a": 0}, "afn-inoud": {"n": "Supremacy In Oud", "m": "Afnan", "p": "42,90", "v": "", "f": "Luxury Collection: oud vero.", "d": "Entrate nel regno dell'opulenza e dell'indulgenza con Supremacy in Oud, una miscela ricca e straordinaria con il prezioso oud come musa centrale. Il profumo rende omaggio alle rinomate tradizioni mediorientali di eleganti e inebrianti tracce di fragranza con un'aura persistente e avvolgente; una firma olfattiva che annuncia chi la indossa molto prima dell'arrivo.", "t": "Zafferano, Lavanda e Noce Moscata", "c": "Legno di Agar e Dolce", "b": "Muschio e Patchouli", "g": ["https://cdn.shopify.com/s/files/1/0712/7613/4629/files/SupremacyOud-Product-01.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/SupremacyOud-Product-02.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/Box-Oud.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/BoxOpen-Oud.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/12_SupremacyOud.jpg"], "fo": "it.afnan.com", "a": 0}, "afn-gold": {"n": "Supremacy Gold", "m": "Afnan", "p": "29,90", "v": "", "f": "Da donna, floreale e cipriato.", "d": "Una classica fragranza orientale nota per la sua scia elegante e duratura. Questo profumo speciale vi ricorderà ogni giorno la forza interiore che avete sempre avuto in voi e valorizzerà il vostro stile sofisticato con lusso e brio.", "t": "Ylang-Ylang e Neroli", "c": "Vetiver, Muschio Bianco e Vaniglia", "b": "Gelsomino, Muschio e Legno di Sandalo", "g": ["https://cdn.shopify.com/s/files/1/0712/7613/4629/files/SupremacyGold-Product-01.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/SupremacyGold-Product-02.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/03_SupremacyGold.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/26_SupremacyGold-Post.jpg"], "fo": "it.afnan.com", "a": 0}, "afn-carbon": {"n": "Rare Carbon", "m": "Afnan", "p": "32,90", "v": "", "f": "Cuoio e legni, da uomo.", "d": "Rare Carbon Pour Homme incarna raffinatezza e forza. All'inizio, cuoio, foglie di violetta, corteccia di cannella e noce moscata si fondono per creare un'introduzione audace e accattivante. Man mano che si sviluppa, un cuore di rosa, violetta, legno di cedro e legno di oud aggiunge profondità e complessità. La fragranza si deposita in una base di vetiver, legno di sandalo e ambra, lasciando un'impressione duratura di mascolinità e raffinatezza. Abbracciate la rarità dell'eleganza con Rare Carbon.", "t": "Cuoio, Foglie di Violetta, Corteccia di Cannella e Noce Moscata", "c": "Rosa, Violetta, Legno di Cedro e Oud", "b": "Vetiver, Legno di Sandalo e Ambra", "g": ["https://cdn.shopify.com/s/files/1/0712/7613/4629/files/Rare_Carbon.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/Rare_Carbon-1.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/21_RareCarbon.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/21-RareCarbon-Post.jpg"], "fo": "it.afnan.com", "a": 0}, "afn-electric": {"n": "Turathi Electric", "m": "Afnan", "p": "36,90", "v": "", "f": "Il piu' estivo dei Turathi.", "d": "Un'ondata di energia vivace in una giornata di sole:\nTurathi Electric\ncoglie lo spirito dell'estate infinita. Si apre con una freschezza radiosa che solleva istantaneamente l’umore, come una brezza che attraversa l’aria calda. Man mano che si diffonde, le note eleganti e moderne conferiscono una raffinatezza delicata, avvolgendoti in uno splendore che persiste a lungo. Vivace ma delicato, questo è il tuo profumo distintivo per le giornate radiose, le sere rinfrescanti e le notti sotto le stelle.\nNOTE\nDEL PROFUMO\nNote di testa:\nBergamotto, Pompelmo Rosa, Pera, Mandarino\nNote di cuore:\nMela, Legno di Cedro, Fiore d’Arancio\nNote di fondo:\nVanigl", "t": "Bergamotto, Pompelmo Rosa, Pera, Mandarino", "c": "Mela, Legno di Cedro, Fiore d’Arancio", "b": "Vaniglia, Ambra Secca, Muschio, Ambrofix", "g": ["https://cdn.shopify.com/s/files/1/0712/7613/4629/files/TurathiElectric.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/TurathiElectric-1.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/TurathiElectric-2.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/TurathiElectric2048x20481.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/TurathiElectric2048x20482.png"], "fo": "it.afnan.com", "a": 0}, "afn-blue": {"n": "Turathi Blue", "m": "Afnan", "p": "42,90", "v": "", "f": "Fresco e speziato, da uomo.", "d": "Turathi Blue Pour Homme emana raffinatezza e vitalità maschile. Aprendosi con un mix rinfrescante di bergamotto e mandarino, energizza i sensi come una brezza fresca. Man mano che si sviluppa, emergono note di ambra e accordi legnosi, che aggiungono profondità e calore alla composizione. La fragranza si deposita in una base di muschio, patchouli e spezie fresche, lasciando una scia persistente di forza e raffinatezza. Abbracciate l'essenza del fascino maschile con Turathi Blue.", "t": "Bergamotto e Mandarino", "c": "Ambra e Legnoso", "b": "Muschio, Patchouli e Fresco Speziato", "g": ["https://cdn.shopify.com/s/files/1/0712/7613/4629/files/Turathi_Blue-1.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/Turathi_Blue-2.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/Turathi_Blue-3.png"], "fo": "it.afnan.com", "a": 0}, "afn-doria": {"n": "Historic Doria", "m": "Afnan", "p": "34,90", "v": "", "f": "Floreale e muschiato, da donna.", "d": "Un viaggio olfattivo accattivante, che ricorda un'epoca passata. Questa incantevole fragranza intreccia senza soluzione di continuità note senza tempo per creare un profumo al tempo stesso classico e moderno. Historic Doria svela un profumo caldo e sofisticato, che lascia un'impressione duratura di eleganza e fascino.", "t": "Fiori d'Arancio, Scorza di Limone Amara e Lampone", "c": "Tuberosa, Mandarino, Gelsomino e Ambroxan", "b": "Muschio, Legnoso e Gelsomino Sambac", "g": ["https://cdn.shopify.com/s/files/1/0712/7613/4629/files/Historic_Doria_aef6d88c-fe01-4782-8817-79890e92d525.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/Historic_Doria-1_c71d8cce-fca1-49fd-8b34-a8164f89891a.png", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/13_HistoricDoria.jpg", "https://cdn.shopify.com/s/files/1/0712/7613/4629/files/02-HistoricDoria.jpg"], "fo": "it.afnan.com", "a": 0}, "arm-intense": {"n": "Club de Nuit Intense Man", "m": "Armaf", "p": "29,90", "v": "800 pz / mese", "f": "Da anni il profumo da uomo piu' venduto del gruppo.", "d": "", "t": "mela, bergamotto, ribes nero, ananas, limone", "c": "rosa, betulla, gelsomino", "b": "muschio, ambra grigia, patchouli, vaniglia", "g": ["https://cdn.shopify.com/s/files/1/0875/1513/6299/files/Q-106DCLUBDENUITINTENSE_M_FIF_900x_f04752b1-087d-4206-8985-e13e96c5896d.webp"], "fo": "armaf.com", "a": 0}, "arm-sillage": {"n": "Club de Nuit Sillage", "m": "Armaf", "p": "34,90", "v": "200 pz / mese", "f": "Scia lunga, tenuta da sera.", "d": "", "t": "bergamotto, limone, lime, zenzero, ribes nero, violetta", "c": "gelsomino, iris, rosa", "b": "sandalo, legno di cedro, muschio, ambroxan", "g": ["https://cdn.shopify.com/s/files/1/0875/1513/6299/files/club_de_nuit_sillage_36.webp"], "fo": "armaf.com", "a": 0}, "arm-urban": {"n": "Club de Nuit Urban Man Elixir", "m": "Armaf", "p": "28,90", "v": "200 pz / mese", "f": "Versatile, giorno e sera.", "d": "", "t": "bergamotto, pepe rosa, fiori d'arancio, gelsomino", "c": "lavanda, tagete, geranio, vetiver, elemi, zafferano", "b": "ambroxan, ambra, patchouli, legno di cedro, labdano", "g": ["https://cdn.shopify.com/s/files/1/0875/1513/6299/files/CDN-Urban-Man-Elixir-All-over-spray-bottle-front.jpg", "https://cdn.shopify.com/s/files/1/0875/1513/6299/files/CDN-Urban-Man-Elixir-All-over-spray-bottle.jpg", "https://cdn.shopify.com/s/files/1/0875/1513/6299/files/CDNUrban-Man-Elixir-All-over-spray-box-side.jpg", "https://cdn.shopify.com/s/files/1/0875/1513/6299/files/CDN-Urban-Man-Elixir-All-over-spray-group.jpg"], "fo": "armaf.com", "a": 0}, "arm-untold": {"n": "Club de Nuit Red Untold", "m": "Armaf", "p": "36,90", "v": "100 pz / mese", "f": "Il piu' dolce della famiglia.", "d": "", "t": "", "c": "", "b": "", "g": [], "fo": "", "a": 0}, "arm-woman": {"n": "Club de Nuit Intense Woman", "m": "Armaf", "p": "28,90", "v": "", "f": "Il gemello femminile dell'Intense.", "d": "", "t": "rosa, zafferano, geranio", "c": "noce moscata, pepe, violetta, carvi", "b": "patchouli, oud, vaniglia, ambra", "g": ["https://cdn.shopify.com/s/files/1/0875/1513/6299/files/CDN-Intense-Woman-bottle-front.jpg", "https://cdn.shopify.com/s/files/1/0875/1513/6299/files/CDN-Intense-Woman-bottle-side.jpg", "https://cdn.shopify.com/s/files/1/0875/1513/6299/files/CDN-Intense-Woman-box.jpg", "https://cdn.shopify.com/s/files/1/0875/1513/6299/files/CDN-Intense-Woman-all-over-spray-Group.jpg"], "fo": "armaf.com", "a": 0}, "arm-milestone": {"n": "Club de Nuit Milestone", "m": "Armaf", "p": "31,90", "v": "", "f": "Fresco in apertura, caldo in fondo.", "d": "", "t": "bergamotto, frutti rossi, accordi marini", "c": "violetta, sandalo, legni bianchi", "b": "vetiver, muschio, ambroxan", "g": ["https://cdn.shopify.com/s/files/1/0875/1513/6299/files/CDN-Milestone-bottle-Front.jpg", "https://cdn.shopify.com/s/files/1/0875/1513/6299/files/CDN-Milestone-bottle-side.jpg", "https://cdn.shopify.com/s/files/1/0875/1513/6299/files/CDN-Milestone-box-side.jpg", "https://cdn.shopify.com/s/files/1/0875/1513/6299/files/CDN-Milestone-all-over-spray-group.jpg"], "fo": "armaf.com", "a": 0}, "set-asad": {"n": "Asad Collection 4 x 25 ml", "m": "Cofanetto", "p": "34,90", "v": "", "f": "Gia' pronto da incartare.", "d": "", "t": "", "c": "", "b": "", "g": [], "fo": "", "a": 0}, "set-haya": {"n": "Haya + hairmist", "m": "Cofanetto", "p": "40,90", "v": "", "f": "Gia' pronto da incartare.", "d": "", "t": "", "c": "", "b": "", "g": [], "fo": "", "a": 0}, "set-badee": {"n": "Badee Noble Blush + hairmist", "m": "Cofanetto", "p": "40,90", "v": "", "f": "Gia' pronto da incartare.", "d": "", "t": "", "c": "", "b": "", "g": [], "fo": "", "a": 0}, "set-opulent": {"n": "Opulent Collection 4 x 25 ml", "m": "Cofanetto", "p": "25,90", "v": "", "f": "Gia' pronto da incartare.", "d": "", "t": "", "c": "", "b": "", "g": [], "fo": "", "a": 0}};
+const FOTO = "https://nexushub.trade/ps/";
+const SOGLIA = 69;
 
-/* ---------- spruzzo di profumo sopra l'apertura ---------- */
-(function(){
-  const c=document.getElementById('spruzzo'),x=c.getContext('2d');
-  let W,H,p=[];
-  function mis(){W=c.width=innerWidth*devicePixelRatio;H=c.height=c.offsetHeight*devicePixelRatio;
-    c.style.width='100%';x.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);}
-  mis();addEventListener('resize',mis);
-  const w=()=>innerWidth,h=()=>c.offsetHeight;
-  function getto(){
-    // ugello invisibile in alto a destra: il profumo scende in diagonale
-    const n=2+Math.random()*3;
-    for(let i=0;i<n;i++)p.push({
-      x:w()*0.84+(Math.random()-.5)*26, y:h()*0.12+(Math.random()-.5)*18,
-      vx:-(1.1+Math.random()*2.6), vy:(0.5+Math.random()*1.7),
-      r:1+Math.random()*16, a:.015+Math.random()*.05, g:.012+Math.random()*.02});
-  }
-  (function ciclo(){
-    x.clearRect(0,0,w(),h());
-    if(p.length<460)getto();
-    for(let i=p.length-1;i>=0;i--){
-      const q=p[i];
-      q.x+=q.vx;q.y+=q.vy;q.vy+=q.g;q.vx*=.995;q.r+=.22;q.a*=.986;
-      if(q.a<.004||q.y>h()+40){p.splice(i,1);continue;}
-      const gr=x.createRadialGradient(q.x,q.y,0,q.x,q.y,q.r);
-      gr.addColorStop(0,'rgba(248,232,198,'+q.a+')');
-      gr.addColorStop(1,'rgba(200,145,63,0)');
-      x.fillStyle=gr;x.beginPath();x.arc(q.x,q.y,q.r,0,6.3);x.fill();
-    }
-    requestAnimationFrame(ciclo);
-  })();
-})();
+/* ---------- carrello ---------- */
+let carrello = {};
+try { carrello = JSON.parse(localStorage.getItem('ps_carrello') || '{}'); } catch (e) { carrello = {}; }
+const euro = n => n.toFixed(2).replace('.', ',') + ' €';
+const prezzo = k => parseFloat(DATI[k].p.replace(',', '.'));
 
-/* ---------- liquido che sale dentro la scritta ---------- */
-(function(){
-  const o1=document.getElementById('o1'),o2=document.getElementById('o2');
-  let t=0, livello=200;                 // parte sotto e sale
-  (function onda(){
-    t+=0.022; if(livello>18)livello-=0.9;
-    for(const [el,fase,amp,off] of [[o1,0,7,0],[o2,2.1,9,6]]){
-      let d='M 0 190 L 0 '+(livello+off);
-      for(let X=0;X<=900;X+=18)
-        d+=' L '+X+' '+(livello+off+Math.sin(X/95+t+fase)*amp);
-      d+=' L 900 190 Z';
-      el.setAttribute('d',d);
-    }
-    requestAnimationFrame(onda);
-  })();
-})();
-
-/* ---------- sipario col logo ---------- */
-const sipario=document.getElementById('sipario'),tela=document.getElementById('tela'),ctx=tela.getContext('2d');
-const im=new Image();im.crossOrigin="anonymous";
-im.onload=()=>intro(im);im.onerror=()=>intro(null);
-im.src="https://www.primeshop.pro/wp-content/uploads/2025/02/primeshop-icon.webp";
-function intro(logo){
-  const L=Math.min(400,Math.min(innerWidth*.76,innerHeight*.54)),dpr=devicePixelRatio||1;
-  tela.width=L*dpr;tela.height=L*dpr;tela.style.width=L+'px';tela.style.height=L+'px';ctx.scale(dpr,dpr);
-  if(logo)ctx.drawImage(logo,0,0,L,L);
-  else{ctx.fillStyle='#edd3a0';ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.font='400 '+(L*.17)+'px Cormorant Garamond, Georgia, serif';
-    ctx.fillText('PRIME',L/2,L/2-L*.1);ctx.fillText('SHOP',L/2,L/2+L*.1);}
-  let d=null;try{d=ctx.getImageData(0,0,L*dpr,L*dpr)}catch(e){}
-  if(!d){setTimeout(apri,1200);return;}
-  const passo=3,p=[];
-  for(let y=0;y<L;y+=passo)for(let xx=0;xx<L;xx+=passo){
-    const i=(((y*dpr)|0)*d.width+((xx*dpr)|0))*4;
-    if(d.data[i+3]>60)p.push({x:xx,y,vx:0,vy:0,a:d.data[i+3]/255,
-      c:'rgba('+d.data[i]+','+d.data[i+1]+','+d.data[i+2]+','});}
-  let t0=null,boom=false;const cx=L/2,cy=L/2;
-  (function f(ts){if(!t0)t0=ts;const t=ts-t0;ctx.clearRect(0,0,L,L);
-    if(t>1150&&!boom){boom=true;
-      p.forEach(q=>{const dx=q.x-cx,dy=q.y-cy,dd=Math.hypot(dx,dy)||1,s=(1.7+Math.random()*3.6)*(1+dd/L);
-        q.vx=dx/dd*s+(Math.random()-.5)*1.8;q.vy=dy/dd*s+(Math.random()-.5)*1.8-1.3;});
-      setTimeout(apri,500);}
-    let vivi=0;
-    for(const q of p){if(boom){q.vx*=.985;q.vy*=.985;q.vy+=.05;q.x+=q.vx;q.y+=q.vy;q.a*=.98;}
-      if(q.a>.02){vivi++;ctx.fillStyle=q.c+q.a.toFixed(3)+')';ctx.fillRect(q.x,q.y,passo-.4,passo-.4);}}
-    if(boom&&vivi<p.length*.03)return;requestAnimationFrame(f);})(performance.now());
+function salva() {
+  try { localStorage.setItem('ps_carrello', JSON.stringify(carrello)); } catch (e) {}
 }
-function apri(){sipario.classList.add('via');}
-
-/* ---------- scorrimento con inerzia ---------- */
-const sc=document.getElementById('scroller');let corrente=0;
-const lerp=(a,b,n)=>(1-n)*a+n*b;
-function altezza(){document.body.style.height=sc.getBoundingClientRect().height+'px'}
-altezza();addEventListener('resize',altezza);setTimeout(altezza,900);setTimeout(altezza,2500);
-const strati=[...document.querySelectorAll('[data-p]')];
-let mx=0,my=0,tmx=0,tmy=0,px=0,py=0,ax=0,ay=0,bx=0,by=0;
-addEventListener('mousemove',e=>{tmx=e.clientX/innerWidth-.5;tmy=e.clientY/innerHeight-.5;px=e.clientX;py=e.clientY});
-const c1=document.querySelector('.cur'),c2=document.querySelector('.cur2');
-document.querySelectorAll('a,.card,.gcard').forEach(el=>{
-  el.addEventListener('mouseenter',()=>c2.classList.add('big'));
-  el.addEventListener('mouseleave',()=>c2.classList.remove('big'));});
-/* comparsa: controllata nel ciclo, perche' dentro un contenitore fisso
-   l'IntersectionObserver non si aggiorna quando a muoversi e' la trasformazione */
-const daRivelare=[...document.querySelectorAll('.rev')];
-daRivelare.forEach((el,i)=>el.style.transitionDelay=(i%4*.08)+'s');
-function controllaRivelazioni(){
-  for(let i=daRivelare.length-1;i>=0;i--){
-    const el=daRivelare[i],r=el.getBoundingClientRect();
-    if(r.top<innerHeight*0.88&&r.bottom>0){
-      el.classList.add('on');daRivelare.splice(i,1);
-      const n=el.querySelector('[data-n]');
-      if(n){const fine=+n.dataset.n;let v=0;
-        const t=setInterval(()=>{v+=Math.max(1,Math.ceil(fine/26));
-          if(v>=fine){v=fine;clearInterval(t)}n.textContent=v},34);}
-    }
-  }
+function totale() {
+  let n = 0, s = 0;
+  for (const k in carrello) { n += carrello[k]; s += carrello[k] * prezzo(k); }
+  return [n, s];
+}
+function disegnaCarrello() {
+  const [n, s] = totale();
+  document.getElementById('nCarr').textContent = n;
+  document.getElementById('tot').textContent = euro(s) + (n ? ' · ' + n + (n === 1 ? ' pezzo' : ' pezzi') : '');
+  const manca = SOGLIA - s;
+  document.getElementById('sped').textContent = n === 0 ? '' :
+    (manca > 0 ? 'Ti mancano ' + euro(manca) + ' alla spedizione gratis'
+               : 'Spedizione gratuita inclusa');
+  document.getElementById('progI').style.width = Math.min(100, s / SOGLIA * 100) + '%';
+  document.getElementById('barra').classList.toggle('on', n > 0);
+}
+function aggiungi(k, q) {
+  carrello[k] = (carrello[k] || 0) + (q || 1);
+  salva(); disegnaCarrello();
 }
 
-(function ciclo(){
-  corrente=lerp(corrente,scrollY,.085);
-  if(Math.abs(corrente-scrollY)<.08)corrente=scrollY;
-  sc.style.transform='translate3d(0,'+(-corrente)+'px,0)';
-  mx=lerp(mx,tmx,.06);my=lerp(my,tmy,.06);
-  strati.forEach(s=>{const k=parseFloat(s.dataset.p);
-    s.style.transform='translate3d('+(-mx*44*k)+'px,'+(corrente*k*.3-my*30*k)+'px,0) scale(1.1)';});
-  if(typeof controllaRivelazioni==='function')controllaRivelazioni();
+document.addEventListener('click', e => {
+  const a = e.target.closest('[data-agg]');
+  if (a) {
+    aggiungi(a.dataset.agg, 1);
+    a.textContent = 'Aggiunto ✓'; a.classList.add('fatto');
+    setTimeout(() => { a.textContent = 'Aggiungi'; a.classList.remove('fatto'); }, 1400);
+    return;
+  }
+  const d = e.target.closest('[data-apri]');
+  if (d) { apri(d.dataset.apri); }
+});
+
+/* ---------- scheda prodotto ---------- */
+const foglio = document.getElementById('foglio'), velo = document.getElementById('velo');
+let qta = 1, apertoSu = null;
+
+function rigaNota(et, v) {
+  return v ? '<div class="p1"><div class="et">' + et + '</div><div class="va">' + v + '</div></div>' : '';
+}
+function apri(k) {
+  const d = DATI[k]; if (!d) return;
+  qta = 1; apertoSu = k;
+  const foto = (d.g && d.g.length ? d.g : [FOTO + k + '.webp'])
+      .map(u => '<img src="' + u + '" alt="' + d.n + '">').join('');
+  const piramide = (d.t || d.c || d.b)
+    ? '<div class="pir">' + rigaNota('Testa', d.t) + rigaNota('Cuore', d.c) + rigaNota('Fondo', d.b) + '</div>'
+      + (d.fo ? '<div class="fonte">Note olfattive dichiarate dal marchio · fonte ' + d.fo + '</div>' : '')
+    : '<div class="fonte">Piramide olfattiva non ancora confermata dal marchio: non la scriviamo a caso.</div>';
+  document.getElementById('fgCorpo').innerHTML =
+    '<div class="gal">' + foto + '</div>' +
+    '<div class="mk">' + d.m + '</div><h3>' + d.n + '</h3>' +
+    (d.v ? '<span class="vol">' + d.v + '</span>' : '') +
+    '<div class="prezzoG">' + d.p + ' €</div><div class="iva">IVA inclusa · 100 ml salvo diversa indicazione</div>' +
+    (d.d ? '<div class="testo">' + d.d + '</div>' : '<div class="testo">' + d.f + '</div>') +
+    piramide +
+    '<div class="comp"><div class="qta"><button data-q="-1">−</button><span id="qN">1</span><button data-q="1">+</button></div>' +
+    '<button class="agg" id="aggFoglio">Aggiungi al carrello</button></div>' +
+    '<div class="rass"><div><b>Consegna in 24/48 ore</b> dall\'Italia, tracciata.</div>' +
+    '<div><b>Spedizione gratis</b> sopra 69 € di ordine.</div>' +
+    '<div><b>Reso entro 14 giorni</b>, prodotto originale e sigillato.</div></div>';
+  foglio.classList.add('on'); velo.classList.add('on');
+  foglio.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+function chiudiFoglio() {
+  foglio.classList.remove('on'); velo.classList.remove('on');
+  foglio.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+velo.addEventListener('click', chiudiFoglio);
+document.getElementById('chiudi').addEventListener('click', chiudiFoglio);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') chiudiFoglio(); });
+foglio.addEventListener('click', e => {
+  const q = e.target.closest('[data-q]');
+  if (q) {
+    qta = Math.max(1, qta + parseInt(q.dataset.q, 10));
+    document.getElementById('qN').textContent = qta;
+  }
+  if (e.target.id === 'aggFoglio') {
+    aggiungi(apertoSu, qta);
+    e.target.textContent = 'Aggiunto ✓'; e.target.classList.add('fatto');
+    setTimeout(chiudiFoglio, 700);
+  }
+});
+document.getElementById('btnCarr').addEventListener('click', () => {
+  document.getElementById('barra').classList.add('on');
+});
+
+/* ---------- comparsa, contatori, inclinazione ---------- */
+const oss = new IntersectionObserver(v => v.forEach(x => {
+  if (!x.isIntersecting) return;
+  x.target.classList.add('on');
+  oss.unobserve(x.target);
+  const n = x.target.querySelector('[data-n]');
+  if (n) {
+    const fine = +n.dataset.n; let c = 0;
+    const t = setInterval(() => { c += Math.max(1, Math.ceil(fine / 24));
+      if (c >= fine) { c = fine; clearInterval(t); } n.textContent = c; }, 34);
+  }
+}), { threshold: .12 });
+document.querySelectorAll('.rev').forEach((e, i) => {
+  e.style.transitionDelay = (i % 4 * .06) + 's'; oss.observe(e);
+});
+
+if (matchMedia('(hover:hover)').matches) {
+  document.querySelectorAll('.card .im').forEach(im => {
+    const inn = im.querySelector('.in');
+    im.addEventListener('mousemove', e => {
+      const r = im.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      inn.style.transform = 'rotateY(' + (x * 16) + 'deg) rotateX(' + (-y * 13) + 'deg) translateZ(18px)';
+    });
+    im.addEventListener('mouseleave', () => { inn.style.transform = ''; });
+  });
+}
+
+/* ---------- apertura: spruzzo e liquido ---------- */
+const lento = matchMedia('(prefers-reduced-motion:reduce)').matches;
+const tela = document.getElementById('spruzzo'), ct = tela.getContext('2d');
+let particelle = [], vivo = !lento;
+function misura() { tela.width = innerWidth; tela.height = tela.offsetHeight; }
+misura(); addEventListener('resize', misura);
+function getto() {
+  const n = innerWidth < 760 ? 2 : 4;
+  for (let i = 0; i < n; i++) particelle.push({
+    x: tela.width * .84 + (Math.random() - .5) * 26, y: tela.height * .12 + (Math.random() - .5) * 18,
+    vx: -(1.1 + Math.random() * 2.6), vy: .5 + Math.random() * 1.7,
+    r: 1 + Math.random() * 16, a: .015 + Math.random() * .05, g: .012 + Math.random() * .02 });
+}
+function ciclo() {
+  if (!vivo) return;
+  ct.clearRect(0, 0, tela.width, tela.height);
+  if (particelle.length < 420) getto();
+  for (let i = particelle.length - 1; i >= 0; i--) {
+    const p = particelle[i];
+    p.x += p.vx; p.y += p.vy; p.vy += .012; p.r += .09; p.a -= p.g * .06;
+    if (p.a <= 0 || p.x < -60 || p.y > tela.height + 60) { particelle.splice(i, 1); continue; }
+    ct.beginPath(); ct.arc(p.x, p.y, p.r, 0, 7);
+    ct.fillStyle = 'rgba(237,211,160,' + p.a + ')'; ct.fill();
+  }
   requestAnimationFrame(ciclo);
-})();
-(function cur(){ax=lerp(ax,px,.5);ay=lerp(ay,py,.5);bx=lerp(bx,px,.12);by=lerp(by,py,.12);
-  c1.style.transform='translate('+ax+'px,'+ay+'px) translate(-50%,-50%)';
-  c2.style.transform='translate('+bx+'px,'+by+'px) translate(-50%,-50%)';
-  requestAnimationFrame(cur)})();
-/* i link interni devono tener conto dello scorrimento finto */
-function posizione(el){let y=0,e=el;while(e&&e!==sc){y+=e.offsetTop;e=e.offsetParent}return y}
-document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',ev=>{
-  const t=document.querySelector(a.getAttribute('href'));
-  if(!t)return; ev.preventDefault();
-  window.scrollTo({top:posizione(t)-20,behavior:'smooth'});
-}));
-addEventListener('scroll',function m(){if(scrollY>innerHeight*1.2){
-  document.getElementById('pop').classList.add('on');removeEventListener('scroll',m)}},{passive:true});
+}
+ciclo();
+
+const o1 = document.getElementById('o1'), o2 = document.getElementById('o2');
+let tt = 0, livello = 200;
+function onda() {
+  if (!vivo) return;
+  tt += .022; if (livello > 18) livello -= .9;
+  [[o1, 0, 7, 0], [o2, 2.1, 9, 6]].forEach(([el, fase, amp, off]) => {
+    let d = 'M 0 190 L 0 ' + (livello + off);
+    for (let X = 0; X <= 900; X += 18) d += ' L ' + X + ' ' + (livello + off + Math.sin(X / 95 + tt + fase) * amp);
+    d += ' L 900 190 Z'; el.setAttribute('d', d);
+  });
+  requestAnimationFrame(onda);
+}
+onda();
+function fermaTutto() {
+  vivo = false; ct.clearRect(0, 0, tela.width, tela.height);
+  [[o1, 0], [o2, 6]].forEach(([el, off]) => el.setAttribute('d', 'M 0 190 L 0 ' + (18 + off) +
+    ' L 900 ' + (18 + off) + ' L 900 190 Z'));
+  const v = document.getElementById('vid'); if (v) v.pause();
+}
+document.getElementById('salta').addEventListener('click', () => {
+  fermaTutto();
+  document.getElementById('lattafa').scrollIntoView({ behavior: 'smooth' });
+});
+if (lento) fermaTutto();
+
+disegnaCarrello();
 </script>
 </body>
 </html>
