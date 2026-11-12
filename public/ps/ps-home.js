@@ -19,7 +19,9 @@ async function leggiCarrello() {
 function disegna(c) {
   if (!c || !c.totals) return;
   const n = c.items_count || 0;
-  const tot = parseInt(c.totals.total_items || 0, 10) / Math.pow(10, c.totals.currency_minor_unit || 2);
+  // il negozio ha i prezzi IVA inclusa: total_items e' il netto, l'IVA sta a parte
+  const div = Math.pow(10, c.totals.currency_minor_unit || 2);
+  const tot = (parseInt(c.totals.total_items || 0, 10) + parseInt(c.totals.total_items_tax || 0, 10)) / div;
   document.getElementById('ps-nCarr').textContent = n;
   document.getElementById('ps-tot').textContent = euro(tot) + (n ? ' · ' + n + (n === 1 ? ' pezzo' : ' pezzi') : '');
   const manca = SOGLIA - tot;
