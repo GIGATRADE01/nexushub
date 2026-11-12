@@ -3,11 +3,11 @@
   background:var(--ink);color:var(--cream);font-family:'Inter',system-ui,sans-serif;font-weight:300;line-height:1.6}
 /* :where() azzera la specificita': senza, questo reset batteva tutte le classi
    qui sotto (la scheda prodotto restava senza margini) */
-#ps-home :where(*){margin:0;padding:0;box-sizing:border-box}
-#ps-home :where(h1,h2,h3,h4){font-family:'Cormorant Garamond',Georgia,serif;font-weight:300}
-#ps-home :where(a){color:inherit;text-decoration:none}
-#ps-home :where(button){font-family:inherit;color:inherit;background:none;border:0;cursor:pointer}
-#ps-home :where(img){max-width:100%;height:auto;display:block}
+:where(#ps-home) :where(*){margin:0;padding:0;box-sizing:border-box}
+:where(#ps-home) :where(h1,h2,h3,h4){font-family:'Cormorant Garamond',Georgia,serif;font-weight:300}
+:where(#ps-home) :where(a){color:inherit;text-decoration:none}
+:where(#ps-home) :where(button){font-family:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:where(#ps-home) :where(img){max-width:100%;height:auto;display:block}
 .ps-wrap{max-width:1340px;margin:0 auto;padding:0 18px}
 @media(min-width:760px){.ps-wrap{padding:0 34px}}
 .ps-obj{position:relative;perspective:1200px;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
